@@ -1,0 +1,112 @@
+From 088d276da973a726b401ffd3212d5fe49aa41803 Mon Sep 17 00:00:00 2001
+From: Dreamstone Ruination <claude@example.com>
+Date: Wed, 20 May 2026 02:27:57 +0000
+Subject: [PATCH] Pipeline validation v2: Galarian Zigzagoon shiny palette
+ recolor (TEMPORARY TEST CHANGE)
+
+This is the corrected first pipeline-validation change for Dreamstone Ruination.
+The previous attempt targeted regular Hoenn Zigzagoon, which is not catchable in
+Dreamstone Mysteries.
+
+This patch recolors Galarian Zigzagoon's shiny palette to a distinctive
+gold/purple luminance-preserving palette. Galarian Zigzagoon is a starter
+option in Dreamstone Mysteries, so it can be readily verified.
+
+Files modified:
+  - graphics/pokemon/zigzagoon/galar/shiny.pal (battle sprite)
+  - graphics/pokemon/zigzagoon/galar/overworld_shiny.pal (overworld follower sprite)
+
+Verification:
+  1. Apply patch
+  2. Compile in GenSpark
+  3. Start a new game and choose Galarian Zigzagoon as starter (with shiny
+     'trick of the light' option), OR encounter/generate a shiny Galarian
+     Zigzagoon some other way
+  4. Confirm the sprite appears in purple/peach tones rather than its normal
+     crimson-with-teal-accents shiny coloring
+
+Galarian Zigzagoon is safely revertable -- this palette is not part of any
+planned custom palette work for our project.
+
+REVERT after verification: git revert HEAD
+---
+ .../zigzagoon/galar/overworld_shiny.pal       | 28 +++++++++----------
+ graphics/pokemon/zigzagoon/galar/shiny.pal    | 22 +++++++--------
+ 2 files changed, 25 insertions(+), 25 deletions(-)
+
+diff --git a/graphics/pokemon/zigzagoon/galar/overworld_shiny.pal b/graphics/pokemon/zigzagoon/galar/overworld_shiny.pal
+index 0277759a..140995f0 100644
+--- a/graphics/pokemon/zigzagoon/galar/overworld_shiny.pal
++++ b/graphics/pokemon/zigzagoon/galar/overworld_shiny.pal
+@@ -1,19 +1,19 @@
+ JASC-PAL
+ 0100
+ 16
+-52 87 191
+-31 43 44
++163 13 117
++63 5 73
+ 36 36 36
+-82 9 36
+-200 24 88
+-144 8 48
+-163 164 163
+-245 245 246
++58 5 70
++155 12 117
++97 7 98
++163 163 163
++245 245 245
+ 0 0 0
+-178 179 178
+-140 17 62
+-152 248 240
+-16 232 208
+-46 79 75
+-64 72 80
+-168 184 208
++178 178 178
++108 8 105
++249 216 184
++241 88 87
++127 10 112
++130 10 113
++244 140 119
+diff --git a/graphics/pokemon/zigzagoon/galar/shiny.pal b/graphics/pokemon/zigzagoon/galar/shiny.pal
+index 9ef97c39..c44e20d9 100644
+--- a/graphics/pokemon/zigzagoon/galar/shiny.pal
++++ b/graphics/pokemon/zigzagoon/galar/shiny.pal
+@@ -1,19 +1,19 @@
+ JASC-PAL
+ 0100
+ 16
+-152 208 160
+-72 0 16
++244 150 126
++52 5 70
+ 16 16 16
+-144 8 48
+-200 24 88
+-96 72 88
++97 7 98
++155 12 117
++149 12 116
+ 240 240 240
+-176 152 168
+-16 232 208
++240 81 85
++241 88 87
+ 248 248 248
+-152 248 240
+-40 104 96
+-56 152 144
+-104 248 240
++249 216 184
++155 12 117
++226 18 97
++247 192 160
+ 0 0 0
+ 0 0 0
+-- 
+2.43.0
+
