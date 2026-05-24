@@ -17896,15 +17896,21 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_BEHEMOTH_BLADE] =
     {
+        // Dreamstone Ruination — Cormorian variant.
+        // Repurposed as Baxcalibur's late-game signature (Lv 77).
+        // Zacian does not appear in Ruination; this overwrite is safe.
+        // TODO(Ruination): wire the Fairy-effectiveness override in
+        // src/battle_util.c damage-calc path (parallels Freeze-Dry's
+        // type-override pattern). Stats below are final; effect is stub.
         .name = COMPOUND_STRING("Behemoth Blade"),
         .description = COMPOUND_STRING(
-            "Strikes as a sword. Deals 2x\n"
-            "damage to Dynamaxed foes."),
-        .effect = EFFECT_DYNAMAX_DOUBLE_DMG,
-        .power = 100,
-        .type = TYPE_STEEL,
-        .accuracy = 100,
-        .pp = 5,
+            "Strikes as a Cormorian dragon-\n"
+            "sword. Super-effective on Fairy."),
+        .effect = EFFECT_HIT,
+        .power = 120,
+        .type = TYPE_DRAGON,
+        .accuracy = 95,
+        .pp = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
