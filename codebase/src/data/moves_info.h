@@ -19224,21 +19224,29 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_MOUNTAIN_GALE] =
     {
+        // Dreamstone Ruination — Cormorian variant.
+        // Master-Tutor-taught move that gates the Arctibax -> Baxcalibur
+        // evolution at Lv 45+. Buffed power/accuracy/PP and given a
+        // Freeze-Dry-style type override.
+        // TODO(Ruination): wire the Water-effectiveness override in
+        // src/battle_util.c damage-calc path (mirror Freeze-Dry's
+        // existing type-override pattern). Stats below are final;
+        // effect is stub.
         .name = COMPOUND_STRING("Mountain Gale"),
         .description = COMPOUND_STRING(
-            "Giant chunks of ice damage\n"
-            "the foe. It may flinch."),
+            "Giant ice chunks crush the foe.\n"
+            "May flinch. Hits Water hard."),
         .effect = EFFECT_HIT,
-        .power = 100,
+        .power = 95,
         .type = TYPE_ICE,
-        .accuracy = 85,
-        .pp = 5,
+        .accuracy = 95,
+        .pp = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 30,
+            .chance = 33,
         }),
         .battleAnimScript = gBattleAnimMove_MountainGale,
     },
