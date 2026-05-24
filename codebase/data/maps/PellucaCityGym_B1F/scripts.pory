@@ -1,0 +1,299 @@
+mapscripts PellucaCityGym_B1F_MapScripts{}
+
+
+//Gabrielle
+script PellucaGym_Gabrielle_Trigger0{
+    if (flag(FLAG_PELLUCA_GYM_GABRIELLE_BATTLE)) {end}
+    
+    //start the thing
+    playbgm(MUS_ENCOUNTER_GIRL, FALSE)
+    applymovement(4, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(48)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)    
+
+    //dialogue
+    speakername("Gabrielle")
+    msgbox(PellucaCity_Gym_Text_Gab_Intro)
+    trainerbattle_no_intro(TRAINER_PELLUCA_CITY_GYM_A, PellucaCity_Gym_Text_Gab_Defeat)
+    msgbox(PellucaCity_Gym_Text_Gab_PostDefeat)
+
+    setflag(FLAG_PELLUCA_GYM_GABRIELLE_BATTLE)
+
+    //end
+    releaseall
+    end
+}
+script PellucaGym_Gabrielle_Trigger1{
+    if (flag(FLAG_PELLUCA_GYM_GABRIELLE_BATTLE)) {end}
+    
+    //start the thing
+    playbgm(MUS_ENCOUNTER_GIRL, FALSE)
+    applymovement(4, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(48)
+    applymovement(4, moves(walk_left))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+
+    //dialogue
+    speakername("Gabrielle")
+    msgbox(PellucaCity_Gym_Text_Gab_Intro)
+    trainerbattle_no_intro(TRAINER_PELLUCA_CITY_GYM_A, PellucaCity_Gym_Text_Gab_Defeat)
+    msgbox(PellucaCity_Gym_Text_Gab_PostDefeat)
+
+    setflag(FLAG_PELLUCA_GYM_GABRIELLE_BATTLE)
+
+    //end
+    releaseall
+    end
+}
+script PellucaGym_Gabrielle_Trigger2{
+    if (flag(FLAG_PELLUCA_GYM_GABRIELLE_BATTLE)) {end}
+    
+    //start the thing
+    playbgm(MUS_ENCOUNTER_GIRL, FALSE)
+    applymovement(4, moves(emote_exclamation_mark))
+    waitmovement(0)
+    applymovement(4, moves(walk_left * 2))
+    waitmovement(0)
+    delay(48)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+
+    //dialogue
+    speakername("Gabrielle")
+    msgbox(PellucaCity_Gym_Text_Gab_Intro)
+    trainerbattle_no_intro(TRAINER_PELLUCA_CITY_GYM_A, PellucaCity_Gym_Text_Gab_Defeat)
+    msgbox(PellucaCity_Gym_Text_Gab_PostDefeat)
+
+    setflag(FLAG_PELLUCA_GYM_GABRIELLE_BATTLE)
+
+    //end
+    releaseall
+    end
+}
+text PellucaCity_Gym_Text_Gab_Intro{
+    format("{PLAYER}! Are you here to challenge Jania too? I've decided on my next goal - to collect all eight badges and become the Pokémon Champion!")
+}
+text PellucaCity_Gym_Text_Gab_Defeat{
+    format("I was so close!")
+}
+text PellucaCity_Gym_Text_Gab_PostDefeat{
+    format("Adjusting to life after Team Somber hasn't been easy. But battling trainers and getting badges has given me and Zorua something to focus on!\pWe didn't win today, but mark my words - we'll beat you at the Pokémon Championships, {PLAYER}!")
+}
+script PellucaGym_Trainer_Gabrielle{
+    msgbox(format("Jania's a really strong leader.\nBut you might stand a chance!"), MSGBOX_NPC)
+    end
+}
+//Cooltrainer
+script PellucaGym_Trainer_B{
+    trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_B, format("What's a wimp like you doing here? This is a tough gym for elite trainers only!"), format("You're not a wimp!"))
+    msgbox(format("Jania uses strong WATER type Pokémon. You'd better be prepared!\p...\pWhy am I using FIRE types then?\pNone of your business!"), MSGBOX_NPC)
+    end
+}
+//The rest are all swimmers
+//first lady on the left
+script PellucaGym_Trainer_C{
+    trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_C, format("I've been training with Jania to withstand these strong currents.\pYou could use some training too!"), format("You don't need training!"))
+    msgbox(format("Jania won't go easy on anyone!"), MSGBOX_NPC)
+    end
+}
+//central blue cap swimmer
+script PellucaGym_Trainer_D{
+    trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_D, format("Getting lost in the currents, are we?"), format("I'm lost too!"))
+    msgbox(format("Jania beat me earlier and now I can't find my way out of this gym!"), MSGBOX_NPC)
+    end
+}
+//Lady on island (beauty)
+script PellucaGym_Trainer_E{
+    trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_E, format("Gloria rejected me from her Theatre Studio! So I'm going to get all eight badges and challenge her for ownership!"), format("I couldn't even challenge you!"))
+    msgbox(format("Once I beat Gloria, I'll be the new owner of the Silversun Theatre Studio!\p...\pYou're saying that's not how ownership works?"), MSGBOX_NPC)
+    end
+}
+//double battle A
+script PellucaGym_Trainer_F{
+    trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_F, format("Yeah! By low-level, we mean you!"), format("Twin down!"))
+    msgbox(format("Want a tip?\pJania's Pelipper sets up the rain so you need to work around that!"), MSGBOX_NPC)
+    end
+}
+//double battle B
+script PellucaGym_Trainer_G{
+    trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_G, format("We're the Rain Twins! Jania's selected us to keep low-level trainers away."), format("Twin down!"))
+    msgbox(format("Want a tip?\pJania's Toxapex is scary!"), MSGBOX_NPC)
+    end
+}
+
+        //unused
+        script PellucaGym_Trainer_H{
+            trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_H, format(""), format(""))
+            msgbox(format(""), MSGBOX_NPC)
+            end
+        }
+        //unused
+        script PellucaGym_Trainer_I{
+            trainerbattle_single(TRAINER_PELLUCA_CITY_GYM_I, format(""), format(""))
+            msgbox(format(""), MSGBOX_NPC)
+            end
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///NPCs
+script PellucaGym_Red {
+    lockall
+    faceplayer
+
+    if (flag(FLAG_BADGE07_GET)){
+        if (flag(FLAG_PELLUCAGYM_SPENSER_REWARD)){
+            msgbox(format("All the best, champ-in-the-making!"))
+        } else {
+            msgbox(format("Well done champ-in-the-making! You went face-to-face with the waves, stood firm and came out on top! In recognition of your victory, I'd like to give you something."))
+            goto(PellucaCityGym_Red_Reward)
+        }
+    } else { 
+        if (flag(FLAG_PELLUCAGYM_SPENSER_WATER)){
+            msgbox(format("Jania's Gyarados isn't her only threat! Her Clawitzer wears Choice Specs, which means it hits harder, but it can only use one move. Could you use that to turn the tables?"))
+        } else {
+            msgbox(format("Greetings champ-in-the-making! Good to see you again.\pFirst, have some water."))
+            giveitem(ITEM_FRESH_WATER)
+            msgbox(format("Jania built this massive underground cave to let her Gyarados go wild in battles! But Gyarados isn't her only threat! Her Clawitzer wears Choice Specs, which means it hits harder, but it can only use one move. Could you use that to turn the tables?"))
+            setflag(FLAG_PELLUCAGYM_SPENSER_WATER)
+        }
+    }
+    releaseall
+    end
+}
+
+script PellucaCityGym_Red_Reward{
+    message(format("Which of these do you fancy?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Water Gem", "Mystic Water") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_WATER_GEM)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_MYSTIC_WATER)}
+    goto(PellucaCityGym_Red_Reward_Give)
+}
+
+script PellucaCityGym_Red_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){
+        giveitem(VAR_0x8006) 
+        setflag(FLAG_PELLUCAGYM_SPENSER_REWARD) 
+        goto(PellucaCityGym_Red_Reward_End)} 
+    else {
+        goto(PellucaCityGym_Red_Reward)
+    }
+}
+
+script PellucaCityGym_Red_Reward_End{    
+    msgbox(format("Now get on out there and find the next gym - I'll see you there!"), MSGBOX_NPC)       
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Leader
+script PellucaGym_Leader {
+        
+    lockall
+    faceplayer
+    setrespawn(HEAL_LOCATION_PELLUCA_CITY)
+
+    if (flag(FLAG_BADGE07_GET)){
+        msgbox(format("The tides of time wait for nobody. Do what you have to do!"))
+    } else {
+        call(Common_EventScript_SaveGameBeforeBattle)
+        
+        //Intro
+        speakername("Jania")
+        msgbox(format("Hello {PLAYER}. Welcome to the\nPelluca City Gym.\pThe flow of water is calm, but never underestimate its strength. Let's see if you can ride the wave to victory!"))
+        //Battle
+        trainerbattle_no_intro(TRAINER_PELLUCA_CITY_GYM_LEADER, format("You're one with the tides!"))
+
+        //Post battle
+        //Receive the badge
+        speakername("Jania")        
+        msgbox(format("{PLAYER}, that was a spectacular battle. You've earned this."))
+        release        
+
+        //Play gym badge fanfare
+        message(format("{PLAYER} received the River Badge from Jania."))
+        speakername(NULL)
+        call(Common_EventScript_PlayGymBadgeFanfare)
+        setflag(FLAG_BADGE07_GET)        
+        setflag(FLAG_SYS_WHIRLPOOL_ENABLED)
+        
+        //Describe the badge features (use HMs, allow pokemon control etc.)
+        msgbox_delay("Jania", format("Take this too."))
+        giveitem(ITEM_HM05)
+        msgbox_delay("Jania", format("With it, you can surf across strong currents like the ones in this gym.\pLastly, I must give you this."))
+        giveitem(ITEM_RARE_SHARD)
+        delay(16)
+
+        //Bye-bye
+        speakername("Jania") 
+        msgbox(format("The road to the Pokémon Championship is hard, but you're nearly there.\pThe eighth and last Gym Badge is given by Raazi of Rivetshore City.\pHead south from here down the river.\pGood luck, {PLAYER}."))
+        release
+
+        ///set trainer flags
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_A)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_B)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_C)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_D)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_E)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_F)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_G)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_H)
+        settrainerflag(TRAINER_PELLUCA_CITY_GYM_I)
+
+    }
+    releaseall
+
+}

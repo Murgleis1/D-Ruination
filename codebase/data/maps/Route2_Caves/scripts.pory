@@ -1,0 +1,106 @@
+raw`
+    .set LOCALID_CLEFAIRY, 3
+`
+
+mapscripts Route2_Caves_MapScripts {}
+
+script Route2_Caves_EventScript_ClefairyTrigger{
+    if (flag(FLAG_FENNILAHL_HIKER_GEAR_GET)){
+        end
+    }
+    lockall
+    playmoncry(SPECIES_CLEFAIRY, CRY_MODE_NORMAL)
+    applymovement(LOCALID_CLEFAIRY, moves(emote_exclamation_mark jump_in_place_down walk_up *2 face_down))
+    waitmovement(LOCALID_CLEFAIRY)
+    releaseall
+}
+
+script Route2_Caves_EventScript_ClefairyBattle{
+    lockall
+    setflag(FLAG_BATTLE_NO_RUNNING_CATCHING)
+    playmoncry(SPECIES_CLEFAIRY, CRY_MODE_NORMAL)
+    msgbox(format("A wild Pokémon attacks you!\nIt's holding the Strange Rock!"))
+    release
+
+    setwildbattle(SPECIES_CLEFAIRY, 7)
+    dowildbattle
+    release
+
+    msgbox(format("The Clefairy dropped the Strange Rock. Stealing is bad, Clefairy!\p...\pIt looks dismayed and runs away..."))    
+    release
+    applymovement(LOCALID_CLEFAIRY, moves(walk_fast_up * 6))
+    waitmovement(0)
+    removeobject(LOCALID_CLEFAIRY)
+    giveitem(ITEM_STRANGE_ROCK) 
+    release
+
+    setflag(FLAG_FENNILAHL_HIKER_GEAR_GET)
+    setvar(VAR_FENNILAHL_CLEFAIRY_QUEST, 3)
+    clearflag(FLAG_BATTLE_NO_RUNNING_CATCHING)
+
+    releaseall
+}
+
+
+
+
+
+
+
+//ancient scripture
+script Route2_AncientCarving{
+    lockall
+
+    //a descrption of koraidon
+    msgbox(format("It's an ancient cave painting..."))
+    release
+    delay(8)
+
+    checkitem(ITEM_ARCHAEOLENS_2)
+    if (var(VAR_RESULT) == TRUE){
+        msgbox(format("Scanning the ancient painting\nwith the Archaeolens 2.0..."))
+        playse(SE_CLICK)
+        delay(8)
+        msgbox(format("Done!"))    
+        release
+        delay(8)
+        msgbox(format("It's a never before seen Pokémon!\nIt looks pale and ghostly, fluttering\nin the breeze.\pTerrifying!"))
+        release
+        delay(8)
+
+        if (!flag(FLAG_FLUTTER_MANE)){
+            setvar(VAR_0x8004, 2)  //vertical pan
+            setvar(VAR_0x8005, 2)  //horizontal pan
+            setvar(VAR_0x8006, 30)  //num shakes
+            setvar(VAR_0x8007, 5)  //shake delay
+            special(ShakeCamera)
+            waitstate
+            release
+
+            msgbox(format("What was that?\p...\pThe Archaeolens 2.0 is overheating!\nWhat's happening?"))
+            delay(8)
+
+            setflag(FLAG_FLUTTER_MANE)
+
+            setwildbattle(SPECIES_FLUTTER_MANE, 50)
+            dowildbattle
+
+            releaseall
+            end
+        }
+
+    } else {
+        msgbox(format("Scanning the ancient painting\nwith the Archaeolens..."))
+        playse(SE_CLICK)
+        delay(8)
+        msgbox(format("Done!"))    
+        release
+        delay(8)
+        msgbox(format("It's a never before seen Pokémon!\nIt looks pale and ghostly, fluttering\nin the breeze.\pTerrifying!"))
+        releaseall
+
+    }
+    
+    releaseall
+    end
+}

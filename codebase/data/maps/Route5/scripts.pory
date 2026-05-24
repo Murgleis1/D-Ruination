@@ -1,0 +1,173 @@
+mapscripts Route5_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: Route5_OnTransition
+}
+
+script Route5_OnTransition{
+    if (flag(FLAG_CHAMPION_LYNCH_COMPLETE)) {end}
+    if (flag(FLAG_CHAMPION_LYNCH_SETUP)){
+        setobjectxyperm(18, 9, 8) //lynch
+        setobjectxyperm(19, 8, 8) //hydrapple
+        end
+    }    
+}
+
+script Route5_SaveGame_Trigger{
+    if (flag(FLAG_CHAMPION_LYNCH_COMPLETE)){end}   
+
+    if (flag(FLAG_CHAMPION_LYNCH_SETUP)){
+        setvar(VAR_TEMP_E, 1)
+        call(Common_EventScript_SaveGameBeforeBattle)
+        releaseall
+        end
+    }
+}
+
+script Route5_Lynch_Battle_Trigger{
+    if (flag(FLAG_CHAMPION_LYNCH_COMPLETE)) {end}
+
+    if (flag(FLAG_CHAMPION_LYNCH_SETUP)){
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        msgbox_delay("Lynch", format("My fellow ingredient hunter...and now Fifth Cormoria Champion!\pRavine told me about your duel with him! I've never seen him in such a mood - you must've really lit him on fire!\pI was never much of a battler, you know? I'd always had one foot in the kitchen. But my Pokemon and I grew stronger and stronger, and we won the Championship!\pA great time! The best of my life!\pSigh...how time flies.\pYou'll be old in the blink of an eye too, {PLAYER}! But while you're young, why don't you try to light the same fire inside me as well?"))
+        
+        trainerbattle_no_intro(TRAINER_CHAMPION_LYNCH, format("Hydrapple! We actually lost!"))
+
+        msgbox_delay("Lynch", format("Do you know why we all asked you to come to such offbeat locations?\pNo?\pImagine the press, the frenzy! Two Champions colliding! The entire region would descend upon us! And what of the property damage? Our Pokemon are far too strong to be let loose inside a building.\pNo, this is much better.\pOut in nature with nobody to disturb us. Just the two of us, our partners, and all our skills and experience.\pAnd it really was lovely, don't you think?"))
+
+
+        //exit
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2 walk_left * 2 face_right))
+        applymovement(18, moves(walk_down * 5 walk_right walk_down * 7))
+        applymovement(19, moves(walk_right walk_down * 5 walk_right walk_down * 7))
+        waitmovement(0)
+
+        removeobject(18)
+        removeobject(19)
+
+        // special(SpawnCameraObject)
+        // applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down))
+        // waitmovement(0)
+        // special(RemoveCameraObject)
+
+        setflag(FLAG_CHAMPION_LYNCH_COMPLETE)
+        clearflag(FLAG_HIDE_CHAMPION_LYNCH)
+
+        releaseall
+        end
+    }
+}
+
+script Route5_NPC_A{
+    lockall
+    faceplayer
+    msgbox(format("My head is spinning because of the fog in Vilethorn Woods! I need some rest."))
+    releaseall
+    end
+}
+
+script Route5_NPC_B{
+    lockall
+    faceplayer
+    msgbox(format("I saw a rough-looking fellow in a dark outfit run past me. What's going on?"))
+    releaseall
+    end
+}
+
+script Route5_NPC_C{
+    lockall
+    faceplayer
+    msgbox(format("I wish they'd clear those boulders in Vilethorn Woods! It's blocking the\lpath back to Galecrest City."))
+    releaseall
+    end
+}
+
+
+
+
+//berger route 5
+script Route5_Berger{
+    lockall
+    speakername("Berger")
+    msgbox(format("C'mon Bergmite! What's the matter?\nDon't be so scared of Vilethorn Woods!"))
+    faceplayer
+    speakername("Berger")
+    msgbox(format("We're trying to reach Silversun City\nbut Bergmite's being a scaredy-cat!"))
+    release
+    applymovement(16, moves(face_down))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+script Route5_Bergmite{
+    playmoncry(SPECIES_BERGMITE, CRY_MODE_NORMAL)
+    waitmoncry
+    msgbox(format("Bergmite is shivering!"), MSGBOX_NPC)
+    end
+}
+
+
+//Greta: FLAG_GRETA_ROUTE5
+
+script Route5_Greta_Trigger0{
+    if (flag(FLAG_GRETA_ROUTE5)) {end}
+
+    playbgm(MUS_ENCOUNTER_MAY, FALSE)
+    lockall
+    applymovement(7, moves(walk_right * 7 walk_up * 1 face_right))
+    waitmovement(0)
+
+    goto(Route5_Greta_Main)
+}
+
+script Route5_Greta_Trigger1{
+    if (flag(FLAG_GRETA_ROUTE5)) {end}
+
+    playbgm(MUS_ENCOUNTER_MAY, FALSE)
+    lockall
+    applymovement(7, moves(walk_right * 7))
+    waitmovement(0)
+
+    goto(Route5_Greta_Main)
+}
+
+
+script Route5_Greta_Main{
+    speakername("Greta")
+    msgbox(format("It's you! The wandering saviour from Mt. Ceram. How wonderful! A new customer."))
+    release
+    delay(20)
+    speakername("Greta")
+    msgbox(Common_Text_Greta_Comecome)
+    release
+    delay(20)
+    
+    goto(Route5_Greta_ShowItemsForSale)
+}
+
+
+
+script Route5_Greta_GottaGo{
+    release
+    applymovement(7, moves(emote_exclamation_mark))
+    waitmovement(0)
+    speakername("Greta")
+    msgbox(format("Would you look at the time! I've gotta go places. See you around, {PLAYER}!"))
+    release
+    applymovement(7, moves(walk_left * 8))
+    waitmovement(0)
+    removeobject(7)
+    setflag(FLAG_GRETA_ROUTE5)
+    fadedefaultbgm
+
+    releaseall
+    end
+}
+
+
+
+

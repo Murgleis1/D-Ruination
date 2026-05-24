@@ -1,0 +1,166 @@
+raw`
+    .set LOCALID_KOHLA, 6
+    .set LOCALID_PROFT, 8
+`
+
+
+mapscripts AncientMirroh_MapScripts{    
+    MAP_SCRIPT_ON_TRANSITION: AncientMirroh_OnTransition
+}
+
+//This script is called after readying the exit (by talking to gab again)
+script AncientMirroh_OnTransition{
+    setrespawn(HEAL_LOCATION_ANCIENT_MIRROH)
+    end
+}
+
+//prof tenebris scene
+script AncientMirroh_Tenebris_Trigger{
+    if (flag(FLAG_ANCIENT_MIRROH_PROF_TENEBRIS_OUTSIDE)) {end}
+
+    lockall
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 4 walk_left * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    delay(20)
+
+    applymovement(LOCALID_PROFT, moves(walk_left * 3 walk_up))
+    waitmovement(0)
+
+    playse(SE_EXIT)
+    delay(4)
+    removeobject(LOCALID_PROFT)
+    delay(20)
+    setflag(FLAG_ANCIENT_MIRROH_PROF_TENEBRIS_OUTSIDE)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves( walk_right * 2 walk_up * 4))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    releaseall
+    end
+}
+
+
+script AncientMirroh_KolhaMeeting_Trigger{ //at the stairs (52, 38 kohla starting)
+    if (flag(FLAG_ANCIENT_MIRROH_KOHLA_MEETING)) {end}
+
+    lockall
+
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(7, moves(jump_in_place_left))    
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt")
+    msgbox(format("I gotta catch up to Melea but these Trekking Boots are slowing me down!"))
+    release
+    applymovement(7, moves(jump_in_place_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt")
+    msgbox(format("Oh no, you're here already? Gotta go!"))
+    release
+    playse(SE_FLEE)
+    applymovement(7, moves(walk_fast_down * 7))
+    waitmovement(0)
+    delay(16)
+    speakername("???")
+    msgbox(format("Hey grunt! Wait right there!"))
+    release
+    setobjectxyperm(LOCALID_KOHLA, 52, 38)
+    addobject(LOCALID_KOHLA)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(LOCALID_KOHLA, moves(walk_left * 8 walk_up))
+    waitmovement(0)
+
+    applymovement(LOCALID_KOHLA, moves(emote_exclamation_mark))
+    waitmovement(0)
+    speakername("Kohla")
+    msgbox(format("{PLAYER}? How'd you get over here?\p...\pSo that's what happened. I must have reached the peak after you did, then.\pNobody was there when I came. I found this big machine and pressed a button, and then got transported here!\p...\pSlow as usual, you are. I came after you and still managed to catch up.\pBet you wasted your time exploring and catching Pokémon while Melea went on to catch the Ancient Terror!\p...\pWell I'm here to do the right thing, so get out of my way.\pGo on - move!"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2 face_down))
+    applymovement(LOCALID_KOHLA, moves(walk_up * 2 walk_left * 3 walk_down * 8))   
+    waitmovement(0)   
+
+    removeobject(7)
+    setobjectxyperm(LOCALID_KOHLA, 26, 55)    
+    setobjectxy(LOCALID_KOHLA, 26, 55)    
+
+    setflag(FLAG_ANCIENT_MIRROH_KOHLA_MEETING)
+    releaseall
+    end
+}
+
+
+
+
+
+script AncientMirroh_KolhaFinal_Trigger {
+    if (flag(FLAG_ANCIENT_MIRROH_FINAL_KOHLA_TRIGGER)) {end}
+
+    lockall
+    speakername("Kohla")
+    msgbox(format("There you are! Hurry up."))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down walk_left * 4))
+    waitmovement(0)
+    setflag(FLAG_ANCIENT_MIRROH_FINAL_KOHLA_TRIGGER)
+    goto(AncientMirroh_GoBackYesNo)
+}
+//x                                                   x
+script AncientMirroh_GoBackYesNo{
+    msgbox(format("Head back using the dreamstone?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        //exit
+        speakername("Kohla")
+        msgbox(format("Let's get ready then."))
+        release
+        applymovement(LOCALID_KOHLA, moves(face_up))
+        waitmovement(0)
+        delay(24)
+        msgbox(format("3...2...1..."))
+        release
+        delay(24)
+        setvar(VAR_0x8004, 2)  //vertical pan
+        setvar(VAR_0x8005, 2)  //horizontal pan
+        setvar(VAR_0x8006, 8)  //num shakes
+        setvar(VAR_0x8007, 5)  //shake delay        
+        special(ShakeCamera)        
+        clearflag(FLAG_HIDE_LILY_POND_KOHLA)
+        setflag(FLAG_ANCIENT_MIRROH_DONE)
+
+        //quest
+
+
+        fadescreenswapbuffers(FADE_TO_BLACK)
+        warp(MAP_LILY_POND, 12, 4)
+
+    } else {
+        applymovement(LOCALID_KOHLA, moves(emote_exclamation_mark jump_in_place_right))
+        waitmovement(0)
+        delay(16)
+        speakername("Kohla")
+        msgbox(format("What are you waiting for?"))        
+    }
+
+
+    releaseall
+    end
+}
+
+
+script AncientMirroh_Dreamstone{
+    lockall
+    msgbox(format("It's a dreamstone...the surface is so smooth. It doesn't look natural at all."))
+    release
+    end
+}
+
+script AncientMirroh_KohlaGoBack{
+    msgbox(format("What are you waiting for?\nLet's hurry up and go back!"), MSGBOX_NPC)
+    end
+}

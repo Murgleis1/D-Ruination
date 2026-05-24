@@ -1,0 +1,436 @@
+raw`
+    .set LOCALID_NURSE, 1
+    .set LOCALID_ROBBER, 2
+    .set LOCALID_CH1, 24
+    .set LOCALID_CH2, 25
+    .set LOCALID_CH3, 26        
+    .set LOCALID_CHANSEY_LAST, 32
+    .set LOCALID_GRUNT1, 29
+    .set LOCALID_GRUNT2, 17        
+`
+
+mapscripts MirrohInterior_1F_MapScripts{
+    MAP_SCRIPT_ON_FRAME_TABLE[
+        VAR_TEMP_0, 0: MirrohInterior_1F_EventScript_NurseQuest_End
+    ]
+}
+
+
+//entry
+//picnicker 
+//nurse joy + 3 chanseys
+//one trainer at item, one NPC nearby
+//two hidden items - one is a bergmite
+//one npc lady below exit
+//npc lady + mon on bridge
+//trainer
+//chansey blocked by rocks, one trainer (robber)
+//end
+
+//final
+//old man commenting on rock blockade by team somber
+//finale - team somber
+
+//NURSE
+script MirrohInterior_1F_EventScript_Nurse{
+    msgbox(format("Have you found Chansey yet? We're all really worried!"), MSGBOX_NPC)
+    end
+}
+
+script MirrohInterior_1F_EventScript_Chansey{
+    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+    msgbox(format("Chansey looks stressed!\nMust be worried about its friend."), MSGBOX_NPC)
+    end
+}
+
+script MirrohInterior_1F_EventScript_NurseQuest_Trigger0{
+    if (flag(FLAG_MIRROH_NURSE_QUEST_START)) {end}
+    lockall
+    call(MirrohInterior_1F_EventScript_NurseQuest_Exclamation)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down *2 walk_left *5))
+    waitmovement(0)
+    goto(MirrohInterior_1F_EventScript_NurseQuest_Main)
+}
+script MirrohInterior_1F_EventScript_NurseQuest_Trigger1{
+    if (flag(FLAG_MIRROH_NURSE_QUEST_START)) {end}    
+    lockall
+    call(MirrohInterior_1F_EventScript_NurseQuest_Exclamation)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down walk_left *5))
+    waitmovement(0)    
+    goto(MirrohInterior_1F_EventScript_NurseQuest_Main)
+}
+script MirrohInterior_1F_EventScript_NurseQuest_Trigger2{
+    if (flag(FLAG_MIRROH_NURSE_QUEST_START)) {end}    
+    lockall
+    call(MirrohInterior_1F_EventScript_NurseQuest_Exclamation)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left *5))
+    waitmovement(0)
+    goto(MirrohInterior_1F_EventScript_NurseQuest_Main)
+}
+
+
+
+
+
+
+script MirrohInterior_1F_EventScript_NurseQuest_Exclamation{
+    applymovement(LOCALID_NURSE, moves(jump_in_place_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+
+    msgbox(format("Hey! Are you a trainer? I need your help!"))
+    release
+    return
+}
+script MirrohInterior_1F_EventScript_NurseQuest_Main{
+    msgbox(format("I was taking these Chanseys up to Winterlily Hollow to help the Nurse Joy there, but there was a cave-in and one of the Chanseys got lost!\pWe can't go through these caves alone - the Pokémon are too fierce.\pPlease find Chansey for us!"))
+    release
+
+    startquest(QUEST_MIRROH_NURSE_CHANSEY)
+    setvar(VAR_MIRROH_NURSE_CHANSEY_QUEST, 1)
+    setflag(FLAG_MIRROH_NURSE_QUEST_START)
+    releaseall
+    end
+}
+script MirrohInterior_1F_EventScript_NurseQuest_MissingChansey{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+    msgbox(format("seyy!!!\pChansey looks so relieved...\nIt's about to cry!\pIt must have been really scared,\nstuck all alone in here.\p...\pChansey stretches out a hand..."))
+    call(Common_EventScript_OutOfCenterPartyHeal)
+    msgbox(format("Thank you Chansey!\pYou don't need to worry any more.\nLet's go back to Nurse Joy!"))
+    release
+    setflag(FLAG_MIRROH_NURSE_QUEST_CHANSEYGET)
+    clearflag(FLAG_HIDE_MIRROH_LAST_CHANSEY)
+    setvar(VAR_MIRROH_NURSE_CHANSEY_QUEST, 2)    
+    warp(MAP_MIRROH_INTERIOR_1F, 42, 46)
+}
+script MirrohInterior_1F_EventScript_NurseQuest_End{
+    if (var(VAR_MIRROH_NURSE_CHANSEY_QUEST) == 2){
+        
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+        applymovement(LOCALID_NURSE, moves(jump_in_place_right emote_exclamation_mark))
+        waitmovement(0)
+
+        //all chanseys emote together
+        playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+        applymovement(LOCALID_CH1, moves(emote_exclamation_mark))
+        applymovement(LOCALID_CH2, moves(emote_exclamation_mark))
+        applymovement(LOCALID_CH3, moves(emote_exclamation_mark))
+        delay(20)
+
+        //all chanseys move together
+        applymovement(LOCALID_CH1, moves(walk_down walk_right walk_down face_left))
+        applymovement(LOCALID_CH2, moves(walk_right * 2 face_down))
+        applymovement(LOCALID_CH3, moves(walk_right walk_up face_down))
+        waitmovement(LOCALID_CH1)
+        delay(20)
+        
+        msgbox(format("Chansey!"))
+        release
+        applymovement(LOCALID_NURSE, moves(walk_up face_right))
+        waitmovement(0)
+        msgbox(format("Oh my! Chansey! Are you alright?"))
+        release
+        delay(16)
+        applymovement(LOCALID_CHANSEY_LAST, moves(jump_in_place_right))
+        playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+        msgbox(format("Seyyy!!!"))
+        
+        release
+        delay(16)
+        applymovement(LOCALID_NURSE, moves(walk_down face_right))        
+        waitmovement(0)
+        msgbox(format("Thank you trainer! You saved Chansey!\pThis group of people calling themselves Team Somber caused these cave-ins!\pThey came in here with big machinery and collapsed parts of the cavern.\pThey seemed so scary!\nI hope we don't run into them.\pWe're all in your debt, {PLAYER}. There's not much in the way of a reward that I can...oh?"))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+        playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+        applymovement(LOCALID_CHANSEY_LAST, moves(jump_in_place_down, emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("seeyyy!!\pChansey pulls something out of its pocket and hands it to you!"))
+        giveitem(ITEM_EVIOLITE)
+        msgbox(format("Thank you Chansey!"))
+        release
+        delay(16)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("We should go to Winterlily Hollow now.\nThe nurse must be waiting for us.\pThank you again, {PLAYER} and we wish you all the best in your journey.\pDrop by the Pokémon Center any time!"))
+        release
+
+        //fade
+        fadescreen(FADE_TO_BLACK)
+        removeobject(LOCALID_CH1)
+        removeobject(LOCALID_CH2)
+        removeobject(LOCALID_CH3)
+        removeobject(LOCALID_CHANSEY_LAST)
+        removeobject(LOCALID_NURSE)
+        fadescreen(FADE_FROM_BLACK)
+
+        //endquest
+        completequest(QUEST_MIRROH_NURSE_CHANSEY)
+        setvar(VAR_MIRROH_NURSE_CHANSEY_QUEST, 3)   
+        release
+    }
+    
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//trainers
+//HIKER
+script MirrohInterior_1F_Trainer_A{
+    trainerbattle_single(TRAINER_MIRROHINT_A, format("I'm looking for a Bergmite but why I can't find any?"), format("If I had a Bergmite I would've won!"))
+    msgbox(format("Maybe the Bergmite hide in the rocks or something..."))
+    releaseall
+}
+
+//MANIAC (ITEM PROTECTOR)
+script MirrohInterior_1F_Trainer_B{
+    trainerbattle_single(TRAINER_MIRROHINT_B, format("Nope! No way! That item's mine!"), format("Fine, you can have it..."))
+    msgbox(format("Travelers often leave rare items inside caves and mountains."))
+    releaseall
+}
+
+//HIKER 2
+script MirrohInterior_1F_Trainer_C{
+    trainerbattle_single(TRAINER_MIRROHINT_C, format("I may switch to ICE type Pokémon after seeing the Pokémon here!"), format("I should just use ROCK types!"))
+    msgbox(format("If you go deeper into the mountain, you'll find some rare ICE type Pokémon!"))
+    releaseall
+}
+
+//ROBBER
+script MirrohInterior_1F_Trainer_D{
+    lockall
+    msgbox(format("Hehehe - that Chansey in the corner is mine! I just need to figure out how to clear these rocks out of the way..."))
+    release
+    applymovement(LOCALID_ROBBER, moves(jump_in_place_down emote_exclamation_mark))
+    waitmovement(0)
+    delay(20)
+    msgbox(format("Who're you? Mind your own business, kid.\p...\pYou're going to return Chansey to Nurse Joy by the entrance?\pHah! Fat chance. Ever heard about finders keepers? Well I'll teach you since nobody else did!"))
+
+    trainerbattle_no_intro(TRAINER_MIRROHINT_D, format("No! My new Chansey!"))
+    msgbox(format("Fine! You can go give that Chansey back to Nurse Joy! I'm outta here!"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_down))
+    applymovement(LOCALID_ROBBER, moves(walk_down * 7))
+    waitmovement(0)
+    removeobject(LOCALID_ROBBER)
+
+    setflag(FLAG_MIRROH_ROBBER)
+    releaseall
+    end
+}
+
+//LASS (EXIT)
+script MirrohInterior_1F_Trainer_E{
+    trainerbattle_single(TRAINER_MIRROHINT_D, format("I can't get through to Winterlily Hollow from this side. It's so frustrating!"), format("You're also frustrating!"))
+    msgbox(format("I mean why even build a tunnel then?"))
+    releaseall
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+//picknicker (entrance)
+script MirrohInterior_1F_NPC_A{
+    msgbox(format("I'm trekking to Winterlily Hollow! But my GRASS type Pokémon can't deal with all the ICE type Pokémon around here..."), MSGBOX_NPC)
+    releaseall
+    end
+}
+//Generic lady
+script MirrohInterior_1F_NPC_B{
+    msgbox(format("Winterlily Hollow is past the ledge above.\nBut how do I cross the ledge?"), MSGBOX_NPC)
+    end
+}
+//lass
+script MirrohInterior_1F_NPC_C{
+    msgbox(format("Some dangerous looking people passed through here earlier with loads of heavy machinery. All that commotion caused a bunch of rocks to cave in!"), MSGBOX_NPC)
+    end
+}
+
+//end dude?
+script MirrohInterior_1F_NPC_D{
+    msgbox(format("Past this is the trek up to the mountain peak. The weather is harsh!"), MSGBOX_NPC)
+    end
+}
+
+//lady with pineco on bridge
+script MirrohInterior_1F_NPC_E{
+    msgbox(format("Past this is the trek up to the mountain peak. The weather is harsh!"), MSGBOX_NPC)
+    end
+}
+script MirrohInterior_1F_Pineco{
+    playmoncry(SPECIES_PINECO, CRY_MODE_NORMAL)
+    msgbox(format("Pineco looks cold!"), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+//Bergmite encounter
+script MirrohInterior_Bergmite_A{
+    if (flag(FLAG_MIRROH_BERGMITE_A)){
+        msgbox(format("There's nothing here."), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("{PLAYER} searched the rock...\p...but it wasn't a rock!\nIt was a wild Pokémon!"))
+    setflag(FLAG_MIRROH_BERGMITE_A)
+    setwildbattle(SPECIES_BERGMITE, 28)
+    dowildbattle
+    end
+}
+
+script MirrohInterior_Bergmite_B{
+    if (flag(FLAG_MIRROH_BERGMITE_B)){
+        msgbox(format("There's nothing here."), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("{PLAYER} searched the rock...\p...but it wasn't a rock!\nIt was a wild Pokémon!"))
+    setflag(FLAG_MIRROH_BERGMITE_B)
+    setwildbattle(SPECIES_BERGMITE, 28)
+    dowildbattle
+    end
+}
+
+script MirrohInterior_Bergmite_C{
+    if (flag(FLAG_MIRROH_BERGMITE_C)){
+        msgbox(format("There's nothing here."), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("{PLAYER} searched the rock...\p...but it wasn't a rock!\nIt was a wild Pokémon!"))
+    setflag(FLAG_MIRROH_BERGMITE_C)
+    setwildbattle(SPECIES_BERGMITE, 28)
+    dowildbattle
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Somber grunts
+//FLAG_MIRROH_INT_SOMBER_GRUNTS
+script MirrohInterior_1F_SomberGrunts_Trigger{
+    if (flag(FLAG_MIRROH_INT_SOMBER_GRUNTS)) {end}
+
+    lockall
+    applymovement(LOCALID_GRUNT1, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt A")
+    msgbox(format("Did you move all the equipment? The boss is gonna be angry - we gotta get the Dreamalyser up and running quick!"))
+    release
+    applymovement(LOCALID_GRUNT2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt B")
+    msgbox(format("Would you relax? I'm not Gabrielle - of course I moved everything! Caused some cave-ins, but that's not our problem!\pHaha!"))
+    release
+    delay(24)   
+
+    applymovement(LOCALID_GRUNT1, moves(jump_in_place_right emote_exclamation_mark))
+    applymovement(LOCALID_GRUNT2, moves(jump_in_place_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(24)
+
+    speakername("Grunt A")
+    msgbox(format("Hey! Didn't your parents tell you it was rude to eavesdrop?"))
+    release
+
+    applymovement(LOCALID_GRUNT1, moves(walk_right))
+    applymovement(LOCALID_GRUNT2, moves(walk_right))    
+    waitmovement(0)
+    delay(24)
+
+    trainerbattle_no_intro(TRAINER_MIRROHINT_E, format("Argh! My Pokémon are so weak!"))
+
+    applymovement(LOCALID_GRUNT1, moves(jump_in_place_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt A")
+    msgbox(format("Argh! Stupid Mime Jr! You're useless!"))
+    release    
+    delay(8)
+    applymovement(LOCALID_GRUNT2, moves(emote_question_mark))
+    waitmovement(0)
+    delay(16)    
+    speakername("Grunt B")
+    msgbox(format("Hey - aren't you that lab assistant who beat Melea back in Silversun City?"))    
+    release
+    delay(24)
+
+    applymovement(LOCALID_GRUNT1, moves(emote_exclamation_mark face_down))
+    applymovement(LOCALID_GRUNT2, moves(emote_exclamation_mark face_up))    
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt A")
+    msgbox(format("Yeah - the same one who beat Moxie up in Mt. Ceram too!\pThe bosses will want to know this.\nLet's go!"))           
+    release
+
+    //exit
+    applymovement(LOCALID_GRUNT1, moves(walk_left * 4 walk_down * 3))
+    applymovement(LOCALID_GRUNT2, moves(walk_left * 4 walk_down * 3))     
+    waitmovement(0)
+    removeobject(LOCALID_GRUNT2)   
+    applymovement(LOCALID_GRUNT1, moves(walk_down))  
+    waitmovement(0)  
+    removeobject(LOCALID_GRUNT1)  
+
+    setflag(FLAG_MIRROH_INT_SOMBER_GRUNTS)
+
+    releaseall
+    end
+}

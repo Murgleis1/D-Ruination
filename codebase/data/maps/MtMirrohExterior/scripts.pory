@@ -1,0 +1,249 @@
+raw`
+    .set LOCALID_BREECH, 5
+    .set LOCALID_CLEF, 6
+`
+
+mapscripts MtMirrohExterior_MapScripts{}
+
+//NPCs 7 (3 normal, 4 outside dojo)
+//1 Breech
+//Trainers 5
+//Dojo house 
+//Nurse joy is inside the dojo house
+
+//Topics
+// about mt mirroh (location + mon stories)
+// about winterlily hollow - located inside the mountain (hint but don't reveal yet)
+// about the dojo (hint, dont reveal)
+// about team somber passing through (there's a drill left behind at the entrance)
+
+//BREECH
+script MtMirrohExterior_BreechTrigger{
+    if (flag(FLAG_MIRROH_EXTERIOR_BREECH)) {end}
+    lockall
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+    waitmovement(0)
+    speakername("Breech")
+    msgbox(format("Clefable, did you see the Team Somber grunts too?"))
+    release
+    applymovement(LOCALID_CLEF, moves(jump_in_place_up))
+    waitmovement(0)
+    playmoncry(SPECIES_CLEFABLE, CRY_MODE_NORMAL)
+    delay(24)
+    speakername("Clefable")    
+    msgbox(format("Clee!!!"))
+    release
+    delay(30)
+
+    //Notice player
+    applymovement(LOCALID_BREECH, moves(face_left emote_exclamation_mark))    
+    applymovement(LOCALID_CLEF, moves(face_left emote_exclamation_mark)) 
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    delay(30)
+    speakername("Breech")    
+    msgbox(format("{PLAYER}! It's you! Fancy seeing you here. How are you?\p...\pSo you're chasing Team Somber. I admire you, {PLAYER}. Clefable and I just saw a couple of them enter Mt. Mirroh. They left this drill here and blocked the path with these boulders. I wonder what they're using all this equipment for?"))
+    release
+    delay(30)
+    applymovement(LOCALID_BREECH, moves(face_left emote_exclamation_mark))    
+    applymovement(LOCALID_CLEF, moves(face_left emote_exclamation_mark)) 
+    waitmovement(0)
+    delay(30)
+    speakername("Breech")    
+    msgbox(format("I see...so they must be using all this equipment to build and carry this Dreamalyser thing you're talking about. How scary!"))
+    release
+    delay(60)
+    speakername("Breech")    
+    msgbox(format("Clefable and I just made our way down Mt. Mirroh. We're going to take a break from the mountains.\pWhere are we going next?\pRivetshore City! We're going to enjoy the sea breeze for a while."))
+    goto(MtMirrohExterior_Breech_Reward)
+}
+
+script MtMirrohExterior_Breech_Reward{
+    message(format("We don't need these any more, so would you like one?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Assault Vest", "Rocky Helmet") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_ASSAULT_VEST)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_ROCKY_HELMET)}
+    goto(MtMirrohExterior_Breech_Reward_Give)
+}
+
+script MtMirrohExterior_Breech_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){giveitem(VAR_0x8006) goto(MtMirrohExterior_Breech_Reward_End)} 
+    else {goto(MtMirrohExterior_Breech_Reward)}
+}
+
+script MtMirrohExterior_Breech_Reward_End{
+    speakername("Breech")    
+    msgbox(format("Maybe we'll see you in Rivetshore City!"))
+    release
+    delay(16)
+    applymovement(SPECIES_CLEFABLE, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    playmoncry(SPECIES_CLEFABLE, CRY_MODE_NORMAL)
+    delay(8)
+    speakername("Clefable")    
+    msgbox(format("Clee!!!"))
+    release
+    delay(24)
+
+    //moveout
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_right))
+    applymovement(LOCALID_BREECH, moves(walk_left walk_down * 3 walk_right * 8))
+    applymovement(LOCALID_CLEF, moves(walk_left*2 walk_down * 3 walk_right * 8))
+    waitmovement(0)
+    removeobject(LOCALID_BREECH)
+    removeobject(LOCALID_CLEF)
+
+    setflag(FLAG_MIRROH_EXTERIOR_BREECH)
+    setflag(FLAG_DETECTIVE_ACAD_BREECH)
+
+    releaseall
+    end
+}
+
+
+
+//Trainers
+script MtMirrohExterior_Trainer_A{
+    trainerbattle_single(TRAINER_MIRROHEXT_A, format("Once you jump over that ledge over there, you can't come back. So let me battle you before you go!"), "Okay, you can go!")
+    msgbox(format("I'm training here so that I can safely go back to the Pokémon Center if I need to."))
+    releaseall
+    end
+}
+script MtMirrohExterior_Trainer_B{
+    trainerbattle_single(TRAINER_MIRROHEXT_B, format("I know what you're eyeing! That's why I planted myself here - hahaha!"), "Aw I lost!")
+    msgbox(format("I love the mountains! There are so many good hiding spots."))
+    releaseall
+    end
+}
+script MtMirrohExterior_Trainer_C{
+    trainerbattle_single(TRAINER_MIRROHEXT_C, format("I'd rather be skiing on these slopes but I don't mind a battle!"), "I definitely prefer skiing!")
+    msgbox(format("You won't get slopes like these in all of Cormoria!"))
+    releaseall
+    end
+}
+
+// script MtMirrohExterior_Trainer_D{
+//     trainerbattle_single(TRAINER_MIRROHEXT_D, format("Are you another of those weird Team Sombrero grunts? Stop harrassing innocent people!"), "I guess you're not one of them!")
+//     msgbox(format("I found some Team Sombrero - or was it Somber? - grunts harrassing an old man. You can't be doing stuff like that! So I put an end to it. I wonder what they're upto..."))
+//     releaseall
+//     end
+// }
+// script MtMirrohExterior_Trainer_E{
+//     trainerbattle_single(TRAINER_MIRROHEXT_E, format("I'm from the Fighting Dojo! Guess you know what that means, right?"), "You knew what that meant!")
+//     msgbox(format("The Fighting Dojo is the pinnacle for us FIGHTING type users! It's where you become the best of the best"))
+//     releaseall
+//     end
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+script MtMirrohExterior_NPC_A{
+    lockall
+    faceplayer
+    msgbox(format("Be careful! There are some nasty types around. They're wearing dark suits and harrassing everyone they see. They even threatened me - a senior citizen!"))
+    releaseall
+    end
+}
+script MtMirrohExterior_NPC_B{
+    lockall
+    faceplayer
+    msgbox(format("Higher up, the weather becomes too harsh to climb, so to reach Winterlily Hollow, you have to cross the caverns inside the mountain."))
+    releaseall
+    end
+}
+script MtMirrohExterior_NPC_C{
+    lockall
+    faceplayer
+    msgbox(format("The Vivillon from the Garden Shop take good care of the flowers, which is why they grow even in such cold weather!"))
+    releaseall
+    end
+}
+
+//left battle girl
+script MtMirrohExterior_NPC_D{
+    lockall
+    msgbox(format("Hang in there Conkeldurr!"))
+    release
+    faceplayer
+    applymovement(9, moves(emote_exclamation_mark))
+    msgbox(format("Don't disturb us - we're training!"))
+    release
+    applymovement(9, moves(face_right))
+    waitmovement(0)
+    releaseall
+    end
+}
+script MtMirrohExterior_Conkeldurr{
+    lockall
+    playmoncry(SPECIES_CONKELDURR, CRY_MODE_NORMAL)
+    msgbox(format("Durr!!!!\pConkeldurr's been poisoned, but it's still going strong!"))
+    releaseall
+    end
+}
+
+//right expert belt
+script MtMirrohExterior_NPC_E{
+    lockall
+    msgbox(format("Finish this, Toxicroak!"))
+    release
+    faceplayer
+    applymovement(10, moves(emote_exclamation_mark))
+    msgbox(format("Don't disturb us - we're training!"))
+    release
+    applymovement(10, moves(face_left))
+    waitmovement(0)
+    releaseall
+    end
+}
+script MtMirrohExterior_Toxicroak{
+    lockall
+    playmoncry(SPECIES_TOXICROAK, CRY_MODE_NORMAL)
+    msgbox(format("Croooaaakk!!!!\pIt's hammering Conkeldurr with Posion Jabs!"))
+    releaseall
+    end
+}
+
+
+script MtMirrohExterior_NPC_F{
+    lockall
+    faceplayer
+    msgbox(format("Someone told me you could buy Flame Orbs here, but it turned out to be a garden supply store!\pI heard you can get them in Rivetshore City though."))
+    releaseall
+    end
+}
+
+script MtMirrohExterior_NPC_G{
+    lockall
+    msgbox(format("She's meditating with her Medicham...best not disturb her."))
+    releaseall
+    end
+}
+
+script MtMirrohExterior_Medicham{
+    lockall
+    msgbox(format("She's meditating with her trainer...best not disturb her."))
+    releaseall
+    end
+}
+
+
+

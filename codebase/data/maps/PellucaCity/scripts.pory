@@ -1,0 +1,1409 @@
+raw`
+    .set LOCALID_GAB, 5
+
+    .set LOCALID_MAYOR, 39
+    .set LOCALID_S1, 40
+    .set LOCALID_S2, 41
+    .set LOCALID_S3, 42
+    .set LOCALID_S_ENTRANCE, 8
+    .set LOCALID_S_BLOCKER, 7
+
+    .set LOCALID_FL_MAYOR, 50
+    .set LOCALID_FL_QWIL, 49
+    .set LOCALID_FL_CITIZEN, 47
+    .set LOCALID_FL_JANIA, 56
+
+`
+
+mapscripts PellucaCity_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_PELLUCA_CITY)
+        goto(PellucaCity_SetLayout)
+    }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_PELLUCA_MAYOR_QUEST, 3: PellucaCityFlooded_MainEvent    
+    ]    
+}
+
+script PellucaCity_SetLayout{
+    if (var(VAR_PELLUCA_MAP_STATE) == 1){
+        setmaplayoutindex(LAYOUT_PELLUCA_CITY_FLOODED)
+        setweather(WEATHER_RAIN_THUNDERSTORM)
+        doweather
+    } else {
+        setmaplayoutindex(LAYOUT_PELLUCA_CITY)
+    }
+    return
+}
+
+
+
+
+
+
+
+
+//Flood Ministory
+//Initial cutscene
+script PellucaCity_MayorFight_Trigger{
+    if (flag(FLAG_PELLUCA_MAYOR_FIGHT)) {end}
+
+    lockall
+
+    //camera pan down
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 4))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    //argument
+    applymovement(LOCALID_MAYOR, moves(emote_exclamation_mark jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    speakername("Mayor")
+    msgbox(format("But you can't be doing this to our citizens! This is our city!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_S2, moves(emote_exclamation_mark jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    speakername("Q-squad Boss")
+    msgbox(format("I've told you a hundred times, you paper-pushing wimp! You ain't doing a single thing right for our city, so don't you dare mess with the Qwilsquad!\pThis is our turf - we don't give a hoot about you and your title!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_MAYOR, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    speakername("Mayor")
+    msgbox(format("No! Enough is enough! I'm putting my foot down.\pYou and your lot aren't allowed in\nPelluca City any more!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_S1, moves(face_down))
+    waitmovement(0)
+    delay(16)
+    speakername("Q-squad Grunt")
+    msgbox(format("Hahaha! What a lame mayor!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_S3, moves(face_up))
+    waitmovement(0)
+    delay(16)
+    speakername("Q-squad Grunt")
+    msgbox(format("Yeah! He really thinks he can tell us what to do!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_S1, moves( jump_in_place_right))
+    applymovement(LOCALID_S3, moves( jump_in_place_right))
+    delay(16)
+    speakername("Q-squad Grunt")
+    msgbox(format("Go on boss - teach him a lesson!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_S2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Q-squad Boss")
+    msgbox(format("You heard 'em Mayor. Looks like my boys want me to prove that we own this city!\pWanna try me? Right here?"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_MAYOR, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    applymovement(LOCALID_MAYOR, moves(
+        lock_anim
+        lock_facing_direction
+        walk_fast_right
+        unlock_anim
+        unlock_facing_direction
+    ))
+    waitmovement(0)
+    delay(16)
+
+    speakername("Mayor")
+    msgbox(format("Nono - see, I'm not - look, I'm just asking for a little cooperation and -"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_S1, moves( jump_in_place_right))
+    applymovement(LOCALID_S3, moves( jump_in_place_right))
+    delay(16)
+    speakername("Q-squad Grunt")
+    msgbox(format("Hahaha! Look at the wimp! Poor guy."))
+    release
+    delay(16)
+
+    applymovement(LOCALID_S2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Q-squad Boss")
+    msgbox(format("Got it, mayor? You're not in charge here.\pI am!\pAnd from now on, this city belongs\nto us - the Qwilsquad!"))
+    release
+    delay(16)
+
+    //exit
+    applymovement(LOCALID_S2, moves(walk_left))
+    waitmovement(0)    
+    applymovement(LOCALID_S2, moves(walk_left))
+    applymovement(LOCALID_S1, moves(walk_down))
+    waitmovement(0)
+    applymovement(LOCALID_S2, moves(walk_left))
+    applymovement(LOCALID_S1, moves(walk_left))
+    applymovement(LOCALID_S3, moves(walk_up))
+    waitmovement(0)
+    applymovement(LOCALID_S2, moves(walk_left * 9))
+    applymovement(LOCALID_S1, moves(walk_left * 9))
+    applymovement(LOCALID_S3, moves(walk_left * 9))
+    waitmovement(0)
+
+    //mayor asks for help
+
+
+    applymovement(LOCALID_MAYOR, moves(emote_exclamation_mark face_up))
+    waitmovement(0)
+    delay(16)
+    speakername("Mayor")
+    msgbox(format("Oh - a tourist! Were you standing there the whole time?\p...\pI'm sorry you had to witness that.\pY-you know, we have a wonderful\nGame Corner! And the Apple Pie at the Pelluca Restaurant is to die for."))
+    release
+    delay(16)
+
+    applymovement(LOCALID_MAYOR, moves(walk_left * 5 walk_down))
+    waitmovement(0)
+    delay(16)
+    speakername("Mayor")
+    msgbox(format("Sigh...what will I do?"))
+    release
+    delay(16)
+    applymovement(LOCALID_MAYOR, moves(walk_down * 6))
+    waitmovement(0)
+    delay(16)
+
+
+    //end
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 4))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    removeobject(LOCALID_MAYOR)
+    removeobject(LOCALID_S1)
+    removeobject(LOCALID_S2)
+    removeobject(LOCALID_S3)        
+    setflag(FLAG_PELLUCA_MAYOR_FIGHT)
+
+    releaseall
+    end
+
+}
+
+
+
+
+
+
+
+
+
+
+
+//Sailor who won't let you in without showing a Qwilfish
+script PellucaCity_Sailor_Entrance{
+    lockall
+    faceplayer
+
+    speakername("Q-squad Grunt")
+    msgbox(format("Beat it, kid! This is private property belonging to the Qwilsquad."))
+    if (var(VAR_PELLUCA_MAYOR_QUEST) == 0){release end}
+    if (var(VAR_PELLUCA_MAYOR_QUEST) == 1){release end}
+
+    goto(PellucaCity_Sailor_Multichoice)
+
+    releaseall
+    end
+}
+script PellucaCity_Sailor_Multichoice{
+    message(format("Only Qwilsquad members can enter!"))
+    waitmessage
+    dynmultichoice(0,0, FALSE, 4, 0, DYN_MULTICHOICE_CB_NONE, "What's a Qwilsquad?", "I'm a member!", "Okay...")
+
+    if (var(VAR_RESULT) == 0){goto(PellucaCity_Sailor_QwilsquadExplanation)}
+    if (var(VAR_RESULT) == 1){goto(PellucaCity_Sailor_MemberCheck)}    
+
+    releaseall
+    end
+}
+script PellucaCity_Sailor_QwilsquadExplanation{
+    speakername("Q-squad Grunt")
+    msgbox(format("You interested in joining, kid?\nThe Qwilsquad is all about trust and brotherhood. In the Qwilsquad, you gotta have each other's backs!\pAnd you gotta be the proud trainer\nof a Qwilfish of course.\pWe're from Pelluca, but we went down to Rivetshore to sail. Now we're back, and we're not happy with how the mayor is bungling his job! So we're taking matters into our own hands."))
+    goto(PellucaCity_Sailor_Multichoice)
+}
+script PellucaCity_Sailor_MemberCheck{
+    speakername("Q-squad Grunt")
+    msgbox(format("A pipsqueak like you is in the squad?\nYou a new member? Got any proof?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 0){
+        speakername("Q-squad Grunt")
+        msgbox(format("Then beat it, kid!"))
+    }
+    if (var(VAR_RESULT) == 1){
+        speakername("Q-squad Grunt")
+        msgbox(format("Show me!"))
+        release
+
+        //qwilfish or overqwil check
+        special(ChoosePartyMon)                 //choose your mon
+        waitstate                               //wait
+        copyvar(VAR_0x800A, VAR_0x8004)         //idk why but copy player selected mon
+        copyvar(VAR_0x8005, VAR_0x800A)         //idk why but copy the trade mon
+        specialvar(VAR_RESULT, GetTradeSpecies)
+
+        if (var(VAR_RESULT) == SPECIES_QWILFISH_HISUI){goto(PellucaCity_Sailor_MemberAccepted)}
+        if (var(VAR_RESULT) == SPECIES_OVERQWIL){goto(PellucaCity_Sailor_MemberAccepted)}
+
+        applymovement(LOCALID_S_ENTRANCE, moves(emote_exclamation_mark))
+        delay(16)
+        speakername("Q-squad Grunt")
+        msgbox(format("That don't look like no Qwilfish to me!\pBeat it, kid!"))        
+
+    }
+
+    releaseall 
+    end
+}
+script PellucaCity_Sailor_MemberAccepted{
+    applymovement(LOCALID_S_ENTRANCE, moves(emote_exclamation_mark))
+    delay(16)    
+    speakername("Q-squad Grunt")
+    msgbox(format("Now that's what I'm talking about! You're one of us, kid.\pGo on, get inside!"))      
+    release
+
+    opendoor(3, 42)
+    waitdooranim    
+    applymovement(LOCALID_S_ENTRANCE, moves(walk_up))
+    delay(16)
+    playse(SE_EXIT)
+    removeobject(LOCALID_S_ENTRANCE)
+    closedoor(3, 42)
+    waitdooranim
+
+    setflag(FLAG_PELLUCA_QWILSQUAD_ENTRANCE)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+//Sailor who blocks access to mt. mirroh
+script PellucaCity_Blocker{
+    msgbox(format("This is our city! Got any problems?"))
+    end
+}
+script PellucaCity_Blocker_Trigger{
+    if (var(VAR_PELLUCA_MAYOR_QUEST) == 10) {end}
+
+    applymovement(LOCALID_S_BLOCKER, moves(emote_exclamation_mark))
+    speakername("Q-squad Grunt")
+    msgbox(format("Hey kid, where d'you think yer goin?\nThere's a toll if you wanna get out.\pThat's right! You gotta pay ¥999999.\pAin't got the money?\pThen get packing!"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//Flooded Pelluca
+text PellucaCityFlooded_TriggerText{
+    format("I need to save the drowning citizens!")
+}
+script PellucaCityFlooded_TriggerDown{
+    if (var(VAR_PELLUCA_MAP_STATE) == 1){
+        lockall
+        msgbox(PellucaCityFlooded_TriggerText)
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+        waitmovement(0)
+        releaseall
+        end
+    } else {
+        end
+    }
+}
+script PellucaCityFlooded_TriggerUp{
+    if (var(VAR_PELLUCA_MAP_STATE) == 1){
+        lockall
+        msgbox(PellucaCityFlooded_TriggerText)
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+        waitmovement(0)
+        releaseall
+        end
+    } else {
+        end
+    }
+}
+script PellucaCityFlooded_TriggerLeft{
+    if (var(VAR_PELLUCA_MAP_STATE) == 1){
+        lockall
+        msgbox(PellucaCityFlooded_TriggerText)
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left))
+        waitmovement(0)
+        releaseall
+        end
+    } else {
+        end
+    }
+}
+script PellucaCityFlooded_TriggerRight{
+    if (var(VAR_PELLUCA_MAP_STATE) == 1){
+        lockall
+        msgbox(PellucaCityFlooded_TriggerText)
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right))
+        waitmovement(0)
+        releaseall
+        end
+    } else {
+        end
+    }
+}
+script PellucaCityFlooded_SaveCitizen_A{
+    lockall
+    faceplayer
+    msgbox(format("Help! Help! Over here!\p...\pThank you so much - I'm saved!"))
+    release
+
+        //move citizen
+        specialvar(VAR_RESULT, GetPlayerFacingDirection)
+
+        if (var(VAR_RESULT) == DIR_EAST){
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_down walk_fast_left * 9))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        } else {
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_left * 9))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        }
+
+
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_A_SAVED)
+    addvar(VAR_PELLUCA_MAYOR_QUEST, 1) //5, 6, 7 and last is 8
+
+    releaseall
+    end    
+}
+script PellucaCityFlooded_SaveCitizen_B{
+    lockall
+    faceplayer
+    msgbox(format("I can't stay afloat any more!\p...\pYou came just in time!"))
+    release
+        //move citizen
+        specialvar(VAR_RESULT, GetPlayerFacingDirection)
+
+        if (var(VAR_RESULT) == DIR_SOUTH){
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_right walk_fast_up * 7))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        } else {
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_up * 7))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        }
+
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_B_SAVED)
+    addvar(VAR_PELLUCA_MAYOR_QUEST, 1) //5, 6, 7 and last is 8
+
+    releaseall
+    end    
+}
+script PellucaCityFlooded_SaveCitizen_C{
+    lockall
+    faceplayer
+    msgbox(format("Ahh! It's too cold!\p...\pWaah! Wahh! It was so scary!"))
+    release
+
+        //move citizen
+        specialvar(VAR_RESULT, GetPlayerFacingDirection)
+
+        if (var(VAR_RESULT) == DIR_NORTH){
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_left walk_fast_down * 7))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        } else {
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_down * 7))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        }
+
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_C_SAVED)
+    addvar(VAR_PELLUCA_MAYOR_QUEST, 1) //5, 6, 7 and last is 8
+
+    releaseall
+    end    
+}
+script PellucaCityFlooded_SaveCitizen_D{
+    lockall
+    faceplayer
+    msgbox(format("Help! Someone save me!\p...\pYaay! You came!"))
+    release
+
+        //move citizen
+        specialvar(VAR_RESULT, GetPlayerFacingDirection)
+
+        if (var(VAR_RESULT) == DIR_WEST){
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_up walk_fast_right * 9))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        } else {
+            applymovement(VAR_LAST_TALKED, moves(walk_fast_right * 9))
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+        }
+
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_D_SAVED)
+    addvar(VAR_PELLUCA_MAYOR_QUEST, 1) //5, 6, 7 and last is 8
+
+    releaseall
+    end    
+}
+
+script PellucaCityFlooded_MainEvent{
+    lockall
+    setvar(VAR_PELLUCA_MAYOR_QUEST, 4)
+    playbgm(MUS_DUMMY, FALSE)
+
+    if (flag(FLAG_SKIP_PELLUCA_CUTSCENE)){
+        msgbox(format("Skip cutscene?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            fadescreen(FADE_TO_WHITE)
+            additem(ITEM_HM03)
+            special(EnterSafariMode)
+            fadescreen(FADE_FROM_WHITE)
+            releaseall
+            end
+        }
+    }
+
+    goto(PellucaCityFlooded_MainEvent_Cutscene)
+
+}
+
+script PellucaCityFlooded_MainEvent_Cutscene{
+    setflag(FLAG_SKIP_PELLUCA_CUTSCENE)
+
+    speakername("Q-squad Boss")
+    msgbox(format("What on earth is this?"))
+    release
+    delay(16)  
+
+    //camera pan
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_fast_down * 8 walk_left * 6 walk_right * 12 walk_left *6 walk_fast_up*8))
+
+    delay(60)  
+
+    //citizen1
+    speakername("Citizen")
+    msgbox(format("What a disaster!\pHow could we be so unlucky!"))
+    speakername("Q-squad Boss")
+    msgbox(format("What happened?"))
+    speakername("Mayor")
+    msgbox(format("A Mega Sharpedo came rampaging down from the Ivy River and kicked up a storm! The riverbanks have flooded.\pThe city's underwater!"))
+    speakername("Q-squad Boss")
+    msgbox(format("Is everyone safe?"))
+    speakername("Citizen")
+    msgbox(format("No - there are still four people in the water! We have to save them fast!"))
+
+    //the two bosses fight
+    applymovement(LOCALID_FL_QWIL, moves(jump_in_place_right))
+    delay(16)
+    speakername("Q-squad Boss")
+    msgbox(format("Yeah, go on Mayor. Go save them!"))
+    applymovement(LOCALID_FL_MAYOR, moves(jump_in_place_left))
+    delay(16)
+    speakername("Mayor")
+    msgbox(format("W-what do you mean? Weren't you the one in control of this city?"))
+
+    //citizens tell them to stfu
+    applymovement(LOCALID_FL_CITIZEN, moves(emote_exclamation_mark jump_in_place_down))        
+    speakername("Citizen")
+    msgbox(format("ENOUGH!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_FL_MAYOR, moves(face_up))
+    applymovement(LOCALID_FL_QWIL, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    applymovement(48, moves(face_up))       //this is that one sailor
+    waitmovement(0)
+    delay(16)
+
+    speakername("Citizen")
+    msgbox(format("While you two bicker, it's us that pays the price every time! Both of you are strong - a tough trainer and a smart politician - and yet, neither of you bother to actually do anything for us citizens! And now people are in danger and you're still fighting! We've all had it up to here with you two!"))
+    release
+
+    applymovement(43, moves(emote_exclamation_mark))   
+    applymovement(44, moves(emote_exclamation_mark))   
+    applymovement(45, moves(emote_exclamation_mark))   
+    applymovement(46, moves(emote_exclamation_mark))   
+    applymovement(47, moves(emote_exclamation_mark))   
+    applymovement(51, moves(emote_exclamation_mark))   
+    waitmovement(0)
+    delay(24)
+    
+    speakername("Citizen")
+    msgbox(format("Yeah!\pHear hear!"))
+    release
+
+    delay(30)
+
+    //jania comes and agrees
+    speakername("???")
+    msgbox(format("I agree too."))
+    release
+    delay(16)
+
+    applymovement(43, moves(face_up))   
+    applymovement(44, moves(face_up))   
+    applymovement(45, moves(face_up))   
+    applymovement(46, moves(face_up))   
+    applymovement(47, moves(walk_right face_up))  
+    applymovement(48, moves(face_up))   
+    applymovement(51, moves(face_up))   
+
+    speakername("Citizen")
+    msgbox(format("Is that Jania?\pYeah! It's the Gym Leader! In the flesh!"))
+    release
+
+    addobject(LOCALID_FL_JANIA)
+    applymovement(LOCALID_FL_JANIA, moves(walk_down * 7 walk_right * 2 walk_down))
+    waitmovement(0)
+
+    applymovement(43, moves(face_down))   
+    applymovement(44, moves(face_down))   
+    applymovement(45, moves(face_down))   
+    applymovement(46, moves(face_down))   
+    applymovement(47, moves(face_down))  
+    applymovement(48, moves(face_right))  
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))       
+    applymovement(51, moves(face_down))   
+
+    applymovement(LOCALID_FL_MAYOR, moves(emote_exclamation_mark))   
+    delay(16)
+    speakername("Mayor")
+    msgbox(format("Oh, Jania! It's you! Finally. Please - you have to save those still drowning!"))
+    release    
+    delay(16)
+
+    applymovement(LOCALID_FL_QWIL, moves(emote_exclamation_mark))   
+    delay(16)
+    speakername("Q-squad Boss")
+    msgbox(format("Yeah, Jania! You're an even stronger trainer than I am. You can do it!"))
+    release     
+    delay(16)
+
+    speakername("Jania")
+    msgbox(format("No, I won't."))
+    release
+    delay(16)
+
+    applymovement(LOCALID_FL_MAYOR, moves(emote_exclamation_mark jump_in_place_up)) 
+    applymovement(LOCALID_FL_QWIL, moves(emote_exclamation_mark jump_in_place_up))   
+    waitmovement(0)
+    delay(24)
+
+    speakername("Jania")
+    msgbox(format("Don't look at me like that!\pYou two want to be responsible for this city? Start right here, right now.\pYour citizens are miserably tired of both of you - when will you two change?"))
+    release    
+    delay(16)
+    applymovement(LOCALID_FL_JANIA, moves(face_right))   
+    waitmovement(0)
+    delay(16)
+    speakername("Jania")
+    msgbox(format("And who might you be?\p...\p{PLAYER}?\p...\pI see - so that's how you got involved with these two.\pHere, take this."))
+    release     
+    setflag(FLAG_SYS_SURF_ENABLED)
+
+    checkitem(ITEM_HM03)
+    if (var(VAR_RESULT) == TRUE){
+        removeitem(ITEM_HM03)
+    }
+
+    giveitem(ITEM_HM03)
+    delay(16)
+    applymovement(LOCALID_FL_JANIA, moves(face_down))   
+    delay(16)
+    speakername("Jania")
+    msgbox(format("Consider this my help.\pNow I'm going to track the Mega Sharpedo down and make sure it doesn't harm anyone else.\pAnd the two of you - and {PLAYER} - take this chance to do the right thing!"))
+    release
+    delay(16)
+
+    //Jania exit
+    applymovement(LOCALID_FL_JANIA, moves(walk_up walk_left * 2 walk_up * 7))
+    waitmovement(0)
+    applymovement(47, moves(walk_left face_down))   
+    waitmovement(0)   
+
+    //trainer is asked to help
+    applymovement(LOCALID_FL_MAYOR, moves(face_left))   
+    applymovement(LOCALID_FL_QWIL, moves(face_right))   
+    delay(16)
+    speakername("Mayor")
+    msgbox(format("Hmpf."))
+    release
+    delay(16)
+    speakername("Q-squad Boss")
+    msgbox(format("Tchah!"))
+    release     
+    delay(24)
+    speakername("Mayor")
+    msgbox(format("..."))
+    release
+    delay(16)
+    speakername("Q-squad Boss")
+    msgbox(format("..."))
+    release
+    delay(30)    
+
+    applymovement(LOCALID_FL_MAYOR, moves(face_up))   
+    applymovement(LOCALID_FL_QWIL, moves(face_up)) 
+    speakername("Q-squad Boss")
+    msgbox(format("All of you! We've been letting you down. But now we're gonna prove that we care about this city with our actions!"))
+    speakername("Mayor")
+    msgbox(format("{PLAYER} - the two of us will handle the citizens on the bridge and on land. Can you surf and rescue the four remaining citizens?\pOnce you've picked all four of them up, come back here."))
+    speakername("Q-squad Boss")
+    msgbox(format("Good luck, {PLAYER}! We're on top of things here, so you go on into the river. You don't need to teach any Pokémon how to surf - just hop on the water!"))
+    release    
+    speakername("Mayor")
+    msgbox(format("But hurry! There's not much time."))
+    release
+
+    completesubquest(QUEST_PELLUCA_CITY, SUB_QUEST_2)
+
+    special(EnterSafariMode)
+    special(RemoveCameraObject)
+    releaseall
+    end
+}
+
+
+script PellucaCityFlooded_Mayor{
+    speakername("Mayor")
+    msgbox(format("Have you saved everyone yet?\nPlease hurry!"), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_QwilBoss{
+    speakername("Q-squad Boss")
+    msgbox(format("We're keeping the citizens safe, so you go get the rest!"), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPC1{
+    msgbox(format("The Mayor and the Qwilsquad boss working together? Hah! I'll believe it when I see it."), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPC2{
+    msgbox(format("If the two of them collaborate, maybe things will finally improve..."), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPC3{
+    msgbox(format("I'm so scared - I hope you can save the others!"), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPC4{
+    msgbox(format("I hate that Mega Sharpedo for doing this to my home!"), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPCSailor{
+    msgbox(format("Go on, {PLAYER}! Hurry up and do what the boss says."), MSGBOX_NPC)
+    end
+}
+
+script PellucaCityFlooded_NPCSaved_A{
+    msgbox(format("You saved me! I can't thank you enough, trainer."), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPCSaved_B{
+    msgbox(format("I owe you, trainer. I'll never forget this!"), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPCSaved_C{
+    msgbox(format("Brr - the water was so cold! How do Pokémon swim in it?"), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_NPCSaved_D{
+    msgbox(format("When I grow up, I wanna be just like you!"), MSGBOX_NPC)
+    end
+}
+script PellucaCityFlooded_EventScript_TimesUp{
+    lockall
+    msgbox(format("The tides rise higher and higher...\nit's too late!"))
+    release
+
+    //remove the HM
+    removeitem(ITEM_HM03)
+
+    setflag(FLAG_PELLUCA_REGULAR_CITIZENS)
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZENS)  
+
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_A_SAVED)
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_B_SAVED)
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_C_SAVED)
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_D_SAVED)
+
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_A)  
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_B)  
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_C)  
+    clearflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_D)  
+
+    setvar(VAR_PELLUCA_MAP_STATE, 1)
+    
+    delay(2)
+    
+    special(ExitSafariMode)
+    setvar(VAR_PELLUCA_MAYOR_QUEST, 3)
+    setvar(VAR_PELLUCA_MAP_STATE, 1)
+    warp(MAP_PELLUCA_CITY, 43, 28)
+	waitstate
+	end    
+}
+
+script PellucaCityFlooded_EventScript_TimesRunningOut{
+    lockall
+    msgbox(format("The water level is rising...\nThere's not much time left!"))    
+    release
+    end
+}
+
+
+
+script PellucaCityFlooded_Complete_Trigger{
+    if (var(VAR_PELLUCA_MAYOR_QUEST) == 8){
+
+    special(ExitSafariMode)
+
+    lockall
+    applymovement(LOCALID_FL_MAYOR, moves(walk_left face_down))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up *3))
+    waitmovement(0)
+    delay(16)
+
+    //headcount 
+    speakername("Q-squad Boss") 
+    msgbox(format("That's one, two, three...and four!\pYup, we're all accounted for."))   
+    release
+    delay(16)
+
+    //you saved everyone
+    speakername("Mayor") 
+    msgbox(format("Finally! Thank you {PLAYER}. You did us - all of us - a great service.\pYou're a hero!"))   
+    release
+    delay(16)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+
+
+    //cheer
+    applymovement(43, moves(emote_exclamation_mark))   
+    applymovement(44, moves(emote_exclamation_mark))   
+    applymovement(45, moves(emote_exclamation_mark))   
+    applymovement(46, moves(emote_exclamation_mark))   
+    applymovement(47, moves(emote_exclamation_mark))   
+    applymovement(51, moves(emote_exclamation_mark))   
+    waitmovement(0)
+    delay(24)
+    
+    speakername("Citizen")
+    msgbox(format("Thank you {PLAYER}!\pYou're the best!"))
+    release
+    delay(16)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    delay(16)
+    //wrap up - go to PC
+    applymovement(LOCALID_FL_QWIL, moves(jump_in_place_right)) 
+    waitmovement(0)
+    delay(16)   
+    speakername("Q-squad Boss") 
+    msgbox(format("It looks like we're all safe for now."))   
+    release
+    delay(16)
+
+    //you saved everyone
+    applymovement(LOCALID_FL_MAYOR, moves(jump_in_place_left)) 
+    waitmovement(0)
+    delay(16)   
+    speakername("Mayor") 
+    msgbox(format("Yeah. All that remains is to wait until the water recedes, and then we can go back to normal.\pCome, shall we wait in the Pokémon Center until then?"))   
+    release
+    delay(16)     
+
+    speakername("Q-squad Boss") 
+    msgbox(format("Sounds like a good idea. {PLAYER} here needs some rest after everything that's just happened!"))   
+    release
+    delay(16)
+
+
+    //Set all vars
+    setvar(VAR_PELLUCA_MAYOR_QUEST, 9)
+    setvar(VAR_PELLUCA_MAP_STATE, 0)
+
+    clearflag(FLAG_PELLUCA_REGULAR_CITIZENS)
+    setflag(FLAG_PELLUCA_FLOODED_CITIZENS)
+
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_A_SAVED)
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_B_SAVED)
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_C_SAVED)
+    setflag(FLAG_PELLUCA_FLOODED_CITIZEN_DROWNING_D_SAVED)
+
+    clearflag(FLAG_PELLUCA_PC_CHARS)
+
+    //warp out
+    warp(MAP_PELLUCA_CITY_POKEMON_CENTER, 7, 6)
+
+    releaseall
+    end
+    }
+
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//GRETA
+script PellucaCity_Greta_Trigger0{
+    if (flag(FLAG_GRETA_PELLUCACITY)) {end}
+
+    lockall
+    applymovement(27, moves(walk_up * 6 face_left))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    goto(PellucaCity_Greta_Main)
+}
+
+script PellucaCity_Greta_Trigger1{
+    if (flag(FLAG_GRETA_PELLUCACITY)) {end}
+
+    lockall
+    applymovement(27, moves(walk_left walk_up * 6 face_right))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)    
+    goto(PellucaCity_Greta_Main)
+}
+
+script PellucaCity_Greta_Trigger2{
+    if (flag(FLAG_GRETA_PELLUCACITY)) {end}
+
+    lockall
+    applymovement(27, moves(walk_up * 6 face_right))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)    
+    goto(PellucaCity_Greta_Main)
+}
+
+script PellucaCity_Greta_Main{
+    
+    speakername("Greta")
+    msgbox(format("Oh, it's you again, {PLAYER}!\nFancy seeing you in these parts.\lRoute 6 was a tough trek, wasn't it?"))
+    release
+    delay(20)
+    speakername("Greta")
+    msgbox(Common_Text_Greta_Comecome)
+    release
+    delay(20)
+    
+    goto(PellucaCity_Greta_ShowItemsForSale)
+}
+
+script PellucaCity_Greta_GottaGo{
+    release
+    applymovement(27, moves(emote_exclamation_mark))
+    waitmovement(0)
+    speakername("Greta")
+    msgbox(format("Would you look at the time!\nI've gotta run. See you around!"))
+    release
+    applymovement(27, moves(walk_up * 8))
+    waitmovement(0)
+    removeobject(27)
+    setflag(FLAG_GRETA_PELLUCACITY)
+    fadedefaultbgm
+
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//GABRIELLE
+script PellucaCity_EventScripts_Gabrielle{
+    lockall
+    if (flag(FLAG_PELLUCA_GABRIELLE_CHOICEBAND)){
+    speakername("Gabrielle")
+    msgbox(format("Ahh, I love the smell of the river!"))
+    release
+    } else {
+
+    speakername("Gabrielle")
+    msgbox(format("I grew up here on this cliff without my parents. Life was hard.\pI didn't want my younger siblings to go through what I did, so when Team Somber promised me money, I took it.\p...\pThose grunts were really vicious to me. I was so scared I would lose Zoroark!")) 
+    release
+    delay(24)
+    faceplayer
+    delay(24)
+    speakername("Gabrielle")
+    msgbox(format("Was I just like that when you met me with that hiker with the Clefairy?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        //if yes
+        applymovement(LOCALID_GAB, moves(face_left))  
+        delay(24)
+        speakername("Gabrielle")
+        msgbox(format("Yeah...I doubt he'd ever forgive me."))
+        release
+    } else {
+        //if no
+        applymovement(LOCALID_GAB, moves(face_left))  
+        speakername("Gabrielle")
+        msgbox(format("You're just trying to make me feel better, aren't you? I don't need your pity. I know what I've done."))
+        release
+    }
+    delay(30)
+    speakername("Gabrielle")
+    msgbox(format("After getting kicked out of Team Somber, I feel like I've come to my senses a little. I'm going to support my family - but do it right. Be honest.\pBe responsible."))
+    release
+    delay(24)
+    faceplayer
+    delay(24)
+    speakername("Gabrielle")
+    msgbox(format("I want you to have this. As a thank you. For saving me - not just once, but so many times. You're a strong trainer, but more importantly - you're a good person. I hope to be like you."))
+    release
+    goto(PellucaCity_Gab_ChoiceItem)
+    }
+}
+
+script PellucaCity_Gab_ChoiceItem{
+    speakername("Gabrielle")
+    message(format("Choose any one you like."))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Choice Specs", "Choice Band", "Choice Scarf") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_CHOICE_SPECS)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_CHOICE_BAND)}
+    if (var(VAR_RESULT) == 2){setvar(VAR_0x8006, ITEM_CHOICE_SCARF)}
+    goto(PellucaCity_Gab_ChoiceItem_Give)
+}
+
+script PellucaCity_Gab_ChoiceItem_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){giveitem(VAR_0x8006) goto(PellucaCity_Gab_ChoiceItem_End)} 
+    else {goto(PellucaCity_Gab_ChoiceItem)}
+}
+
+script PellucaCity_Gab_ChoiceItem_End{
+    speakername("Gabrielle")
+    msgbox(format("The choices we make define who we are.\nOnce we lock in, we can't change.\pI can't erase what I've done, but I'm going to make a better choice this time.\pI suppose you're going to head to the Mirroh Base Camp from here? Team Somber must've reached there already.\pBest of luck, {PLAYER}."))
+    release
+    setflag(FLAG_PELLUCA_GABRIELLE_CHOICEBAND)
+    applymovement(LOCALID_GAB, moves(face_left))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+script PellucaCity_Zorua{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_ZOROARK, CRY_MODE_NORMAL)
+    msgbox(format("Gabrielle's Zoroark looks content.\nLife is more peaceful for it now!"))
+    release
+    applymovement(25, moves(face_left))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+
+
+
+//Topics
+//Restaurant apple tart
+//mirroh base camp
+//hoya and ivy river
+//fishery
+
+
+//MONS
+script PellucaCity_Lycanroc{
+    playmoncry(SPECIES_LYCANROC, CRY_MODE_NORMAL)
+    msgbox(format("Lycanroc is howling. It must be pining for a table at the restaurant!"), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+//NPCs
+//tuber at beach
+script PellucaCity_NPC1{
+    msgbox(format("Whee!!!"), MSGBOX_NPC)
+    end
+}
+//bridge lady
+script PellucaCity_NPC2{
+    msgbox(format("A tourist! Have you come to eat at the Pelluca Restaurant?\p...that's the only thing our mayor cares about promoting."), MSGBOX_NPC)
+    end
+}
+//bridge black belt
+script PellucaCity_NPC3{
+    msgbox(format("I would've trained up in Mt. Mirroh but that Qwilsquad grunt is blocking me!\lSo I'm training here instead."), MSGBOX_NPC)
+    end
+}
+//bridge cyclist
+script PellucaCity_NPC4{
+    msgbox(format("This bridge was built by Rivetshore Construction. It's nothing like the cycling roads in other regions though!"), MSGBOX_NPC)
+    end
+}
+//bridge other dude
+script PellucaCity_NPC5{
+    lockall
+    msgbox(format("Look over there..."))    
+    release
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_fast_up * 11))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    msgbox(format("Jania, the Gym Leader, had her gym constructed on a separate island."))
+    release
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_fast_down * 11))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    msgbox(format("She stays on that island and trains.\nShe never gets involved in city affairs!"), MSGBOX_NPC)    
+    releaseall
+    end
+}
+//bridge getting off dude
+script PellucaCity_NPC6{
+    msgbox(format("Are you headed to the Mirroh Base Camp? You'll have to cross Route 7 and take the cable car up. I heard they're closing the gym there though."), MSGBOX_NPC)
+    end
+}
+//main island
+script PellucaCity_NPC7{
+    msgbox(format("With the way things are, I'm half in support of the Qwilsquad. I know they're bullies, but maybe they'll do something good for the city."), MSGBOX_NPC)
+    end
+}
+//fishery 1
+script PellucaCity_NPC8{
+    msgbox(format("What's even the point of fishing if the Mega Sharpedo's going to scare all the fish away? I wish our mayor would do something about it."), MSGBOX_NPC)
+    end
+}
+
+script PellucaCity_Sealeo{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_SEALEO, CRY_MODE_NORMAL)
+    msgbox(format("Sealeo wants to catch fish!"), MSGBOX_NPC)
+    release
+    applymovement(26, moves(face_down))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+
+
+//fishery 2
+script PellucaCity_NPC9{
+    msgbox(format("This is the Pelluca Fishery! But it's closed due to the Mega Sharpedo attacks."), MSGBOX_NPC)
+    end
+}
+
+
+
+//Pelluca City Wingull
+
+script PellucaCity_WingullGirl{
+    lock
+    faceplayer
+    message(format("Hahaha! I'm throwing stones at the Wingulls over there. Wanna throw some?"))
+    waitmessage
+    dynmultichoice(16, 8, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "That's mean", "Gimme a stone!")
+
+    if (var(VAR_RESULT) == 1){
+        //wingull encounter
+        applymovement(15, moves(face_up))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+        msgbox(format("{PLAYER} threw a stone at a Wingull!"))
+        release
+        applymovement(16, moves(emote_exclamation_mark))
+        applymovement(17, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("The Wingull gets angry!"))
+        setwildbattle(SPECIES_WINGULL, 25)
+        dowildbattle
+    } else {
+        msgbox(format("Mean? You're mean!"), MSGBOX_NPC)
+    }
+
+    releaseall
+    end
+}
+
+script PellucaCity_WingullMother{
+    msgbox(format("My daughter loves throwing stones at Wingulls. She's just so cute!"), MSGBOX_NPC)
+    end
+}
+
+script PellucaCity_WingullCritique{
+    msgbox(format("That little girl is so bad! Throwing stones at Pokémon...that's poor parenting."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+//lady next to restaurant
+script PellucaCity_NPC10{
+    msgbox(format("I ate too many apple tarts! I'm too full. Whoever said people have a second stomach for dessert was lying!"), MSGBOX_NPC)
+    end
+}
+
+//lady staring off by the pc
+script PellucaCity_NPC11{
+    if (flag(FLAG_PELLUCA_CITY_TM_GIVER)){
+        msgbox(format("Life is too short to worry!"), MSGBOX_NPC)
+        end
+    }
+    
+    msgbox(format("The Pelluca Gym is across the water...\nwhen I was younger, I tried to challenge Jania many times, but I could never win.\pShe was my classmate, you know?\nWe grew up in Galecrest City together.\nShe went on to become a big Gym Leader and I moved here too, with a regular family and a regular job.\pWhenever I look at the gym, I wonder...\pI don't battle anymore. Maybe you might like to use this."), MSGBOX_NPC)
+    giveitem(ITEM_TM31)
+    setflag(FLAG_PELLUCA_CITY_TM_GIVER)
+    msgbox(format("It's time for me to pass the baton\nto someone young and hungry.\pDon't give up on your dreams!"), MSGBOX_NPC)
+    end
+}
+
+//stantler dude at bridge foot fishery side
+script PellucaCity_NPC12{
+    msgbox(format("The mayor isn't maintaining the city one bit! My Stantler eating the overgrown flowers is actually contributing to city maintenance."), MSGBOX_NPC)
+    end
+}
+
+script PellucaCity_Stantler{
+    playmoncry(SPECIES_STANTLER, CRY_MODE_NORMAL)
+    msgbox(format("Stantler is nonchalantly chomping on the flowers."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///Post-gym event
+script PellucaCity_PostGymEvent_Trigger{
+    if (flag(FLAG_PELLUCA_POSTGYM)) {end}
+
+    if (flag(FLAG_BADGE07_GET)){
+        lockall
+
+        //Open door
+        opendoor(37, 8)
+        waitdooranim
+
+        //spawn jania
+        addobject(LOCALID_FL_JANIA)
+        setobjectxy(LOCALID_FL_JANIA, 37, 8)
+
+        applymovement(LOCALID_FL_JANIA, moves(walk_down))
+        waitmovement(0)
+        
+        //close door
+        closedoor(37, 8)
+
+        applymovement(LOCALID_FL_JANIA, moves(walk_down * 2))
+        waitmovement(0)
+
+        speakername("Jania")
+        msgbox(format("Excuse me."))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right face_down))
+        applymovement(LOCALID_FL_JANIA, moves(walk_down * 2))
+        waitmovement(0)
+        delay(16)
+        applymovement(LOCALID_FL_JANIA, moves(face_up))
+        waitmovement(0)
+        delay(16)
+        speakername("Jania")
+        msgbox(format("Where am I going?\pI'm going to Rivetshore City.\nAll the Gym Leaders have been called there."))
+        release
+        
+        special(SpawnCameraObject)
+        applymovement(LOCALID_FL_JANIA, moves(walk_down * 2 walk_left * 3))
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 3))
+        waitmovement(0)
+
+        opendoor(37, 8)
+        waitdooranim
+
+        //spawn gabrielle
+        addobject(LOCALID_GAB)
+        setobjectxy(LOCALID_GAB, 37, 8)
+        applymovement(LOCALID_GAB, moves(walk_down emote_exclamation_mark))
+        waitmovement(0)
+        closedoor(37, 8)
+        delay(16)
+        speakername("Gabrielle")
+        msgbox(format("{PLAYER}! Over here!"))
+        release
+
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 3 face_left))
+        waitmovement(0)
+        applymovement(LOCALID_GAB, moves(face_right))
+        waitmovement(0)
+        delay(16)
+
+        speakername("Gabrielle")
+        msgbox(format("I overheard Jania talking to someone!\p...\pWhat? I wasn't eavesdropping!\nShe was just nearby.\pShe was talking to the eighth Gym Leader. They mentioned Team Somber!\pThey must be up to something in Rivetshore City!\p..."))
+        release
+        applymovement(LOCALID_GAB, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        speakername("Gabrielle")
+        msgbox(format("You're off the case?\p...\pSo?\pThe {PLAYER} I know wouldn't be stopped by something like that!\pYou taught me the difference between right and wrong. Have you forgotten why you're doing this in the first place?\pIt was to find YOUR Professor.\nYou don't need anyone's permission!\p...\pI'm not letting you give up, {PLAYER}.\pI'm going to Rivetshore City to get the final gym badge. It's south of Pelluca City - you can get there by surfing.\pI'll be waiting for you!"))
+        release
+        delay(16)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+        applymovement(LOCALID_GAB, moves(walk_down * 3 face_up))
+        waitmovement(0)
+        delay(16)
+        speakername("Gabrielle")
+        msgbox(format("You'd better be there, {PLAYER}!"))
+        release        
+        applymovement(LOCALID_GAB, moves(walk_down * 3))
+        waitmovement(0)
+        delay(16)
+
+        special(RemoveCameraObject)
+
+
+        removeobject(LOCALID_FL_JANIA)
+        removeobject(LOCALID_GAB)
+
+        //flags and stuff
+        startquest(QUEST_STOP_TEAM_SOMBER)
+        subquestmenu(QUEST_MENU_COMPLETE_QUEST, QUEST_STOP_TEAM_SOMBER, SUB_QUEST_1)
+        setflag(FLAG_PELLUCA_POSTGYM)
+        end
+    }
+
+    end
+}
+
+
+
+
+
+
+
+
+
+
+script PellucaCity_Red_GymBlock{
+    msgbox(format("Jania's gone to deal with the Mega Sharpedo. You'll find her up in Ivy River somewhere."), MSGBOX_NPC)
+    end
+}
+
+
+

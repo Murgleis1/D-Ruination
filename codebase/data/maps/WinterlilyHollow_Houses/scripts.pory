@@ -1,0 +1,72 @@
+mapscripts WinterlilyHollow_Houses_MapScripts{}
+
+//old man with graveler
+script WinterlilyHollow_Houses_NPC1{
+    msgbox(format("Graveler and I used to work for Rivetshore Construction.\pWe helped build the hollow a long time ago and never went back."), MSGBOX_NPC)
+    end
+}
+script WinterlilyHollow_Houses_Graveler{
+    playmoncry(SPECIES_GRAVELER_ALOLA, CRY_MODE_NORMAL)
+    msgbox(format("Graveler is crunching on rocks!"), MSGBOX_NPC)
+    end
+}
+
+//couple (girl) - luminous
+script WinterlilyHollow_Houses_NPC2{
+    msgbox(format("My husband's trying to get me a job at the power plant, but I don't have the credentials, so I've joined a course."), MSGBOX_NPC)
+    end
+}
+//couple (boy)
+script WinterlilyHollow_Houses_NPC3{
+    msgbox(format("I'm off-duty right now, but I work in the underground power plant.\pWe store the electricity from Viniel's Pokémon in these Cell Batteries."), MSGBOX_NPC)
+    release
+    showmoneybox(0, 0)
+    msgbox(format("Do you want one? It'll cost you 200."), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        hidemoneybox
+        giveitem(ITEM_CELL_BATTERY)
+        removemoney(200)
+        msgbox(format("Come again if you want any!"), MSGBOX_NPC)
+    } else {
+        hidemoneybox
+        msgbox(format("Come again if you want any!"), MSGBOX_NPC)
+    }    
+    end
+}
+//dude with carkol (interaction)
+script WinterlilyHollow_Houses_NPC4{
+    msgbox(format("I'm a retired detective. After a life of crime-fighting, I think I've earned the right to a peaceful retirement!"), MSGBOX_NPC)
+    end
+}
+script WinterlilyHollow_Houses_Carkol{
+    playmoncry(SPECIES_ARMAROUGE, CRY_MODE_NORMAL)
+    msgbox(format("Armarouge is tired...carrying all that armor must be exhausing"), MSGBOX_NPC)
+    if (flag(FLAG_HOLLOW_ARMOR_GET)) {end}
+    goto(WinterlilyHollow_Houses_Armarouge_Reward)
+}
+
+script WinterlilyHollow_Houses_Armarouge_Reward{
+    lockall
+    message(format("It hands you two sets of armor..."))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Malicious Armor", "Auspicious Armor") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_MALICIOUS_ARMOR)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_AUSPICIOUS_ARMOR)}
+    goto(WinterlilyHollow_Houses_Armarouge_Reward_Give)
+}
+
+script WinterlilyHollow_Houses_Armarouge_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){giveitem(VAR_0x8006) goto(WinterlilyHollow_Houses_Armarouge_Reward_End)} 
+    else {goto(WinterlilyHollow_Houses_Armarouge_Reward)}
+}
+
+script WinterlilyHollow_Houses_Armarouge_Reward_End{
+    setflag(FLAG_HOLLOW_ARMOR_GET)
+    msgbox(format("Armarouge has decided to peacefully retire too!"), MSGBOX_NPC)
+    releaseall
+    end
+}
+

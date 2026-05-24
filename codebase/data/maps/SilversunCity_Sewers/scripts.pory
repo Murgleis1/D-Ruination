@@ -1,0 +1,444 @@
+//4 npc
+//3 black market
+//5 trainers
+
+mapscripts SilversunCity_Sewers_MapScripts{
+//    MAP_SCRIPT_ON_TRANSITION: SilversunCity_OnTransition
+    MAP_SCRIPT_ON_FRAME_TABLE[
+        VAR_TEMP_0, 0: SilversunCity_Sewers_Duskull_Event_Ending
+    ]
+}
+
+//Man quest at entrance      
+script SilversunCity_Sewers_NPC6{
+    if (var(VAR_SEWERS_DUSKULL) == 0){
+        lockall
+        faceplayer
+        msgbox(format("Hey - are you a trainer?\pLook, I need your help. My wife and I came down here to buy some illegal -\pI mean some furniture. We came down to buy some furniture but we got separated and now I can't find her!\pI'm really worried.\nWhat if the Sewer Scourge gets her?\pPlease help me find her!"))
+        startquest(QUEST_SILVERSUN_WIFE)
+        setvar(VAR_SEWERS_DUSKULL, 1)
+        releaseall
+    }
+
+    msgbox(format("Please hurry. I don't want her to be attacked by the Sewer Scourge!"), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_Sewers_ManLostWife_Trigger0{
+    if (var(VAR_SEWERS_DUSKULL) == 0){
+        lockall
+        applymovement(1, moves(emote_exclamation_mark))
+        waitmovement(0)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+        waitmovement(0)
+
+        msgbox(format("Hey - are you a trainer?\pLook, I need your help. My wife and I came down here to buy some illegal -\pI mean some furniture. We came down to buy some furniture but we got separated and now I can't find her!\pI'm really worried.\nWhat if the Sewer Scourge gets her?\pPlease help me find her!"))
+        startquest(QUEST_SILVERSUN_WIFE)
+        setvar(VAR_SEWERS_DUSKULL, 1)
+
+        releaseall
+    }
+}
+
+script SilversunCity_Sewers_ManLostWife_Trigger1{
+    if (var(VAR_SEWERS_DUSKULL) == 0){
+        lockall
+        applymovement(1, moves(emote_exclamation_mark walk_down))
+        waitmovement(0)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+        waitmovement(0)
+
+        msgbox(format("Hey - are you a trainer?\pLook, I need your help. My wife and I came down here to buy some illegal -\pI mean some furniture. We came down to buy some furniture but we got separated and now I can't find her!\pI'm really worried. What if the Sewer Scourge gets her?\pPlease help me find her!"))
+        startquest(QUEST_SILVERSUN_WIFE)
+        setvar(VAR_SEWERS_DUSKULL, 1)
+        releaseall
+    }
+}
+
+script SilversunCity_Sewers_Duskull_Trigger0{
+
+    if (var(VAR_SEWERS_DUSKULL) == 1){
+        lockall
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down walk_right face_down))
+        waitmovement(0)
+        goto(SilversunCity_Sewers_Duskull_Event)
+    }
+    end
+}
+
+script SilversunCity_Sewers_Duskull_Trigger1{
+
+    if (var(VAR_SEWERS_DUSKULL) == 1){
+            lockall
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+        waitmovement(0)
+        goto(SilversunCity_Sewers_Duskull_Event)
+    }
+    end
+}
+
+script SilversunCity_Sewers_Duskull_Trigger2{
+    if (var(VAR_SEWERS_DUSKULL) == 1){    
+        lockall
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down walk_left face_down))
+        waitmovement(0)
+        goto(SilversunCity_Sewers_Duskull_Event)
+    }
+    end
+}
+
+
+
+script SilversunCity_Sewers_Duskull_Event{
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    applymovement(9, moves(jump_in_place_up emote_exclamation_mark))
+    waitmovement(0)
+    msgbox(format("Eek! Somebody help me!\nI can feel something attacking me!"))
+    release
+
+    //battle
+    applymovement(15, moves(walk_up * 2))
+    waitmovement(0)
+    setwildbattle(SPECIES_VAROOM, 25)  
+    dowildbattle  
+    release
+
+    removeobject(15)
+
+    delay(16)
+    //rest of event
+    applymovement(9, moves(walk_up*3))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Is...is it gone?\pOh my, you saved me! Thank you so much!\pI was so worried...I need to return to my husband. He must be even more worried!\pHe sent you?\pOkay, let's go to him together."))
+    release
+    setflag(FLAG_SEWERS_DUSKULL_FIGHT_COMPLETE)
+    setvar(VAR_SEWERS_DUSKULL, 3)
+    warp(MAP_SILVERSUN_CITY_SEWERS, 49, 47) 
+}  
+
+
+
+//Quest end
+script SilversunCity_Sewers_Duskull_Event_Ending{
+
+if (flag(FLAG_SEWERS_DUSKULL_FIGHT_COMPLETE)){
+    if (flag(FLAG_SEWERS_DUSKULL)){
+        end
+    } else {
+        lockall
+        
+        setobjectxyperm(9, 48, 46)
+        setobjectxy(9, 48, 46)
+        addobject(9)
+        addobject(1)
+ 
+        applymovement(1, moves(face_left))
+        applymovement(9, moves(face_right))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+
+        msgbox(format("You're okay! I'm so glad you aren't hurt.\pThis trainer here saved me. I felt something weird attacking me, honey! I think it might've been the Sewer Scourge. It was so scary!"))
+        release
+        applymovement(9, moves(face_down))
+        applymovement(1, moves(face_down))
+        waitmovement(0)
+        delay(30)
+        msgbox(format("What's your name, trainer?\p{PLAYER}?\pWe're in your debt. We can't imagine life without each other. Please come visit us in our house later. We live next to the Gym."))
+        release
+
+        applymovement(1, moves(walk_right * 6 walk_up))
+        applymovement(9, moves(walk_right * 7 walk_up))
+        waitmovement(9)
+
+        removeobject(1)
+        removeobject(9)
+        setflag(FLAG_SEWERS_DUSKULL)
+        clearflag(FLAG_HIDE_SILVERSUN_DUSKULL_NPCS)
+        releaseall
+        setvar(VAR_SEWERS_DUSKULL, 4)        
+        end
+    }
+} else {
+    end
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+//dude at market
+script SilversunCity_Sewers_NPC1{
+    msgbox(format("I bet there's no return policy on any defected products."), MSGBOX_NPC)
+    end
+}
+//scientist (trade)
+script SilversunCity_Sewers_NPC2{
+    msgbox(format("You see that giant filtration device?\nI was in charge of building it!\lMy Electrode and I worked around the clock to finish it in time.\pIt's our biggest accomplishment!"), MSGBOX_NPC)
+    end
+}
+script SilversunCity_Sewers_Electrode{
+    playmoncry(SPECIES_ELECTRODE_HISUI, CRY_MODE_NORMAL)
+    msgbox(format("Electrode is beaming with pride!"), MSGBOX_NPC)
+    release
+    end
+}
+//woman in middle
+script SilversunCity_Sewers_NPC3{
+    msgbox(format("There are some creepy-looking fellows ahead. I think they're selling something illegal, but they won't sell to anyone who doesn't have some type of emblem.\pIt's like a secret society!"), MSGBOX_NPC)
+    end
+}
+//dude at market
+script SilversunCity_Sewers_NPC4{
+    msgbox(format("I came to find a way to evolve my Scyther, but nobody's selling me anything! Apparently they need an emblem or something to prove we're good for our word."), MSGBOX_NPC)
+    end
+}
+
+//other man in middle
+script SilversunCity_Sewers_NPC5{
+    msgbox(format("All this toxic runoff gets filtered before entering the Hoya River. Then it goes south towards Pelluca City."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Trainers
+script SilversunCity_Sewers_Trainer_A{
+    trainerbattle_single(TRAINER_SEWERS_A, format("I'm not like the other rich kids at school, because I'm not afraid to get\lmy hands dirty!"), "Your hands are dirty too!")
+    msgbox(format("I came down here to catch some POISON type Pokémon for my team, but I should go back up now. This place stinks."))
+    releaseall
+    end
+}
+//Hex maniac
+script SilversunCity_Sewers_Trainer_B{
+    trainerbattle_single(TRAINER_SEWERS_B, format("The resonance is strong here...the toxic water vapour wafts through your nostril...you are suspended...and about to lose!"), "The water stinks!")
+    msgbox(format("I thought the toxicity would help me ascend."))
+    releaseall
+    end
+}
+//Musician
+script SilversunCity_Sewers_Trainer_C{
+    trainerbattle_single(TRAINER_SEWERS_C, format("This place has the best acoustics, man! Lemme show you!"), "Damn, my strings broke!", SilversunCity_Sewers_Trainer_C_GiveItem)
+    msgbox(format("Man! You rock hard!"))
+    releaseall
+    end
+}
+
+script SilversunCity_Sewers_Trainer_C_GiveItem{
+    msgbox(format("Hey you're a pretty rocking trainer.\nBut you gotta wear it on your sleeves!\lYou're probably not ready to rock out on an electric guitar yet, but why don't you take this Blue Flute? The instrument doesn't matter, man!\lIt's all about the spirit."))
+    release
+    giveitem(ITEM_BLUE_FLUTE)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Black Market
+//No emblem
+script SilversunCity_Sewers_NoEmblem{
+    msgbox(format("What are you looking at? Are you a cop? I'm not selling anything.\p...\pWhat about all this stuff on the table?\pI'm just displaying them.\nIt's not for sale. Haha!"), MSGBOX_NPC)
+    end
+}
+
+//TMs dude
+script SilversunCity_Sewers_Market_A{
+
+    checkitem(ITEM_SMUGGLER_EMBLEM)
+    if (var(VAR_RESULT) == 0){
+        goto(SilversunCity_Sewers_NoEmblem)
+    }
+
+    lock
+	faceplayer
+	message(format("Can't beat Gloria? I'll hook you up with the best stuff."))
+	waitmessage
+	pokemart(SilversunCity_Sewers_Market_A_Inventory)
+	msgbox(format("Stay a loser then!"), MSGBOX_DEFAULT)
+	release
+	end
+}
+
+mart SilversunCity_Sewers_Market_A_Inventory{
+    ITEM_TM69
+    ITEM_TM66
+    ITEM_TM11
+    ITEM_TM72
+    ITEM_TM70
+    ITEM_TM07
+    ITEM_TM44
+    ITEM_TM49
+    ITEM_TM77
+}
+
+//Ability capsules dude
+script SilversunCity_Sewers_Market_B{
+    checkitem(ITEM_SMUGGLER_EMBLEM)
+    if (var(VAR_RESULT) == 0){
+        goto(SilversunCity_Sewers_NoEmblem)
+    }
+    
+    lock
+	faceplayer
+	message(format("Psst! Hey, you! Check out these goods I've got!"))
+	waitmessage
+	pokemart(SilversunCity_Sewers_Market_B_Inventory)
+	msgbox(format("Then scram!"), MSGBOX_DEFAULT)
+	release
+	end
+}
+
+mart SilversunCity_Sewers_Market_B_Inventory{
+    ITEM_ZINC
+    ITEM_CARBOS
+    ITEM_IRON
+    ITEM_CALCIUM
+    ITEM_PROTEIN
+    ITEM_HP_UP
+}
+
+//Random evo items dude
+script SilversunCity_Sewers_Market_C{
+    checkitem(ITEM_SMUGGLER_EMBLEM)
+    if (var(VAR_RESULT) == 0){
+        goto(SilversunCity_Sewers_NoEmblem)
+    }
+    
+    lock
+	faceplayer
+	message(format("You look like you'd make good use of this stuff!"))
+	waitmessage
+	pokemart(SilversunCity_Sewers_Market_C_Inventory)
+	msgbox(format("Quit wasting my time!"), MSGBOX_DEFAULT)
+	release
+	end
+}
+
+//evo scyther, cups and sneasler
+mart SilversunCity_Sewers_Market_C_Inventory{
+    ITEM_TOXIC_ORB
+    ITEM_BLACK_AUGURITE
+    ITEM_METAL_COAT
+    ITEM_RAZOR_CLAW
+    ITEM_CHIPPED_POT
+    ITEM_MASTERPIECE_TEACUP
+}
+
+script SilversunCity_Sewers_Market_D{
+    //temp
+    msgbox(format("Trying to get something unsavoury, are we? Hehehe..."), MSGBOX_NPC)
+    end
+}
+
+//Muk
+script SilversunCity_Sewers_Market_Muk{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_MUK, CRY_MODE_NORMAL)
+    msgbox(format("It's a Muk! It's looking for junk to eat...its chomping on Trash!"))
+    
+    checkitem(ITEM_BOTTLE_CAP)
+    if (var(VAR_RESULT) == 1){
+
+        msgbox(format("Give Muk some Trash?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+
+            msgbox(format("{PLAYER} handed some Trash to Muk.\pMuk chomps down on it with joy!\p...\pIt spits out something onto the floor."))
+            removeitem(ITEM_BOTTLE_CAP)
+
+            goto(SilversunCity_Sewers_Market_Muk_Reward)
+        }
+    }
+
+    releaseall
+    end
+}
+
+
+
+
+script SilversunCity_Sewers_Market_Muk_Reward{
+    message(format("Which one will you pick up?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Ability Patch", "Ability Capsule"
+    )
+
+    if (var(VAR_RESULT) == 0) {setvar(VAR_0x8006, ITEM_ABILITY_PATCH) goto(SilversunCity_Sewers_Market_Muk_GiveReward)}
+    if (var(VAR_RESULT) == 1) {setvar(VAR_0x8006, ITEM_ABILITY_CAPSULE) goto(SilversunCity_Sewers_Market_Muk_GiveReward)}  
+}
+
+
+
+script SilversunCity_Sewers_Market_Muk_GiveReward{  
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        hideitemdescription
+        giveitem(VAR_0x8006)
+        release
+        goto(SilversunCity_Sewers_Market_Muk_End)
+    } else {
+        hideitemdescription
+        goto(SilversunCity_Sewers_Market_Muk_Reward)
+    }
+}
+
+
+script SilversunCity_Sewers_Market_Muk_End{
+    msgbox(format("Muk happily chomps on the Trash!"), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_Sewers_Berger{
+    lockall
+    faceplayer
+    msgbox_delay("Berger", format("Hey! The statue trainer!\pBergmite and I came down here because we heard they sell rare TMs. But they're not letting me buy anything!"))
+    releaseall
+    end
+}
+
+script SilversunCity_Sewers_Bergmite{
+    playmoncry(SPECIES_BERGMITE, CRY_MODE_NORMAL)
+    msgbox(format("Bergmite is pinching its nose...must be hard without hands."), MSGBOX_NPC)
+    end
+}
+

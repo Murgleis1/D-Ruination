@@ -1,0 +1,151 @@
+mapscripts SilversunCity_TheaterEntrance_MapScripts{}
+
+
+
+
+
+//backstage blocker
+script SilversunCity_TheaterEntrance_EventScript_BackstageBlocker{
+    lockall
+    faceplayer
+
+    if (flag(FLAG_SILVERSUN_BACKSTAGEPASS_USE)){
+        msgbox(format("I hope you enjoy the show!"))
+    } else {
+        msgbox(format("Backstage access is for the cast\nand crew only.\pDo you have a Backstage Pass?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            if (checkitem(ITEM_BACKSTAGE_PASS)){
+                msgbox(format("...\pThis seems to be in order.\pPlease, right this way."))
+                applymovement(7, moves(walk_right face_down))
+                waitmovement(0)
+                setflag(FLAG_SILVERSUN_BACKSTAGEPASS_USE)
+                removeitem(ITEM_BACKSTAGE_PASS)
+            } else {
+                msgbox(format("...\pIt doesn't seem like you do. Are you paparazzi? Sorry, I can't let you pass."))
+            }
+        } else {
+            msgbox(format("Sorry, I can't let you pass."))
+        }
+    }
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+
+script SilversunCity_TheaterEntrance_EventScript_Receptionist{
+    if (flag(FLAG_BADGE04_GET)){
+        msgbox(format("What a performance!\nAnd you weren't bad too!"), MSGBOX_NPC)
+    } else {
+        msgbox(format("Please proceed to the audience hall.\nWe hope you enjoy the show!"), MSGBOX_NPC)
+    }
+    end
+}
+
+//Kid
+script SilversunCity_TheaterEntrance_EventScript_NPC1{
+    if (flag(FLAG_BADGE04_GET)){
+        msgbox(format("The Bombirdier was so scary!"), MSGBOX_NPC)
+    } else {
+        msgbox(format("Theater is so boring! Why do Mom and Dad always bring me here?"), MSGBOX_NPC)
+    }
+    end
+}
+
+//Man
+script SilversunCity_TheaterEntrance_EventScript_NPC2{
+    if (flag(FLAG_BADGE04_GET)){
+        msgbox(format("The action! The tension! And all the razzle-dazzle! Gloria was sizzling!\lA pity that she lost though."), MSGBOX_NPC)
+    } else {
+        msgbox(format("I write for The Cormoria Culture, the leading art and entertainment portal in Cormoria! Let's see what Gloria has in store today...it's supposed to be an experiential affair."), MSGBOX_NPC)
+    }
+    end
+}
+
+//Left woman
+// script SilversunCity_TheaterEntrance_EventScript_NPC3{
+//     lockall
+//     faceplayer
+//     if (flag(FLAG_BADGE04_GET)){
+//         msgbox(format("Did you see GLORIA's SERPERIOR! Too bad that other person defeated it. A Greek tragedy!\n...oh, it was you."))
+//     } else {
+//         msgbox(format("I'm a huuuge Gloria fan! I've been waiting for this show for months!"))
+//     }
+//     releaseall
+//     end
+// }
+
+//Blond dude
+script SilversunCity_TheaterEntrance_EventScript_NPC4{
+    if (flag(FLAG_BADGE04_GET)){
+        msgbox(format("I didn't learn anything about theater, but I sure as hell saw a good battle! You knocked all these snobs right\noff their feet!"), MSGBOX_NPC)
+    } else {
+        msgbox(format("My girl told me I'm not classy enough for her friends...so here I am, educatin' myself. I love her, y'know?"), MSGBOX_NPC)
+    }
+    end
+}
+
+//Cameraman
+script SilversunCity_TheaterEntrance_EventScript_NPC5{
+    if (flag(FLAG_BADGE04_GET)){
+        msgbox(format("Hey - get in the shot! Not you - your Pokémon! You can keep moving."), MSGBOX_NPC)
+    } else {
+        msgbox(format("Hey - get out of the shot!\nWhat if Gloria walks by?"), MSGBOX_NPC)
+    }
+    end
+}
+//Reporter
+script SilversunCity_TheaterEntrance_EventScript_NPC6{
+    if (flag(FLAG_BADGE04_GET)){
+        msgbox(format("Ooh I bet our photographs of Gloria will go for a pretty price after this performance!"), MSGBOX_NPC)
+    } else {
+        msgbox(format("We're journalists looking for an interview with the cast and crew.\lAre you a crew member?\pNo?\pThen move along!"), MSGBOX_NPC)
+    }
+    end
+}
+//Maniac
+script SilversunCity_TheaterEntrance_EventScript_NPC7{
+    if (flag(FLAG_BADGE04_GET)){
+        if (flag(FLAG_SILVERSUN_THEATER_MANIAC)){
+            msgbox(format("Obsession isn't healthy. It can be hard to get out of the loop, but I've got to!"), MSGBOX_NPC)
+        } else {
+            msgbox(format("Argh! I'm so upset! I can't forgive that trainer who made my Gloria look bad on stage...wait, it's you?\pJustice will be served!"), MSGBOX_NPC)
+            //Battle
+            trainerbattle_no_intro(TRAINER_THEATER_B, format("My love for Gloria wasn't enough..."))
+            release
+            msgbox(format("Sigh...I didn't want to admit it but I know. Gloria is only human after all. She's allowed to lose a battle.\pI need to stop idolising her and think of her as another human being."), MSGBOX_NPC)
+            setflag(FLAG_SILVERSUN_THEATER_MANIAC)            
+        }
+    } else {
+        msgbox(format("Just look at the salivating paparazzi over there! Nobody should be salivating over Gloria but me!"), MSGBOX_NPC)
+    }
+    end
+}
+
+//Old man
+script SilversunCity_TheaterEntrance_EventScript_NPC8{
+    if (flag(FLAG_BADGE04_GET)){
+        msgbox(format("I've seen better in my day!\pI'm talking about you of course.\nGloria was perfect."), MSGBOX_NPC)
+    } else {
+        msgbox(format("I've seen many a show in my life. I'm not a snob, but I do have high standards."), MSGBOX_NPC)
+    }
+    end
+}
+
+
+
+

@@ -1,0 +1,118 @@
+mapscripts CarabrueTown_Home2F_MapScripts {}
+
+
+script CarabrueTown_Home2F_EventScript_PickUpBag{
+    lockall
+    msgbox(format("The lab sent a Welcome Package yesterday. I'm supposed to bring it with me without opening it, they said."))
+    release
+
+    giveitem(ITEM_LAB_WELCOMEPACKAGE)
+    setflag(FLAG_TENEBRIS_POLICE_PRESCENCE)
+    removeobject(1)
+
+    releaseall
+}
+
+script CarabrueTown_Home2F_EventScript_PC{
+	lockall
+    setvar(VAR_0x8004, PC_LOCATION_MAYS_HOUSE)
+	special(DoPCTurnOnEffect)
+    playse(SE_PC_ON)
+	msgbox(gText_PlayerHouseBootPC, MSGBOX_DEFAULT)
+	special(BedroomPC)
+	waitstate
+	releaseall
+}
+
+script CarabrueTown_Home2F_EventScript_GameCube{
+
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        msgbox(format("Mom got me a new Retro64, the best retro game emulator around!\pTurn it on?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0) {end}
+
+        //Play game
+        playbgm(MUS_NONE, FALSE)
+        special(StartSnake)
+        waitstate
+        savebgm(MUS_DUMMY)
+        fadedefaultbgm
+
+        //Get reward
+        if (var(GAME_CORNER_VAR_WINNINGS) > 29){
+            playfanfare(MUS_RG_PHOTO)
+            msgbox(format("You got the high score!"))
+            waitfanfare
+            release
+            setvar(GAME_CORNER_VAR_WINNINGS, 0)
+
+            if (flag(FLAG_GET_RETRO_DRIVE)) {end}
+            
+            release
+            delay(8)
+            playse(SE_CLICK)
+            waitse
+            msgbox(format("Something fell out of the Retro64!\nWhat is it?"))
+            release
+            giveitem(ITEM_RETRO_DRIVE)
+            setflag(FLAG_GET_RETRO_DRIVE)
+            setvar(GAME_CORNER_VAR_WINNINGS, 0)
+
+        } else {
+            setvar(GAME_CORNER_VAR_WINNINGS, 0)
+        }
+    } else {
+        msgbox(format("My old GameSquare...it's broken."))
+    }
+
+    releaseall
+    end
+}
+
+script CarabrueTown_Home2F_EventScript_TV{
+
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        msgbox(format("The TV is hooked up to the Retro64."))
+        releaseall
+        end
+    } else {
+        msgbox(format("The TV is hooked up to the GameSquare."))
+        releaseall
+        end
+    }
+}
+
+
+
+
+
+
+
+
+
+
+///cheat doll
+script CarabrueTown_Home2F_Doll{
+
+    msgbox(format("It's my Gimmighoul doll!"))
+
+    msgbox(format("Using cheats may glitch your game!\nSo Gimmighoul can help you out.\lThis is not recommended for a\lregular playthrough."), MSGBOX_POKENAV)
+
+    message(format("What would you like to do?"))
+    waitmessage
+    dynmultichoice(0, 0, FALSE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Max Money", "Master Balls", "Cancel")
+    release
+
+    if (var(VAR_RESULT) == 0){
+        playse(SE_SHOP)
+        addmoney(1000000)
+    }
+
+    if (var(VAR_RESULT) == 1){
+        playse(SE_SHOP)
+        additem(ITEM_MASTER_BALL, 99)
+    }
+}
+
+

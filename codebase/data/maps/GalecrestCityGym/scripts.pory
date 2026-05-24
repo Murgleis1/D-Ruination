@@ -1,0 +1,230 @@
+mapscripts GalecrestCityGym_MapScripts{}
+
+
+script GalecrestCityGym_Test{
+    lockall
+    multichoicegrid(5, 5, MULTI_NUMBER_INPUT, 5, TRUE)
+    releaseall
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///NPCs
+script GalecrestCityGym_Red {
+    lockall
+    faceplayer
+
+    if (flag(FLAG_BADGE03_GET)){
+        if (flag(FLAG_GALECRESTGYM_SPENSER_REWARD)){
+            msgbox(format("Well done champ-in-the-making! Now get on out there and find the next gym - I'll see you there!"), MSGBOX_NPC)
+        } else {
+            msgbox(format("Well done champ-in-the-making! The Gym Leader pulled a fast one on you, using his real team, and you still made it out! In recognition of your victory, I'd like to give you something."))
+            goto(GalecrestCityGym_Red_Reward)       
+        }
+    } else { 
+        if (flag(FLAG_GALECRESTGYM_SPENSER_WATER)){
+            msgbox(format("Most detectives use NORMAL type Pokémon that are comfortable in a variety of urban situations. FIGHTING type Pokémon should do well here, and GHOST type Pokémon are immune to NORMAL type attacks!"), MSGBOX_NPC)
+        } else {
+            msgbox(format("Greetings trainer! Good to see you again.  First, have some water."))
+            giveitem(ITEM_FRESH_WATER)
+            msgbox(format("This Gym is managed by the Detective Academy Student Council. Most detectives use NORMAL type Pokémon that are comfortable in a variety of urban situations.\pFIGHTING type Pokémon should do well here, and GHOST type Pokémon are immune to NORMAL type attacks!"), MSGBOX_NPC)
+            setflag(FLAG_GALECRESTGYM_SPENSER_WATER)
+        }
+    }
+    releaseall
+    end
+}
+
+script GalecrestCityGym_Red_Reward{
+    message(format("Which of these do you fancy?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Normal Gem", "Silk Scarf") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_NORMAL_GEM)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_SILK_SCARF)}
+    goto(GalecrestCityGym_Red_Reward_Give)
+}
+
+script GalecrestCityGym_Red_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){
+        giveitem(VAR_0x8006) 
+        setflag(FLAG_GALECRESTGYM_SPENSER_REWARD) 
+        goto(GalecrestCityGym_Red_Reward_End)} 
+    else {
+        goto(GalecrestCityGym_Red_Reward)
+    }
+}
+
+script GalecrestCityGym_Red_Reward_End{    
+    msgbox(format("Now get on out there and find the next gym - I'll see you there!"), MSGBOX_NPC)       
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script GalecrestCityGym_NPC1 {
+    msgbox(format("This Gym is supposed to be a normal type gym...except all the trainers have a Charcadet! How is that fair?"), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCityGym_NPC2 {
+    msgbox(format("I'm here to oversee the cadets.\nAll the best for your gym challenge!"), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCityGym_NPC3 {
+    msgbox(format("For a bunch of students, these trainers sure don't take it easy on you..."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Trainers
+script GalecrestCityGym_Trainer1 {
+    trainerbattle_single(TRAINER_GALECRESTGYM_A, format("I'm a first-year at the Academy. But don't think I'm a pushover!"), format("You're not half bad. Go through the door that rhymes with FIGHT."))
+    msgbox(format("Go through the door that rhymes with FIGHT."))
+    release
+    end
+}
+
+script GalecrestCityGym_Trainer2 {
+    trainerbattle_single(TRAINER_GALECRESTGYM_B, format("After our internship here, we can evolve our Charcadet into Armarouge!"), format("If I keep losing to trainers like you, I'll never get an Armarouge!\pGo through the left door if you DON'T like the awful Ceruledge."))
+    msgbox(format("If I keep losing to trainers like you, I'll never get an Armarouge!\pGo through the left door if you DON'T like the awful Ceruledge."))
+    release
+    end
+}
+
+script GalecrestCityGym_Trainer3 {
+    trainerbattle_single(TRAINER_GALECRESTGYM_C, format("The gym leader is through the next door. But you won't make it because your gym challenge ends here!"), format("You may have beaten me, but you won't beat our Gym Leader. He's already evolved his Charcadet to Armarouge! Don't not go through the door that isn't not to the left of the right."))
+    msgbox(format("Don't not go through the door that isn't not to the left of the right."))
+    release
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Leader
+script GalecrestCityGym_Leader {
+        
+    lockall
+    faceplayer
+    
+    if (flag(FLAG_BADGE03_GET)){
+        msgbox(format("You win."))
+    } else {
+        call(Common_EventScript_SaveGameBeforeBattle)
+        
+        //Intro
+        speakername("Kohla")
+        msgbox(GalecrestCityGym_Text_LeaderIntro)
+        //Battle
+        trainerbattle_no_intro(TRAINER_GALECRESTGYM_LEADER, GalecrestCityGym_Text_Defeated)
+
+        //Post battle
+        //Receive the badge
+        speakername("Kohla")
+        msgbox(format("This is yours, {PLAYER}."))
+        release        
+
+        //Play gym badge fanfare
+        setflag(FLAG_BADGE03_GET)   
+        speakername("Kohla")     
+        message(format("{PLAYER} received the Clue Badge from Kohla."))
+        call(Common_EventScript_PlayGymBadgeFanfare)
+        release
+        //Describe the badge features
+        speakername("Kohla")
+        msgbox(format("The Clue Badge lets you use Rock Smash outside of battle.\p...\pAnd this is yours too."))
+        release
+        giveitem(ITEM_RARE_SHARD)
+        delay(16)
+        
+        //Bye-bye
+        speakername("Kohla")
+        msgbox(format("{PLAYER}, despite being the chum you are, I owe you. You showed me my lack\lof strength. That's why I chose Ceruledge as my companion. I don't care if other detectives see it as bad, because I see it as strong.\p...\pNow enough of this gym business.\nWe have to go and stop Team Somber.\lI'll see you in Silversun City."))
+        release
+        delay(16)
+        
+        opendoor(25, 52)
+        waitdooranim
+        applymovement(5, moves(walk_up))
+        waitmovement(0)
+        delay(8)
+        removeobject(5)
+        delay(8)
+        closedoor(25, 52)
+        waitdooranim
+
+
+    }
+    releaseall
+
+}
+
+
+text GalecrestCityGym_Text_LeaderIntro{
+    format("Yes {PLAYER}, it's me. Traditionally, the Ace Rookie of the graduating\lclass assumes Gym Leader duties\lfor a year after they graduate.\pAnd this year, that's me!\pNormally I would use the gym standard NORMAL Pokémon, but since it's you,\lI'm going to make an exception.\pI'll crush you with my REAL team!")
+}
+
+text GalecrestCityGym_Text_Defeated{
+    format("Another defeat...despite evolving my Charcadet, I still couldn't win. I need more strength...")
+}
+
+
+
+

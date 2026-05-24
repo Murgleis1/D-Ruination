@@ -1,0 +1,294 @@
+raw `
+    .set LOCALID_GUARD, 2
+    .set LOCALID_LEADER, 5
+`
+
+mapscripts CeramBaseCampGym_MapScripts{}
+
+script CeramBaseCampGym_Red{
+    lockall
+    faceplayer
+
+    if (flag(FLAG_BADGE02_GET)){
+        if (flag(FLAG_CERAMBASECAMPGYM_SPENSER_REWARD)){
+            msgbox(format("Well done champ-in-the-making! Now get on out there and find the next gym - I'll see you there!"))
+        } else {
+            msgbox(format("Well done champ-in-the-making! That was an impressive battle. In recognition of your victory, I'd like to give you something."))
+            goto(CeramBaseCampGym_Red_Reward)      
+        }
+    } else { 
+        if (flag(FLAG_CERAMBASECAMPGYM_SPENSER_WATER)){
+            msgbox(format("The Gym Leader Ariana, who also manages the base camp, specialises in intimidating FIRE type Pokémon.\lAn Occa Berry might come in useful.\pNow go get 'em, champ-in-the-making!"), MSGBOX_NPC)
+        } else {
+            msgbox(format("Welcome to the Ceram Base Camp Management Office And Gym!\lFirst, have some water."))
+            giveitem(ITEM_FRESH_WATER)
+            msgbox(format("The Gym Leader Ariana, who also manages the base camp, specialises in intimidating FIRE type Pokémon.\lAn Occa Berry might come in useful.\pNow go get 'em, champ-in-the-making!"))
+            setflag(FLAG_CERAMBASECAMPGYM_SPENSER_WATER)
+        }
+    }
+    releaseall
+    end
+}
+
+script CeramBaseCampGym_Red_Reward{
+    message(format("Which of these do you fancy?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Fire Gem", "Charcoal") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_FIRE_GEM)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_CHARCOAL)}
+    goto(CeramBaseCampGym_Red_Reward_Give)
+}
+
+script CeramBaseCampGym_Red_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){
+        giveitem(VAR_0x8006) 
+        setflag(FLAG_CERAMBASECAMPGYM_SPENSER_REWARD) 
+        goto(CeramBaseCampGym_Red_Reward_End)} 
+    else {
+        goto(CeramBaseCampGym_Red_Reward)
+    }
+}
+
+script CeramBaseCampGym_Red_Reward_End{    
+    msgbox(format("Now get on out there and find the next gym - I'll see you there!"), MSGBOX_NPC)       
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script CeramBaseCampGym_Guard{
+    lockall
+    faceplayer
+    msgbox(format("Ariana's got a busy schedule. She sets\nup all her appointments in advance."))
+    releaseall
+}
+
+script CeramBaseCampGym_NPC_A{
+    lockall
+    faceplayer
+    msgbox(format("I can't battle. Ariana tried to teach me but her Pokémon are so intimidating!"))
+    releaseall
+}
+
+script CeramBaseCampGym_NPC_B{
+    lockall
+    faceplayer
+    msgbox(format("Why does everyone used FIRE type Pokémon in here? It's already sweltering hot. Our air conditioning bills are too high!"))
+    releaseall
+}
+
+
+script CeramBaseCampGym_TrainerBattle_A {
+    trainerbattle_single(TRAINER_CERAMBASECAMPGYM_A, format("Who would've thought managing a base camp would mean so much work?"), "Back to my work!")
+    msgbox(format("The base camp doubling as a Gym is just extra work for the employees.\pWe didn't even get a raise!"))
+    release
+    end
+}
+
+script CeramBaseCampGym_TrainerBattle_B {
+    trainerbattle_single(TRAINER_CERAMBASECAMPGYM_B, format("I've been waiting all day for an appointment. I'm so frustrated that\lI need to let it out!"), "At least I've cooled down a bit.")
+    msgbox(format("All this bureaucracy is mind-numbing."))
+    release
+    end
+}
+
+script CeramBaseCampGym_GuardTrigger{
+    if (flag(FLAG_CERAMBASECAMPGYM_APPOINTMENTLETTER)) {end}
+
+    lockall
+    applymovement(LOCALID_GUARD, moves(emote_exclamation_mark face_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Hold on! You can't have a meeting with the manager without an appointment.\lPlease come back once you have a signed Appointment Letter."))
+    release
+    applymovement(LOCALID_GUARD, moves(face_down))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+
+    releaseall
+}
+
+script CeramBaseCampGym_EventScript_NPC_LetterPrint{
+    lockall
+    faceplayer
+
+    if (checkitem(ITEM_APPOINTMENT_LETTER)){
+        if (flag(FLAG_CERAMBASECAMPGYM_APPOINTMENTLETTER)){
+            msgbox(format("I'm busy now. Get out."))
+        } else {
+            msgbox(format("You'll have to get this letter signed by the assistant manager in the basement."))
+        }
+    } else {
+        msgbox(format("You're a trainer and want an Appointment Letter? I can print you a letter, but first I'll need to see your credentials.\p...\pNo, not your trainer card. Don't you have a Pokémon League Pass? You don't? Well then a battle should prove that you really are who you say you are!"))
+        release
+
+        //battle
+        trainerbattle_no_intro(TRAINER_CERAMBASECAMPGYM_C, "I'm better with spreadsheets!")
+
+        //print letter
+        msgbox(format("Very good! Well then, let me do my job.\p...\pHere you go!"))
+        //Get item
+        giveitem(ITEM_APPOINTMENT_LETTER)
+        //But you need a signature
+        msgbox(format("But this letter won't be enough without the approval of the assistant manager. He sits in the basement. Go and\lget this letter signed by him."))
+    }
+    releaseall
+}
+
+script CeramBaseCampGym_EventScript_NPC_Signature{
+        lockall
+        faceplayer    
+    if (flag(FLAG_CERAMBASECAMPGYM_APPOINTMENTLETTER)){
+        msgbox(format("I'm busy now. Get out."))
+    } else {
+        if (checkitem(ITEM_APPOINTMENT_LETTER)){
+
+            msgbox(format("So you got an Appointment Letter\nand want my signature on it?\pWell...I wouldn't mind doing it for a small token of appreciation...say...¥500?"))
+            release
+            showmoneybox(0, 0)
+            msgbox(format("Will you slip the money under the table?"), MSGBOX_YESNO)
+
+            if(var(VAR_RESULT) == 0){
+                hidemoneybox
+                msgbox(format("Fine - you'll have to do it the way everyone else does it then!"))
+                //battle
+                trainerbattle_no_intro(TRAINER_CERAMBASECAMPGYM_D, "I wish you had just paid up!")                
+            } else {
+                //remove money
+                hidemoneybox
+                removemoney(500)
+                msgbox(format("{PLAYER} bribed the assistant manager."))
+                release
+            }
+
+            msgbox(format("Alright, I'll sign the letter."))
+            playfanfare(MUS_LEVEL_UP)
+            msgbox(format("{PLAYER} got the Appointment Letter signed by the assistant manager."))
+            release
+            setflag(FLAG_CERAMBASECAMPGYM_APPOINTMENTLETTER)
+            msgbox(format("I'm busy now. Get out."))        
+        } else {
+            msgbox(format("You're a trainer and want an Appointment Letter? You'll have to go upstairs, get a letter printed, and then I can sign and approve it.")) 
+        }
+    }
+
+    releaseall
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script CeramBaseCampGym_LeaderBattle {
+
+
+
+    if (flag(FLAG_BADGE02_GET)){
+        lockall
+        faceplayer        
+        speakername("Ariana")
+        msgbox(format("That was a great battle. You've earned my confidence. Go get 'em, {PLAYER}!"))
+    } else { //else do the battle
+        lockall
+
+        call(Common_EventScript_SaveGameBeforeBattle)
+
+        faceplayer
+
+        speakername("Ariana")
+        msgbox(CeramBaseCampGym_Text_Intro)
+        trainerbattle_no_intro(TRAINER_CERAMBASECAMPGYM_LEADER, CeramBaseCampGym_Text_Defeated)
+        
+        //Receive the badge
+        msgbox(format("I could not be more pleased, {PLAYER}. The way you stand, you might be able\lto handle yourself on Mt. Ceram.\pI present you with the Cinder Badge."))
+        delay(16)
+
+        message(format("{PLAYER} received the Cinder Badge from Ariana."))
+        call(Common_EventScript_PlayGymBadgeFanfare)
+        release
+        setflag(FLAG_BADGE02_GET)
+
+
+        //Describe the badge features
+        speakername("Ariana")
+        msgbox(format("The Cinder Badge lets you control Pokémon upto lv. 20."))
+        speakername("Ariana")
+        msgbox(format("And I'd also like to give you this."))
+        release
+        //Give TM also
+        giveitem(ITEM_RARE_SHARD)
+
+        speakername("Ariana")
+        msgbox(format("Since this is your second badge, you must know what these shards do by now. There's a statue close to Route 4,\lso why don't you use these there?"))
+        release
+
+        delay(16)
+        
+        //Bye-bye
+        speakername("Ariana")
+        msgbox(format("I hope you manage to find the dreamstone and Professor Tenebris.\pI wonder if I can do something...\nHere, maybe you could use this."))
+        release
+        giveitem(ITEM_TM79)
+        msgbox_delay("Ariana", format("This is Acid Spray. I got it for Sizzlipede but it can't learn Acid Spray!\pI don't know why Team Somber is\nafter the dreamstones, but be careful\lif you run into them!\pGood luck, {PLAYER}!"))
+
+        releaseall
+        end        
+    }
+
+    releaseall
+    end
+}
+
+
+text CeramBaseCampGym_Text_Intro{
+    format("Who's my next appointment? Ah!\nIt's you, {PLAYER}. A pleasant surprise.\pI'm sick of all this work. This office is supposed to be a Gym too, but we get very few trainers. Most people that come are hikers or collectors.\pIt's good to have a chance to battle for a change!")
+}
+
+text CeramBaseCampGym_Text_Defeated{
+    format("What a match!")
+}
+
+

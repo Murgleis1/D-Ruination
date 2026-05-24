@@ -1,0 +1,365 @@
+raw`
+    .set LOCALID_VINIEL, 10
+    .set LOCALID_MIME1, 9
+    .set LOCALID_MIME2, 5
+`
+
+mapscripts WinterlilyHollow_MapScripts{
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_0, 0: WinterlilyHollow_OnFrame
+    ]
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_WINTERLILY_HOLLOW)
+    }
+}
+
+script WinterlilyHollow_OnFrame{
+    if (flag(FLAG_ANCIENT_MIRROH_KORAIDON)){
+        if (flag(FLAG_WINTERLILY_VINIEL_CUTSCENE)){
+            end
+        } else {
+            setobjectxyperm(LOCALID_VINIEL, 38, 19)
+            setobjectxy(LOCALID_VINIEL, 38, 19)
+            addobject(LOCALID_VINIEL)
+
+            //entire cutscene
+            applymovement(LOCALID_VINIEL, moves(walk_down emote_exclamation_mark))
+            delay(24)
+            speakername("Viniel")
+            msgbox(format("Aha - it's you! The enemy of my enemy!"))
+            release
+            applymovement(LOCALID_VINIEL, moves(walk_down*2))
+            waitmovement(0)
+            speakername("Viniel")
+            msgbox(format("Manectric and I took all those grunts down! Hahaha! But when I went to the peak, everyone had gone!\p...\pSo that's what's been going on.\nPoor Professor Tenebris.\pI heard about her disappearance on\nthe news just the other day.\pNews comes late here, since we're in such a remote corner of Cormoria.\pProfessor Tenebris and I fought each other together several times when we were younger! I never lost though.\pHahaha!"))
+            release
+            delay(24)
+            speakername("Viniel")
+            msgbox(format("So what are you going to do next?\p...\pOh, you're off the case? I understand. You're too young to keep up with a big criminal organisation like Team Somber.\pIt's time for the grown-ups to\ntake over, {PLAYER}.\pWhat's wrong, young champ?\pYou look paralysed.\nDon't let the shock wear you down!\pI see you have five gym badges.\nWhy not try to aim for all eight?\pStarting with me, of course. Hahaha!\p...\pYou know, it's alright to fail. From what you told me, you've done great so far. Now let the detectives handle the rest.\pI hope I'll see you at my gym later!"))
+            release
+            applymovement(LOCALID_VINIEL, moves(walk_up * 5))
+            waitmovement(0)
+            fadescreen(FADE_TO_BLACK)
+            removeobject(LOCALID_VINIEL)
+            fadescreen(FADE_FROM_BLACK)
+
+            setflag(FLAG_WINTERLILY_VINIEL_CUTSCENE)
+            releaseall
+        }
+    } else {
+        end
+    }
+}
+
+
+
+//City elements
+//gym, mining minigame, surf mon quest?
+
+//NPCs
+//3 normals, 1 miner, 1 red blocking the gym
+
+//Mons
+//mime jr, froslass, sneasler
+
+//Quest - lonely mime jr, give 3 things and join party.
+
+//Houses - 3
+
+script WinterlilyHollow_NPC_Red{
+    lockall
+    faceplayer
+    msgbox(format("Hello again, trainer! The gym is closed right now since the leader's gone up the mountain trying to fight some bad types that showed up."))
+    releaseall
+    applymovement(4, moves(face_down))
+
+    end
+}
+
+script WinterlilyHollow_NPC1{
+    if (flag(FLAG_MIRROHPEAK_MOXIE_DEFEATED)){
+        msgbox(format("Winterlily Hollow is so remote that we don't even get electricity!\pViniel's Pokémon powers this town."), MSGBOX_NPC) 
+       
+    } else {
+         msgbox(format("Viniel is handling all those Team Somber grunts alone?\pHe's so strong and cool!"), MSGBOX_NPC) 
+    }
+    end
+}
+script WinterlilyHollow_NPC2{
+    if (flag(FLAG_MIRROHPEAK_MOXIE_DEFEATED)){
+        msgbox(format("Mom told me never to go into Ivy River! She says kids my age go missing there. So of course I'm gonna go!\p...\pBut only when Mom's not looking."), MSGBOX_NPC) 
+    } else {
+        msgbox(format("Mom told me to stay inside the town because some bad guys showed up, so I'm playing here."), MSGBOX_NPC)
+    }
+    end
+}
+script WinterlilyHollow_NPC3{
+    if (flag(FLAG_MIRROHPEAK_MOXIE_DEFEATED)){
+        msgbox(format("Did you come from Ivy River or Mt. Mirroh? Of course you didn't come from Ivy River - nobody goes there."), MSGBOX_NPC)
+    } else {
+        msgbox(format("Did you come from Ivy River or Mt. Mirroh? Of course you didn't come from Ivy River - nobody goes there."), MSGBOX_NPC)
+    }
+    end
+}
+script WinterlilyHollow_NPC4{
+    if (flag(FLAG_MIRROHPEAK_MOXIE_DEFEATED)){
+        msgbox(format("A Team Somber grunt accosted me, so\nI taught the young fool a lesson!\pAfter that, he threw away his Pokémon saying it was too weak."), MSGBOX_NPC)
+    } else {
+        msgbox(format("A Team Somber grunt accosted me, so\nI taught the young fool a lesson!\pAfter that, he threw away his Pokémon saying it was too weak."), MSGBOX_NPC)
+    }
+    end
+}
+
+script WinterlilyHollow_MimeJr_1{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_MIME_JR, CRY_MODE_NORMAL)
+
+    msgbox(format("Sniff...sniff...\pMime Jr. is bawling!\pCan it be soothed somehow?"))
+
+    checkitem(ITEM_SOOTHE_BELL)
+    if (var(VAR_RESULT) == 1){
+        //give soothe bell
+        msgbox(format("Give Mime Jr. a Soothe Bell?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            removeitem(ITEM_SOOTHE_BELL)
+
+            msgbox(format("Mime Jr. takes the Soothe Bell and shakes it...it chimes softly.\pMime Jr. smiles at you."))
+            release
+            setvar(VAR_HOLLOW_MIMEJR, 1)
+            applymovement(LOCALID_MIME1, moves(fly_up))
+            waitmovement(0)
+            msgbox(format("Wait, where'd it go?"))
+
+            //setflags
+            removeobject(LOCALID_MIME1)
+            setflag(FLAG_HIDE_HOLLOW_MIMEJR_1)
+            clearflag(FLAG_HIDE_HOLLOW_MIMEJR_2)
+
+
+        } else {
+            release
+        }
+    } else {
+        release
+    }
+
+    releaseall
+    end
+}
+
+script WinterlilyHollow_MimeJr_2{   //play with it
+    lockall
+    faceplayer
+    playmoncry(SPECIES_MIME_JR, CRY_MODE_NORMAL)
+
+    msgbox(format("Sniff...sniff...\pMime Jr. looks sad...maybe it wants\na doll to play with?"))
+
+    checkitem(ITEM_POKE_DOLL)
+    if (var(VAR_RESULT) == 1){
+        //give doll
+        msgbox(format("Give Mime Jr. a Pokeshi Doll?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            removeitem(ITEM_POKE_DOLL)
+
+            msgbox(format("Mime Jr. takes the Pokeshi Doll and plays with it...\pMime Jr. smiles at you."))
+            release
+            setvar(VAR_HOLLOW_MIMEJR, 1)
+            applymovement(LOCALID_MIME2, moves(fly_up))
+            waitmovement(0)
+            msgbox(format("Wait, where'd it go now?"))
+            //setflags
+            removeobject(LOCALID_MIME2)
+            setflag(FLAG_HIDE_HOLLOW_MIMEJR_2)
+            clearflag(FLAG_HIDE_HOLLOW_MIMEJR_3)
+
+        } else {
+            release
+        }
+    } else {
+        release
+    }
+
+    releaseall
+    end
+}
+
+script WinterlilyHollow_MimeJr_3{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_MIME_JR, CRY_MODE_NORMAL)
+
+    msgbox(format("Mime Jr. is no longer crying!\pIt's looking at the water...\nwhat's it thinking about?"))
+    release
+    delay(30)
+    msgbox(format("Mime Jr. looks at you.\p...\pDoes Mime Jr. want to join the party?"))
+
+    checkitem(ITEM_LUXURY_BALL)
+    if (var(VAR_RESULT) == 1){
+        //give soothe bell
+        msgbox(format("Catch Mime Jr. in a Luxury Ball?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            removeitem(ITEM_LUXURY_BALL)
+
+            msgbox(format("Mime Jr. doesn't wait for you - it leaps into the Luxury Ball on its own!"))
+            removeobject(1)
+            givemon(SPECIES_MIME_JR, 25, ITEM_SOOTHE_BELL, ball=ITEM_LUXURY_BALL)
+            msgbox(format("Mime Jr. joined {PLAYER}'s party!"))
+            playfanfare(MUS_OBTAIN_ITEM)
+            waitfanfare
+            setflag(FLAG_HIDE_HOLLOW_MIMEJR_3)
+            setflag(FLAG_HOLLOW_MIMEJR)
+            msgbox(format("Welcome to the team, Mime Jr.!\nYou'll be happy with your new friends!"))
+        } else {
+            applymovement(1, moves(face_down))
+            msgbox(format("Mime Jr. looks hurt. It goes back to staring at its reflection."))
+        }
+    } else {
+        applymovement(1, moves(face_down))
+        msgbox(format("...Mime Jr. backs away. Maybe it needs a comforting Poké Ball to be in."))
+    }
+
+    releaseall
+    end
+}
+
+
+script WinterlilyHollow_Froslass{
+    playmoncry(SPECIES_SNOVER, CRY_MODE_NORMAL)
+    msgbox(format("Snover is getting dizzy...what is it circling for?"), MSGBOX_NPC)
+    end
+}
+script WinterlilyHollow_Sneasler{
+    playmoncry(SPECIES_SNEASLER, CRY_MODE_NORMAL)
+    msgbox(format("Sneasler is digging into the wall...\nThere's a hole!\pFollow Sneasler into the hole?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        warp(MAP_MIRROH_INTERIOR_B1F, 16, 68)
+    }
+    releaseall
+    end
+}
+
+script MirrohInterior_Sneasler{
+    playmoncry(SPECIES_SNEASLER, CRY_MODE_NORMAL)
+    msgbox(format("Sneasler is digging into the wall...\nThere's a hole!\pFollow Sneasler into the hole?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        warp(MAP_WINTERLILY_HOLLOW, 38, 16)
+    }
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script WinterlilyHollow_NPC_SurfMan{
+    //for the demo only
+    msgbox(format("If you surf through Lily Pond,\nyou'll reach the Ivy River.\pHead down the river and you'll eventually reach Pelluca City!"), MSGBOX_NPC)
+    end
+
+    //true text
+    lockall
+    faceplayer
+
+    if (flag(FLAG_WINTERLILY_HOLLOW_SURF)){
+        msgbox(format("Ivy River takes you straight down to Pelluca City. Far better than trekking down Mt. Mirroh!"))
+    }
+
+    msgbox(format("I surfed up here through the Ivy River. Since I'm settling here, I don't need the HM any more. What I need instead is a Heart Scale to decorate my room. I'd be happy to trade my HM with anyone who can give me a Heart Scale. Have you got one?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("My search continues!"), MSGBOX_NPC)
+        end
+    }
+
+    checkitem(ITEM_HEART_SCALE)
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Hey, you don't have any Heart Scales!"), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("{PLAYER} gave the man a Heart Scale"), MSGBOX_SIGN)
+    msgbox(format("Thank you! This is just what I wanted. As promised, here you go."))
+    giveitem(ITEM_HM03)
+    msgbox(format("You don't need to teach your Pokémon the move. Any compatible Pokémon can use it on any water body!"))
+
+    setflag(FLAG_WINTERLILY_HOLLOW_SURF)
+
+}
+script WinterlilyHollow_NPC_SurfManAlt{
+    lockall
+    faceplayer
+    msgbox(format("When I was younger, I once encountered a strange Pokémon in the Mirroh Caverns. It was shaped like a blue plant and scattered poisonous spikes everywhere! I'd like to see that Pokémon again. Do you have such a Pokémon?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Ah. My search continues then."))
+    }
+
+    special(ChoosePartyMon)                 //choose your mon
+    waitstate                               //wait
+    copyvar(VAR_0x800A, VAR_0x8004)         //idk why but copy player selected mon
+    copyvar(VAR_0x8005, VAR_0x800A)         //idk why but copy the trade mon
+    specialvar(VAR_RESULT, GetTradeSpecies)
+
+    if (var(VAR_RESULT) == SPECIES_GLIMMET){
+        giveitem(ITEM_HM05)
+    } 
+    if (var(VAR_RESULT) == SPECIES_GLIMMORA){
+        giveitem(ITEM_HM05)
+    } 
+
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+script WinterlilyHollow_NPC_Miner{
+    lockall
+    faceplayer
+    msgbox(format("See all these crystals on the walls?\nI'm trying to dig it up.\pWanna try?\pYou can borrow my spare pickaxe,\nbut it'll cost you ¥500."), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        checkmoney(500)
+    
+        if (var(VAR_RESULT) == 1){
+            removemoney(500)
+            special(StartMining)
+        } else {
+            msgbox(format("You don't have enough money."))
+        }
+    } else {
+        msgbox(format("Too bad, You can dig up some great stuff, you know?"))
+    }
+    applymovement(3, moves(face_right))
+    waitmovement(0)
+
+    releaseall
+    end
+}
+
+

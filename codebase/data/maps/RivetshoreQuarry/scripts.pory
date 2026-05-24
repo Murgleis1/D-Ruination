@@ -1,0 +1,351 @@
+raw`
+    .set LOCALID_BLOCKER, 7
+    .set LOCALID_RAAZI, 6
+    
+    .set LOCALID_PERCY, 30
+`
+mapscripts RivetshoreQuarry_MapScripts{}
+
+
+
+
+
+
+
+
+
+
+
+//percy
+script RivetshoreQuarry_Percy{
+
+    lockall
+
+    msgbox(format("It's the Rivetshore Construction CEO's Percy!\pWhat's it doing here? Was it led here by another Pokémon?"))
+    release
+
+    delay(16)
+    hidefollower
+    addobject(33)
+    applymovement(33, moves(fly_down))
+    waitmovement(0)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    applymovement(33, moves(face_left))    
+    waitmovement(0)
+    delay(16)
+
+    msgbox(format("It's a Mimikyu! Mimikyu must have been the one playing pranks on everyone!\pMimikyu - you shouldn't be playing pranks on people!"))
+    release
+
+    setwildbattle(SPECIES_MIMIKYU, 40)
+    dowildbattle
+    removeobject(33)
+    
+    //move perrserker out
+    msgbox(format("Percy goes back to its owner!"))
+    release
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right * 3 face_down))
+    applymovement(LOCALID_PERCY, moves(walk_right * 3 walk_down * 5 walk_left walk_down * 3))
+    waitmovement(0)
+    removeobject(LOCALID_PERCY)
+
+    //flags quests    
+    setflag(FLAG_HIDE_RIVETSHORE_PERCY)
+    setflag(FLAG_HIDE_RIVETSHORE_MIMIKYU)
+    clearflag(FLAG_HIDE_CONSTRUCTION_HQ_PERCY)
+    setvar(VAR_RIVETSHORE_CEO_QUEST, 2)
+
+    //end
+    releaseall
+    end
+}
+
+//nurse
+script RivetshoreQuarry_Nurse{
+    lockall
+    faceplayer   
+    msgbox(format("We have a small infirmary here to treat builders and Pokémon that get hurt.\pWhy don't you rest for a bit?"))
+    release
+	call(Common_EventScript_OutOfCenterPartyHeal)
+	msgbox(format("Take care, trainer!"))
+	releaseall
+	end
+}
+//chansey
+script RivetshoreQuarry_Chansey{
+    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+    msgbox(format("Chansey is bouncing with happiness!"), MSGBOX_NPC)
+    end
+}
+
+//relaxing dudes
+script RivetshoreQuarry_NPC1{
+    if (flag(FLAG_RIVETSHORE_GET_POCKETBOY)) {
+        msgbox(format("Now I don't have my PocketBoy any more, I actually gotta do some work!"), MSGBOX_NPC)
+        end
+    }
+    lockall
+    faceplayer
+    msgbox(format("I'm the shift manager at the quarry!\p...\pWhy am I not out there with my team?\pIt's too hot! Plus, I gotta get on the scoreboard in FlutterFree. It's so hard!\pWhat? You want my PocketBoy?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 0) {end}
+
+    msgbox(format("Alright kid, how about this?\pIf you can get even one point in FlutterFree, I'll let you have it!"))
+
+    playbgm(MUS_NONE, FALSE)
+    special(StartFlappyBird)
+    waitstate
+    savebgm(MUS_DUMMY)
+    fadedefaultbgm
+    delay(1)
+
+    if (var(GAME_CORNER_VAR_WINNINGS) > 0){
+        msgbox(format("No way! You're a natural! Sigh...I'm getting old, ya know? These fast-clicky games just aren't for my fingers. Alright kid, here ya go.\pHave fun!"), MSGBOX_NPC)
+        giveitem(ITEM_POCKET_BOY)
+        setflag(FLAG_RIVETSHORE_GET_POCKETBOY)
+        releaseall
+        end
+    }
+
+
+    releaseall
+    end
+}
+script RivetshoreQuarry_NPC2{
+    if (flag(FLAG_RIVETSHORE_GET_POCKETBOY)){
+        msgbox(format("The shift manager's actually working! Am I dreaming?"), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("Work's become better after the Raazi set up this infirmary and resting spot. He really understands our struggles!\pI can't say the same for the shift manager though...look at him!\lHe's playing games on his PocketBoy!"), MSGBOX_NPC)
+    end
+}
+
+//blocker 
+script RivetshoreQuarry_Blocker_NPC{
+    msgbox(format("Why aren't people allowed in the quarry when Raazi's not around?\pCause it's dangerous, idiot!"), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script RivetshoreQuarry_Raazi_Callout_Trigger{
+    if (flag(FLAG_RIVETSHORE_RAAZI_CALLOUT)) {end}
+
+    lockall
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 3 walk_left * 4))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    speakername("Raazi")
+    msgbox(format("Who do we have here?\pSeems like you're here to contest me for my gym badge. Very well then - come over here and show me your worth!"))
+    release
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right * 4 walk_up * 3))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    setflag(FLAG_RIVETSHORE_RAAZI_CALLOUT)
+    releaseall
+    end
+}
+
+script RivetshoreQuarry_Fall_Trigger{
+    if (flag(FLAG_RIVETSHORE_QUARRY_TRAP_CLEARED)) {end} 
+
+    lockall
+
+    msgbox(format("The floor was rigged! It's a trap!"), MSGBOX_NPC)
+    release
+    delay(16)
+    speakername("Raazi")
+    message(format("Come back up and challenge me, trainer...if you can!"))
+    setvar(VAR_0x8004, 2)  //vertical pan
+    setvar(VAR_0x8005, 2)  //horizontal pan
+    setvar(VAR_0x8006, 30)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    waitstate
+
+    //	applymovement(OBJ_EVENT_ID_PLAYER, Movement_SetInvisible)
+    //	waitmovement(0)
+	playse(SE_FALL)
+    //	delay(60)
+	warphole(MAP_RIVETSHORE_QUARRY_INTERIOR)
+
+    releaseall
+    end
+}
+
+script RivetshoreQuarry_Trap_Cleared_Trigger{
+    if (flag(FLAG_RIVETSHORE_QUARRY_TRAP_CLEARED)) {end}
+    setflag(FLAG_RIVETSHORE_QUARRY_TRAP_CLEARED)
+    end
+}
+
+script RivetshoreQuarry_Blocker_Trigger{
+    if (flag(FLAG_RIVETSHORE_ASSEMBLY)) {end}
+
+    lockall
+    applymovement(LOCALID_BLOCKER, moves(emote_exclamation_mark face_right))
+    movedelay
+    msgbox(format("Sorry. The quarry's closed sinze Raazi's not here right now.\pWhere'd he go?\pWhat's it to you, kid?"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+//builder
+script Rivetshore_Gym_Trainer_A{
+    trainerbattle_single(TRAINER_RIVETSHORE_GYM_A, format("You gotta be tough and sturdy if you wanna work here!"), format("You're extra sturdy!"))
+    msgbox(format("Raazi's tough, but we all respect him.\nHe grew up working in the quarry."))
+    releaseall
+    end
+}
+
+//some cool female trainer
+script Rivetshore_Gym_Trainer_B{
+    trainerbattle_single(TRAINER_RIVETSHORE_GYM_B, format("The statue trainer! Have you found all the statues yet?\pBergmite and I have become quite strong, you know?\pBergmite even evolved into Avalugg. Now we're aiming for the Pokémon Championship!"), format("We need to work harder, Bergmite!"))
+    msgbox(format("We hate losing!"))
+    releaseall
+    end
+}
+script Rivetshore_Gym_Avalugg{
+    playmoncry(SPECIES_AVALUGG_HISUI, CRY_MODE_NORMAL)
+    msgbox(format("Avalugg looks really tough!\pWhere did the cute Bergmite go?"), MSGBOX_NPC)
+    end
+}
+
+//cooltrainer M - baneneitor
+script Rivetshore_Gym_Trainer_C{
+    trainerbattle_single(TRAINER_RIVETSHORE_GYM_C, format("My partner and I grew up together. We even made it all the way to the final gym. You can't break our bond!"), format("You broke our bond!"))
+    msgbox(format("Losing to you fires me and Arcanine up even more!"))
+    releaseall
+    end
+}
+//builder
+script Rivetshore_Gym_Trainer_D{
+    trainerbattle_single(TRAINER_RIVETSHORE_GYM_D, format("Us builders and hikers get along well. We're both rock-steady with hearts of steel!"), format("What's your heart made of?"))
+    msgbox(format("I hope my buddy starts working here!"))
+    releaseall
+    end
+}
+//hiker
+script Rivetshore_Gym_Trainer_E{
+    trainerbattle_single(TRAINER_RIVETSHORE_GYM_E, format("I miss the mountaineering life, but this quarry makes me feel at home!"), format("I don't miss losing to trainers!"))
+    msgbox(format("Maybe I should get a job here..."))
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+script Rivetshore_Quarry_Aron{
+    playmoncry(SPECIES_ARON, CRY_MODE_NORMAL)
+    end
+}
+
+script Rivetshore_Raazi_Talk{
+    lockall
+    msgbox_delay("Raazi", format("You managed to come out of that cave unscathed?\pI'm impressed.\p...\pOr perhaps it's simply time for me to expand the cave?\pNo matter - a trainer who faces me is a trainer who I must face.\pI am Raazi! The Gym Leader of Rivetshore City and the strongest leader in all of Cormoria. Few trainers posess enough grit to reach where you stand, {PLAYER}. But their fate is to be crushed by my hand! Will you fall? Or will you rise?"))
+
+    applymovement(LOCALID_RAAZI, moves(lock_facing_direction jump_left face_right unlock_facing_direction))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(lock_facing_direction jump_right face_left unlock_facing_direction))
+    waitmovement(0)
+    playbgm(MUS_RG_VS_GYM_LEADER, FALSE)
+    msgbox_delay("Raazi", format("Let me see whether you can face the might and fury of -"))
+    release
+
+    //exit
+    playbgm(MUS_DUMMY, FALSE)
+    playse(SE_POKENAV_CALL)
+    waitse
+    applymovement(LOCALID_RAAZI, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)    
+    msgbox_delay("Raazi", format("Forgive me. I must take this call."))
+    
+    applymovement(LOCALID_RAAZI, moves(face_down))
+    waitmovement(0)
+    delay(16)    
+    msgbox_delay("Raazi", format("Hello?\p...\p...\pViniel and Carona are here?\pVery well. I'm coming.\nWe'll depart as soon as I reach."))
+    playse(SE_POKENAV_HANG_UP)
+    waitse
+    delay(16)
+    applymovement(LOCALID_RAAZI, moves(face_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Raazi", format("Apologies, {PLAYER}. I must put this challenge on hold as I have an unavoidable engagement.\pShall we do this another time?"))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up face_down))
+    applymovement(LOCALID_RAAZI, moves(walk_right * 10 walk_up * 7))
+    waitmovement(0)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right walk_up))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    
+    removeobject(LOCALID_RAAZI)
+    setflag(FLAG_RIVETSHORE_RAAZI_CALL)
+
+    fadenewbgm(MUS_RG_PEWTER)
+    releaseall
+    end
+}
+
+
+
+
+
+
+script Rivetshore_Quarry_HideFollower{
+    lockall
+    hidefollower
+    delay(4)
+    setflag(FLAG_SYS_OW_FOLLOWERS_DISABLED)
+    releaseall
+    end
+}
+
+script Rivetshore_Quarry_ShowFollower{
+    lockall
+    clearflag(FLAG_SYS_OW_FOLLOWERS_DISABLED)
+    releaseall
+    end
+}

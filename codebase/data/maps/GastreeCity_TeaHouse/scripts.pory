@@ -1,0 +1,194 @@
+mapscripts GastreeCity_TeaHouse_MapScripts{}
+
+//Teahouse Quest
+//Get 3 items for the lady who wants to make an Energy Tea
+//Energy Powder (get from shop), Shoal Salt (get from behind the shop - hidden item), Revival Herb (get from NPC)
+//Upon completion, give the player a Poltchageist egg for their trouble. Also buy tea from her any time?
+
+    
+script GastreeCity_TeaHouse_EventScript_OldLady{
+    //If quest not given, give quest
+    if (var(VAR_GASTREE_TEASHOP_QUEST) == 0) {goto(GastreeCity_TeaHouse_EventScript_Poltchageist_FirstPrompt)}
+    //Else check quest progress
+    if (var(VAR_GASTREE_TEASHOP_QUEST) == 1) {goto(GastreeCity_TeaHouse_EventScript_Poltchageist_CheckQuest)}
+    //Else regular (currently just some text, maybe later a shop)
+    if (var(VAR_GASTREE_TEASHOP_QUEST) == 2) {
+        msgbox(format("How are you doing, {PLAYER}? You know, my brother runs a restaurant further out west, in Pelluca City.\pYou should visit sometime."), MSGBOX_NPC)
+    }   
+    end
+}
+
+script GastreeCity_TeaHouse_EventScript_Poltchageist_FirstPrompt{
+    lockall
+    faceplayer
+    //first complain about the menu getting stale
+    msgbox(format("Welcome to our tea shop, young one. Please enjoy a selection of our finely crafted traditional matchas...you don't want anything traditional?"))
+    release
+    delay(16)
+    msgbox(format("Sigh...all you young ones are completely devoid of taste.\pWell, times are changing I suppose, and our business should change with them."))
+    release
+    delay(8)
+    applymovement(4, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Yes, I'd like to try crafting a modern tea. Something with zing and zap!\pLike those energy drinks!"))
+    release 
+    delay(16)
+
+    //Ask player yes/no
+    msgbox(format("Will you help me?"), MSGBOX_YESNO)
+
+    compare(VAR_RESULT, 1)  
+    //If yes, head to the quest giving script
+    goto_if_eq(GastreeCity_TeaHouse_EventScript_Poltchageist_GiveQuest)
+
+    //Else if no, carry on (and end the convo)
+    msgbox(format("No taste and no grace!\nWhat's happening to society?"))
+    releaseall   
+    //If no, end
+}
+
+
+script GastreeCity_TeaHouse_EventScript_Poltchageist_GiveQuest{
+    lockall
+    applymovement(4, moves(emote_exclamation_mark))
+    waitmovement(0)    
+    msgbox(format("You breathe new life into these old bones, young one!\pFor the tea, I'll need...hmm...let's see...\p1 Energy Powder...\p...1 Shoal Salt...\p...and...\p...1 Revival Herb! I'll be waiting here."))   
+    release
+
+    //Give quest (var becomes 1 for "quest ongoing")
+    setvar(VAR_GASTREE_TEASHOP_QUEST, 1)
+    startquest(QUEST_GASTREE_TEA)
+
+
+    releaseall
+}
+
+script GastreeCity_TeaHouse_EventScript_Poltchageist_CheckQuest{
+    lockall  
+    faceplayer
+    msgbox(format("Welcome to...oh, it's you! Sorry, my eyes aren't what they used to be.\pHave you brought the ingredients?"))   
+    release
+
+    //Check for 3 items
+    if (checkitem(ITEM_REVIVAL_HERB)){
+        if (checkitem(ITEM_ENERGY_POWDER)) {
+            if (checkitem(ITEM_SHOAL_SALT)) {
+                //Remove items
+                removeitem(ITEM_SHOAL_SALT)
+                removeitem(ITEM_REVIVAL_HERB)
+                removeitem(ITEM_ENERGY_POWDER)
+                //Give reward
+                goto(GastreeCity_TeaHouse_EventScript_Poltchageist_GiveReward)
+            }
+        }
+    } 
+
+    msgbox(format("Seems like you don't have everything.\nCome back when you do!"), MSGBOX_NPC)   
+    releaseall
+    end
+}
+
+script GastreeCity_TeaHouse_EventScript_Poltchageist_GiveReward{
+    lockall
+    //Text for give reward
+    playfanfare(MUS_LEVEL_UP)
+    msgbox(format("{PLAYER} handed over the ingredients."), MSGBOX_SIGN)
+    waitfanfare
+    release
+    applymovement(4, moves(emote_exclamation_mark))
+    waitmovement(0)     
+    delay(12)
+    msgbox(format("Wonderful! You brought everything.\nI can't wait to start brewing.\pThank you, young one.\nYou've done me a great service."))
+    release
+    completequest(QUEST_GASTREE_TEA)
+    delay(16)
+
+    //Give polteageist
+    //	.macro givemon species:req, level:req, item, ball, nature, abilityNum, gender, hpEv, atkEv, defEv, speedEv, spAtkEv, spDefEv, hpIv, atkIv, defIv, speedIv, spAtkIv, spDefIv, move1, move2, move3, move4, isShiny, gmaxFactor, teraType, dmaxLevel
+    message(format("Now - I must reward you somehow.\pNo no! I insist.\pThe kitchen is managed by my staff of Poltchageist and Sinistea. But for some of them, working the same job has become dreary. They need to go out and see the world, don't you think?\pWould you like to take one of them\nas a companion?")) //Yes/No option perhaps?
+    waitmessage
+    dynmultichoice(0, 0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Poltchageist", "Sinistea")
+
+    if (var(VAR_RESULT) == 0){
+        givemon(SPECIES_POLTCHAGEIST_ARTISAN, 10)
+        //Fanfare
+        showmonpic(SPECIES_POLTCHAGEIST_ARTISAN, 10, 3)
+        playfanfare(MUS_OBTAIN_ITEM)        
+        msgbox(format("The Tea House Owner has gifted you a Poltchageist!"))
+        waitfanfare
+        hidemonpic
+        release
+        delay(12)
+        msgbox(format("This one's a keeper - extremely well-trained and hospitable. I'm sure you two will have a great time together. I'll miss you, Poltchageist!"))
+        release
+    } else {
+        givemon(SPECIES_SINISTEA_ANTIQUE, 10)
+        //Fanfare
+        showmonpic(SPECIES_SINISTEA_ANTIQUE, 10, 3)
+        playfanfare(MUS_OBTAIN_ITEM)
+        msgbox(format("The Tea House Owner has gifted you a Sinistea!"))
+        hidemonpic
+        release
+        delay(12)
+        msgbox(format("This one's a keeper - extremely well-trained and hospitable. I'm sure you two will have a great time together. I'll miss you, Sinistea!"))
+        release        
+    }
+
+    //Setvar = 2 and end quest
+    setvar(VAR_GASTREE_TEASHOP_QUEST, 2)
+
+    releaseall
+    end
+}
+
+    //Pokemon-related flavour
+script GastreeCity_TeaHouse_EventScript_NPC1{
+    msgbox(format("At my age, a hot cup of tea is the best medicine. The Poltchageist and\lSinistea here do great work!"), MSGBOX_NPC)
+    end
+}
+
+    //TO BE CHANGED: some info/tips/etc
+script GastreeCity_TeaHouse_EventScript_NPC2{
+    msgbox(format("I always come here after a difficult business meeting. Gotta destress\lafter making all this money!"), MSGBOX_NPC)
+    end
+}
+
+    //Generic, human
+script GastreeCity_TeaHouse_EventScript_NPC3{
+    msgbox(format("I find that the tea here feeds my creative energies."), MSGBOX_NPC)
+    end
+}
+
+    //Generic, human
+script GastreeCity_TeaHouse_EventScript_NPC4{
+    lockall
+    faceplayer
+    if (flag(FLAG_GASTREE_TEAHOUSE_BERRIES)){
+        msgbox(format("I invited my date here because I thought it'd be more unique than taking him to a trendy spot...but he still hasn't arrived. But my Snorunt is\lhere to give me company!"))
+        releaseall
+        end
+    } else {
+        msgbox(format("I got a plate of berries but since my date hasn't come, why don't you have it?"))
+        giveitem(ITEM_PERSIM_BERRY, 2)
+        setflag(FLAG_GASTREE_TEAHOUSE_BERRIES)
+    }
+    releaseall
+    end
+}
+script GastreeCity_TeaHouse_Snorunt{
+    playmoncry(SPECIES_SNORUNT, CRY_MODE_NORMAL)
+    msgbox(format("Snorunt is sniffing the tea.\nDoes it like the scent?"), MSGBOX_NPC)
+    end
+}
+
+script GastreeCity_TeaHouse_Sinistea{
+    playmoncry(SPECIES_SINISTEA, CRY_MODE_NORMAL)
+    msgbox(format("Sinistea is busy serving tea.\nBetter not disturb it!"), MSGBOX_NPC)
+    end
+}
+
+
+
+
+

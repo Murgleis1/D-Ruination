@@ -1,0 +1,71 @@
+mapscripts Rivetshore_Lookout_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: Rivetshore_Lookout_OnTransition
+}
+
+script Rivetshore_Lookout_OnTransition{
+    if (flag(FLAG_CHAMPION_RAVINE_COMPLETE)) {end}
+    
+    if (flag(FLAG_CHAMPION_RAVINE_SETUP)) {
+        setobjectxyperm(1, 11, 8)
+        setobjectxyperm(2, 10, 8)
+        end
+    }
+}
+
+
+//savegame
+script Rivetshore_Lookout_SaveGame_Trigger{
+    if (flag(FLAG_CHAMPION_RAVINE_COMPLETE)){end}   
+
+    if (flag(FLAG_CHAMPION_RAVINE_SETUP)){
+        setvar(VAR_TEMP_E, 1)
+        call(Common_EventScript_SaveGameBeforeBattle)
+        releaseall
+        end
+    }
+}
+
+//Battle
+script Rivetshore_Lookout_Ravine_Battle_Trigger{
+    if (flag(FLAG_CHAMPION_RAVINE_COMPLETE)) {end}
+
+    if (flag(FLAG_CHAMPION_RAVINE_SETUP)){
+        setweather(WEATHER_RAIN)
+        doweather
+        delay(2)
+
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2))
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 4))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        msgbox_delay("Ravine", format("Very good! You found me.\pThe Fifth Cormoria Champion.\pGreta told me you dueled her and won.\nNo small feat indeed! Greta's sly, tricky, and crafty. She won her title using every technique in the book!\pBut my philosophy is different, {PLAYER}. I believe in the shared power between Pokemon and trainer.\pMy Pokemon and I are Champions, yes, but we're so much more! We grew together, explored all of Cormoria together, built the Ranger Institute together...and when we leave, our legacy will remain for many an age!\pCome, {PLAYER}! You've set our blood on fire! We haven't felt like this since our battle with Lynch!\pProve that my instincts are right! Prove that you can stand on the same stage as us!"))
+        
+        trainerbattle_no_intro(TRAINER_CHAMPION_RAVINE, format("Hahaha! What a fight!"))
+
+        msgbox_delay("Ravine", format("Oh my! That was exhilarating! How can I go back to the office after a fight like that, {PLAYER}? I think I'm going to take the day off...wander a little. Reminisce. You've brought something out in me and I can't quell it!"))
+
+        //exit
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 2 face_right))
+        applymovement(1, moves(walk_up * 6))
+        applymovement(2, moves(walk_up * 6))
+        waitmovement(0)
+
+        removeobject(1)
+        removeobject(2)
+
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        setflag(FLAG_CHAMPION_RAVINE_COMPLETE)
+        clearflag(FLAG_HIDE_CHAMPION_RAVINE)
+
+        releaseall
+        end
+    }
+}
+
+

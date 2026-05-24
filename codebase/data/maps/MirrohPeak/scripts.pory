@@ -1,0 +1,496 @@
+raw`
+    .set LOCALID_MOXIE, 4
+    .set LOCALID_MELEA, 13
+    .set LOCALID_VINIEL, 16
+    .set LOCALID_MANECTRIC, 18
+`
+
+mapscripts MirrohPeak_MapScripts{}
+
+//One NPC - tells you to heal
+script MirrohPeak_NPC_1{
+    msgbox(format("You look exhausted! You'd better head to Winterlily Hollow - go right from here and enter the cave."), MSGBOX_NPC)
+    end
+}
+
+script MtMirroh_Peak_SaveGameTrigger{
+    if (flag(FLAG_MIRROHPEAK_MOXIE_DEFEATED)){end}   
+    setvar(VAR_TEMP_C, 1)
+    call(Common_EventScript_SaveGameBeforeSomber)
+    releaseall
+    end
+}
+
+//Pre-peak Gym Leader encounter VINIEL
+//Viniel stuck between 4 grunts - taking all of them on
+//You cant come into my town!
+//player go ahead, i'll take these 4.
+
+//Ceram 2 encounter Somber
+//Walk up sequence - as you walk up, each grunt notices you and acts surprised
+//Both MOXIE and MELEA are there
+//Ancient book in library talks of fearsome pokemon
+//That's why they want to use the dreamstones to travel to the past
+//Kohla is also there - trapped
+//MOXIE deals with you while MELEA goes ahead to capture the rare mons
+
+
+script MirrohPeak_EventScript_Viniel_Trigger0{
+    if (flag(FLAG_MIRROHPEAK_VINIEL_CUTSCENE)) {end}
+
+    lockall
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    goto(MirrohPeak_EventScript_Viniel)
+}
+
+script MirrohPeak_EventScript_Viniel_Trigger1{
+    if (flag(FLAG_MIRROHPEAK_VINIEL_CUTSCENE)) {end}
+    
+    lockall
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    goto(MirrohPeak_EventScript_Viniel)
+}
+
+script MirrohPeak_EventScript_Viniel{
+
+    applymovement(LOCALID_VINIEL, moves(jump_in_place_left))
+    waitmovement(0)
+    speakername("???")
+    msgbox(format("Come at me, you lousy grunts!\pYou think I'm going to let the likes of you mess around in MY backyard?"))
+    release
+    applymovement(15, moves(jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt")
+    msgbox(format("It's public space, Viniel! Didn't they teach you that at Gym Leader School?"))
+    release
+    applymovement(LOCALID_VINIEL, moves(emote_exclamation_mark))
+    waitmovement(0) 
+    speakername("Viniel")
+    msgbox(format("There IS no Gym Leader School!\nHow stupid are you?"))
+    release
+    delay(30)
+    applymovement(11, moves(emote_question_mark))
+    applymovement(14, moves(emote_question_mark))
+    applymovement(15, moves(emote_question_mark))
+    applymovement(17, moves(emote_question_mark))
+    waitmovement(0)
+    speakername("Grunt")
+    msgbox(format("...yeah, we all knew that.\nI was just taunting you."))
+    release
+    applymovement(LOCALID_VINIEL, moves(emote_exclamation_mark))
+    waitmovement(0) 
+    speakername("Viniel")
+    msgbox(format("That was a terrible taunt! Didn't...didn't they teach you how to taunt at taunting school?"))
+    release
+    delay(60)
+    applymovement(11, moves(emote_exclamation_mark face_down))
+    applymovement(14, moves(emote_exclamation_mark face_down))
+    applymovement(15, moves(emote_exclamation_mark face_down))
+    applymovement(17, moves(emote_exclamation_mark face_down))
+    applymovement(LOCALID_MANECTRIC, moves(emote_exclamation_mark face_down))
+    applymovement(LOCALID_VINIEL, moves(emote_exclamation_mark face_down))
+    waitmovement(0)
+    delay(24)
+
+    speakername("Viniel")
+    msgbox(format("Who are you? Are you another grunt? C'mon, Manectric and I can take all six of you together!"))
+    release    
+    applymovement(17, moves(emote_question_mark))  
+    waitmovement(0)  
+    speakername("Grunt")
+    msgbox(format("Wait...isn't that the trainer who beat Melea in Silversun City?"))
+    release
+    applymovement(14, moves(emote_exclamation_mark))
+    waitmovement(0)    
+    speakername("Grunt")
+    msgbox(format("Yeah, it is! And also Moxie at Mt. Ceram!\pYikes - someone better tell go them!"))
+    release
+    applymovement(19, moves(jump_in_place_down))
+    waitmovement(0)
+    speakername("Grunt")
+    msgbox(format("I'm on it!"))
+    release
+    applymovement(19, moves(walk_fast_left walk_fast_up * 2))
+    waitmovement(0)
+    removeobject(19)    
+
+    applymovement(LOCALID_VINIEL, moves(emote_question_mark))
+    speakername("Viniel")
+    msgbox(format("So you're an enemy of theirs?\pAn enemy of an enemy is a friend!\pTrainer, these Team Somber grunts suddenly came out of nowhere and started harrassing the great people of Winterlily Hollow.\pSo I'm out here beating them down, one by one! I can take this lot myself - you go on ahead! These guys are upto no good. The peak is right ahead - hurry up!"))
+    release
+    delay(16)
+    playmoncry(SPECIES_MANECTRIC, CRY_MODE_NORMAL)
+    applymovement(11, moves(face_down))
+    applymovement(14, moves(face_up))
+    applymovement(15, moves(face_right))
+    applymovement(17, moves(face_right))
+    applymovement(LOCALID_VINIEL, moves(face_left))
+    applymovement(LOCALID_MANECTRIC, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+
+    speakername("Viniel")
+    msgbox(format("Manectric is raring to go! Now c'mon you cowards - I'm going to shock some sense into all four of you together!"))
+    release
+
+    setflag(FLAG_MIRROHPEAK_VINIEL_CUTSCENE)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    releaseall
+    end
+}
+
+script MirrohPeak_GruntsVSViniel_GenericDialogue{
+    lockall
+    speakername("Grunt")
+    msgbox(format("Even with four of us, its so hard!\nGuess that's why he's a Gym Leader."))
+    release
+    delay(16)
+    speakername("Viniel")
+    msgbox(format("That all you got, grunts?"))
+    releaseall
+    end
+}
+
+script MirrohPeak_EventScript_Somber_Trigger{
+    if (flag(FLAG_MIRROHPEAK_MOXIE_DEFEATED)) {end}
+
+    lockall
+    delay(30)
+
+    //Walk sequence
+    applymovement(5, moves(face_left emote_exclamation_mark))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2))
+    waitmovement(0)
+    applymovement(6, moves(face_left emote_exclamation_mark))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2))
+    waitmovement(0)
+    applymovement(2, moves(face_right emote_exclamation_mark))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up ))
+    waitmovement(0)
+    applymovement(3, moves(face_right emote_exclamation_mark))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up ))
+    waitmovement(0)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    delay(60)
+    
+    //skip cutscene
+        //cutscene skip
+    if (flag(FLAG_SKIP_MIRROH_CUTSCENE)){
+        msgbox(format("Skip cutscene?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0){
+            goto(MirrohPeak_EventScript_Somber_Cutscene)
+        } else {
+            //set positions
+            fadescreen(FADE_TO_BLACK)
+                applymovement(LOCALID_MOXIE, moves(walk_down))
+                applymovement(LOCALID_MELEA, moves(fly_up))
+                waitmovement(0)     
+            fadescreen(FADE_FROM_BLACK)
+
+            goto(MirrohPeak_EventScript_Somber_Skip)
+        }
+    } else {
+        goto(MirrohPeak_EventScript_Somber_Cutscene)
+    }
+}
+
+script MirrohPeak_EventScript_Somber_Cutscene{
+
+    //set cutscene flag
+    setflag(FLAG_SKIP_MIRROH_CUTSCENE)
+
+    //MOXIE MELEA
+    applymovement(LOCALID_MELEA, moves(emote_question_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Melea")
+    msgbox(format("Is it the child?"))
+    release
+    delay(30)
+    applymovement(LOCALID_MOXIE, moves(jump_in_place_up))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("I presume it is."))
+    release
+    delay(60)
+
+    applymovement(LOCALID_MOXIE, moves(jump_in_place_up))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("Your tenacity is admirable, child.\pI must acknowledge that...despite your insufferable propensity for ruining plans which are none of your concern.\pAfter our defeats at your hand, Leader was most displeased with the two of us.\pMost displeased indeed..."))
+    release
+    delay(60)
+    applymovement(LOCALID_MELEA, moves(jump_in_place_up))
+    waitmovement(0)
+    speakername("Melea")
+    msgbox(format("Beyond the dreamstone's gate lie some of the most powerful Pokémon this world has ever seen. And of them all, one stood the strongest.\pThe fiercest, most vicious.\nLong gone, extinct today.\pBut in the hands of people with purpose, such power can be used to do great things..."))
+    release
+
+            //Set weather beforehand for correct timing
+            setweather(WEATHER_SNOW)
+            doweather
+
+    delay(60)    
+    speakername("Melea")
+    msgbox(format("Go on, Moxie. Start the Dreamalyser."))
+    release
+    applymovement(LOCALID_MOXIE, moves(walk_down walk_left face_up))
+    waitmovement(0)
+    delay(30)
+
+    //Start the machine
+    setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    waitstate
+	delay(30)
+
+    //MELEA goes ahead
+    speakername("Moxie")
+    msgbox(format("Melea, you go ahead.\nI'll deal with the child."))
+    release   
+    applymovement(LOCALID_MELEA, moves(walk_up walk_left face_up))
+    waitmovement(0)
+    delay(8)
+    playse(SE_WARP_OUT)
+    applymovement(LOCALID_MELEA, moves(fly_up))
+    waitmovement(0)
+    delay(24)
+
+    //MOXIE vs player
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down))
+    waitmovement(0)
+    special(RemoveCameraObject)    
+    applymovement(LOCALID_MOXIE, moves(walk_right face_down))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("My dear colleague has gone ahead into Ancient Cormoria...you've seen it, no?\pI wonder what it looks like.\pMelea will tell me when she returns.\p...\pChild, we stand right at the very cusp of attaining our goal.\pThe Ancient Terror will soon be ours.\p...\pI will give you a chance to turn around.\pWalk away from that which you\ndon't understand.\p...\pNo?\pVery well then.\nThis will be our final battle."))
+    
+    goto(MirrohPeak_EventScript_Somber_Skip)
+}
+
+script MirrohPeak_EventScript_Somber_Skip{
+    
+    speakername("Moxie")
+    msgbox(format("I will make sure that you won't have the heart to come after us again!"))    
+    release
+
+    //Battle
+    trainerbattle_no_intro(TRAINER_MIRROHPEAK_MOXIE, "Insufferable!")
+    removeobject(LOCALID_MELEA)
+    
+    //Post-battle
+    applymovement(LOCALID_MOXIE, moves(jump_in_place_down emote_exclamation_mark))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("Argh! How could I have lost!"))
+    applymovement(LOCALID_MOXIE, moves(emote_exclamation_mark))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("One of you!\p...\pYou there, wearing the Trekking Boots!"))
+    release
+    applymovement(3, moves(jump_in_place_up))
+    speakername("Grunt")
+    msgbox(format("Y-yes boss?"))
+    release
+    delay(8)
+    speakername("Moxie")
+    msgbox(format("Hurry up and go inside the dreamstone.\pTell Melea what happened!\nShe needs to be prepared."))
+    speakername("Grunt")
+    msgbox(format("B-but boss, it's -"))
+    release
+    delay(8)
+    applymovement(LOCALID_MOXIE, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Moxie")
+    msgbox(format("No buts! Get moving - fast!\nOr I'll have you'll join Gabrielle!"))
+    
+    speakername("Grunt")
+    msgbox(format("O-ok boss!"))
+    release
+    applymovement(3, moves(walk_down walk_right * 2 walk_up * 4 walk_left face_up)) 
+    waitmovement(0) 
+    applymovement(LOCALID_MOXIE, moves(face_up))
+    delay(60)
+    applymovement(3, moves(face_down))
+    waitmovement(0)
+    speakername("Grunt")
+    msgbox(format("But boss...what if I don't come back?"))
+    release
+    delay(8)
+
+    speakername("Moxie")
+    msgbox(format("Then we'll send roses to your family - now hurry up or I'll be forced to send roses right now!"))
+    release
+    delay(12)
+    applymovement(3, moves(face_up emote_exclamation_mark))   
+    waitmovement(0)
+    delay(48) 
+    //
+    playse(SE_WARP_OUT)
+    applymovement(3, moves(fly_up))
+    waitmovement(0)  
+    //
+    delay(28)
+    applymovement(LOCALID_MOXIE, moves(face_down))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("I know you want to stop Melea from getting the Ancient Terror.\pLet me do you a favour, {PLAYER}.\nI'll send you inside myself.\pThere's only one exit out, and once Melea takes it, you'll be stuck forever!\pHahaha!"))
+    release
+    applymovement(LOCALID_MOXIE, moves(walk_left face_up))
+    waitmovement(0)
+
+    //Shake Camera
+    setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    waitstate
+	delay(30) 
+    playse(SE_WARP_OUT)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(fly_up))
+    waitmovement(0)
+
+    delay(30)
+    applymovement(LOCALID_MOXIE, moves(face_down))
+    speakername("Moxie")
+    msgbox(format("Now you lot! Let's get out of here!"))
+    speakername("Grunts")
+    msgbox(format("Y-yes boss!!"))
+    release
+
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    removeobject(LOCALID_MOXIE)
+    removeobject(2)    
+    removeobject(5)
+    removeobject(6)    
+    fadescreenswapbuffers(FADE_FROM_BLACK)
+
+    delay(60)
+    setobjectxyperm(20, 19, 14)
+    addobject(20)
+    delay(30)
+    applymovement(20, moves(walk_up * 5 walk_left face_up))
+    waitmovement(0)
+    delay(16)
+    applymovement(20, moves(emote_question_mark))
+    waitmovement(0)    
+    delay(90)
+
+    applymovement(20, moves(emote_exclamation_mark))
+    waitmovement(0)  
+    delay(30)
+    setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    waitstate
+	delay(30) 
+    playse(SE_WARP_OUT)
+    applymovement(20, moves(fly_up))
+    waitmovement(0)  
+    delay(24)
+    //Flags, quests etc
+    setflag(FLAG_MIRROHPEAK_MOXIE_DEFEATED)  
+    subquestmenu(QUEST_MENU_COMPLETE_QUEST, QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_7)    //manual setting cause its weird to pop up  
+
+    //warp
+    fadescreen(FADE_TO_BLACK)
+    warp(MAP_ANCIENT_MIRROH, 12, 22)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Enemy grunts
+script MirrohPeak_Grunt_A{
+    trainerbattle_single(TRAINER_MIRROHPEAK_A, format("You're too late! The bosses have already taken control of the dreamstone with the Dreamalyser!"), "You're still too late!")
+    msgbox(format("I wonder what'll happen once they activate the Dreamalyser..."))
+    releaseall
+    end
+}
+
+script MirrohPeak_Grunt_B{
+    trainerbattle_single(TRAINER_MIRROHPEAK_B, format("We're going to use the Dreamalyser to revive the Ancient Terror! Hahaha!"), "You're playing dirty!")
+    msgbox(format("Man, when will I become an admin?"))
+    releaseall
+    end
+}
+
+script MirrohPeak_Grunt_C{
+    trainerbattle_single(TRAINER_MIRROHPEAK_C, format("Nope. No way. You're not getting through us!"), "Fine then!")
+    msgbox(format("You may have beaten us, but you can't beat Melea and Moxie!"))
+    releaseall
+    end
+}
+
+script MirrohPeak_Grunt_D{
+    trainerbattle_single(TRAINER_MIRROHPEAK_D, format("Yeah! The Dreamalyser's up and running, and we're not letting you butt in!"), "Go ahead!")
+    msgbox(format("You may have beaten us, but you can't beat Melea and Moxie!"))
+    releaseall
+    end
+}
+
+
+
+
+
+

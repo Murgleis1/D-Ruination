@@ -1,0 +1,176 @@
+mapscripts SilversunCity_Houses_MapScripts{}
+
+
+
+
+
+//QUEST: Artist   VAR_SILVERSUN_ARTIST: 0 is not started, 1 is in progress, 2 is complete
+script SilversunCity_Houses_Smeargle{
+    playmoncry(SPECIES_SMEARGLE, CRY_MODE_NORMAL)
+    msgbox(format("Smeargle is holding the teacup with its tail and sipping tea! With a tail like that, no wonder it can draw so well."), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_Houses_Artist{
+    lockall
+    faceplayer
+    if (var(VAR_SILVERSUN_ARTIST) == 2){
+        speakername("Arsalan")
+        msgbox(format("Where's my masterpiece?\pI only just got the Black Sludge!\nDon't hurry me, you philistine!"), MSGBOX_NPC)
+    }
+
+    if (var(VAR_SILVERSUN_ARTIST) == 1){
+        speakername("Arsalan")
+        msgbox(format("Yes yes. Have you brought me the Black Sludge?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            if (checkitem(ITEM_BLACK_SLUDGE)){
+                removeitem(ITEM_BLACK_SLUDGE)
+                speakername(NULL)
+                msgbox(format("{PLAYER} gave Arsalan a Black Sludge."))
+                completequest(QUEST_SILVERSUN_ARTIST)   
+                speakername("Arsalan")             
+                msgbox(format("Amazing! You are a life-saver. Here, I must repay you somehow. Take this, have it!"))
+                release
+                giveitem(ITEM_TM73)
+                setvar(VAR_SILVERSUN_ARTIST, 2)
+                speakername("Arsalan")
+                msgbox(format("I have no need of it. Why should my art hide behind a facade? But you, my dear helpful philistine, might benefit from it. For the right Pokémon, it can be a powerful move.\pFarewell!"), MSGBOX_NPC)
+            } else {
+                speakername("Arsalan")
+                msgbox(format("But you do not have it! An artist's eyes cannot be fooled."), MSGBOX_NPC)
+            }
+        } else {
+            speakername("Arsalan")
+            msgbox(format("Just use the regular black paint, you say? Pah! Philistine!"), MSGBOX_NPC)
+        }
+    }
+
+    if (var(VAR_SILVERSUN_ARTIST) == 0){
+        speakername("???")
+        msgbox(format("Myself, I have no patience for theater. No no! Although Gloria is fantastic.\lSuch style and technique! I admire her interpretation of the morbid.\pMe?\pMy creativity compels me to bring the world to life through paint and brush!"))
+        release
+        delay(16)
+        speakername("Arsalan")
+        msgbox(format("Yes yes! I am indeed none other than the legendary Arsalan. My works adorn the most prestigious walls in Cormoria!\p..."))
+        release
+        delay(8)
+        applymovement(2, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(20)
+        speakername("Arsalan")
+        msgbox(format("You haven't heard of me?\nUncultured, you are!"))
+        release
+        delay(16)
+        speakername("Arsalan")
+        msgbox(format("But Arsalan is struggling now.\pWhy, you ask?\pWell well.\pYou see, I am trying to paint something never done before - the night itself! And for this, I need a paint so dark it swallows you. These regular paints aren't worthy of being on my canvas.\lI need to create a unique shade of black using some Black Sludge.\pWill you help me?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 1){
+            applymovement(2, moves(emote_exclamation_mark))
+            waitmovement(0)
+            delay(24)            
+            speakername("Arsalan")
+            msgbox(format("Arsalan is most pleased!\nI eagerly await your return."), MSGBOX_NPC)
+            release
+            //Start quest
+            setvar(VAR_SILVERSUN_ARTIST, 1)
+            startquest(QUEST_SILVERSUN_ARTIST)
+
+        } else {
+            applymovement(2, moves(emote_exclamation_mark))
+            waitmovement(0)
+            delay(24)
+            speakername("Arsalan")
+            msgbox(format("Just use the regular paint, you say?\pPah! Philistine!"), MSGBOX_NPC)
+            release
+        }
+    }
+
+    releaseall
+    end
+}
+
+//TUTOR: Someone
+script SilversunCity_Houses_Tutor{
+    msgbox(format("I'm the sole proprietor of Drifblim Travels Pvt. Ltd.\p...\pWant a pass? Sure thing.\nAll it'll cost you is ¥99999.\pHaven't got the money?\pThen scram, kid!\nI'm doing business here."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+
+//NPCs
+script SilversunCity_Houses_NPC1{
+    msgbox(format("Silversun City is right between the always foggy Vilethorn Woods and the always raining Route 6! We should be called Silvershade City instead."), MSGBOX_NPC)
+    end
+}
+script SilversunCity_Houses_NPC2{
+    msgbox(format("They say dangerous Pokémon come out from the sewers from time to time, like the Sewer Scourge. Apparently that's not even a Pokémon, it's an evil spirit! I don't let my child play near it!"), MSGBOX_NPC)
+    end
+}
+script SilversunCity_Houses_NPC3{
+    msgbox(format("I want a Toxel as my first Pokémon but Mom will never let me have one."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script SilversunCity_Houses_DuskullNPC1{
+    if (var(VAR_SEWERS_DUSKULL) == 4){
+        lockall
+        // applymovement(6, moves(faceplayer))
+        // applymovement(7, moves(faceplayer))
+        msgbox(format("Thank you for saving my wife. She's blind, so she needs a Pokémon to assist her. But the orphanage was short of Pokémon, and we couldn't wait. So we bought an egg at the black market. That's when she got lost. She took a wrong turn somewhere and I didn't pay attention.\pBut thanks to you, both of us are safe and we have a new member of the family! With Furfrou around, my wife can do things normally now. We're eternally grateful.\p...\pWe want you to have this. The black market dealer gave it to us but we don't need it."), MSGBOX_NPC)
+        release
+        giveegg(SPECIES_HONEDGE)
+        setvar(VAR_SEWERS_DUSKULL, 4)
+    } else {
+        msgbox(format("I'm never going to the sewers again...but we did what we had to do."), MSGBOX_NPC)
+    }
+    end
+}
+
+script SilversunCity_Houses_Husband{
+    if (var(VAR_SEWERS_DUSKULL) == 4){
+        // applymovement(6, moves(faceplayer))
+        // applymovement(7, moves(faceplayer))
+        msgbox(format("Thank you for saving my wife. She's blind, so she needs a Pokémon to assist her. But the orphanage was short of Pokémon, and we couldn't wait. So we bought an egg at the black market. That's when she got lost. She took a wrong turn somewhere and I didn't pay attention.\pBut thanks to you, both of us are safe and we have a new member of the family! With Furfrou around, my wife can live better. We're eternally grateful.\p...\pPlease take this. It was hard to get, but we won't need it any more, because we'll never go into the black market again."), MSGBOX_NPC)
+        release
+        //Switch to black market pass
+        giveitem(ITEM_SMUGGLER_EMBLEM)
+        completequest(QUEST_SILVERSUN_WIFE)
+        setvar(VAR_SEWERS_DUSKULL, 5)
+    } else {
+        msgbox(format("I'm never going to the sewers again...but we did what we had to do."), MSGBOX_NPC)
+    }
+
+    end
+}
+
+script SilversunCity_Houses_Wife{
+    msgbox(format("Furfrou helps me a ton around the house."), MSGBOX_NPC)
+    end
+}
+
+
+script SilversunCity_Houses_Furfrou{
+    msgbox(format("Furfrou is patiently waiting by its owner."), MSGBOX_NPC)
+    end
+}

@@ -1,0 +1,369 @@
+raw`
+    .set LOCALID_MARTHA, 5
+    .set LOCALID_RUE, 7
+`
+
+mapscripts MirrohBaseCamp_MapScripts{    
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_MIRROH_BASE_CAMP)
+    }
+}
+
+//Moka was here - gubu I love you <3
+
+//3 vendors
+script MirrohBaseCamp_EventScript_Vendor1{
+    lockall
+	faceplayer
+
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        message(format("The graveyard manager donated her collection of stones to me!\pHave a look!"))
+        waitmessage
+        pokemart(MirrohBaseCamp_Vendor1_Inventory_PostGame)
+        msgbox(format("Come again!"), MSGBOX_DEFAULT)
+        release
+        end
+    } else {
+        message(format("Our supplies are limited but useful\nfor a trek up Mt. Mirroh!"))
+        waitmessage
+        pokemart(MirrohBaseCamp_Vendor1_Inventory)
+        msgbox(format("Come again!"), MSGBOX_DEFAULT)
+        release
+        end
+    }
+}
+
+mart MirrohBaseCamp_Vendor1_Inventory{
+    ITEM_GREAT_BALL
+    ITEM_ICE_HEAL
+    ITEM_SUPER_REPEL
+    ITEM_ESCAPE_ROPE
+}
+
+mart MirrohBaseCamp_Vendor1_Inventory_PostGame{
+    ITEM_MEDICHAMITE
+    ITEM_AGGRONITE
+    ITEM_ALTARIANITE
+    ITEM_LOPUNNITE
+    ITEM_BANETTITE
+    ITEM_AMPHAROSITE
+    ITEM_GYARADOSITE
+    ITEM_MAWILITE
+    ITEM_GARDEVOIRITE
+    ITEM_GALLADITE
+    ITEM_HOUNDOOMINITE
+    ITEM_METAGROSSITE
+    ITEM_SCIZORITE
+    ITEM_KANGASKHANITE
+    ITEM_PINSIRITE
+    ITEM_SHARPEDONITE
+    ITEM_MANECTITE
+    ITEM_ABSOLITE  
+    ITEM_SABLENITE  
+}
+
+script MirrohBaseCamp_EventScript_Vendor2{
+    lockall
+	faceplayer
+	message(format("I found all this inside Mt. Mirroh\njust yesterday!"))
+	waitmessage
+	pokemart(MirrohBaseCamp_Vendor2_Inventory)
+	msgbox(format("C'mon, have another look!"), MSGBOX_DEFAULT)
+	release
+	end
+}
+
+mart MirrohBaseCamp_Vendor2_Inventory{
+    ITEM_NEVER_MELT_ICE
+    ITEM_ICE_GEM
+    ITEM_COVERT_CLOAK
+    ITEM_ENERGY_ROOT
+    ITEM_COIN_CASE
+}
+
+script MirrohBaseCamp_EventScript_Vendor3{
+    lockall
+	faceplayer
+	message(format("Everything you see is homemade. Anything you like?"))
+	waitmessage
+	pokemart(MirrohBaseCamp_Vendor3_Inventory)
+	msgbox(format("You didn't like anything?"), MSGBOX_DEFAULT)
+	release
+	end
+}
+
+mart MirrohBaseCamp_Vendor3_Inventory{
+    ITEM_CASTELIACONE
+    ITEM_SODA_POP
+    ITEM_LEMONADE
+}
+
+
+
+//2 NPCs
+script MirrohBaseCamp_EventScript_NPC1{
+    msgbox(format("It's so sad and lonely up here...I want to grow up fast so I can go see the rest of Cormoria!"), MSGBOX_NPC)
+    end
+}
+script MirrohBaseCamp_EventScript_NPC2{
+    lockall
+    faceplayer
+    speakername("???")
+    msgbox(format("The Pokémon Graveyard lies ahead. Please be respectful.\p..."))
+    speakername("Martha")
+    msgbox(format("My name? It's Martha, dear.\nI manage the graveyard.\pYou want to talk to me?\nSomething about dreamstones?\pThis will be a long conversation, so why don't you drop by my house later?"))
+    release
+    hidefollower
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right face_down))
+    applymovement(LOCALID_MARTHA, moves(walk_right walk_down * 3 walk_left * 9))
+    waitmovement(0)
+    removeobject(LOCALID_MARTHA)
+    speakername("Martha")
+    msgbox(format("Come now, boys! Playtime's over!\p...\pSigh...they just don't listen to me..."))
+    release
+    setflag(FLAG_HIDE_GRAVEYARD_HISTORIAN)
+    clearflag(FLAG_HIDE_MIRROHBASECAMP_HISTORIAN)
+    releaseall
+    end
+}
+script MirrohBaseCamp_Greavard_Outside{
+    playmoncry(SPECIES_GREAVARD, CRY_MODE_NORMAL)
+
+    checkitem(ITEM_RARE_BONE)
+
+    if (var(VAR_RESULT) == 1){
+        lockall
+        msgbox(format("Greavard is playing!\nGive it the Old Bone?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Greavard snaps up the Old Bone and starts playing with it!"))
+            release
+            applymovement(11, moves(walk_fast_up * 7))
+            waitmovement(0)
+            removeobject(11)
+            msgbox(format("It ran off with the Old Bone!"))
+            release
+            applymovement(12, moves(emote_exclamation_mark walk_fast_up * 7))
+            waitmovement(0)
+            removeobject(12)
+            msgbox(format("The other one chased after it!\p...\pWill they be okay?"))
+            release
+
+            setflag(FLAG_MIRROH_GREAVARD_BLOCKER)
+
+            addobject(LOCALID_MARTHA)
+            setobjectxy(LOCALID_MARTHA, 5, 9)
+
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+            speakername("Martha")
+            msgbox(format("{PLAYER}! Wait!")) 
+            release
+            hidefollower
+
+            applymovement(LOCALID_MARTHA, moves(walk_up * 5))
+            waitmovement(0)
+
+            //martha gives mega stone
+            speakername("Martha")
+            msgbox(format("Oof...too much running...\pI don't know if it'll help you against Team Somber, but I wanted to offer you one of these.\pThey're extremely rare - prized items in my collection!\pBut they'll do more good in the world in your hands than on my table."))
+            release
+            delay(8)
+            msgbox(format("Choose carefully - you'll only\nget once chance this game!"), MSGBOX_POKENAV)
+            release
+            delay(8)
+            goto(MirrohBaseCamp_Martha_OfferMegaStone)
+            
+            releaseall
+            end
+        }
+        releaseall
+        end
+    } else {
+        msgbox(format("Greavard is playing!"), MSGBOX_NPC)
+        end        
+    }
+}
+
+script MirrohBaseCamp_Martha_OfferMegaStone{
+    message(format("Which one would you like?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Medichamite", "Aggronite", "Altarianite", "Lopunnite", "Banettite",
+        "Ampharosite", "Gyaradosite", "Mawilite", "Gardevoirite", "Galladite",
+        "Houndoominite", "Metagrossite", "Scizorite", "Kangaskhanite", "Pinsirite",
+        "Sharpedonite", "Manectricite", "Absolite", "Sablenite"
+    )
+
+    if (var(VAR_RESULT) == 0) {setvar(VAR_0x8006, ITEM_MEDICHAMITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 1) {setvar(VAR_0x8006, ITEM_AGGRONITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 2) {setvar(VAR_0x8006, ITEM_ALTARIANITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 3) {setvar(VAR_0x8006, ITEM_LOPUNNITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 4) {setvar(VAR_0x8006, ITEM_BANETTITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 5) {setvar(VAR_0x8006, ITEM_AMPHAROSITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 6) {setvar(VAR_0x8006, ITEM_GYARADOSITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 7) {setvar(VAR_0x8006, ITEM_MAWILITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 8) {setvar(VAR_0x8006, ITEM_GARDEVOIRITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 9) {setvar(VAR_0x8006, ITEM_GALLADITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 10) {setvar(VAR_0x8006, ITEM_HOUNDOOMINITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 11) {setvar(VAR_0x8006, ITEM_METAGROSSITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 12) {setvar(VAR_0x8006, ITEM_SCIZORITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 13) {setvar(VAR_0x8006, ITEM_KANGASKHANITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 14) {setvar(VAR_0x8006, ITEM_PINSIRITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 15) {setvar(VAR_0x8006, ITEM_SHARPEDONITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 16) {setvar(VAR_0x8006, ITEM_MANECTITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}
+    if (var(VAR_RESULT) == 17) {setvar(VAR_0x8006, ITEM_ABSOLITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}  
+    if (var(VAR_RESULT) == 18) {setvar(VAR_0x8006, ITEM_SABLENITE) goto(MirrohBaseCamp_Martha_GiveMegaStone)}  
+}
+
+script MirrohBaseCamp_Martha_GiveMegaStone{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        hideitemdescription
+        giveitem(VAR_0x8006)
+        goto(MirrohBaseCamp_Martha_End)
+    } else {
+        hideitemdescription
+        goto(MirrohBaseCamp_Martha_OfferMegaStone)
+    }
+}
+
+
+script MirrohBaseCamp_Martha_End{
+    speakername("Martha")
+    msgbox(format("Well then. That's my job done.\pI wish you all the best, {PLAYER}!"))
+    release
+
+    applymovement(LOCALID_MARTHA, moves(walk_down * 7))
+    waitmovement(0)
+    removeobject(LOCALID_MARTHA)
+
+    releaseall
+    end
+
+}
+
+
+
+
+
+//rue cutscene FLAG_MIRROHBASECAMP_MASTERBALL_RUE
+script MirrohBaseCamp_Rue_Trigger{
+    if (flag(FLAG_MIRROHBASECAMP_MASTERBALL_RUE)){end}
+    if (flag(FLAG_BADGE06_GET)){end}
+
+    lockall
+    opendoor(13, 27)
+    waitdooranim   
+
+    addobject(LOCALID_RUE)
+    setobjectxy(LOCALID_RUE, 13, 27)
+
+    delay(8)    
+    
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_right))
+    waitmovement(0)
+    applymovement(LOCALID_RUE, moves(walk_down face_left emote_exclamation_mark))
+    waitmovement(0)    
+    closedoor(13, 27)
+    waitdooranim    
+    delay(16)
+    speakername("Rue")
+    msgbox(format("{PLAYER}? What are you doing all the way over here?\p...\pAh, yes. The detectives are correct. Martha is an expert on Cormorian history. She would be helpful.\pI came here to make some social calls. Since Mirroh Base Camp is quiet and secluded, many academics reside here - Martha being one of them.\pTake care, {PLAYER}. Stay safe in Mt. Mirroh. Listen to what the detectives tell you to do, okay?"))
+    release
+    applymovement(LOCALID_RUE, moves(walk_right * 7))
+    waitmovement(0)    
+    removeobject(LOCALID_RUE)
+    setflag(FLAG_MIRROHBASECAMP_MASTERBALL_RUE)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Gym challenge trainers
+//3 people outside
+
+//Pokémon Breeder (horses)
+script MirrohBaseCamp_Trainer_A{
+    lockall
+    faceplayer
+
+    msgbox(format("Haven't you heard?\pThey're closing the gym here, so everyone's queueing up to get a badge.\pWanna do a warm-up battle?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        trainerbattle_no_intro(TRAINER_MIRROHEXT_D, format("You were warmed up already!"))
+        setflag(FLAG_MIRROHBASECAMP_TRAINER_A)
+        msgbox(format("Oh no! I'll have to heal my Pokémon. Hold my place in line - I'll be right back!"))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down face_up))
+        applymovement(8, moves(walk_left walk_up walk_left *10))
+        waitmovement(0)
+        removeobject(8)
+    }
+
+    releaseall
+    end
+}
+
+//Cooltrainer
+script MirrohBaseCamp_Trainer_B{
+    lockall
+    faceplayer
+
+    if (flag(FLAG_MIRROHBASECAMP_TRAINER_A)) {
+        msgbox(format("I saw the battle with the other trainer. You're not bad, but you'll have to try harder than that to beat me!"))
+        trainerbattle_no_intro(TRAINER_MIRROHEXT_E, format("Stop trying so hard!"))
+        setflag(FLAG_MIRROHBASECAMP_TRAINER_B)
+        msgbox(format("If I can't beat a kid like you, what chance do I have against Carona?"))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down face_up))
+        applymovement(9, moves(walk_left *10))
+        waitmovement(0)
+        removeobject(9)
+    } else {
+        msgbox(format("What a dreadfully sad little town!\pIt's a wonder this gym lasted so long."), MSGBOX_NPC)
+    }
+
+    releaseall
+    end
+}
+
+
+//Ruin maniac
+script MirrohBaseCamp_Trainer_C{
+    lockall
+    faceplayer
+
+    msgbox(format("Get outta here! Carona has only one badge left to give and it's mine!"), MSGBOX_NPC)
+
+    if (flag(FLAG_MIRROHBASECAMP_TRAINER_B)) {
+        msgbox(format("What? If you keep looking at me like that, I'll make you pay!"))
+        trainerbattle_no_intro(TRAINER_MIRROHEXT_F, format("You made me pay!"))
+        setflag(FLAG_MIRROHBASECAMP_TRAINER_C)
+        msgbox(format("Grr - fine! You can go first then.\nI bet Carona wipes the floor with you!"))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down face_up))
+        applymovement(10, moves(walk_left *10))
+        waitmovement(0)
+        removeobject(10)
+    }
+
+    releaseall
+    end
+}
+

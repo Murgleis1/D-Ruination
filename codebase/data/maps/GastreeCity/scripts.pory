@@ -1,0 +1,559 @@
+raw `
+    .set LOCALID_KOHLA, 7
+    .set LOCALID_SKITTYOG, 12
+    .set LOCALID_SKITTY1, 16
+    .set LOCALID_SKITTY2, 17
+    .set LOCALID_SKITTY3, 18
+    .set LOCALID_BERG, 10
+    .set LOCALID_TRAINER, 5
+    .set LOCALID_OLD_WOMAN, 21
+    .set LOCALID_SHRINE, 20
+`
+
+mapscripts GastreeCity_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_GASTREE_CITY)
+    }
+    
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_GASTREE_SKITTY_QUEST, 0: GastreeCity_EventScript_SkittyQuestStart    
+    ]
+
+}
+
+
+script GastreeCity_OnTransition{
+
+}
+
+script GastreeCity_EventScript_KohlaBattle_Trigger{
+    if (flag(FLAG_GASTREE_KOHLA_BATTLE)) {end}
+
+    //Start
+    lockall
+    playbgm(MUS_RG_ENCOUNTER_RIVAL, FALSE)
+    delay(16)
+
+    //Setup intro anim
+        //open door
+        opendoor(23, 26)
+        waitdooranim
+
+        //kohla create
+        setobjectxyperm(LOCALID_KOHLA, 23, 26)
+        addobject(LOCALID_KOHLA)
+        delay(8)
+        //kohla walk
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down face_up))
+        waitmovement(0)
+        applymovement(LOCALID_KOHLA, moves(walk_down))
+        waitmovement(0)
+        //close door
+        closedoor(23, 26)
+        waitdooranim
+
+    delay(12)
+
+    //Kohla talks trash
+    speakername("Kohla")
+    msgbox(GastreeCity_KohlaIntro1)
+    speakername("Kohla")
+    msgbox(GastreeCity_KohlaIntro2)
+
+    //Battle
+    trainerbattle_no_intro(TRAINER_GASTREE_KOHLA, msgbox(format("Not again!")))
+    playbgm(MUS_RG_ENCOUNTER_RIVAL, FALSE)
+
+    //Lose battle
+    speakername("Kohla")
+    msgbox(GastreeCity_KohlaPostBattle)
+    release
+    
+    applymovement(LOCALID_KOHLA, moves(walk_right *5 walk_up *8))
+    waitmovement(0)
+
+    //Set flag
+    setflag(FLAG_GASTREE_KOHLA_BATTLE)
+    removeobject(LOCALID_KOHLA)
+    
+    fadedefaultbgm
+    releaseall
+}
+
+text GastreeCity_KohlaIntro1 {
+    format("Well well, look who thought it was fashionable to be late! I'm way ahead\lof you, chum! I've already beaten\lInger and got the King Badge. And I don't mind dishing out a second serving!")
+}
+text GastreeCity_KohlaIntro2{
+    format("This is payback for one-upping me in front of the detectives!")
+}
+text GastreeCity_KohlaPostBattle{
+    format("You may have won, but I'll get the dreamstone first! I heard that some group called Team Somber is also after the dreamstone. I'm going to head north towards the Ceram Base Camp. Don't come after me - I don't need your help.\pOver and out, chum!")
+}
+
+
+
+//NPCs
+script GastreeCity_NPC1{
+    msgbox(format("You came all the way from Carabrue Town? Woah! Then I bet you don't know - you have to be careful on Route 4! There's a dangerous Dewpider that attacks people."), MSGBOX_NPC)
+    end
+}
+
+script GastreeCity_NPC3{
+    msgbox(format("My dad drags me here every weekend and its sooo boring. I can't wait to grow up and leave the house!"), MSGBOX_NPC)
+    end
+}
+
+script GastreeCity_NPC4{
+    msgbox(format("I come here every weekend with my daughter for some quality family time. Oh, how I'll miss her when she grows up!"), MSGBOX_NPC)
+    end
+}
+
+    //Info
+script GastreeCity_NPC5{
+    msgbox(format("Inger, the Gym Leader, uses ROCK types.\nI should have an advantage with\lmy FIGHTING-type Pokémon right?\pSo then why am I getting cold feet?"), MSGBOX_NPC)
+    end
+}
+
+script GastreeCity_Mankey{
+    playmoncry(SPECIES_MANKEY, CRY_MODE_NORMAL)
+    msgbox(format("Mankey is getting angry at its\ntrainer's cold feet!"), MSGBOX_NPC)
+    end    
+}
+
+    //Info
+script GastreeCity_NPC6{  
+    msgbox(format("Before you head to the Ceram Base Camp, check out the Gastree Teahouse!\lYou just haven't visited Gastree City without going there once."), MSGBOX_NPC)
+    end
+}
+
+    //Pokémon flavour
+script GastreeCity_NPC7{
+    msgbox(format("When I get my first Pokémon, I want it to be Poltchageist!"), MSGBOX_NPC)
+    end
+}
+
+
+//Shard quest
+script GastreeCity_Shard_NPC{
+    lockall
+    faceplayer
+
+    if (flag(FLAG_SHRINE_QUEST)){
+        if (var(VAR_STATUE_COUNT) == 11){
+            msgbox(format("To be honest, I still haven't processed the loss of this statue..."))
+            releaseall
+            end
+        }
+
+        if (var(VAR_STATUE_COUNT) == 10){
+            msgbox(format("Have you scanned all the statues?\pYes?"))
+            release
+
+            msgbox(format("Let me see your Archaeolens...\pOh my! That's all ten statues!\nI can't believe I'm seeing all of them like this...how I wish I could see them\nin real life!\pThank you {PLAYER}. You've done both me and the historical community a wonderful service.\pPlease accept this as a token of my appreciation."))
+
+            playfanfare(MUS_OBTAIN_TMHM)
+            additem(ITEM_HISTORIAN_MEDAL)
+            msgbox(format("{PLAYER} received the Historian Medal!"))
+            waitfanfare
+            release
+
+            //give item
+            msgbox(format("The Cormoria Historical Society awards these to people who have made special contributions to the field!\pIt's a great honour, {PLAYER}.\nYou should be proud!"))
+            release
+            delay(16)
+
+            msgbox(format("You work with Professor Tenebris, correct? So you would be interested\lin Pokemon psychology, I suppose.\lWhether you proceed down the path of history is up to you, but if you do...\lI hope this serves you well!"))
+
+            completequest(QUEST_ANCIENT_STATUES)
+
+            setvar(VAR_STATUE_COUNT, 11)
+
+        } else {
+            //quest has started
+            msgbox(format("Take your time child. I'll be waiting."), MSGBOX_NPC)
+        }
+    } else {
+        msgbox(format("Come to admire this statue, have you?\pI'm researching the origins of these ancient statues. They're a vital legacy of Cormoria's past."), MSGBOX_NPC)
+    }
+    end
+}
+
+script GastreeCity_Shard_Trigger{
+    if (flag(FLAG_SHRINE_QUEST)) {end}
+
+    checkitem(ITEM_RARE_SHARD)
+    if (var(VAR_RESULT) == 0) {end}
+
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+    waitmovement(0)
+    applymovement(LOCALID_OLD_WOMAN, moves(face_down emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Child! Is that a Rare Shard you have?\pMy my...come here, quickly!"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("I'm an archaeologist researching\nthese ancient statues.\pDid you know that all Pokémon have innate Individual Values for each of their stats? Pokémon Professors will grade them from E- to S.\pNormally, there's no way to change them.\pBut a Rare Shard when held in the prescence of an ancient statue like this one can maximise one of your Pokémon's Individual Values!\pA fascinating phenomenon!\nWhy don't you try it now?"))
+    release
+    delay(16)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_OLD_WOMAN, moves(face_left emote_question_mark))
+    waitmovement(0)
+    delay(24)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_left * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    delay(16)
+
+    applymovement(LOCALID_TRAINER, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("C'mon Bergmite! Use Rock Slide!"))
+    release
+    delay(16)
+    applymovement(LOCALID_BERG, moves(jump_in_place_down * 3))
+    playmoncry(SPECIES_BERGMITE, CRY_MODE_NORMAL)
+    waitmovement(0)
+    playse(SE_M_ROCK_THROW)
+    msgbox(format("keee!!!"))
+    release
+    delay(16)
+
+    setvar(VAR_0x8004, 2)  //vertical pan
+    setvar(VAR_0x8005, 2)  //horizontal pan
+    setvar(VAR_0x8006, 20)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    removeobject(LOCALID_SHRINE)
+    special(ShakeCamera)
+    waitstate
+    release    
+
+    delay(24)
+    applymovement(LOCALID_OLD_WOMAN, moves(jump_in_place_left emote_exclamation_mark))
+    applymovement(LOCALID_BERG, moves(face_right))
+    applymovement(LOCALID_TRAINER, moves(face_right))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Argh, you idiot boy!\nWhat have you done?\pYou and your Bergmite have destroyed the ancient statue!"))
+    release
+    delay(16)
+    
+    msgbox(format("Oh no! I'm so sorry!\nI really didn't mean to - I promise!"))
+    release
+    delay(16)
+    applymovement(LOCALID_TRAINER, moves(face_up))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Bergmite! We gotta say sorry!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_BERG, moves(jump_in_place_right))
+    playmoncry(SPECIES_BERGMITE, CRY_MODE_NORMAL)
+    waitmovement(0)
+    delay(16)
+    msgbox(format("keee..."))
+    release
+    delay(16)
+
+    applymovement(LOCALID_OLD_WOMAN, moves(jump_in_place_left * 2))
+    waitmovement(0)
+    msgbox(format("You think a sorry will suffice!\nYou blithering idiot!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_TRAINER, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Yikes, she's getting too worked up.\nBergmite - let's go!"))
+    release
+    applymovement(LOCALID_TRAINER, moves(walk_up * 7))
+    applymovement(LOCALID_BERG, moves(walk_up * 7))
+    waitmovement(0)
+    removeobject(LOCALID_TRAINER)
+    removeobject(LOCALID_BERG)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    applymovement(LOCALID_OLD_WOMAN, moves(face_left))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Such a loss to culture and history..."))
+    release
+    delay(16)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))    
+    applymovement(LOCALID_OLD_WOMAN, moves(face_down))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("I can't let this happen any more.\nWe must preserve these statues.\pI'm now too old to go around Cormoria, but you, my dear, are young and able! You must help me preserve the statues!\pTake this."))
+    release
+    
+    applymovement(LOCALID_OLD_WOMAN, moves(walk_down walk_left face_down))
+    waitmovement(0)
+    delay(8)
+    giveitem(ITEM_ARCHAEOLENS)   
+
+    msgbox(format("This is an Archaeolens. It scans and records ancient historical artifacts.\pNow that this statue is destroyed, there are ten statues left. \pScan all the statues around Cormoria and come back to me.\pA task of vital importance!\nI won't take no for an answer!"))
+    release
+
+    setflag(FLAG_SHRINE_QUEST)
+    startquest(QUEST_ANCIENT_STATUES)
+
+    releaseall
+    end
+}
+
+script GastreeCity_Shard_CantLeave_Trigger{
+    if (flag(FLAG_SHRINE_QUEST)) {end}
+    if (flag(FLAG_BADGE01_GET)){
+        lockall
+        msgbox(format("I should use the Rare Shard Leader Inger gave me!"))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+        waitmovement(0)
+        releaseall
+        end
+    }
+
+}
+
+
+
+
+    //Pokémon flavour
+script GastreeCity_NPC8{
+    msgbox(format("Hiiiiyah!\pI'm trying to teach my Bergmite some new moves so that we can go and\lexplore Route 4 together!\pC'mon Bergmite! C'mon!!"), MSGBOX_NPC)
+    applymovement(10, moves(emote_exclamation_mark jump_in_place_down))
+    waitmovement(0)
+    playmoncry(SPECIES_BERGMITE, CRY_MODE_NORMAL)
+    delay(16)
+    msgbox(format("Keeee!!!\pBergmite is fired up too!"), MSGBOX_NPC)
+    applymovement(5, moves(walk_in_place_fast_up))
+    waitmovement(0)
+    releaseall
+    end
+}
+
+script GastreeCity_NPC_Keckleon{ 
+    playmoncry(SPECIES_BERGMITE, CRY_MODE_NORMAL)
+    msgbox(format("Keeee!!\pBergmite is trying hard to match its trainers energy. Go Bergmite!"), MSGBOX_NPC)
+    end
+}
+
+script GastreeCity_NPC9{
+    lockall
+    faceplayer    
+    msgbox(format("Yo, trainer! Come here. What's the most useful move a Pokémon can learn?"))
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Eruption", "Quiver Dance", "Expanding Force", "Geomancy")        
+    msgbox(format("Nope - trick question! It's Splash!\p...\pNo, seriously. Most people think it's useless, but if you have HM Splash, your Pokémon can hop onto rocks in the water like the one here. But you need\lat least one Gym Badge to use HMs."))
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+    //Quest NPC
+    script GastreeCity_EventScript_SkittyQuestStart{
+
+        //INIT: set all flags remove all skittys
+        setflag(FLAG_HIDE_GASTREE_SKITTY1)
+        setflag(FLAG_HIDE_GASTREE_SKITTY2)
+        setflag(FLAG_HIDE_GASTREE_SKITTY3)
+
+        removeobject(LOCALID_SKITTY1)
+        removeobject(LOCALID_SKITTY2)
+        removeobject(LOCALID_SKITTY3)
+
+        
+        lockall
+        delay(12)
+        applymovement(3, moves(emote_exclamation_mark))
+        waitmovement(0)
+        msgbox(format("No! Skitty!"))
+        release
+        playmoncry(SPECIES_SKITTY, CRY_MODE_NORMAL)
+        applymovement(LOCALID_SKITTYOG, moves(walk_fast_right walk_fast_down * 6))
+        waitmovement(0)
+        applymovement(3, moves(face_down))
+        waitmovement(0)
+        removeobject(LOCALID_SKITTYOG)
+        applymovement(3, moves(jump_in_place_down * 3))
+        waitmovement(0)
+        msgbox(format("Skitty! Come back!!!"))
+        release
+        applymovement(3, moves(face_left))
+        waitmovement(0)           
+        delay(36)     
+        applymovement(3, moves(face_right))
+        waitmovement(0)           
+        delay(36)
+        applymovement(3, moves(emote_exclamation_mark))
+        waitmovement(0)           
+        delay(36)
+        applymovement(3, moves(walk_right * 2 face_up))
+        waitmovement(0)           
+        msgbox(format("Trainer! Trainer! You saw what happened, right? Oh, you have to bring my Skitty back, you absolutely have to! I don't want her to get hurt...please find her and bring her back!"))
+        release
+        setflag(FLAG_HIDE_GASTREE_SKITTY)
+        startquest(QUEST_GASTREE_SKITTY)
+        applymovement(3, moves(walk_left * 2 face_right))
+        waitmovement(0)           
+
+
+        //set up the skittys  
+        //hide the OG
+        setflag(FLAG_HIDE_GASTREE_SKITTY)   
+        removeobject(LOCALID_SKITTYOG)
+
+        //Appear skitty 1
+        clearflag(FLAG_HIDE_GASTREE_SKITTY1)
+        addobject(LOCALID_SKITTY1)
+
+        //Setvars
+        setvar(VAR_GASTREE_SKITTY_QUEST, 1)
+        releaseall
+        end
+    }
+
+
+    script GastreeCity_NPC2{
+        lockall
+        faceplayer    
+
+        if (flag(FLAG_GASTREE_NPC_SKITTY)){
+            msgbox(format("Skitty ran away because she got bored...maybe I should catch a\lMeowth for her to play with."), MSGBOX_NPC)
+        } else {
+            if (flag(FLAG_GASTREE_TRIGGER_SKITTY)){
+                addobject(LOCALID_SKITTYOG)
+                msgbox(format("Thank you trainer - my Skitty is back!"))
+                release
+                playmoncry(SPECIES_SKITTY, CRY_MODE_NORMAL)
+                msgbox(format("Skiiii!!!"))
+                msgbox(format("Please take this as a reward."))
+                giveitem(ITEM_HM_SPLASH)
+                msgbox(format("I'm not a trainer so I don't need it.\nAll I need is my Skitty!\pYou don't need to teach it to any of your Pokémon, but you need at least\lone Gym Badge to use it.\pNow come here Skitty!"))
+                applymovement(3, moves(face_up))
+                waitmovement(0)
+                setvar(VAR_GASTREE_SKITTY_QUEST, 5)
+                completequest(QUEST_GASTREE_SKITTY)
+                setflag(FLAG_GASTREE_NPC_SKITTY)
+            } else {
+                    msgbox(format("Have you found my Skitty yet? She might be stuck in a tree - please look for her pink tail!"))
+            }
+        }
+        releaseall
+        end
+    }
+
+    script GastreeCity_EventScripts_SkittyTrigger1{
+        msgbox(format("There's something in the tree...\pIt's Skitty!"))
+        release
+        playmoncry(SPECIES_SKITTY, CRY_MODE_NORMAL)        
+        delay(16)
+        applymovement(LOCALID_SKITTY1, moves(emote_exclamation_mark, walk_fast_left * 2, walk_fast_down * 3 walk_fast_left *7))
+        waitmovement(0)
+        removeobject(17)
+        msgbox(format("Skitty ran away! Gotta chase it!"))
+
+        //set up the skittys  
+        //hide skitty 1
+        setflag(FLAG_HIDE_GASTREE_SKITTY1)   
+        removeobject(LOCALID_SKITTY1)
+        
+        //Appear skitty 2
+        clearflag(FLAG_HIDE_GASTREE_SKITTY2)
+        addobject(LOCALID_SKITTY2)
+
+        //Setvars
+        setvar(VAR_GASTREE_SKITTY_QUEST, 2)
+        releaseall
+        end
+    }
+
+    script GastreeCity_EventScripts_SkittyTrigger2{
+        msgbox(format("There's something in the tree...\pIt's Skitty!"))
+        release
+        playmoncry(SPECIES_SKITTY, CRY_MODE_NORMAL)
+        delay(16)
+        applymovement(LOCALID_SKITTY2, moves(emote_exclamation_mark walk_fast_right * 3 walk_fast_down *2 walk_fast_right *3 walk_fast_down *7))
+        waitmovement(0)
+        removeobject(LOCALID_SKITTY2)
+        msgbox(format("Skitty ran away again.\nIt's too slippery!"))
+        //set up the skittys  
+        //hide skitty 2
+        setflag(FLAG_HIDE_GASTREE_SKITTY2)   
+        removeobject(LOCALID_SKITTY2)
+        
+        //Appear skitty 3
+        clearflag(FLAG_HIDE_GASTREE_SKITTY3)
+        addobject(LOCALID_SKITTY3)
+
+        //Setvars
+        setvar(VAR_GASTREE_SKITTY_QUEST, 3)
+        releaseall
+
+        end
+    }    
+
+    script GastreeCity_EventScripts_SkittyTrigger3{
+        msgbox(format("It's Skitty! Okay, this time you'd better come here, Skitty!"))
+        release
+        playmoncry(SPECIES_SKITTY, CRY_MODE_NORMAL)        
+        delay(16)
+        applymovement(LOCALID_SKITTY3, moves(emote_exclamation_mark walk_fast_right * 2 walk_fast_up * 1 walk_fast_right * 3 walk_fast_up * 6))
+        waitmovement(0)
+        removeobject(LOCALID_SKITTY3)
+        msgbox(format("Phew! Finally. Looks like Skitty ran back to its owner!"))
+        //set up the skittys  
+        //hide skitty 2
+        setflag(FLAG_HIDE_GASTREE_SKITTY3)   
+        removeobject(LOCALID_SKITTY3)
+        
+        //Appear skitty og
+        clearflag(FLAG_HIDE_GASTREE_SKITTY)
+        addobject(LOCALID_SKITTYOG)
+
+        //Setvars
+        setvar(VAR_GASTREE_SKITTY_QUEST, 4)
+
+        //Set final flag
+        setflag(FLAG_GASTREE_TRIGGER_SKITTY)
+
+        releaseall
+        end
+    } 
+
+    script GastreeCity_NPC_Skitty{
+        lockall
+        faceplayer    
+        playmoncry(SPECIES_SKITTY, CRY_MODE_NORMAL)        
+        msgbox(format("Skee!!"))
+        releaseall
+        end
+    }
+
+
+script GastreeCity_Poltchageist{
+    playmoncry(SPECIES_POLTCHAGEIST, CRY_MODE_NORMAL)
+    msgbox(format("Poltchageist is picking Revival Herbs for the teahouse!"), MSGBOX_NPC)
+    end
+}
+
+
+
+

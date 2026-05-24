@@ -1,0 +1,1081 @@
+raw`
+    .set LOCALID_RAVINE, 14
+    .set LOCALID_RANGER1, 12
+    .set LOCALID_PACKAGE, 15
+
+    .set LOCALID_SC1, 21
+    .set LOCALID_SC2, 10
+    .set LOCALID_SC3, 11
+    .set LOCALID_RANGER2, 13
+    .set LOCALID_SCYTHER, 19
+    .set LOCALID_MASQ, 18
+`
+
+mapscripts RangerInstitute_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: RangerInstitute_OnTransition
+
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_0, 0: RangerInstitute_OnFrame
+    ]
+
+}
+
+//FULL RANGER QUESTLINE
+//VAR_RANGER_INSTITUTE
+    //Stages: Recruit, Candidate, Associate, Ranger (end-game)
+
+//0: quest not started
+//1: application form printed
+    //now go to interview. If you fail, var resets to 0
+//2: interview completed
+    //Become a Recruit. Get Ranger Bike and access to second floor.
+//3: first mission
+    //spoken to Ravine, got the delivery mission
+//4: first mission complete
+    //delivered to Ivy River
+    //reward: ? + Trainee (Shard vendor in Route 6 and Tauros)
+//5, 6, 7: second mission
+    //spoken to Ivy River head, got the show pokemon mission
+        //show three pokemon, increment var three times
+//8: second mission complete
+    //reward: ? + Associate (EV Editor in Ivy River)
+//9: third mission
+    //catch diancie - the new mega evolution
+//10: third mission complete
+    //???
+    //reward: ? + Ranger (?)
+
+    // .set LOCALID_SC1, 21
+    // .set LOCALID_SC2, 10
+    // .set LOCALID_SC3, 11
+    // .set LOCALID_RANGER2, 13
+    // .set LOCALID_SCYTHER, 19
+    // .set LOCALID_MASQ, 18
+
+
+script RangerInstitute_OnTransition{
+    if (var(VAR_RANGER_INSTITUTE) == 12){
+        setobjectxyperm(LOCALID_SC1, 7, 28)
+        setobjectxyperm(LOCALID_SC2, 8, 28)
+        setobjectxyperm(LOCALID_SC3, 9, 29)
+        setobjectxyperm(LOCALID_RANGER2, 9, 28)
+        setobjectxyperm(LOCALID_SCYTHER, 10, 28)
+        setobjectxyperm(LOCALID_RANGER1, 8, 29)
+
+        setobjectmovementtype(LOCALID_SC1, MOVEMENT_TYPE_FACE_UP)
+        setobjectmovementtype(LOCALID_SC2, MOVEMENT_TYPE_FACE_UP)
+        setobjectmovementtype(LOCALID_SC3, MOVEMENT_TYPE_FACE_UP)
+        setobjectmovementtype(LOCALID_RANGER2, MOVEMENT_TYPE_FACE_UP)
+        setobjectmovementtype(LOCALID_SCYTHER, MOVEMENT_TYPE_FACE_UP)
+        setobjectmovementtype(LOCALID_RANGER1, MOVEMENT_TYPE_FACE_UP)
+
+        setobjectxyperm(LOCALID_RAVINE, 8, 26)
+        setobjectmovementtype(LOCALID_RAVINE, MOVEMENT_TYPE_FACE_DOWN)
+    }
+    end
+}
+
+script RangerInstitute_OnFrame{
+    if (var(VAR_RANGER_INSTITUTE) == 12){
+
+        delay(30)
+        
+        msgbox_delay("Ravine", format("My dear Pokémon Rangers! My trusted companions!\pWhat a great day it is! Welcome to our newest Pokémon Ranger - {PLAYER}!"))
+
+        playse(SE_APPLAUSE)
+        speakername(NULL)
+        msgbox(format("Welcome {PLAYER}!\pI knew the kid could do it!\pGreat to have you with us!"))
+
+        msgbox_delay("Ravine", format("{PLAYER} cleared the interview, trekked all the way up Mt. Mirroh to visit our facility, helped the scientists there, and came back here for the final mission.\pPerhaps it was luck. Fate. Destiny. Whatever you want to call it!\p{PLAYER} received one of the most challenging missions given to any Ranger - to capture a rare Pokémon that nobody has ever seen!\pAnd {PLAYER} did it!"))
+
+        applymovement(LOCALID_RAVINE, moves(face_right))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+        delay(16)
+        msgbox_delay("Ravine", format("Hand over your Ranger Card."))
+        removeitem(ITEM_RANGER_CARD)
+        playfanfare(MUS_LEVEL_UP)
+        msgbox(format("{PLAYER} handed the Ranger Card over to Director Ravine."))
+        release
+        delay(24)
+        msgbox_delay("Ravine", format("For your tenacity, grit and unwavering resolve, I, Director Ravine, am proud to award you, {PLAYER}, with the official Pokémon Ranger Crest!"))
+
+        playfanfare(MUS_OBTAIN_TMHM)
+        additem(ITEM_RANGER_CREST)
+        msgbox(format("{PLAYER} received the Ranger Crest!"))
+        waitfanfare
+        release
+
+        msgbox_delay("Ravine", format("Being a Pokémon Ranger means handling responsibility, {PLAYER}. People look up to us, ask us to solve the problems they can't handle...and we deliver.\pEvery single time.\pCarry the emblem with pride, Ranger.\pIt means the world to us, and now you're a part of our world."))
+        
+        completequest(QUEST_POKEMON_RANGER)
+        setvar(VAR_RANGER_INSTITUTE, 13)
+
+        releaseall
+        end
+    }
+}
+
+//FIRST FLOOR
+//2 blockers
+//3 NPCs (1 employee and 2 randoms)
+//1 interviewer
+//1 application form printer
+
+
+//THE INTERVIEW
+script RangerInstitute_1F_ApplicationPC{
+    msgbox(format("{PLAYER} booted up the Pokémon Ranger Application PC."))
+    release
+
+    if (var(VAR_RANGER_INSTITUTE) == 1){
+        msgbox(format("ERROR: YOU ALREADY HAVE AN\nAPPLICATION IN PROGRESS."), MSGBOX_SIGN)
+        end
+    }
+
+    if (var(VAR_RANGER_INSTITUTE) == 0){
+        msgbox(format("WOULD YOU LIKE TO PRINT AN APPLICATION FORM?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            showmoneybox(0, 0)
+            msgbox(format("IT WILL COST ¥500.\nPROCEED WITH PRINTING?"), MSGBOX_YESNO)
+            hidemoneybox
+            if (var(VAR_RESULT) == 1){
+                msgbox(format("...\pA piece of paper comes out of the PC!\pPLEASE BRING THIS FORM TO THE INTERVIEWER ON DUTY."))
+                setvar(VAR_RANGER_INSTITUTE, 1)
+            } else {
+
+            }
+        } else {
+
+        }
+        releaseall
+        end
+    }
+
+    msgbox(format("YOU HAVE ALREADY CLEARED THE INTERVIEW."), MSGBOX_SIGN)
+    releaseall
+    end
+}
+
+
+script RangerInstitute_1F_Interviewer{
+    lockall
+    faceplayer
+    
+    if (var(VAR_RANGER_INSTITUTE) == 1){
+        msgbox(format("Ah, very good! You have an application form. Come then, sit with me."))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up walk_left *2 walk_down * 2 face_right))
+        waitmovement(0)
+        applymovement(4, moves(face_left))
+        waitmovement(0)
+        delay(30)
+        msgbox(format("This interview will consist of five questions. You are expected to answer all of them correctly. If even one question is wrong, you'll fail.\pGot it?\pGood, let's start."))
+        release
+        goto(RangerInstitute_1F_InterviewQ1)
+
+    } else {
+        msgbox(format("I'm the interviewer on duty.\pWe get so many applicants!"))        
+    }
+
+    releaseall
+}
+
+script RangerInstitute_1F_InterviewFail{
+    msgbox(format("Sorry! That's the wrong answer. You have failed this interview.\pPlease feel free to apply again!\p...\p...sigh, when will we ever get a\ndecent candidate?"))
+    release
+    setvar(VAR_RANGER_INSTITUTE, 0)
+}
+
+script RangerInstitute_1F_InterviewQ1{
+    //Question 1
+    applymovement(4, moves(emote_question_mark))
+    message(format("Q: Which of these types is super-effective against Dewpider?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "FAIRY", "GRASS", "FIRE", "ROCK")
+
+    //Check answers
+    if (var(VAR_RESULT) == 3){
+        msgbox(format("Correct! Dewpider, a BUG and WATER type, is weak to ROCK-type attacks.\pOnto the next question!"))
+        goto(RangerInstitute_1F_InterviewQ2)
+    } else {
+        goto(RangerInstitute_1F_InterviewFail)
+    }
+}
+
+script RangerInstitute_1F_InterviewQ2{
+    //Question 1
+    applymovement(4, moves(emote_question_mark))
+    message(format("Q: Which of these Pokémon does NOT have a normal evolution?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Toxel", "Koffing", "Absol", "Cyndaquil")
+
+    //Check answers
+    if (var(VAR_RESULT) == 2){
+        msgbox(format("Correct! Absol has no normal evolution, but it can Mega Evolve.\pOnto the next question!"))
+        goto(RangerInstitute_1F_InterviewQ3)
+    } else {
+        goto(RangerInstitute_1F_InterviewFail)
+    }
+}
+
+script RangerInstitute_1F_InterviewQ3{
+    //Question 1
+    applymovement(4, moves(emote_question_mark))
+    message(format("Q: Which of the following is a GHOST type Pokémon?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Dhelmise", "Zigzagoon", "Delphox", "Ninetales")
+
+    //Check answers
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Correct! Dhelmise is a GHOST and GRASS type Pokémon found underwater.\pOnto the next question!"))
+        goto(RangerInstitute_1F_InterviewQ4)
+    } else {
+        goto(RangerInstitute_1F_InterviewFail)
+    }
+}
+
+script RangerInstitute_1F_InterviewQ4{
+    //Question 1
+    applymovement(4, moves(emote_question_mark))
+    message(format("Q: What happens if you use Black Augurite on a Scyther?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Full Heal", "Evolution", "Nothing", "Boost BUG power")
+
+    //Check answers
+    if (var(VAR_RESULT) == 1){
+        msgbox(format("Correct! Using Black Augurite evolves Scyther into Kleavor.\pOnto the last question!"))
+        goto(RangerInstitute_1F_InterviewQ5)
+    } else {
+        goto(RangerInstitute_1F_InterviewFail)
+    }
+}
+
+script RangerInstitute_1F_InterviewQ5{
+    //Question 1
+    applymovement(4, moves(emote_question_mark))
+    message(format("Q: If you see a stranger in need of help, what do you do?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Nothing", "Laugh", "Help them", "Take a video")
+
+    //Check answers
+    if (var(VAR_RESULT) == 2){
+        msgbox(format("Correct! And that's the final question! This interview is over."))
+        goto(RangerInstitute_1F_InterviewPass)
+    } else {
+        goto(RangerInstitute_1F_InterviewFail)
+    }
+}
+
+script RangerInstitute_1F_InterviewPass{
+    msgbox(format("Congratulations {PLAYER}! You've cleared the interview. We're now proud to call you a Pokémon Ranger Recruit.\pWelcome to the Cormoria Pokémon\nRanger Institute!"))
+    release
+    delay(8)
+
+    //promotion
+    message(format("{PLAYER} is now an official Pokémon Ranger Recruit!"))
+    waitmessage
+    call(Common_EventScript_PlayGymBadgeFanfare)    
+
+    msgbox(format("Please head upstairs for your induction. All the best, Recruit!"))
+    releaseall
+    setvar(VAR_RANGER_INSTITUTE, 2)
+    setflag(FLAG_RANGER_ACCEPTED)
+}
+
+//NPCs
+script RangerInstitute_1F_NPC1{
+    lockall
+    faceplayer
+    msgbox(format("Should I become a Pokémon Ranger?\nIt's really hard to get in...I don't\lknow if I can do it."))
+    releaseall
+    end
+}
+script RangerInstitute_1F_NPC2{
+    lockall
+    faceplayer
+    msgbox(format("My interview is coming up. I'm nervous - I want to become a Pokémon Ranger so bad! Their Pokémon are so cool!\pTauros!\pKangaskhan!\p...\pI don't know any others."))
+    releaseall
+    end
+}
+script RangerInstitute_1F_NPC3{
+    lockall
+    faceplayer
+    msgbox(format("Not all Rangers are out on the field! Managing such a large organisation is no easy task, let me tell you."))
+    releaseall
+    end
+}
+script RangerInstitute_1F_NPC4{
+    lockall
+    faceplayer
+    msgbox(format("You heard about the Mega Sharpedo in the Hoya River, right?\pWe're tracking it on our scanners -\nit's headed straight to Pelluca City.\lI hope it doesn't cause any damage..."))
+    releaseall
+    end
+}
+
+//Blockers
+script RangerInstitute_1F_BlockerBasement{
+    msgbox(format("It's so hectic these days, what with the Mega Sharpedo and everything!"), MSGBOX_NPC)
+    end
+}
+
+//     if (var(VAR_RANGER_INSTITUTE) == 0){
+//         msgbox(format("Welcome to the Ranger TM Store!\p...\pYou're not a Ranger?\pSorry, this for Pokémon Rangers only."), MSGBOX_NPC)
+//         end
+//     }
+//     if (var(VAR_RANGER_INSTITUTE) == 1){
+//         msgbox(format("Welcome to the Ranger TM Store!\p...\pYou're not a Ranger?\pSorry, this for Pokémon Rangers only."), MSGBOX_NPC)
+//         end
+//     }
+
+//     lock
+// 	faceplayer
+// 	message(format("Welcome to the Ranger TM Store!"))
+// 	waitmessage
+// 	pokemart(RangerInstitute_1F_TM_Mart)
+// 	msgbox(format("See you another time, Ranger!"), MSGBOX_DEFAULT)
+// 	release
+// 	end
+// }
+
+// mart RangerInstitute_1F_TM_Mart{
+//     ITEM_TM10
+//     ITEM_TM27
+//     ITEM_TM28
+//     ITEM_TM32
+//     ITEM_TM36
+//     ITEM_TM42
+// }
+
+
+script RangerInstitute_1F_BlockerUpstairs{
+    if (var(VAR_RANGER_INSTITUTE) == 0){
+        msgbox(format("Sorry, only Pokémon Rangers are allowed inside. If you'd like to apply, you can print an application form using the PC by the entrance."), MSGBOX_NPC)
+        end
+    }
+
+    if (var(VAR_RANGER_INSTITUTE) == 1){
+        msgbox(format("Sorry, only Pokémon Rangers are allowed inside. If you'd like to apply, you can print an application form using the PC by the entrance."), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("You're not a fully-fledged Pokémon Ranger yet - just a Recruit!\lSo I'll be keeping an eye on you."), MSGBOX_NPC)
+    end
+}
+
+script RangerInstitute_1F_TriggerUpstairs{
+    if (var(VAR_RANGER_INSTITUTE) > 1){end}
+
+    lockall
+    applymovement(6, moves(face_left emote_exclamation_mark))
+    waitmovement(0)
+    msgbox(format("Sorry, only Pokémon Rangers are allowed inside. If you'd like to apply, you can print an application form using the PC by the entrance."))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+    applymovement(6, moves(face_down))
+    waitmovement(0)   
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+//2nd FLOOR - AFTER GETTING THE RECRUIT CERTIFICATION
+//walk up, trigger - check for ranger recruit.
+//get ranger bike, meet RAVINE the head of the institute
+//Ravine tells you to get to candidate level, you must catch 70 pokemon
+
+
+
+
+//Triggers
+script RangerInstitute_2F_Trigger0{
+    if (var(VAR_RANGER_INSTITUTE) == 2){
+        lockall
+        applymovement(12, moves(emote_exclamation_mark))
+        waitmovement(0)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+        waitmovement(0)
+        msgbox(format("Hey wait -  oh, a new Ranger Recruit? Welcome to the Ranger Institute, recruit! It's been a while since someone passed our interview. You must be here for your induction.\pFollow me. I'll introduce you to Ravine, the Ranger Institute Head."))
+        release
+
+        //move to Ravine
+        applymovement(12, moves(walk_left * 6 walk_up walk_left * 4 walk_up face_down))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up walk_left * 6 walk_up walk_left * 4))
+        waitmovement(0)
+
+        goto(RangerInstitute_2F_EventScript_Welcome)
+    } else {
+        end
+    }
+
+    releaseall
+    end
+}
+
+script RangerInstitute_2F_Trigger1{
+    if (var(VAR_RANGER_INSTITUTE) == 2){  
+        lockall
+        applymovement(LOCALID_RANGER1, moves(emote_exclamation_mark))
+        waitmovement(0)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+        waitmovement(0)
+        msgbox(format("A new Ranger Recruit? Welcome to the Ranger Institute, recruit! It's been a while since someone passed our interview. You must be here for your induction. Follow me. I'll introduce you to RAVINE, the Institute Director."))
+        release
+
+        //move to Ravine
+        applymovement(LOCALID_RANGER1, moves(walk_left * 6 walk_up walk_left * 4 walk_up face_down))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up *2 walk_left * 6 walk_up walk_left * 4 face_left))
+        waitmovement(0)
+
+        goto(RangerInstitute_2F_EventScript_Welcome)
+    } else {
+        end
+    }
+    releaseall
+    end
+}
+
+script RangerInstitute_2F_EventScript_Welcome{
+    applymovement(LOCALID_RANGER1, moves(jump_in_place_down))
+    waitmovement(0)
+    msgbox(format("Director Ravine! Meet {PLAYER}, our newest Recruit."))
+    release
+    delay(60)
+    msgbox_delay("Ravine", format("Hmm...yes...\p...\p...yes this is -"))
+    release
+    applymovement(LOCALID_RANGER1, moves(jump_in_place_left))
+    waitmovement(0)
+    msgbox(format("Director Ravine!"))
+    release
+    delay(60)
+    msgbox_delay("Ravine", format("...ahh...hmm..."))
+    release
+    applymovement(LOCALID_RANGER1, moves(emote_exclamation_mark jump_in_place_left * 3))
+    waitmovement(0)
+    msgbox(format("DIRECTOR RAVINE!!!"))
+    release
+    applymovement(LOCALID_RAVINE, moves(emote_exclamation_mark face_right))
+    waitmovement(0)
+    msgbox_delay("Ravine", format("Yes! Yes! What is it?"))
+    release
+    applymovement(LOCALID_RANGER1, moves(jump_in_place_down))
+    waitmovement(0)
+    msgbox(format("Sigh...\pDirector Ravine! Meet {PLAYER}, our newest recruit.\p...\pDirector, you were daydreaming again!"))
+    release    
+    applymovement(LOCALID_RAVINE, moves(emote_exclamation_mark))
+    waitmovement(0)
+    msgbox_delay("Ravine", format("No I was most definitely not, how dare you? I was -ahem- deep in my research.\p...\pNow. Yes. Welcome to the Ranger Institute, {PLAYER}! Congratulations on clearing the interview. I'm so pleased to see our family grow. Do you know what we Pokémon Rangers do?"))
+    release
+    applymovement(LOCALID_RANGER1, moves(walk_left face_down))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Psst...Director, the bike and stuff."))
+    release    
+    delay(16)    
+    applymovement(LOCALID_RAVINE, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Ravine", format("Ah yes! As part of your welcome package, the Ranger Institute is pleased to provide you with these!"))
+    release
+    giveitem(ITEM_MACH_BIKE)
+    giveitem(ITEM_RANGER_CARD)
+    msgbox_delay("Ravine", format("The Ranger Bike and Ranger Card - the two emblems of a Pokémon Ranger in Cormoria! The Ranger Bike will allow you to speedily traverse all of Cormoria, and the Ranger Card lets everyone know you're a proper Pokémon Ranger!\pYou can access the other Ranger Institutes with this.\pWe have a branch up north by the Ivy River, and down south by the sea near Rivetshore City."))
+    release
+    delay(32)     
+    msgbox_delay("Ravine", format("{PLAYER}, do you know what we Pokémon Rangers are tasked with doing?\pNo?\pFollow me."))
+    release
+    delay(16)
+    applymovement(LOCALID_RAVINE, moves(walk_down walk_right * 5 walk_down * 5 walk_left *5 face_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left walk_down walk_right * 5 walk_down * 5 walk_left * 4))
+    msgbox_delay("Ravine", format("As Pokémon Rangers, our job is to protect nature and maintain harmony between people, Pokémon, and the environment. Whether it's rescuing Pokémon in danger, resolving conflicts, or stopping threats to the ecosystem, we're always out in the field, ensuring the wild stays safe and balanced. It's challenging work, but knowing we're making a difference for both Pokémon and the world around us makes it all worthwhile."))
+    release
+    msgbox_delay("Ravine", format("But none of that for you just yet! You have to earn your stripes here. As a Ranger Recruit, you'll have to complete missions to advance your ranking."))
+    release
+    delay(24)
+    msgbox_delay("Ravine", format("Now, I have some important items that the Ranger Institute at Ivy River wants. Your first mission will be to deliver this to them!"))
+    release
+    removeobject(LOCALID_PACKAGE)
+    giveitem(ITEM_RANGER_PACKAGE)
+    startquest(QUEST_POKEMON_RANGER)
+    subquestmenu(QUEST_MENU_COMPLETE_QUEST, QUEST_POKEMON_RANGER, SUB_QUEST_1)
+    setflag(FLAG_RANGER_GOT_FIRST_MISSION)
+    setvar(VAR_RANGER_INSTITUTE, 3)
+    delay(16)
+    msgbox_delay("Ravine", format("If you complete this mission, you'll rank up from Recruit to Candidate.\pThe Ranger Institute at Ivy River is a little hard to find. You'll have to surf down from Winterlily Hollow and explore Lily Pond.\pGood training for a recruit, eh?"))
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+script RangerInstitute_Ravine{
+    //post-game
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        //if its done then move on
+        if (flag(FLAG_CHAMPION_RAVINE_COMPLETE)){
+
+        } else {
+            //if greta is done then do it, or else move on
+            if (flag(FLAG_CHAMPION_GRETA_COMPLETE)){
+                lockall 
+                faceplayer
+                speakername("Ravine")
+                msgbox(format("A special visitor! One that comes every four years.\p...\pAfter my duel with Greta four years ago, I knew this day would come.\pBut not here, young Champion.\pCome find me in the southernmost point of Cormoria!"))
+                release
+
+                applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up face_down))
+                applymovement(LOCALID_RAVINE, moves(walk_right * 4 walk_down * 2 walk_right * 5))
+                waitmovement(0)
+
+                removeobject(LOCALID_RAVINE)
+                setflag(FLAG_HIDE_CHAMPION_RAVINE)
+                setflag(FLAG_CHAMPION_RAVINE_SETUP)
+
+                releaseall
+                end
+            }
+        }
+    }    
+
+
+    if (var(VAR_RANGER_INSTITUTE) == 11){
+        lockall 
+        faceplayer
+        speakername("Ravine")
+        msgbox(format("Did you find the Pokémon?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0){
+            delay(16)
+            speakername("Ravine")
+            msgbox(format("I've already told everyone that you'll clear the final mission with flying colours, so don't let me down!"))
+            releaseall
+            end
+        }
+
+        applymovement(LOCALID_RAVINE, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+
+        speakername("Ravine")
+        msgbox(format("Really? Let me see!"))
+
+        special(ChoosePartyMon)                 //choose your mon
+        waitstate                               //wait
+        copyvar(VAR_0x800A, VAR_0x8004)         //idk why but copy player selected mon
+        copyvar(VAR_0x8005, VAR_0x800A)         //idk why but copy the trade mon
+        specialvar(VAR_RESULT, GetTradeSpecies)
+
+        if (var(VAR_RESULT) == SPECIES_ZERAORA){
+            applymovement(LOCALID_RAVINE, moves(emote_exclamation_mark))
+            waitmovement(0)
+            delay(16)
+
+            speakername("Ravine")
+            msgbox(format("This is it! So this is the mythical Zeraora...\p{PLAYER}! You've done it! You've cleared the final mission!\pDo you know what that means?"), MSGBOX_YESNO)
+            release
+            
+            delay(16)
+            speakername("Ravine")
+            msgbox(format("It's time..."))
+
+            setvar(VAR_RANGER_INSTITUTE, 12)
+            warp(MAP_RANGER_INSTITUTE, 9, 26)
+            end
+        } else {
+            msgbox(format("Wait a second...that doesn't fit the description of the rare Pokémon!\lYou can't weasel your way out of this mission, {PLAYER}!"), MSGBOX_NPC)
+            releaseall
+            end
+        }
+
+
+        releaseall
+        end    
+    }
+
+    if (var(VAR_RANGER_INSTITUTE) == 10){///Start final quest
+        lockall 
+        faceplayer
+        speakername("Ravine")
+        msgbox(format("How do you feel about your new Pokémon, {PLAYER}?\pGood?\pHaha! It's the first of many.\pYou ready to become a fully-fledged Pokémon Ranger?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0){
+            speakername("Ravine")
+            msgbox(format("Haha! Heard horror stories about the final mission, did you?\pCome back when you're ready!"))
+            releaseall
+            end
+        } else {
+            speakername("Ravine")
+            msgbox(format("Haha! That's it - that's the Pokémon Ranger spirit within you, {PLAYER}!\lCome then, shall I brief you on your final mission?"))
+            release
+            delay(16)
+
+            //move to the scientist
+            //move player
+            specialvar(VAR_RESULT, GetPlayerFacingDirection)
+
+            if (var(VAR_RESULT) == DIR_SOUTH){
+                applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down walk_right * 4 walk_up))
+            }
+            if (var(VAR_RESULT) == DIR_WEST){
+                applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down walk_up walk_right * 3 walk_up))
+            }
+            applymovement(VAR_LAST_TALKED, moves(walk_right * 5 walk_up * 2 face_left))
+            waitmovement(0)
+
+            applymovement(21, moves(face_right))
+            waitmovement(0)
+
+            speakername("Ravine")
+            msgbox(format("We've got one ready to go!\nCan you debrief {PLAYER}?"))
+            release
+            delay(16)
+
+            //scientist reaction
+            applymovement(21, moves(jump_in_place_right))
+            waitmovement(0)
+            delay(16)
+            msgbox(format("Excellent! Right away, Director."))
+            release
+            delay(16)
+            applymovement(21, moves(face_down))
+            waitmovement(0)
+            delay(30)
+            applymovement(21, moves(emote_exclamation_mark jump_in_place_down))
+            waitmovement(0)
+            delay(24)
+            applymovement(21, moves(face_right))
+            waitmovement(0)
+            delay(16)
+            msgbox(format("Director, I must warn you - this is\na rather...involved assignment."))
+            release        
+
+            applymovement(LOCALID_RAVINE, moves(jump_in_place_left))
+            waitmovement(0)
+            delay(16)
+            speakername("Ravine")
+            msgbox(format("Hahaha! Doubting {PLAYER} will be your biggest mistake!\l{PLAYER}'s ready. Director's approval! This is the final mission before becoming a Cormoria Pokémon Ranger. It's got to be a tough one! Only the very best can become a Pokémon Ranger after all."))
+            release
+            delay(16)
+            applymovement(21, moves(face_right))
+            waitmovement(0)
+            delay(16)
+            msgbox(format("Right...yes, well."))
+            release        
+            applymovement(21, moves(face_down))
+            waitmovement(0)
+            delay(16)
+            msgbox(format("{PLAYER}, was it?\pMy job with the Ranger Institute is to research the existence of rare Pokémon only spoken of in myths. We believe there's one right here on Route 6!\pBased on reported sightings, we've come up with an artist recreation.\pCome and take a look."))
+            release        
+
+            delay(16)
+
+            applymovement(21, moves(walk_left face_right))
+            waitmovement(0)
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+            waitmovement(0)
+
+            delay(16)
+
+            msgbox(format("..."))
+            release
+            delay(30)
+
+            msgbox(format("..."))
+            release
+            delay(30)
+
+            msgbox(format("..."))
+            release
+            delay(30)
+
+            applymovement(21, moves(emote_question_mark))
+            waitmovement(0)
+            delay(16)
+            msgbox(format("That's strange...why isn't the drawing showing up on screen?"))
+            release  
+            delay(30)
+
+            playse(SE_M_THUNDER_WAVE)
+            setvar(VAR_0x8004, 2)  //vertical pan
+            setvar(VAR_0x8005, 2)  //horizontal pan
+            setvar(VAR_0x8006, 8)  //num shakes
+            setvar(VAR_0x8007, 5)  //shake delay        
+            special(ShakeCamera)        
+            waitstate
+
+            applymovement(21, moves(emote_exclamation_mark))
+            waitmovement(0)
+            delay(16)
+            msgbox(format("The computer short-circuited!\nHow bizarre...\pDirector Ravine! This is precisely why\nI keep telling you that we need to upgrade our hardware!"))
+            release  
+
+            applymovement(LOCALID_RAVINE, moves(jump_in_place_left))
+            waitmovement(0)
+            delay(16)
+
+            speakername("Ravine")
+            msgbox(format("Nonsense! I've never even heard of such a request."))
+            release
+            delay(16)
+
+            applymovement(21, moves(jump_in_place_right))
+            waitmovement(0)
+            delay(16)
+
+            msgbox(format("Sigh...Director, you can just admit that you were daydreaming."))
+            release
+            delay(16)
+
+            applymovement(LOCALID_RAVINE, moves(jump_in_place_left))
+            waitmovement(0)
+            delay(16)
+
+            speakername("Ravine")
+            msgbox(format("Such accusations!\p...ahem.\pForget the computer. Listen to me carefully, {PLAYER}.\pWhat we know is that there is a yellow, catlike Pokémon somewhere on Route 6."))
+            release
+            delay(16)
+
+            applymovement(21, moves(jump_in_place_right))
+            waitmovement(0)
+            delay(16)
+
+            msgbox(format("Believe, not know."))
+            release
+            delay(16)
+
+            speakername("Ravine")
+            msgbox(format("Yes, believe.\pNow for your last mission, {PLAYER}, you are tasked with tracking down the whereabouts of this Pokémon!\pAll we have is the description - it's yellow and catlike. Nothing else!\lThis won't be easy, {PLAYER}. This will put all your skills to the test.\pBut a true Pokémon Ranger doesn't back down in the face of a challenge!\pSo buckle up, set off, and come back with an answer, one way or another.\pNow get going!"))
+            release
+            delay(16)
+
+            applymovement(21, moves(jump_in_place_right))
+            waitmovement(0)
+            delay(16)
+
+            msgbox(format("Good luck, {PLAYER}!"))
+            release
+            delay(16)
+
+            completesubquest(QUEST_POKEMON_RANGER, SUB_QUEST_3)
+            setvar(VAR_RANGER_INSTITUTE, 11)
+
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 4))
+            waitmovement(0)
+
+            special(SpawnCameraObject)
+            applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 4))
+            waitmovement(0)
+            special(RemoveCameraObject)
+
+            applymovement(21, moves(walk_right))
+            waitmovement(0)
+            delay(16)
+
+            msgbox(format("But seriously, why would there be an electrical overcharge here?\lDirector, I don't think this was an accident..."))
+            release
+            delay(16)
+
+            applymovement(LOCALID_RAVINE, moves(jump_in_place_left))
+            waitmovement(0)
+            delay(16)
+
+            msgbox(format("Shh! {PLAYER} will overhear us!\nIt's already an important mission - let's not add any more tension!"))
+            release
+            delay(16)
+
+            special(SpawnCameraObject)
+            applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 4))
+            waitmovement(0)
+            special(RemoveCameraObject)
+
+            setvar(VAR_RANGER_INSTITUTE, 11)
+
+            releaseall
+            end
+        }
+        //add the last quest here
+        releaseall
+        end
+    }
+
+    if (var(VAR_RANGER_INSTITUTE) == 9){///waiting for selection of ball
+        speakername("Ravine")
+        msgbox(format("Don't be shy - pick a Pokémon!\nIt's your reward for ranking up."), MSGBOX_NPC)
+        end
+    }
+
+    if (var(VAR_RANGER_INSTITUTE) == 8){ ///second quest completed
+        lockall
+        faceplayer
+        msgbox_delay("Ravine", format("My newest Associate arrives!\nHow does it feel, being just one more step away from being a fully-fledged Ranger?\pAs an Associate, you are entitled to one of our very rare Ranger-exclusive Pokémon! See the table down there? Any of those Pokémon is yours! But choose carefully - you can only pick one.\pTalk to me once you've chosen one."))
+        setvar(VAR_RANGER_INSTITUTE, 9)
+        releaseall
+        end
+    }
+
+
+    //Default
+    speakername("Ravine")
+    msgbox(format("How's my newest member doing?"), MSGBOX_NPC)
+    end
+}
+
+script RangerInstitute_2F_NPC_1{
+    lockall
+    faceplayer
+
+    if (var(VAR_RANGER_INSTITUTE) == 13) {
+        msgbox(format("Congratulations {PLAYER}!"))
+    } else {
+        msgbox(format("Director Ravine has a bad habit of daydreaming at work..."))
+    }
+    
+    releaseall
+    end
+}
+script RangerInstitute_2F_NPC_2{
+    lockall
+    faceplayer
+
+    if (var(VAR_RANGER_INSTITUTE) == 13) {
+        msgbox(format("Welcome to the team!"))
+    } else {    
+        msgbox(format("Wanna see what I'm working on?\pI'm analysing the weather patterns in Cormoria. I stay on the lookout for any unnatural changes."))
+    }
+    releaseall
+    end
+}
+script RangerInstitute_2F_NPC_3{
+    lockall
+    faceplayer
+
+    if (var(VAR_RANGER_INSTITUTE) == 13) {
+        msgbox(format("Once a Ranger, always a Ranger!"))
+    } else {
+        msgbox(format("Gah! I hate being on inventory duty.\nI miss the field!"))
+    }
+    releaseall
+    end
+}
+script RangerInstitute_2F_NPC_4{
+    lockall
+    faceplayer
+    if (var(VAR_RANGER_INSTITUTE) == 13) {
+        msgbox(format("It feels like just yesterday that I introduced you to Director Ravine...sniff..."))
+    } else {
+        msgbox(format("How's it going, {PLAYER}?"))
+    }
+    releaseall
+    end
+}
+script RangerInstitute_2F_NPC_5{
+    lockall
+    faceplayer
+    
+    if (var(VAR_RANGER_INSTITUTE) < 11){
+        msgbox(format("Wanna see what I'm working on?\pI'm researching the existence of a Mythical Pokémon right here in Route 6! We've sent two Rangers out to search for it, but they've had no luck."))
+    }
+
+    if (var(VAR_RANGER_INSTITUTE) == 11){
+        msgbox(format("Any luck, {PLAYER}? Remember - it's\na yellow, catlike Pokémon."))
+    }
+
+    if (var(VAR_RANGER_INSTITUTE) == 13){
+        msgbox(format("You've done it!"))
+    }
+
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+script RangerInstitute_Pokeball_One{
+ 
+    lockall
+
+    if (var(VAR_RANGER_INSTITUTE) == 9){
+
+        showmonpic(SPECIES_TAUROS_PALDEA_BLAZE, 10,3)
+        playmoncry(SPECIES_TAUROS_PALDEA_BLAZE, CRY_MODE_NORMAL)
+        msgbox(format("Do you want to choose the\nfiery Tauros?"), MSGBOX_YESNO)
+        release
+        if(var(VAR_RESULT) == YES){
+            removeobject(4)
+            givemon(SPECIES_TAUROS_PALDEA_BLAZE, 45, ITEM_SITRUS_BERRY)
+            setflag(FLAG_SYS_POKEMON_GET)
+
+            playfanfare(MUS_OBTAIN_ITEM)
+            message(format("The Ranger Institute has gifted you\na Tauros!"))
+            waitfanfare
+            release
+            if (var(VAR_RESULT) == MON_GIVEN_TO_PC){
+                msgbox(format("Tauros was sent to your PC."))
+                release
+            }
+            hidemonpic
+            removeobject(1)
+            setflag(FLAG_RANGER_SELECTED_MON_ONE)
+            setvar(VAR_RANGER_INSTITUTE, 10)
+        } else {
+            hidemonpic
+        }
+    } else {
+        msgbox(format("One of the Institute's Pokémon.\nBetter not touch it!"))        
+    }
+    releaseall
+    end
+}
+
+script RangerInstitute_Pokeball_Two{
+ 
+    lockall
+
+    if (var(VAR_RANGER_INSTITUTE) == 9){
+
+        showmonpic(SPECIES_KANGASKHAN, 10,3)
+        playmoncry(SPECIES_KANGASKHAN, CRY_MODE_NORMAL)
+        msgbox(format("Do you want to choose the\ndominating Kangaskhan?"), MSGBOX_YESNO)
+        release
+        if(var(VAR_RESULT) == YES){
+            removeobject(4)
+            givemon(SPECIES_KANGASKHAN, 45, ITEM_SITRUS_BERRY)
+            setflag(FLAG_SYS_POKEMON_GET)
+
+            playfanfare(MUS_OBTAIN_ITEM)
+            message(format("The Ranger Institute has gifted you\na Kangaskhan!"))
+            waitfanfare
+            release
+            if (var(VAR_RESULT) == MON_GIVEN_TO_PC){
+                msgbox(format("Kangaskhan was sent to your PC."))
+                release
+            }
+            hidemonpic
+            removeobject(2)
+            setflag(FLAG_RANGER_SELECTED_MON_TWO)
+            setvar(VAR_RANGER_INSTITUTE, 10)
+        } else {
+            hidemonpic
+        }
+    } else {
+        msgbox(format("One of the Institute's Pokémon.\nBetter not touch it!"))        
+    }
+    releaseall
+    end
+}
+
+script RangerInstitute_Pokeball_Three{
+    lockall
+
+    if (var(VAR_RANGER_INSTITUTE) == 9){
+
+        showmonpic(SPECIES_MANECTRIC, 10,3)
+        playmoncry(SPECIES_MANECTRIC, CRY_MODE_NORMAL)
+        msgbox(format("Do you want to choose the\nproud Manectric?"), MSGBOX_YESNO)
+        release
+        if(var(VAR_RESULT) == YES){
+            removeobject(4)
+            givemon(SPECIES_MANECTRIC, 45, ITEM_SITRUS_BERRY)
+            setflag(FLAG_SYS_POKEMON_GET)
+            playfanfare(MUS_OBTAIN_ITEM)
+            message(format("The Ranger Institute has gifted you\na Manectric!"))
+            waitfanfare
+            release
+            if (var(VAR_RESULT) == MON_GIVEN_TO_PC){
+                msgbox(format("Manectric was sent to your PC."))
+                release
+            }
+            hidemonpic
+            removeobject(3)
+            setflag(FLAG_RANGER_SELECTED_MON_THREE)
+            setvar(VAR_RANGER_INSTITUTE, 10)
+        } else {
+            hidemonpic
+        }
+    } else {        
+        msgbox(format("One of the Institute's Pokémon.\nBetter not touch it!"))
+    }
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+//MONS
+//Bayleef
+script RangerInstitute_Mon_Bayleef{
+    if (flag(FLAG_RANGER_INSTITUTE_BAYLEEF)){
+        msgbox(format("Bayleef is singing happily!"), MSGBOX_NPC)        
+    } else {
+        lockall
+        faceplayer
+        playmoncry(SPECIES_BAYLEEF, CRY_MODE_NORMAL)
+        msgbox(format("Bayleef is singing happily! It snuggles upto you and gives you something..."))
+        giveitem(ITEM_MAX_REVIVE)
+        setflag(FLAG_RANGER_INSTITUTE_BAYLEEF)
+        msgbox(format("Thanks Bayleef!"))
+        releaseall
+    }
+    end
+}
+script RangerInstitute_Mon_Palpitoad{
+    playmoncry(SPECIES_PALPITOAD, CRY_MODE_NORMAL)
+    msgbox(format("Palpitoad grunts and waddles around.\nIt seems upset..."), MSGBOX_NPC)
+    end
+}
+script RangerInstitute_Mon_Surskit{
+    playmoncry(SPECIES_MASQUERAIN, CRY_MODE_NORMAL)
+    msgbox(format("Masquerain wants to be in the water!"), MSGBOX_NPC)
+    end
+}
+script RangerInstitute_Mon_Scyther{
+    playmoncry(SPECIES_SCYTHER, CRY_MODE_NORMAL)
+
+    if (var(VAR_RANGER_INSTITUTE) == 13){
+        msgbox(format("Scyther beams at you!"), MSGBOX_NPC)
+    } else {
+        msgbox(format("Scyther looks bummed out!\pIt probably wants to be out on the field, just like its trainer."), MSGBOX_NPC)
+    }
+    end
+}
+
+
+

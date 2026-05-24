@@ -1,0 +1,908 @@
+raw`
+    .set LOCALID_MOXIE_VIEWPOINT, 18
+    .set LOCALID_MOXIE_1, 30
+    .set LOCALID_MELEA_1, 25
+    .set LOCALID_KOHLA_1, 29
+    .set LOCALID_TENE, 26
+
+    .set LOCALID_MOXIE_2, 5
+    .set LOCALID_MELEA_2, 4
+    .set LOCALID_RUE_2, 3
+    .set LOCALID_TENE_2, 33
+    .set LOCALID_KOHLA_2, 6
+
+    .set LOCALID_KOR, 34
+    .set LOCALID_BREECH, 27
+    .set LOCALID_CLEF, 28
+
+    .set LOCALID_SHIP, 35
+    .set LOCALID_DET1, 8
+    .set LOCALID_DET2, 7
+
+`
+
+
+mapscripts UnchartedIsland_MapScripts{    
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE[
+        VAR_UNCHARTED_ISLAND_CUTSCENES, 4: UnchartedIsland_OnWarp
+    ]
+    MAP_SCRIPT_ON_FRAME_TABLE[
+        VAR_UNCHARTED_ISLAND_CUTSCENES, 4: UnchartedIsland_Finale
+    ]
+    MAP_SCRIPT_ON_TRANSITION: UnchartedIsland_OnTransition
+}
+
+//on transition
+script UnchartedIsland_OnTransition{
+    setrespawn(HEAL_LOCATION_UNCHARTED_ISLAND)
+
+    if (var(VAR_UNCHARTED_ISLAND_CUTSCENES) == 2){
+        setmaplayoutindex(LAYOUT_UNCHARTED_ISLAND_DESTROYED)
+    }
+    end
+}
+
+//on warp (used in the final cutscene)
+script UnchartedIsland_OnWarp{
+    hideobjectat(OBJ_EVENT_ID_PLAYER, 0)
+    end
+}
+
+script UnchartedIsland_Finale{
+    lockall
+    setrespawn(HEAL_LOCATION_ANCIENT_CORMORIA_FINAL_ISLAND)
+
+    if (flag(FLAG_SKIP_FINALE_CUTSCENE)){
+        msgbox(format("Skip cutscene?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0){
+            goto(UnchartedIsland_Finale_Cutscene)
+        } else {
+            goto(UnchartedIsland_Finale_Skip)
+        }
+    }
+
+    goto(UnchartedIsland_Finale_Cutscene)
+
+}
+
+script UnchartedIsland_Finale_Cutscene{
+
+    setflag(FLAG_SKIP_FINALE_CUTSCENE)
+    //set the camera
+    special(SpawnCameraObject)
+
+    //silently move the player up 7 steps
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 3))
+    waitmovement(0)
+
+
+    msgbox_delay("Kohla", format("Ceruledge...Ceruledge!!\pNo!!"))
+
+    applymovement(LOCALID_MELEA_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("The famous Ace Rookie and his Ceruledge...burned to dust!"))
+
+    applymovement(LOCALID_MOXIE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("And with this, nobody can stop us from -"))
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 3))
+    applymovement(LOCALID_MOXIE_2, moves(emote_exclamation_mark jump_in_place_up))
+    applymovement(LOCALID_MELEA_2, moves(emote_exclamation_mark jump_in_place_up))
+    applymovement(LOCALID_RUE_2, moves(emote_exclamation_mark jump_in_place_up))
+    waitmovement(0)
+    delay(30)
+
+    addobject(LOCALID_TENE_2)
+    applymovement(LOCALID_TENE_2, moves(fly_down))
+    waitmovement(0)
+        setvar(VAR_0x8004, 2)  //vertical pan
+        setvar(VAR_0x8005, 2)  //horizontal pan
+        setvar(VAR_0x8006, 6)  //num shakes
+        setvar(VAR_0x8007, 5)  //shake delay
+        special(ShakeCamera)
+        waitstate
+
+    showobjectat(OBJ_EVENT_ID_PLAYER, 0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(fly_down))
+    waitmovement(0)
+        setvar(VAR_0x8004, 2)  //vertical pan
+        setvar(VAR_0x8005, 2)  //horizontal pan
+        setvar(VAR_0x8006, 6)  //num shakes
+        setvar(VAR_0x8007, 5)  //shake delay
+        special(ShakeCamera)
+        waitstate
+        release
+
+    applymovement(LOCALID_MELEA_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("Isn't that Professor Tenebris?"))
+
+    applymovement(LOCALID_MOXIE_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("...and {PLAYER}! How on earth?"))
+
+    applymovement(LOCALID_TENE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("RUE! They got to you!\nAre you okay? Did they hurt you?"))
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down *2))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Kohla", format("No...you've got it all wrong..."))
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_question_mark))
+    applymovement(LOCALID_TENE_2, moves(emote_question_mark))
+    waitmovement(0)
+    delay(24)
+
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Rue", format("You did get it all wrong, Tenebris."))
+
+    applymovement(LOCALID_TENE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("Rue? What's going on?"))
+
+    setvar(VAR_0x8004, 2)  //vertical pan
+    setvar(VAR_0x8005, 2)  //horizontal pan
+    setvar(VAR_0x8006, 12)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    msgbox_delay("Rue", format("I'll tell you what's going on!"))
+
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Rue", format("What you see is the truth, Tenebris.\pI founded Team Somber!\pI was the one spying on you from the start! Easy enough, since I was right under your nose. I studied all your papers, took all your research...and right when you were about to bring the dreamstone home, you ran off with it!"))
+
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Rue", format("And you - {PLAYER}!\pYou stupid, stupid gnat!\pI tricked the detectives into sending an inexperienced idiot on the hunt for the dreamstones! How easy it should have been to stop you and Kohla!\pBut you - despite all odds - managed to get in our way at Mt. Ceram.\pThen I sent Kohla on a wild goose chase at Silversun City! But you managed to take down our base without his help!"))
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down))
+    msgbox_delay("Kohla", format("Y-you set me up?"))
+
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Rue", format("Stupid child...I set you all up a\nhundred times over!"))
+    
+    
+    
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    delay(16)
+    msgbox_delay("Rue", format("{PLAYER}, when you saw me at the Master Ball Maker's house at the Mirroh Base Camp, I feared you'd connect the dots for a moment...but it looks like I overestimated your cognitive abilities.\pNo...I did everything right.\pEverything was perfect!"))
+
+    applymovement(LOCALID_TENE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("But why, Rue?"))
+
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Rue", format("It's genius, Tenebris. Genius of the ilk that a cerebral mind like yours could never grasp.\pIn times of war, the arms dealers stand to prosper.\pOrichalcum Pulse will create heatwaves and destruction across Cormoria. People will need services of all kinds - emergency services, repairs, construction, delivery of essentials...\land Team Somber, with our army of strong Ancient Pokémon, can do all of that!\pFor a fee, of course."))
+
+    applymovement(LOCALID_TENE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("Rue...a mind like yours could do far better."))
+
+    setvar(VAR_0x8004, 2)  //vertical pan
+    setvar(VAR_0x8005, 2)  //horizontal pan
+    setvar(VAR_0x8006, 12)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Rue", format("NO, TENEBRIS!"))
+
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Rue", format("A mind like YOURS can do far better! That's why the world knows you and nobody knows me!\pFor the less special, other means must be sought. This, Tenebris, is an emotion you will never understand."))
+
+    applymovement(LOCALID_KOHLA_2, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Kohla", format("That's no excuse for what you're doing!"))
+
+    applymovement(LOCALID_MOXIE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Moxie", format("Silence, loser!"))
+    delay(16)
+    msgbox_delay("Rue", format("It's fine, Moxie.\nHe's right...that's no excuse.\pBut who will stop me?\nWho will force my hand now?\pI've beaten everyone - I've hoodwinked the detectives, bypassed the gym leaders and crushed the Ace Rookie."))
+
+    goto(UnchartedIsland_Finale_Battle)
+}
+
+script UnchartedIsland_Finale_Battle{
+
+    applymovement(LOCALID_TENE_2, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("No, Rue.\pYou haven't beaten us all."))
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+    delay(16)
+
+    applymovement(LOCALID_RUE_2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Rue", format("So this is what it comes down to - the assistant versus the professor.\pVery well.\pI'm sorry, {PLAYER}.\nI really do like you.\pBut Cormoria has only enough space\nfor one future.\pOne of us must step aside.\p...\pI'm sorry."))
+
+    trainerbattle_no_intro(TRAINER_UNCHARTED_ISLAND_RUE, format("No! Nooo! NOOO!!!"))
+
+    goto(UnchartedIsland_Finale_Ending)
+}
+
+script UnchartedIsland_Finale_Ending{
+    applymovement(LOCALID_RUE_2, moves(
+        lock_anim
+        lock_facing_direction
+        walk_faster_down
+        unlock_anim
+        unlock_facing_direction
+    ))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Rue", format("I lost...\pHow could I lose?\pTo a research associate?\pI..."))
+
+    applymovement(LOCALID_MELEA_2, moves(walk_down jump_in_place_right))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Melea", format("Boss!"))
+
+    applymovement(LOCALID_MOXIE_2, moves(walk_down jump_in_place_left))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Moxie", format("C'mon boss! Let's get out of here before the detectives come!"))
+
+    delay(24)
+    msgbox_delay("Rue", format("No..."))
+
+    setvar(VAR_0x8004, 2)  //vertical pan
+    setvar(VAR_0x8005, 2)  //horizontal pan
+    setvar(VAR_0x8006, 12)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    msgbox_delay("Rue", format("NO!!!"))
+
+    applymovement(LOCALID_RUE_2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Rue", format("I will not be bested!\pIf we can get the dreamstone,\nwe can just try again.\pAncient Terror!\nBring me the dreamstone!"))
+
+    fadescreen(FADE_TO_BLACK)
+    setobjectxyperm(LOCALID_KOR, 79, 26)
+    addobject(LOCALID_KOR)
+    playmoncry(SPECIES_KORAIDON, CRY_MODE_NORMAL)
+    waitmoncry
+    fadescreen(FADE_FROM_BLACK)
+
+    msgbox_delay("Rue", format("Now hurry up and get me -"))
+
+    //everyone surprise
+    applymovement(LOCALID_MELEA_2, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(LOCALID_MOXIE_2, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(LOCALID_RUE_2, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(LOCALID_TENE_2, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(LOCALID_KOR, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(LOCALID_KOHLA_2, moves(emote_exclamation_mark jump_in_place_down))
+    waitmovement(0)
+    delay(20)
+
+    //breech clef intro
+    msgbox_delay("Breech", format("Clefable! It's dangerous!\pCome back!"))
+
+    setobjectxyperm(LOCALID_CLEF, 78, 33)
+    addobject(LOCALID_CLEF)
+    setobjectxyperm(LOCALID_BREECH, 78, 34)
+    addobject(LOCALID_BREECH)
+
+    //breech clef movement
+    applymovement(LOCALID_BREECH, moves(walk_fast_up *5 walk_fast_left walk_fast_up walk_fast_left face_up))
+    applymovement(LOCALID_CLEF, moves(walk_fast_up *4 walk_fast_left walk_fast_up walk_fast_left walk_fast_up))
+    waitmovement(0)
+
+    //everyone face up
+    applymovement(LOCALID_MELEA_2, moves(face_up))
+    applymovement(LOCALID_MOXIE_2, moves(face_up))
+    applymovement(LOCALID_RUE_2, moves(face_up))
+    applymovement(LOCALID_TENE_2, moves(face_up))
+    applymovement(LOCALID_KOR, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    applymovement(LOCALID_KOHLA_2, moves(face_up))
+
+    applymovement(LOCALID_CLEF, moves(walk_fast_up*2 walk_fast_right walk_fast_up walk_fast_right face_up))
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 3))
+    waitmovement(0)
+
+    delay(16)    
+    playmoncry(SPECIES_CLEFABLE, CRY_MODE_NORMAL)
+    msgbox_delay("Clefable", format("Cleee!!!"))    
+    applymovement(LOCALID_CLEF, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(8)
+    applymovement(2, moves(jump_2_up))
+    waitmovement(0)
+    removeobject(2)
+    playse(SE_M_DIVE)    
+    waitse
+    delay(40)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 3))
+    waitmovement(0)
+
+    setvar(VAR_0x8004, 2)  //vertical pan
+    setvar(VAR_0x8005, 2)  //horizontal pan
+    setvar(VAR_0x8006, 12)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    applymovement(LOCALID_RUE_2, moves(jump_in_place_up))
+    msgbox_delay("Rue", format("NO!!!"))
+    delay(24)
+
+    //remove koraidon
+    applymovement(LOCALID_KOR, moves(enter_pokeball))
+    waitmovement(0)
+
+    //face everyone down
+    applymovement(LOCALID_CLEF, moves(face_down))
+    applymovement(LOCALID_BREECH, moves(face_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(LOCALID_TENE_2, moves(face_down))
+    waitmovement(0)
+
+    //melea moxie final
+    applymovement(LOCALID_MELEA_2, moves(jump_in_place_right))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Melea", format("Boss!"))
+
+    applymovement(LOCALID_MOXIE_2, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Moxie", format("Boss! Let's get out of here!"))
+
+    delay(24)
+    msgbox_delay("Rue", format("No..."))
+
+    msgbox_delay("Rue", format("Th-the dreamstone..."))
+    delay(24)
+
+    //ship enters
+    playse(SE_SHIP)
+    addobject(LOCALID_SHIP)
+    setobjectxy(LOCALID_SHIP, 69, 28)
+
+    applymovement(LOCALID_SHIP, moves(walk_right * 3))
+    
+    //Moxie and Melea run
+    applymovement(LOCALID_MELEA_2, moves(emote_exclamation_mark jump_in_place_left))
+    applymovement(LOCALID_MOXIE_2, moves(emote_exclamation_mark jump_in_place_left))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_MELEA_2, moves(walk_fast_down * 6))
+    applymovement(LOCALID_MOXIE_2, moves(walk_fast_down * 6))
+    waitmovement(0)
+    playse(SE_EXIT)
+
+    //Detectives
+    fadescreen(FADE_TO_BLACK)
+    addobject(LOCALID_DET1)
+    setobjectxy(LOCALID_DET1, 75, 26)
+    addobject(LOCALID_DET2)
+    setobjectxy(LOCALID_DET2, 75, 28)
+    setobjectxy(LOCALID_BREECH, 77, 29)
+    applymovement(LOCALID_BREECH, moves(face_up))
+    waitmovement(0)
+    fadescreen(FADE_FROM_BLACK)
+
+    msgbox_delay("Detective", format("It's over, Rue. You're finished!"))
+    delay(24)
+    applymovement(LOCALID_RUE_2, moves(walk_left))
+    waitmovement(0)
+    delay(24)
+    msgbox_delay("Rue", format("{PLAYER}..."))
+    applymovement(LOCALID_RUE_2, moves(walk_left * 2))
+    waitmovement(0)
+
+    applymovement(LOCALID_DET1, moves(face_down))
+    applymovement(LOCALID_DET2, moves(face_up))
+
+    delay(24)
+    msgbox_delay("Rue", format("A name worth remembering..."))
+
+    //END
+    setvar(VAR_UNCHARTED_ISLAND_CUTSCENES, 5)
+    setflag(FLAG_FINALE_DONE)
+
+    warp(MAP_CARABRUE_TOWN_TENEBRIS_LAB_FINALE, 5, 4)
+
+
+    releaseall
+    end
+}
+
+script UnchartedIsland_Finale_Skip{
+
+    fadescreen(FADE_TO_BLACK)
+        showobjectat(OBJ_EVENT_ID_PLAYER, 0)
+        addobject(LOCALID_TENE_2)
+        applymovement(LOCALID_TENE_2, moves(face_down))
+        applymovement(LOCALID_MELEA_2, moves(face_up))
+        applymovement(LOCALID_MOXIE_2, moves(face_up))
+        applymovement(LOCALID_RUE_2, moves(face_up))
+        waitmovement(0)
+        delay(2)
+        applymovement(LOCALID_TENE_2, moves(face_down))
+        delay(2)
+    fadescreen(FADE_FROM_BLACK)
+
+    goto(UnchartedIsland_Finale_Battle)
+}
+
+
+//Breech
+script UnchartedIsland_Breech{
+    msgbox_delay("Breech", format("{PLAYER} - you made it through!\pClefable and I will hide here behind the trees. You go on ahead, but be careful! I saw all the gym leaders out there.\lIf they catch you, they'll send you back to the ship!\p...\pYou're just like you were back when I met you in Fennilahl Town. The only thing that changed is that you saved\la hiker back then and you're saving\lall of Cormoria now.\pYou're really cool, {PLAYER}.\nI'm happy we met."))
+}
+script UnchartedIsland_Clefable{
+    playmoncry(SPECIES_CLEFABLE, CRY_MODE_NORMAL)
+    msgbox_delay("Clefairy", format("Cleee!!!"))
+    end
+}
+
+
+
+//caught in the beginning
+script UnchartedIsland_Leader_Caught_A{
+    msgbox(format("Hey! What are you doing here?\nYou should be on the S.S. Elegant."))
+    warp(MAP_UNCHARTED_ISLAND, 6, 34)
+    delay(60)
+}
+//caught after clearing section 1
+script UnchartedIsland_Leader_Caught_B{
+    msgbox(format("Hey! What are you doing here?\nYou should be on the S.S. Elegant."))
+    warp(MAP_UNCHARTED_ISLAND, 37, 24)
+    delay(60)
+}
+
+//caught after clearing section 2
+script UnchartedIsland_Leader_Caught_C{
+    msgbox(format("Hey! What are you doing here?\nYou should be on the S.S. Elegant."))
+    warp(MAP_UNCHARTED_ISLAND, 53, 41)
+    delay(60)
+}
+
+script UnchartedIsland_Inger{
+    speakername("Inger")
+    call(UnchartedIsland_Leader_Caught_A)
+}
+script UnchartedIsland_Ariana{
+    speakername("Ariana")
+    call(UnchartedIsland_Leader_Caught_A)
+}
+script UnchartedIsland_Gloria{
+    speakername("Gloria")
+    call(UnchartedIsland_Leader_Caught_A)
+}
+script UnchartedIsland_Carona{
+    speakername("Carona")
+    call(UnchartedIsland_Leader_Caught_B)
+}
+
+//viniel is battling 3 of them together so he doesn't see you
+
+script UnchartedIsland_Viniel{
+    applymovement(VAR_LAST_TALKED, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(12)
+    msgbox_delay("Viniel", format("Haha - come on, all of you!\nBring four more, in fact!"))
+    end
+}
+script UnchartedIsland_Manectric{
+    lockall
+    playmoncry(SPECIES_MANECTRIC_MEGA, CRY_MODE_NORMAL)
+    msgbox(format("Manectric has mega evolved! These grunts don't stand a chance..."))
+    releaseall
+    end
+}
+script UnchartedIsland_VinielGrunts{
+    msgbox_delay(NULL, format("Why is his Mega Manectric so strong?"))
+    end
+}
+
+
+script UnchartedIsland_Jania{
+    speakername("Jania")
+    call(UnchartedIsland_Leader_Caught_C)
+}
+script UnchartedIsland_Raazi{
+    speakername("Raazi")
+    call(UnchartedIsland_Leader_Caught_C)
+}
+
+
+
+
+
+
+
+
+
+script UnchartedIsland_Grunt_A{
+    trainerbattle_single(TRAINER_UNCHARTED_ISLAND_GRUNT_A, format("The boss gave me new Pokémon just to stop the Ace Rookie. You can't stop us - wait, you're not the Ace Rookie!"), format("Guess you're still on the case!"))
+    msgbox(format("It doesn't matter who's on the case. You can't stop us now!"))
+    releaseall
+}
+script UnchartedIsland_Grunt_B{
+    trainerbattle_single(TRAINER_UNCHARTED_ISLAND_GRUNT_B, format("They said the Ace Rookie was coming. Why are you here instead?"), format("I'd rather fight the Ace Rookie!"))
+    msgbox(format("We've never beaten you once...\nwho are you?"))
+    releaseall
+}
+script UnchartedIsland_Grunt_C{
+    trainerbattle_single(TRAINER_UNCHARTED_ISLAND_GRUNT_C, format("Yeah, weren't you kicked off the case? Well whatever! We're so close - you think we'll let you stop us now?"), format("Don't ruin our plan!"))
+    msgbox(format("Go on ahead then! I bet Moxie and Melea will teach you a lesson!"))
+    releaseall
+}
+
+
+
+
+
+
+
+
+
+
+
+
+script UnchartedIsland_Moxie_Viewpoint_Trigger{
+    if (flag(FLAG_ISLAND_MOXIE_VIEWPOINT)){end}
+
+    lockall
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+
+
+    applymovement(LOCALID_MOXIE_VIEWPOINT, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(24)
+    applymovement(LOCALID_MOXIE_VIEWPOINT, moves(walk_right * 4))
+    waitmovement(0)
+    removeobject(LOCALID_MOXIE_VIEWPOINT)
+
+    setflag(FLAG_ISLAND_MOXIE_VIEWPOINT)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    releaseall
+    end
+}
+
+
+
+script UnchartedIsland_Moxie_Trigger0{
+    if (flag(FLAG_ISLAND_MOXIE_MELEA_BATTLE)) {end}
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2 walk_right * 4))
+    waitmovement(0)
+    goto(UnchartedIsland_Moxie_Melea_Fight)
+}
+script UnchartedIsland_Moxie_Trigger1{
+    if (flag(FLAG_ISLAND_MOXIE_MELEA_BATTLE)) {end}        
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2 walk_right * 5))
+    waitmovement(0)
+    goto(UnchartedIsland_Moxie_Melea_Fight)
+}
+
+script UnchartedIsland_Moxie_Melea_Fight{
+    if (flag(FLAG_ISLAND_MOXIE_MELEA_BATTLE)) {end}    
+    //set the pokemon hide flag
+    clearflag(FLAG_SYS_OW_FOLLOWERS_DISABLED)
+
+    msgbox_delay("Moxie", format("{PLAYER}.\pA familiar face by now.\nHow many times has it been?\pWe received intel that you were off\nthe case, and we would only have to\ldeal with the Ace Rookie.\pIt was our mistake, I suppose, to assume you wouldn't come any way."))
+    
+    applymovement(LOCALID_MOXIE_1, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+
+    msgbox_delay("Moxie", format("Melea!\n{PLAYER}'s here!"))
+
+    //add melea
+    addobject(LOCALID_MELEA_1)
+    setobjectxy(LOCALID_MELEA_1, 60, 41)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_MELEA_1, moves(walk_right *3 walk_up *3 walk_right *4))
+    waitmovement(0)
+
+    msgbox_delay("Melea", format("So you came after all.\pTime and again we've tried to explain how insignificant you are in our plans."))
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    applymovement(LOCALID_MOXIE_1, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Moxie", format("And yet, pest that you are, you\nmanage to find your way to us and\lfoil our plans every time!"))
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_MELEA_1, moves(face_up))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("Look across the water."))
+
+    applymovement(LOCALID_MOXIE_1, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    waitmovement(0)
+    delay(16)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right * 10 walk_up * 14))
+    waitmovement(0)
+
+    msgbox_delay("Moxie", format("The third and final dreamstone.\pIt took us a while to locate, but this\nis where Professor Tenebris took her dreamstone and vanished.\pThis is where it all began..."))
+
+    setobjectxyperm(LOCALID_MELEA_1, 67, 38)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 14 walk_left * 10))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_MOXIE_1, moves(face_left))
+    applymovement(LOCALID_MELEA_1, moves(emote_exclamation_mark jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("And this is where we - Team Somber - will finally complete our plan!"))
+
+
+    applymovement(LOCALID_MOXIE_1, moves(jump_in_place_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Moxie", format("You bested us before.\pWe're not taking that risk again.\nNot here. Not now.\pYou can't beat the two of us, {PLAYER}!\nIf only you had some help."))
+
+    //kohla
+    applymovement(LOCALID_MOXIE_1, moves(emote_exclamation_mark face_left))
+    applymovement(LOCALID_MELEA_1, moves(emote_exclamation_mark face_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark face_left))   
+
+    addobject(LOCALID_KOHLA_1)
+    setobjectxy(LOCALID_KOHLA_1, 60, 41)
+    applymovement(LOCALID_KOHLA_1, moves(walk_right *3 walk_up *2 walk_right *3 emote_exclamation_mark jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+
+    applymovement(LOCALID_MOXIE_1, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Moxie", format("Poetic - right on cue, the help arrives."))
+    applymovement(LOCALID_MELEA_1, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)    
+    msgbox_delay("Melea", format("No matter - they won't win against the two of us together.\pI'll take the Ace Rookie.\nYou deal with {PLAYER}!"))
+    delay(16)
+
+    msgbox_delay("Kohla", format("..."))
+    delay(24)
+
+    applymovement(LOCALID_KOHLA_1, moves(walk_fast_right * 6 walk_fast_down *5))
+    waitmovement(0)
+    removeobject(LOCALID_KOHLA_1)
+
+    msgbox_delay("Melea", format("..."))
+
+    applymovement(LOCALID_MELEA_1, moves(jump_in_place_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("Hahaha! I can't believe it!\nYou've been thrown under the bus!\pThe Ace Rookie just left you alone!"))
+
+    applymovement(LOCALID_MOXIE_1, moves(jump_in_place_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Moxie", format("Hahaha! Now that settles it.\pYou're finished, {PLAYER}! Once we deal with you, we'll stop the Ace Rookie.\pNow that we control the dreamstone, we've picked up some powerful ancient Pokémon of our own!\pIt's time to end this once and for all!"))
+
+    //battle 1
+    trainerbattle_no_intro(TRAINER_UNCHARTED_ISLAND_MOXIE, format("No! Everything's ruined!"))
+    //post-battle 1
+    applymovement(LOCALID_MOXIE_1, moves(jump_in_place_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Moxie", format("No!\pNoo!!!\pI..."))
+
+    applymovement(LOCALID_MELEA_1, moves(jump_in_place_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Melea", format("Calm down Moxie! I'm here.\pGo now - go and stop Kohla.\nI'll finish {PLAYER} off!"))
+
+    applymovement(LOCALID_MOXIE_1, moves(walk_fast_right *3 walk_fast_down *5))
+    waitmovement(0)
+
+    //battle 2
+    trainerbattle_no_intro(TRAINER_UNCHARTED_ISLAND_MELEA, format("This can't be happening!"))
+    //post-battle 2
+    //first remove moxie
+    removeobject(LOCALID_MOXIE_1)
+
+    //then do the text
+    msgbox_delay("Melea", format("No!\pWe've worked too hard...\nI can't let it end like this!\pNo!!!"))
+    applymovement(LOCALID_MELEA_1, moves(walk_fast_down walk_fast_right *5 walk_fast_down *5))
+    waitmovement(0)
+
+    //set the new location for melea
+    setobjectxyperm(LOCALID_MELEA_1, 79, 42)
+    setobjectxy(LOCALID_MELEA_1, 79, 42)
+
+    setvar(VAR_UNCHARTED_ISLAND_CUTSCENES, 1)
+    setflag(FLAG_ISLAND_MOXIE_MELEA_BATTLE)
+    end
+}
+
+script UnchartedIsland_Melea_Destroy_Trigger{
+    if (var(VAR_UNCHARTED_ISLAND_CUTSCENES) == 1) {
+
+    lockall
+    
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down *2 walk_right *3))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    applymovement(LOCALID_MELEA_1, moves(jump_in_place_down))
+    msgbox_delay("Melea", format("Absol! Destroy those rocks!\nWe can't let anyone come after us!"))
+
+    applymovement(LOCALID_MELEA_1, moves(jump_in_place_left))
+    msgbox_delay("Melea", format("You'll never make it through!\pSo long, {PLAYER}. You've caused us enough pain, but now we'll finally be\lrid of you!"))
+    
+    playmoncry(SPECIES_ABSOL_MEGA, CRY_MODE_NORMAL)
+
+    //shake camera
+    setvar(VAR_0x8004, 2)  //vertical pan
+    setvar(VAR_0x8005, 2)  //horizontal pan
+    setvar(VAR_0x8006, 30)  //num shakes
+    setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_left *3 walk_up * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    //warpout
+    getplayerxy(VAR_TEMP_2, VAR_TEMP_3)
+    setvar(VAR_UNCHARTED_ISLAND_CUTSCENES, 2)
+    warp(MAP_UNCHARTED_ISLAND, VAR_TEMP_2, VAR_TEMP_3)
+
+    releaseall
+    end
+    }
+    end
+}
+
+
+script UnchartedIsland_Tenebris{
+    if (var(VAR_UNCHARTED_ISLAND_CUTSCENES) == 2){
+        lockall
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark face_right)) 
+        waitmovement(0)
+        delay(16)       
+        msgbox_delay("???", format("Hey you - wait!"))
+
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right * 3 walk_down))
+        waitmovement(0)
+
+        //add prof tenebris
+        setobjectxyperm(LOCALID_TENE, 67, 45)
+        addobject(LOCALID_TENE)
+        setobjectxy(LOCALID_TENE, 67, 45)
+
+        playse(SE_PUDDLE)
+        applymovement(LOCALID_TENE, moves(jump_2_up))
+        waitmovement(0)
+        delay(16)
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_left *3 walk_up))
+        applymovement(LOCALID_TENE, moves(walk_left * 3 walk_up * 2 walk_left * 4 face_down))
+        waitmovement(0)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up)) 
+        waitmovement(0)
+        delay(16)
+
+        special(RemoveCameraObject)
+
+        applymovement(LOCALID_TENE, moves(jump_in_place_down)) 
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("???", format("I never forget a face when I see one.\pI remember signing off on your application, {PLAYER}.\pIt's long overdue, but it gives me great pleasure to welcome you to the Tenebris Lab...although I dearly wish it were under better circumstances."))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark jump_in_place_up)) 
+        waitmovement(0)
+        delay(24)
+        applymovement(LOCALID_TENE, moves(jump_in_place_down)) 
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("Tenebris", format("Yes, I'm Professor Tenebris.\pI've been hiding in Ancient Cormoria...\nbut Team Somber found the dreamstones any way, so my effort was wasted."))
+        applymovement(LOCALID_TENE, moves(jump_in_place_down)) 
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("Tenebris", format("But you! I've been watching you.\nI chose a good research assistant.\pYou've done your utmost to put an end to Team Somber and their plans.\pIt's commendable.\pWhen I first discovered the dreamstones, I began to suspect that I was being spied on. That's why I took the dreamstone and ran away with it.\lI didn't know where to hide it so I came here and jumped into Ancient Cormoria. I thought that would be enough to stop whoever was spying on me...\l...but clearly it wasn't.\pSomeone in Team Somber had eyes on the dreamstone from the very beginning!\pAnd now, after my time in Ancient Cormoria...I know why."))
+        delay(16)
+        msgbox_delay("Tenebris", format("The Ancient Terror..."))
+        showmonpic(SPECIES_KORAIDON, 10, 3)
+        msgbox_delay("Tenebris", format("Of the many strong Pokémon that ruled Ancient Cormoria, the Ancient Terror was the strongest! The most vicious!\pAnd the secret of its power?\pIt's one-of-a-kind ability...\nOrichalcum Pulse!\pOrichalcum Pulse calls forth sunlight so harsh it's impact can be felt across the entire region!\pWhy do you think there's an uncharted island right here? When I came there was nothing but a rock. They used Orichalcum Pulse and dried up the sea!"))
+        hidemonpic
+        delay(16)
+        msgbox_delay("Tenebris", format("We must stop them...but I don't have my Pokémon. Even if I did, I'm not much use in a battle of strength.\pI can't stop them, {PLAYER}. And I fear neither can your Ace Rookie friend.\p...\pLike I said, I've been watching you.\nFirst at Mt. Ceram.\pThen at Silversun City.\pAgain at Mt. Mirroh.\p...\pI know nobody believes in you right now, {PLAYER}. And truth be told, I'd love to keep my youngest research associate safe from harm!\p...but you're the best we've got."))
+        
+        //last choice joke
+        speakername(NULL)
+        msgbox(format("This is your last choice in the game! Please choose carefully."), MSGBOX_POKENAV)
+        delay(16)
+        speakername("Tenebris")
+        message(format("{PLAYER} - will you stop Team Somber?"))
+        waitmessage
+        dynmultichoice(0,0, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Yeah!", "Of course!", "Definitely!") 
+
+        //get moving
+        applymovement(LOCALID_TENE, moves(jump_in_place_down)) 
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("Tenebris", format("You truly are a gem of a human being.\pLet me heal your Pokémon first."))
+        call(Common_EventScript_OutOfCenterPartyHeal)
+        msgbox_delay("Tenebris", format("Now come! Follow me and we'll enter Ancient Cormoria once more. We can use the dreamstone in the past to bring us to Team Somber in the present!"))
+
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up walk_right *4 walk_down *2 walk_right * 3))
+        applymovement(LOCALID_TENE, moves(walk_right *4 walk_down *2 walk_right * 3 jump_2_down))
+        waitmovement(0)
+        playse(SE_M_DIVE)
+        removeobject(LOCALID_TENE)
+        delay(8)
+
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(jump_2_down))
+        delay(8)
+        playse(SE_M_DIVE)
+        warp(MAP_ANCIENT_CORMORIA_FINAL, 9, 51)
+
+        setvar(VAR_UNCHARTED_ISLAND_CUTSCENES, 3)
+        releaseall
+        end
+    }
+}
+
+
+

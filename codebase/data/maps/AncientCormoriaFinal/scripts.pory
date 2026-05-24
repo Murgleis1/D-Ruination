@@ -1,0 +1,29 @@
+mapscripts AncientCormoriaFinal_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: AncientCormoria_OnTransition
+}
+
+script AncientCormoria_OnTransition{
+    setrespawn(HEAL_LOCATION_ANCIENT_CORMORIA_FINAL_ISLAND)
+    end
+}
+script AncientCormoriaFinal_Dreamstone{
+    msgbox(format("Go back to the present?"), MSGBOX_YESNO)
+    release
+    if (var(VAR_RESULT) == 0) {end}
+
+    lockall
+    setvar(VAR_UNCHARTED_ISLAND_CUTSCENES, 4)    
+    setflag(FLAG_HIDE_TENEBRIS_FINALE)
+    clearflag(FLAG_HIDE_ISLAND_FINALE)
+    warp(MAP_UNCHARTED_ISLAND, 78, 24)
+    releaseall
+    end
+}
+
+script AncientCormoriaFinal_Tenebris{
+    msgbox_delay("Tenebris", format("Touch the dreamstone whenever you're ready!"))
+    end
+}
+
+
+

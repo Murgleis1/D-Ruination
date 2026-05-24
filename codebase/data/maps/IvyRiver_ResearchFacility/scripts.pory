@@ -1,0 +1,452 @@
+raw`
+    .set LOCALID_MAIN, 4
+    .set LOCALID_Q1, 5
+    .set LOCALID_Q2, 6
+    .set LOCALID_Q3, 7
+    .set LOCALID_EV, 9
+    .set LOCALID_TAUROS_RANGER, 13
+`
+
+mapscripts IvyRiver_ResearchFacility_MapScripts{}
+
+
+//8 people
+//1 main quest dude
+//3 next quest dudes
+//3 randoms
+//1 EV trainer
+
+//4 mons
+//3 generic
+//1 item giver
+
+script IvyRiver_Ranger_FirstQuest{
+
+//give the first quest item
+    if (var(VAR_RANGER_INSTITUTE) == 3){
+
+        //first part
+        lockall
+        faceplayer
+        msgbox(format("Hmm? A Recruit?\pThen I must welcome you to the Ivy River Ranger Institute!\pWe're a tad remote, but we've made this place our home...and yours too!\p..."))
+        release
+        delay(8)
+        applymovement(LOCALID_MAIN, moves(emote_question_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Hmm? Ravine has a package for me?"))
+        release
+        removeitem(ITEM_RANGER_PACKAGE)
+        delay(8)
+        msgbox(format("{PLAYER} gave the Ranger scientist the Ranger Package."))
+        release
+        delay(8)    
+        applymovement(LOCALID_MAIN, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)            
+        msgbox(format("Ahh, yes, yes. The supplies have arrived! Excellent!\pExciting stuff.\pYou see, {PLAYER}, the Ivy River Ranger Institute studies Pokémon mega evolutions. To maintain a robust Pokémon ecosystem, we need to know as much as we can about these abnormal evolutions. This has become particularly important since the Mega Sharpedo incident..."))
+        release
+        delay(16)
+        msgbox(format("Director Ravine has sent us a collection of rare mega stones.\pWe've been eagerly waiting for this!\pThank you, {PLAYER}!\pAnd am I correct in assuming that this is your first mission?\p...\pIn that case, I officially declare that you've cleared your first mission.\pI now promote you to the rank of Pokémon Ranger Candidate!"))
+        release
+        delay(8)
+
+        //promotion
+        message(format("{PLAYER} was promoted from Recruit to Candidate!"))
+        waitmessage
+        call(Common_EventScript_PlayGymBadgeFanfare)
+
+        msgbox(format("I should also give you a reward...hmm, what do we have with us?\pSorry, we're a bare-bones setup here."))
+        release
+        delay(8)
+        applymovement(LOCALID_MAIN, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)   
+        msgbox(format("How about this? Take your pick from one of the items Director Ravine sent us."))
+        release
+        delay(8)
+        
+        //goto reward        
+        goto(IvyRiver_Ranger_FirstQuest_Reward)
+        end
+    }
+
+//complete the second quest
+    if (var(VAR_RANGER_INSTITUTE) == 7){
+        lockall
+        faceplayer
+        msgbox(format("Ah, {PLAYER}! There you are. The second floor has reported that your performance has been splendid! I hereby promote you to the rank of Associate!"))
+        release
+
+        //promotion
+        message(format("{PLAYER} was promoted from Candidate to Associate!"))
+        waitmessage
+        call(Common_EventScript_PlayGymBadgeFanfare)
+
+        msgbox(format("Director Ravine will be happy to know. You should go and see him!"), MSGBOX_NPC)
+
+        completesubquest(QUEST_POKEMON_RANGER, SUB_QUEST_2)
+        setvar(VAR_RANGER_INSTITUTE, 8)
+        end
+    }
+
+    msgbox(format("Hello {PLAYER}! What are you up to?"), MSGBOX_NPC)
+
+    releaseall
+    end
+}
+
+
+script IvyRiver_Ranger_FirstQuest_Reward{
+    message(format("Choose carefully! You might not get another one for a while."))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 6, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Venusaurite", "Blastoisite", "Charizardite X", "Charizardite Y",
+    )
+
+    if (var(VAR_RESULT) == 0) {setvar(VAR_0x8006, ITEM_VENUSAURITE) goto(IvyRiver_Ranger_FirstQuest_Reward_Give)}
+    if (var(VAR_RESULT) == 1) {setvar(VAR_0x8006, ITEM_BLASTOISINITE) goto(IvyRiver_Ranger_FirstQuest_Reward_Give)}
+    if (var(VAR_RESULT) == 2) {setvar(VAR_0x8006, ITEM_CHARIZARDITE_X) goto(IvyRiver_Ranger_FirstQuest_Reward_Give)}
+    if (var(VAR_RESULT) == 3) {setvar(VAR_0x8006, ITEM_CHARIZARDITE_Y) goto(IvyRiver_Ranger_FirstQuest_Reward_Give)}
+}
+
+script IvyRiver_Ranger_FirstQuest_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        hideitemdescription
+        giveitem(VAR_0x8006)
+        goto(IvyRiver_Ranger_FirstQuest_RewardEnd)
+    } else {
+        hideitemdescription
+        goto(IvyRiver_Ranger_FirstQuest_Reward)
+    }
+}
+
+script IvyRiver_Ranger_FirstQuest_RewardEnd{
+
+    msgbox(format("You'll be eyeing the rank of Associate next. And for that, you'll need to clear one more mission.\pFor your next mission, I'll have you help out our second floor. Three of our researchers need someone on the field and we're short on hands.\pGo upstairs, find the three researchers and complete their tasks!"))
+    release
+
+    //set vars, quest
+    setvar(VAR_RANGER_INSTITUTE, 4)     //now this will go to 5, 6, 7 after completing three quests
+    completesubquest(QUEST_POKEMON_RANGER, SUB_QUEST_2)
+
+    releaseall
+    end
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NOT IN THIS MAP - IN IVY RIVER
+script IvyRiver_Ranger_TaurosTrigger{
+    if (flag(FLAG_RANGER_TAUROS_USE)){end}
+
+    if (var(VAR_RANGER_INSTITUTE) >= 4){
+
+        lockall
+        applymovement(LOCALID_TAUROS_RANGER, moves(face_up emote_exclamation_mark))
+        waitmovement(0)
+
+        msgbox(format("Hey! You're the new Candidate right? Come here for a second."))
+        release
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2))
+        waitmovement(0)
+        delay(12)
+
+        applymovement(LOCALID_TAUROS_RANGER, moves(face_up))
+        waitmovement(0)
+        msgbox(format("See this here Tauros? This is my baby right here - raised him all by myself, I did! This one's been trained specially to take Rangers up and down Mt. Mirroh in a flash! You can head straight to Pelluca City or even to the Route 6 HQ if you like! All Candidates can use it."))
+        release
+
+        setflag(FLAG_RANGER_TAUROS_USE)
+    }
+
+    releaseall
+    end
+}
+
+script IvyRiver_Ranger_TaurosBreeder{
+    if (flag(FLAG_RANGER_TAUROS_USE)){
+        msgbox(format("Gotta love the speed on this bull, eh?"), MSGBOX_NPC)
+    } else {
+        msgbox(format("This here Tauros is my baby! It can take you up and down Mt. Mirroh...oh, you aren't a Ranger Candidate yet?\pSorry, only Ranger Candidates are allowed to ride the Tauros."), MSGBOX_NPC)
+    }
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Second floor Quests
+//shiinotic, toedscool, pinsir
+
+//shiinotic
+script IvyRiver_Ranger_Scientist_A{
+
+    if (var(VAR_RANGER_INSTITUTE) == 3){
+        msgbox(format("Did you know that Shiinotic emits spores that cause drowsiness?\pI'm studying whether those spores may be connected to mega evolution somehow."), MSGBOX_NPC)
+        end
+    }
+
+    if (flag(FLAG_IVY_RIVER_RANGER_SCIENTIST_A)){
+        msgbox(format("Want to know the results of my study?\pThe spores are just spores. There's no connection to mega evolution. What a waste of time! I'll never get published like this."), MSGBOX_NPC)
+        end
+    }
+
+    //quest
+    msgbox(format("Did you know that Shiinotic emits spores that cause drowsiness?\pI'm studying whether those spores may be connected to mega evolution somehow. But since we're so far away from Vilethorn Woods, it's hard to conduct experiments."), MSGBOX_NPC)
+    
+    showmonpic(SPECIES_SHIINOTIC, 10, 3)
+    msgbox(format("Do you have a Shiinotic that\nI can take spore samples of?"), MSGBOX_YESNO)
+    release
+    hidemonpic
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Ah. Come back when you do!"), MSGBOX_NPC)
+        end
+    }
+    
+    special(ChoosePartyMon)                 //choose your mon
+    waitstate                               //wait
+    copyvar(VAR_0x800A, VAR_0x8004)         //idk why but copy player selected mon
+    copyvar(VAR_0x8005, VAR_0x800A)         //idk why but copy the trade mon
+    specialvar(VAR_RESULT, GetTradeSpecies)
+
+    if (var(VAR_RESULT) == SPECIES_SHIINOTIC){
+        applymovement(LOCALID_Q1, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Amazing! Such a beautiful, yet dangerous, Pokémon.\pHang on while I take some samples.\p...\p...\p..."))
+        release
+        playse(SE_BANG)
+        msgbox(format("And...done!\pThank you, Candidate. This'll be very helpful. Come back later if you want to find out the results of my research!"), MSGBOX_NPC)
+        release
+        addvar(VAR_RANGER_INSTITUTE, 1)
+        setflag(FLAG_IVY_RIVER_RANGER_SCIENTIST_A)
+        end
+    } else {
+        msgbox(format("Hey, that's not a Shiinotic!\nYou need to work harder, Candidate!"), MSGBOX_NPC)
+        end
+    }
+}
+
+//shiinotic
+script IvyRiver_Ranger_Scientist_B{
+    if (var(VAR_RANGER_INSTITUTE) == 3){
+        msgbox(format("Did you know that Toedscool is a regional form of Tentacool?\pI'm studying whether regional forms may be connected to mega evolution."), MSGBOX_NPC)
+        end
+    }
+
+
+    if (flag(FLAG_IVY_RIVER_RANGER_SCIENTIST_B)){
+        msgbox(format("Want to know the results of my study?\pThere seems to be no correlation between mega evolution and regional forms. This might be a failed experiment, but that's a learning in and of itself!"), MSGBOX_NPC)
+        end
+    }
+
+    //quest
+    msgbox(format("Did you know that Toedscool is a regional form of Tentacool?\pI'm studying whether regional forms may be connected to mega evolution. I heard you can fish for a Toedscool, but I don't know where!"), MSGBOX_NPC)
+    
+    showmonpic(SPECIES_TOEDSCOOL, 10, 3)
+    msgbox(format("Do you have a Toedscool that\nI can take photographs of?"), MSGBOX_YESNO)
+    release
+    hidemonpic
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Ah. Come back when you do!"), MSGBOX_NPC)
+        end
+    }
+    
+    special(ChoosePartyMon)                 //choose your mon
+    waitstate                               //wait
+    copyvar(VAR_0x800A, VAR_0x8004)         //idk why but copy player selected mon
+    copyvar(VAR_0x8005, VAR_0x800A)         //idk why but copy the trade mon
+    specialvar(VAR_RESULT, GetTradeSpecies)
+
+    if (var(VAR_RESULT) == SPECIES_TOEDSCRUEL){
+        applymovement(LOCALID_Q2, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Wonderful! Toedscool and Tentacool look so similar, yet so different. The beauty of nature!\pHang on while I take some photographs.\p...\p...\p..."))
+        release
+        playse(SE_BANG)
+        msgbox(format("And...done!\pThank you, Candidate. This'll be very helpful. Come back later if you want to find out the results of my research!"), MSGBOX_NPC)
+        release
+        addvar(VAR_RANGER_INSTITUTE, 1)
+        setflag(FLAG_IVY_RIVER_RANGER_SCIENTIST_B)
+        end
+    }
+
+    if (var(VAR_RESULT) == SPECIES_TOEDSCOOL){
+        applymovement(LOCALID_Q2, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Wonderful! Toedscool and Tentacool look so similar, yet so different. The beauty of nature!\pHang on while I take some photographs.\p...\p...\p..."))
+        release
+        playse(SE_BANG)
+        msgbox(format("And...done!\pThank you, Candidate. This'll be very helpful. Come back later if you want to find out the results of my research!"), MSGBOX_NPC)
+        release
+        addvar(VAR_RANGER_INSTITUTE, 1)
+        setflag(FLAG_IVY_RIVER_RANGER_SCIENTIST_B)
+        end
+    } else {
+        msgbox(format("Hey, that's not a Toedscool!\nYou need to work harder, Candidate!"), MSGBOX_NPC)
+        end
+    }
+}
+
+
+//pinsir
+script IvyRiver_Ranger_Scientist_C{
+    if (var(VAR_RANGER_INSTITUTE) == 3){
+        msgbox(format("Did you know that in other regions, Orbeetle can undergo a transformation known as Gigantamaxing?\pI'm assessing a potential connection with mega evolution."), MSGBOX_NPC)
+        end
+    }
+    
+    if (flag(FLAG_IVY_RIVER_RANGER_SCIENTIST_C)){
+        msgbox(format("Want to know the results of my study?\pThere's no connection between gigantamaxing and mega evolution.\pI'm neither happy nor sad. This is the nature of the job, after all."), MSGBOX_NPC)
+        end
+    }
+
+    //quest
+    msgbox(format("Did you know that in other regions, Orbeetle can undergo a transformation known as Gigantamaxing?\pI'm assessing a potential connection with mega evolution.\pBut an Orbeetle is hard to come by..."), MSGBOX_NPC)
+    
+    showmonpic(SPECIES_ORBEETLE, 10, 3)
+    msgbox(format("Do you have an Orbeetle that\nI can observe and take notes of?"), MSGBOX_YESNO)
+    release
+    hidemonpic
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Ah. Come back when you do!"), MSGBOX_NPC)
+        end
+    }
+    
+    special(ChoosePartyMon)                 //choose your mon
+    waitstate                               //wait
+    copyvar(VAR_0x800A, VAR_0x8004)         //idk why but copy player selected mon
+    copyvar(VAR_0x8005, VAR_0x800A)         //idk why but copy the trade mon
+    specialvar(VAR_RESULT, GetTradeSpecies)
+
+    if (var(VAR_RESULT) == SPECIES_ORBEETLE){
+        applymovement(LOCALID_Q3, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Oh my! Such a fascinating creature!\pHang on while I make some notes.\p...\p...\p..."))
+        release
+        playse(SE_BANG)
+        msgbox(format("And...done!\pThank you, Candidate. This'll be very helpful. Come back later if you want to find out the results of my research!"), MSGBOX_NPC)
+        release
+        addvar(VAR_RANGER_INSTITUTE, 1)
+        setflag(FLAG_IVY_RIVER_RANGER_SCIENTIST_C)
+        end
+    } else {
+        msgbox(format("Hey, that's not an Orbeetle!\nYou need to work harder, Candidate!"), MSGBOX_NPC)
+        end
+    }
+}
+
+
+
+
+
+
+
+
+script IvyRiver_Ranger_NPC_A{
+    msgbox(format("Hello! Are you a Ranger Recruit too?\nI came here for my first mission.\lThey're making me catch wild Dreepy!"), MSGBOX_NPC)
+    end
+}
+script IvyRiver_Ranger_NPC_B{
+    msgbox(format("I've come to get some new TMs for Scizor!"), MSGBOX_NPC)
+    end
+}
+script IvyRiver_Ranger_NPC_C{
+    msgbox(format("The CrazyTrain 2.0 is incredible!\nIt manufactures strong TMs."), MSGBOX_NPC)
+    end
+}
+
+script IvyRiver_Ranger_NPC_E{
+    msgbox(format("I hate being upstairs! Too many stuffy scientists who don't know what its like to be out in the field."), MSGBOX_NPC)
+    end
+}
+script IvyRiver_Ranger_NPC_F{
+    msgbox(format("I'm a Ranger Candidate. Director Ravine asked me to complete a mission to rank up to Associate, but it's too hard!"), MSGBOX_NPC)
+    end
+}
+
+
+script IvyRiver_Ranger_Scizor{
+    playmoncry(SPECIES_SCIZOR ,CRY_MODE_NORMAL)
+    msgbox(format("Scizor is stretching. It's getting ready to learn some new moves!"), MSGBOX_NPC)
+    end
+}
+script IvyRiver_Ranger_Stoutland{
+    lockall
+    playmoncry(SPECIES_STOUTLAND ,CRY_MODE_NORMAL)
+    msgbox(format("Stoutland is intently focused on the computer screen."))
+    releaseall
+    end
+}
+script IvyRiver_Ranger_Braviary{
+    playmoncry(SPECIES_BRAVIARY_HISUI ,CRY_MODE_NORMAL)
+    msgbox(format("Braviary looks bored..."), MSGBOX_NPC)
+    end
+}
+script IvyRiver_Ranger_Clodsire{
+    playmoncry(SPECIES_CLODSIRE ,CRY_MODE_NORMAL)
+    msgbox(format("Such a calm smile!"), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+
+
+script IvyRiver_Ranger_NPC_D{
+    msgbox(format("The CrazyTrain 2.0 is my brainchild! With it, I can manufacture a variety of TMs for Rangers. Have a look!"))
+	pokemart(IvyRiver_Ranger_Mart)
+	msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+	release
+	end
+}
+
+mart IvyRiver_Ranger_Mart{
+    ITEM_TM48
+    ITEM_TM38
+    ITEM_TM57
+    ITEM_TM59
+    ITEM_TM64
+    ITEM_TM54
+    ITEM_TM60
+    ITEM_TM50
+    ITEM_TM62
+}
+
+

@@ -1,0 +1,172 @@
+raw`
+    .set LOCALID_SKARM, 12
+`
+
+mapscripts Route3_MapScripts{}
+
+script Route3_TrainerBattle_Kim {
+
+    trainerbattle_single(TRAINER_ROUTE3_KIM, format("Mom gifted my sister and me a cool FLYING-type Pokémon!"), "My sister will beat you!")
+    msgbox(format("My sister is up ahead, near the Gastree City exit. She's super strong!"))
+    release
+    end
+
+}
+
+script Route3_TrainerBattle_Ronnie {
+
+    trainerbattle_single(TRAINER_ROUTE3_RONNIE, format("I'm on my way to Gastree City to challenge the Pokémon Gym, but I'm not sure I can win. Can I practice with you?"), "Looks like I need more practice!")
+    msgbox(format("I heard that the Gastree City Gym Leader uses ROCK type Pokémon."))
+    release
+    end
+
+}
+
+script Route3_TrainerBattle_Jana {
+
+    trainerbattle_single(TRAINER_ROUTE3_JANA, format("I'm a Pokémon Breeder! All Breeders specialise in one Pokémon variety, such as dog, cat, or even bear Pokémon!\pCan you guess my specialty?"), "You guessed it - I love foxes!")
+    msgbox(format("My Pokémon are my most cherished partners!"))
+    release
+    end
+
+}
+
+script Route3_TrainerBattle_Chara {
+
+    trainerbattle_single(TRAINER_ROUTE3_CHARA, format("Mom gifted my sister and me a cool FLYING-type Pokémon!\p...\pYou met her and beat her?\pWell this is a revenge match then!"), "Aw I lost!")
+    msgbox(format("We love our Swablu!"))
+    release
+    end
+
+}
+
+
+
+
+
+
+
+
+
+///NPCs
+
+script Route3_NPC1{
+    msgbox(format("I love the high-altitude winds!\nI feel one with the hills."), MSGBOX_NPC)
+    end
+}
+
+script Route3_NPC2{
+    msgbox(format("I was supposed to go to a marathon, but I don't think this is where it starts."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+
+script Route3_Skarmory_Trigger{
+    if (flag(FLAG_ROUTE3_SKARMORY_WILD)) {end}
+    lockall
+    faceplayer
+    playmoncry(SPECIES_SKARMORY, CRY_MODE_NORMAL)
+    applymovement(LOCALID_SKARM, moves(emote_exclamation_mark jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Skarmory roars defiantly at you.\nCould be dangerous to approach."))
+
+    setvar(VAR_TEMP_0, 1)
+
+    releaseall
+    end
+}
+
+script Route3_Skarmory_Battle{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_SKARMORY, CRY_MODE_NORMAL)
+    applymovement(LOCALID_SKARM, moves(emote_exclamation_mark jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("The wild Skarmory roars and attacks!"))
+    release
+
+    setwildbattle(SPECIES_SKARMORY, 12)
+    dowildbattle
+
+    //result
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    if (var(VAR_RESULT) == B_OUTCOME_WON){
+        removeobject(LOCALID_SKARM)
+        setflag(FLAG_ROUTE3_SKARMORY_WILD)
+        releaseall
+    }
+    if (var(VAR_RESULT) == B_OUTCOME_CAUGHT){
+        removeobject(LOCALID_SKARM)
+        setflag(FLAG_ROUTE3_SKARMORY_WILD)
+        releaseall
+    }            
+    if (var(VAR_RESULT) == B_OUTCOME_RAN){
+        msgbox(format("The Skarmory preens its steely feathers victoriously.\nBetter not disturb it again!"))
+        release
+    }
+
+    releaseall
+    end
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//More trainers
+//bird keeper
+script Route3_Ext_TrainerBattle_A {
+    trainerbattle_single(TRAINER_ROUTE3_EXT_A, format("My buddy and I train here every day! Let me show you how strong we've become!"), "No way! Against the two of us!")
+    msgbox(format("We're going to keep training together until we become the strongest!"))
+    release
+    end
+}
+script Route3_Ext_TrainerBattle_B {
+    trainerbattle_single(TRAINER_ROUTE3_EXT_B, format("You wanna take on me and my buddy together? When we fight side by side, our strength multiplies!"), "How? It was two-on-one!", Route3_Ext_DoubleBattle_ItemGive)
+    msgbox(format("You need good friends if you want to reach the top!"))
+    release
+    end
+}
+script Route3_Ext_DoubleBattle_ItemGive {
+    msgbox(format("What a battle! You beat the two of us together. You're really strong - strong enough to be our third buddy!"))
+    goto(Route3_Ext_DoubleBattle_Reward)
+}
+
+script Route3_Ext_DoubleBattle_Reward {
+    message(format("Take one of these - you gotta have one as our third buddy!"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Black Belt", "Sharp Beak") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_BLACK_BELT)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_SHARP_BEAK)}
+    goto(Route3_Ext_DoubleBattle_Reward_Give)
+}
+
+script Route3_Ext_DoubleBattle_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){giveitem(VAR_0x8006) goto(Route3_Ext_DoubleBattle_Reward_End)} 
+    else {goto(Route3_Ext_DoubleBattle_Reward)}
+}
+
+script Route3_Ext_DoubleBattle_Reward_End{
+    msgbox(format("Come train with us again sometime!"))
+    releaseall
+    end
+}

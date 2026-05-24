@@ -1,0 +1,25 @@
+mapscripts GastreeCity_House2_MapScripts{}
+
+//Give Shoal Salt
+script GastreeCity_House2_NPC1{
+    if (flag(FLAG_GASTREE_NPC_SHOAL_SALT)){
+        msgbox(format("Too much salt raises blood pressure!"), MSGBOX_NPC)   
+        release     
+    } else {
+        msgbox(format("I don't want to put too much salt in\nthe food I cook for the childen.\pHere, why don't you take my extra salt?"), MSGBOX_NPC)
+        release
+        setflag(FLAG_GASTREE_NPC_SHOAL_SALT)
+        giveitem(ITEM_SHOAL_SALT)        
+    }
+    releaseall
+}
+
+
+script GastreeCity_House2_NPC2{
+    msgbox(format("Mom cares about eating healthy...\n...but the food is somewhat bland.\lI just don't want to tell her or else\lshe'll think I'm ungrateful."), MSGBOX_NPC)
+    end 
+}
+
+
+
+

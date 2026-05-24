@@ -1,0 +1,153 @@
+raw`
+    .set LOCALID_DET1, 6
+    .set LOCALID_DET2, 5
+    .set LOCALID_TENE, 4
+`
+
+
+mapscripts CarabrueTown_TenebrisLab_Finale_MapScripts{
+        MAP_SCRIPT_ON_FRAME_TABLE[
+        VAR_TEMP_1, 0: CarabrueTown_TenebrisLab_PostFinale
+    ]
+}
+
+//FLAG_POST_FINALE_CUTSCENE
+script CarabrueTown_TenebrisLab_PostFinale{
+    setvar(VAR_TEMP_1, 1)
+
+    setrespawn(HEAL_LOCATION_CARABRUE_TOWN)
+    special(HealPlayerParty)
+
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+
+    applymovement(LOCALID_DET1, moves(jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Detective", format("...and now Rue won't be allowed to plot any schemes for a long, long time."))
+
+
+    applymovement(LOCALID_TENE, moves(emote_question_mark))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("All's well that ends well, then?"))
+
+    applymovement(LOCALID_DET1, moves(emote_exclamation_mark jump_in_place_right))
+    applymovement(LOCALID_DET2, moves(emote_exclamation_mark jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Detective", format("Yes. Case closed!"))
+
+    //complete quest
+
+    applymovement(LOCALID_TENE, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("I'm ever so grateful for your help, detectives.\pWithout your leadership on this case, who knows how long I would have been trapped in Ancient Cormoria?"))
+   
+    applymovement(LOCALID_DET1, moves(jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Detective", format("We're only doing our duty, Professor.\pWe also have people to thank...\pKohla of course, although he's not here now, was instrumental in chasing Team Somber across Cormoria. He's got the makings of a truly great detective!\pThe Gym Leaders are the ones who actually took Team Somber apart.\pThose two admins - Moxie and Melea - got away, but Inger and Ariana are with Gloria in Silversun City right now, clearing out their headquarters and retrieving all the Ancient Pokémon."))
+
+    delay(16)
+    msgbox_delay("Tenebris", format("Once you return them to me, I'll send them back to the past."))
+    
+    msgbox_delay("Detective", format("And the Ancient Terror?"))
+    delay(16)
+    msgbox_delay("Tenebris", format("I'll be holding onto the Ancient Terror for a while. I am a Pokémon Professor after all!"))
+
+    msgbox_delay("Detective", format("Understandable. We hope your research is fruitful, Professor."))
+    delay(16)
+
+
+    applymovement(LOCALID_TENE, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("So it was a team effort then?"))
+
+    applymovement(LOCALID_DET1, moves(jump_in_place_right))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Detective", format("Absolutely.\pThere was no solving this case without Kohla and the Gym Leaders...\p...")) 
+    
+    applymovement(LOCALID_DET1, moves(face_down))
+    applymovement(LOCALID_DET2, moves(face_down))
+    applymovement(LOCALID_TENE, moves(face_down))
+    waitmovement(0)
+    delay(32)
+    msgbox_delay("Detective", format("...and you, {PLAYER}.")) 
+
+    applymovement(LOCALID_TENE, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("{PLAYER}, you were just incredible. You stood up against a huge organisation like Team Somber and fought them off  time and again!"))
+    
+    applymovement(LOCALID_DET1, moves(face_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Detective", format("Even after you were taken off the case, you did what was right, {PLAYER}.\pWe're in your debt.")) 
+
+    applymovement(LOCALID_TENE, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("I couldn't be prouder of my newest research associate.\pNow that all of this is finished,\nI'll finally get to know you better.\p...but before you rejoin the lab,\nthere is one last thing to do."))
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_question_mark))
+    waitmovement(0)
+    delay(16)
+
+    msgbox_delay("Tenebris", format("The detectives told me that you defeated Leader Raazi.\pYou know what that means, right?\p..."))
+    applymovement(LOCALID_TENE, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)
+    msgbox_delay("Tenebris", format("You've qualified for this year's Pokémon Championship!\pThe Championship is held every four years, down at Victory Cape.\pYou can get there by surfing from Route 2, but you'll need this."))
+    giveitem(ITEM_HM07) //waterfall
+    msgbox_delay("Tenebris", format("Don't worry - we can start your research work when you're back.\p{PLAYER}, of all the trainers I've known, few have the caliber and drive that you do.\pI know you'll do well at the tournament!"))
+
+    delay(16)
+    msgbox_delay("Detective", format("...\pWell?\pWhat are you waiting for?\pHead to Route 2 and make your way to Victory Cape - ASAP!")) 
+
+    //setflags
+    setflag(FLAG_POST_FINALE_CUTSCENE)
+    setflag(FLAG_HIDE_ROUTE1_NORMAL)
+    clearflag(FLAG_HIDE_ROUTE1_STRONG)    
+    clearflag(FLAG_HIDE_TENEBRIS_TENEBRIS)
+    completequest(QUEST_STOP_TEAM_SOMBER)
+
+    releaseall
+    end
+}
+
+script TenebrisLab_Finale_Detective{
+    speakername("Detective")
+    msgbox(format("What's taking you so long? I bet Kohla's already reached Victory Cape.\pHow many slow starts do you need to learn your lesson?"), MSGBOX_NPC)
+    end
+}
+script TenebrisLab_Finale_Tenebris{
+    msgbox_delay("Detective", format("I believe in you, {PLAYER}!"))
+    end
+}
+
+
+
+
+script TenebrisLab_Finale_Scientist_A{
+    msgbox(format("I can't believe Rue was behind this whole mess! I wish I'd caught on sooner!"), MSGBOX_NPC)
+    end
+}
+script TenebrisLab_Finale_Scientist_B{
+    msgbox(format("The detectives told us the entire story. You're incredible, {PLAYER}!"), MSGBOX_NPC)
+    end
+}
+script TenebrisLab_Finale_Scientist_C{
+    msgbox(format("Go on, {PLAYER}! Bring the championship trophy to Carabrue Town!"), MSGBOX_NPC)
+    end
+}
+script TenebrisLab_Finale_Gardevoir{
+    playmoncry(SPECIES_GARDEVOIR, CRY_MODE_NORMAL)
+    msgbox(format("Gardevoir regards you intently...\pDid it smile?"), MSGBOX_NPC)
+}
+
+
+

@@ -1,0 +1,215 @@
+raw`
+    .set LOCALID_GAB, 1
+    .set LOCALID_BREECH, 2
+    .set LOCALID_CLEF, 5
+`
+
+mapscripts Route3_Underpass_MapScripts{}
+
+script Route3_Underpass_Nurse{
+    msgbox(format("This area is closed for the demo."), MSGBOX_NPC)
+    end
+}
+
+//NURSE
+script Route3_NurseJoy_OnRoute{
+    lockall
+    faceplayer
+    speakername("Nurse Joy")
+    msgbox(format("Chansey and I got the best assignment! Up in the hills...clean air...what more could a nurse ask for?"))
+    call(Common_EventScript_NurseJoyOnRoute)
+    delay(30)
+    releaseall
+    end
+}
+
+script Route3_Underpass_SaveGameTrigger{
+    if (flag(FLAG_ROUTE3_UNDERPASS_EVILTEAM)){end}   
+
+    setvar(VAR_TEMP_C, 1)
+
+    call(Common_EventScript_SaveGameBeforeSomber)
+    releaseall
+    end
+}
+
+script Route3_Underpass_NPC1{
+    msgbox(format("A hiker with a Clefairy ran past here a while ago. He was being chased by some weirdo in a dark outfit. The things you see while on the road..."), MSGBOX_NPC)
+    end
+}
+
+script Route3_Underpass_NPC2{
+    msgbox(format("They say that a rare Pokémon has made these caves its home. If it's true,\lthen it's probably deeper down."), MSGBOX_NPC)
+    end
+}
+
+script Route3_Underpass_EvilBattle_Trigger0{
+    if (flag(FLAG_ROUTE3_UNDERPASS_EVILTEAM)){
+        end
+    }    
+    lockall
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right face_down))
+    waitmovement(0)    
+    goto(Route3_Underpass_EvilBattle)
+}
+script Route3_Underpass_EvilBattle_Trigger1{
+    if (flag(FLAG_ROUTE3_UNDERPASS_EVILTEAM)){
+        end
+    }    
+    lockall
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)    
+    goto(Route3_Underpass_EvilBattle)
+}
+script Route3_Underpass_EvilBattle_Trigger2{
+    if (flag(FLAG_ROUTE3_UNDERPASS_EVILTEAM)){
+        end
+    }    
+    lockall
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_down))
+    waitmovement(0)
+    goto(Route3_Underpass_EvilBattle)
+}
+
+
+script Route3_Underpass_EvilBattle{
+    lockall
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 1))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    //Some convo between hiker and magma
+    applymovement(LOCALID_GAB, moves(jump_in_place_right))
+    waitmovement(0)    
+    speakername("???")    
+    msgbox(format("Give it to me!"))
+    release
+    delay(12)
+    applymovement(LOCALID_BREECH, moves(walk_right face_left))
+    waitmovement(0)    
+    delay(12)
+    speakername("Breech")   
+    msgbox(format("No! Stay away! Clefairy is MY partner!"))
+    speakername("???") 
+    msgbox(format("I said give it to me! It's holding a dreamstone. That's too precious to be held by someone like you!"))
+    release
+    applymovement(LOCALID_GAB, moves(walk_right))
+    waitmovement(0)
+    delay(12)
+    speakername("Breech")
+    msgbox(format("I don't know anything about any dreamstones, please! Just stop!"))
+    release
+    playmoncry(SPECIES_CLEFAIRY, CRY_MODE_NORMAL)    
+    applymovement(LOCALID_CLEF, moves(jump_in_place_left * 2))
+    waitmovement(0)
+    speakername("Clefairy")
+    msgbox(format("Clee!!!"))
+    release
+    delay(8)
+    speakername("???") 
+    msgbox(format("Hahaha! Your Clefairy wants to protect you, but you don't even have the will to fight alongside her. Just give up before I bring my Pokémon out!"))
+    release
+
+    //They look at you and you walk to them
+    applymovement(LOCALID_GAB, moves(jump_in_place_up emote_question_mark))
+    waitmovement(0)
+    speakername("???") 
+    msgbox(format("Who's there? What you do want?"))
+    release
+    delay(8)
+    applymovement(LOCALID_BREECH, moves(face_up))
+    waitmovement(0) 
+    delay(8)
+    speakername("Breech")        
+    msgbox(format("{PLAYER}! It's you! This thug is trying to take Clefairy away!\pYou have to help me, please!"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)  
+    speakername("???")    
+    msgbox(format("Oh, you're just some stupid kid.\nHow about you mind your own business?"))
+    release
+    delay(16)
+    speakername("Gabrielle")    
+    msgbox(format("No?\pNo?!?!\pWell then...let Gabrielle teach you a lesson: don't go sticking your nose where it doesn't belong!"))
+    release
+
+    //Start battle
+    trainerbattle_no_intro(TRAINER_ROUTE3_EVIL_GABRIELLE, "How dare you hurt my Zorua!")
+
+    //End battle - baddie says revenge
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+    applymovement(LOCALID_BREECH, moves(face_left))
+    waitmovement(0) 
+    applymovement(LOCALID_GAB, moves(face_right))
+    waitmovement(0)    
+    speakername("Gabrielle") 
+    msgbox(format("Fine - keep your stupid Clefairy!"))
+    release
+    applymovement(LOCALID_GAB, moves(jump_in_place_up))
+    waitmovement(0)
+    speakername("Gabrielle") 
+    msgbox(format("And you! I'll remember this, {PLAYER}. You'll regret messing with Team Somber!"))
+    release
+    applymovement(LOCALID_GAB, moves(walk_down * 7))
+    waitmovement(0)
+    removeobject(LOCALID_GAB)
+    fadedefaultbgm
+
+    //Breech says he needs to train
+    applymovement(LOCALID_CLEF, moves(walk_up))
+    applymovement(LOCALID_BREECH, moves(walk_left face_up))
+    waitmovement(0)     
+    speakername("Breech")  
+    msgbox(format("Clefairy and I are in your debt.\nThe way you handled that thug..."))
+    speakername("Breech")  
+    msgbox(format("I've realised something. When alone, I was free to do as I wish and avoid battling. But now that I have a partner, I can't be that way."))
+    speakername("Breech")  
+    msgbox(format("Clefairy was ready to protect me, but I wasn't prepared to do the same for her.\p...\pI let her down."))
+    speakername("Breech")  
+    msgbox(format("But no more! I'm going to learn to hold my ground. If Team Somber comes after Clefairy again, we'll be ready."))
+    speakername("Breech")  
+    msgbox(format("{PLAYER} - we owe you. As thanks, Clefairy and I want to give you the stone that Gabrielle person was after..."))
+    release
+    giveitem(ITEM_EVERSTONE)
+    speakername("Breech")  
+    msgbox(format("I don't know about dreamstones, but it looks like a regular Everstone to me. Who knows what she saw?"))
+    speakername("Breech")  
+    msgbox(format("Don't worry - Clefairy's bored of that stone already. Next, we'll head to Mt. Ceram to collect rare stones there!"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(LOCALID_BREECH, moves(walk_down * 8))
+    applymovement(LOCALID_CLEF, moves(walk_left walk_down * 2 face_up))
+    waitmovement(LOCALID_CLEF)
+    delay(30)
+    playmoncry(SPECIES_CLEFAIRY, CRY_MODE_NORMAL)
+    applymovement(LOCALID_CLEF, moves(jump_in_place_up))    
+    waitmovement(0)
+    delay(8)
+    speakername("Clefairy")  
+    msgbox(format("Clee!!!"))
+    release
+    applymovement(LOCALID_CLEF, moves(walk_down * 5))
+    waitmovement(0)
+    removeobject(LOCALID_BREECH)
+    removeobject(LOCALID_CLEF)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 1))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    //End
+    setflag(FLAG_ROUTE3_UNDERPASS_EVILTEAM)   
+    releaseall
+    
+}
+
+

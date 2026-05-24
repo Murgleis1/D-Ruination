@@ -1,0 +1,26 @@
+mapscripts GastreeCity_House1_MapScripts{}
+
+script GastreeCity_House1_NPC1{
+    msgbox(format("Gastree City sits on hilly terrain, connecting the hill stations of Fennilahl Town and Carabrue Town to the east and Mt. Ceram to the north.\pLovely weather for me and Buneary!"), MSGBOX_NPC)
+    end
+}
+
+script GastreeCity_House1_Buneary{
+    if (flag(FLAG_GASTREE_HOUSE1_BUNEARY)){
+        playmoncry(SPECIES_BUNEARY, CRY_MODE_NORMAL)        
+        msgbox(format("Buneary looks curiously at your Pokémon..."), MSGBOX_NPC)
+        end
+    } else {
+        lockall
+        faceplayer
+        playmoncry(SPECIES_BUNEARY, CRY_MODE_NORMAL)        
+        msgbox(format("Buneary looks curiously at your Pokémon...it hands you something!"))
+        giveitem(ITEM_CHARTI_BERRY, 3)
+        setflag(FLAG_GASTREE_HOUSE1_BUNEARY)
+        releaseall
+        end
+    }
+}
+
+
+

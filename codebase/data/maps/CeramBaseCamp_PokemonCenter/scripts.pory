@@ -1,0 +1,33 @@
+mapscripts CeramBaseCamp_PokemonCenter_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: CeramBaseCamp_PokemonCenter_OnTransition
+}
+
+script CeramBaseCamp_PokemonCenter_OnTransition{
+    setrespawn(HEAL_LOCATION_CERAM_BASE_CAMP)
+}
+
+script CeramBaseCamp_PokemonCenter_EventScript_Nurse{
+	lockall
+    setvar(VAR_0x800B, 1)
+	call(Common_EventScript_PkmnCenterNurse)
+	waitmessage
+	releaseall
+}
+
+script CeramBaseCamp_PokemonCenter_NPC1{
+	msgbox(format("The selection of books here is great!"), MSGBOX_NPC)
+	end
+}
+
+script CeramBaseCamp_PokemonCenter_Pineco{
+	playmoncry(SPECIES_PINECO, CRY_MODE_NORMAL)
+	msgbox(format("Pineco is browsing the books."), MSGBOX_NPC)
+	end
+}
+
+script CeramBaseCamp_PokemonCenter_NPC2{
+	msgbox(format("Apparently you can't meet Ariana, the Gym Leader, without getting an appointment first."), MSGBOX_NPC)
+	end
+}
+
+

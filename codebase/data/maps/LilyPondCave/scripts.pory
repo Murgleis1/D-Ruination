@@ -1,0 +1,92 @@
+mapscripts LilyPondCave_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: LilyPondCave_OnTransition
+}
+
+script LilyPondCave_OnTransition{
+    if (flag(FLAG_CHAMPION_MARTHA_COMPLETE)) {end}
+    
+    if (flag(FLAG_CHAMPION_MARTHA_SETUP)) {
+        setobjectxyperm(8, 13, 29) //martha
+        setobjectxyperm(9, 12, 29) //houndstone
+        end
+    }
+}
+
+script LilyPondCave_SaveGame_Trigger{
+    if (flag(FLAG_CHAMPION_MARTHA_COMPLETE)){end}   
+
+    if (flag(FLAG_CHAMPION_MARTHA_SETUP)){
+        setvar(VAR_TEMP_E, 1)
+        call(Common_EventScript_SaveGameBeforeBattle)
+        releaseall
+        end
+    }
+}
+
+script LilyPondCave_Martha_Battle_Trigger0{
+    if (flag(FLAG_CHAMPION_MARTHA_COMPLETE)) {end}
+
+    if (flag(FLAG_CHAMPION_MARTHA_SETUP)){
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up walk_right face_up))
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        goto(LilyPondCave_Martha_Battle)
+    }
+}
+script LilyPondCave_Martha_Battle_Trigger1{
+    if (flag(FLAG_CHAMPION_MARTHA_COMPLETE)) {end}
+    
+    if (flag(FLAG_CHAMPION_MARTHA_SETUP)){
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        goto(LilyPondCave_Martha_Battle)
+    }
+}
+
+script LilyPondCave_Martha_Battle_Trigger2{
+    if (flag(FLAG_CHAMPION_MARTHA_COMPLETE)) {end}
+
+    if (flag(FLAG_CHAMPION_MARTHA_SETUP)){
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up walk_left face_up))
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        goto(LilyPondCave_Martha_Battle)
+    }
+}
+
+script LilyPondCave_Martha_Battle{
+    msgbox_delay("Martha", format("Terrible, you are, making someone my age travel so far.\pBut I suppose I owe the Fifth Cormoria Champion a fitting welcome.\pYou know, back when I won the inagural Pokemon Championship, Cormoria was much younger...and much wilder!\lTrainers competed furiously for the prestige of being the inagural title!\pBut of course, there were many losers and only one victor.\pI have fond memories of those days, {PLAYER}. I wish I could show you the Cormoria that used to be!\pHaha! Not Ancient Cormoria!\nJust my era.\pBut these old bones haven't been sitting idle, you know? I've been keeping up with the times. Professor Tenebris gifted me a wonderful new Pokemon from the past!\p...\pIt's time {PLAYER}.\pThis is your final battle.\pLeave no regrets!"))
+    
+    trainerbattle_no_intro(TRAINER_CHAMPION_MARTHA, format("Oh my! A spectacular battle!"))
+
+    msgbox_delay("Martha", format("After I became the First Cormoria Champion, I tucked away my Trainer Card and pursued a career as a historian. All the other Champions did the same. I suppose that's what makes us Champions after all - we don't stop, for there are always new peaks to scale!\pYour journey never truly ends, {PLAYER}. Find your next peak and scale it!"))
+
+
+    applymovement(8, moves(walk_right walk_down * 7 walk_left walk_down))
+    applymovement(9, moves(walk_right * 2 walk_down * 7 walk_left walk_down))
+    waitmovement(0)
+
+    removeobject(8)
+    removeobject(9)
+
+    playse(SE_EXIT)
+    waitse
+
+    setflag(FLAG_CHAMPION_MARTHA_COMPLETE)
+    clearflag(FLAG_HIDE_MIRROHBASECAMP_HISTORIAN)
+    clearflag(FLAG_HIDE_CHAMPION_MARTHA)
+
+    releaseall
+    end
+}
+

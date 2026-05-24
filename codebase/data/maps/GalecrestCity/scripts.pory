@@ -1,0 +1,545 @@
+raw `
+    .set LOCALID_GAB, 13
+    .set LOCALID_RUE, 18    
+    .set LOCALID_DET1, 19
+    .set LOCALID_DET2, 20
+`
+
+mapscripts GalecrestCity_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_GALECREST_CITY)
+    }
+        
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_0, 0: GalecrestCity_OnFrame
+    ]
+}
+
+
+
+
+//Galecrest first time cutscene
+//Flag: FLAG_GALECREST_POST_ANCIENT
+
+
+//You land back: done
+//On warp: Gabrielle dialogue - thanks you (tells you that you're in galecrest with the detective academy)
+//Walk together to some place, then see the cops, and gab fucks off.
+
+script GalecrestCity_OnFrame{
+    //If the flag is done, then skip
+    if (flag(FLAG_GALECREST_POST_ANCIENT)) {end}
+
+    //Cutscene
+    //Phase 1: Gabrielle
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    speakername("Gabrielle")
+    msgbox(format("...have we left that place?\pYes! Yes we have! I'm so relieved.\nI've never been so happy to see\la city before!\pThis must be Galecrest City.\nThe Detective Academy is here.\lI suppose you'll be headed there.\lJust head north from here...\p...and I'll be going back to Team Somber.\pSigh...\p...\p{PLAYER}, we're still enemies!\nBut you saved me. I owe you one.\p...\pT-thanks. Bye."))
+    release
+    
+    //Remove gab
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    removeobject(LOCALID_GAB)
+    fadescreenswapbuffers(FADE_FROM_BLACK)
+
+    setflag(FLAG_GALECREST_POST_ANCIENT)
+    releaseall
+}
+
+script TempTemp{
+    msgbox(format("...have we left that place?\pYes! Yes we have! I'm so relieved.\nI've never been so happy to see\la city before!\pThis must be Galecrest City.\nThe Detective Academy is here.\lI suppose you'll be headed there.\lJust head north from here...\p...and I'll be going back to Team Somber.\pSigh...\p...\p{PLAYER}, we're still enemies!\nBut you saved me. I owe you one.\p...\pT-thanks. Bye."))
+    release
+    end
+}
+
+//detectives - meet them inside the detective academy
+//where were you?
+//...
+//This is incredible. I'm glad you survived that.
+//Where was kohla? he was defeated?
+//kohla - quiet.
+//Rue - I never knew this, ill go research
+//Detectives - we received a tipoff that prof tenebris was sighted in Silversun City to the east.
+//Team Somber HQ is also there.
+//Everything makes sense - Team Somber knew things about the dreamstone, so they must have kidnapped the prof.
+
+//We all should head there.
+
+
+script GalecrestCity_DetectiveMeet_Trigger0{
+    if (flag(FLAG_GALECREST_DETECTIVE_CONVO)) {end}
+
+    lockall
+
+    //Make all people face player and exclamation mark
+    applymovement(LOCALID_DET1, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_DET2, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_RUE, moves(face_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Rue")
+    msgbox(format("{PLAYER}! You're here!\nWhere have you been?"))
+    release
+
+    //Move player
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left *2 walk_up walk_left))
+
+    //Trigger next script
+    call(GalecrestCity_DetectiveMeet_Main)
+}
+
+script GalecrestCity_DetectiveMeet_Trigger1{
+    if (flag(FLAG_GALECREST_DETECTIVE_CONVO)) {end}
+
+    lockall
+
+    //Make all people face player and exclamation mark
+    applymovement(LOCALID_DET1, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_DET2, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_RUE, moves(face_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Rue")
+    msgbox(format("{PLAYER}! Where have you been?"))
+    release
+
+    //Move player
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left *3))
+    waitmovement(0)
+
+    //Trigger next script
+    call(GalecrestCity_DetectiveMeet_Main)
+}
+
+script GalecrestCity_DetectiveMeet_Trigger2{
+    if (flag(FLAG_GALECREST_DETECTIVE_CONVO)) {end}
+
+    lockall
+
+    //Make all people face player and exclamation mark
+    applymovement(LOCALID_DET1, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_DET2, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_RUE, moves(face_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)    
+    speakername("Rue")
+    msgbox(format("{PLAYER}! Where have you been?"))
+    release
+
+    //Move player
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left *2 walk_down walk_left))
+    waitmovement(0)
+
+    //Trigger next script
+    call(GalecrestCity_DetectiveMeet_Main)
+}
+
+script GalecrestCity_DetectiveMeet_Trigger3{
+    if (flag(FLAG_GALECREST_DETECTIVE_CONVO)) {end}
+
+    lockall
+
+    //Make all people face player and exclamation mark
+    applymovement(LOCALID_DET1, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_DET2, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_RUE, moves(face_right emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)    
+    speakername("Rue")
+    msgbox(format("{PLAYER}! Where have you been?"))
+    release
+
+    //Move player
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left *2 walk_down *2 walk_left))
+    waitmovement(0)
+
+    //Trigger next script
+    call(GalecrestCity_DetectiveMeet_Main)
+}
+
+
+script GalecrestCity_DetectiveMeet_Main{
+    speakername("Rue")
+    msgbox(format("We heard from Kohla that you went up\nto the peak to stop Team Somber.\pWhat happened up there?\p...\p..."))
+    applymovement(LOCALID_DET1, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_DET2, moves(face_right emote_exclamation_mark))
+    applymovement(LOCALID_RUE, moves(face_right emote_exclamation_mark))
+    waitmovement(0)    
+    speakername("Rue")
+    msgbox(format("What! Is that true? Did all of that really happen?\p...\pI'm glad you're safe, {PLAYER}.\nWhat a series of events!"))
+    release
+    delay(8)
+    speakername("Detective")
+    msgbox(format("So the dreamstones transported you to another dimension that you couldn't recognise? And the Pokémon were completely different too?"))
+    release
+    applymovement(LOCALID_DET1, moves(face_down emote_question_mark))
+    delay(16)
+    speakername("Detective")
+    msgbox(format("Did you know this was possible Rue?"))
+    release
+    delay(8)
+    applymovement(LOCALID_RUE, moves(face_up))
+    delay(8)
+    speakername("Rue")
+    msgbox(format("No, I had no idea. We knew that dreamstones absorbed the memories\lof sleeping Pokémon - that's why\lits called a dreamstone!\pBut to transport people..."))
+    release
+    applymovement(LOCALID_DET1, moves(face_right))
+    applymovement(LOCALID_RUE, moves(face_right))
+    delay(16)
+    speakername("Rue")
+    msgbox(format("{PLAYER}, you encountered ancient Pokémon there, right?\pI wonder...\pDid the dreamstone take you back\nto the past somehow?\pIncredible...so much we don't yet know...\pI need to do some research.\nI'm going to head back to the lab.\p{PLAYER}, the detectives have some updates for you.\p...\pI'm glad you're okay."))
+    release
+
+    //Rue exit
+    applymovement(LOCALID_DET1, moves(face_left))
+    applymovement(LOCALID_DET2, moves(face_left)) 
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left)) 
+
+    applymovement(LOCALID_RUE, moves(walk_left * 6))
+    waitmovement(0)
+    removeobject(LOCALID_RUE)
+    playse(SE_EXIT)
+    waitse
+
+    //Back to detectives
+    applymovement(LOCALID_DET1, moves(face_right))
+    applymovement(LOCALID_DET2, moves(face_right))      
+    delay(16)
+    speakername("Detective")
+    msgbox(format("We've uncovered a new lead on Professor Tenebris. An agent told us that she was spotted in Silversun City."))
+    release
+    delay(16)
+    speakername("Detective")
+    msgbox(format("There's one issue...Team Somber. They're a known and dangerous criminal syndicate that aims to wrest power from the government.\pTheir hideout is confirmed to be somewhere around Silversun City too.\pIf the Professor, her dreamstone and Team Somber are in the same spot, things could erupt.\pWe have to be there!"))
+    release
+    delay(16)
+    
+    speakername("Detective")
+    msgbox(format("But now that Team Somber is involved, it's not safe for you, {PLAYER}.\pYou may have handled a couple of grunts, but you're still a child.\pSo heed these instructions carefully - make your way to Silversun City as soon as possible and keep a low profile.\pDo NOT engage with any suspicious individuals!"))       
+    release
+    applymovement(LOCALID_DET1, moves(face_up))
+    applymovement(LOCALID_DET2, moves(face_up))    
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))   
+    delay(24)    
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 3))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    speakername("Detective")
+    msgbox(format("This building is the Detective Academy. Your friend Kohla was trained here.\pHe knows the plan already.\nGo and talk to him first."))       
+    release
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 5))    
+    waitmovement(0)
+    special(RemoveCameraObject)        
+    applymovement(LOCALID_DET1, moves(face_right))
+    applymovement(LOCALID_DET2, moves(face_right))    
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))         
+    delay(24)
+    speakername("Detective")
+    msgbox(format("See you in Silversun City."))
+    release
+
+    //exit
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    removeobject(LOCALID_DET1)
+    removeobject(LOCALID_DET2)
+    playse(SE_EXIT)
+    waitse
+    fadescreenswapbuffers(FADE_FROM_BLACK)
+
+    //Setvars quests etc
+    setflag(FLAG_GALECREST_DETECTIVE_CONVO)
+    //Quest 
+    completesubquest(QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_3)
+    subquestmenu(QUEST_MENU_COMPLETE_QUEST, QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_2)    
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//POOCHYENA blocking the route
+script GalecrestCity_EventScript_Poochyena{
+    if (flag(FLAG_GALECREST_POOCHYENA)) {end}
+
+    lockall
+    msgbox(format("POOCHYENA: grr...\pThe Poochyena are clearly on edge. Better not aggravate them!"))
+    setflag(FLAG_SYS_EXP_ALL)
+    releaseall
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+script GalecrestCity_NPC_1{
+    msgbox(format("You don't look like you're from here...\pAre you a new student at the\nDetective Academy?"), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_2{
+    msgbox(format("The city doesn't service our neighborhood. That's why these grass patches and puddles have come up."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_3{
+    msgbox(format("All the rich kids play at home, but we love to splash in these puddles!"), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_4{ 
+    msgbox(format("When I grow up, I want to be just\nlike my sister!"), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_Totodile{
+    playmoncry(SPECIES_TOTODILE, CRY_MODE_NORMAL)
+    msgbox(format("Totodile is having fun with the siblings!"), MSGBOX_NPC)
+    end
+}
+
+
+
+//Give an item
+script GalecrestCity_NPC_5{
+    lockall
+    faceplayer    
+
+    if (flag(FLAG_GALECREST_ROCKSMASH)){
+        msgbox(format("I need to beat the Galecrest Gym Leader to use Rock Smash..."), MSGBOX_NPC)
+    } else {
+        msgbox(format("This rock can be smashed by a Pokémon that knows a certain move...I forgot which one though! Do you know?"))
+        dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Rock Blast", "Rock Slide", "Rock Smash", "Stone Edge")
+        if (var(VAR_RESULT) == 2){
+            msgbox(format("Yes! Now I remember! In fact, I also remember that I have the HM for it here. Why don't you keep it?"))
+            giveitem(ITEM_HM_ROCK_SMASH)
+            release
+            setflag(FLAG_GALECREST_ROCKSMASH)
+        } else {
+            msgbox(format("No..."), MSGBOX_NPC)
+        }
+    }
+    end
+}
+
+script GalecrestCity_NPC_6{
+    msgbox(format("If you head west, you enter the elite residential neighborhood.\pThe area south of here is poorer."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_7{
+    msgbox(format("The city garden is maintained by Rotoms! But for some reason, I've\lnever seen any of them at work."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_8{
+    msgbox(format("I'm on a date with the girl of my dreams! But we can't ever be together. I'm too poor for her family."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_9{
+    msgbox(format("I don't care about money! We love each other and that's what matters."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_10{  
+    msgbox(format("The Detective Academy is the most prestigious academy in Cormoria.\lMy husband was a teacher there!\lHe's retired now but he keeps leaving\lthe house...where does he go?"), MSGBOX_NPC)
+    end
+}
+
+//Nurse Joy gives 3 berries - reduce super-effective damage from the gym leader's attacks.
+script GalecrestCity_NPC_11{
+    if (flag(FLAG_GALECREST_NURSE_BERRY)){
+        msgbox(format("In the day, Chansey and I like to walk\nin the garden and pick berries."), MSGBOX_NPC)
+    } else {
+        lockall
+        faceplayer
+        msgbox(format("I do the night shift at the Pokémon Center. In the day, Chansey and I like to walk in the garden and pick berries.\pHere, have some of our extra berries!"))
+        giveitem(ITEM_CHILAN_BERRY, 3)  //Halves normal damage
+        setflag(FLAG_GALECREST_NURSE_BERRY)        
+        msgbox(format("They're yummy!"), MSGBOX_NPC)
+    }
+    releaseall
+    end
+}
+
+
+
+script GalecrestCity_Chansey{
+    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+    msgbox(format("Chansey looks happy to be out in\nthe garden!"), MSGBOX_NPC)
+    end
+}
+
+
+script GalecrestCity_NPC_12{
+    msgbox(format("If you continue west from here, you'll enter Route 5 and the Vilethorn Woods. Many years ago, one of the rich folk here left to build a cottage deep in\lthe woods. Who would want to live in a creepy forest like that?\pRich folk I tell you..."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_13{  
+    msgbox(format("This part of town is so clean and peaceful!"), MSGBOX_NPC)
+    end
+}
+
+//Robber battle 
+    //VAR_GALECREST_RICH_PEARLS
+    //0: start quest
+    //1: started quest, no update (do the battle now)
+    //2: got the pearls
+    //3: done
+
+script GalecrestCity_NPC_14{
+    lockall
+
+    if (var(VAR_GALECREST_RICH_PEARLS) == 0){
+        msgbox(format("Hehehe...this was too easy!"))
+        release
+    } else {
+        msgbox(format("Hehehe...this was too easy!"))
+        release
+        delay(24)    
+        faceplayer
+        applymovement(12, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(24)
+        msgbox(format("I look suspicious? How dare you!\nI'm just innocently hanging around behind this rich house! I don't take such accusations lightly!"))
+        //trainer battle
+        trainerbattle_no_intro(TRAINER_GALECREST_ROBBER, format("I've been caught!"))
+        release
+        msgbox(format("Fine, you got me! I'm a thief alright? I'll give you what I stole. It's not worth going to jail for."))
+        release
+        delay(8)
+        giveitem(ITEM_PEARL_STRING)
+        msgbox(format("I knew I shouldn't have tried to steal anything near the Detective Academy!"))
+        release
+
+        fadescreenswapbuffers(FADE_TO_BLACK)
+        removeobject(12)
+        removeobject(36)
+        playse(SE_EXIT)
+        waitse
+        fadescreenswapbuffers(FADE_FROM_BLACK)
+
+        setflag(FLAG_GALECREST_ROBBER)
+        setvar(VAR_GALECREST_RICH_PEARLS, 2)
+    }
+
+    releaseall
+}
+
+script GalecrestCity_Nickit{
+    lockall
+    playmoncry(SPECIES_NICKIT, CRY_MODE_NORMAL)
+    msgbox(format("Nickit is grinning mischievously.\pWhat's it up to?"))
+    releaseall
+    end
+}
+
+//change dialogue
+script GalecrestCity_NPC_15{ 
+    msgbox(format("I really want to visit the Silversun Theatre and see a show! But crossing Vilethorn Woods isn't a good idea..."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_16{
+    lockall    
+    msgbox(format("I'm sorry! I won't skip class again!"))
+    releaseall
+    end
+}
+
+script GalecrestCity_NPC_17{
+    lockall    
+    msgbox(format("One more misdemeanour and I'll have you expelled, got it? And then you'll never get your Charcadet."))
+    releaseall
+    end
+}
+
+script GalecrestCity_NPC_18{
+    lockall
+    msgbox(format("All my life I've lived in this city. It's all I've seen and all I know...and now I'm too old to go exploring Cormoria."))  
+    release
+    delay(16)
+
+    if (flag(FLAG_GALECREST_REGRETFULMAN)){
+        releaseall
+        end
+    } else {
+        faceplayer  
+        msgbox(format("Have you ever felt like I do?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Experience does not discriminate.\nWe all feel regret.\pBut you still have time to change.\pTake this as a memento - don't let anything bind you!"))
+            giveitem(ITEM_BINDING_BAND)
+            setflag(FLAG_GALECREST_REGRETFULMAN)
+        } else {
+            msgbox(format("You're still innocent. The smile on your face is so bright! It lightens my heart.\pAccept this as a memento - hold tightly onto that smile of yours!"))
+            giveitem(ITEM_GRIP_CLAW)
+            setflag(FLAG_GALECREST_REGRETFULMAN)
+        }
+    }
+    applymovement(16, moves(face_left))
+    releaseall
+    end
+}
+
+script GalecrestCity_NPC_19{
+    msgbox(format("I learned something new in class today! Some berries reduce the power of attacks dealt to them. A Chilan Berry for example reduces the power of a NORMAL type attack. That'd be useful in the gym here, wouldn't it?"), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_20{
+    msgbox(format("Whaddya want? Thought you'd get something by talking to me?\lYou poor people are all the same - always looking for handouts!"), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_21{
+    msgbox(format("There's a Dugtrio there that's been digging into the ground down there.\lBut nobody will do anything because\lthis neighborhood is low priority."), MSGBOX_NPC)
+    end
+}
+
+script GalecrestCity_NPC_Ranger{ 
+    msgbox(format("I'm a Pokémon Ranger. What am I doing? Ranger duty of course! I'm cleaning up the city. There's junk everywhere!"), MSGBOX_NPC)
+    end
+}
+
+
+script GalecrestCity_NPC_Red{
+    msgbox(format("The Gym Leader's not in right now.\nHe should be back soon. Check out the Detective Academy in the meantime!"), MSGBOX_NPC)
+    applymovement(38, moves(face_down))
+    waitmovement(0)
+    end
+}
+
+
+

@@ -1,0 +1,32 @@
+mapscripts WinterlilyHollow_PokemonCenter_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: WinterlilyHollow_PokemonCenter_OnTransition
+}
+
+script WinterlilyHollow_PokemonCenter_OnTransition{
+    setrespawn(HEAL_LOCATION_WINTERLILY_HOLLOW)
+}
+
+script WinterlilyHollow_PokemonCenter_EventScript_Nurse{
+	lockall
+    setvar(VAR_0x800B, 1)
+	call(Common_EventScript_PkmnCenterNurse)
+	waitmessage
+	releaseall
+}
+
+//the other nurse
+script WinterlilyHollow_PokemonCenter_NPC1{
+	msgbox(format("{PLAYER} - it's you! Thank you again for saving Chansey. We'll stay here a while and give the nurse company before heading back down."), MSGBOX_NPC)
+	end
+}
+script WinterlilyHollow_PokemonCenter_Chansey{
+	playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+	msgbox(format("Seeyyyy!!"), MSGBOX_NPC)
+	end
+}
+script WinterlilyHollow_PokemonCenter_NPC2{
+	msgbox(format("This is my first time in Winterlily Hollow. I came to visit the Ranger Institute further down in Ivy River."), MSGBOX_NPC)
+	end
+}
+
+

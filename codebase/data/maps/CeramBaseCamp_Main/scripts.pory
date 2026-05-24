@@ -1,0 +1,492 @@
+//Local IDs for shopkeeper, grunts, leader, boss etc.
+raw `
+    .set LOCALID_GRUNT1, 1
+    .set LOCALID_GRUNT2, 2
+    .set LOCALID_GRUNT3, 3
+    .set LOCALID_GRUNT4, 4
+    .set LOCALID_BOSS, 9
+    .set LOCALID_LEADER, 5
+    .set LOCALID_SHOPKEEPER2F, 8
+`
+
+
+mapscripts CeramBaseCamp_Main_MapScripts{}
+//     MAP_SCRIPT_ON_RESUME: CeramBaseCamp_Main_OnResume
+
+//     MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE[
+//         VAR_SUPPLY_DEPOT_STATE, 0: CeramBaseCamp_Main_OnResume    
+//     ]
+// }
+
+
+
+script CeramBaseCamp_Main_OnResume{
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){
+
+    } else {
+        playbgm(MUS_AQUA_MAGMA_HIDEOUT, FALSE)
+    }
+    releaseall 
+    end
+}
+
+script CeramBaseCamp_Main_EventScript_EvilTrigger1{
+    //Check flag
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){end}
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+    //Move player to the spot
+    lockall    
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 2))
+    waitmovement(0)
+    call(CeramBaseCamp_Main_EventScript_MainEncounter)
+}
+
+script CeramBaseCamp_Main_EventScript_EvilTrigger2{
+    //Check flag
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){end}
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+    //Move player to the spot
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 2 walk_up face_left))
+    waitmovement(0)    
+    call(CeramBaseCamp_Main_EventScript_MainEncounter)
+}
+
+script CeramBaseCamp_Main_EventScript_EvilTrigger3{
+    //Check flag
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){end}
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+    //Move player to the spot    
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left * 2 walk_up *2 face_left))
+    waitmovement(0)
+    call(CeramBaseCamp_Main_EventScript_MainEncounter)
+}
+
+
+script CeramBaseCamp_Main_EventScript_MainEncounter{
+    //Main dialogue between the people (shopkeeper abducted)
+    lockall
+    applymovement(LOCALID_LEADER, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(8)
+    speakername("???")
+    msgbox(format("Release our shopkeeper at once!\nHow dare you!"))
+    release
+    applymovement(LOCALID_BOSS, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(8)
+    speakername("???")
+    msgbox(format("Get out of my face, leader! We have business that concerns you not one bit. We're going to take his supplies for\lour trek up Mt. Ceram!"))
+    release
+    applymovement(LOCALID_LEADER, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(8)
+
+    speakername("Ariana")
+    msgbox(format("The name's Ariana! And no way!\nThis is MY base camp! You're not harrassing anyone while I'm around!"))
+    release
+    delay(8)
+    speakername("???")
+    msgbox(format("Hahaha! Well said! You are a leader after all. But how do you intend to handle the two of us, when I can only count one of you?"))
+    release
+
+
+    //Player is noticed - leader notices, asks for help    
+    applymovement(LOCALID_LEADER, moves(face_right))
+    waitmovement(0)
+    applymovement(LOCALID_LEADER, moves(emote_exclamation_mark))
+    waitmovement(0)    
+    delay(24)
+    speakername("Ariana")
+    msgbox(format("Hey - you! You look like a trainer.\nI need your help.\pThese people are trying to steal the supplies here. We have to stop them!\pI'll take the boss. You deal with the\ngrunt on the right for me!"))
+    release
+
+    //Player walks up and deals with grunt
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_up))
+    waitmovement(0)
+    applymovement(LOCALID_GRUNT4, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Gabrielle")
+    msgbox(format("It's you?"))
+    release
+    applymovement(LOCALID_GRUNT4, moves(face_left))
+    waitmovement(0)
+    delay(16)
+    speakername("Gabrielle")
+    msgbox(format("Boss! Boss! This is the kid that beat me on Route 3. I was trying to take the dreamstone from that Clefairy hiker."))
+    release
+    applymovement(LOCALID_BOSS, moves(face_right))
+    waitmovement(0)
+    delay(16)
+    speakername("???")
+    msgbox(format("That wasn't a dreamstone you idiot - that was an everstone! Nonetheless, remind me to punish you for that later."))
+    release
+    delay(8)
+    speakername("Gabrielle")
+    msgbox(format("...yes boss."))
+    release
+    delay(8)
+    speakername("???")
+    msgbox(format("But there is a dreamstone sitting right on top of Mt. Ceram, and these people are in the way! Gabrielle, handle this pest while I put the leader in her place.\pAnd you better win this time!"))
+    release        
+    applymovement(LOCALID_GRUNT4, moves(face_down))
+    waitmovement(0)
+    delay(16)    
+    speakername("Gabrielle")
+    msgbox(format("You heard that...what was your name again?\p{PLAYER}?\pYeah, {PLAYER}! I'm not going to lose to you this time!"))
+    release 
+
+    //Set all sprites facing each other
+    applymovement(LOCALID_BOSS, moves(face_down))    
+    applymovement(LOCALID_LEADER, moves(face_up))
+    waitmovement(0)
+
+    //Single battle - vs the grunt
+    trainerbattle_no_intro(TRAINER_CERAMBASECAMP_EVIL_GABRIELLE, format("No! Not again!"))
+
+
+    //Defeat, but it doesn't matter - they'll just make it up the mountain anyway
+    applymovement(LOCALID_BOSS, moves(jump_in_place_down))
+    waitmovement(0)
+    speakername("???")
+    msgbox(format("Agh! You and your stupid Tauros!\nI just didn't have any good Pokémon."))
+    release
+    delay(16)
+    applymovement(LOCALID_LEADER, moves(jump_in_place_up))
+    waitmovement(0)   
+    delay(16)
+    speakername("Ariana")
+    msgbox(format("Serves you right! Now move over and give our shopkeeper back."))
+    release
+    delay(16)
+    applymovement(LOCALID_GRUNT4, moves(face_left))
+    waitmovement(0)
+    speakername("Gabrielle")
+    msgbox(format("I...I'm sorry boss! I lost again."))
+    release 
+    applymovement(LOCALID_BOSS, moves(face_right))
+    waitmovement(0)
+    delay(16)    
+    speakername("???")
+    msgbox(format("You useless, incompetent fool!\nHow can we accomplish anything\lwith such terrible support!"))   
+    release 
+    applymovement(LOCALID_BOSS, moves(face_down))
+    applymovement(LOCALID_GRUNT4, moves(face_down))
+    waitmovement(0)
+    delay(16)    
+    speakername("???")
+    msgbox(format("Fine, take your stupid shopkeeper back. We'll make it up the mountain anyway and there's nothing you can do to stop us!"))
+    release
+
+    //Walk out
+    applymovement(LOCALID_BOSS, moves(walk_left walk_down *2 walk_right * 10))
+    applymovement(LOCALID_GRUNT4, moves(walk_left *2 walk_down *2 walk_right * 10))
+    waitmovement(0)
+    
+    fadenewbgm(MUS_RUSTBORO)
+
+    //Shopkeeper thanks both
+    //ARIAN says the boss was powerful...I can't let you go alone without at least getting the badge
+    applymovement(LOCALID_LEADER, moves(face_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(0)   
+    speakername("Ariana") 
+    msgbox(format("Thanks for the help trainer!"))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    applymovement(LOCALID_LEADER, moves(face_up))
+    waitmovement(0)
+    delay(16)
+    speakername("Ariana")
+    msgbox(format("They didn't harm you right?"))
+    speakername("Shopkeeper")
+    msgbox(format("No they didn't. Thank you Ariana! And you too, trainer. I owe you one.\lPlease stop by our counter downstairs for trekking supplies later on!"))
+    release
+    applymovement(LOCALID_SHOPKEEPER2F, moves(walk_down walk_left walk_down *2 walk_right * 10))
+    waitmovement(0)
+
+    //Final dialogue
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_LEADER, moves(face_right))
+    waitmovement(0)
+    speakername("Ariana") 
+    msgbox(format("That boss was really tough!\pHmm? You've met these thugs before? And you're also going to Mt. Ceram? What's up there?\pThere's a dreamstone up there?\nI thought those were just rumours."))
+    speakername("Ariana") 
+    msgbox(format("They're connected to Professor Tenebris' disappearance? \pI gotta do something - Professor Tenebris gave me my Tauros!"))
+    speakername("Ariana") 
+    msgbox(format("Those guys seem to be after the dreamstone too...but I can't let you go up the mountain as you are now."))
+    speakername("Ariana") 
+    msgbox(format("{PLAYER}, was it?\pMt. Ceram is filled with dangerous Pokémon. The rules around here are you can't climb unless you have my gym badge and my blessing.\pIf you can beat me, I'll be able to send you up the hill with confidence.\pSee you around, {PLAYER}!"))
+    release
+
+    //End encounter
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    removeobject(LOCALID_GRUNT1)
+    removeobject(LOCALID_GRUNT2)
+    removeobject(LOCALID_GRUNT3)
+    removeobject(LOCALID_GRUNT4)
+    removeobject(LOCALID_BOSS)
+    removeobject(LOCALID_LEADER)
+    removeobject(LOCALID_SHOPKEEPER2F)
+
+    setflag(FLAG_CERAMBASECAMP_EVIL_BATTLE)
+    clearflag(FLAG_HIDE_BASECAMP_SHOPKEEPER)
+    setvar(VAR_SUPPLY_DEPOT_STATE, 1)
+
+    fadescreenswapbuffers(FADE_FROM_BLACK)    
+    releaseall
+
+}
+
+
+
+
+script CeramBaseCamp_Main_TrainerBattle_Grunt1 {
+    trainerbattle_single(TRAINER_CERAMBASECAMP_GRUNT1, format("Where do you think you're going kid?\nThis Supply Depot is under Team Somber's control now!"), format("Gah! I lost!"))
+    msgbox(format("We're here to collect supplies for\nthe climb up Mt. Ceram!"))
+    release
+    end
+}
+
+script CeramBaseCamp_Main_TrainerBattle_Grunt2 {
+    trainerbattle_single(TRAINER_CERAMBASECAMP_GRUNT2, format("We're going to steal all the climbing supplies and you can't stop us!"), format("I can't believe it!"))
+    msgbox(format("You just got lucky. I'll crush you if\nI ever see you again!"))
+    release
+    end
+}
+
+script CeramBaseCamp_Main_TrainerBattle_Grunt3 {
+    trainerbattle_single(TRAINER_CERAMBASECAMP_GRUNT3, format("How did you get this far?\pNo matter - you can't stop us from taking the supplies! Hahaha!"), format("No! My Pokémon were too weak!"))
+    msgbox(format("You're too late - the boss is already with the shopkeeper!"))
+    release
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+///MART
+
+script CeramBaseCamp_Main_Pokemart_EventScript_Clerk{
+    lock
+	faceplayer
+    msgbox(format("Hey {PLAYER}! You can get all our mountain climbing supplies here!"))
+	message(gText_HowMayIServeYou)
+	waitmessage
+	pokemart(CeramBaseCamp_Main_Pokemart_Inventory)
+	msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+	release
+	end
+}
+
+
+mart CeramBaseCamp_Main_Pokemart_Inventory{
+    ITEM_POKE_BALL
+    ITEM_REPEL
+    ITEM_FRESH_WATER
+    ITEM_SODA_POP
+    ITEM_LAVA_COOKIE
+    ITEM_REVIVE
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///ALL THE NPCS
+//FLAG_CERAMBASECAMP_EVIL_BATTLE
+
+script CeramBaseCamp_Main_NPC1{
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){
+        //Regular case
+        msgbox(format("Ariana is so cool! She's the one that holds this base camp together.\lBut she's so scary in battle! "), MSGBOX_NPC)
+    } else {
+        //When Team Somber is there
+        msgbox(format("Who are these Team Somber people?\nThey act all high and mighty, but they're just harrassing innocent folk."), MSGBOX_NPC)
+    }
+    end
+}
+
+script CeramBaseCamp_Main_NPC2{
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){
+        //Regular case
+        msgbox(format("It's believed that a dreamstone is a crystallised representation of a Pokémon's memories."), MSGBOX_NPC)
+    } else {
+        //When Team Somber is there
+        msgbox(format("I overheard them talking about a dreamstone! Dreamstones are supposed to be very rare. Why do they want one?"), MSGBOX_NPC)
+    }
+    end
+}
+
+script CeramBaseCamp_Main_Smeargle{
+    playmoncry(SPECIES_SMEARGLE, CRY_MODE_NORMAL)
+    msgbox(format("Smeargle looks resolute.\nWhat's it thinking?"), MSGBOX_NPC)
+    end
+}
+
+///QUEST
+script CeramBaseCamp_Main_NPC3{
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){
+
+        if (flag(FLAG_CERAMBASECAMP_MAIN_BERRY)){
+            msgbox(format("Potions are all well and good, but berries can be used in battle!"), MSGBOX_NPC)
+        } else {
+            msgbox(format("Berries don't grow in this heat, so I brought my own! Would you like some?"), MSGBOX_NPC)
+            giveitem(ITEM_OCCA_BERRY, 5)
+            release
+            setflag(FLAG_CERAMBASECAMP_MAIN_BERRY)
+        }
+            //Regular case
+    } else {
+        //When Team Somber is there
+        msgbox(format("These thugs took the shopkeeper upstairs! But Ariana, the Gym Leader, just went up there to get him back. She's going to teach them a lesson!"), MSGBOX_NPC)
+    }
+
+    end
+}
+
+script CeramBaseCamp_Main_NPC4{
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){
+        //Regular case
+        msgbox(format("This isn't really a town, so the supply depot and the management office and gym is all we have."), MSGBOX_NPC)
+    } else {
+        //When Team Somber is there
+        msgbox(format("Shh! Don't look here, idiot child!\nYou'll attract their attention!"), MSGBOX_NPC)
+    }
+    end
+}
+
+//TRADE NPC (later)
+script CeramBaseCamp_Main_NPC5{
+    if (flag(FLAG_CERAMBASECAMP_NPC_TRADE)){
+        msgbox(format("My sister will be so happy. She's always wanted her own Pokémon."), MSGBOX_NPC)
+        end
+    }
+
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){
+        //Regular case
+        lockall
+        faceplayer
+        showmonpic(SPECIES_PETILIL, 10, 3)
+        msgbox(format("I want to gift my sister a Petilil.\nIt's her favourite Pokémon!\lBut I couldn't find any on Route 4."))
+        release
+        hidemonpic
+        delay(24)
+        showmonpic(SPECIES_PONYTA_GALAR, 10, 3)
+        msgbox(format("If you have one, will you trade it for\nmy Ponyta?"), MSGBOX_YESNO)
+        hidemonpic
+        if (var(VAR_RESULT) == 1){
+            //do trade
+
+            //First is trade mon setup
+            setvar(VAR_0x8008, INGAME_TRADE_WIMPOD) //Get the specific in-game trade mon (trade.h)
+            copyvar(VAR_0x8004, VAR_0x8008)         //copy the trade mon
+
+            specialvar(VAR_RESULT, GetInGameTradeSpeciesInfo)
+	        copyvar(VAR_0x8009, VAR_RESULT)         //Get and copy the requested mon
+
+
+            //Now choose your mon
+            special(ChoosePartyMon)                 //choose your mon
+            waitstate                               //wait
+            copyvar(VAR_0x800A, VAR_0x8004)         //idk why but copy player selected mon
+
+            //Decline if nothing chosen
+            if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN){
+               msgbox(format("Oh...well, if you change your mind,\nyou know where I am!"), MSGBOX_NPC)
+               end          
+            }
+
+            copyvar(VAR_0x8005, VAR_0x800A)         //idk why but copy the trade mon
+            specialvar(VAR_RESULT, GetTradeSpecies)
+            copyvar(VAR_0x800B, VAR_RESULT)         //idk why but copy the var result
+            if (var(VAR_RESULT) == VAR_0x8009) {
+                //If mon is nymble, carry on
+                copyvar(VAR_0x8004, VAR_0x8008)
+                copyvar(VAR_0x8005, VAR_0x800A)
+                special(CreateInGameTradePokemon)
+                special(DoInGameTradeScene)
+                waitstate
+                msgbox(format("Thank you! Please take good care of my Ponyta."))
+                release
+                setflag(FLAG_CERAMBASECAMP_NPC_TRADE)      
+
+            } else {
+                //else (mon isn't nymble)
+                msgbox(format("Hey, this isn't a Petilil!\nI'm not stupid, you know?"), MSGBOX_NPC)
+            }
+
+        } else {
+            //no trade
+            msgbox(format("Oh...well, if you change your mind,\nyou know where I am!"), MSGBOX_NPC)
+        }
+    } else {
+        //When Team Somber is there
+        msgbox(format("I can't wait for Ariana to put these crooks in their place!"), MSGBOX_NPC)
+    }
+
+    end
+}
+
+
+	// lock
+	// faceplayer
+	// goto_if_set FLAG_BATTLE_FRONTIER_TRADE_DONE, BattleFrontier_Lounge6_EventScript_TradeCompleted
+	// setvar VAR_0x8008, INGAME_TRADE_MEOWTH
+	// copyvar VAR_0x8004, VAR_0x8008
+	// specialvar VAR_RESULT, GetInGameTradeSpeciesInfo
+	// copyvar VAR_0x8009, VAR_RESULT
+	// msgbox BattleFrontier_Lounge6_Text_WouldYouLikeToTrade, MSGBOX_YESNO
+	// goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge6_EventScript_DeclineTrade
+	// special ChoosePartyMon
+	// waitstate
+	// copyvar VAR_0x800A, VAR_0x8004
+	// goto_if_eq VAR_0x8004, PARTY_NOTHING_CHOSEN, BattleFrontier_Lounge6_EventScript_DeclineTrade
+	// copyvar VAR_0x8005, VAR_0x800A
+	// specialvar VAR_RESULT, GetTradeSpecies
+	// copyvar VAR_0x800B, VAR_RESULT
+	// goto_if_ne VAR_RESULT, VAR_0x8009, BattleFrontier_Lounge6_EventScript_NotRequestedMon
+	// copyvar VAR_0x8004, VAR_0x8008
+	// copyvar VAR_0x8005, VAR_0x800A
+	// special CreateInGameTradePokemon
+	// special DoInGameTradeScene
+	// waitstate
+	// msgbox BattleFrontier_Lounge6_Text_PromiseIllBeGoodToIt, MSGBOX_DEFAULT
+	// setflag FLAG_BATTLE_FRONTIER_TRADE_DONE
+	// release
+	// end
+
+script CeramBaseCamp_Main_NPC6{
+    if (flag(FLAG_CERAMBASECAMP_EVIL_BATTLE)){
+        //Regular case
+        msgbox(format("On the other side of Mt. Ceram is Galecrest City. But I hear the trek down from the summit is impossible,\lbecause the native Centiskorch and Scolipede fight each other."), MSGBOX_NPC)
+    } else {
+        //When Team Somber is there
+        msgbox(format("I can't wait for Ariana to put these crooks in their place!"), MSGBOX_NPC)
+    }
+    end
+}
+
+
+

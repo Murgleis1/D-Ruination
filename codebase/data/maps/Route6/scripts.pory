@@ -1,0 +1,602 @@
+raw`
+    .set LOCALID_GAB, 29
+    .set LOCALID_GRUNT1, 11
+    .set LOCALID_GRUNT2, 10
+    .set LOCALID_VENU, 31
+`
+
+mapscripts Route6_MapScripts{}
+
+
+
+
+
+
+
+
+
+script Route6_Nurse_Demo{
+    lockall
+    faceplayer
+    msgbox(format("This area is closed for the demo."))
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+script Route6_EventScript_Nurse{
+    lockall
+    faceplayer
+    msgbox(format("Eek! The bugs! The humidity! I can't wait to get back to Pelluca City. These Heal Pass assignments are the worst!\pIf you have a Heal Pass, Chansey can heal your Pokémon meanwhile."))
+    release
+	call(Common_EventScript_NurseJoyOnRoute)
+    release
+}
+
+
+//Marshtomp
+script Route6_Venusaur{
+    lockall
+
+    checkitem(ITEM_POKE_FLUTE)
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("It's asleep..."))
+        releaseall
+        end
+    }
+
+
+
+
+    msgbox(format("It's asleep...use Poké Flute?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+            fadeoutbgm(1)
+            playse(MUS_RG_POKE_FLUTE)
+            msgbox(format("{PLAYER} played the Poke Flute."))
+            delay(128)
+            msgbox(format("..."))
+            release
+            applymovement(LOCALID_VENU, moves(emote_question_mark))
+            waitmovement(0)
+            delay(16)
+            playmoncry(SPECIES_VENUSAUR, CRY_MODE_ENCOUNTER)
+            msgbox(format("The Venusaur wakes up...it's groggy..."))
+            setwildbattle(SPECIES_VENUSAUR, 48)     
+            dowildbattle  
+            
+            //result
+            specialvar(VAR_RESULT, GetBattleOutcome)
+            if (var(VAR_RESULT) == B_OUTCOME_WON){
+                removeobject(LOCALID_VENU)
+                setflag(FLAG_ROUTE6_VENUSAUR)
+            }
+            if (var(VAR_RESULT) == B_OUTCOME_CAUGHT){
+                removeobject(LOCALID_VENU)
+                setflag(FLAG_ROUTE6_VENUSAUR)
+            }            
+            if (var(VAR_RESULT) == B_OUTCOME_RAN){applymovement(LOCALID_VENU, moves(face_up))
+                msgbox(format("The Venusaur grunts and falls back asleep. It needs its beauty sleep!"))
+                release
+            }
+        } else {
+            release
+        }
+    releaseall
+    end
+}
+
+
+//Ranger M
+script Route6_Trainer_A{
+    trainerbattle_single(TRAINER_ROUTE6_A, format("We're from the Ranger Institute.\nWe're tracking down a rare Pokémon!"), "You're so strong!")
+    msgbox(format("Apparently the Pokémon we're tracking looks like a giant yellow cat!\pEver seen a Pokémon like that?"))
+    releaseall
+    end
+}
+//Battle Girl
+script Route6_Trainer_B{
+    trainerbattle_single(TRAINER_ROUTE6_B, format("I was in Silversun City to catch a Qwilfish. Now I can join the Qwilsquad!\pWhat - never heard of 'em? Come to Pelluca City and you'll find out!"), "My Qwilfish lost!")
+    msgbox(format("The Qwilsquad are the strongest!"))
+    releaseall
+    end
+}
+//Ranger F
+script Route6_Trainer_C1{
+    trainerbattle_single(TRAINER_ROUTE6_C, format("But until we find that rare Pokémon, we'll train with you!"), "Good training!")
+    msgbox(format("The Director of the Ranger Institute sent us to track the rare Pokémon."))
+    releaseall
+    end
+}
+//Ranger
+script Route6_Trainer_C2{
+    trainerbattle_single(TRAINER_ROUTE6_C, format("We're from the Ranger Institute. We're on assignment to survey new Pokémon. Have you got any?"), "You do have new Pokémon!")
+    msgbox(format("The Ranger Institute gives us newbies such hard assignments!"))
+    releaseall
+    end
+}
+//Fisherman
+script Route6_Trainer_D{
+    trainerbattle_single(TRAINER_ROUTE6_D, format("The secret to catching strong Water Pokémon? Patience and a Trolling Rod.\pToo bad you don't have one!"), "You beat me without a rod!")
+    msgbox(format("I wonder what Pokémon I can catch\nhere with a Casting Rod instead..."))
+    releaseall
+    end
+}
+//Cooltrainer
+script Route6_Trainer_E{
+    trainerbattle_single(TRAINER_ROUTE6_E, format("I'm aiming to be the Pokémon Champion, so I'm here to catch rare Pokémon.\lLet me test them out on you!"), "No - my rare Pokémon!")
+    msgbox(format("Catching good Pokémon isn't enough.\nI need to train rigorously too."))
+    releaseall
+    end
+}
+//Black Belt
+script Route6_Trainer_F{
+    trainerbattle_single(TRAINER_ROUTE6_F, format("My Croagunk and I love to train here because it makes us tough!"), "We're not tough eonugh!")
+    msgbox(format("Wading around in the marshes here\nreally works your core!"))
+    releaseall
+    end
+}
+//PKMN breeder Dog 
+script Route6_Trainer_G{
+    trainerbattle_single(TRAINER_ROUTE6_G, format("Get ready, because I'm not a regular Pokémon Breeder. I'm going to be the first Pokémon Breeder Champion!"), "Guess I was more bark than bite!")
+    msgbox(format("Dog Pokémon are rare in Cormoria!\nI traded for my in Houndoor Pelluca City."))
+    releaseall
+    end
+}
+//Bug catcher
+script Route6_Trainer_H{
+    trainerbattle_single(TRAINER_ROUTE6_H, format("This weather is prime for my BUG-type Pokémon! You won't be able to handle it!"), "The weather is fickle!")
+    msgbox(format("Although bugs thrive in marshes, there aren't many BUG-type Pokémon around here."))
+    releaseall
+    end
+}
+//Dragon tamer
+script Route6_Trainer_I{
+    trainerbattle_single(TRAINER_ROUTE6_I, format("I heard about a rare DRAGON-type Pokémon here, but I can't find it!"), "Why did I find you instead?")
+    msgbox(format("If it's not on land, then perhaps\nI need to try fishing..."))
+    releaseall
+    end
+}
+//Youngster
+script Route6_Trainer_J{
+    trainerbattle_single(TRAINER_ROUTE6_J, format("Hold it right there! You think you can beat me when I've already got four gym badges?"), "Argh! I need another badge!")
+    msgbox(format("Yup! That's right! I'm on my way to become the Pokémon Champion!"))
+    releaseall
+    end
+}
+//Hex maniac
+script Route6_Trainer_K{
+    trainerbattle_single(TRAINER_ROUTE6_K, format("Past Pelluca City is the Mirroh Base Camp and a Pokémon graveyard. I want to go there to commune with the afterlife!"), "I don't want to commune with you!")
+    msgbox(format("If we remember our Pokémon after they go, are they truly gone?"))
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+//old woman
+script Route6_NPC_ZeraoraBlocker{
+    if (var(VAR_RANGER_INSTITUTE) == 0){
+        msgbox(format("Sorry, this area is blocked off for civilians. The Ranger Institute is investigating a rare Pokémon sighting."), MSGBOX_NPC)
+    }
+    if (var(VAR_RANGER_INSTITUTE) == 1){
+        msgbox(format("Sorry, this area is blocked off for civilians. The Ranger Institute is investigating a rare Pokémon sighting."), MSGBOX_NPC)
+    }
+    if (var(VAR_RANGER_INSTITUTE) > 1){
+        if (var(VAR_RANGER_INSTITUTE) < 11){
+            msgbox(format("Sorry, Ranger. We're investigating a rare Pokémon sighting.\lIt could be dangerous! You're not a\lhigh enough rank to enter."), MSGBOX_NPC)
+        } else {
+            msgbox(format("Sorry, Ranger. We're investigating a rare Pokémon sighting.\lIt could be dangerous! You're not a\lhigh enough rank to enter.\p...\pDirector Ravine sent you?\pAlright, you can go in. But be careful!\nWhatever this Pokémon is, it generates huge amounts of electricity that even the ground can't absorb!"), MSGBOX_NPC)
+            lockall
+
+            //move the guy out
+            specialvar(VAR_RESULT, GetPlayerFacingDirection)
+
+            if (var(VAR_RESULT) == DIR_WEST){
+                applymovement(VAR_LAST_TALKED, moves(walk_down walk_right * 5 walk_down *6))
+            } else {
+                applymovement(VAR_LAST_TALKED, moves(walk_right * 5 walk_down *6))
+            }
+            waitmovement(0)
+            removeobject(VAR_LAST_TALKED)
+            setflag(FLAG_ROUTE6_ZERAORA_BLOCKER)
+            releaseall
+        }
+    }
+    end
+
+}
+
+script Route6_NPC1{
+    lockall
+    faceplayer
+    msgbox(format("When I was young, there was no route through these marshes.\pNow Route 6 connects Silversun City\nto Pelluca City."))
+    releaseall
+    end
+}
+
+script Route6_NPC2{
+    lockall
+    faceplayer
+    msgbox(format("I wonder what's over there...if I had the\nHM Surf, I could swim over!"))
+    releaseall
+    end
+}
+script Route6_NPC3{
+    lockall
+    faceplayer
+    msgbox(format("I want to go to the Pelluca Restaurant! The food is supposed to be delicious because the head chef travels all of Cormoria looking for rare ingredients."))
+    releaseall
+    end
+}
+script Route6_NPC4{
+    lockall
+    faceplayer
+
+    if (var(VAR_ROUTE6_FISHERMAN) == 2){
+        msgbox(format("I've been too busy eating to cook! I guess you can switch the hobby all you want, but you have to work on yourself to see real change."))
+    }
+
+    if (var(VAR_ROUTE6_FISHERMAN) == 1){
+        msgbox(format("Have you brought an Apple Pie?"), MSGBOX_YESNO)
+
+        if (var(VAR_RESULT) == 1){
+
+            if (checkitem(ITEM_OLD_GATEAU)){
+                msgbox(format("Yes, this looks amazing!\p...\pInteresting flavour. I think I can make it!"))
+                release
+                completequest(QUEST_ROUTE6_FISHERMAN)
+                removeitem(ITEM_OLD_GATEAU)
+                msgbox(format("I suppose I don't need this any more. Here, why don't you take it? You could start a new hobby too!"))
+                giveitem(ITEM_SUPER_ROD)
+                setvar(VAR_ROUTE6_FISHERMAN, 2)
+            } else {
+                msgbox(format("No, it looks like you haven't. I'll be here when you get one."))
+            }
+        }
+    }
+
+    if (var(VAR_ROUTE6_FISHERMAN) == 0){
+        msgbox(format("These waters are too strong to fish properly...why am I even fishing here? I'm so unfocused these days.\pMaybe I need a new hobby. I'd like to try cooking, but I might be no good.\pWhat do you say? Should I try cooking?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            //yes
+            msgbox(format("Yeah unless I try, I'll never know!\nSay, can you help me out?\pI want to try making an Apple Pie.\nCan you bring me one?"), MSGBOX_YESNO)
+                if (var(VAR_RESULT) == 1){
+                    //Start quest
+                    msgbox(format("Thank you so much! I'll be waiting here."))
+                    setvar(VAR_ROUTE6_FISHERMAN, 1)
+                    startquest(QUEST_ROUTE6_FISHERMAN)
+                } else {
+                    msgbox(format("Ahh well, it's back to fishing then."))
+                }
+        } else {
+            msgbox(format("Yeah...I suppose I'd be no good.\nFishing is all I know."))
+        }
+    }
+
+
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script Route6_Gabrielle_SaveGameTrigger{
+    if (flag(FLAG_ROUTE6_GABRIELLE_BULLY)){end}   
+
+    setvar(VAR_TEMP_C, 1)
+
+    call(Common_EventScript_SaveGameBeforeSomber)
+    releaseall
+
+    end
+}
+
+
+script Route6_Gabrielle_Trigger0{
+    if (flag(FLAG_ROUTE6_GABRIELLE_BULLY)) {end}
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up walk_right))
+    waitmovement(0)
+    goto(Route6_Gabrielle_Main)
+}
+script Route6_Gabrielle_Trigger1{
+    if (flag(FLAG_ROUTE6_GABRIELLE_BULLY)) {end}
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up face_right))
+    waitmovement(0)
+    goto(Route6_Gabrielle_Main)
+}
+
+
+//GABRIELLE encounter
+script Route6_Gabrielle_Main{
+    //Dialogue
+    //no longer a part of somber, now give us all your Pokémon
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+    applymovement(LOCALID_GRUNT2, moves(jump_in_place_right))
+    delay(24)    
+    speakername("Grunt")
+    msgbox(format("C'mon Gabrielle - you've got nowhere\nto run. Now give us your Pokémon!"))
+    speakername("Gabrielle")
+    msgbox(format("No! Zoroark and I are partners!\nWhy should I give you losers anything?"))
+    speakername("Grunt")
+    msgbox(format("They're property of Team Somber, and now that you're out, it's only fair that you return them.\pHehe...we've always eyed your Zoroark, you know? And now it's time to collect!"))
+    speakername("Gabrielle")
+    msgbox(format("That's not how it works!"))
+    speakername("Grunt")
+    msgbox(format("What are you gonna do?\nComplain to the boss?\pHaha!"))
+    release 
+
+    //Notice
+    applymovement(LOCALID_GAB, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(24)
+    applymovement(LOCALID_GAB, moves(walk_down * 2 walk_left))
+    waitmovement(0)
+    applymovement(LOCALID_GRUNT1, moves(face_down))
+    applymovement(LOCALID_GRUNT2, moves(face_down))
+
+    speakername("Gabrielle")
+    msgbox(format("{PLAYER}, it's you! These grunts are trying to take my Pokémon off me!\lYou have to help!"))
+    release
+    applymovement(LOCALID_GRUNT1, moves(jump_in_place_down))
+    applymovement(LOCALID_GRUNT2, moves(jump_in_place_down))
+    speakername("Grunt")
+    msgbox(format("Have you no shame Gabrielle? The trainer who got you kicked out is\lnow going to help you?\pFine by us! Imagine what the boss'll say when we take Zoroark AND beat the trainer that's foiled our plans twice!"))
+    release
+    //walk up
+    applymovement(LOCALID_GRUNT1, moves(face_right))
+    applymovement(LOCALID_GRUNT2, moves(face_right))    
+    applymovement(LOCALID_GAB, moves(walk_right walk_up *2 face_left))    
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right * 2 walk_up face_left))
+    waitmovement(0)
+
+    goto(Route6_Gabrielle_ChooseDoubleBattleParty)
+}
+
+script Route6_Gabrielle_ChooseDoubleBattleParty{
+    //battle
+	special(SavePlayerParty)
+	fadescreenswapbuffers(FADE_TO_BLACK)
+	special(ChooseHalfPartyForBattle)
+	waitstate
+	goto_if_ne(VAR_RESULT, 0, Route6_Gabrielle_DoBattle)
+	special(LoadPlayerParty)
+    goto(Route6_Gabrielle_HurryUp)
+
+}
+
+script Route6_Gabrielle_HurryUp{
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+    speakername("Gabrielle")
+    msgbox(format("What are you doing? They're about to attack!"))
+    goto(Route6_Gabrielle_ChooseDoubleBattleParty)
+}
+
+script Route6_Gabrielle_DoBattle{
+    multi_2_vs_2(TRAINER_ROUTE6_GRUNT1, "Stupid Zoroark!", TRAINER_ROUTE6_GRUNT2, "I need better Pokémon!", PARTNER_ROUTE6_GAB)
+ 	if (var(VAR_RESULT) == 1){
+        goto(Route6_Gabrielle_Victory)
+    }
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    special(SetCB2WhiteOut)
+    waitstate
+}
+
+script Route6_Gabrielle_Victory{
+    playbgm(MUS_ENCOUNTER_MAGMA, FALSE)
+    //somber exit
+    //
+    speakername("Grunt")
+    msgbox(format("You just got lucky that {PLAYER} was around, Gabrielle! Next time we'll get your Zoroark for sure!"))
+    release
+    //gabrielle thanks and lives in pelluca
+    applymovement(LOCALID_GRUNT2, moves(walk_down * 2 walk_left * 4 walk_up *2 walk_left * 3)) 
+    applymovement(LOCALID_GRUNT1, moves(walk_down walk_left * 4 walk_up *2 walk_left * 3))  
+    waitmovement(0)
+
+    removeobject(LOCALID_GRUNT1)
+    removeobject(LOCALID_GRUNT2)
+
+    fadedefaultbgm
+
+    delay(16)
+    applymovement(LOCALID_GAB, moves(face_down))    
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    delay(16)
+    speakername("Gabrielle")
+    msgbox(format("Thank you {PLAYER}. You saved both Zoroark and me there!\pLet me heal your Pokémon."))
+    release
+	call(Common_EventScript_OutOfCenterPartyHeal)
+    
+    speakername("Gabrielle")
+    msgbox(format("I live in Pelluca City, just past the Hoya River. I was on my way home when those grunts ambushed me...\pIt's not fair! I've already been kicked out of Team Somber.\pI wish they'd just leave me alone!\pI'm going back home now.\nSee you around."))  
+    release
+    applymovement(LOCALID_GAB, moves(walk_left walk_down * 2 walk_left * 4 walk_up *2 walk_left * 3))    
+    waitmovement(0)
+    removeobject(LOCALID_GAB)
+    setflag(FLAG_ROUTE6_GABRIELLE_BULLY)
+
+    releaseall
+}
+
+
+
+
+
+// MossdeepCity_SpaceCenter_2F_EventScript_ChoosePartyForMultiBattle::
+// 	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
+// 	waitmovement 0
+// 	special(SavePlayerParty)
+// 	fadescreenswapbuffers(FADE_TO_BLACK)
+// 	special(ChooseHalfPartyForBattle)
+// 	waitstate
+// 	goto_if_ne(VAR_RESULT, 0, MossdeepCity_SpaceCenter_2F_EventScript_DoStevenMultiBattle)
+// 	special(LoadPlayerParty)
+
+// MossdeepCity_SpaceCenter_2F_EventScript_DoStevenMultiBattle::
+// 	multi_2_vs_2 TRAINER_MAXIE_MOSSDEEP, MossdeepCity_SpaceCenter_2F_Text_JustWantToExpandLand, TRAINER_TABITHA_MOSSDEEP, MossdeepCity_SpaceCenter_Text_TabithaDefeat, PARTNER_STEVEN
+// 	switch VAR_RESULT
+// 	case 1, MossdeepCity_SpaceCenter_2F_EventScript_DefeatedMaxieTabitha
+// 	fadescreen FADE_TO_BLACK
+// 	special SetCB2WhiteOut
+// 	waitstate
+
+
+
+script Route6_Tutor_Weather{
+    lockall
+    faceplayer
+    msgbox(format("I'm part of the Geological Research Squad. Our scientists track weather patterns while I collect field data! I can teach your Pokémon to change the weather in battle."))
+    msgbox(format("In exchange for one Green Shard, should I teach a weather move?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Come again whenever you like!"), MSGBOX_NPC)
+        releaseall
+        end        
+    }
+
+    checkitem(ITEM_GREEN_SHARD)
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("You don't have a Green Shard.\nCome again when you have one!"), MSGBOX_NPC)
+        releaseall
+        end        
+    }
+
+    message(format("Which move should I teach?"))
+    waitmessage
+    dynmultichoice(0, 0, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Rain Dance", "Sunny Day", "Sandstorm", "Snowscape")  
+
+    if (var(VAR_RESULT) == 0)  {
+        setvar(VAR_0x8005, MOVE_RAIN_DANCE)
+        goto(Route6_Tutor_TeachMoveShard)
+    }
+    if (var(VAR_RESULT) == 1)  {
+        setvar(VAR_0x8005, MOVE_SUNNY_DAY)
+        goto(Route6_Tutor_TeachMoveShard)
+    }
+    if (var(VAR_RESULT) == 2)  {
+        setvar(VAR_0x8005, MOVE_SANDSTORM)
+        goto(Route6_Tutor_TeachMoveShard)
+    }
+    if (var(VAR_RESULT) == 3)  {
+        setvar(VAR_0x8005, MOVE_SNOWSCAPE)
+        goto(Route6_Tutor_TeachMoveShard)
+    }
+    msgbox(format("Come again whenever you like!"), MSGBOX_NPC)
+    releaseall
+    end
+}
+
+script Route6_Tutor_Fangs{
+    lockall
+    faceplayer
+
+    if (flag(FLAG_TUTOR_FANGS)){
+        msgbox(format("Bare your teeth, Ranger!\p...\pMaybe I should have taught you a dentist's phone number instead..."), MSGBOX_NPC)
+        releaseall
+        end
+    }
+
+    msgbox(format("I train new Candidates in raising strong partners. I can teach your Pokémon some new moves if you like! But I can only teach one move per Ranger."))
+    msgbox(format("This tutor will only teach a\pmove once, so choose carefully!"), MSGBOX_POKENAV)
+    message(format("Which move should I teach?"))
+    waitmessage
+    dynmultichoice(0, 0, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Fire Fang", "Ice Fang", "Thunder Fang", "Psychic Fangs", "Cancel")  
+
+    if (var(VAR_RESULT) == 0)  {
+        setvar(VAR_0x8005, MOVE_FIRE_FANG)
+        goto(Route6_Tutor_TeachMove)
+    }
+    if (var(VAR_RESULT) == 1)  {
+        setvar(VAR_0x8005, MOVE_ICE_FANG)
+        goto(Route6_Tutor_TeachMove)
+    }
+    if (var(VAR_RESULT) == 2)  {
+        setvar(VAR_0x8005, MOVE_THUNDER_FANG)
+        goto(Route6_Tutor_TeachMove)
+    }
+    if (var(VAR_RESULT) == 3)  {
+        setvar(VAR_0x8005, MOVE_PSYCHIC_FANGS)
+        goto(Route6_Tutor_TeachMove)
+    }
+    msgbox(format("Come again whenever you like!"), MSGBOX_NPC)
+    releaseall
+    end
+}
+
+script Route6_Tutor_TeachMove{
+    call(MoveTutor_EventScript_OpenPartyMenu)
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Come again whenever you like!"), MSGBOX_NPC)
+    } else {
+        setflag(FLAG_TUTOR_FANGS)
+        msgbox(format("Your Pokémon look strong now!\nGood luck, Ranger!"), MSGBOX_NPC)
+    }
+
+    releaseall
+    end
+}
+
+script Route6_Tutor_TeachMoveShard{
+    call(MoveTutor_EventScript_OpenPartyMenu)
+
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("Come again whenever you like!"), MSGBOX_NPC)
+    } else {
+        removeitem(ITEM_GREEN_SHARD)
+        msgbox(format("Your Pokémon look strong now!\nGood luck, Ranger!"), MSGBOX_NPC)
+    }
+
+    releaseall
+    end
+}

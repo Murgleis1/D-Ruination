@@ -1,0 +1,84 @@
+mapscripts MirrohBaseCamp_Graveyard_MapScripts{}
+
+
+
+//Kohla battle
+script MirrohBaseCamp_Graveyard_KohlaBattle{    
+
+    lockall
+
+    call(Common_EventScript_SaveGameBeforeSomber)
+
+    faceplayer
+    //kohla talk
+    delay(30)
+    speakername("Kohla")
+    msgbox(format("It's you."))
+    release
+    applymovement(1, moves(face_up))
+    delay(48)
+    speakername("Kohla")
+    msgbox(format("Do you know what happens if you push something too hard?"))
+    release
+    delay(48)
+    faceplayer
+    delay(16)
+    speakername("Kohla")
+    msgbox(format("No, I suppose you don't."))
+    release
+    delay(16)
+
+    //batle
+    trainerbattle_no_intro(TRAINER_MIRROHBASECAMP_KOHLA, "...")
+
+    //stare at player
+    delay(48)    
+    speakername("Kohla")
+    msgbox(format("I have to carry on.\pI'll see you at Mt. Mirroh."))
+    release
+    delay(48)
+    applymovement(1, moves(walk_left * 5 walk_down * 7))
+    waitmovement(0)
+    removeobject(1)
+
+    //setflag
+    setflag(FLAG_MIRROH_KOHLA_BATTLE)
+    releaseall
+
+}
+
+
+
+
+
+
+
+
+
+
+
+script MirrohBaseCamp_Graveyard_Spiritomb{
+    msgbox(format("A patch of dirt. Perhaps for a new gravestone?"), MSGBOX_NPC)
+
+    if (flag(FLAG_GRAVEYARD_SPIRITOMB)) {end}
+
+    checkitem(ITEM_ODD_KEYSTONE)
+    if (var(VAR_RESULT) == 1){
+        msgbox(format("Place the Odd Keystone?"), MSGBOX_YESNO)
+
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("{PLAYER} placed the Odd Keystone on the dirt patch."), MSGBOX_SIGN)
+            delay(16)
+            playmoncry(SPECIES_SPIRITOMB, CRY_MODE_NORMAL)
+            waitmoncry
+            setflag(FLAG_GRAVEYARD_SPIRITOMB)
+            setwildbattle(SPECIES_SPIRITOMB, 30)
+            dowildbattle
+
+            end
+        }
+    }
+    end
+}
+
+

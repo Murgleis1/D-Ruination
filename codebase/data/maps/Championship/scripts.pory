@@ -1,0 +1,232 @@
+mapscripts Championship_MapScripts{    
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_VICTORY_CAPE)
+    }
+}
+
+
+//NPCs
+//woman with amoonguss
+script VictoryCape_NPC1{
+    msgbox(format("What's that look? You think I'm too old to be a competitor?\pI'll have you know I had my eighth\ngym badge before you were born!"), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_Mon1{
+    playmoncry(SPECIES_AMOONGUSS, CRY_MODE_NORMAL)
+    msgbox(format("Amoonguss is pottering about!"), MSGBOX_NPC)
+    end    
+} 
+
+script VictoryCape_NPC2{
+    msgbox(format("They say the Ace Rookie from the Detective Academy is going to compete! I wish I don't draw him as an opponent."), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_NPC3{
+    msgbox(format("This is my second time participating.\pI lost in the first round last time!"), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_Mon2{
+    playmoncry(SPECIES_PALPITOAD, CRY_MODE_NORMAL)
+    msgbox(format("Palpitoad has a deadly glint in its eye.\nNo first round exits this time!"), MSGBOX_NPC)
+    end    
+} 
+script VictoryCape_NPC4{
+    msgbox(format("Am I participating? No.\nI've just come to spectate!"), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_Mon3{
+    playmoncry(SPECIES_LOKIX, CRY_MODE_NORMAL)
+    msgbox(format("Lokix seems downcast...\nMaybe it wanted to participate?"), MSGBOX_NPC)
+    end    
+} 
+script VictoryCape_NPC5{
+    msgbox(format("The Cormoria Pokémon Championship\nis big business, kid!\pI made a killing by shipping\nsupplies to Victory Cape."), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_NPC6{
+    msgbox(format("This never-ending downpour is such a damper on the event!"), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_NPC7{
+    msgbox(format("They say a former Team Somber grunt is in the Championship...\pI'm not sure if they should be letting criminals participate!"), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_Mon4{
+    playmoncry(SPECIES_YANMEGA, CRY_MODE_NORMAL)
+    msgbox(format("Yanmega looks unfazed. It could probably see through Zoroark's disguises with its many eyes!"), MSGBOX_NPC)
+    end    
+} 
+script VictoryCape_NPC8{
+    msgbox(format("As a spiritual being, I possess supernatural control over my emotions.\p...so why am I feeling so nervous?"), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_Mon5{
+    playmoncry(SPECIES_CHIMECHO, CRY_MODE_NORMAL)
+    msgbox(format("Chimecho is psyching itself up!"), MSGBOX_NPC)
+    end    
+} 
+//qwilsquad
+script VictoryCape_NPC10{
+    lockall
+    faceplayer
+    msgbox_delay("Q-squad Boss", format("Hahaha! You thought we weren't gonna come cheer on the youngest Qwilsquad member?\lYou better win - we got no place for losers!"))
+    releaseall
+    end
+}
+script VictoryCape_NPC11{
+    lockall
+    faceplayer    
+    msgbox_delay("Q-squad Grunt", format("Show 'em the Qwilsquad spirit, {PLAYER}!"))
+    releaseall
+    end    
+}
+script VictoryCape_NPC12{
+    lockall
+    faceplayer
+    msgbox_delay("Q-squad Grunt", format("You gotta make all of Cormoria know what the Qwilsquad is about!"))
+    releaseall
+    end    
+}
+
+
+
+
+//Viniel 
+script VictoryCape_Viniel{
+    lockall
+    speakername("Viniel")
+    msgbox(format("Think you rugrats are stronger than a Gym Leader? Manectric and I can take all four of you together! Hahaha!"))
+    speakername(NULL)
+    releaseall
+    end    
+} 
+script VictoryCape_Manectric{
+    lockall
+    playmoncry(SPECIES_MANECTRIC, CRY_MODE_NORMAL)
+    msgbox(format("Manectric is playing with the children!"))
+    releaseall
+    end    
+} 
+script VictoryCape_Viniel_Kids{
+    msgbox(format("Leader Viniel is so cool!\nI wanna be just like him!"), MSGBOX_NPC)
+    end    
+} 
+script VictoryCape_Viniel_Parent{
+    msgbox(format("It's really kind of a superstar like Viniel to spend time with our children. He's a great role model.\p...\pI should take them inside before they catch a cold in the rain."), MSGBOX_NPC)
+    end    
+} 
+
+
+
+//Gabrielle
+script VictoryCape_Gab{
+    msgbox(format("What a huge stadium...are we really going to battle inside this?"), MSGBOX_NPC)
+    end    
+}
+script VictoryCape_Zoroark{
+    playmoncry(SPECIES_ZOROARK, CRY_MODE_NORMAL)
+    msgbox(format("Zoroark doesn't seem as scared as Gabrielle is."), MSGBOX_NPC)
+    end    
+} 
+
+
+
+
+
+
+
+
+//Trainers
+script VictoryCape_NPC9{
+    msgbox(format("These trainers are so cool.\nThey're giving it their all!\pI wish I was one of them..."), MSGBOX_NPC)
+    end    
+}
+
+script VictoryCape_Trainer_A{
+    lockall
+    msgbox(format("This isn't good enough, Shiinotic!\nWe won't win at this rate!"))
+    faceplayer
+    msgbox(format("Shiinotic and I are doing some last-minute training!\pDo you want to help us?"), MSGBOX_YESNO)
+    release
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("You'll regret not practicing!"), MSGBOX_NPC)
+        applymovement(VAR_LAST_TALKED, moves(face_right))
+        waitmovement(0)
+        releaseall
+        end
+    }    
+
+    trainerbattle_no_intro(TRAINER_VICTORYCAPE_A, format("We're just not there yet!"))
+    msgbox(format("I'm so scared we'll get knocked out!\nPlease practice with us again, okay?"), MSGBOX_NPC)
+    applymovement(VAR_LAST_TALKED, moves(face_right))
+    waitmovement(0)
+    releaseall
+    end
+}
+script VictoryCape_Shiinotic{
+    playmoncry(SPECIES_SHIINOTIC, CRY_MODE_NORMAL)
+    msgbox(format("Shiinotic's face is scrunched up!\nIt's doing its utmost!"))
+    releaseall
+    end    
+} 
+
+script VictoryCape_Trainer_B{
+    msgbox(format("Nah chum, training with the likes of you is a waste of my time!"), MSGBOX_NPC)
+    applymovement(VAR_LAST_TALKED, moves(face_left))
+    waitmovement(0)
+    releaseall
+    end      
+}
+
+script VictoryCape_Carbink{
+    playmoncry(SPECIES_CARBINK, CRY_MODE_NORMAL)
+    msgbox(format("Carbink is about to use Guard Split!\nThis trainer seems talented..."))
+    releaseall
+    end    
+} 
+
+script VictoryCape_Trainer_C{
+    lockall
+    msgbox(format("Yeah, that's the way Cetitan!\nWe're going to be Pokémon Champions!"))
+    faceplayer
+    msgbox(format("What are you looking at?\nThink you can take us on?"), MSGBOX_YESNO)
+    release
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("You need some fighting spirit!"), MSGBOX_NPC)
+        applymovement(VAR_LAST_TALKED, moves(face_right))
+        waitmovement(0)
+        releaseall
+        end
+    }    
+
+    trainerbattle_no_intro(TRAINER_VICTORYCAPE_B, format("No way!"))
+    msgbox(format("That's it! We gotta train harder!\nCome back if you want another go!"), MSGBOX_NPC)
+    applymovement(VAR_LAST_TALKED, moves(face_right))
+    waitmovement(0)
+    releaseall
+    end
+}
+script VictoryCape_Cetitan{
+    playmoncry(SPECIES_CETITAN, CRY_MODE_NORMAL)
+    msgbox(format("Cetitan's eyes are bleary, but it refuses to back down!"))
+    releaseall
+    end    
+} 
+
+script VictoryCape_Trainer_D{
+    msgbox(format("Before I fight you, I need to figure out how to beat this Cetitan!"), MSGBOX_NPC)
+    applymovement(VAR_LAST_TALKED, moves(face_right))
+    waitmovement(0)
+    releaseall
+    end    
+}
+
+script VictoryCape_Masquerain{
+    playmoncry(SPECIES_MASQUERAIN, CRY_MODE_NORMAL)
+    msgbox(format("Masquerain is flying all around Cetitan!"))
+    releaseall
+    end    
+} 
+
+
+

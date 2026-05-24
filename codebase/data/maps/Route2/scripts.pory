@@ -1,0 +1,53 @@
+raw`
+    .set LOCALID_CLEFAIRY, 3
+    .set LOCALID_CLEFAIRY_FOLLOW, 4
+`
+
+mapscripts Route2_MapScripts{
+    MAP_SCRIPT_ON_RESUME {setstepcallback(STEP_CB_ASH)}
+}
+
+
+
+//Spot the clefairy
+script Route2_Clefairy_Trigger0{
+    if (var(VAR_FENNILAHL_CLEFAIRY_QUEST) == 0){
+
+    //camera
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 4))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    delay(16)
+    
+    //clefairy look right and left, then go
+    applymovement(LOCALID_CLEFAIRY, moves(face_left))
+    waitmovement(0)
+    delay(36)
+    applymovement(LOCALID_CLEFAIRY, moves(face_right))
+    waitmovement(0)
+    delay(36)    
+
+    playmoncry(SPECIES_CLEFAIRY, CRY_MODE_NORMAL)
+    applymovement(LOCALID_CLEFAIRY, moves(jump_in_place_left walk_left * 2 walk_up))
+    waitmovement(0)
+    delay(12)   
+    removeobject(LOCALID_CLEFAIRY) 
+    playse(SE_EXIT)
+    delay(24)
+
+    setflag(FLAG_FENNILAHL_CLEFAIRY_FIRST_SIGHTING)
+    setvar(VAR_FENNILAHL_CLEFAIRY_QUEST, 1)
+
+    //camera
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 4))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    releaseall
+    end
+    } else {
+        end
+    }
+}

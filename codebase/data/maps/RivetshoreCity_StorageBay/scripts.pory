@@ -1,0 +1,107 @@
+mapscripts RivetshoreCity_StorageBay_MapScripts{}
+
+script RivetshoreCity_StorageBay_Slaking{
+    //if flute is used
+    checkitem(ITEM_POKE_FLUTE)
+    if (var(VAR_RESULT) == 1){
+    msgbox(format("It's asleep...use Poké Flute?"), MSGBOX_YESNO)
+    release
+    
+        if (var(VAR_RESULT) == 0){
+            end
+        } else {
+            fadeoutbgm(1)
+            playse(MUS_RG_POKE_FLUTE)
+            msgbox(format("{PLAYER} played the Poke Flute."))
+            delay(128)
+            release
+            playmoncry(SPECIES_SLAKING, CRY_MODE_NORMAL)
+            applymovement(1, moves(jump_in_place_up))
+            waitmovement(0)
+            delay(16)
+            msgbox(format("Slaking woke up!"))
+            release
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_right))
+            applymovement(1, moves(walk_up walk_right * 4 walk_down * 4))
+            waitmovement(0)
+            removeobject(1)
+            fadeinbgm(1)
+            msgbox(format("Slaking lumbered off somewhere...was waking it up the wrong thing to do?"))
+            release
+            setflag(FLAG_RIVETSHORE_STORAGE_BAY_SLAKING)
+            releaseall
+            end
+        }
+    
+    } else {
+        msgbox(format("It's asleep..."), MSGBOX_NPC)
+        end    
+    }
+}
+
+script RivetshoreCity_StorageBay_Trigger0{
+    lockall
+
+    if (flag(FLAG_BADGE08_GET)){
+        msgbox(format("It's a shipping container."))
+        releaseall
+        end
+    }
+
+    msgbox(format("There's a label on this container...\pCARGO FOR S.S. ELEGANT\pTap the storage container?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        msgbox(format("It sounds hollow...maybe there's enough space inside to fit in!\pEnter the storage container?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Once you enter, you can't come back.\nMake sure you're ready!"), MSGBOX_POKENAV)
+            dynmultichoice(12, 8, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Enter", "Leave")             
+            if (var(VAR_RESULT) == 0){
+                //move player
+                applymovement(OBJ_EVENT_ID_PLAYER, moves(jump_right))
+                waitmovement(0)
+
+                //the exit cutscene
+
+
+                //stepcallback
+                callnative(CB2_StorageCutscene)
+            } else {
+                fadedefaultbgm
+            }
+        }
+    }
+    releaseall
+    end
+}
+
+script RivetshoreCity_StorageBay_Trigger1{
+    lockall
+
+    msgbox(format("There's a label on this container...\pCARGO FOR S.S. ELEGANT\pTap the storage container?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        msgbox(format("It sounds hollow...maybe there's enough space inside to fit in!\pEnter the storage container?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Are you sure? Once you enter, there's no coming back!"), MSGBOX_YESNO)
+            if (var(VAR_RESULT) == 1){
+                //move player
+                applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left walk_up jump_right))
+                waitmovement(0)
+
+                //the exit cutscene
+
+
+                //stepcallback
+                callnative(CB2_StorageCutscene)
+            }
+        }
+    }
+    releaseall
+    end
+}
+
+
+script RivetshoreCity_StorageBay_NPCHint{
+    lockall
+    msgbox(format("If I can just find an empty box..."))
+    releaseall
+    end
+}

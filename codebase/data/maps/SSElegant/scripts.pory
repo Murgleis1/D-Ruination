@@ -1,0 +1,375 @@
+raw`
+    .set LOCALID_RAAZI, 1
+    .set LOCALID_AG, 2
+    .set LOCALID_GAB, 14
+    .set LOCALID_ZORO, 15
+    .set LOCALID_BREECH, 16
+    .set LOCALID_CLEF, 17
+`
+
+mapscripts SSElegant_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: SSElegant_OnTransition
+}
+
+
+//on transition
+script SSElegant_OnTransition{
+    setrespawn(HEAL_LOCATION_SSELEGANT)
+    end
+}
+
+//raazi fight, sailor blockers, jania, inger/ariana (and mons), 4 NPCs (sailor, man, picnicker, dude)
+script SSElegant_SailorBlocker{
+    msgbox(format("You can't get off now - are you crazy? We're in the middle of the ocean!"), MSGBOX_NPC)
+    end
+}
+
+//full cutscene overview
+//beat raazi - raazi exits
+//walk down - meet gab who explains they have to break out
+    //but they need help
+    //breech comes
+    //gab and breech make up
+    //zoroark transforms into raazi
+    //when ready, come to the storage (chance to heal, switch mons)
+
+//storage cutscene
+    //gab speaks on behalf of raazi
+    //tells sailors to come with her to the common room ASAP
+    //breech and clefairy use moonblast and go ahead
+    //tells player to hide your pokemon
+    //auto-warp out
+script SSElegant_Trigger_MonFromDown{
+    setvar(VAR_TEMP_4, 0)
+    end
+}
+script SSElegant_Trigger_MonFromLeft{
+    setvar(VAR_TEMP_4, 1)
+    end
+}
+script SSElegant_Trigger_MonFromRight{
+    setvar(VAR_TEMP_4, 2)
+    end
+}
+
+
+
+script SSElegant_Raazi{
+    lockall
+    faceplayer
+    //battle dialogue
+    msgbox_delay("Raazi", format("Can I help you?\p...\pAh, {PLAYER}. You challenged me back at the quarry.\pMy apologies for delaying the fight.\pYour name sounds familiar...\pYes, you must be from the Tenebris Lab. I've heard about you.\pAstonishing that they allowed someone with no experience to handle such an important case. Assistant Professor Rue's fault, really.\pBut that's all in the past, isn't it? You're off the case now and looking to get your eighth and last badge..."))
+
+    msgbox(format("Are you ready to battle me?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 0) {releaseall end}
+
+    msgbox_delay("Raazi", format("Come, then. It's quiet on the upper deck and the sea breeze is pleasant.\pA fine place to battle, isn't it?"))
+    fadenewbgm(MUS_RG_GYM)
+
+
+    //Move into position
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down))
+
+    //follower movement
+    if (var(VAR_TEMP_4) == 0){ //down
+        applymovement(OBJ_EVENT_ID_FOLLOWER, moves(walk_left walk_up walk_left face_right))
+    }
+    if (var(VAR_TEMP_4) == 1){ //left
+        applymovement(OBJ_EVENT_ID_FOLLOWER, moves(walk_left face_right))
+    }
+    if (var(VAR_TEMP_4) == 2){ //right
+        applymovement(OBJ_EVENT_ID_FOLLOWER, moves(walk_left*3 face_right))
+    }
+
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down walk_left * 2 face_right))
+    applymovement(LOCALID_RAAZI, moves(walk_down walk_right))
+    waitmovement(0)
+    applymovement(LOCALID_AG, moves(walk_down walk_right * 2 face_left))
+    applymovement(LOCALID_RAAZI, moves(walk_right * 2 walk_down face_left))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    delay(60)
+
+    //battle
+    fadenewbgm(MUS_RG_GYM)
+    msgbox_delay("Raazi", format("I am Raazi, the Gym Leader of Rivetshore City and the strongest Leader in all of Cormoria!\pThe quarry has forged my heart into steel and my fists into granite.\pI am the final barrier between you\nand the Pokémon Championship!\pCan you break through?"))
+    trainerbattle_no_intro(TRAINER_RIVETSHORE_GYM_LEADER, format("I can't believe I lost..."))
+    playbgm(MUS_RG_GYM, FALSE)  
+    //post-battle
+    msgbox_delay("Raazi", format("Spectacular!"))
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_FOLLOWER, moves(walk_right * 2))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right * 2))
+    applymovement(LOCALID_RAAZI, moves(walk_left *2))
+    applymovement(LOCALID_AG, moves(walk_left *2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+    msgbox_delay("Raazi", format("Someone like you would be of use in the quarry, I can tell you.\pFor your tenacity and grit, I am pleased to award you with the Granite Badge."))
+
+    speakername(NULL)
+    message(format("{PLAYER} received the Granite Badge from Raazi."))
+    //Play gym badge fanfare
+    call(Common_EventScript_PlayGymBadgeFanfare)
+    //Receive the badge
+    release
+    setflag(FLAG_BADGE08_GET)
+
+    //Describe the badge features (use HMs, allow pokemon control etc.)
+    speakername("Raazi")
+    msgbox(format("The Granite Badge will let you use any HM you have outside of battle.\pI'd also like to give you something we dug up in the quarry a while ago."))
+    //Give item also
+    giveitem(ITEM_RARE_SHARD)
+    speakername("Raazi")
+    msgbox(format("And now you've collected all eight gym badges, {PLAYER}!\pThe last mountain in your path is the Pokémon Championship. They're held every year at -"))
+    release
+
+    playbgm(MUS_DUMMY, FALSE)
+    playse(SE_DING_DONG)
+    waitse
+    //announce
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark face_down))
+    applymovement(LOCALID_RAAZI, moves(emote_exclamation_mark face_down))
+    waitmovement(0)
+    delay(16)
+
+    //ship stops
+    msgbox_delay("S.S. Elegant", format("ATTENTION ALL PASSENGERS.\pTHE S.S. ELEGANT WILL NOW BE MAKING A BRIEF UNSCHEDULED STOP.\pALL GYM LEADERS ARE REQUESTED TO MEET BY THE EXIT IMMEDIATELY.\pDUE TO SAFETY CONCERNS, PASSENGERS ARE NOT PERMITTED TO DEBOARD THE SHIP."))
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    applymovement(LOCALID_RAAZI, moves(face_left))
+    waitmovement(0)
+    delay(16)
+
+    fadedefaultbgm
+    msgbox_delay("Raazi", format("You may be aware of where the Gym Leaders are going now.\pI must warn you, {PLAYER}.\pYou're strong, but you're not equipped to deal with what's about to come.\lTry not to get in our way - you'll do more harm than good.\pStay on the ship."))
+
+    //LEADERS exit
+    applymovement(LOCALID_RAAZI, moves(walk_down * 8))
+    applymovement(LOCALID_AG, moves(walk_down * 8))
+    applymovement(4, moves(walk_right walk_down * 8))
+    applymovement(6, moves(walk_right walk_down * 8))
+    waitmovement(0)
+
+    removeobject(LOCALID_RAAZI)
+    removeobject(LOCALID_AG)
+    removeobject(4)
+    removeobject(5)
+    removeobject(6)
+    removeobject(7)
+
+    //end
+    setvar(VAR_SSELEGANT_CUTSCENES, 1)
+    setflag(FLAG_RAAZI_BEATEN)
+
+    releaseall
+    end
+}
+
+script SSElegant_Gab_Breech_TeamUp_Trigger{
+    if (flag(FLAG_GAB_BREECH_TEAMUP)) {end} //if the cutscene is done, dont retrigger
+
+    if (flag(FLAG_RAAZI_BEATEN)){   //only start the cutscene after raazi
+        lockall
+        msgbox_delay("Gabrielle", format("{PLAYER}!"))
+        setvar(VAR_OBJ_GFX_ID_A, OBJ_EVENT_GFX_SPECIES(ZOROARK_HISUI))
+
+        addobject(LOCALID_GAB)
+        addobject(LOCALID_ZORO)
+
+        applymovement(LOCALID_GAB, moves(walk_up * 4))
+        applymovement(LOCALID_ZORO, moves(walk_up * 4))
+        waitmovement(0)
+
+        msgbox_delay("Gabrielle", format("You heard the announcement, right?\nWe've reached!\pThe gym leaders are getting off, but the crew won't let the civilians leave!\pWe've got to find a way past them somehow...but with just the two of us,\lI don't know how we can do it...\p..."))
+        delay(24)
+
+        //breech comes
+        msgbox_delay("Breech", format("We'll help out!"))
+        applymovement(LOCALID_GAB, moves(emote_question_mark face_down))
+        applymovement(LOCALID_ZORO, moves(face_down))
+        waitmovement(0)
+        delay(16)        
+
+        addobject(LOCALID_BREECH)
+        addobject(LOCALID_CLEF)
+
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 3))
+        waitmovement(0)
+
+        applymovement(LOCALID_BREECH, moves(walk_up * 2))
+        applymovement(LOCALID_CLEF, moves(walk_up * 2))
+        waitmovement(0)
+
+        applymovement(LOCALID_GAB, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)      
+        msgbox_delay("Gabrielle", format("It's you! The hiker with the Clefairy near Fennilahl Town!"))
+
+        applymovement(LOCALID_BREECH, moves(jump_in_place_up))
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("Breech", format("You're the Team Somber grunt! You tried to take Clefable's everstone!"))
+
+        applymovement(LOCALID_GAB, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)      
+        msgbox_delay("Gabrielle", format("I-I uh...\p...\pAhem.\pZoroark and I are sorry for what we did to you two back there.\pWe really are."))
+        msgbox_delay("Breech", format("Why are you helping {PLAYER} now?\nAre you still part of Team Somber?"))
+        msgbox_delay("Gabrielle", format("No. I-uh...I got fired. For helping {PLAYER} sneak into our headquarters.\lAnd since then, Zoroark and I...we've been trying to do better.\pTrying to be more like {PLAYER}."))
+        msgbox_delay("Breech", format("I guess both of us learned something from {PLAYER}.\p...\pWhat you did was really bad.\pBut right now, we'd be bad for not helping you do a good thing!"))
+
+        msgbox_delay("Gabrielle", format("So...we team up for now?"))
+        msgbox_delay("Breech", format("We team up for now."))
+
+        applymovement(LOCALID_BREECH, moves(emote_question_mark))
+        waitmovement(0)
+        delay(16)      
+        msgbox_delay("Breech", format("So what's the plan?"))
+        msgbox_delay("Gabrielle", format("This is the plan!"))
+        applymovement(LOCALID_GAB, moves(face_right))
+        waitmovement(0)
+        delay(16)  
+        msgbox_delay("Gabrielle", format("Go on, Zoroark!"))
+
+        playse(SE_PIKE_CURTAIN_CLOSE)
+        //swap zoroark sprite
+        setvar(VAR_OBJ_GFX_ID_A, OBJ_EVENT_GFX_LEADER_RAAZI)
+        removeobject(LOCALID_ZORO)
+        addobject(LOCALID_ZORO)  
+        setobjectxy(LOCALID_ZORO, 22, 14)      
+        delay(16)
+
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(jump_in_place_down emote_exclamation_mark))
+        applymovement(LOCALID_BREECH, moves(jump_in_place_up emote_exclamation_mark))
+        applymovement(LOCALID_CLEF, moves(jump_in_place_up emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("Breech", format("W-what! Zoroark transformed into Raazi!"))
+
+        msgbox_delay("Gabrielle", format("Zoroark and I will go down to the storage hold and distract the crew!\pAfter that, you two try and find a way out through the hold."))
+        msgbox_delay("Breech", format("Okay, we'll do what we can."))
+        applymovement(LOCALID_GAB, moves(face_up))
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("Gabrielle", format("Got it, {PLAYER}?\pWhen you're ready, meet us at the storage hold. Make sure you have everything you need!"))
+
+        //go
+        applymovement(LOCALID_BREECH, moves(walk_down walk_left * 6 walk_down *5))
+        applymovement(LOCALID_CLEF, moves(walk_down walk_left * 7 walk_down *5))
+        applymovement(LOCALID_GAB, moves(walk_down *4 walk_left * 6 walk_down *5))
+        applymovement(LOCALID_ZORO, moves(walk_down *4 walk_left * 7 walk_down *5))
+        waitmovement(0)
+
+        removeobject(LOCALID_BREECH)
+        removeobject(LOCALID_CLEF)
+        removeobject(LOCALID_GAB)
+        removeobject(LOCALID_ZORO)
+
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 3))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        //end
+        completesubquest(QUEST_STOP_TEAM_SOMBER, SUB_QUEST_3)
+        setvar(VAR_SSELEGANT_CUTSCENES, 2)
+        setflag(FLAG_GAB_BREECH_TEAMUP)
+        clearflag(FLAG_HIDE_GAB_BREECH_STORAGE)
+        releaseall
+        end
+    }
+
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script SSElegant_Aggron{
+    playmoncry(SPECIES_AGGRON, CRY_MODE_NORMAL)
+    msgbox(format("Aggron glares at you."), MSGBOX_NPC)
+    end
+}
+
+script SSElegant_Jania{
+    trainerbattle_single(TRAINER_SSELEGANT_JANIA, format("What? A gym leader can't have hobbies?"), format("Back to drawing, Smeargle!"))
+    msgbox(format("I don't get much free time, but when I do, I enjoy painting."))
+    releaseall
+    end
+}
+
+script SSElegant_Inger{
+    trainerbattle_single(TRAINER_SSELEGANT_INGER, format("Hey, since {PLAYER} is here...\nhow about a double battle?"), format("This reminds of my first loss!"))
+    msgbox(format("We're training to take down Team Somber! Yaaah!"))
+    releaseall
+    end    
+}
+script SSElegant_Minior{
+    playmoncry(SPECIES_MINIOR, CRY_MODE_NORMAL)
+    msgbox(format("Minior is glaring at Tauros...\nbut it falters and cracks a smile!\pThey must be good friends."), MSGBOX_NPC)
+    end
+}
+
+script SSElegant_Ariana{
+    trainerbattle_single(TRAINER_SSELEGANT_ARIANA, format("Alright, c'mon Inger!\nTauros isn't done battling yet!\pHey, {PLAYER}!\nI didn't know you were on the cruise."), format("Tough as ever!"))
+    msgbox(format("We heard you were off the case. Don't worry - we'll finish what you started!"))
+    releaseall
+    end    
+
+}
+script SSElegant_Tauros{
+    playmoncry(SPECIES_TAUROS_PALDEA_BLAZE, CRY_MODE_NORMAL)
+    msgbox(format("Tauros is huffing at Minior...\nand then flashes a grin!\pA wholesome rivalry."), MSGBOX_NPC)
+    end
+}
+
+//sailor
+script SSElegant_NPC1{
+    msgbox(format("There's nothing like being out on the ocean, I tell you!"), MSGBOX_NPC)    
+    end    
+}
+//man 2F
+script SSElegant_NPC2{
+    msgbox(format("These Gym Leaders are so intimidating! This was supposed to be a luxury cruise."), MSGBOX_NPC)    
+    end    
+}
+//dude 1F
+script SSElegant_NPC3{
+    msgbox(format("Why did all the Gym Leaders board at the last minute?\pI'm somewhat of a natural detective myself...I think they're conspiring to take over Cormoria!"), MSGBOX_NPC)    
+    end    
+}
+//picnicker 1F
+script SSElegant_NPC4{
+    msgbox(format("The S.S. Elegant stops at Victory Cape. That's where this year's Pokémon Championships will be!"), MSGBOX_NPC)    
+    end    
+}
+
+

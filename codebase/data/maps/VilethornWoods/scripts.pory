@@ -1,0 +1,469 @@
+raw `
+    .set LOCALID_GRUNT, 17
+    .set LOCALID_PROF, 16
+    .set LOCALID_RALTS1, 18
+    .set LOCALID_RALTS2, 19
+    .set LOCALID_RALTS3, 20
+    .set LOCALID_CELEBI, 31
+`
+
+mapscripts VilethornWoods_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION {
+        goto(VilethornWoods_SetLayout)
+    }
+}
+script VilethornWoods_SetLayout{
+    if (var(VAR_CELEBI) == 2){
+        setmaplayoutindex(LAYOUT_VILETHORN_MANSION)
+        return
+    }
+}
+
+script VilethornWoods_EventScript_NurseDemo{
+    msgbox(format("This area is closed for the demo."), MSGBOX_NPC)
+    end
+}
+
+script VilethornWoods_NurseJoy_OnRoute{
+    lockall
+    faceplayer
+    msgbox(format("These woods are so creepy!\nI'm so glad Chansey is here with me."))
+    call(Common_EventScript_NurseJoyOnRoute)
+    delay(30)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+///RALTS - teleports twice, third time you can encounter it
+//flags :FLAG_HIDE_VILETHORN_RALTS_1, _2, _3 
+script VilethornWoods_Ralts_FirstTrigger{
+    if (flag(FLAG_HIDE_VILETHORN_RALTS_1)) {end}
+    if (flag(FLAG_VILETHORN_RALTS_FINISHED)) {end}
+
+    lockall
+    playmoncry(SPECIES_RALTS, CRY_MODE_NORMAL)
+    applymovement(LOCALID_RALTS1, moves(face_up emote_exclamation_mark))
+    waitmovement(0)
+    delay(24)
+    playse(SE_WARP_OUT)
+    applymovement(LOCALID_RALTS1, moves(fly_up))
+    waitmovement(0)
+    
+    //Setup flags
+    //hide self
+    removeobject(LOCALID_RALTS1)
+    setflag(FLAG_HIDE_VILETHORN_RALTS_1)
+    clearflag(FLAG_HIDE_VILETHORN_RALTS_2)
+
+
+    //Final msg
+    msgbox(format("Ralts teleported away!\nIt can't have gone far..."))
+    release
+
+    releaseall
+    end
+}
+
+script VilethornWoods_Ralts_SecondTrigger{
+    if (flag(FLAG_HIDE_VILETHORN_RALTS_2)) {end}
+    if (flag(FLAG_VILETHORN_RALTS_FINISHED)) {end}
+
+    lockall
+    playmoncry(SPECIES_RALTS, CRY_MODE_NORMAL)
+    applymovement(LOCALID_RALTS2, moves(face_up emote_exclamation_mark))
+    waitmovement(0)
+    delay(24)
+    playse(SE_WARP_OUT)
+    applymovement(LOCALID_RALTS2, moves(fly_up))
+    waitmovement(0)
+
+    //Setup flags
+    //hide self
+    removeobject(LOCALID_RALTS2)
+    setflag(FLAG_HIDE_VILETHORN_RALTS_2)
+    clearflag(FLAG_HIDE_VILETHORN_RALTS_3)
+
+
+    //Final msg
+    msgbox(format("Ralts teleported away again! It must be somewhere in this accursed forest..."))
+    release
+
+    releaseall
+    end
+}
+
+
+script VilethornWoods_Ralts{
+    lockall
+    playmoncry(SPECIES_RALTS, CRY_MODE_NORMAL)
+    applymovement(LOCALID_RALTS3, moves(emote_exclamation_mark))
+    waitmovement(0)
+    faceplayer
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Aha! Ralts can't escape this time!"))
+    release
+
+    setwildbattle(SPECIES_RALTS, 18)
+    dowildbattle
+
+    setflag(FLAG_HIDE_VILETHORN_RALTS_3)
+    setflag(FLAG_VILETHORN_RALTS_FINISHED)
+    removeobject(LOCALID_RALTS3)
+
+    releaseall
+    end
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script VilethornWoods_EventScript_TriggerProf{
+    if (flag(FLAG_VILETHORN_PROF)){
+        end
+    }
+
+    lockall
+    
+    //magma prof dialogue
+    applymovement(LOCALID_GRUNT, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    playse(SE_POKENAV_CALL)
+    waitse
+    speakername("Grunt")
+    msgbox(format("...\p...yes boss. We have the Professor."))
+    msgbox(format("..."))
+    speakername("Grunt")
+    msgbox(format("No, nobody saw us, boss."))
+    msgbox(format("..."))
+    speakername("Grunt")
+    msgbox(format("Yes boss, I'm positive."))
+    msgbox(format("..."))
+    speakername("Grunt")
+    msgbox(format("...okay, we'll head to HQ right away."))
+    release
+    playse(SE_POKENAV_HANG_UP)
+    waitse
+    delay(16)
+
+    //get out
+    applymovement(LOCALID_PROF, moves(walk_up *6))
+    applymovement(LOCALID_GRUNT, moves(walk_up *6))
+    waitmovement(0)
+    delay(16)
+    applymovement(LOCALID_GRUNT, moves(walk_down *6 emote_question_mark))
+    waitmovement(0)
+    delay(36)
+    applymovement(LOCALID_GRUNT, moves(face_left))
+    waitmovement(0)
+    delay(36)
+    applymovement(LOCALID_GRUNT, moves(face_right))
+    waitmovement(0)
+    delay(36)
+    speakername("Grunt")    
+    msgbox(format("Must be a wild Impidimp or something..."))
+    release
+    delay(16)
+    applymovement(LOCALID_GRUNT, moves(walk_up *6))
+    waitmovement(0)
+
+    setobjectxyperm(LOCALID_GRUNT, 0, 0)
+    setobjectxyperm(LOCALID_PROF, 1, 0)
+    setobjectxy(LOCALID_GRUNT, 0, 0)
+        setobjectxy(LOCALID_PROF, 1, 0)
+    //Setflags
+    setflag(FLAG_VILETHORN_PROF)
+    releaseall
+}
+
+
+
+
+
+
+
+//Trainers
+script VilethornWoods_Trainer_A{
+    trainerbattle_single(TRAINER_VILETHORN_A, format("PSYCHIC type Pokémon are my natural enemies! That's why I'm training here."), "I'd rather fight PSYCHIC types than you!")
+    msgbox(format("I like training but I don't want to go\ntoo deep into this forest..."))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_B{
+    trainerbattle_single(TRAINER_VILETHORN_B, format("The psychic currents in the air will lead me to victory!"), "The currents betrayed me!")
+    msgbox(format("Did the psychic energy betray me?\nWere you chosen by them?"))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_C{
+    trainerbattle_single(TRAINER_VILETHORN_C, format("The sweet, delicious fog envelops us...we are one with the mindwaves!"), "You're not one with the mindwaves!")
+    msgbox(format("I want to go deeper...sink deeper...\nescape my real life..."))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_D{
+    trainerbattle_single(TRAINER_VILETHORN_D, format("I'm a Pokémon Breeder. We all specialise in different Pokémon forms.\pI'm a horse breeding expert!"), "Well fought!")
+    msgbox(format("I need to raise my horses to become stronger. Maybe witamins will help..."))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_E{
+    trainerbattle_single(TRAINER_VILETHORN_E, format("Eek! These woods are creepy! I was supposed to go to Gloria's theater studio in Silversun City...but I'm lost!"), "You creep me out too!")
+    msgbox(format("I've been stuck here for hours. I need to get out!"))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_F1{
+    lockall
+    faceplayer
+    trainerbattle_single(TRAINER_VILETHORN_F, format("We're on our way to Silversun City\nto interview the great Gloria!\lGet out of our way!"), "We lost!")
+    msgbox(format("If we can get an exclusive interview with her, it'll be the scoop of the week!"))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_F2{
+    lockall
+    faceplayer
+    trainerbattle_single(TRAINER_VILETHORN_F, format("We're on our way to Silversun City\nto interview the great Gloria!\lGet out of our way!"), "We lost!")
+    msgbox(format("If we can get an exclusive interview with her, it'll be the scoop of the week!"))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_G{
+    trainerbattle_single(TRAINER_VILETHORN_G, format("I'm not like the others! I'm one of\nthe best bug catchers around.\pI'm going to become the first BUG-type Pokémon Champion one day!"), "Are you a Gym Leader or something?")
+    msgbox(format("As a Gym Leader to-be, my team needs to be able to handle a variety of threats."))
+    releaseall
+    end
+}
+
+script VilethornWoods_Trainer_H{
+    trainerbattle_single(TRAINER_VILETHORN_H, format("I wonder what's inside this house...\nmaybe there's some loot!"), "No loot for me!")
+    msgbox(format("Fine, I'll just stand here and look\nwhile you loot everything..."))
+    releaseall
+    end
+}
+
+
+
+script VilethornWoods_NPC1{
+    msgbox(format("The Morelull here in Vilethorn Woods release spores when in danger.\lThat's what creates this fog."), MSGBOX_NPC)
+    end
+}
+
+//FLAG_VILETHORN_NPC_MUSHROOMS
+script VilethornWoods_NPC2{
+    lockall
+    faceplayer
+
+    if (flag(FLAG_VILETHORN_NPC_MUSHROOMS)){
+        speakername("Chef")
+        msgbox(format("These mushrooms are really rare, you know?"))
+    } else {
+        speakername("Chef")
+        msgbox(format("You again! Fancy seeing you here.\nI'm a traveling chef! While I usually cook at the Pelluca Restaurant,\lI'm here now to collect mushrooms to create new recipes...\lbut I can only find Tiny Mushrooms!\pSay, why don't you help me?\nIf you can get me a Big Mushroom,\lI can give you something in exchange!\pHave you got a Big Mushroom?"), MSGBOX_YESNO)
+
+        if (var(VAR_RESULT) == 1){
+            //check
+            if (checkitem(ITEM_BIG_MUSHROOM)){
+                removeitem(ITEM_BIG_MUSHROOM)
+                speakername("Chef")
+                msgbox(format("Perfect! This'll be a great addition to our pantry. Thank you! Now I must give you something in exchage."))
+                
+                goto(VilethornWoods_Cook_Reward)
+
+            } else {
+                speakername("Chef")
+                msgbox(format("Hey, you don't have any!\pAre you trying to trick me? The Drowzee and Morelull doing enough of that!"))
+            }
+        } else {
+            speakername("Chef")
+            msgbox(format("Come back when you do!"))
+        }
+    }
+    releaseall
+    end
+}
+
+script VilethornWoods_Cook_Reward{
+    message(format("Perhaps a spoon from the restaurant? Or this incense?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Twisted Spoon", "Rose Incense")
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_TWISTEDSPOON)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_ROSE_INCENSE)}
+    goto(VilethornWoods_Cook_Reward_Give)
+}
+
+script VilethornWoods_Cook_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){giveitem(VAR_0x8006) goto(VilethornWoods_Cook_RewardEnd)} 
+    else {goto(VilethornWoods_Cook_Reward)}
+}
+
+script VilethornWoods_Cook_RewardEnd{
+    setflag(FLAG_VILETHORN_NPC_MUSHROOMS)
+    msgbox(format("Maybe I'll see you somewhere else, since I travel all over Cormoria. And if you ever visit Pelluca City, be sure to drop by our restaurant!"), MSGBOX_NPC)
+    end
+}
+
+
+
+
+script VilethornWoods_NPC3{
+    if (flag(FLAG_VILETHORN_NPC_ITEM)){
+        msgbox(format("My foot hurts!"), MSGBOX_NPC)
+    } else {
+        lockall
+        faceplayer
+        msgbox(format("Gah! I got lost in this stupid forest and tripped on a giant tree root.\lI got mad and ripped it out!\pDo you want it?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Gah - I'm just so angry that you'll have to battle me for it!"))
+            release
+            trainerbattle_no_intro(TRAINER_VILETHORN_I, "My anger is gone now!")
+            giveitem(ITEM_BIG_ROOT)
+            release
+            setflag(FLAG_VILETHORN_NPC_ITEM)
+            msgbox(format("Good riddance, stupid root!\nI hope you find some use for it."), MSGBOX_NPC)
+        } else {
+            msgbox(format("Just as well. It's a root after all - what use would it have?"), MSGBOX_NPC)            
+        }
+    }
+    end
+}
+
+
+
+
+
+
+script VilethornWoods_Celebi_Seed{
+
+    if (var(VAR_CELEBI) == 1){
+        msgbox(format("A mystical seed has been planted in this soil.\pMaybe it needs some type of water to grow..."), MSGBOX_NPC)
+        
+        checkitem(ITEM_TIME_WATER)
+
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Water with the Water of Time?"), MSGBOX_YESNO)
+            release
+
+            if (var(VAR_RESULT) == 1){
+                setvar(VAR_CELEBI, 2)
+                removeitem(ITEM_TIME_SEED)
+
+                msgbox(format("{PLAYER} watered the fertile soil with the Water of Time."), MSGBOX_SIGN)
+                release
+                delay(32)
+                msgbox(format("..."), MSGBOX_SIGN)
+                delay(32)
+                msgbox(format("..."), MSGBOX_SIGN)
+                delay(32)
+                msgbox(format("..."), MSGBOX_SIGN)
+                delay(32)
+
+                message(format("The trees shift..."))
+                //Else get out
+                setvar(VAR_0x8004, 2)  //vertical pan
+                setvar(VAR_0x8005, 2)  //horizontal pan
+                setvar(VAR_0x8006, 30)  //num shakes
+                setvar(VAR_0x8007, 5)  //shake delay
+                special(ShakeCamera)
+                delay(20)
+                waitmessage
+
+                getplayerxy(VAR_TEMP_2, VAR_TEMP_3)
+                warp(MAP_VILETHORN_WOODS, VAR_TEMP_2, VAR_TEMP_3)
+                releaseall
+            }
+
+        }
+        releaseall
+        end
+
+    }
+
+    if (var(VAR_CELEBI) == 0){
+
+        msgbox(format("It's fertile soil...but not the same as berry tree soil."), MSGBOX_NPC)
+
+        checkitem(ITEM_TIME_SEED)
+
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Plant a Seed of Time?"), MSGBOX_YESNO)
+            release
+            if (var(VAR_RESULT) == 1){
+                removeitem(ITEM_TIME_SEED)
+                setvar(VAR_CELEBI, 1)
+                msgbox(format("{PLAYER} planted Seed of Time in the fertile soil."), MSGBOX_SIGN)
+                release
+                delay(16)
+                msgbox(format("Maybe it needs some type of water to grow..."), MSGBOX_SIGN)
+            }
+
+        }
+        releaseall
+        end
+    }
+    releaseall
+    end
+}
+
+
+script VilethornWoods_Celebi{
+    lockall
+    //save
+    special(SaveGame)
+    waitstate
+    release
+
+    //setflag
+    playmoncry(SPECIES_CELEBI, CRY_MODE_NORMAL)
+    waitmoncry
+    setflag(FLAG_CELEBI)
+
+    setwildbattle(SPECIES_CELEBI, 50)
+    dowildbattle
+    removeobject(LOCALID_CELEBI)
+
+    releaseall
+    end
+}
+
+

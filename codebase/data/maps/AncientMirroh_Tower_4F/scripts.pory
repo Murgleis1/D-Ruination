@@ -1,0 +1,274 @@
+raw`
+    .set LOCALID_KOHLA, 5
+    .set LOCALID_MELEA, 2
+`
+
+mapscripts AncientMirroh_Tower_4F_MapScripts{
+    MAP_SCRIPT_ON_RESUME: AncientMirroh_Tower_4F_SetHoleWarp
+}
+
+script AncientMirroh_Tower_4F_SetHoleWarp{
+    setstepcallback(STEP_CB_CRACKED_FLOOR)
+	setholewarp(MAP_ANCIENT_MIRROH_TOWER_3F)
+	end
+}
+
+script AncientMirroh_Tower_4F_MainTrigger{
+    if (flag(FLAG_ANCIENT_MIRROH_KORAIDON)) {end}
+
+    lockall
+
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 4))
+    waitmovement(0)
+
+    //remove the heavy duty boots for now
+    setflag(FLAG_ANCIENT_MIRROH_HEAVYDUTYBOOTS)
+    removeobject(6)
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    delay(30)
+
+    applymovement(LOCALID_KOHLA, moves(jump_in_place_up emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Kohla")
+    msgbox(format("Wait right there, Team Somber!\pThe Ace Rookie is here now, so stop\nyour dastardly - "))
+
+    applymovement(LOCALID_MELEA, moves(emote_exclamation_mark))
+    waitmovement(0)
+
+    speakername("Melea")
+    msgbox(format("Shh, you idiot! It's sleeping.\nIf you wake it, we'll all be goners!"))
+    release
+    delay(30)
+
+    delay(30)
+
+    applymovement(LOCALID_MELEA, moves(face_down))
+    waitmovement(0)
+
+    speakername("Melea")
+    msgbox(format("Beautiful, isn't it? How incredible it is that we're here now, today.\pYour Professor Tenebris unlocked the latent potential within the dreams and memories of Pokémon today and created a way to visit the past!\pIt's like science fiction...\nLeader was right all along..."))
+    release
+    delay(30)
+
+    applymovement(LOCALID_MELEA, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(8)
+    speakername("Melea")
+    msgbox(format("But your stupid Professor had no idea what she'd uncovered! Stuck in her books and research, she didn't have a mind capable of understanding what could be done with her discovery.\pBut there were other minds who did understand the greatness, the potential, the power!\pAnd that's why Team Somber exists."))
+    release
+
+
+    applymovement(LOCALID_KOHLA, moves(emote_question_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Kohla")
+    msgbox(format("I don't get it!\nWhat do you people even plan to do?"))
+    release
+
+    applymovement(LOCALID_MELEA, moves(emote_question_mark))
+    waitmovement(0)
+    speakername("Melea")
+    msgbox(format("What do we want?\pWhat we want is power, obviously.\nYou're asking the wrong question.\pForgivable, considering your age.\pThe real question you should be asking...is why."))
+    release
+
+    applymovement(3, moves(emote_question_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt")
+    msgbox(format("Yeah, boss! Even I wanna know why."))
+    release
+
+    setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    applymovement(LOCALID_MELEA, moves(emote_exclamation_mark))
+    waitmovement(0)
+    speakername("Melea")
+    msgbox(format("SILENCE!\pHow dare you interrupt me?"))
+    release
+	delay(30)
+
+    //Koraidon wakes up
+    playmoncry(SPECIES_KORAIDON, CRY_MODE_NORMAL)
+    waitmoncry
+    delay(16)
+    applymovement(3, moves(face_up emote_exclamation_mark))
+    applymovement(LOCALID_KOHLA, moves(face_up emote_exclamation_mark))
+    applymovement(LOCALID_MELEA, moves(face_up emote_exclamation_mark))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up emote_exclamation_mark))
+    waitmovement(0)
+
+    delay(60)
+
+    speakername("Grunt")
+    msgbox(format("Uh...boss? I think we woke it up..."))
+    release
+
+    setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    playmoncry(SPECIES_KORAIDON, CRY_MODE_NORMAL)
+    waitmoncry
+    
+    delay(30)
+    applymovement(LOCALID_MELEA, moves(jump_in_place_up emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Melea")
+    msgbox(format("Oh no - we've got to hurry! I wasted too much time talking to you two."))
+    release
+    applymovement(LOCALID_MELEA, moves(face_down))
+    waitmovement(0)    
+    speakername("Melea")
+    msgbox(format("GRUNT! MASTER BALL!"))
+    release
+
+    applymovement(3, moves(jump_in_place_up))
+    waitmovement(0)
+    delay(16)
+    speakername("Grunt")
+    msgbox(format("Y-yes boss! Right here boss!\p...\pGah! I can't move properly in these Trekking Boots!"))
+    release    
+
+    applymovement(3, moves(walk_up face_right))
+    waitmovement(0)
+    delay(30)
+
+    applymovement(3, moves(face_up))
+    applymovement(LOCALID_MELEA, moves(face_up))
+    waitmovement(0)
+    delay(30)
+
+    applymovement(LOCALID_MELEA, moves(jump_in_place_up emote_exclamation_mark))
+    waitmovement(0)    
+    speakername("Melea")
+    msgbox(format("Come, Ancient Terror!\nLet Team Somber show you the future!"))
+    release
+
+    fadescreen(FADE_TO_WHITE)
+
+    //koraidon cry
+    playmoncry(SPECIES_KORAIDON, CRY_MODE_NORMAL)
+    waitmoncry
+
+    //ball sequence
+    playse(SE_BALL_THROW)
+    waitse
+	delay(20)
+    playse(SE_BALL_BOUNCE_1)
+    waitse
+	delay(24)
+    playse(SE_BALL_BOUNCE_2)
+    waitse
+	delay(10)
+    playse(SE_BALL_BOUNCE_3)
+    waitse
+	delay(2)
+    playse(SE_BALL_BOUNCE_4)
+    waitse
+	delay(14)
+    playse(SE_BALL)
+    waitse
+    delay(30)
+    playse(SE_BALL)
+    waitse
+    delay(30)
+    playse(SE_BALL)
+    waitse
+    delay(30)
+    playse(SE_RG_BALL_CLICK)
+    waitse
+    delay(20)
+
+    removeobject(4)
+    fadescreen(FADE_FROM_WHITE)
+
+    //Exit
+    applymovement(3, moves(face_down))
+    applymovement(LOCALID_MELEA, moves(face_down))
+    waitmovement(0)
+    delay(30)    
+    speakername("Melea")
+    msgbox(format("And now it's time to bid adieu! I hope you enjoy your time here in Ancient Cormoria - because you'll never leave!\pHahaha!"))
+    release
+    applymovement(3, moves(face_up))
+    applymovement(LOCALID_MELEA, moves(walk_up * 2))    
+    waitmovement(0)    
+    delay(30)
+    applymovement(LOCALID_MELEA, moves(face_down))    
+    waitmovement(0)    
+    delay(30)
+
+    speakername("Melea")
+    msgbox(format("What are you doing?!"))
+    release
+    delay(8)
+    speakername("Grunt")
+    msgbox(format("Boss - wait! My Trekking Boots got stuck on these cracks!"))
+        
+    speakername("Melea")
+    msgbox(format("Toss those Trekking Boots aside, idiot!"))
+    release
+
+    clearflag(FLAG_ANCIENT_MIRROH_HEAVYDUTYBOOTS)
+    addobject(6)
+    delay(30)
+    applymovement(3, moves(walk_up * 2))    
+    waitmovement(0)    
+    delay(16) 
+
+    //fadeout
+    fadescreen(FADE_TO_BLACK) 
+    playse(SE_WARP_OUT)
+    waitse
+    removeobject(LOCALID_MELEA)
+    removeobject(3)
+    removeobject(1)
+    fadescreen(FADE_FROM_BLACK)    
+
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    //final
+    applymovement(LOCALID_KOHLA, moves(jump_in_place_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    waitmovement(0)
+    speakername("Kohla")
+    msgbox(format("They got away!\pWe've got to find a way back somehow...\nbut they used the dreamstone!\p...\pBut since I came separately, there must be another dreamstone somewhere.\pI'm going to go look for it, so you'd better hurry up, {PLAYER}!"))
+    release
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(LOCALID_KOHLA, moves(walk_down walk_left walk_down * 4))
+    waitmovement(0)
+    removeobject(LOCALID_KOHLA)
+    playse(SE_EXIT)
+    waitse
+
+    delay(16)
+    completesubquest(QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_8)
+
+    //flags
+    setflag(FLAG_ANCIENT_MIRROH_KORAIDON)
+    releaseall
+    end
+}
+
+
+
+
+
+

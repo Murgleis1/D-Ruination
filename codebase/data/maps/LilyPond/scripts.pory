@@ -1,0 +1,51 @@
+mapscripts LilyPond_MapScripts{
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_0, 0: LilyPond_OnFrame
+    ]
+}
+
+script LilyPond_OnFrame{
+    if (flag(FLAG_HIDE_LILY_POND_KOHLA)){end}
+
+    lockall
+    setrespawn(HEAL_LOCATION_WINTERLILY_HOLLOW)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    speakername("Kohla")
+    msgbox(format("Well...that was certainly a first for me."))
+    release    
+    delay(16)
+    speakername("Kohla")
+    msgbox(format("So Moxie sent you back there?"))
+    release
+    delay(16)    
+    applymovement(2, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Kohla")
+    msgbox(format("You had a chance to stop Melea! Had I been a little faster, I would've stopped her from getting that Ancient Terror!\p{PLAYER}, you mucked it up! You were there and yet you couldn't stop them.\pAnd now they've got the Ancient Terror, and whatever happens will be on your shoulders.\pNot mine. Yours!"))
+    release
+
+    delay(16)    
+    applymovement(2, moves(emote_question_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Kohla")
+    msgbox(format("What? You have something to say?\p...\pYou saw someone who looked like Prof. Tenebris in the cave back there?\p...\pSo you're saying that Prof. Tenebris somehow has been living in Ancient Cormoria this whole time?\pAlone?\pWithout any food?\pWater?\pProtection?\pAnd you just somehow happened to\nsee her walking around?\p...\p{PLAYER}. That sounds...\p...like a complete lie to me.\pPathetic. To think the detectives thought so highly of you."))
+    release
+    delay(24)
+    speakername("Kohla")
+    msgbox(format("I disliked you because I thought you didn't deserve the attention you got.\pBut now? You're nothing but a failure.\p...\pI'm going to chase Team Somber and get that Ancient Terror back. It'd be best if we didn't see each other again.\pYou're off the case, {PLAYER}.\nDo whatever you like."))
+    release
+
+    fadescreen(FADE_TO_BLACK)
+    removeobject(2)
+    fadescreen(FADE_FROM_BLACK)
+
+    setflag(FLAG_HIDE_LILY_POND_KOHLA)
+    completequest(QUEST_DREAMSTONE_MYSTERIES)
+
+    releaseall
+    end
+}
+
+

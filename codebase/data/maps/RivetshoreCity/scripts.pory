@@ -1,0 +1,460 @@
+raw`
+    .set LOCALID_SPEEDBOAT, 1
+    .set LOCALID_GAB, 28
+
+    .set LOCALID_KOHLA, 21
+    .set LOCALID_DET1, 22
+    .set LOCALID_DET2, 23
+
+    .set LOCALID_INGER, 15
+    .set LOCALID_ARIANA, 14
+    .set LOCALID_GLORIA, 16
+    .set LOCALID_CARONA, 17
+    .set LOCALID_VINIEL, 18
+    .set LOCALID_JANIA, 19
+    .set LOCALID_RAAZI, 20
+
+`
+
+mapscripts RivetshoreCity_MapScripts{    
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_RIVETSHORE_CITY)
+    }
+}
+
+
+
+
+
+
+script RivetshoreCity_Gabrielle_Trigger{
+    if (flag(FLAG_RIVETSHORE_GAB)) {end}
+
+    lockall
+
+    addobject(LOCALID_GAB)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    applymovement(LOCALID_GAB, moves(walk_right * 10))
+    waitmovement(0)
+
+    msgbox_delay("Gabrielle", format("{PLAYER}! I knew you'd come.\pListen - I overheard some of the Gym Leaders by the harbor talking about their plans. I don't know much but they're planning to sail east from here!\pThere's a cruise set to depart soon.\nWe can follow them!\pI got my ticket already so hurry up and buy yours before they sell out!"))
+
+    applymovement(LOCALID_GAB, moves(walk_left * 8))
+    waitmovement(0)
+    removeobject(LOCALID_GAB)
+
+    //failsafe for the rivetshore quest
+    setvar(VAR_RIVETSHORE_CEO_QUEST, 0)
+
+    setflag(FLAG_RIVETSHORE_GAB)
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+script RivetshoreCity_Assembly_Trigger{
+    if (flag(FLAG_RIVETSHORE_ASSEMBLY)){end}
+
+    //assembly cutscene
+    //setup
+    removeobject(LOCALID_VINIEL)
+    removeobject(LOCALID_CARONA)
+
+    //camera
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right * 8))
+    waitmovement(0)
+
+    //start the cutscene
+    //detective says thank you
+    applymovement(LOCALID_DET1, moves(jump_in_place_down))
+    movedelay
+    msgbox_delay("Detective", format("Thank you gym leaders for assembling here on such short notice."))
+    //leaders say its our duty
+    applymovement(LOCALID_RAAZI, moves(jump_in_place_right))
+    movedelay
+    msgbox_delay("???", format("It's our duty, detectives.\nNo need to thank us."))
+    applymovement(LOCALID_ARIANA, moves(jump_in_place_left emote_exclamation_mark))
+    movedelay
+    msgbox_delay("Ariana", format("Easy for you to say, Raazi!\pYou live here. Inger and I came all the way from the other side of Cormoria!"))
+    msgbox_delay("Raazi", format("Which is also your duty."))
+
+    //Who's missing?
+    applymovement(LOCALID_DET1, moves(jump_in_place_down))
+    movedelay
+    msgbox_delay("Detective", format("I don't see all of you though.\nWho's missing?"))
+    applymovement(LOCALID_GLORIA, moves(jump_in_place_left))
+    movedelay
+    msgbox_delay("Gloria", format("Viniel and Carona sent word - they're on their way. They'll take some time, considering how remote they are."))
+
+    //detectives explain the situation: 
+    //third dreamstone at sea, gotta go stop team somber and find prof tenebris
+    //we've all but given up hope on the prof
+    applymovement(LOCALID_DET1, moves(jump_in_place_down))
+    movedelay
+    msgbox_delay("Detective", format("Unfortunately we don't have time to wait for them.\pAllow us to explain the current situation as it stands.\pYou all know about the disappearance of Professor Tenebris in connection with the dreamstones and Team Somber's involvement in this case."))
+    applymovement(LOCALID_RAAZI, moves(emote_exclamation_mark))
+    movedelay
+    msgbox_delay("Raazi", format("Yes."))
+    applymovement(LOCALID_JANIA, moves(emote_exclamation_mark))
+    movedelay
+    msgbox_delay("Jania", format("I hope the Professor is safe,\nwherever she is."))
+    applymovement(LOCALID_INGER, moves(emote_exclamation_mark))
+    movedelay
+    msgbox_delay("Inger", format("Just you watch - I'm going to teach Team Somber a lesson!"))        
+
+    applymovement(LOCALID_DET1, moves(jump_in_place_down))
+    movedelay
+    msgbox_delay("Detective", format("We regret to say that despite all our efforts, not a single trace of the Professor has yet been found.\pNobody has seen her anywhere. Our working theory is that Team Somber is holding her captive somewhere...\p...and that leads us to today.\pA massive uptick in geological activity was recorded by the Pokémon Ranger Institute yesterday.\pThe heat signatures were off the charts. Ravine, the Ranger Head says it's like the start of a region-wide drought."))
+    
+    applymovement(LOCALID_JANIA, moves(emote_question_mark))
+    movedelay
+    msgbox_delay("Jania", format("The location?"))    
+    msgbox_delay("Detective", format("An uncharted island off the coast.\nFurther east from here."))
+
+    applymovement(LOCALID_RAAZI, moves(emote_exclamation_mark))
+    movedelay
+    msgbox_delay("Raazi", format("So that explains the heatwave\nwe had here yesterday.\pIt must have been Team Somber's doing."))
+
+    msgbox_delay("Detective", format("Kohla here has been working the case.\pHe's handed over his Gym Leader duties to the next Ace Rookie, and is now pursuing Team Somber full-time."))
+    applymovement(LOCALID_DET1, moves(face_right))
+    movedelay
+    msgbox_delay("Detective", format("Kohla - go on and tell them about the Ancient Terror."))
+    applymovement(LOCALID_KOHLA, moves(jump_in_place_down))
+    movedelay
+    msgbox_delay("Kohla", format("Right, yes, well.\pAhem.\pSo, well...they...they've captured the Ancient Terror."))
+
+    applymovement(LOCALID_GLORIA, moves(emote_exclamation_mark))
+    applymovement(LOCALID_RAAZI, moves(emote_exclamation_mark))
+    applymovement(LOCALID_JANIA, moves(emote_exclamation_mark))        
+    applymovement(LOCALID_INGER, moves(emote_exclamation_mark))
+    applymovement(LOCALID_ARIANA, moves(emote_exclamation_mark))        
+    movedelay
+    msgbox_delay("Gloria", format("What? How?"))
+
+    applymovement(LOCALID_KOHLA, moves(jump_in_place_down))
+    movedelay
+    msgbox_delay("Kohla", format("My...ex-colleague and I chased them into Ancient Cormoria through a dreamstone and Melea captured the Ancient Terror with a Master Ball!"))
+
+    applymovement(LOCALID_ARIANA, moves(emote_exclamation_mark))
+    movedelay
+    msgbox_delay("Gloria", format("They were strong enough without it...but with the Ancient Terror, they'll be unstoppable!"))
+
+    applymovement(LOCALID_DET1, moves(face_down))
+    movedelay
+    msgbox_delay("Detective", format("Yes...which is why we need the combined power of the eight strongest trainers in all of Cormoria.\pWe think this heatwave has something to do with the Ancient Terror...and we also believe worse is on the way.\pThat's why we need to get to this\nuncharted island ASAP!"))
+
+    //raazi says we'll wait for viniel and carona
+    applymovement(LOCALID_RAAZI, moves(jump_in_place_right))
+    movedelay
+    msgbox_delay("Raazi", format("We should wait for Viniel and Carona however. Without Medicham and Manectric, we'll lose a lot of firepower."))
+    applymovement(LOCALID_DET1, moves(emote_exclamation_mark))
+    movedelay
+    msgbox_delay("Detective", format("Time is of the essence, Raazi.\nWe need someone to go now."))
+    msgbox_delay("Raazi", format("Then I propose Kohla.\pHe's a star and I can personally\nvouch for his strength."))
+    applymovement(LOCALID_INGER, moves(emote_question_mark))
+    movedelay
+    msgbox_delay("Inger", format("Did he beat you, Raazi?"))
+    msgbox_delay("Raazi", format("Yes. He's a fearsome trainer.\pNot to mention - he's been fighting Team Somber from the start.\pHis dedication to the cause is far beyond the rest of us combined."))
+
+    applymovement(LOCALID_DET1, moves(emote_question_mark))
+    movedelay
+    msgbox_delay("Detective", format("Right then. Those in favour of sending Kohla ahead?"))
+
+    msgbox_delay("Inger", format("Yeah!"))
+    msgbox_delay("Ariana", format("Of course!"))
+    msgbox_delay("Gloria", format("Without question."))
+    msgbox_delay("Jania", format("He's the best choice."))
+    msgbox_delay("Raazi", format("Needless to say, detective,\nwe're all in favour.\pKohla, you have the respect of all the other leaders in Cormoria.\pWe're counting on you.\pI'm not going to ask whether you're up to the task...because I know you are."))
+
+    applymovement(LOCALID_DET1, moves(face_down))
+    movedelay
+    msgbox_delay("Detective", format("Kohla - you're coming with us on the speedboat then.\pThere's a cruise ship that's scheduled to leave soon. The other Gym Leaders can follow us on that.\pLet's get to it!"))
+
+    //exit
+    applymovement(LOCALID_KOHLA, moves(walk_up))
+    applymovement(LOCALID_DET1, moves(walk_right))
+    applymovement(LOCALID_DET2, moves(walk_right))    
+    waitmovement(0)
+    removeobject(LOCALID_KOHLA)
+
+    applymovement(LOCALID_DET1, moves(walk_up))
+    applymovement(LOCALID_DET2, moves(walk_right))    
+    waitmovement(0)
+    removeobject(LOCALID_DET1)
+
+    applymovement(LOCALID_DET2, moves(walk_up))    
+    waitmovement(0)
+    removeobject(LOCALID_DET2)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right * 6 walk_up * 4))
+    waitmovement(0)    
+
+    //ship goes away
+    playse(SE_SHIP)
+    applymovement(LOCALID_SPEEDBOAT, moves(walk_fast_right * 10))
+    waitmovement(0)        
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 4 walk_left * 6))
+    waitmovement(0)    
+
+    applymovement(LOCALID_RAAZI, moves(jump_in_place_right))
+    movedelay
+    msgbox_delay("Raazi", format("I'm heading back to the quarry.\nThe rest of you - wait in the harbor."))
+
+    applymovement(LOCALID_JANIA, moves(walk_right *2))
+    applymovement(LOCALID_ARIANA, moves(walk_up * 2))
+    applymovement(LOCALID_INGER, moves(walk_up walk_left))
+    applymovement(LOCALID_GLORIA, moves(walk_left walk_up))
+    waitmovement(0)
+    removeobject(LOCALID_GLORIA)
+
+    applymovement(LOCALID_JANIA, moves(walk_right))
+    applymovement(LOCALID_ARIANA, moves(walk_left))
+    applymovement(LOCALID_INGER, moves(walk_up))
+    waitmovement(0)
+    removeobject(LOCALID_INGER)
+
+    applymovement(LOCALID_JANIA, moves(walk_up))
+    applymovement(LOCALID_ARIANA, moves(walk_up))
+    waitmovement(0)
+    removeobject(LOCALID_ARIANA)
+
+    applymovement(LOCALID_JANIA, moves(walk_up * 2))
+    waitmovement(0)
+    removeobject(LOCALID_JANIA)
+
+    //raazi exit
+    fadescreen(FADE_TO_BLACK)
+    removeobject(LOCALID_RAAZI)
+    fadescreen(FADE_FROM_BLACK)
+
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_left * 8))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    //end
+    completesubquest(QUEST_STOP_TEAM_SOMBER, SUB_QUEST_2)
+    setflag(FLAG_RIVETSHORE_ASSEMBLY)
+    releaseall
+    end
+
+}
+
+
+
+
+
+
+
+
+
+
+
+script RivetshoreCity_NPC_StorageBayDude{
+    msgbox(format("Hehehe...when that sailor isn't looking, I'll sneak in and stow away on board the S.S. Elegant!"), MSGBOX_NPC)
+    end
+}
+
+
+script RivetshoreCity_NPC_StorageBaySailor{
+    msgbox(format("This is the storage bay. We're loading supplies for the S.S. Elegant!\pWhat - you trying to stow away?\pScram!"), MSGBOX_NPC)
+    end
+}
+
+//beach tuber
+script RivetshoreCity_NPC_1{
+    msgbox(format("Look! Look! My footprints stay on the sand."), MSGBOX_NPC)
+    end
+}
+//beach fisherman
+script RivetshoreCity_NPC_2{
+    msgbox(format("They've turned this town into a monstrosity! It used to be a beautiful fishing spot until they built the quarry and drove all the Pokémon away."), MSGBOX_NPC)
+    end
+}
+//lady outside PC
+script RivetshoreCity_NPC_3{
+    msgbox(format("I wanted to go on the SS Elegant cruise but I couldn't get a ticket!"), MSGBOX_NPC)
+    end
+}
+//maniac outside construction
+script RivetshoreCity_NPC_4{
+    msgbox(format("My house has rickety stairs! I'm going to sue Rivetshore Construction."), MSGBOX_NPC)
+    end
+}
+//boy at market
+script RivetshoreCity_NPC_5{
+    msgbox(format("I heard there was a secret shopkeeper selling rare items here!\pBut these shopkeepers just have the regular stuff...was it just a rumour?"), MSGBOX_NPC)
+    end
+}
+//gentleman south shore
+script RivetshoreCity_NPC_6{
+    msgbox(format("Whose boat is that floating over there?"), MSGBOX_NPC)
+    end
+}
+//man harbor
+script RivetshoreCity_NPC_7{
+    msgbox(format("Today's a great day to walk at the harbor, but yesterday was so hot!"), MSGBOX_NPC)
+    end
+}
+//old woman harbor
+script RivetshoreCity_NPC_8{
+    msgbox(format("Shoo, child! Don't disturb me."), MSGBOX_NPC)
+    end
+}
+//pokefan south shore on sea
+script RivetshoreCity_NPC_9{
+    msgbox(format("What am I doing here? Enjoying the sea breeze, of course!\p...\pFine. My boat drifted away so I'm waiting to get picked up."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+//shops
+//market 1
+script RivetshoreCity_Market_Shop_1{
+    lock
+	faceplayer
+	message(gText_HowMayIServeYou)
+	waitmessage
+	pokemart(RivetshoreCity_Mart_1)
+	msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+	release
+	end
+}
+
+//market 2 - TMs
+script RivetshoreCity_Market_Shop_2{
+    lock
+	faceplayer
+	message(gText_HowMayIServeYou)
+	waitmessage
+	pokemart(RivetshoreCity_Mart_2)
+	msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+	release
+	end
+}
+
+
+//secret market
+script RivetshoreCity_Market_Shop_Secret{
+    lock
+	faceplayer
+
+    //postgame
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        //check if battle is done already
+        if (flag(FLAG_CHAMPION_GRETA_COMPLETE)){
+            //normal
+            speakername("Greta")
+            message(format("Hello {PLAYER}!\nWhat'll you buy today?"))
+            waitmessage
+            pokemart(RivetshoreCity_Mart_Secret)
+            msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+            release
+            end    
+        } else {
+
+        //if battle not done, set up battle
+            speakername("Greta")
+            msgbox(format("Look who it is! All of Cormoria is buzzing with the news!\pHow do you feel?\nDon't bother telling me - I know the feeling all too well.\pI know why you've come. The first thing I did was go to Ravine too, and we're all cut from the same cloth.\pBut let's not do this here.\nCome find me where we first met!"))
+            release
+            delay(8)
+
+            //leave
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_right))
+            applymovement(24, moves(walk_down * 4 walk_right * 8))
+            waitmovement(0)
+
+            removeobject(24)
+            setflag(FLAG_CHAMPION_GRETA_SETUP)
+            setflag(FLAG_HIDE_CHAMPION_GRETA)
+
+            releaseall
+            end
+        }
+    }
+
+
+    speakername("Greta")
+	message(format("Hello {PLAYER}! Surprised?\nI'm done traveling. I think a storefront is better for business. But I couldn't get a spot at the market!\pWhat'll you buy today?"))
+	waitmessage
+	pokemart(RivetshoreCity_Mart_Secret)
+	msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+	release
+	end    
+}
+
+mart RivetshoreCity_Mart_1{
+    ITEM_HYPER_POTION
+    ITEM_MAX_REVIVE
+    ITEM_FULL_RESTORE
+    ITEM_FULL_HEAL
+    ITEM_FLAME_ORB
+    ITEM_THICK_CLUB
+}
+
+mart RivetshoreCity_Mart_2{
+    ITEM_TM19
+    ITEM_TM23
+    ITEM_TM26
+    ITEM_TM30
+    ITEM_TM33
+    ITEM_TM34
+    ITEM_TM36
+}
+
+mart RivetshoreCity_Mart_Secret{
+    ITEM_GALARICA_CUFF
+    ITEM_GALARICA_WREATH
+    ITEM_DUSK_STONE
+    ITEM_MOON_STONE
+    ITEM_PRISM_SCALE
+    ITEM_TIME_WATER    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+script RivetshoreCity_Mareanie{
+    lockall
+    playmoncry(SPECIES_MAREANIE, CRY_MODE_NORMAL)
+    msgbox(format("Mareanie is peering into the water...\nIt must be looking for a Corsola!"))
+    releaseall
+    end
+}
+script RivetshoreCity_Aron{
+    playmoncry(SPECIES_ARON, CRY_MODE_NORMAL)
+    msgbox(format("Aron is scurrying around!\nIt's hard to squeeze through..."), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Geodude{
+    playmoncry(SPECIES_GEODUDE, CRY_MODE_NORMAL)
+    msgbox(format("Geodude thumps itself with its arms!\nGuess it doesn't hurt much."), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Surskit{
+    playmoncry(SPECIES_SURSKIT, CRY_MODE_NORMAL)
+    msgbox(format("Surskit shkips around nervously...is it looking out for the prankster Pokémon?"), MSGBOX_NPC)
+    end
+}
+
+

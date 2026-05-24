@@ -1,0 +1,370 @@
+raw`
+    .set LOCALID_TRF, 2
+    .set LOCALID_TRM, 3
+    .set LOCALID_CAR, 1
+    .set LOCALID_SP, 4
+`
+
+mapscripts MirrohBaseCampGym_MapScripts{
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_MIRROHBASECAMPGYM_STATE, 0: MirrohBaseCampGym_EventScript_Main
+    ]
+
+    MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE [
+        VAR_MIRROHBASECAMPGYM_STATE, 1: MirrohBaseCampGym_EventScript_SetBattleMode
+    ]
+
+    MAP_SCRIPT_ON_TRANSITION: MirrohBaseCampGym_EventScript_SetBattleMode_Transition
+}
+
+script MirrohBaseCampGym_EventScript_SetBattleMode_Transition{
+    if (var(VAR_MIRROHBASECAMPGYM_STATE) == 1){
+        setobjectmovementtype(LOCALID_TRM, MOVEMENT_TYPE_FACE_RIGHT)
+        setobjectmovementtype(LOCALID_TRF, MOVEMENT_TYPE_FACE_LEFT)
+    }
+    end
+}
+
+script MirrohBaseCampGym_EventScript_SetBattleMode{
+    addobject(LOCALID_TRF)
+    addobject(LOCALID_TRM)
+    setobjectxy(LOCALID_TRM, 2, 9)
+    setobjectxy(LOCALID_TRF, 5, 9)
+    setobjectmovementtype(LOCALID_TRM, MOVEMENT_TYPE_FACE_RIGHT)
+    setobjectmovementtype(LOCALID_TRF, MOVEMENT_TYPE_FACE_LEFT)
+    end    
+}
+
+script MirrohBaseCampGym_EventScript_Main{
+    lockall
+    playbgm(MUS_END, FALSE)
+    //camera
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 7))
+    waitmovement(0)
+    delay(16)
+
+    //trainers crying
+        //first boy cries
+        applymovement(LOCALID_TRM, moves(jump_in_place_down))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Sniff...I can't believe it...they're actually going to take down our gym!"), MSGBOX_NPC)
+        release
+        delay(16)
+        //then girl cries
+        applymovement(LOCALID_TRF, moves(jump_in_place_up))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Sob...what are we going to do now?"), MSGBOX_NPC)
+        release
+        delay(16)
+
+    //carona consoles
+        //face leader
+        applymovement(LOCALID_TRF, moves(face_right))    
+        applymovement(LOCALID_TRM, moves(face_right)) 
+
+        //leader reaction
+        applymovement(LOCALID_CAR, moves(emote_exclamation_mark jump_in_place_left))
+        waitmovement(0)
+        delay(16)
+        speakername("???")
+        msgbox(format("Come on, you two! Get it together!"), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_TRF, moves(jump_in_place_right))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("B-but Carona, it's all over! All the other trainers are gone, all the gym puzzles are gone..."), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_TRM, moves(jump_in_place_right))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Y-yeah...this gym was our home, Carona! What are we going to do without you?"), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_CAR, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        speakername("Carona")
+        msgbox(format("I don't remember training two crybabies! You need to be resilient.\pLife is going to throw much harder challenges than this.\pNow come on - wipe those tears!"), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_TRM, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("B-but - "), MSGBOX_NPC)
+        release
+        delay(16)   
+
+        applymovement(LOCALID_CAR, moves(jump_in_place_left))
+        waitmovement(0)
+        delay(16)
+        speakername("Carona")
+        msgbox(format("No buts! Stop moping. You two said it yourself - we had such a good time.\pI want you two to cherish that.\pGot it?"), MSGBOX_NPC)
+        release
+        delay(16)
+
+
+    //spenser sees the trainer, asks how many badges left
+        applymovement(LOCALID_SP, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        applymovement(LOCALID_CAR, moves(face_up))
+        applymovement(LOCALID_SP, moves(walk_right walk_down))
+        waitmovement(0)
+        msgbox(format("Carona - we have a trainer waiting.\nHow many badges do you have left?"), MSGBOX_NPC)
+        waitmovement(0)
+        delay(16)
+
+        speakername("Carona")
+        msgbox(format("Just one."), MSGBOX_NPC)
+        release
+
+        applymovement(LOCALID_SP, moves(emote_question_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Should I bring the trainer in then?"), MSGBOX_NPC)
+        release
+        delay(16)        
+
+        applymovement(LOCALID_SP, moves(face_left))
+        applymovement(LOCALID_CAR, moves(face_left))        
+        applymovement(LOCALID_TRM, moves(emote_exclamation_mark))
+        applymovement(LOCALID_TRF, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Nooo!! We don't want it to end. We can't fight the last trainer - it's too much."), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_CAR, moves(jump_in_place_left * 3))
+        waitmovement(0)
+        delay(16)
+        speakername("Carona")
+        msgbox(format("Now that's enough both of you! We can't stop this from happening, but we can decide how we want to go out. Is this really how you want things to end?"), MSGBOX_NPC)
+        release
+        delay(16)
+
+        msgbox(format("N-no...okay, Carona.\pWe're sorry."), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_TRF, moves(jump_in_place_up))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Sob...we've gotta do this right."), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_TRM, moves(jump_in_place_down))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Sniff...yeah. For Carona!"), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_TRM, moves(face_right))
+        applymovement(LOCALID_TRF, moves(face_right))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Okay, we're ready! We're going to show this last trainer just how tough the Mirroh Base Camp Gym is!"), MSGBOX_NPC)
+        release
+        delay(16)
+
+        applymovement(LOCALID_SP, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("I'll go and bring the trainer in then."), MSGBOX_NPC)
+        release
+        delay(16)  
+
+        applymovement(LOCALID_TRM, moves(emote_exclamation_mark))
+        applymovement(LOCALID_TRF, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("No - you've done enough. You deserve to relax. We'll take care of this trainer!"), MSGBOX_NPC)
+        release
+        delay(16)
+        fadedefaultbgm
+        delay(24)
+        applymovement(LOCALID_TRM, moves(face_down))
+        applymovement(LOCALID_TRF, moves(face_down))
+        delay(16)
+        msgbox(format("Come, trainer! You think you can challenge the Mirroh Base Camp Gym? Let's see what you've got!"), MSGBOX_NPC)
+        release
+        delay(16)        
+
+        applymovement(LOCALID_TRF, moves(walk_down * 4 face_left))
+        applymovement(LOCALID_TRM, moves(walk_left walk_down * 5 walk_left * 2 face_right))
+        waitmovement(0)
+
+    //End camera
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 7))
+    waitmovement(0)    
+    special(RemoveCameraObject)
+
+    //vars
+    setvar(VAR_MIRROHBASECAMPGYM_STATE, 1)
+    releaseall
+    end
+}
+
+
+
+
+
+
+script MirrohBaseCampGym_TrainerA{
+    trainerbattle_single(TRAINER_MIRROHEXT_G ,format("I've trained my FIGHTING type Pokémon in the strongest gym in Cormoria!\pGive me your best shot!"), format("I don't want to leave!"))
+    msgbox(format("Sniff...that was a good battle, trainer."))
+    releaseall
+    end
+}
+script MirrohBaseCampGym_TrainerB{
+    trainerbattle_single(TRAINER_MIRROHEXT_H ,format("Leader Carona taught me and my Pokémon to use our fists for maximum impact!\pYou're going down!"), format("This is our home!"))
+    msgbox(format("Sob...what a great last battle."))
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+script MirrohBaseCampGym_Leader{
+    lockall
+
+    if (flag(FLAG_BADGE05_GET)){
+        faceplayer        
+        speakername("Carona")
+        msgbox(format("Use your power wisely. As for me, it's time to move on."))
+    } else {
+
+        call(Common_EventScript_SaveGameBeforeBattle)
+
+        //move player
+        specialvar(VAR_RESULT, GetPlayerFacingDirection)
+
+        if (var(VAR_RESULT) == DIR_SOUTH){
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left walk_down face_right))
+            waitmovement(0)
+        }
+        if (var(VAR_RESULT) == DIR_NORTH){
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left walk_up face_right))
+            waitmovement(0)
+        }
+
+        //Intro
+        speakername("Carona")
+        msgbox(format("Welcome to the Mirroh Base Camp Gym...\p...\p...is what I would say if there was a Gym left to welcome you to."))
+        release
+        delay(16)
+        speakername("Carona")
+        msgbox(format("My name is Carona. I am the former Leader of the Mirroh Base Camp Gym.\pYou see, the Pokémon League recently decomissioned this gym."))
+        release
+        delay(60)
+        speakername("Carona")
+        msgbox(format("They took the entrance statues out first. Then they removed all the gym puzzle equipment.\p...\pFinally, one by one, my trainers left.\pOnly my two best trainers stayed."))
+        release
+        delay(30)
+        speakername("Carona")
+        msgbox(format("And now it's just us in this empty warehouse. Like a ghost. Just like the rest of this little town of ours."))
+        release
+        applymovement(1, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(12)
+        speakername("Carona")
+        msgbox(format("But I was a Gym Leader once, you understand? I was powerful and strong.\pI was something, someone! Countless trainers paid me their respects in battle, and to the chosen few destined for the top, I would award the coveted lapel pin known as the Ironfist Badge!"))
+        release
+        delay(60)
+        speakername("Carona")
+        msgbox(format("...but that's all in the past. Next week the construction crew will come to demolish this building. You were lucky you found me. I have one badge left.\pPerhaps you are the one destined to deliver the final blow...\pBut I'm still a Leader! And I will be until the very end!"))
+        release
+        
+        //camera setup
+        fadescreen(FADE_TO_BLACK)
+        hidefollower
+        setobjectxy(OBJ_EVENT_ID_PLAYER, 0, 5)
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_left * 2))
+        waitmovement(0)
+        special(RemoveCameraObject)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+        applymovement(1, moves(face_left))
+        waitmovement(0)
+        fadescreen(FADE_FROM_BLACK)
+
+        speakername("Carona")
+        msgbox(format("Now, trainer, I'll make you feel the force of these iron fists!"))
+        release
+
+        //Battle
+        trainerbattle_no_intro(TRAINER_MIRROHBASECAMP_LEADER, "A glorious battle!")
+
+        //Post battle
+        //Receive the badge
+        speakername("Carona")
+        msgbox(format("What a beautiful display! What a thrill! This is why we do what we do, trainer!\pNow come to me."))
+        release
+
+        special(SpawnCameraObject)
+        applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_right * 2))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right * 6))
+        waitmovement(0)
+        special(RemoveCameraObject)
+
+        speakername("Carona")
+        msgbox(format("How gratifying that my last badge goes to someone with your guts!"))
+        release
+        delay(8)
+
+        //Play gym badge fanfare
+        setflag(FLAG_BADGE05_GET)
+        message(format("{PLAYER} received the Ironfist Badge from Carona."))
+        call(Common_EventScript_PlayGymBadgeFanfare)
+        speakername("Carona")
+        msgbox(format("And you must accept this as well.\nThis is my last one!"))
+        giveitem(ITEM_RARE_SHARD) 
+        speakername("Carona")
+        msgbox(format("I see the closure of this gym as destiny's way of telling Medicham and me to lay down our fists.\pIt's time we explored new things."))
+        speakername("Carona")
+        msgbox(format("I feel satisfied. This is a fitting end - to have been bested by a trainer of your caliber!\pCarry on our legacy, {PLAYER}!\nShow the world your iron fists!"))
+        release
+
+    }
+    releaseall
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+script MirrohBaseCampGym_Red{
+    if (flag(FLAG_BADGE05_GET)){
+        msgbox(format("Well done champ-in-the-making! I would've given you something to commemorate your victory...but we're all packed up! Sorry!\pNow get on out there and find the next gym - I'll see you there!"), MSGBOX_NPC)
+    } else { 
+        msgbox(format("Welcome to the Mirroh Base Camp Gym, trainer!\pUnfortunately, we've packed everything up, so I don't have any Fresh Water for you.\pCarona - the Gym Leader glaring at us - uses FIGHTING type Pokémon with strength and skill. Watch out for her Swagger confusing you! Lum Berries can help.\pAnd beware, she's got a hidden ace up her sleeve..."), MSGBOX_NPC)
+    }
+    end
+}
+
+

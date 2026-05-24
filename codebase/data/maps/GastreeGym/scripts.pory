@@ -1,0 +1,181 @@
+mapscripts GastreeGym_MapScripts{}
+
+
+script GastreeGym_TrainerBattle_Skip {
+
+    trainerbattle_single(TRAINER_GASTREEGYM_SKIP, format("Hold up - nobody's allowed to disturb the Kinger while he's training!\pWho's the Kinger?\pInger the King, of course!"), "Okay, go disturb the Kinger!")
+    msgbox(format("The Kinger is what everyone should aspire to be like!"))
+    release
+    end
+
+}
+
+script GastreeGym_TrainerBattle_Jaco {
+
+    trainerbattle_single(TRAINER_GASTREEGYM_JACO, format("Hey, did the old man send you here?\nThe King is training - get out!"), "Fine, don't get out!")
+    msgbox(format("Inger the King hates losing and trains really hard. That's why I've always got his back...well, except for losing to you."))
+    release
+    end
+
+}
+
+script GastreeGym_LeaderBattle {
+    if (flag(FLAG_BADGE01_GET)){
+        msgbox(format("I hate losing! Argh! But that was a good battle, {PLAYER}. Go get Professor Tenebris back for us all!"), MSGBOX_NPC)
+    } else { //else do the battle
+        // special(SaveGame)
+        // waitstate
+        // release
+
+        call(Common_EventScript_SaveGameBeforeBattle)
+
+        fadenewbgm(MUS_RG_GYM)
+
+        lockall
+        speakername("Inger")
+        msgbox(format("C'mon! C'mon!!\p...\pC'moooooooo--"))
+        release
+        applymovement(9, moves(jump_in_place_down emote_exclamation_mark))
+        waitmovement(0)
+        delay(24)
+
+        speakername("Inger")
+        msgbox(format("Who're you?\pA trainer?\pYou're coming to me at the wrong time, buddy, because I just lost to some child your age and I'm furious!\p..."), MSGBOX_NPC)    
+        release
+        applymovement(9, moves(emote_question_mark))
+        waitmovement(0)
+        delay(24)
+        speakername("Inger")
+        msgbox(GastreeGym_Text_Intro)
+        trainerbattle_no_intro(TRAINER_GASTREEGYM_LEADER, GastreeGym_Text_Defeated)
+        goto(GastreeGym_EventScript_Victory)
+        release
+    }
+
+    end
+
+}
+
+script GastreeGym_EventScript_Victory{
+    setflag(FLAG_BADGE01_GET)
+    //Receive the badge
+    message(format("{PLAYER} received the King Badge from Inger."))
+    //Play gym badge fanfare
+    call(Common_EventScript_PlayGymBadgeFanfare)
+    release
+    playbgm(MUS_RG_GYM, FALSE)    
+
+    //Describe the badge features (use HMs, allow pokemon control etc.)
+    speakername("Inger")
+    msgbox(format("The King Badge allows you to use HM Splash outside of battle. Hop and skip across all the ponds of Cormoria!"))
+    release
+    delay(16)
+    //Also give 3 rare shards
+    speakername("Inger")
+    msgbox(format("I also want to give you this."))
+    speakername(NULL)
+    giveitem(ITEM_RARE_SHARD)
+    speakername("Inger")
+    msgbox(format("This is an incredibly rare stone that reacts in the prescence of an ancient statue. Any Pokémon you give it to can maximise one of its innate stats!\pGo to an ancient statue to try it.\nThere's one in Gastree City!"))
+    release
+    delay(16)
+    //Bye-bye
+    speakername("Inger")
+    msgbox(format("Where are you headed next?\p...\pSo you're investigating Professor Tenebris' disappearance? Good luck! She's the one who taught my Minior\lthe move Rollout.\p...\p...but I can't say I've heard anything about these dreamstones.\pSo next is Mt. Ceram? You'll have to go north from here through Route 4.\pIf its for the Professor, I would've loved to join, but I've got a gym to run.\pGo get 'em, {PLAYER}! Teach Team Somber a lesson on the Kinger's behalf!"))
+    releaseall
+}
+
+text GastreeGym_Text_Intro{
+    format("...you look a little green. It is nerves? First gym battle?\p...\pI know that feeling, and any other day, I might've gone easy on you...\p...but not today!\pI'm Inger, master of ROCK-types and the unshakable strength of the earth.\pMy ROCK-type Pokémon have seen countless battles, and they never crumble under pressure. If you think you can break through, show me the strength that you bring with you!")
+}
+
+text GastreeGym_Text_Defeated{
+    format("No way! Two defeats in a day?")
+}
+
+
+
+
+
+
+
+
+script GastreeGym_Red{
+    if (flag(FLAG_BADGE01_GET)){
+        if (flag(FLAG_GASTREEGYM_SPENSER_REWARD)){
+            msgbox(format("Well done champ-in-the-making! Now get on out there and find the next gym - I'll see you there!"), MSGBOX_NPC)
+            end
+        } else {
+            lockall
+            faceplayer
+            
+            msgbox(format("Well done champ-in-the-making! Inger told me about your battle.\lIn recognition of your skills, I'd like to give you something."))
+            goto(GastreeGym_Red_Reward)      
+        }
+    } else { 
+        if (flag(FLAG_GASTREEGYM_SPENSER_WATER)){
+            msgbox(format("Welcome to the Gastree gym! Unfortunately the leader, Inger, has gone off to do some emergency training in the underpass to Fennilahl Town.\pThe previous trainer beat him and Inger just can't stand losing!."), MSGBOX_NPC)
+        } else {
+            lockall
+            faceplayer
+            msgbox(format("Welcome to the Gastree gym! Unfortunately the leader, Inger, has gone off to do some emergency training in the underpass to Fennilahl Town.\pThe previous trainer beat him and Inger just can't stand losing!\pBefore you run off, take this."))
+            giveitem(ITEM_FRESH_WATER)
+            msgbox(format("Inger loves ROCK type Pokémon, so avoid using FLYING and BUG type Pokémon.\pNow go get 'em, champ-in-the-making!"))
+            setflag(FLAG_GASTREEGYM_SPENSER_WATER)
+            clearflag(FLAG_HIDE_ROUTE3_UNDERPASS_GYM)
+            releaseall
+        }
+    }
+    end
+}
+
+script GastreeGym_Red_Reward{
+    message(format("Which of these do you fancy?"))
+    waitmessage
+    dynmultichoice(0,0, TRUE, 2, 0, DYN_MULTICHOICE_CB_NONE, "Rock Gem", "Hard Stone") 
+    if (var(VAR_RESULT) == 0){setvar(VAR_0x8006, ITEM_ROCK_GEM)}
+    if (var(VAR_RESULT) == 1){setvar(VAR_0x8006, ITEM_HARD_STONE)}
+    goto(GastreeGym_Red_Reward_Give)
+}
+
+script GastreeGym_Red_Reward_Give{
+    showitemdescription
+    msgbox(format("Are you sure?"), MSGBOX_YESNO)
+    hideitemdescription
+    if (var(VAR_RESULT) == 1){
+        giveitem(VAR_0x8006) 
+        setflag(FLAG_GASTREEGYM_SPENSER_REWARD) 
+        goto(GastreeGym_Red_Reward_End)} 
+    else {
+        goto(GastreeGym_Red_Reward)
+    }
+}
+
+script GastreeGym_Red_Reward_End{    
+    msgbox(format("Now get on out there and find the next gym - I'll see you there!"), MSGBOX_NPC)       
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script GastreeGym_WeatheredRock{
+    msgbox(format("This rock looks like it's been weathered down by constant force."), MSGBOX_SIGN)
+    end
+}
+

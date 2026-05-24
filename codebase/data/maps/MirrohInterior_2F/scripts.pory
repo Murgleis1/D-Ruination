@@ -1,0 +1,227 @@
+mapscripts MirrohInterior_2F_MapScripts{
+    MAP_SCRIPT_ON_RESUME: MirrohInterior_2F_SetHoleWarp
+}
+
+script MirrohInterior_2F_SetHoleWarp{
+    setstepcallback(STEP_CB_CRACKED_FLOOR)
+	setholewarp(MAP_MIRROH_INTERIOR_B1F)
+	end
+}
+
+//MAIN: walking wake painting
+
+//one snowboarder vs triathlete
+//one trainer generic
+//one trainer at ice shortcut end
+//one snowboarder vs triathlete
+//one old man
+//trainer double battle - snowboarder and triathlete
+//one old woman
+//koraidon painting
+    //jump back down
+//two trainers blocking the item
+//one npc
+//one youngster
+
+//its koraidon not walking wake
+script MirrohInterior_2F_CavePainting_WalkingWake{
+    lockall
+
+    //a descrption of koraidon
+    msgbox(format("It's an ancient cave painting..."))
+    release
+    delay(8)
+
+    checkitem(ITEM_ARCHAEOLENS_2)
+    if (var(VAR_RESULT) == TRUE){
+        //a descrption of koraidon
+        msgbox(format("Scanning the ancient painting\nwith the Archaeolens 2.0..."))
+        playse(SE_CLICK)
+        delay(8)
+        msgbox(format("Done!"))    
+        release
+        delay(8)
+        msgbox(format("It's a never before seen Pokémon! It looks reptilian, but also has feathers.\pTerrifying!"))
+        release
+        delay(8)
+
+        if (!flag(FLAG_ROARING_MOON)){
+            setvar(VAR_0x8004, 2)  //vertical pan
+            setvar(VAR_0x8005, 2)  //horizontal pan
+            setvar(VAR_0x8006, 30)  //num shakes
+            setvar(VAR_0x8007, 5)  //shake delay
+            special(ShakeCamera)
+            waitstate
+            release
+
+            msgbox(format("What was that?\p...\pThe Archaeolens 2.0 is overheating!\nWhat's happening?"))
+            delay(8)
+
+            setflag(FLAG_ROARING_MOON)
+
+            setwildbattle(SPECIES_ROARING_MOON, 50)
+            dowildbattle
+
+            releaseall
+            end
+        }
+
+    } else {
+        msgbox(format("Scanning the ancient painting\nwith the Archaeolens..."))
+        playse(SE_CLICK)
+        delay(8)
+        msgbox(format("Done!"))    
+        release
+        delay(8)
+        msgbox(format("It's a never before seen Pokémon! It looks reptilian, but also has feathers.\pTerrifying!"))
+        releaseall
+    }
+    
+    releaseall
+    end
+}
+
+
+
+
+
+//First skiier vs triathlete
+script MirrohInterior_2F_SkiierA{
+    msgbox(format("How dare you! Skiing is the best endurance sport!"))
+    release
+    end
+}
+script MirrohInterior_2F_TriathleteA{
+    msgbox(format("Are you crazy? Running is the best endurance sport!"))
+    release
+    end
+}
+script MirrohInterior_2F_Voltorb{
+    playmoncry(SPECIES_VOLTORB, CRY_MODE_NORMAL)
+    msgbox(format("Voltorb is fighting to prove that running is better!"))
+    release
+    end
+}
+script MirrohInterior_2F_Sandshrew{
+    playmoncry(SPECIES_SANDSHREW, CRY_MODE_NORMAL)
+    msgbox(format("Sandshrew refuses to believe anything but skiing is the best!"))
+    release
+    end
+}
+
+//second skiier vs triathlete
+script MirrohInterior_2F_SkiierB{
+    msgbox(format("Why don't you runners get it?\nSkiing is just superior!"))
+    release
+    end
+}
+script MirrohInterior_2F_TriathleteB{
+    msgbox(format("The snow has addled your brains!\nClear it out with a good run!"))
+    release
+    end
+}
+script MirrohInterior_2F_Lycanroc{
+    playmoncry(SPECIES_LYCANROC, CRY_MODE_NORMAL)
+    msgbox(format("Lycanroc is fighting...but only half-heartedly.\pPerhaps it wants to try skiing once?"))
+    release
+    end
+}
+script MirrohInterior_2F_Snover{
+    playmoncry(SPECIES_SNOVER, CRY_MODE_NORMAL)
+    msgbox(format("Snover won't back down...but isn't showing much energy.\pMaybe it's looking to try new things?"))
+    release
+    end
+}
+
+//skiier vs triathlete battle
+
+
+
+
+
+
+//trainers
+//hex maniac
+script MirrohInterior_2F_Trainer_A{
+    trainerbattle_single(TRAINER_MIRROHINT2_A, format("Deep in the depths of Mt. Mirroh, I sense psychic energy!"), format("Nope, there's no psychic energy!"))
+    msgbox(format("I suppose there's psychic energy everywhere. It's like happiness - a state of mind."))
+    releaseall
+}
+//maniac
+script MirrohInterior_2F_Trainer_B{
+    trainerbattle_single(TRAINER_MIRROHINT2_B, format("Why are you here? Are you trying to steal my Pokémon like those Team Somber grunts?"), format("I guess you're not!"))
+    msgbox(format("When I was on the upper floor, some Team Somber grunts tried to take my Pokémon. But I beat one of them and ran away from the other!"))
+    releaseall
+}
+//triathlete F
+script MirrohInterior_2F_Trainer_C{
+    trainerbattle_single(TRAINER_MIRROHINT2_C, format("So what if it does? Running needs more endurance than skiing!\pHey, trainer!\nYou decide which one is better!"), format("Even my endurance didn't help!"))
+    msgbox(format("I don't know why we argue when the bottom line is that all sports are fun."))
+    releaseall
+}
+//skiier F
+script MirrohInterior_2F_Trainer_D{
+    trainerbattle_single(TRAINER_MIRROHINT2_D, format("Why don't runners get it? Skiing takes more technique than running!"), format("Even my technique didn't help!"))
+    msgbox(format("To be frank, if I didn't have access to a ski slope, I'd be running myself."))
+    releaseall
+}
+
+
+
+
+//lass
+script MirrohInterior_2F_Trainer_E{
+    trainerbattle_single(TRAINER_MIRROHINT2_E, format("Didn't I battle you before in Route 3? You beat me and my sister!"), format("You win again!"))
+    msgbox(format("I'm going to collect all 8 gym badges! But I only have 5 so far."))
+    releaseall
+}
+//pokefan
+script MirrohInterior_2F_Trainer_F{
+    trainerbattle_single(TRAINER_MIRROHINT2_F, format("Check out my new friends!"), format("Don't hurt them!"))
+    msgbox(format("I'm a huge Pokefan! They're my best friends! But I have human friends too."))
+    releaseall
+}
+
+//youngster
+script MirrohInterior_2F_Trainer_G{
+    trainerbattle_single(TRAINER_MIRROHINT2_G, format("I can't wait to get out of this cave and collect my 6th gym badge at Winterlily Hollow. Yep, that's right! I'm not your average trainer - I'm on my way to become the Pokémon Champion!"), format("I've still got a long way to go!"))
+    msgbox(format("Four more badges to go...whew, this gym challenge is exhausting!"))
+    releaseall
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+//old man below ledge
+script MirrohInterior_2F_NPC_A{
+    msgbox(format("On the way to Winterlily Hollow? I live there. It's a little further ahead, to the right and up, past the icy floor."), MSGBOX_NPC)
+    end
+}
+//woman staring
+script MirrohInterior_2F_NPC_B{
+    msgbox(format("My husband is an avid history buff.\nHe's down there right now, examining some old cave paintings."), MSGBOX_NPC)
+    end
+}
+//researcher old man
+script MirrohInterior_2F_NPC_C{
+    msgbox(format("What a fearsome Pokémon! One must be grateful it's not alive today."), MSGBOX_NPC)
+    end
+}
+//pokefan f
+script MirrohInterior_2F_NPC_D{
+    msgbox(format("This cave is so exhausting! I can't wait to be on the other side."), MSGBOX_NPC)
+    end
+}
+

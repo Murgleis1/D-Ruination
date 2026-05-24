@@ -1,0 +1,140 @@
+mapscripts Championship_Corridor_MapScripts{}
+
+script Championship_Corridor_Register{
+    lockall
+
+    applymovement(1, moves(face_left))
+
+    if (var(VAR_CHAMP_STAGE) == 1){
+        msgbox(format("With your defeat to Chara, you have been eliminated from the Cormoria Pokémon Championship.\pYour final result is: Top 32.\pCongratulations, {PLAYER}!\pDespite not winning the tournament, you and your Pokémon have proved yourselves as strong trainers."))
+        release
+    }
+    if (var(VAR_CHAMP_STAGE) == 2){
+        msgbox(format("With your defeat to Stanja, you have been eliminated from the Cormoria Pokémon Championship.\pYour final result is: Top 16.\pCongratulations, {PLAYER}!\pDespite not winning the tournament, you and your Pokémon have proved yourselves as strong trainers."))
+        release
+    }
+    if (var(VAR_CHAMP_STAGE) == 3){
+        msgbox(format("With your defeat to Anaya, you have been eliminated from the Cormoria Pokémon Championship.\pYour final result is: Quarter-Finalist.\pCongratulations, {PLAYER}!\pDespite not winning the tournament, you and your Pokémon have proved yourselves as strong trainers."))
+        release
+    }
+    if (var(VAR_CHAMP_STAGE) == 4){
+        msgbox(format("With your defeat to Gabrielle, you have been eliminated from the Cormoria Pokémon Championship.\pYour final result is: Semi-Finalist.\pCongratulations, {PLAYER}!\pDespite not winning the tournament, you and your Pokémon have proved yourselves as strong trainers."))
+        release
+    }
+
+    msgbox(format("Are you ready to try again?"), MSGBOX_POKENAV)
+    dynmultichoice(10, 8, TRUE, 3, 0, DYN_MULTICHOICE_CB_NONE, "I'm ready!", "Not yet")
+
+    if (var(VAR_RESULT) == 1){
+        releaseall
+        end
+    }
+
+    //reset game 
+    setvar(VAR_CHAMP_STAGE, 0)
+    special(HealPlayerParty)
+    warp(MAP_CHAMPIONSHIP, 40, 38)
+
+    //end game proper
+    // setflag(FLAG_SYS_GAME_CLEAR)
+	// delay(20)
+	// dofieldeffect(FLDEFF_HALL_OF_FAME_RECORD)
+	// waitfieldeffect(FLDEFF_HALL_OF_FAME_RECORD)
+	// delay(40)
+    // setvar(VAR_TEMP_A, 1)
+
+    // special(GameClear)
+
+    releaseall
+    end
+}
+
+script Championship_Corridor_Register_Nurse{
+    msgbox(format("Whenever ready, please use the machine next to me."), MSGBOX_NPC)
+    end
+}
+
+script Championship_Corridor_Exit_Nurse{
+    msgbox(format("Would you like to return to the Championship hall?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        special(StartCredits)
+//        warp(MAP_CHAMPIONSHIP, 10, 10)
+    }
+    end
+}
+
+
+
+
+
+
+//defeated trainers
+script Championship_Corridor_NPC1{
+    lockall
+    msgbox(format("We could've been up there..."))
+    releaseall
+    end
+}
+
+script Championship_Corridor_Mon1{
+    playmoncry(SPECIES_EELEKTROSS, CRY_MODE_NORMAL)
+    msgbox(format("Eelectross is in a daze..."), MSGBOX_NPC)
+    end
+}
+
+
+script Championship_Corridor_NPC2{
+    msgbox(format("Sniff...I just can't believe it..\n...after all our training..."), MSGBOX_NPC)
+    end
+}
+
+script Championship_Corridor_Mon2{
+    playmoncry(SPECIES_EXCADRILL, CRY_MODE_NORMAL)
+    msgbox(format("Excadrill is trying to console its trainer, but it's clearly sad too."), MSGBOX_NPC)
+    end
+}
+
+
+script Championship_Corridor_NPC3{
+    msgbox(format("My first-round opponent was the Ace Rookie from Galecrest...\pRoserade and I never had a chance.\pIt's fine...\pI just...sniff..."), MSGBOX_NPC)
+    end
+}
+
+script Championship_Corridor_Mon3{
+    playmoncry(SPECIES_ROSERADE, CRY_MODE_NORMAL)
+    msgbox(format("Roserade's petals look a little singed..."), MSGBOX_NPC)
+    end
+}
+
+
+script Championship_Corridor_NPC4{
+    msgbox(format("...\pToxtricity and I trained for years...\n...it was over so fast..."), MSGBOX_NPC)
+    end
+}
+
+script Championship_Corridor_Mon4{
+    playmoncry(SPECIES_TOXTRICITY, CRY_MODE_NORMAL)
+    msgbox(format("Toxtricity looks dejected..."), MSGBOX_NPC)
+    end
+
+}
+
+
+script Championship_Corridor_NPC5{
+    lockall
+    msgbox(format("Listen up, Dragalge! We're not gonna lose next time, got it?\pWe're going to win!\p...sniff...next time..."))
+    releaseall
+    end
+}
+
+script Championship_Corridor_Mon5{
+    playmoncry(SPECIES_DRAGALGE, CRY_MODE_NORMAL)
+    msgbox(format("Dragalge is trying to put on a brave face for its trainer."), MSGBOX_NPC)
+    end
+}
+
+script Championship_Corridor_TV{
+    playse(SE_APPLAUSE)
+    msgbox_delay("TV", format("And the crowd goes wild as Kohla's Ceruledge knocks out another Pokémon! I must say, we haven't seen a trainer like this in years! The skill! The style!\pHe sure is this years favourite!"))
+    end
+}

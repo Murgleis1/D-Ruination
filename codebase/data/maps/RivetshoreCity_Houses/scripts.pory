@@ -1,0 +1,160 @@
+mapscripts RivetshoreCity_Houses_MapScripts{}
+
+
+
+
+
+
+
+//House 1 - generic
+script RivetshoreCity_Houses_NPC1{
+    msgbox(format("We can't go on the S.S. Elegant cruise because our Scolipede gets seasick. Unfortunate, but what can one do?"), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Houses_NPC2{
+    msgbox(format("My husband claims our Scolipede gets seasick, but Scolipede's always been fine at sea.\pHe's the one that gets seasick!"), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Houses_Scolipede{
+    playmoncry(SPECIES_SCOLIPEDE, CRY_MODE_NORMAL)
+    msgbox(format("Scolipede is looking wistfully at the harbor..."), MSGBOX_NPC)
+    end
+}
+
+//House 2 - quest (mimikyu playing pranks on people)
+script RivetshoreCity_Houses_NPC3{
+    msgbox(format("One of the shopkeepers Pokémon was found lost deep inside the quarry the other day. Apparently it was a prank by someone!"), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Houses_NPC4{
+    msgbox(format("There's a mean Pokémon playing pranks on everyone's Pokémon in the city!\pBut it hasn't tried anything yet on our Clodsire."), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Houses_Clodsire{
+    playmoncry(SPECIES_CLODSIRE, CRY_MODE_NORMAL)
+    msgbox(format("Clodsire looks blissfully unaware of its surroundings."), MSGBOX_NPC)
+    end
+}
+
+//House 3 - free item
+//two brothers and grandma
+script RivetshoreCity_Houses_NPC5{
+    msgbox(format("Grandma won't let us get a PocketBoy! So we're playing card games instead."), MSGBOX_NPC)
+    end
+}
+
+script RivetshoreCity_Houses_NPC6{
+    lockall
+    faceplayer
+
+    if (var(VAR_RIVETSHORE_EGG_QUEST) == 2){
+        msgbox(format("We've hidden the PocketBoy well. Grandma will never find out.\lWanna play?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            playbgm(MUS_NONE, FALSE)
+            special(StartFlappyBird)
+            waitstate
+            savebgm(MUS_DUMMY)
+            fadedefaultbgm
+            delay(1)
+
+            //Get reward
+            if (var(GAME_CORNER_VAR_WINNINGS) > 3){
+                playfanfare(MUS_RG_PHOTO)
+                msgbox(format("You got the high score!"))
+                waitfanfare
+                release
+                setvar(GAME_CORNER_VAR_WINNINGS, 0)
+
+                if (flag(FLAG_GET_POCKET_DRIVE)) {end}
+
+                release
+                delay(8)
+                playse(SE_CLICK)
+                waitse
+                msgbox(format("Something fell out of the PocketBoy!\nWhat is it?"))
+                release
+                giveitem(ITEM_POCKET_DRIVE)
+                setflag(FLAG_GET_POCKET_DRIVE)
+                setvar(GAME_CORNER_VAR_WINNINGS, 0)
+            }
+        }
+        releaseall
+        end
+    }
+
+    if (var(VAR_RIVETSHORE_EGG_QUEST) == 1){
+        msgbox(format("Did you bring us a PocketBoy?"), MSGBOX_YESNO)
+
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Cool! Let us see!"))
+            release
+
+            //check pocketboy
+            checkitem(ITEM_POCKET_BOY)
+
+            if (var(VAR_RESULT) == 1){
+                msgbox(format("It's a PocketBoy! You really got it! It looks so cool! What games does it have?\p..."))
+                                
+                delay(16)
+                applymovement(VAR_LAST_TALKED, moves(emote_exclamation_mark))
+                waitmovement(0)
+                delay(24)                
+                msgbox(format("FLUTTERFREE!?!\pThat's the best one!\nThank you so much!"))
+                completequest(QUEST_RIVETSHORE_POCKETBOY)
+                msgbox(format("Um...we don't have any money, but you can take one of our rare cards instead!"))
+                setvar(VAR_RIVETSHORE_EGG_QUEST, 2)
+                removeitem(ITEM_POCKET_BOY)
+                giveitem(ITEM_RED_CARD)
+                msgbox(format("You can come and play with us any time!"))
+                releaseall
+                end
+            } else {
+                msgbox(format("Not this - we want a PocketBoy!"))
+                releaseall
+                end
+            }
+
+
+        } else {
+            msgbox(format("Sigh..."))
+            release
+            end
+        }
+    }
+
+    if (var(VAR_RIVETSHORE_EGG_QUEST) == 0){
+        msgbox(format("Sigh...playing these card games are so boring! I wish we had a PocketBoy. Everyone else has one!\p..."))
+        release
+        delay(16)
+        applymovement(VAR_LAST_TALKED, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(24)
+        msgbox(format("Hey, I bet you could get us a PocketBoy!\pWhat's a PocketBoy? You don't know? It's the best game console right now! But Grandma won't let us play games..."), MSGBOX_NPC)
+        msgbox(format("Will you bring us a PocketBoy?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Yay! But be cool about it, okay?\nOr Grandma will find out."))
+            release
+
+            startquest(QUEST_RIVETSHORE_POCKETBOY)
+            setvar(VAR_RIVETSHORE_EGG_QUEST, 1)
+            releaseall
+            end
+        }
+
+        msgbox(format("Sigh...old people are so lame.\nC'mon bro, shuffle the deck."))
+        releaseall
+        end
+    }
+
+    releaseall
+    end
+}
+script RivetshoreCity_Houses_NPC7{
+    msgbox(format("My two grandchildren will make fine doctors and lawyers one day!\nThey won't turn out like you."), MSGBOX_NPC)
+    releaseall
+    end
+}
+
+
+
+

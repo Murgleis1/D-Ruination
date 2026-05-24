@@ -1,0 +1,126 @@
+raw`
+    .set LOCALID_SHARPEDO, 1
+    .set LOCALID_JANIA, 2
+    .set LOCALID_CLAUNCHER, 3
+    .set LOCALID_GYARADOS, 4
+`
+
+mapscripts IvyRiver_Sharpedo_MapScripts{}
+
+
+
+script IvyRiver_Sharpedo_Jania_Trigger{
+    if (flag(FLAG_IVY_RIVER_SHARPEDO_JANIA)) {end}
+
+    lockall
+    delay(30)
+    applymovement(LOCALID_JANIA, moves(face_left))
+    waitmovement(0)
+    speakername("Jania")
+    msgbox(format("That should do it, Gyarados. Now the Mega Sharpedo can't get out."))
+    release
+    delay(8)
+
+    playmoncry(SPECIES_GYARADOS, CRY_MODE_NORMAL)
+    applymovement(LOCALID_GYARADOS, moves(face_right))
+    waitmovement(0)
+    delay(30)
+
+    applymovement(LOCALID_JANIA, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(LOCALID_CLAUNCHER, moves(emote_exclamation_mark jump_in_place_down))
+    applymovement(LOCALID_GYARADOS, moves(emote_exclamation_mark jump_in_place_down))
+    waitmovement(0)
+
+    delay(16)
+    speakername("Jania")
+    msgbox(format("It's you, {PLAYER}.\pI must thank you for bringing peace to Pelluca City.\pCome here."))
+    release
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2))
+    waitmovement(0)
+    applymovement(LOCALID_JANIA, moves(face_up))
+    applymovement(LOCALID_CLAUNCHER, moves(face_up))
+    applymovement(LOCALID_GYARADOS, moves(face_up))
+    waitmovement(0)
+    delay(8)
+    speakername("Jania")    
+    msgbox(format("See over there?"))
+    release
+    
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 2))
+    waitmovement(0)
+    speakername("Jania")
+    message(format("My Gyarados and I finally found its hideout and managed to trap it here. Only a trainer with HM Flip Turn can pass these currents, and even then, you'll need my badge to use the HM."))
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 9))
+    waitmovement(0)
+    waitmessage
+    waitbuttonpress
+    release
+    delay(30)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 2))
+    waitmovement(0)
+    speakername("Jania")
+    message(format("This should be enough to keep it at bay while it calms down.\pWe threw a Life Orb at it which got stuck on its Rough Skin. That should eventually faint it."))
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_down * 9))
+    waitmovement(0)
+    waitmessage
+    waitbuttonpress
+    release
+    special(RemoveCameraObject)    
+    delay(16)
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right))
+    applymovement(LOCALID_JANIA, moves(face_left))
+    applymovement(LOCALID_CLAUNCHER, moves(face_up))
+    applymovement(LOCALID_GYARADOS, moves(face_up))    
+    waitmovement(0)
+    delay(16)
+    speakername("Jania")
+    msgbox(format("You can't use Poké Balls on it - it's too enraged right now.\pwhatever you want to do, be careful.\nThe Life Orb hurts it but makes\lits attacks much stronger.\pI'm heading back to my gym. See you."))
+    release
+
+    fadescreen(FADE_TO_BLACK)
+    removeobject(LOCALID_CLAUNCHER)
+    removeobject(LOCALID_GYARADOS)
+    removeobject(LOCALID_JANIA)
+
+    setflag(FLAG_IVY_RIVER_SHARPEDO_JANIA)
+
+    fadescreen(FADE_FROM_BLACK)
+
+
+    releaseall
+    end
+}
+
+
+script IvyRiver_Sharpedo_Encounter{
+    playmoncry(SPECIES_SHARPEDO_MEGA, CRY_MODE_ENCOUNTER)
+    waitmoncry
+
+    setflag(FLAG_BATTLE_NO_RUNNING_CATCHING)
+    msgbox(format("The Mega Sharpedo attacks!"))
+    setwildbattle(SPECIES_SHARPEDO_MEGA, 70, ITEM_LIFE_ORB)
+    dowildbattle  
+
+    //result
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    if (var(VAR_RESULT) == B_OUTCOME_WON){
+        setflag(FLAG_IVY_RIVER_SHARPEDO_MAIN)
+        removeobject(LOCALID_SHARPEDO)
+    }
+    if (var(VAR_RESULT) == B_OUTCOME_CAUGHT){
+        setflag(FLAG_IVY_RIVER_SHARPEDO_MAIN)
+        removeobject(LOCALID_SHARPEDO)
+    }            
+    if (var(VAR_RESULT) == B_OUTCOME_RAN){
+        msgbox(format("The Mega Sharpedo glares at you, daring you to try again."))
+    }
+
+    clearflag(FLAG_BATTLE_NO_RUNNING_CATCHING)
+    releaseall
+    end
+}
+
+

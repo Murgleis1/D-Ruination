@@ -1,0 +1,28 @@
+mapscripts RivetshoreCity_PokemonCenter_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION: RivetshoreCity_PokemonCenter_OnTransition
+}
+
+script RivetshoreCity_PokemonCenter_OnTransition{
+    setrespawn(HEAL_LOCATION_RIVETSHORE_CITY)
+}
+
+script RivetshoreCity_PokemonCenter_EventScript_Nurse{
+	lockall
+    setvar(VAR_0x800B, 1)
+	call(Common_EventScript_PkmnCenterNurse)
+	waitmessage
+	releaseall
+}
+
+script RivetshoreCity_PokemonCenter_NPC1{
+	msgbox(format("I once met a strange lady here. She tried to sell me all these rare items! I could never find her again..."), MSGBOX_NPC)
+	end
+}
+
+
+script RivetshoreCity_PokemonCenter_NPC2{
+	msgbox(format("We had a heatwave yesterday.\nIt's not natural, I tell you!"), MSGBOX_NPC)
+	end
+}
+
+

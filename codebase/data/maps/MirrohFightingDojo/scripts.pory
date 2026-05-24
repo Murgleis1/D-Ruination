@@ -1,0 +1,207 @@
+mapscripts MirrohFightingDojo_MapScripts{}
+
+
+
+
+//flower shop
+    //sells herbs and seeds
+
+
+//cashier
+script GardenShop_Cashier{
+    lockall
+    faceplayer
+    msgbox(format("Welcome to the Mirroh Gardenery!"))
+	waitmessage
+	pokemart(GardenShop_Inventory)
+    msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+	release
+    end
+}
+
+mart GardenShop_Inventory {
+    ITEM_WHITE_HERB
+    ITEM_MENTAL_HERB
+    ITEM_POWER_HERB
+    ITEM_MIRROR_HERB
+    ITEM_ELECTRIC_SEED
+    ITEM_PSYCHIC_SEED
+    ITEM_MISTY_SEED
+    ITEM_GRASSY_SEED
+    ITEM_TIME_SEED
+}
+
+script GardenShop_Cashier2{
+    lockall
+    faceplayer
+    msgbox(format("Welcome to the Mirroh Gardenery!\pSince berries don't grow in the cold, we import them."))
+	waitmessage
+    //choose berry type
+    message(format("Which type of berry would you like?"))
+    waitmessage
+    dynmultichoice(0, 0, TRUE, 4, 0, DYN_MULTICHOICE_CB_NONE, "Normal Effects", "Damage Reduction")
+
+    if (var(VAR_RESULT) == 0){pokemart(GardenShop_Inventory2)}
+    if (var(VAR_RESULT) == 1){pokemart(GardenShop_Inventory3)}
+
+    msgbox(gText_PleaseComeAgain, MSGBOX_DEFAULT)
+	release
+    end
+}
+
+mart GardenShop_Inventory2 {
+    ITEM_CHERI_BERRY
+    ITEM_CHESTO_BERRY
+    ITEM_PECHA_BERRY
+    ITEM_RAWST_BERRY
+    ITEM_LEPPA_BERRY
+    ITEM_ORAN_BERRY
+    ITEM_LUM_BERRY
+    ITEM_SITRUS_BERRY
+    ITEM_LIECHI_BERRY
+    ITEM_GANLON_BERRY
+    ITEM_SALAC_BERRY
+    ITEM_PETAYA_BERRY
+    ITEM_APICOT_BERRY
+    ITEM_LANSAT_BERRY
+    ITEM_STARF_BERRY
+}
+
+mart GardenShop_Inventory3 {
+    ITEM_CHILAN_BERRY
+    ITEM_OCCA_BERRY
+    ITEM_PASSHO_BERRY
+    ITEM_WACAN_BERRY
+    ITEM_RINDO_BERRY
+    ITEM_YACHE_BERRY
+    ITEM_CHOPLE_BERRY
+    ITEM_KEBIA_BERRY
+    ITEM_SHUCA_BERRY
+    ITEM_COBA_BERRY
+    ITEM_PAYAPA_BERRY
+    ITEM_TANGA_BERRY
+    ITEM_CHARTI_BERRY
+    ITEM_KASIB_BERRY
+    ITEM_HABAN_BERRY
+    ITEM_COLBUR_BERRY
+    ITEM_BABIRI_BERRY
+    ITEM_ROSELI_BERRY
+}
+
+
+
+
+
+
+
+
+script FlowerShop_NPC1{
+    msgbox(format("What - you thought I fought with only fists?\pA good trainer uses whatever they can, and I'm gonna power up my punches with this Power Herb!"), MSGBOX_NPC)
+    end
+}
+script FlowerShop_NPC2{
+    msgbox(format("I'm not here to buy anything - my Roselia just enjoys the ambience."), MSGBOX_NPC)
+    end
+}
+script FlowerShop_NPC3{
+    msgbox(format("What's a Time Seed?"), MSGBOX_NPC)
+    end
+}
+
+script FlowerShop_Roselia{
+    if (flag(FLAG_TUTOR_ROSELIA)){
+        playmoncry(SPECIES_ROSELIA, CRY_MODE_NORMAL)
+        msgbox(format("Roselia smirks victoriously!"))
+        releaseall
+        end
+    }
+
+    playmoncry(SPECIES_ROSELIA, CRY_MODE_NORMAL)
+    msgbox(format("Roselia is arguing with Lilligant!\nWhat are they arguing about?"))
+    release
+    delay(8)
+    applymovement(6, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Roselia points at your Pokémon!\pTeach a Pokémon Solar Beam?"), MSGBOX_YESNO)   
+    release
+
+    if (var(VAR_RESULT) == 1){
+
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("You will only be able to teach\nthis move once. Make it count!"), MSGBOX_POKENAV)
+            msgbox(format("Teach a Pokémon Solar Beam?"), MSGBOX_YESNO)   
+            release            
+            if (var(VAR_RESULT) == 0) {
+                applymovement(6, moves(walk_in_place_left))
+                waitmovement(0)
+                releaseall
+                end                
+            }
+        }
+        setvar(VAR_0x8005, MOVE_SOLAR_BEAM)
+        call(MoveTutor_EventScript_OpenPartyMenu)
+        if (var(VAR_RESULT) == 0){
+
+        } else {
+            setflag(FLAG_TUTOR_ROSELIA)
+            applymovement(6, moves(walk_in_place_left))
+            waitmovement(0)
+            msgbox(format("Roselia smirks victoriously!"))
+        }
+    }
+
+    applymovement(6, moves(walk_in_place_left))
+    waitmovement(0)
+    releaseall
+    end
+}
+script FlowerShop_Lilligant{
+    if (flag(FLAG_TUTOR_LILLIGANT)){
+        playmoncry(SPECIES_LILLIGANT_HISUI, CRY_MODE_NORMAL)
+        msgbox(format("Lilligant smirks victoriously!"))
+        releaseall
+        end
+    }
+
+    playmoncry(SPECIES_LILLIGANT_HISUI, CRY_MODE_NORMAL)
+    msgbox(format("Lilligant is arguing with Roselia!\nWhat are they arguing about?"))
+    release
+    delay(8)
+    applymovement(5, moves(emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Lilligant points at your Pokémon!\pTeach a Pokémon Solar Blade?"), MSGBOX_YESNO)   
+    release
+
+    if (var(VAR_RESULT) == 1){
+
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("You will only be able to teach\nthis move once. Make it count!"), MSGBOX_POKENAV)
+            msgbox(format("Teach a Pokémon Solar Blade?"), MSGBOX_YESNO)   
+            release            
+            if (var(VAR_RESULT) == 0) {
+                applymovement(5, moves(walk_in_place_right))
+                waitmovement(0)
+                releaseall
+                end                
+            }
+        }
+        setvar(VAR_0x8005, MOVE_SOLAR_BLADE)
+        call(MoveTutor_EventScript_OpenPartyMenu)
+        if (var(VAR_RESULT) == 0){
+
+        } else {
+            setflag(FLAG_TUTOR_LILLIGANT)
+            applymovement(5, moves(walk_in_place_right))
+            waitmovement(0)
+            msgbox(format("Lilligant smirks victoriously!"))
+        }
+    }
+
+    applymovement(5, moves(walk_in_place_right))
+    waitmovement(0)
+    releaseall
+    end
+}
+

@@ -1,0 +1,133 @@
+raw`
+    .set LOCALID_CEO, 11
+`
+
+mapscripts RivetshoreCity_Construction_MapScripts{}
+
+
+//lobby
+script RivetshoreCity_Construction_Nurse{
+    msgbox(format("Welcome to Rivetshore Construction!\nIf you're here about the job, please head upstairs to speak to our CEO."), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Construction_NPC1{
+    msgbox(format("I came from Pelluca City. Our bridge was built by Rivetshore Construction!"), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Construction_NPC2{
+    msgbox(format("I applied for a job here, but they haven't replied to me yet..."), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Construction_NPC3{
+    msgbox(format("Are you the contractor the CEO hired?\pNo?\pThe CEO was looking for a Pokémon trainer to help him out."), MSGBOX_NPC)
+    end
+}
+
+//employees meeting
+script RivetshoreCity_Construction_NPC4{
+    lockall
+    msgbox(format("...so based on this years financial estimate, we're not likely to...\pSounds like a important meeting.\nBetter not disturb them!"))
+    releaseall
+    end
+}
+script RivetshoreCity_Construction_NPC5{
+    lockall
+    msgbox(format("...while I hear what you're saying, our stakeholders would never...\pSounds like a important meeting.\nBetter not disturb them!"))
+    releaseall
+    end
+}
+script RivetshoreCity_Construction_NPC6{
+    lockall
+    msgbox(format("...but the underlying factor here is the lack of any concrete...\pSounds like a important meeting.\nBetter not disturb them!"))
+    releaseall
+    end
+}
+
+//employees computer
+script RivetshoreCity_Construction_NPC7{
+    msgbox(format("Important meeting?\pPah! All these business and marketing types do is sit and talk all day."), MSGBOX_NPC)
+    end
+}
+//trade?
+script RivetshoreCity_Construction_NPC8{
+    msgbox(format("I heard we got a new investor. He's someone from the academic world."), MSGBOX_NPC)
+    end
+}
+
+//top floor old couple
+script RivetshoreCity_Construction_NPC9{
+    msgbox(format("I told the CEO he shouldn't use company assets for personal reasons. That's why he's hiring a contractor out of his own pocket."), MSGBOX_NPC)
+    end
+}
+script RivetshoreCity_Construction_NPC10{
+    msgbox(format("Even a big-time CEO has a weakness, and our CEO's weakness is his prized Perrserker."), MSGBOX_NPC)
+    end
+}
+
+
+//CEO Quest
+    //VAR_RIVETSHORE_CEO_QUEST
+    //0: not start
+    //1: start
+    //2: have you found perrserker yet
+    //3: good, take the poke flute
+script RivetshoreCity_Construction_CEO{
+    lockall
+    faceplayer
+    
+    if (var(VAR_RIVETSHORE_CEO_QUEST) == 3){
+        msgbox(format("How are things, {PLAYER}?\pYou're always welcome to work here if academia bores you."))
+    }
+
+    if (var(VAR_RIVETSHORE_CEO_QUEST) == 2){
+        msgbox_delay("CEO", format("Oh you wonderful trainer! You've brought my dear Percy back!"))
+        completequest(QUEST_RIVETSHORE_MIMIKYU)
+        msgbox_delay("CEO", format("Here, please take this. It's a very rare antique - it plays a beautiful melody that can wake sleeping Pokémon up!"))
+        giveitem(ITEM_POKE_FLUTE)
+        setvar(VAR_RIVETSHORE_CEO_QUEST, 3)
+    }
+
+    if (var(VAR_RIVETSHORE_CEO_QUEST) == 1){
+        speakername("CEO")
+        msgbox(format("Trainer! Have you found Percy?"), MSGBOX_NPC)
+        end
+    }
+
+    if (var(VAR_RIVETSHORE_CEO_QUEST) == 0){
+        speakername("CEO")
+        msgbox(format("Yes, child, come. You're here for the contract offer right?\p...\pNo?\pA pity. You look reliable.\pMy beautiful Percy has gone missing, you see. I'm looking for a strong trainer to bring Percy back!\p...\pRun away?"))
+        release
+        delay(16)
+        applymovement(LOCALID_CEO, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+
+        msgbox_delay("CEO", format("Absolutely not! I loved and cared for it since the day it was born.\lIt would never run away!"))
+        speakername("CEO")
+        msgbox(format("Would you please find Percy for me?\nI'll make it worth your while!"), MSGBOX_YESNO)
+
+        if (var(VAR_RESULT) == 0){
+            msgbox_delay("CEO", format("A shame. See you, trainer."))
+            end
+        }
+        
+        msgbox_delay("CEO", format("Brilliant! Percy must be somewhere in Rivetshore City. It can't swim!\pI'll be waiting here for my Percy."))
+        clearflag(FLAG_HIDE_RIVETSHORE_PERCY)
+        startquest(QUEST_RIVETSHORE_MIMIKYU)
+        setvar(VAR_RIVETSHORE_CEO_QUEST, 1)
+
+    }
+
+    releaseall
+    end
+
+}
+
+script RivetshoreCity_Construction_Mon_Percy{
+    playmoncry(SPECIES_PERRSERKER, CRY_MODE_NORMAL)
+    msgbox(format("Percy is happy to be back home!"), MSGBOX_NPC)
+    end
+}
+
+
+

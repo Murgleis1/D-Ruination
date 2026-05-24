@@ -1,0 +1,226 @@
+mapscripts CarabrueTown_Home1F_MapScripts {
+    
+    MAP_SCRIPT_ON_RESUME: CarabrueTown_Home1F_OnResume
+    MAP_SCRIPT_ON_TRANSITION: CarabrueTown_Home1F_OnTransition
+
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_STARTGAME_TV, 0: CarabrueTown_Home1F_EventScript_StartGame
+        VAR_TEMP_0, 0: CarabrueTown_Home1F_EventScript_EndGame
+    ]
+}
+
+script CarabrueTown_Home1F_OnTransition{
+    setrespawn(HEAL_LOCATION_CARABRUE_TOWN)
+}
+
+script CarabrueTown_Home1F_EventScript_EndGame{
+    setvar(VAR_TEMP_0, 1)
+
+    if (flag(FLAG_POSTGAME_MOM_TALK)) {releaseall end}
+    
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        
+        applymovement(1, moves(emote_exclamation_mark jump_in_place_right))
+        delay(20)
+        msgbox_delay("Mom", format("{PLAYER}! You're finally home!\nOh, come here you!"))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+        waitmovement(0)
+        delay(24)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+        waitmovement(0)
+        delay(24)
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_fast_up * 2 walk_fast_left * 6 face_down))
+        waitmovement(0)
+        applymovement(1, moves(face_up))
+        delay(24)       
+        msgbox_delay("Mom", format("Look at you, {PLAYER}!\nYou've grown so much, I can hardly recognise you any more!\lAnd look at your Pokemon too!"))
+        applymovement(OBJ_EVENT_ID_FOLLOWER, moves(jump_in_place_down * 2))
+        waitmovement(0)
+        delay(16)
+        msgbox_delay("Mom", format("Well I must say that the internship at the lab really did you a world of good! I'll be recommending it to our new neighbours when they come...they\lhave a child around your age too.\lApparently she loves gaming all day!\nI bet some real-world experience will do her some good too.\pSpeaking of which, {PLAYER}, I have a surprise! I got you a Retro64!\lThe console you always wanted!\lIt's the least I can do for my baby,\lthe Champion of Cormoria!"))
+        delay(30)
+        msgbox_delay("Mom", format("Sniff...my baby, the Champion of Cormoria...Dad would be proud..."))
+        delay(30)
+        msgbox_delay("Mom", format("I love you, {PLAYER}."))
+
+        playfanfare(MUS_SLOTS_WIN)
+        message(format("The secret quest Make Mom Cry\nis now complete! Well done!"))
+        waitfanfare
+        release
+
+        //FLAGS AND END
+        setflag(FLAG_POSTGAME_MOM_TALK)
+        releaseall
+        end
+    }
+}
+
+
+script CarabrueTown_Home1F_EventScript_StartGame{
+
+    lockall
+
+    //Initial game vars and stuff
+    setvar(VAR_SYS_DIFFICULTY, 0)
+    setvar(VAR_SYS_EXP_CAP, 1)
+
+    //TV plays info about prof disappearance
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    speakername("TV")
+    msgbox(
+        format(
+            "And in the big news of the day, we have a mysterious event to report.\pThe famous Professor Tenebris of Carabrue Town was reported missing.\pWhere could such a renowned Pokémon Professor have vanished to? And why?"
+        )
+    )
+    release
+
+    //Mom gets up and goes to player
+    applymovement(1, moves(
+        walk_up
+        walk_right * 2
+        )
+    )
+    waitmovement(1)
+
+    //Player faces mom, dialogue starts
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_left))
+    waitmovement(OBJ_EVENT_ID_PLAYER) 
+    speakername("Mom")  
+    msgbox(format("How scary...even in a small town like ours, people can go missing.\pAnd it's your first day working at the lab too! Gosh, I'm so scared...be safe out there! I'm sure the lab will need all the help it can get without the Professor, so do your best, okay?" ))
+    release
+
+    applymovement(1, moves(emote_exclamation_mark jump_in_place_right))
+    waitmovement(1)
+    speakername("Mom") 
+    msgbox(format("I almost forgot! Here you go - a new pair of shoes for a new adventure!"))
+    release
+    playfanfare(MUS_OBTAIN_ITEM)
+    msgbox(format("{PLAYER} switched shoes with the Running Shoes."))
+	waitfanfare    
+    release
+
+    setflag(FLAG_RECEIVED_RUNNING_SHOES)
+    setflag(FLAG_SYS_B_DASH)    
+
+    speakername("Mom") 
+    msgbox(format("{PLAYER}, those shoes came with instructions: Press the B Button to toggle running on and off."))
+    release
+    speakername(NULL)
+    msgbox(format("Switch between hold and toggle\nmodes in the options menu!"), MSGBOX_POKENAV)
+    release
+    delay(8)
+
+    speakername("Mom") 
+    msgbox(format("And before you zip off, don't forget to take the Welcome Package the lab sent you - it's upstairs in your bedroom!"))
+    release
+
+    //Set var to done
+    setvar(VAR_STARTGAME_TV, 1)
+    //Set quest active
+    setflag(FLAG_SYS_QUEST_MENU_GET)
+    startquest(QUEST_LAB_FIRST_DAY)
+    subquestmenu(QUEST_MENU_COMPLETE_QUEST, QUEST_LAB_FIRST_DAY, SUB_QUEST_1)
+    msgbox(format("You can check active quests in the Quest Log via the Start Menu!"), MSGBOX_POKENAV)
+    release
+    
+    //Mom sits back down
+    applymovement(1, moves(
+        walk_left *2
+        walk_down
+        face_right
+        )
+    )
+    waitmovement(0)
+
+    releaseall
+
+}
+
+movement Player_Face_Up{
+    face_up
+}
+
+script CarabrueTown_Home1F_OnResume{}
+
+
+script CarabrueTown_Home1F_EventScript_LeaveWithoutWelcomePackage{
+
+    lockall
+
+    if (!flag(FLAG_WELCOMEPACKAGE_GET)){
+        msgbox(format("I should get my Welcome Package from my room before leaving!"))
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+        waitmovement(0)
+    }
+
+    releaseall
+    end
+
+}
+
+script CarabrueTown_Home1F_EventScript_MomGeneric{
+    lockall
+    faceplayer
+    speakername("Mom")     
+    msgbox(format("I love you! You're looking a bit tired. Why don't you rest?"))
+    release
+	call(Common_EventScript_OutOfCenterPartyHeal)
+	incrementgamestat(GAME_STAT_RESTED_AT_HOME)
+
+    //nuzkit
+    checkitem(ITEM_NUZKIT)
+    if (var(VAR_RESULT) == 0){
+
+        speakername("Mom")     
+        msgbox(format("My baby is going on an adventure!\nDo you want a care package from Mom?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0){
+            speakername("Mom")     
+            msgbox(format("I know you can handle yourself.\nTake care, {PLAYER}!"))
+            release
+            applymovement(1, moves(face_right))
+            waitmovement(0)
+            releaseall
+            end        
+        }
+
+        speakername(NULL)
+        msgbox(format("Mom's Nuzkit offers additional\nquality of life features.\lFor a classic experience,\lyou should go without it!"), MSGBOX_POKENAV)
+
+        speakername("Mom")     
+        message(format("Do you want a care package from Mom?"))
+
+        dynmultichoice(17, 8, FALSE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
+            "No Mom...", "Yes please!")
+        release
+        
+        if (var(VAR_RESULT) == 1){
+            delay(8)
+            speakername("Mom")
+            msgbox(format("Here you go!"))
+            speakername(NULL)
+
+            giveitem(ITEM_NUZKIT)
+
+            delay(8)
+
+            msgbox(format("You got Mom's Nuzkit! Thanks Mom!\nTalk to your follower to use it."), MSGBOX_POKENAV)
+            release
+        } else {
+            speakername("Mom")
+            msgbox(format("I know you can handle yourself.\nTake care, {PLAYER}!"))
+            releaseall
+            end
+        }
+
+    }
+
+    speakername("Mom")     
+	msgbox(format("Take care, {PLAYER}!"))
+    release
+    applymovement(1, moves(face_right))
+	releaseall
+	end
+}
+
+

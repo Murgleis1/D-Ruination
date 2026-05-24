@@ -1,0 +1,109 @@
+mapscripts Championship_Museum_MapScripts{}
+
+//Past winners: martha, ravine, chef (lynch), greta
+
+
+
+//Martha
+script Champ_Museum_Past_Martha{
+    lockall
+    msgbox(format("It's a painting of a trainer battling with a Houndstone...\pMartha.\nFirst Cormoria Pokémon Champion."))
+    releaseall
+    end
+}
+
+script Champ_Museum_Past_Chef{
+    lockall
+    msgbox(format("It's a painting of a trainer battling with a Hydrapple...\pLynch.\nSecond Cormoria Pokémon Champion."))
+    releaseall
+    end
+}
+
+script Champ_Museum_Past_Ravine{
+    lockall
+    msgbox(format("It's a painting of a trainer battling with a Kangaskhan...\pRavine.\nThird Cormoria Pokémon Champion."))
+    releaseall
+    end
+}
+
+script Champ_Museum_Past_Greta{
+    lockall
+    msgbox(format("It's a painting of a trainer battling with a Banette...\pGreta.\nFourth Cormoria Pokémon Champion."))
+    releaseall
+    end
+}
+
+script Champ_Museum_Past_Empty{
+    lockall
+    msgbox(format("It's blank."))
+    releaseall
+    end
+}
+
+
+
+
+
+//NPCs (and greta herself)
+//lady on duty
+script Champ_Museum_NPC1{
+    msgbox(format("Welcome to the Championship Museum!\pPlease be careful and don't touch any of the paintings, okay?"), MSGBOX_NPC)
+    end
+}
+//mom
+script Champ_Museum_NPC2{
+    lockall
+    msgbox(format("Baby, will you please stop running! We've come here to learn about Cormoria's history."))
+    releaseall
+    end
+}
+//girl
+script Champ_Museum_NPC3{
+    msgbox(format("The tiles are so smooth!"), MSGBOX_NPC)
+    end
+}
+
+//old man
+script Champ_Museum_NPC4{
+    msgbox(format("Haha! I remember watching Martha win. She was a formidable trainer!\pNothing like the crop these days...\nAce Rookie...pah!"), MSGBOX_NPC)
+    end
+}
+
+//lady trainer 
+script Champ_Museum_NPC5{
+    msgbox(format("It's so intimidating being here!\nHow are we supposed to compete against trainers like these?"), MSGBOX_NPC)
+    end
+}
+
+//greta
+script Champ_Museum_NPC6{
+    lockall
+    speakername("Greta")
+    msgbox(format("They haven't got my face right..."))
+    speakername(NULL)
+    releaseall
+    end
+}
+
+//couple boy
+script Champ_Museum_NPC7{
+    lockall
+    applymovement(5, moves(jump_in_place_right))
+    waitmovement(0)
+    delay(16)    
+    msgbox(format("If I win the championship and they put my painting up here, will you marry me?"))
+    releaseall
+    end
+}
+//couple girl
+script Champ_Museum_NPC8{
+    lockall
+    applymovement(6, moves(jump_in_place_left))
+    waitmovement(0)
+    delay(16)
+    msgbox(format("Don't make promises you can't keep!"))
+    releaseall
+    end
+}
+
+

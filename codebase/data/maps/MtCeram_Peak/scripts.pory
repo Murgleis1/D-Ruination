@@ -1,0 +1,336 @@
+raw `
+    .set LOCALID_DREAMSTONE, 1
+    .set LOCALID_BOSS, 2
+    .set LOCALID_GAB, 3
+`
+
+mapscripts MtCeram_Peak_MapScripts{}
+
+script MtCeram_Peak_SaveGameTrigger{
+    if (flag(FLAG_MT_CERAM_DREAMSTONE)){end}   
+
+    setvar(VAR_TEMP_C, 1)
+
+    call(Common_EventScript_SaveGameBeforeSomber)
+    releaseall
+    end
+}
+
+script MtCeramPeak_MainEvent_Trigger{
+    if (flag(FLAG_MT_CERAM_DREAMSTONE)){end}
+
+    lockall
+    speakername("???")
+    msgbox(format("So you broke through my grunts.\nCome here then."))
+    release
+
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 6))
+    waitmovement(0)
+
+    //skip cutscene 
+    if (flag(FLAG_SKIP_CERAM_CUTSCENE)){
+        msgbox(format("Skip cutscene?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0){
+            goto(MtCeramPeak_MainEvent_Cutscene)
+        } else {
+            //set all positions
+            fadescreen(FADE_TO_BLACK)
+
+            //move grunts
+            special(SpawnCameraObject)
+            applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 1))
+            applymovement(LOCALID_BOSS, moves(face_down))            
+            applymovement(3, moves(face_right))    
+            applymovement(5, moves(face_left))
+            applymovement(4, moves(walk_right face_left))    
+            waitmovement(0)
+            special(RemoveCameraObject)
+            //move player
+            applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+            waitmovement(0)
+
+            fadescreen(FADE_FROM_BLACK)
+
+            goto(MtCeramPeak_MainEvent_Battle)
+        }
+    } else {
+        goto(MtCeramPeak_MainEvent_Cutscene)
+    }
+}
+
+script MtCeramPeak_MainEvent_Cutscene{
+    
+    //set skip and talonflame flags
+    if (flag(FLAG_CERAM_TALONFLAME)){clearflag(FLAG_CERAM_TALONFLAME)}
+    setflag(FLAG_SKIP_CERAM_CUTSCENE)
+    //
+
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_up * 1))
+    waitmovement(0)
+    special(RemoveCameraObject)
+
+    speakername("???")
+    msgbox(format("A dreamstone. This is the first time I've ever seen one."))
+    release
+
+    applymovement(LOCALID_BOSS, moves(face_down))
+    waitmovement(0)
+    delay(20)
+
+    speakername("???")
+    msgbox(format("Move. I want to see this trainers face."))
+    release    
+
+
+    //Grunts move
+    applymovement(3, moves(face_right))    
+    applymovement(5, moves(face_left))
+    applymovement(4, moves(walk_right face_left))    
+    waitmovement(0)
+
+    speakername("???")
+    msgbox(format("Now step up to me."))
+    release    
+
+    //move player
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))
+    waitmovement(0)
+
+    //Villain monologue
+    //Explain tenebris research
+    //Explain somber goals
+    speakername("???")
+    msgbox(format("Why, young trainer, have you been a thorn in my organisations side?\pWhat's in it for you?\p...\pSo you're looking for Professor Tenebris. That explains everything."))   
+    release
+    applymovement(LOCALID_BOSS, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    speakername("???")
+    msgbox(format("Young trainer, do you even know what the good professor was researching?\pDo you even know what a dreamstone is?\pA dreamstone is little but a triangular rock. At first sight. But it possesses a unique property. When Pokémon fall asleep, their past memories resurface.\pA dreamstone absorbs this."))
+    release
+    delay(16)
+    speakername("???")
+    msgbox(format("Fascinating stuff. This is what your dear professor was researching, child.\pHow do these dreamstones actually work? What kind of memories can dreamstones absorb?"))
+    applymovement(LOCALID_BOSS, moves(jump_in_place_up))
+    waitmovement(0)   
+    speakername("???")
+    msgbox(format("And she discovered something incredible!"))
+    release
+    applymovement(LOCALID_BOSS, moves(face_down))
+    waitmovement(0)
+    delay(30)
+    speakername("???")
+    msgbox(format("That stone behind me contains the memories of hundreds of generations of Pokémon - all the way back to prehistoric times!"))
+    release
+    applymovement(LOCALID_BOSS, moves(jump_in_place_up))
+    waitmovement(0)
+    speakername("???")
+    msgbox(format("Can you imagine child? Can you?!\nThe potential of such an object?\pEven as pure energy, a dreamstone is overflowing! But there's more.\pSo much more.\pWhat if we could reverse the process? Use the dreamstone to revive these memories? Such powerful Pokémon once roamed across Cormoria - wouldn't it be grand to have them do your bidding?"))
+    release
+    applymovement(LOCALID_BOSS, moves(face_down))
+    waitmovement(0)
+    delay(16)
+    speakername("???")
+    msgbox(format("And if we get such power, there would be nothing stopping Team Somber from having absolute control!\pA noble goal, is it not, {PLAYER}?\pAnd you! You dare to get in our way,\ntime and again! No more!"))
+    release
+    delay(16)
+
+    goto(MtCeramPeak_MainEvent_Battle)
+}
+
+script MtCeramPeak_MainEvent_Battle{
+    //Pre-battle
+    speakername("Moxie")
+    msgbox(format("I, Moxie, head of the Team Somber Research Wing, will end your silly meddling once and for all!"))
+    release
+
+    //Battle
+    trainerbattle_no_intro(TRAINER_CERAMPEAK_MOXIE, format("I can't believe it!"))
+
+    //Lose battle
+    //oh no! but no matter, the dreamstone is ours.
+    //Gabrielle, go get it.
+    //She gets stuck
+    //Everyone else runs
+    speakername("Moxie")
+    msgbox(format("Argh! Impossible! How could I have lost!"))
+    release
+    applymovement(LOCALID_BOSS, moves(jump_in_place_down))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("Fine! Whatever! I don't have time to waste. We need the dreamstone and I will get this one no matter what!"))
+    release
+    applymovement(LOCALID_BOSS, moves(face_left))
+    waitmovement(0)
+    speakername("Moxie")
+    msgbox(format("Gabrielle! You worthless fool!\nBe of some use for a change and go\lgrab the dreamstone.\pHurry up before {PLAYER} gets it!"))
+    release  
+    applymovement(LOCALID_GAB, moves(jump_in_place_up))
+    waitmovement(0)
+    speakername("Gabrielle")
+    msgbox(format("Y-yes boss!"))
+    release  
+    applymovement(LOCALID_GAB, moves(walk_up * 2 walk_right face_up))
+    waitmovement(0)
+    applymovement(LOCALID_GAB, moves(face_up))    
+    applymovement(LOCALID_BOSS, moves(face_up))    
+    applymovement(4, moves(face_up))    
+    applymovement(5, moves(face_up))    
+    waitmovement(0)
+    
+    delay(16)
+    speakername("Gabrielle")
+    msgbox(format("Ugh! It's not moving!"))
+    release
+    delay(16)
+
+    applymovement(LOCALID_BOSS, moves(jump_in_place_up emote_exclamation_mark))
+    waitmovement(0)
+    delay(16)
+    speakername("Moxie")
+    msgbox(format("You idiot! Put some backbone in it!"))
+    release
+    delay(16)
+
+    speakername("Gabrielle")
+    msgbox(format("...Boss?"))
+    release  
+    delay(16)
+
+    speakername("Moxie")
+    msgbox(format("What?"))
+    release
+    delay(16)
+
+    speakername("Gabrielle")
+    msgbox(format("...I'm stuck. I can't move...I'm stuck to the stone!"))
+    release  
+    delay(16)
+
+    speakername("Gabrielle")
+    msgbox(format("Boss...I feel sick. What's happening?\nIs this supposed to happen?"))
+    release  
+    delay(16)
+
+    speakername("Moxie")
+    msgbox(format("You must've messed it up!"))
+    release     
+
+
+    applymovement(LOCALID_GAB, moves(emote_exclamation_mark))    
+    applymovement(LOCALID_BOSS, moves(emote_exclamation_mark))    
+    applymovement(4, moves(emote_exclamation_mark))    
+    applymovement(5, moves(emote_exclamation_mark))    
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(emote_exclamation_mark))    
+    waitmovement(0)
+
+	setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    waitstate
+	delay(30)
+
+    setweather(WEATHER_RAIN_THUNDERSTORM)
+    doweather
+
+    speakername("Moxie")
+    msgbox(format("Is that an earthquake? It'll trigger a volcanic eruption! Gabrielle, you - aaargh! You've released the dreamstone's energy somehow!"))
+    release
+    delay(16)
+
+    speakername("Gabrielle")
+    msgbox(format("I just did what you told me to do!\nI wanted to be useful!"))
+    
+    speakername("Moxie")
+    msgbox(format("And now you've doomed us all!"))
+    release  
+
+	setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 12)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    waitstate
+	delay(30)
+
+    speakername("Moxie")
+    msgbox(format("This is bad...come on you two! Let's get out before this mountain erupts!"))
+    release    
+    applymovement(4, moves(walk_down * 6))    
+    applymovement(5, moves(walk_down * 6))    
+    waitmovement(0)
+    applymovement(LOCALID_BOSS, moves(walk_right walk_down * 2 walk_left walk_down face_up))  
+    waitmovement(0)
+    applymovement(LOCALID_GAB, moves(face_down))
+    speakername("Gabrielle")    
+    msgbox(format("Boss - what about me?"))
+    release
+    delay(16)
+    speakername("Moxie")
+    msgbox(format("Take care Gabrielle. I wish you had done more with your life."))
+    release
+    applymovement(LOCALID_BOSS, moves(walk_down * 8))  
+    waitmovement(0)
+    speakername("Gabrielle")
+    msgbox(format("He-he just left me..."))
+    release
+
+    applymovement(LOCALID_GAB, moves(face_up emote_exclamation_mark))    
+    speakername("Gabrielle")
+    msgbox(format("I'm still stuck! H-hey, {PLAYER} - please, you have to help me."))
+    release
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up))    
+    waitmovement(0)
+
+	setvar(VAR_0x8004, 3)  //vertical pan
+	setvar(VAR_0x8005, 3)  //horizontal pan
+	setvar(VAR_0x8006, 16)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    waitstate
+	delay(30)
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    fadescreenswapbuffers(FADE_FROM_BLACK)
+
+    speakername("Gabrielle")
+    msgbox(format("W-what's happening?"))
+    release
+	setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay        
+    special(ShakeCamera)
+    waitstate
+	delay(30)
+    
+    fadescreenswapbuffers(FADE_TO_BLACK)
+    fadescreenswapbuffers(FADE_FROM_BLACK)
+
+    speakername("Gabrielle")
+    msgbox(format("Ahhh!!!"))   
+    release
+	setvar(VAR_0x8004, 2)  //vertical pan
+	setvar(VAR_0x8005, 2)  //horizontal pan
+	setvar(VAR_0x8006, 8)  //num shakes
+	setvar(VAR_0x8007, 5)  //shake delay
+    special(ShakeCamera)
+    waitstate
+    release    
+
+
+
+    //Set vars
+    setflag(FLAG_MT_CERAM_DREAMSTONE)
+
+    //WARP OUT
+    warp(MAP_ANCIENT_CERAM, 57, 41)
+
+    releaseall
+    end
+}
+
+

@@ -1,0 +1,14 @@
+mapscripts FennilahlTown_House1_MapScripts{}
+
+script FennilahlTown_House1_NPC1{
+    msgbox(format("This town is too small for me!"), MSGBOX_NPC)
+    end
+}
+
+script FennilahlTown_House1_NPC2{
+    msgbox(format("My sister wants to visit Gastree City but crossing Route 3 isn't so easy."), MSGBOX_NPC)
+    end
+}
+
+
+

@@ -1,0 +1,39 @@
+mapscripts FennilahlTown_PokemonCenter_MapScripts {
+	MAP_SCRIPT_ON_TRANSITION: FennilahlTown_PokemonCenter_OnTransition
+}
+
+script FennilahlTown_PokemonCenter_OnTransition{
+    setrespawn(HEAL_LOCATION_FENNILAHL_TOWN)
+}
+
+script FennilahlTown_PokemonCenter_EventScript_Nurse{
+	lockall
+    setvar(VAR_0x800B, 1)
+	call(Common_EventScript_PkmnCenterNurse)
+	waitmessage
+	releaseall
+}
+
+
+script FennilahlTown_PokemonCenter_NPC1{
+	if (flag(FLAG_FENNILAHL_HIKER_GEAR_GET)){
+		msgbox(format("You're the one who stopped the pickpocketing Clefairy? Well done!"), MSGBOX_NPC)		
+	} else {
+		msgbox(format("There's been an increase in pickpocketing recently. Personally,\lI'm sure it's a nearby Pokémon!"), MSGBOX_NPC)		
+	}
+	end
+}
+
+script FennilahlTown_PokemonCenter_NPC2{
+	msgbox(format("You just got your first Pokémon too? Cubone and I are gonna be Pokémon Champions one day!"), MSGBOX_NPC)		
+	end
+}
+
+script FennilahlTown_PokemonCenter_Rattata{
+	playmoncry(SPECIES_CUBONE, CRY_MODE_NORMAL)
+	msgbox(format("Cubone is raring to go!"), MSGBOX_NPC)		
+	end
+}
+
+
+

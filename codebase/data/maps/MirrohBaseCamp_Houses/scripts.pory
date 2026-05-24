@@ -1,0 +1,293 @@
+mapscripts MirrohBaseCamp_Houses_MapScripts{}
+
+//first convo outside the graveyard, where she says she knows about dreamstones, and shes excited that you went to the past.
+
+script MirrohBaseCamp_Houses_Historian{
+    lockall
+    faceplayer
+
+    //post-game
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        if (flag(FLAG_CHAMPION_MARTHA_COMPLETE)){
+
+        } else {
+            if (flag(FLAG_CHAMPION_LYNCH_COMPLETE)){
+                speakername("Martha")
+                msgbox(format("So you've finally come.\pI'll see you in a cold, dark cave where water flows."))
+                release
+
+                //exit
+                specialvar(VAR_RESULT, GetPlayerFacingDirection)
+                if (var(VAR_RESULT) == DIR_EAST){
+                    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up face_down))
+                    waitmovement(0)
+                }
+            
+                applymovement(1, moves(walk_left * 3 walk_down * 2))
+                waitmovement(0)
+                playse(SE_EXIT)
+                removeobject(1)
+                delay(8)
+                speakername("Martha")
+                msgbox(format("Come Houndstone!\nWe're going for a long walk."))
+                release
+                delay(16)
+
+                playmoncry(SPECIES_HOUNDSTONE, CRY_MODE_NORMAL)
+                applymovement(4, moves(emote_exclamation_mark jump_in_place_down))
+                waitmovement(0)
+                delay(24)
+
+                applymovement(4, moves(jump_2_down * 2))
+                waitmovement(0)
+                removeobject(4)
+                playse(SE_EXIT)
+                waitse
+                
+                setflag(FLAG_HIDE_MIRROHBASECAMP_HISTORIAN)
+                setflag(FLAG_HIDE_CHAMPION_MARTHA)
+                setflag(FLAG_CHAMPION_MARTHA_SETUP)
+
+                releaseall
+                end
+            }
+        }
+    }
+
+
+    if (flag(FLAG_MIRROHBASECAMP_HISTORIAN)){
+        if (flag(FLAG_MIRROH_GOT_OLD_BONE)){
+            speakername("Martha")
+            msgbox(format("Hello child. How are you?"), MSGBOX_NPC)
+            releaseall
+            end
+        } else {
+            if (flag(FLAG_BADGE05_GET)){
+                msgbox(format("I found it! Take this and give it to the Greavard playing outside. It'll distract them. Hopefully they'll come home.")) 
+                release
+                setflag(FLAG_MIRROH_GOT_OLD_BONE)
+                giveitem(ITEM_RARE_BONE)
+                speakername("Martha")
+                msgbox(format("As for me, I must get back to my reading..."))
+                releaseall
+                end
+            } else {
+                speakername("Martha")
+                msgbox(format("How strange...I'm sure I had a bone for Greavard somewhere..."), MSGBOX_NPC)   
+                releaseall
+                end
+            }
+        }
+    } else {
+        speakername("Martha")
+        msgbox(format("Yes, child. Tell me. What's the story?\p...\p...\p..."))
+        release
+        applymovement(1, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        speakername("Martha")
+        msgbox(format("I see...so this Team Somber wants to re-enter the past using the dreamstones? How interesting. To think we've reached an age where humankind can control a dreamstone...incredible, but terrifying at the same time."))
+        release
+        delay(30)
+
+        //if you have ancient stone
+        checkitem(ITEM_ANCIENT_STONE)
+        if (var(VAR_RESULT) == 1){
+            applymovement(1, moves(emote_question_mark))
+            waitmovement(0)
+            delay(16)
+            speakername("Martha")
+            msgbox(format("You brought something back from there? Shall we take a look?"))
+            release
+            delay(8)
+            removeitem(ITEM_ANCIENT_STONE)
+            playfanfare(MUS_LEVEL_UP)
+            message(format("{PLAYER} gave Martha the Ancient Stone."))
+            waitfanfare
+            release
+            delay(8)
+            applymovement(1, moves(emote_exclamation_mark))
+            waitmovement(0)
+            delay(16)
+            speakername("Martha")
+            msgbox(format("Oh my! What a find!\pThis is a Mega Stone, {PLAYER}. It's to be used by a rare ancient Pokémon called Aerodactyl.\pAn incredible piece of ancient history. You must treasure it!"))
+            giveitem(ITEM_AERODACTYLITE)
+            release
+            delay(16)
+        }
+
+        speakername("Martha")
+        msgbox(format("You must have seen it yourself, {PLAYER}. To the best of our knowledge, Ancient Cormoria was a harsh, barren and dangerous continent, ravaged by fearsome Pokémon that fought each other. Today, all we have are the damaged fossilised remains of those Pokémon. By analysing the fossils and comparing, say, a bite mark on one fossil to another's teeth, we can identify different Pokémon.\p...\pBut there was one fossil we found that was damaged in ways...in ways so horrific they...well...\pNo Pokémon we knew of could give us an answer. What kind of monstrous being could do something like that?"))
+        release
+        delay(30)
+        speakername("Martha")
+        msgbox(format("For a while this mystery - the mystery of the Ancient Terror - remained unsolved. But then, deep inside Mt. Mirroh, we found an ancient cave painting depicting a beast that matched no fossil we had uncovered... although which Pokémon it is, we don't know as of today.\p...\pThere's still much to solve, {PLAYER}.\pIf I were to hazard a guess, this Team Somber outfit might be looking to do something with this Ancient Terror, although what exactly, I can't say."))
+        release
+        delay(16)
+        speakername("Martha")
+        applymovement(1, moves(emote_exclamation_mark))
+        waitmovement(0)
+        speakername("Martha")
+        msgbox(format("Oh my! Would you look at the time? I've rambled on for too long. Apologies, {PLAYER}. I hope this information helps you in your journey.\pYou should go to Mt. Mirroh and see the cave painting for yourself."))
+
+        if (flag(FLAG_BADGE05_GET)){
+            msgbox(format("Here - take this and give it to the Greavard playing outside. It'll distract them. Hopefully they'll come home.")) 
+            release
+            giveitem(ITEM_RARE_BONE)
+            setflag(FLAG_MIRROH_GOT_OLD_BONE)
+            speakername("Martha")
+            msgbox(format("As for me, I must get back to my reading..."))
+            release
+        } else {
+            speakername("Martha")
+            msgbox(format("Now, I must do something about the Greavard playing by the market.\lPerhaps one could distract them with a bone or something...I'm sure I had one lying around...\pWhy don't you visit the Gym here meanwhile? You may still get a badge before they close.")) 
+            release
+        }
+
+        completesubquest(QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_6)
+        setflag(FLAG_MIRROHBASECAMP_HISTORIAN)
+    }
+
+    end
+}
+
+script MirrohBaseCamp_Houndstone{
+    playmoncry(SPECIES_HOUNDSTONE, CRY_MODE_NORMAL)
+    msgbox(format("Houndstone is walking slowly.\nIt's getting old now..."), MSGBOX_NPC)
+    end
+}
+
+
+
+
+
+
+
+//masterball house
+script MirrohBaseCamp_Houses_MasterballGuy{
+    if (var(VAR_MASTERBALL_QUEST) == 2){
+        msgbox(format("Hello {PLAYER}!")) 
+    }
+
+    if (var(VAR_MASTERBALL_QUEST) == 1){
+        msgbox(format("Did you get everything?"), MSGBOX_NPC)
+
+        checkitem(ITEM_CASTELIACONE)
+        if (var(VAR_RESULT) == 0) {
+            msgbox(format("You didn't bring the Mirroh Cone!\pCome back with everything."), MSGBOX_NPC) 
+            end
+        }
+        checkitem(ITEM_OLD_GATEAU)
+        if (var(VAR_RESULT) == 0) {
+            msgbox(format("You didn't bring the Apple Pie!\pCome back with everything."), MSGBOX_NPC) 
+            end
+        }        
+        checkitem(ITEM_LAVA_COOKIE)
+        if (var(VAR_RESULT) == 0) {
+            msgbox(format("You didn't bring the Lava Cookie!\pCome back with everything."), MSGBOX_NPC) 
+            end
+        }        
+
+        //if you have everything
+        removeitem(ITEM_CASTELIACONE)
+        removeitem(ITEM_OLD_GATEAU)
+        removeitem(ITEM_LAVA_COOKIE)
+
+        msgbox(format("Aha! We've got everything we need right here...\p...so first I need the crust of the pie...\n...mmm, delicious...\p...the ice cream is actually a binding agent...bound to my mouth...\p...and this cookie, you see, holds the shell...tasty shell...\p..."))
+        playfanfare(MUS_OBTAIN_ITEM)
+        waitfanfare
+        msgbox(format("And there we go! A brand-new Master Ball, just for you!\pNo, I didn't pull it out of my pocket. Are you seeing things?"), MSGBOX_NPC)
+        giveitem(ITEM_MASTER_BALL)
+        setvar(VAR_MASTERBALL_QUEST, 2)
+    }
+
+    if (var(VAR_MASTERBALL_QUEST) == 0){
+        msgbox(format("A friend of Rue's?\p...\pSo you're his new assistant. Nice to meet you, {PLAYER}!\pRue and I go way back.\nWhile he entered academia, I became a Poké Ball craftsman instead!"), MSGBOX_NPC)
+        setvar(VAR_0x8006, ITEM_MASTER_BALL)
+        showitemdescription
+        msgbox(format("A few years ago, I finally perfected my opus magnum - the Master Ball!\pLooks beautiful, doesn't it?"), MSGBOX_NPC)
+        hideitemdescription
+        msgbox(format("Since you're Rue's assistant and he's an old friend, how about I do you a favour?\pI can make you one...if you get me the right crafting components!\pLet's see...I'll need...\p...one Apple Pie...\p...one Lava Cookie...\p...and one Mirroh Cone!"))
+        release
+        delay(16)
+        applymovement(2, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("Of course these aren't for me!\nThese are for the Master Ball!\pAre you accusing me of using you?\p...\pAhem. I'll be waiting here!"))
+        release
+
+        //quest
+        setvar(VAR_MASTERBALL_QUEST, 1)
+    }
+    releaseall
+    end
+}
+
+script MirrohBaseCamp_Houses_MasterballFriend{
+    lockall
+    faceplayer
+
+    if (flag(FLAG_SKIP_BALL_CHANGER)){
+        
+    } else {
+        setflag(FLAG_SKIP_BALL_CHANGER)
+        msgbox(format("This man here is the only person in all of Cormoria who can make a Master Ball. A master of the craft!\pI'm not like him, but I've got a couple\nof tricks up my sleeve too!"))
+    }
+
+    msgbox(format("I can change the Poké Balls of your Pokémon if you bring me the Poké Ball!\pWould you like me to?"), MSGBOX_YESNO)
+
+    //Change Pokeballs
+    if (var(VAR_RESULT) == 1){
+        special(ChoosePartyMon)
+        waitstate
+        if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN){
+            msgbox(format("Come back any time!"))
+            releaseall
+            end
+        }
+
+        message(format("Now which Poké Ball should I switch to?"))
+
+        dynmultipush("Poké Ball", ITEM_POKE_BALL)
+        dynmultipush("Great Ball", ITEM_GREAT_BALL)
+        dynmultipush("Ultra Ball", ITEM_ULTRA_BALL) 
+        dynmultipush("Dive Ball", ITEM_DIVE_BALL)
+        dynmultipush("Heal Ball", ITEM_HEAL_BALL)
+        dynmultipush("Quick Ball", ITEM_QUICK_BALL)
+        dynmultipush("Luxury Ball", ITEM_LUXURY_BALL) 
+        dynmultipush("Dream Ball", ITEM_DREAM_BALL)         
+        dynmultistack(0, 0, TRUE, 6, FALSE, 0, DYN_MULTICHOICE_CB_SHOW_ITEM)
+
+        if (var(VAR_RESULT) == ITEM_POKE_BALL) {setvar(VAR_0x8005, ITEM_POKE_BALL)       bufferitemname(STR_VAR_1, ITEM_POKE_BALL)}
+        if (var(VAR_RESULT) == ITEM_GREAT_BALL) {setvar(VAR_0x8005, ITEM_GREAT_BALL)      bufferitemname(STR_VAR_1, ITEM_GREAT_BALL)}
+        if (var(VAR_RESULT) == ITEM_ULTRA_BALL) {setvar(VAR_0x8005, ITEM_ULTRA_BALL)      bufferitemname(STR_VAR_1, ITEM_ULTRA_BALL)}
+        if (var(VAR_RESULT) == ITEM_DIVE_BALL) {setvar(VAR_0x8005, ITEM_DIVE_BALL)      bufferitemname(STR_VAR_1, ITEM_DIVE_BALL)}
+        if (var(VAR_RESULT) == ITEM_HEAL_BALL) {setvar(VAR_0x8005, ITEM_HEAL_BALL)       bufferitemname(STR_VAR_1, ITEM_HEAL_BALL)}
+        if (var(VAR_RESULT) == ITEM_QUICK_BALL) {setvar(VAR_0x8005, ITEM_QUICK_BALL)      bufferitemname(STR_VAR_1, ITEM_QUICK_BALL)}
+        if (var(VAR_RESULT) == ITEM_LUXURY_BALL) {setvar(VAR_0x8005, ITEM_LUXURY_BALL)      bufferitemname(STR_VAR_1, ITEM_LUXURY_BALL)}
+        if (var(VAR_RESULT) == ITEM_DREAM_BALL) {setvar(VAR_0x8005, ITEM_DREAM_BALL)      bufferitemname(STR_VAR_1, ITEM_DREAM_BALL)}
+
+        //check if you have the ball
+        checkitem(VAR_0x8005)
+        
+        if (var(VAR_RESULT) == 0){
+            msgbox(format("You don't have a {STR_VAR_1}.\pI can switch Poké Balls but I can't make them appear out of thin air!"))
+            releaseall
+            end
+        }
+        removeitem(VAR_0x8005)
+        msgbox(format("{PLAYER} handed a {STR_VAR_1} over to the craftsman."), MSGBOX_SIGN)
+        special(SetMonPokeball)
+        msgbox(format("...\p..."))
+        release
+        playse(SE_BALL)
+        msgbox(format("...and done! Come back if you need me to do any more!"))
+    } else {
+        msgbox(format("Come back any time!"))
+    }
+    
+    releaseall
+    end
+}
+
+

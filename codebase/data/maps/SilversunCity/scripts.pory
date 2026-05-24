@@ -1,0 +1,252 @@
+raw`
+    .set LOCALID_DET1, 7
+    .set LOCALID_DET2, 6
+    .set LOCALID_TENEBRIS, 8
+    .set LOCALID_KOHLA, 9
+`
+
+mapscripts SilversunCity_MapScripts{
+    MAP_SCRIPT_ON_FRAME_TABLE[
+        VAR_TEMP_0, 0: SilversunCity_OnFrame
+    ]
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_SILVERSUN_CITY)
+    }
+}
+
+
+script SilversunCity_OnFrame{
+    if (flag(FLAG_SILVERSUN_SOMBERHQ_MAIN)){
+        if (flag(FLAG_SILVERSUN_NEXTQUEST)){
+            //nothing
+        } else {
+            //do the stuff
+                //Dialogue
+                applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+                applymovement(LOCALID_DET1, moves(emote_exclamation_mark))
+                applymovement(LOCALID_DET2, moves(emote_exclamation_mark))
+                waitmovement(0)
+                delay(30)
+
+                speakername("Detective")
+                msgbox(format("Rue!? Are you okay?"))
+                speakername("Rue")
+                msgbox(format("All well, thanks to {PLAYER}."))
+                speakername("Detective")
+                msgbox(format("We...we thought it was Professor Tenebris with them, not you!\lAt any rate, {PLAYER}, this is a splendid outcome. You saved your Assistant Professor from any harm."))
+                release
+                applymovement(LOCALID_DET1, moves(emote_question_mark))
+                applymovement(LOCALID_DET2, moves(emote_question_mark))
+                waitmovement(0)
+                speakername("Detective")
+                msgbox(format("How did they get to you, Rue?"))
+                release
+                applymovement(LOCALID_TENEBRIS, moves(emote_exclamation_mark))
+                waitmovement(0)
+                delay(16)
+                speakername("Rue")
+                msgbox(format("Oh, it was terrible! They barged into our lab and started threatening everyone unless we handed over the Dreamalyser blueprints! I managed to hold them off while the other research associates escaped, but they overpowered me and forced me to hand over the blueprints..."))
+                release
+                delay(30)
+                speakername("Detective")
+                msgbox(format("Spilt milk. Don't fret over it now.\nWhy do they want the Dreamalyser?"))
+                release
+                delay(16)
+                speakername("Rue")
+                msgbox(format("Just like we heard from {PLAYER} about being transported to Ancient Cormoria, they heard about it from\ltheir grunt who went too.\pI think they called her Gabrielle.\pAnd now they want to use the Dreamalyser to control the power of the dreamstone! Then they'll be able to enter the past and...what exactly they want to do there - I have no clue."))
+                release
+                applymovement(LOCALID_DET1, moves(emote_question_mark))
+                applymovement(LOCALID_DET2, moves(emote_question_mark))
+                waitmovement(0)
+                delay(16)
+                msgbox_delay("Detective", format("So they want to build a Dreamalyser\nand use it to go to Ancient Cormoria?"))
+                release
+                delay(16)
+                msgbox_delay("Rue", format("Yes."))
+                msgbox_delay("Detective", format("There must be something we're missing. What's there in the past?\nWhat could they want?\p...\p...\p...and where's Kohla when we need him? Rue, he was chasing your leads.\lHe's nowhere to be seen now.\pSigh...what good is an ace rookie if he's not even around when we need him?"))
+                delay(16)
+                msgbox_delay("Detective", format("Rue - go back home. You've had a hard time. Take care of yourself."))
+                release
+                delay(16)
+                speakername("Rue")
+                msgbox(format("Y-yes, I better...see you all soon. Thanks again {PLAYER}."))
+                release
+
+                //rue walks out
+                applymovement(LOCALID_TENEBRIS, moves(walk_down * 7))
+                waitmovement(0)
+                removeobject(LOCALID_TENEBRIS)
+                applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left face_up))
+                speakername("Detective")
+                msgbox(format("{PLAYER} - to find out what Team Somber wants with the past, we need to find out more about Ancient Cormoria.\pI have an old acquaintance at the Mirroh Base Camp. She was a reputed historian in her time and now manages the graveyard at the base camp.\pPlease go there and tell her everything you know.\pGot it? Head to the Mirroh Base Camp, talk to the lady who manages the graveyard, and find out what Team Somber seeks in Ancient Cormoria.\pYou'll need this to get there."))
+                release
+                delay(8)
+                setflag(FLAG_SYS_GOT_STRENGTH)
+                giveitem(ITEM_HM04)
+                release
+                delay(8)
+                speakername("Detective")
+                msgbox(format("Now get on it, pronto!\p...\pSeriously, where is Kohla? He should be done chasing Rue's leads by now...we've got to go find him."))
+                release
+
+            //Fade and remove objects
+            fadescreenswapbuffers(FADE_TO_BLACK)
+            removeobject(LOCALID_DET1)
+            removeobject(LOCALID_DET2)
+            fadescreenswapbuffers(FADE_FROM_BLACK)
+
+            //Set flag
+            setflag(FLAG_HIDE_SILVERSUN_PROF)
+            setflag(FLAG_SILVERSUN_NEXTQUEST)
+            subquestmenu(QUEST_MENU_COMPLETE_QUEST, QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_4)
+            completesubquest(QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_5)
+
+            //End
+            releaseall
+            end
+        }
+    }
+}
+
+
+
+//Main detective encounter
+script SilversunCity_EventScript_Detectives{
+    lockall
+
+    if (flag(FLAG_SILVERSUN_DETECTIVES_ENTER)){
+        speakername("Detective")
+        msgbox(format("Have you found the Professor yet?\pNo?\pThen what are you standing here for?"))
+    } else {
+
+        //talk
+        //first explain they're in disguise
+        speakername("Detective")
+        msgbox(format("...\p...\p..."))
+        release
+        applymovement(LOCALID_DET1, moves(emote_exclamation_mark))
+        applymovement(LOCALID_DET2, moves(emote_exclamation_mark))
+        waitmovement(0)
+        delay(24)
+
+        speakername("Detective")
+        msgbox(format("Can't you see we're in disguise, you idiot? You'll attract attention!\pBe casual.\nGo admire those flowerpots.")) 
+        release
+
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right * 2 walk_up)) 
+        waitmovement(0)
+        delay(24)
+
+        speakername("Detective")
+        msgbox(format("Better. Now what updates have you got?\p...\pWhat!? You overheard a Team Somber grunt talking about the Pofessor?"))
+        release
+        delay(30)
+        speakername("Detective")
+        msgbox(format("This all but confirms our suspicions - Team Somber must be holding the Professor hostage! That's how they learned about the dreamstones.\pAnd if you saw them here, it means the Professor is trapped inside their headquarters!\p{PLAYER}, it's clear what to do.\pThe next task is to find Team Somber's HQ and free the Professor.\pRue has given us a separate lead that Kohla is following up on, so you're on your own on this one.\pGood luck."))
+        release
+
+        //setvars and quest
+        setflag(FLAG_SILVERSUN_DETECTIVES_ENTER) 
+        completesubquest(QUEST_DREAMSTONE_MYSTERIES, SUB_QUEST_4)
+
+    }
+
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NPCs
+script SilversunCity_NPC1{
+    msgbox(format("Gloria, the city's Gym Leader is also a famous actress! Her work centers around the dark and eerie."), MSGBOX_NPC)
+    end
+}
+script SilversunCity_NPC2{
+    msgbox(format("I hear the theater has connections with the underground. People have seen criminal types walk in and out of the backstage area."), MSGBOX_NPC)
+    end
+}
+script SilversunCity_NPC3{
+    msgbox(format("I'm so sad I couldn't get tickets for tonights show! It's supposed to be a live performance of some sort."), MSGBOX_NPC)  
+    end
+}
+script SilversunCity_NPC4{
+    msgbox(format("We keep seeing wild Grimer around...\nthey come from the sewers, I bet."), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_NPC5{
+    msgbox(format("There's a reason nobody lives near the sewers - and not because it stinks!\pThey say a demon Pokémon haunts the sewers. It's even scarier than all the POISON-type Pokémon down there!\pThey call it the Sewer Scourge, and apparently, before it attacks you,\lyou can hear a spooky engine revving!"), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_NPC6{
+    msgbox(format("I caught my Vivillon in Mt. Mirroh! It's always hungry and keeps eating my Lava Cookies..."), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_NPC7{
+    msgbox(format("Silversun City has a lovely theater but no fine dining! I'd love a fancy spot like the Pelluca Restaurant here."), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_NPC8{
+    msgbox(format("Did you hear about the Mega Sharpedo\nin the Hoya River? Apparently it's headed to Pelluca City."), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_Murkrow{
+    playmoncry(SPECIES_MURKROW, CRY_MODE_NORMAL)
+    msgbox(format("Murkrow glares at you. It's as if its saying, 'Get out of the way!'"), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_Meowth{
+    playmoncry(SPECIES_MEOWTH, CRY_MODE_NORMAL)
+    msgbox(format("Meowth is skulking around the back of the Silversun Theater. It looks angry - better be careful!"), MSGBOX_NPC)
+    end
+}
+
+script SilversunCity_Vivillon{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_VIVILLON, CRY_MODE_NORMAL)
+
+    if (flag(FLAG_SILVERSUN_VIVILLON)){
+        msgbox(format("Vivillon looks hungry! It's eyeing your bag...better move away quickly!"))
+    } else {
+        checkitem(ITEM_LAVA_COOKIE)
+        if (var(VAR_RESULT) == 1){
+            msgbox(format("Vivillon looks hungry! It's eyeing your bag...\pGive Vivillon a Lava Cookie?"), MSGBOX_YESNO)
+            if (var(VAR_RESULT) == 1){
+                playmoncry(SPECIES_VIVILLON, CRY_MODE_NORMAL)
+                msgbox(format("Vivillon chomped the cookie down!\pIt flutters towards you and puts something in your bag..."))
+                giveitem(ITEM_SILVER_POWDER)
+                msgbox(format("Thanks Vivillon!"))
+                release
+                setflag(FLAG_SILVERSUN_VIVILLON)
+            } else {
+                msgbox(format("Better move away quickly!"))
+            }
+        } else {
+            msgbox(format("Vivillon looks hungry! It's eyeing your bag...better move away quickly!"))
+        }
+    }
+    releaseall
+    end
+}
+
+
+
+

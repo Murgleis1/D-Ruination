@@ -1,0 +1,107 @@
+mapscripts CarabrueTown_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_CARABRUE_TOWN)
+    }
+
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_0, 0: CarabrueTown_PostGame
+    ]
+}
+
+//FLAG_SKIP_POSTGAME_MSG
+//post-game message
+script CarabrueTown_PostGame{
+    setvar(VAR_TEMP_0, 1)
+    if (flag(FLAG_SKIP_POSTGAME_MSG)) {releaseall end}
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        
+        msgbox(format("Thank you for playing Pokémon Dreamstone Mysteries and\lcongratulations on becoming\lthe Champion of Cormoria!\pBut tell me - is a Champion truly a Champion unless they've explored\lall of Cormoria?\pWhy don't you try completing\nthe side-quests and catching\lthe 4 Mythical Pokémon available?"), MSGBOX_POKENAV)
+
+        setflag(FLAG_SKIP_POSTGAME_MSG)
+        releaseall
+        end
+    }
+
+}
+
+
+script CarabrueTown_EventScript_PoliceRoadBlock{
+
+    lockall
+
+    if (!flag(FLAG_UNUSED_0x020)) {
+        speakername("Detective")
+        msgbox(format("Sorry, this road is temporarily closed. We're investigating Professor Tenebris' disappearance."))
+    } else {
+        speakername("Detective")
+        msgbox(format("Is this the evidence from the lab? Thanks, kid. We'll take it from here.\p..."))
+        release
+        applymovement(1, moves(emote_exclamation_mark))
+        applymovement(2, moves(emote_exclamation_mark))     
+        delay(20)   
+        speakername("Detective")
+        msgbox(format("Hold on - this isn't evidence!"))
+        release
+
+        giveitem(ITEM_EXP_SHARE)
+        speakername("Detective")
+        msgbox(format("What's the matter with you guys?\pCan't keep it together without the Professor around to help you?\pWell thanks anyway, kid. See you."))
+        release
+        fadescreenswapbuffers(FADE_TO_BLACK)
+
+        removeobject(1)
+        removeobject(2) 
+        playse(SE_EXIT)
+        delay(16)
+        fadescreenswapbuffers(FADE_FROM_BLACK)
+
+        removeitem(ITEM_LAB_WELCOMEPACKAGE)
+        setflag(FLAG_CARABRUE_POLICE)
+    }
+
+    releaseall
+
+}
+
+
+
+script CarabrueTown_Sign_ChampionHouse{
+
+    if (flag(FLAG_SYS_GAME_CLEAR)){
+        msgbox(format("There's no lock. Open the door?"), MSGBOX_YESNO)
+        release
+        if (var(VAR_RESULT) == 0){end}
+        playse(SE_DOOR)
+        warp(MAP_THE_OTHER_HOUSE, 2, 8)
+        releaseall
+        end
+    }
+
+    lockall
+    msgbox(format("This house is locked."))
+    releaseall
+    end
+}
+
+script CarabrueTown_EventScript_NPC1{
+    if (flag(FLAG_CARABRUE_POLICE)){
+        msgbox(format("Looks like the police went away. I hope they got the evidence they needed!"), MSGBOX_NPC)
+    } else {
+        msgbox(format("Psst - {PLAYER}! See those detectives standing over there?\pThey came all the way from Fennilahl Town to investigate the Professor's disappearance. They're blocking access to Route 1 while they investigate."), MSGBOX_NPC)
+    }
+    end
+}
+
+script CarabrueTown_EventScript_NPC2{
+    msgbox(format("My Chikorita and I love how cozy Carabrue Town is! That's because it's nestled deep in the hills of Cormoria."), MSGBOX_NPC)
+    end
+}
+
+script CarabrueTown_Chikorita{
+    playmoncry(SPECIES_CHIKORITA, CRY_MODE_NORMAL)
+    msgbox(format("Chikorita is happy!"), MSGBOX_NPC)
+    end
+}
+
+
+

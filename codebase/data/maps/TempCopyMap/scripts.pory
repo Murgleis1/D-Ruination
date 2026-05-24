@@ -1,0 +1,1416 @@
+mapscripts TempCopyMap_MapScripts{}
+
+script Common_EventScript_NurseDemo{
+    lockall
+    faceplayer
+    msgbox(format("This is the end of the demo. Thank you for playing! Please drop any feedback and bug reports on Discord, and stay tuned for further updates!"))
+    releaseall
+    end
+}
+
+script Common_EventScript_SaveGameBeforeBattle{
+    msgbox(format("A formidable challenge awaits..."))
+	special(SaveGame)
+	waitstate
+	release
+	return
+}
+
+script Common_EventScript_SaveGameBeforeSomber{
+    msgbox(format("Tension fills the air..."))
+	special(SaveGame)
+	waitstate
+	release
+	return
+}
+
+script Common_EventScript_SaveGameBeforeLegendary{
+    msgbox(format("A once-in-a-lifetime chance..."))
+	special(SaveGame)
+	waitstate
+	release
+	return
+}
+
+
+
+//ALL COMMON EVENT SCRIPTS GO HERE
+script Common_EventScript_Follower_Cheat{
+	lock
+	bufferlivemonnickname(0)
+	playfirstmoncry    
+    message(format("What would you like to do?"))
+    waitmessage
+    dynmultichoice(0, 0, FALSE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Portable PC", "Team Heal", "Apply Status", "Cancel")    
+    release
+    if (var(VAR_RESULT) == 0){
+        special(ShowPokemonStorageSystemPC)
+        waitstate        
+    }
+
+    if (var(VAR_RESULT) == 1){
+        call(Common_EventScript_OutOfCenterPartyHeal)
+    }
+
+    if (var(VAR_RESULT) == 2){
+        goto(Debug_EventScript_InflictStatus1_Single)
+
+        //choose mon
+        special(ChoosePartyMon)
+        waitstate
+
+        //check selection
+        if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN){
+            release
+            end
+        }
+    }
+
+    releaseall
+    end
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script Common_EventScript_MintVendingMachine{
+
+    msgbox(format("Swipe your Trainer Card?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 0) {
+        release
+        end
+    }
+
+    checkmoney(200)
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("You must have at least ¥200 to purchase any mints."))
+        release
+        end
+    }
+    goto(MintVendingMachine_CheckBadge)
+}
+
+script MintVendingMachine_CheckBadge{
+
+    if (flag(FLAG_BADGE06_GET)){
+        goto(Mart_Mints_SixBadges)
+    } else {
+        if (flag(FLAG_BADGE05_GET)){
+           goto(Mart_Mints_FiveBadges)
+        } else {
+            if (flag(FLAG_BADGE04_GET)) {
+                goto(Mart_Mints_FourBadges)
+            } else {
+                if (flag(FLAG_BADGE03_GET)) {
+                    goto(Mart_Mints_ThreeBadges)
+                } else {
+                    if (flag(FLAG_BADGE02_GET)) {
+                        goto(Mart_Mints_TwoBadges)
+                    } else {
+                        if (flag(FLAG_BADGE01_GET)) {
+                            goto(Mart_Mints_OneBadge)
+                        } else {
+                            goto(Mart_Mints_NoBadges)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    release
+    end
+}
+
+
+// lonely addy brave naughty bold -> increase attack
+script Mart_Mints_NoBadges{ 
+    showmoneybox(18, 0)       
+    message(format("TRAINER: {PLAYER}. BADGES: 0\nAll mints are ¥200."))
+    waitmessage
+    dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Impish Mint", "Calm Mint", "Relaxed Mint")
+    copyvar(VAR_TEMP_3, VAR_RESULT)
+    hidemoneybox
+    goto(Mart_MintPurchaseDecision)
+}
+script Mart_Mints_OneBadge{
+    showmoneybox(18, 0)       
+    message(format("TRAINER: {PLAYER}. BADGES: 1\nAll mints are ¥200."))
+    waitmessage
+    dynmultichoice(0, 0, FALSE, 6, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Impish Mint", "Calm Mint", "Relaxed Mint", "Bold Mint", "Gentle Mint",
+        "Careful Mint")
+    copyvar(VAR_TEMP_3, VAR_RESULT)
+    hidemoneybox
+    goto(Mart_MintPurchaseDecision)
+}
+script Mart_Mints_TwoBadges{
+    showmoneybox(18, 0)
+    message(format("TRAINER: {PLAYER}. BADGES: 2\nAll mints are ¥200."))
+    waitmessage
+    dynmultichoice(0, 0, FALSE, 6, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Impish Mint", "Calm Mint", "Relaxed Mint", "Bold Mint", "Gentle Mint",
+        "Careful Mint", "Sassy Mint", "Serious Mint", "Brave Mint")
+    copyvar(VAR_TEMP_3, VAR_RESULT)
+    hidemoneybox
+    goto(Mart_MintPurchaseDecision)
+}
+script Mart_Mints_ThreeBadges{
+    showmoneybox(18, 0)
+    message(format("TRAINER: {PLAYER}. BADGES: 3\nAll mints are ¥200."))
+    waitmessage
+    dynmultichoice(0, 0, FALSE, 6, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Impish Mint", "Calm Mint", "Relaxed Mint", "Bold Mint", "Gentle Mint",
+        "Careful Mint", "Sassy Mint", "Serious Mint", "Brave Mint", "Naive Mint", 
+        "Hasty Mint", "Lax Mint")
+    copyvar(VAR_TEMP_3, VAR_RESULT)
+    hidemoneybox
+    goto(Mart_MintPurchaseDecision)
+}
+script Mart_Mints_FourBadges{
+    showmoneybox(18, 0)
+    message(format("TRAINER: {PLAYER}. BADGES: 4\nAll mints are ¥200."))
+    waitmessage
+    dynmultichoice(0, 0, FALSE, 6, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Impish Mint", "Calm Mint", "Relaxed Mint", "Bold Mint", "Gentle Mint",
+        "Careful Mint", "Sassy Mint", "Serious Mint", "Brave Mint", "Naive Mint", 
+        "Hasty Mint", "Lax Mint", "Mild Mint", "Rash Mint",
+        "Timid Mint")
+    copyvar(VAR_TEMP_3, VAR_RESULT)
+    hidemoneybox
+    goto(Mart_MintPurchaseDecision)
+}
+script Mart_Mints_FiveBadges{
+    showmoneybox(18, 0)
+    message(format("TRAINER: {PLAYER}. BADGES: 5\nAll mints are ¥200."))
+    waitmessage    
+    dynmultichoice(0, 0, FALSE, 6, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Impish Mint", "Calm Mint", "Relaxed Mint", "Bold Mint", "Gentle Mint",
+        "Careful Mint", "Sassy Mint", "Serious Mint", "Brave Mint", "Naive Mint", 
+        "Hasty Mint", "Lax Mint", "Mild Mint", "Rash Mint",
+        "Timid Mint", "Naughty Mint", "Quiet Mint", "Lonely Mint")
+    copyvar(VAR_TEMP_3, VAR_RESULT)
+    hidemoneybox
+    goto(Mart_MintPurchaseDecision)
+}
+script Mart_Mints_SixBadges{
+    showmoneybox(18, 0)
+
+    if (flag(FLAG_BADGE08_GET)){
+        message(format("TRAINER: {PLAYER}. BADGES: 8\nAll mints are ¥200."))
+        waitmessage
+    } else {
+        if (flag(FLAG_BADGE07_GET)){
+        message(format("TRAINER: {PLAYER}. BADGES: 7\nAll mints are ¥200."))
+            waitmessage   
+        } else {
+            message(format("TRAINER: {PLAYER}. BADGES: 6\nAll mints are ¥200."))
+            waitmessage
+        }
+    }
+
+    dynmultichoice(0, 0, FALSE, 6, 0, DYN_MULTICHOICE_CB_NONE, 
+        "Impish Mint", "Calm Mint", "Relaxed Mint", "Bold Mint", "Gentle Mint",
+        "Careful Mint", "Sassy Mint", "Serious Mint", "Brave Mint", "Naive Mint", 
+        "Hasty Mint", "Lax Mint", "Mild Mint", "Rash Mint",
+        "Timid Mint", "Naughty Mint", "Quiet Mint", "Lonely Mint", "Jolly Mint",
+        "Adamant Mint", "Modest Mint")
+    copyvar(VAR_TEMP_3, VAR_RESULT)
+    hidemoneybox
+    goto(Mart_MintPurchaseDecision)
+
+    hidemoneybox
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+//var 0x8006 is the item
+        
+script Mart_MintPurchaseDecision{
+    if (var(VAR_TEMP_3) == 0) {setvar(VAR_0x8006, ITEM_IMPISH_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 1) {setvar(VAR_0x8006, ITEM_CALM_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 2) {setvar(VAR_0x8006, ITEM_RELAXED_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 3) {setvar(VAR_0x8006, ITEM_BOLD_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 4) {setvar(VAR_0x8006, ITEM_GENTLE_MINT) goto(MintPurchase_Common)}
+
+    if (var(VAR_TEMP_3) == 5) {setvar(VAR_0x8006, ITEM_CAREFUL_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 6) {setvar(VAR_0x8006, ITEM_SASSY_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 7) {setvar(VAR_0x8006, ITEM_SERIOUS_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 8) {setvar(VAR_0x8006, ITEM_BRAVE_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 9) {setvar(VAR_0x8006, ITEM_NAIVE_MINT) goto(MintPurchase_Common)}
+
+    if (var(VAR_TEMP_3) == 10) {setvar(VAR_0x8006, ITEM_HASTY_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 11) {setvar(VAR_0x8006, ITEM_LAX_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 12) {setvar(VAR_0x8006, ITEM_MILD_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 13) {setvar(VAR_0x8006, ITEM_RASH_MINT) goto(MintPurchase_Common)}
+
+    if (var(VAR_TEMP_3) == 14) {setvar(VAR_0x8006, ITEM_TIMID_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 15) {setvar(VAR_0x8006, ITEM_NAUGHTY_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 16) {setvar(VAR_0x8006, ITEM_QUIET_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 17) {setvar(VAR_0x8006, ITEM_LONELY_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 18) {setvar(VAR_0x8006, ITEM_JOLLY_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 19) {setvar(VAR_0x8006, ITEM_ADAMANT_MINT) goto(MintPurchase_Common)}
+    if (var(VAR_TEMP_3) == 20) {setvar(VAR_0x8006, ITEM_MODEST_MINT) goto(MintPurchase_Common)}
+
+    release
+    end
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script MintPurchase_Common{
+    showitemdescription
+
+    msgbox(format("Confirm purchase?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        hideitemdescription
+        playse(SE_VEND)
+        waitse
+        giveitem(VAR_0x8006)
+        removemoney(200)
+        releaseall
+        end
+    }
+
+    hideitemdescription
+    goto(MintVendingMachine_CheckBadge)
+
+    end
+}
+
+
+
+
+script MintPurchase_Impish{
+    showitemdescription
+
+    msgbox(format("Confirm purchase?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        giveitem(VAR_0x8006)
+        removemoney(200)
+    }
+    goto(MintVendingMachine_CheckBadge)
+
+    end
+}
+
+script MintPurchase_Calm{
+    removemoney(200)
+    giveitem(ITEM_CALM_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Relaxed{
+    removemoney(200)
+    giveitem(ITEM_RELAXED_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Modest{
+    removemoney(200)
+    giveitem(ITEM_MODEST_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Gentle{
+    removemoney(200)
+    giveitem(ITEM_GENTLE_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Careful{
+    removemoney(200)
+    giveitem(ITEM_CAREFUL_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Sassy{
+    removemoney(200)
+    giveitem(ITEM_SASSY_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Naughty{
+    removemoney(200)
+    giveitem(ITEM_NAUGHTY_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Timid{
+    removemoney(200)
+    giveitem(ITEM_TIMID_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Hasty{
+    removemoney(200)
+    giveitem(ITEM_HASTY_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Brave{
+    removemoney(200)
+    giveitem(ITEM_BRAVE_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Bold{
+    removemoney(200)
+    giveitem(ITEM_BOLD_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Adamant{
+    removemoney(200)
+    giveitem(ITEM_ADAMANT_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Mild{
+    removemoney(200)
+    giveitem(ITEM_MILD_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Rash{
+    removemoney(200)
+    giveitem(ITEM_MILD_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Naive{
+    removemoney(200)
+    giveitem(ITEM_NAIVE_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Lax{
+    removemoney(200)
+    giveitem(ITEM_LAX_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Lonely{
+    removemoney(200)
+    giveitem(ITEM_LONELY_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Quiet{
+    removemoney(200)
+    giveitem(ITEM_QUIET_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Jolly{
+    removemoney(200)
+    giveitem(ITEM_JOLLY_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+script MintPurchase_Serious{
+    removemoney(200)
+    giveitem(ITEM_SERIOUS_MINT)
+    goto(MintVendingMachine_CheckBadge)
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script Common_EventScript_NurseJoyOnRoute{
+    checkitem(ITEM_HEAL_PASS)
+    if (var(VAR_RESULT) == 1){
+        //heal
+        msgbox(format("Should I heal your Pokémon?\nYou can come back later if you wish."), MSGBOX_YESNO)
+
+        if (var(VAR_RESULT) == 1){
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            removeitem(ITEM_HEAL_PASS)
+            
+            msgbox(format("Let me heal your Pokémon."))
+            release
+            call(Common_EventScript_OutOfCenterPartyHeal)
+            msgbox(format("Stay safe out there!"))
+            release
+            
+        } else {
+            msgbox(format("Come back any time!"))
+            release
+        }
+
+    } else {
+        //don't heal
+        msgbox(format("Sorry, you don't have a Heal Pass. Please visit a Pokémon Center to receive a Heal Pass."))
+        release
+    }
+    return
+}
+
+script Common_EventScript_ChanseyOnRoute{
+    lockall
+    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
+    faceplayer
+    msgbox(format("Chansey is happy as always!"))
+    release
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//GRETA ROUTE 5
+
+text Common_Text_Greta_Comecome{
+    format("Come, come. I've got some great stuff from...well, you can't ask a magician to reveal her secrets, can you?")
+}
+
+script Route5_Greta_AskToShow{
+    speakername("Greta")
+    msgbox(format("Wanna buy anything?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1) {goto(Route5_Greta_ShowItemsForSale)}
+    
+    msgbox(format("Bummer!"))
+    release
+    
+    goto(Route5_Greta_GottaGo)
+}
+
+script Route5_Greta_ShowItemsForSale{
+    showmoneybox(18, 0)
+    speakername("Greta")
+    message(format("The egg is ¥10,000. The rock is ¥5,000. The fish is only ¥100!"))    
+    waitmessage
+//	.macro _dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req argv:vararg
+    dynmultichoice(0, 0, FALSE, 5, 0, DYN_MULTICHOICE_CB_NONE, "Strange Egg", "Mysterious Rock", "Ugly Fish")
+    hidemoneybox
+    if (var(VAR_RESULT) == 0) {goto(Route5_Greta_StrangeEgg)}
+    if (var(VAR_RESULT) == 1) {goto(Route5_Greta_MysteriousRock)}
+    if (var(VAR_RESULT) == 2) {goto(Route5_Greta_UglyFish)}
+    
+    goto(Route5_Greta_AskToShow)
+
+}
+
+script Route5_Greta_StrangeEgg{
+    checkmoney(10000)
+    if (var(VAR_RESULT) == 0){     
+        speakername("Greta")  
+        msgbox(format("Hey! You can't afford this!"))
+        release
+        goto(Route5_Greta_ShowItemsForSale)
+    } else {
+        speakername("Greta")
+        msgbox(format("A discerning choice! You sure?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            removemoney(10000)
+            giveegg(SPECIES_HONEDGE)
+            msgbox(format("{PLAYER} received a Strange Egg from Greta."), MSGBOX_SIGN)
+            release
+            speakername("Greta")
+            msgbox(format("Good doing business with you!\nNow, what about -"))
+            goto(Route5_Greta_GottaGo)
+        } else {
+            goto(Route5_Greta_ShowItemsForSale)
+        }
+    }
+}
+
+script Route5_Greta_UglyFish{
+    checkmoney(100)
+    if (var(VAR_RESULT) == 0){   
+        speakername("Greta")    
+        msgbox(format("Hey! You can't afford this!"))
+        release
+        goto(Route5_Greta_ShowItemsForSale)
+    } else {
+        speakername("Greta")
+        msgbox(format("A...budget-friendly choice! You sure?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            removemoney(100)
+            givemon(SPECIES_FEEBAS, 5)
+            msgbox(format("{PLAYER} received a Feebas from Greta."), MSGBOX_SIGN)
+            release
+            speakername("Greta")
+            msgbox(format("Good doing business with you!\nNow, what about -"))
+            goto(Route5_Greta_GottaGo)
+        } else {
+            goto(Route5_Greta_ShowItemsForSale)            
+        }
+    }
+}
+
+script Route5_Greta_MysteriousRock{
+    checkmoney(5000)
+    if (var(VAR_RESULT) == 0){     
+        speakername("Greta")  
+        msgbox(format("Hey! You can't afford this!"))
+        release
+        goto(Route5_Greta_ShowItemsForSale)
+    } else {
+        speakername("Greta")
+        msgbox(format("A reasonable choice! You sure?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            removemoney(5000)
+            giveitem(ITEM_ODD_KEYSTONE)
+            speakername("Greta")
+            msgbox(format("Good doing business with you!\nNow, what about -"))
+            goto(Route5_Greta_GottaGo)
+        } else {
+            goto(Route5_Greta_ShowItemsForSale)            
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//GRETA PELLUCA
+
+script PellucaCity_Greta_AskToShow{
+    speakername("Greta")
+    msgbox(format("Wanna buy anything?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1) {goto(PellucaCity_Greta_ShowItemsForSale)}
+
+    hidemoneybox
+    speakername("Greta")
+    msgbox(format("Bummer!"))
+    release
+    
+    goto(PellucaCity_Greta_GottaGo)
+}
+
+script PellucaCity_Greta_ShowItemsForSale{
+    showmoneybox(18, 0)
+    speakername("Greta")
+    message(format("You won't find these at the Game Corner! For you I can do ¥5200."))    
+    waitmessage
+//	.macro _dynmultichoice left:req, top:req, ignoreBPress:req, maxBeforeScroll:req, shouldSort:req, initialSelected:req, callbacks:req argv:vararg
+    dynmultichoice(0, 0, FALSE, 5, 0, DYN_MULTICHOICE_CB_NONE, "Dusk Stone", "Prism Scale", "Dawn Stone")
+    hidemoneybox
+    if (var(VAR_RESULT) == 0) {goto(PellucaCity_Greta_Item_A)}
+    if (var(VAR_RESULT) == 1) {goto(PellucaCity_Greta_Item_B)}
+    if (var(VAR_RESULT) == 2) {goto(PellucaCity_Greta_Item_C)}
+ 
+    goto(PellucaCity_Greta_AskToShow)
+
+}
+
+script PellucaCity_Greta_Item_A{
+    checkmoney(5200)
+    if (var(VAR_RESULT) == 0){       
+        speakername("Greta")
+        msgbox(format("Hey! You can't afford this!"))
+        release
+        goto(PellucaCity_Greta_ShowItemsForSale)
+    } else {
+        setvar(VAR_0x8006, ITEM_DUSK_STONE)
+        showitemdescription        
+        speakername("Greta")
+        msgbox(format("A dark choice! You sure?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            hideitemdescription
+            removemoney(5200)
+            giveitem(ITEM_DUSK_STONE)
+            speakername("Greta")
+            msgbox(format("Good doing business with you!\nNow, what about -"))
+            goto(PellucaCity_Greta_GottaGo)
+        } else {
+            hideitemdescription
+            goto(PellucaCity_Greta_ShowItemsForSale)            
+        }
+    }
+}
+
+script PellucaCity_Greta_Item_B{
+    checkmoney(5200)
+    if (var(VAR_RESULT) == 0){       
+        speakername("Greta")
+        msgbox(format("Hey! You can't afford this!"))
+        release
+        goto(PellucaCity_Greta_ShowItemsForSale)
+    } else {
+        setvar(VAR_0x8006, ITEM_PRISM_SCALE)
+        showitemdescription
+        speakername("Greta")
+        msgbox(format("A brilliant choice! You sure?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            hideitemdescription
+            removemoney(5200)
+            giveitem(ITEM_PRISM_SCALE)
+            speakername("Greta")
+            msgbox(format("Good doing business with you!\nNow, what about -"))
+            goto(PellucaCity_Greta_GottaGo)
+        } else {
+            hideitemdescription
+            goto(PellucaCity_Greta_ShowItemsForSale)            
+        }
+    }
+}
+
+script PellucaCity_Greta_Item_C{
+    checkmoney(5200)
+    if (var(VAR_RESULT) == 0){    
+        speakername("Greta")   
+        msgbox(format("Hey! You can't afford this!"))
+        release
+        goto(PellucaCity_Greta_ShowItemsForSale)
+    } else {
+        setvar(VAR_0x8006, ITEM_DAWN_STONE)
+        showitemdescription
+        speakername("Greta")
+        msgbox(format("A cool choice! You sure?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == 1){
+            hideitemdescription
+            removemoney(5200)
+            giveitem(ITEM_DAWN_STONE)
+            speakername("Greta")
+            msgbox(format("Good doing business with you!\nNow, what about -"))
+            goto(PellucaCity_Greta_GottaGo)
+        } else {
+            hideitemdescription
+            goto(PellucaCity_Greta_ShowItemsForSale)            
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//List of statues: (4 per line) (10 total)
+//route1, ceram, galecrest/route 5, celebi
+//sewers, hoya river north, route 6 (surf), graveyard
+//lily pond, route 8
+
+
+script AncientStatue_Route1{
+    lockall
+    if (flag(FLAG_STATUE_ROUTE1)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_ROUTE1) goto(AncientStatue_FirstTime)}
+    end    
+}
+
+script AncientStatue_Gastree{
+    msgbox(format("It's a statue of an ancient Pokémon..."))
+    release
+    end
+}
+
+script AncientStatue_Ceram{
+    lockall
+    if (flag(FLAG_STATUE_CERAM)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_CERAM) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_Galecrest{
+    lockall
+    if (flag(FLAG_STATUE_GALECREST)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_GALECREST) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_Celebi{
+    lockall
+    if (flag(FLAG_STATUE_CELEBI)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_CELEBI) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_Sewers{
+    lockall
+    if (flag(FLAG_STATUE_SEWERS)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_SEWERS) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_Route6{
+    lockall
+    if (flag(FLAG_STATUE_ROUTE6)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_ROUTE6) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_Graveyard{
+    lockall
+    if (flag(FLAG_STATUE_GRAVEYARD)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_GRAVEYARD) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_LilyPond{
+    lockall
+    if (flag(FLAG_STATUE_LILYPOND)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_LILYPOND) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_Route8{
+    lockall
+    if (flag(FLAG_STATUE_ROUTE8)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_ROUTE8) goto(AncientStatue_FirstTime)}
+    end    
+}
+script AncientStatue_IvyForest{
+    lockall
+    if (flag(FLAG_STATUE_IVY_FOREST)){msgbox(format("It's a statue of an ancient Pokémon...")) goto(AncientStatue_CheckRareShard)} 
+    else {setflag(FLAG_STATUE_IVY_FOREST) goto(AncientStatue_FirstTime)}
+    end    
+}
+
+
+
+
+script AncientStatue_FirstTime{
+    if (var(VAR_STATUE_COUNT) < 10){
+        addvar(VAR_STATUE_COUNT, 1)
+        buffernumberstring(STR_VAR_2, VAR_STATUE_COUNT)
+        msgbox(format("It's a statue of an ancient Pokémon..."))
+        delay(8)
+        playfanfare(MUS_LEVEL_UP)
+        message(format("{PLAYER} found {STR_VAR_2} of 10 statues."))
+        waitfanfare
+        release
+        delay(8)
+        msgbox(format("Scanning the ancient statue\nwith the Archaeolens..."))
+        playse(SE_CLICK)
+        delay(8)
+        msgbox(format("Done!"))
+    }
+    goto(AncientStatue_CheckRareShard) 
+}
+
+script AncientStatue_CheckRareShard{
+
+    checkitem(ITEM_RARE_SHARD)
+    if (var(VAR_RESULT) == 0){
+        releaseall
+        end
+    }
+
+    goto(Common_EventScript_HyperTrainer)
+}
+
+script Common_EventScript_HyperTrainer{
+
+    fadenewbgm(MUS_B_PYRAMID_TOP)
+
+    msgbox(format("From within the bag, the Rare Shard begins to vibrate...\pTake out the Rare Shard from the bag?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 0){
+
+    } else {
+        msgbox(format("The statue begins humming faintly...\pWhich Pokémon should hold the Rare Shard?"))
+        special(ChoosePartyMon)
+        waitstate
+        if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN){
+            release
+            fadedefaultbgm
+            releaseall
+            end
+        } else {
+            bufferpartymonnick(STR_VAR_1, VAR_0x8004)
+            message(format("{STR_VAR_1} is absorbing memories from the statue...what's it seeing?"))
+            waitmessage
+            dynmultichoice(0, 0, TRUE, 6, 0, DYN_MULTICHOICE_CB_NONE, "HP", "Attack", "Defence", "Special Attack", "Special Defence", "Speed", "Cancel")
+            
+            if (var(VAR_RESULT) == 0){
+                canhypertrain(STAT_HP, VAR_0x8004)
+                if (var(VAR_RESULT) == 0){
+                    msgbox(format("{STR_VAR_1} cannot grow any stronger in that stat!"))
+                    releaseall
+                    end
+                }
+                hypertrain(STAT_HP, VAR_0x8004)
+            }
+            if (var(VAR_RESULT) == 1){
+                canhypertrain(STAT_ATK, VAR_0x8004)
+                if (var(VAR_RESULT) == 0){
+                    msgbox(format("{STR_VAR_1} cannot grow any stronger in that stat!"))
+                    releaseall
+                    end
+                }
+                hypertrain(STAT_ATK, VAR_0x8004)
+            }
+            if (var(VAR_RESULT) == 2){
+                canhypertrain(STAT_DEF, VAR_0x8004)
+                if (var(VAR_RESULT) == 0){
+                    msgbox(format("{STR_VAR_1} cannot grow any stronger in that stat!"))
+                    releaseall
+                    end
+                }
+                hypertrain(STAT_DEF, VAR_0x8004)
+            }
+            if (var(VAR_RESULT) == 3){
+                canhypertrain(STAT_SPATK, VAR_0x8004)
+                if (var(VAR_RESULT) == 0){
+                    msgbox(format("{STR_VAR_1} cannot grow any stronger in that stat!"))
+                    releaseall
+                    end
+                }
+                hypertrain(STAT_SPATK, VAR_0x8004)
+            }
+            if (var(VAR_RESULT) == 4){
+                canhypertrain(STAT_SPDEF, VAR_0x8004)
+                if (var(VAR_RESULT) == 0){
+                    msgbox(format("{STR_VAR_1} cannot grow any stronger in that stat!"))
+                    releaseall
+                    end
+                }
+                hypertrain(STAT_SPDEF, VAR_0x8004)
+            }
+            if (var(VAR_RESULT) == 5){
+                canhypertrain(STAT_SPEED, VAR_0x8004)
+                if (var(VAR_RESULT) == 0){
+                    msgbox(format("{STR_VAR_1} cannot grow any stronger in that stat!"))
+                    releaseall
+                    end
+                }
+                hypertrain(STAT_SPEED, VAR_0x8004)
+            }
+            if (var(VAR_RESULT) == 6){
+                release
+                fadedefaultbgm
+                releaseall
+                end
+            }
+
+            release
+            fadescreen(FADE_TO_WHITE)
+            playse(SE_USE_ITEM)
+            delay(24)
+            fadescreen(FADE_FROM_WHITE)
+
+            removeitem(ITEM_RARE_SHARD)
+            msgbox(format("Imbued with the statue's memories, {STR_VAR_1} became stronger!"))
+            release
+        }
+    }
+    fadedefaultbgm
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script Common_EventScript_DrifblimTravels_ToSilversun{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_DRIFBLIM, CRY_MODE_NORMAL)
+    checkitem(ITEM_DRIFBLIM_TRAVELS_PASS)
+    if (var(VAR_RESULT) == 0){
+        applymovement(VAR_LAST_TALKED, moves(jump_in_place_down))
+        waitmovement(0)
+        delay(16)
+        msgbox(format("It's a Drifblim!"), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("Drifblim opens a map and gestures towards Silversun City. Fly there?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        release
+        //fly
+        hidefollower
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+        playmoncry(SPECIES_DRIFBLIM, CRY_MODE_NORMAL)        
+        delay(30)
+        warp(MAP_SILVERSUN_CITY, 28, 22)
+
+    } else {
+        msgbox(format("Drifblim looks dejected..."), MSGBOX_NPC)
+    }
+
+    end
+}
+script Common_EventScript_DrifblimTravels_ToPelluca{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_DRIFBLIM, CRY_MODE_NORMAL)
+    checkitem(ITEM_DRIFBLIM_TRAVELS_PASS)
+    if (var(VAR_RESULT) == 0){
+        applymovement(VAR_LAST_TALKED, moves(jump_in_place_down))
+        waitmovement(0)
+        delay(16)        
+        msgbox(format("It's a Drifblim!"), MSGBOX_NPC)
+        end
+    }
+
+    msgbox(format("Drifblim opens a map and gestures towards Pelluca City. Fly there?"), MSGBOX_YESNO)
+
+    if (var(VAR_RESULT) == 1){
+        release
+        //fly
+        hidefollower
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+        playmoncry(SPECIES_DRIFBLIM, CRY_MODE_NORMAL)
+        delay(30)
+        warp(MAP_PELLUCA_CITY, 14, 28)
+
+    } else {
+        msgbox(format("Drifblim looks dejected..."), MSGBOX_NPC)
+    }
+
+    end
+}
+
+
+
+script Common_EventScript_DrifblimTravels_All{
+    lockall
+    faceplayer
+    playmoncry(SPECIES_DRIFBLIM, CRY_MODE_NORMAL)
+    applymovement(VAR_LAST_TALKED, moves(jump_in_place_down))
+    waitmovement(0)
+    delay(16)    
+
+    checkitem(ITEM_DRIFBLIM_TRAVELS_PASS)
+    if (var(VAR_RESULT) == 0){
+        msgbox(format("It's a Drifblim!"), MSGBOX_NPC)
+    } else {
+        msgbox(format("It's a Drifblim! Fly somewhere?"), MSGBOX_YESNO)
+
+        if (var(VAR_RESULT) == 1){
+        release
+        //fly
+        special(StartFly)
+        waitstate
+        release
+
+        } else {
+            msgbox(format("Drifblim looks dejected..."), MSGBOX_NPC)
+        }
+    }
+    releaseall
+    end
+}
+
+
+
+
+
+
+script Common_EventScript_Dugtrio_ToRoute3{
+    lockall
+    faceplayer
+    msgbox(format("Dugtrio is digging into the ground. Follow it?"), MSGBOX_YESNO)
+    release
+    if (var(VAR_RESULT) == 1){
+        //dig
+        hidefollower
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+        playmoncry(SPECIES_DUGTRIO_ALOLA, CRY_MODE_NORMAL)
+        delay(30)
+        warp(MAP_ROUTE3_UNDERPASS, 43, 26)
+    }
+    releaseall
+    end
+}
+script Common_EventScript_Dugtrio_ToGalecrest{
+    lockall
+    faceplayer
+    msgbox(format("Dugtrio is digging back up to the surface. Follow it?"), MSGBOX_YESNO)
+    release
+    if (var(VAR_RESULT) == 1){
+        //dig
+        hidefollower
+        applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+        playmoncry(SPECIES_DUGTRIO_ALOLA, CRY_MODE_NORMAL)        
+        delay(30)
+        warp(MAP_GALECREST_CITY, 31, 65)
+    }
+    releaseall
+    end
+}
+
+
+
+
+
+
+
+script Common_EventScript_Tauros_IvyRiver{
+    if (flag(FLAG_RANGER_TAUROS_USE)){
+        message(format("Tauros is grazing impatiently.\nWhere should Tauros go?")) 
+        waitmessage
+
+        if (flag(FLAG_VISITED_RIVETSHORE_CITY)){
+            dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Pelluca City", "Route 6 HQ", "Rivetshore HQ")
+        } else {
+            dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Pelluca City", "Route 6 HQ")
+        }
+
+        if (var(VAR_RESULT) == 0){goto(Common_EventScript_Tauros_GotoPelluca)}
+        if (var(VAR_RESULT) == 1){goto(Common_EventScript_Tauros_GotoRoute6)}   
+        if (var(VAR_RESULT) == 2){goto(Common_EventScript_Tauros_GotoRivetshore)}   
+    }  else {
+        msgbox(format("Tauros is grazing impatiently."), MSGBOX_NPC)
+    }
+    release
+    end
+}
+
+script Common_EventScript_Tauros_PellucaCity{
+    if (flag(FLAG_RANGER_TAUROS_USE)){    
+        message(format("Tauros is grazing impatiently.\nWhere should Tauros go?")) 
+        waitmessage
+
+        if (flag(FLAG_VISITED_RIVETSHORE_CITY)){
+            dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Ivy River HQ", "Route 6 HQ", "Rivetshore HQ")
+        } else {
+            dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Ivy River HQ", "Route 6 HQ")
+        }        
+
+        if (var(VAR_RESULT) == 0){goto(Common_EventScript_Tauros_GotoIvy)}
+        if (var(VAR_RESULT) == 1){goto(Common_EventScript_Tauros_GotoRoute6)}
+        if (var(VAR_RESULT) == 2){goto(Common_EventScript_Tauros_GotoRivetshore)}   
+
+    } else {
+        msgbox(format("Tauros is grazing impatiently."), MSGBOX_NPC)
+    }      
+    release
+    end   
+}
+
+script Common_EventScript_Tauros_Route6{
+    if (flag(FLAG_RANGER_TAUROS_USE)){   
+        message(format("Tauros is grazing impatiently.\nWhere should Tauros go?")) 
+        waitmessage
+        if (flag(FLAG_VISITED_RIVETSHORE_CITY)){
+            dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Ivy River HQ", "Pelluca City", "Rivetshore HQ")
+        } else {
+            dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Ivy River HQ", "Pelluca City")
+        }  
+
+        if (var(VAR_RESULT) == 0){goto(Common_EventScript_Tauros_GotoIvy)}
+        if (var(VAR_RESULT) == 1){goto(Common_EventScript_Tauros_GotoPelluca)}
+        if (var(VAR_RESULT) == 2){goto(Common_EventScript_Tauros_GotoRivetshore)}   
+
+    }  else {
+        msgbox(format("Tauros is grazing impatiently."), MSGBOX_NPC)
+    }  
+    release
+    end
+}
+
+script Common_EventScript_Tauros_Rivetshore{
+    if (flag(FLAG_RANGER_TAUROS_USE)){
+        message(format("Tauros is grazing impatiently.\nWhere should Tauros go?")) 
+        waitmessage
+        dynmultichoice(0, 0, FALSE, 3, 0, DYN_MULTICHOICE_CB_NONE, "Pelluca City", "Route 6 HQ", "Ivy River HQ")
+
+        if (var(VAR_RESULT) == 0){goto(Common_EventScript_Tauros_GotoPelluca)}
+        if (var(VAR_RESULT) == 1){goto(Common_EventScript_Tauros_GotoRoute6)}  
+        if (var(VAR_RESULT) == 2){goto(Common_EventScript_Tauros_GotoIvy)}
+
+    }  else {
+        msgbox(format("Tauros is grazing impatiently."), MSGBOX_NPC)
+    }
+    release
+    end
+}
+
+script Common_EventScript_Tauros_GotoIvy{
+    release
+    hidefollower
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(VAR_LAST_TALKED, moves(emote_exclamation_mark jump_in_place_up))
+    playmoncry(SPECIES_TAUROS_PALDEA_BLAZE, CRY_MODE_NORMAL)        
+    delay(30)
+    warp(MAP_IVY_RIVER, 19, 69)    
+}
+
+script Common_EventScript_Tauros_GotoPelluca{
+    release
+    //dig
+    hidefollower
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(VAR_LAST_TALKED, moves(emote_exclamation_mark jump_in_place_up))
+    playmoncry(SPECIES_TAUROS_PALDEA_BLAZE, CRY_MODE_NORMAL)        
+    delay(30)
+    warp(MAP_PELLUCA_CITY, 10, 33)   
+}
+
+script Common_EventScript_Tauros_GotoRoute6{
+    release
+    //dig
+    hidefollower
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(VAR_LAST_TALKED, moves(emote_exclamation_mark jump_in_place_up))
+    playmoncry(SPECIES_TAUROS_PALDEA_BLAZE, CRY_MODE_NORMAL)        
+    delay(30)
+    warp(MAP_ROUTE6, 52, 116) 
+}
+
+script Common_EventScript_Tauros_GotoRivetshore{
+    release
+    //dig
+    hidefollower
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    applymovement(VAR_LAST_TALKED, moves(emote_exclamation_mark jump_in_place_up))
+    playmoncry(SPECIES_TAUROS_PALDEA_BLAZE, CRY_MODE_NORMAL)        
+    delay(30)
+    warp(MAP_RIVETSHORE_RANGER_INSTITUTE, 23, 12) 
+}
+
+
+
+
+
+
+
+
+
+// script QuestMenu_UpdateQuest{
+//     questmenu(QUEST_MENU_BUFFER_QUEST_NAME, )
+//     bufferstring(1, gText_QuestUpdated)
+// 	playfanfare(MUS_LEVEL_UP)
+// 	msgbox(gText_QuestAnnounce, MSGBOX_SIGN)
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+//map popup triggers
+script Common_EventScript_MapPopup_Enable{
+    clearflag(FLAG_HIDE_MAP_NAME_POPUP)
+    end
+}
+
+script Common_EventScript_MapPopup_Disable{
+    setflag(FLAG_HIDE_MAP_NAME_POPUP)
+    end
+}
+
+script Common_EventScript_EnableWild{
+    clearflag(FLAG_SYS_WILD_ENCOUNTERS)
+    end
+}
+
+script Common_EventScript_DisableWild{
+    setflag(FLAG_SYS_WILD_ENCOUNTERS)
+    end
+}
+
+
+
+
+
+
+
+
