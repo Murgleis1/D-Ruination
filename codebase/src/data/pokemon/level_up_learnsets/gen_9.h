@@ -21032,61 +21032,82 @@ static const struct LevelUpMove sEspathraLevelUpLearnset[] = {
 #endif //P_FAMILY_FLITTLE
 
 #if P_FAMILY_TINKATINK
+// Dreamstone Ruination — Tinkatink line shared learnset.
+// All three stages share the same level-up backbone. The line's design
+// intent is build flexibility: a Pixilate-HA player runs Behemoth Bash
+// as a Pixilate-retyped Fairy nuke with Steel-effectiveness override,
+// while a non-Pixilate player (Cute Charm / Battle Armor) leans on
+// Gigaton Hammer + Sunsteel Strike (Fire, non-STAB) for offensive
+// coverage against opposing Steel-types instead.
+//
+// Behemoth Bash at Lv 30 (Tinkatuff signature) — bible-locked since
+// the project's earliest design notes. Gigaton Hammer is tutor-only
+// (Master Tutor at Trial 6, ~Lv 45 player progression); learning it
+// triggers Tinkatuff -> Tinkaton evolution.
+//
+// No on-evolution Lv 0 moves on Tinkatuff or Tinkaton: the line's
+// rewards are unlocking Lv 30 Behemoth Bash (Stage 2) and surviving
+// the Master Tutor quest to learn Gigaton Hammer (Stage 3).
+//
+// Double Slap and Covet are retyped globally to Fairy (see moves_info.h)
+// so non-Pixilate players still have Fairy physical options early.
 static const struct LevelUpMove sTinkatinkLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
-    LEVEL_UP_MOVE( 1, MOVE_FAIRY_WIND),
+    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_SLAP),
     LEVEL_UP_MOVE( 5, MOVE_BABY_DOLL_EYES),
     LEVEL_UP_MOVE( 8, MOVE_METAL_CLAW),
-    LEVEL_UP_MOVE(11, MOVE_COVET),
-    LEVEL_UP_MOVE(17, MOVE_DRAINING_KISS),
-    LEVEL_UP_MOVE(21, MOVE_SWEET_KISS),
-    LEVEL_UP_MOVE(24, MOVE_BRUTAL_SWING),
-    LEVEL_UP_MOVE(27, MOVE_SLAM),
-    LEVEL_UP_MOVE(31, MOVE_FLASH_CANNON),
-    LEVEL_UP_MOVE(35, MOVE_PLAY_ROUGH),
-    LEVEL_UP_MOVE(39, MOVE_FAKE_OUT),
-    LEVEL_UP_MOVE(43, MOVE_FLATTER),
-    LEVEL_UP_MOVE(47, MOVE_SKITTER_SMACK),
-    LEVEL_UP_MOVE(52, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(13, MOVE_COVET),
+    LEVEL_UP_MOVE(19, MOVE_LOW_SWEEP),
+    LEVEL_UP_MOVE(24, MOVE_BULK_UP),
+    LEVEL_UP_MOVE(30, MOVE_BEHEMOTH_BASH),
+    LEVEL_UP_MOVE(33, MOVE_BRUTAL_SWING),
+    LEVEL_UP_MOVE(37, MOVE_PLAY_ROUGH),
+    LEVEL_UP_MOVE(40, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE(48, MOVE_BODY_PRESS),
+    LEVEL_UP_MOVE(55, MOVE_HEADLONG_RUSH),
+    LEVEL_UP_MOVE(59, MOVE_SHELL_SMASH),
+    LEVEL_UP_MOVE(66, MOVE_CLOSE_COMBAT),
+    LEVEL_UP_MOVE(77, MOVE_SUNSTEEL_STRIKE),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sTinkatuffLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
-    LEVEL_UP_MOVE( 1, MOVE_FAIRY_WIND),
+    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_SLAP),
     LEVEL_UP_MOVE( 5, MOVE_BABY_DOLL_EYES),
     LEVEL_UP_MOVE( 8, MOVE_METAL_CLAW),
-    LEVEL_UP_MOVE(11, MOVE_COVET),
-    LEVEL_UP_MOVE(17, MOVE_DRAINING_KISS),
-    LEVEL_UP_MOVE(21, MOVE_SWEET_KISS),
-    LEVEL_UP_MOVE(24, MOVE_BRUTAL_SWING),
-    LEVEL_UP_MOVE(27, MOVE_SLAM),
-    LEVEL_UP_MOVE(31, MOVE_FLASH_CANNON),
-    LEVEL_UP_MOVE(35, MOVE_PLAY_ROUGH),
-    LEVEL_UP_MOVE(39, MOVE_FAKE_OUT),
-    LEVEL_UP_MOVE(43, MOVE_FLATTER),
-    LEVEL_UP_MOVE(47, MOVE_SKITTER_SMACK),
-    LEVEL_UP_MOVE(52, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(13, MOVE_COVET),
+    LEVEL_UP_MOVE(19, MOVE_LOW_SWEEP),
+    LEVEL_UP_MOVE(24, MOVE_BULK_UP),
+    LEVEL_UP_MOVE(30, MOVE_BEHEMOTH_BASH),
+    LEVEL_UP_MOVE(33, MOVE_BRUTAL_SWING),
+    LEVEL_UP_MOVE(37, MOVE_PLAY_ROUGH),
+    LEVEL_UP_MOVE(40, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE(48, MOVE_BODY_PRESS),
+    LEVEL_UP_MOVE(55, MOVE_HEADLONG_RUSH),
+    LEVEL_UP_MOVE(59, MOVE_SHELL_SMASH),
+    LEVEL_UP_MOVE(66, MOVE_CLOSE_COMBAT),
+    LEVEL_UP_MOVE(77, MOVE_SUNSTEEL_STRIKE),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sTinkatonLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 0, MOVE_GIGATON_HAMMER),
-    LEVEL_UP_MOVE( 1, MOVE_FAIRY_WIND),
-    LEVEL_UP_MOVE( 1, MOVE_ASTONISH),
+    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
+    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_SLAP),
     LEVEL_UP_MOVE( 5, MOVE_BABY_DOLL_EYES),
     LEVEL_UP_MOVE( 8, MOVE_METAL_CLAW),
-    LEVEL_UP_MOVE(11, MOVE_COVET),
-    LEVEL_UP_MOVE(17, MOVE_DRAINING_KISS),
-    LEVEL_UP_MOVE(21, MOVE_SWEET_KISS),
-    LEVEL_UP_MOVE(24, MOVE_BRUTAL_SWING),
-    LEVEL_UP_MOVE(27, MOVE_SLAM),
-    LEVEL_UP_MOVE(31, MOVE_FLASH_CANNON),
-    LEVEL_UP_MOVE(35, MOVE_PLAY_ROUGH),
-    LEVEL_UP_MOVE(39, MOVE_FAKE_OUT),
-    LEVEL_UP_MOVE(43, MOVE_FLATTER),
-    LEVEL_UP_MOVE(47, MOVE_SKITTER_SMACK),
-    LEVEL_UP_MOVE(52, MOVE_KNOCK_OFF),
+    LEVEL_UP_MOVE(13, MOVE_COVET),
+    LEVEL_UP_MOVE(19, MOVE_LOW_SWEEP),
+    LEVEL_UP_MOVE(24, MOVE_BULK_UP),
+    LEVEL_UP_MOVE(30, MOVE_BEHEMOTH_BASH),
+    LEVEL_UP_MOVE(33, MOVE_BRUTAL_SWING),
+    LEVEL_UP_MOVE(37, MOVE_PLAY_ROUGH),
+    LEVEL_UP_MOVE(40, MOVE_BODY_SLAM),
+    LEVEL_UP_MOVE(48, MOVE_BODY_PRESS),
+    LEVEL_UP_MOVE(55, MOVE_HEADLONG_RUSH),
+    LEVEL_UP_MOVE(59, MOVE_SHELL_SMASH),
+    LEVEL_UP_MOVE(66, MOVE_CLOSE_COMBAT),
+    LEVEL_UP_MOVE(77, MOVE_SUNSTEEL_STRIKE),
     LEVEL_UP_END
 };
 #endif //P_FAMILY_TINKATINK
