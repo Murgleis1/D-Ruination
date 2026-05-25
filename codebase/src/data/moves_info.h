@@ -16899,12 +16899,17 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_MOONGEIST_BEAM] =
     {
+        // Dreamstone Ruination — buffed late-game ace (140 BP).
+        // Repurposed as the Blue Moon Teddiursa line's Lv 77 post-Champion
+        // signature backup to Blood Moon. Lunala does not appear in
+        // Ruination, so this overwrite is safe. No drawback added —
+        // strong-as-Blood-Moon ace by design (intended endgame option).
         .name = COMPOUND_STRING("Moongeist Beam"),
         .description = COMPOUND_STRING(
-            "A moon-powered beam that\n"
-            "ignores abilities."),
+            "Lunar beam that ignores\n"
+            "the foe's abilities."),
         .effect = EFFECT_HIT,
-        .power = 100,
+        .power = 140,
         .type = TYPE_GHOST,
         .accuracy = 100,
         .pp = 5,
