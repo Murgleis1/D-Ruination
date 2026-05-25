@@ -17952,15 +17952,37 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_BEHEMOTH_BASH] =
     {
+        // Dreamstone Ruination — Cormorian variant.
+        // The Tinkatink starter line's signature, learned at Lv 30
+        // on Tinkatuff/Tinkaton. Cormorian-engineered anti-Steel weapon
+        // forged by the dragon-slayer-clan (Tinkatink lore).
+        //
+        // The dragon-slayer twin to Behemoth Blade (Frigibax line's
+        // anti-Fairy weapon). Each side of the Cormorian conflict
+        // engineered a Behemoth-tier weapon to bypass the natural
+        // type-chart counter to its line's STAB.
+        //
+        // Zamazenta does not appear in Ruination; this overwrite
+        // of the canonical Zamazenta-Crowned signature is safe.
+        //
+        // TODO(Ruination): wire the Steel-effectiveness override in
+        // src/battle_util.c damage-calc path. The override forces
+        // super-effective damage on Steel targets REGARDLESS of
+        // resolved type at use-time. Crucial when Pixilate retypes
+        // Behemoth Bash to Fairy (Steel resists Fairy, but the
+        // override forces 2x effectiveness anyway). Mirrors the
+        // pattern of Behemoth Blade (Fairy override) and Mountain
+        // Gale (Water override). Stats below are final; effect
+        // is stub.
         .name = COMPOUND_STRING("Behemoth Bash"),
         .description = COMPOUND_STRING(
-            "Attacks as a shield. Deals 2x\n"
-            "damage to Dynamaxed foes."),
-        .effect = EFFECT_DYNAMAX_DOUBLE_DMG,
+            "Cormorian anti-Steel hammer.\n"
+            "Crushes Steel-type defenses."),
+        .effect = EFFECT_HIT,
         .power = 100,
-        .type = TYPE_STEEL,
-        .accuracy = 100,
-        .pp = 5,
+        .type = TYPE_NORMAL,
+        .accuracy = 95,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
