@@ -5736,7 +5736,8 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sTeddiursaLevelUpLearnset,
         .teachableLearnset = sTeddiursaTeachableLearnset,
         .eggMoveLearnset = sTeddiursaEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_URSARING}),
+        // Dreamstone Ruination — uniform Stage 1 -> Stage 2 evolution at Lv 24.
+        .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_URSARING}),
     },
 
     [SPECIES_URSARING] =
@@ -5819,8 +5820,11 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         )
         .levelUpLearnset = sUrsaringLevelUpLearnset,
         .teachableLearnset = sUrsaringTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_PEAT_BLOCK, SPECIES_URSALUNA},
-                                {EVO_NONE, 0, SPECIES_URSALUNA_BLOODMOON}),
+        // Dreamstone Ruination — single evolution path to Bloodmoon Ursaluna,
+        // triggered by learning Blood Moon (taught by the Blue Moon Hermit at
+        // Trial 6, ~Lv 45 player progression). Regular Hisuian Ursaluna is
+        // unobtainable; the Peat Block evolution path is removed entirely.
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_BLOOD_MOON, SPECIES_URSALUNA_BLOODMOON}),
     },
 
 #if P_GEN_8_CROSS_EVOS
