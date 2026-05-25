@@ -6055,7 +6055,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sFrigibaxLevelUpLearnset,
         .teachableLearnset = sFrigibaxTeachableLearnset,
         .eggMoveLearnset = sFrigibaxEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 35, SPECIES_ARCTIBAX}),
+        // Dreamstone Ruination — uniform Stage 1 -> Stage 2 evolution at Lv 24.
+        .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_ARCTIBAX}),
     },
 
     [SPECIES_ARCTIBAX] =
@@ -6118,7 +6119,9 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sArctibaxLevelUpLearnset,
         .teachableLearnset = sArctibaxTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 54, SPECIES_BAXCALIBUR}),
+        // Dreamstone Ruination — Stage 2 -> Stage 3 via tutor-taught Mountain Gale
+        // (the tutor NPC unlocks at Trial 6, ~Lv 45 player progression).
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_MOUNTAIN_GALE, SPECIES_BAXCALIBUR}),
     },
 
     [SPECIES_BAXCALIBUR] =
