@@ -5998,12 +5998,15 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #if P_FAMILY_FRIGIBAX
     [SPECIES_FRIGIBAX] =
     {
+        // Dreamstone Ruination — physical-attacker + speed line.
+        // BST 320 -> 375. SpA dumped (no special moves in kit);
+        // points redistributed to Atk, Speed, and bulk shoring.
         .baseHP        = 65,
-        .baseAttack    = 75,
-        .baseDefense   = 45,
-        .baseSpeed     = 55,
-        .baseSpAttack  = 35,
-        .baseSpDefense = 45,
+        .baseAttack    = 80,
+        .baseDefense   = 55,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 30,
+        .baseSpDefense = 65,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 45,
         .expYield = 64,
@@ -6063,12 +6066,15 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 
     [SPECIES_ARCTIBAX] =
     {
-        .baseHP        = 90,
-        .baseAttack    = 95,
-        .baseDefense   = 66,
-        .baseSpeed     = 62,
-        .baseSpAttack  = 45,
-        .baseSpDefense = 65,
+        // Dreamstone Ruination — Stage 2 buff (BST 423 -> 480).
+        // Speed +43 (62 -> 105), Atk +15, Def +4, SpD +5.
+        // SpA dumped (kit is purely physical).
+        .baseHP        = 85,
+        .baseAttack    = 110,
+        .baseDefense   = 70,
+        .baseSpeed     = 105,
+        .baseSpAttack  = 40,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 25,
         .expYield = 148,
@@ -6128,12 +6134,19 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 
     [SPECIES_BAXCALIBUR] =
     {
-        .baseHP        = 115,
+        // Dreamstone Ruination — final-form rebalance, BST 600 preserved.
+        // Speed 87 -> 120 (+33) for the physical-attacker + speed identity.
+        // Atk 145 preserved (canonical signature stat).
+        // HP -15 / Def -7 / SpA -20 / SpD +9 to fit the new BST budget.
+        // NOTE: when Mega Baxcalibur stats are locked (canonical BST 720),
+        // ensure Mega Speed and Atk exceed 120 / 145 respectively so the
+        // Mega is a strict upgrade in its identity stats.
+        .baseHP        = 100,
         .baseAttack    = 145,
-        .baseDefense   = 92,
-        .baseSpeed     = 87,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 86,
+        .baseDefense   = 85,
+        .baseSpeed     = 120,
+        .baseSpAttack  = 55,
+        .baseSpDefense = 95,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 10,
         .expYield = 300,
