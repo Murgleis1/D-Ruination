@@ -3591,12 +3591,17 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #if P_FAMILY_TINKATINK
     [SPECIES_TINKATINK] =
     {
-        .baseHP        = 50,
-        .baseAttack    = 45,
-        .baseDefense   = 45,
-        .baseSpeed     = 58,
-        .baseSpAttack  = 35,
-        .baseSpDefense = 64,
+        // Dreamstone Ruination — defensive colossus line.
+        // BST 297 -> 375. High Def/SpD, moderate Atk, dump SpA
+        // (kit is purely physical — Fake Out, Double Slap, Metal
+        // Claw, Covet, Low Sweep, Bulk Up, Behemoth Bash, Body
+        // Slam, Body Press, Close Combat, Sunsteel Strike, etc.).
+        .baseHP        = 65,
+        .baseAttack    = 70,
+        .baseDefense   = 85,
+        .baseSpeed     = 50,
+        .baseSpAttack  = 30,
+        .baseSpDefense = 75,
         .types = MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 190,
         .expYield = 56,//59,
@@ -3655,12 +3660,17 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 
     [SPECIES_TINKATUFF] =
     {
-        .baseHP        = 65,
-        .baseAttack    = 55,
-        .baseDefense   = 55,
-        .baseSpeed     = 78,
-        .baseSpAttack  = 45,
-        .baseSpDefense = 82,
+        // Dreamstone Ruination — Stage 2 buff (BST 380 -> 480).
+        // Def +55 (55 -> 110) is the largest jump, reinforcing the
+        // defensive-colossus identity. SpA dumped.
+        // Note: Speed 78 -> 60 is INTENTIONAL — the bible-locked
+        // identity is "lowest speed" of the trio.
+        .baseHP        = 90,
+        .baseAttack    = 85,
+        .baseDefense   = 110,
+        .baseSpeed     = 60,
+        .baseSpAttack  = 40,
+        .baseSpDefense = 95,
         .types = MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 90, //133,
@@ -3720,12 +3730,22 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 
     [SPECIES_TINKATON] =
     {
-        .baseHP        = 85,
-        .baseAttack    = 75,
-        .baseDefense   = 77,
-        .baseSpeed     = 94,
-        .baseSpAttack  = 70,
-        .baseSpDefense = 105,
+        // Dreamstone Ruination — final-form defensive colossus.
+        // BST 506 -> 600. Paired Def 125 + SpD 125 anchors the
+        // line's identity (each starter Stage 3 has one stat at
+        // 145 OR paired 125s — Baxcalibur Atk 145, Bloodmoon
+        // Ursaluna SpA 145, Tinkaton Def/SpD 125/125).
+        // HP 115 makes Tinkaton the bulkiest of the trio.
+        // Speed 94 -> 75: intentional drop, the defensive line
+        // is the slowest of the trio.
+        // SUPERSEDES the prior bible-locked v0.9.7 stat-line
+        // (75/85/125/75/125/75, BST 560). Bible cleanup pending.
+        .baseHP        = 115,
+        .baseAttack    = 110,
+        .baseDefense   = 125,
+        .baseSpeed     = 75,
+        .baseSpAttack  = 50,
+        .baseSpDefense = 125,
         .types = MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 253,
