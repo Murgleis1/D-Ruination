@@ -3713,7 +3713,9 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sTinkatuffLevelUpLearnset,
         .teachableLearnset = sTinkatuffTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 38, SPECIES_TINKATON}),
+        // Dreamstone Ruination — Stage 2 -> Stage 3 via tutor-taught Gigaton Hammer
+        // (Master Tutor unlocks at Trial 6, ~Lv 45 player progression).
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_GIGATON_HAMMER, SPECIES_TINKATON}),
     },
 
     [SPECIES_TINKATON] =
