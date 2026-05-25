@@ -20639,13 +20639,17 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_BLOOD_MOON] =
     {
+        // Dreamstone Ruination — retyped from Normal to Ground.
+        // Tutor-taught by the Blue Moon Hermit (Trial 6 quest);
+        // learning it triggers Ursaring -> Bloodmoon Ursaluna evolution.
+        // Stats and can't-use-twice constraint preserved from canonical.
         .name = COMPOUND_STRING("Blood Moon"),
         .description = COMPOUND_STRING(
-            "Unleashes the blood moon.\n"
+            "Lunar-charged earth-strike.\n"
             "Can't be used twice in a row."),
         .effect = EFFECT_HIT,
         .power = 140,
-        .type = TYPE_NORMAL,
+        .type = TYPE_GROUND,
         .accuracy = 100,
         .pp = 5,
         .target = MOVE_TARGET_SELECTED,
