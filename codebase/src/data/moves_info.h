@@ -175,13 +175,20 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_DOUBLE_SLAP] =
     {
+        // Dreamstone Ruination — global retype Normal -> Fairy.
+        // Gives early-game Fairy physical options to Pokemon that learn
+        // Double Slap regardless of their ability. Especially relevant
+        // for the Tinkatink line, where non-Pixilate players (Cute
+        // Charm / Battle Armor) otherwise lack early Fairy physical STAB.
+        // Side effect: all other species learning Double Slap (Wigglytuff,
+        // Lickitung line, Audino, etc.) now wield it as a Fairy move.
         .name = COMPOUND_STRING("Double Slap"),
         .description = COMPOUND_STRING(
             "Repeatedly slaps the foe\n"
             "2 to 5 times."),
         .effect = EFFECT_MULTI_HIT,
         .power = 15,
-        .type = TYPE_NORMAL,
+        .type = TYPE_FAIRY,
         .accuracy = 85,
         .pp = 10,
         .target = MOVE_TARGET_SELECTED,
