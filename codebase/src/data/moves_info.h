@@ -16939,6 +16939,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         // signature backup to Blood Moon. Lunala does not appear in
         // Ruination, so this overwrite is safe. No drawback added —
         // strong-as-Blood-Moon ace by design (intended endgame option).
+        // PP normalized to 10 (consistent across the three Lv 77 starter aces:
+        // Behemoth Blade / Moongeist Beam / Sunsteel Strike).
         .name = COMPOUND_STRING("Moongeist Beam"),
         .description = COMPOUND_STRING(
             "Lunar beam that ignores\n"
@@ -16947,7 +16949,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .power = 140,
         .type = TYPE_GHOST,
         .accuracy = 100,
-        .pp = 5,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
@@ -17942,6 +17944,8 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         // TODO(Ruination): wire the Fairy-effectiveness override in
         // src/battle_util.c damage-calc path (parallels Freeze-Dry's
         // type-override pattern). Stats below are final; effect is stub.
+        // PP normalized to 10 (consistent across the three Lv 77 starter aces:
+        // Behemoth Blade / Moongeist Beam / Sunsteel Strike).
         .name = COMPOUND_STRING("Behemoth Blade"),
         .description = COMPOUND_STRING(
             "Strikes as a Cormorian dragon-\n"
@@ -17950,7 +17954,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .power = 120,
         .type = TYPE_DRAGON,
         .accuracy = 95,
-        .pp = 15,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
