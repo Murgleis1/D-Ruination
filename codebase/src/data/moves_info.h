@@ -16893,15 +16893,32 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_SUNSTEEL_STRIKE] =
     {
+        // Dreamstone Ruination — buffed late-game ace, retyped to Fire.
+        // Repurposed as the Tinkatink line's Lv 77 post-Champion ace.
+        // Solgaleo does not appear in Ruination; this overwrite of the
+        // canonical Solgaleo signature is safe (parallel to Moongeist
+        // Beam's Lunala overwrite for the Blue Moon Teddiursa line).
+        //
+        // Design intent: Fire-type, non-STAB for Tinkaton (Steel/Fairy)
+        // by deliberate choice. Players running a non-Pixilate build
+        // (Cute Charm / Battle Armor + Gigaton Hammer / Body Press /
+        // Play Rough / Sunsteel Strike) gain a high-power Fire coverage
+        // option to deal with opposing Steel-types that would wall
+        // Tinkaton's Fairy and Fighting moves. Pixilate players have
+        // Behemoth Bash for the same anti-Steel role.
+        //
+        // ignoresTargetAbility = TRUE is preserved from canonical:
+        // the celestial-weapon "ignores defenses" identity, and a
+        // real threat to Heatran (Flash Fire) and Levitate users.
         .name = COMPOUND_STRING("Sunsteel Strike"),
         .description = COMPOUND_STRING(
-            "A sun-fueled strike that\n"
-            "ignores abilities."),
+            "Sun-forged hammer-strike\n"
+            "ignoring the foe's ability."),
         .effect = EFFECT_HIT,
-        .power = 100,
-        .type = TYPE_STEEL,
+        .power = 140,
+        .type = TYPE_FIRE,
         .accuracy = 100,
-        .pp = 5,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
