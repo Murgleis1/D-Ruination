@@ -8951,13 +8951,24 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_COVET] =
     {
+        // Dreamstone Ruination — global retype Normal -> Fairy.
+        // Item-steal effect preserved (the "cutely begs and takes"
+        // identity carries cleanly into a Fairy attack). Parallels
+        // the Double Slap retype: Tinkatink-line Fairy physical
+        // options at all ability slots, not just Pixilate.
+        // Side effect: ~35 unique species learn Covet (Teddiursa
+        // line canonically, Skitty/Delcatty, Bidoof/Bibarel, etc.);
+        // they now wield it as a Fairy move with item-steal.
+        // Note: the Blue Moon Teddiursa line in Ruination no longer
+        // learns Covet (replaced with the lunar-mystic special-attacker
+        // spec), so the cross-line interaction is moot for starters.
         .name = COMPOUND_STRING("Covet"),
         .description = COMPOUND_STRING(
             "Cutely begs to obtain an\n"
             "item held by the foe."),
         .effect = EFFECT_HIT,
         .power = 40,//B_UPDATED_MOVE_DATA >= GEN_5 ? 60 : 40,
-        .type = TYPE_NORMAL,
+        .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = B_UPDATED_MOVE_DATA >= GEN_6 ? 25 : 40,
         .target = MOVE_TARGET_SELECTED,
