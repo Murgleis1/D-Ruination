@@ -6128,47 +6128,64 @@ static const struct LevelUpMove sSneaslerLevelUpLearnset[] = {
 #endif //P_FAMILY_SNEASEL
 
 #if P_FAMILY_TEDDIURSA
+// Dreamstone Ruination — Blue Moon Teddiursa line shared learnset.
+// All three obtainable stages (Teddiursa, Ursaring, Bloodmoon Ursaluna)
+// share the same level-up backbone, themed around the line's lunar-mystic
+// special-attacker identity (voice, mind, lunar energy).
+//
+// Ursaring additionally learns Hyper Voice at Lv 0 on evolution (the
+// reward / incentive for evolving). Bloodmoon Ursaluna shares the same
+// backbone; Blood Moon itself is tutor-only (Master Tutor at Trial 6,
+// ~Lv 45 player progression) and acts as the Ursaring -> Bloodmoon
+// Ursaluna evolution trigger.
+//
+// Regular (Hisuian) Ursaluna is NOT obtainable in Ruination — no wild,
+// no evolution path, no trade, no gift. Its learnset is left at the
+// canonical Hisuian set below for data-integrity / Pokedex purposes only.
 static const struct LevelUpMove sTeddiursaLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
-    LEVEL_UP_MOVE( 1, MOVE_LICK),
-    LEVEL_UP_MOVE( 1, MOVE_COVET),
-    LEVEL_UP_MOVE( 1, MOVE_FLING),
-    LEVEL_UP_MOVE( 1, MOVE_BABY_DOLL_EYES),
-    LEVEL_UP_MOVE( 8, MOVE_FURY_SWIPES),
-    LEVEL_UP_MOVE(13, MOVE_PAYBACK),
-    LEVEL_UP_MOVE(17, MOVE_SWEET_SCENT),
-    LEVEL_UP_MOVE(22, MOVE_SLASH),
-    LEVEL_UP_MOVE(25, MOVE_PLAY_NICE),
-    LEVEL_UP_MOVE(29, MOVE_PLAY_ROUGH),
-    LEVEL_UP_MOVE(33, MOVE_CHARM),
-    LEVEL_UP_MOVE(37, MOVE_REST),
-    LEVEL_UP_MOVE(37, MOVE_SNORE),
-    LEVEL_UP_MOVE(41, MOVE_THRASH),
+    LEVEL_UP_MOVE( 1, MOVE_ECHOED_VOICE),
+    LEVEL_UP_MOVE( 3, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE( 7, MOVE_FAKE_TEARS),
+    LEVEL_UP_MOVE(10, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE(14, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(20, MOVE_REST),
+    LEVEL_UP_MOVE(20, MOVE_SNORE),
+    LEVEL_UP_MOVE(28, MOVE_SCORCHING_SANDS),
+    LEVEL_UP_MOVE(35, MOVE_TORCH_SONG),
+    LEVEL_UP_MOVE(40, MOVE_MOONBLAST),
+    LEVEL_UP_MOVE(44, MOVE_LUMINA_CRASH),
+    LEVEL_UP_MOVE(49, MOVE_LUNAR_BLESSING),
+    LEVEL_UP_MOVE(59, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(63, MOVE_CALM_MIND),
+    LEVEL_UP_MOVE(69, MOVE_AURA_SPHERE),
+    LEVEL_UP_MOVE(77, MOVE_MOONGEIST_BEAM),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sUrsaringLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
-    LEVEL_UP_MOVE( 1, MOVE_LEER),
-    LEVEL_UP_MOVE( 1, MOVE_LICK),
-    LEVEL_UP_MOVE( 1, MOVE_COVET),
-    LEVEL_UP_MOVE( 1, MOVE_FAKE_TEARS),
-    LEVEL_UP_MOVE( 8, MOVE_FURY_SWIPES),
-    LEVEL_UP_MOVE(13, MOVE_PAYBACK),
-    LEVEL_UP_MOVE(17, MOVE_SWEET_SCENT),
-    LEVEL_UP_MOVE(22, MOVE_SLASH),
-    LEVEL_UP_MOVE(25, MOVE_PLAY_NICE),
-    LEVEL_UP_MOVE(29, MOVE_PLAY_ROUGH),
-    LEVEL_UP_MOVE(35, MOVE_SCARY_FACE),
-    LEVEL_UP_MOVE(41, MOVE_REST),
-    LEVEL_UP_MOVE(41, MOVE_SNORE),
-    LEVEL_UP_MOVE(48, MOVE_HIGH_HORSEPOWER),
-    LEVEL_UP_MOVE(56, MOVE_THRASH),
-    LEVEL_UP_MOVE(64, MOVE_HAMMER_ARM),
+    LEVEL_UP_MOVE( 0, MOVE_HYPER_VOICE),
+    LEVEL_UP_MOVE( 1, MOVE_ECHOED_VOICE),
+    LEVEL_UP_MOVE( 3, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE( 7, MOVE_FAKE_TEARS),
+    LEVEL_UP_MOVE(10, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE(14, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(20, MOVE_REST),
+    LEVEL_UP_MOVE(20, MOVE_SNORE),
+    LEVEL_UP_MOVE(28, MOVE_SCORCHING_SANDS),
+    LEVEL_UP_MOVE(35, MOVE_TORCH_SONG),
+    LEVEL_UP_MOVE(40, MOVE_MOONBLAST),
+    LEVEL_UP_MOVE(44, MOVE_LUMINA_CRASH),
+    LEVEL_UP_MOVE(49, MOVE_LUNAR_BLESSING),
+    LEVEL_UP_MOVE(59, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(63, MOVE_CALM_MIND),
+    LEVEL_UP_MOVE(69, MOVE_AURA_SPHERE),
+    LEVEL_UP_MOVE(77, MOVE_MOONGEIST_BEAM),
     LEVEL_UP_END
 };
 
 #if P_GEN_8_CROSS_EVOS
+// Regular (Hisuian) Ursaluna — UNOBTAINABLE in Ruination.
+// Learnset left at canonical for data integrity only.
 static const struct LevelUpMove sUrsalunaLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_HEADLONG_RUSH),
     LEVEL_UP_MOVE( 1, MOVE_FAKE_TEARS),
@@ -6192,23 +6209,22 @@ static const struct LevelUpMove sUrsalunaLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sUrsalunaBloodmoonLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_MOONLIGHT),
-    LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
-    LEVEL_UP_MOVE( 1, MOVE_LEER),
-    LEVEL_UP_MOVE( 1, MOVE_LICK),
-    LEVEL_UP_MOVE( 1, MOVE_HEADLONG_RUSH),
-    LEVEL_UP_MOVE( 8, MOVE_FURY_SWIPES),
-    LEVEL_UP_MOVE(13, MOVE_PAYBACK),
-    LEVEL_UP_MOVE(17, MOVE_HARDEN),
-    LEVEL_UP_MOVE(22, MOVE_SLASH),
-    LEVEL_UP_MOVE(25, MOVE_PLAY_NICE),
-    LEVEL_UP_MOVE(35, MOVE_SCARY_FACE),
-    LEVEL_UP_MOVE(41, MOVE_REST),
-    LEVEL_UP_MOVE(41, MOVE_SNORE),
-    LEVEL_UP_MOVE(48, MOVE_EARTH_POWER),
-    LEVEL_UP_MOVE(56, MOVE_MOONBLAST),
-    LEVEL_UP_MOVE(64, MOVE_HAMMER_ARM),
-    LEVEL_UP_MOVE(70, MOVE_BLOOD_MOON),
+    LEVEL_UP_MOVE( 1, MOVE_ECHOED_VOICE),
+    LEVEL_UP_MOVE( 3, MOVE_CONFUSE_RAY),
+    LEVEL_UP_MOVE( 7, MOVE_FAKE_TEARS),
+    LEVEL_UP_MOVE(10, MOVE_MUD_SLAP),
+    LEVEL_UP_MOVE(14, MOVE_PSYBEAM),
+    LEVEL_UP_MOVE(20, MOVE_REST),
+    LEVEL_UP_MOVE(20, MOVE_SNORE),
+    LEVEL_UP_MOVE(28, MOVE_SCORCHING_SANDS),
+    LEVEL_UP_MOVE(35, MOVE_TORCH_SONG),
+    LEVEL_UP_MOVE(40, MOVE_MOONBLAST),
+    LEVEL_UP_MOVE(44, MOVE_LUMINA_CRASH),
+    LEVEL_UP_MOVE(49, MOVE_LUNAR_BLESSING),
+    LEVEL_UP_MOVE(59, MOVE_HYPER_BEAM),
+    LEVEL_UP_MOVE(63, MOVE_CALM_MIND),
+    LEVEL_UP_MOVE(69, MOVE_AURA_SPHERE),
+    LEVEL_UP_MOVE(77, MOVE_MOONGEIST_BEAM),
     LEVEL_UP_END
 };
 #endif //P_GEN_8_CROSS_EVOS
