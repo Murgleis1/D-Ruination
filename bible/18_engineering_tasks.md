@@ -562,6 +562,69 @@ The v0.9.7 patch added a parallel main quest, three major character expansions, 
     - Background NPC dialogue references to the disgraced house (a single Tavern conversation reference, museum signage about the assassination attempt history, etc.) — establishing the worldbuilding without requiring narrative weight
     - Optional: a House Ramses estate ruin or remnant location the player can briefly visit for additional context
 
+### v0.9.8 new engineering tasks (post-merged-PR — session 2)
+
+Session 2 shipped a 27-commit merged PR that completed the starter-line rebalance and landed Joustroll/Jousteel as custom species. The following tasks reflect what changed, what's now LANDED, and what's now newly OPEN at the engine level.
+
+#### Phase 1 starter-line work — STATUS
+
+- **Phase 1 starter-line palettes (Frigibax, Teddiursa Blue Moon, Tinkatink)** — `[LANDED]` via commits `bef7b9f5` / `a984a437` / `8157e896` (Phase 1) plus starter-palette unification `8a6b6ae3` (Phase 2a). Prior task-list entries #3, #4, #5, #6 from earlier patches are superseded by the merged PR's actual deliverables.
+- **Phase 1 starter-line shared learnsets (16 moves per line, Lv 1–77)** — `[LANDED]` in session 2.
+- **Master Tutor evolution gating for Stage 2 → Stage 3 (Mountain Gale / Blood Moon / Gigaton Hammer)** — `[LANDED]` (engine-side conditional evolution check). Tutor *identities* and *map locations* for the Mountain Gale and Gigaton Hammer tutors remain `[OPEN]` (task #20 above).
+- **Joustroll / Jousteel custom species data + sprite binaries** — `[LANDED]` in session 2 (item #28 above is now fully satisfied at the data-tier; House Umbra cultivation encounter logic remains to be scripted in-game).
+- **Behemoth Bash Cormorian variant (data + learnset)** — `[LANDED]` in session 2. The engine-override hook is still pending — see task #50 below.
+
+#### New tasks introduced by session 2's deliverables
+
+49. **Engine type-effectiveness override — Behemoth Blade (Fairy override)** — `[SMALL — engine code]`
+    - Behemoth Blade is implemented as Dragon-type, 120 BP, physical, 10 PP, learned at Lv 77 by Baxcalibur.
+    - The engineering need: damage calculator hook so that against a **Fairy-type** target, the move resolves as super-effective (2×) regardless of the calculated Dragon-vs-Fairy 0× immunity that would otherwise apply.
+    - Pattern: parallel to the existing **Freeze-Dry** override (Ice-type move with super-effective override vs. Water).
+    - Implementation location: `src/battle_util.c` damage-modifier path; gate via a new `MOVE_EFFECT_*` flag on the move data entry.
+    - Localization: move-description text should note the special-effectiveness behavior.
+    - Estimated scope: ~30 lines across 2–3 files.
+
+50. **Engine type-effectiveness override — Behemoth Bash (Steel override)** — `[SMALL — engine code]`
+    - Behemoth Bash is implemented as Normal-type physical, 100 BP, 95% acc, 10 PP, learned at Lv 30 by Tinkatuff (carried to Tinkaton).
+    - The engineering need: damage calculator hook so that against a **Steel-type** target, the move resolves as super-effective (2×) regardless of its Normal-type resolution (including post-Pixilate Fairy resolution).
+    - This task supersedes the "New MOVE_EFFECT flag for Steel-effectiveness override" bullet inside task #36 above — that bullet described the same hook; this entry tracks it as standalone post-landing.
+    - Pattern: parallel to Freeze-Dry.
+    - Implementation location: `src/battle_util.c` damage-modifier path.
+    - Estimated scope: ~30 lines across 2–3 files.
+
+51. **Engine type-effectiveness override — Mountain Gale (Water override)** — `[SMALL — engine code]`
+    - Mountain Gale is implemented as Ice-type physical, 95 BP, 95% acc, 15 PP, 33% flinch chance, learned by Master Tutor and gating Arctibax → Baxcalibur evolution.
+    - The engineering need: damage calculator hook so that against a **Water-type** target, the move resolves as super-effective (2×) — flavoring the Cormorian-engineered ice weaponry as effective against water-bearing foes.
+    - Pattern: parallel to Freeze-Dry (the closest existing analogue, also an Ice move with Water-effectiveness override).
+    - Implementation location: `src/battle_util.c` damage-modifier path.
+    - Estimated scope: ~20 lines (Freeze-Dry pattern is the precedent; this may share infrastructure with #49/#50 if a generic "additional-super-effective-types" array is implemented as the engine pattern).
+    - **Cross-task note:** Tasks #49, #50, #51 are structurally identical. They should ideally be implemented as a single generic "additional super-effective types" engine pattern with per-move data, not as three independent hardcoded hooks. Recommend the engineering session implement the generic infrastructure once and apply to all three moves.
+
+52. **Joustroll / Jousteel cry audio** — `[USER-AUTHORED DELIVERABLE]`
+    - Both species currently use placeholder cries (`CRY_VAROOM` for Joustroll, `CRY_VOLCANION` for Jousteel) routed through the existing cry table.
+    - Need: user-authored cry audio. Cry format is signed 8-bit PCM at 13379 Hz, typically ~0.5–1.0 seconds.
+    - Replacement is a data-only change once the audio is recorded: replace the placeholder cry data files under `sound/direct_sound_samples/cries/` and update the cry table entry. No engine code required.
+    - **Scope:** audio authoring effort by user; integration is <1 hour.
+
+53. **Trial 4 Joustroll Egg sidequest — event scripting and map work** — `[MEDIUM-MAJOR — scripting + map design]`
+    - Narrative is LOCKED in Section 10 (Trial 4 sidequest); engineering implementation is the open work.
+    - **Components:**
+      - New deep cavern map (Porymap, multi-floor descent with water and ice environmental elements per the Crawdaunt clan presence)
+      - Mega Gyarados boss encounter — above-cap precedent (Section 9); needs custom data entry, scripted entry trigger, and unique pre-/post-battle dialogue
+      - Crawdaunt-led water-Pokemon clan: ~6–10 trainer battles scattered through the cavern (Crawdaunt, Carvanha, Sharpedo, Basculin, possibly Whiscash, Quagsire)
+      - Environmental puzzles — at minimum 2 (water-level manipulation and an ice-platform sequence are the natural fit)
+      - Incubation shrine destination map (small, atmospheric, focused on the egg)
+      - Egg dialogue beat with two-choice player response gating shiny-vs-normal Joustroll on hatch (engine support exists for `CMD_GIVEEGG` and conditional shiny flag; needs a new wrapper script)
+      - Return-to-Cadmus dialogue scene with the locked closing line
+      - Cadmus dispatch dialogue at sidequest entry
+    - **Cross-references:** Section 7 (Cadmus Umbra entry), Section 9 (Jousteel line entry), Section 10 (Act II/III placement of Trial 4 sequence)
+    - **Estimated production effort:** 25–40 hours focused implementation, not counting playtesting.
+
+#### Other session-2 items recorded for completeness
+
+- **Regular Hisuian Ursaluna unobtainability** — engine-side, the Teddiursa → Ursaring → Bloodmoon Ursaluna chain is direct (no intermediate Hisuian Ursaluna). Hisuian Ursaluna species data is preserved for Pokedex completion only; no encounter, no evolution path. No engineering task required — this is the *current* shipped state.
+- **Build-pipeline JSON registry for new species** — the build emits informational lines `Unable to find Joustroll in json` and `Unable to find Jousteel in json`. These are non-fatal; the ROM compiles and links cleanly. Some JSON registry expects new-species metadata that hasn't been added. Low-priority follow-up; investigate when convenient. Likely a Porymap species JSON or an asset-pipeline mapping under `tools/` or `data/`.
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.

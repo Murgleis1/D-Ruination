@@ -1,8 +1,23 @@
-# Bible v0.9.7 — Split Section Index
+# Bible v0.9.8 — Split Section Index
 
-This directory contains the v0.9.7 bible split into per-section files so Claude sessions can fetch only the sections they actually need, rather than burning ~190K tokens reading the canonical file in full.
+This directory contains the v0.9.8 bible split into per-section files so Claude sessions can fetch only the sections they actually need, rather than burning ~190K tokens reading the canonical file in full.
 
-**Canonical source:** `bible/dreamstone_ruination_bible_v0.9.7.md` (at repo root). The canonical file remains the authoritative reference and the only file that gets edited. The splits below are auto-derived; if you edit them directly, your changes will be lost when the canonical file is updated and the splits are regenerated.
+**Canonical source:** `bible/dreamstone_ruination_bible_v0.9.8.md` (at repo root). The canonical file is a regenerated artifact — it is mechanically reconstituted from the splits at the end of each session.
+
+## Edit policy (changed in session 2)
+
+**The splits are the active edit target.** Do not edit the canonical file directly.
+
+This reverses the prior v0.9.7 doctrine which had the canonical as the only edit target. The reason for the reversal is pragmatic: the canonical file is ~190K tokens and does not fit in a Claude session's context window for grep-and-patch workflows. The splits (each ≤ ~25K tokens) do fit.
+
+**Workflow:**
+1. Identify which split file(s) your edit touches.
+2. Fetch the split via the Contents API.
+3. Edit and commit it.
+4. After all session edits are done, regenerate the canonical by concatenating the 19 splits in section-number order (`00_thesis_and_overview.md` through `18_engineering_tasks.md`), stripping each file's `<!-- This file is a split-section view... -->` header, and writing the result as `bible/dreamstone_ruination_bible_v0.9.X.md` with an updated version banner.
+5. Commit the regenerated canonical alongside the splits.
+
+The canonical is therefore a *derived* artifact for grep-and-archive purposes only; it is never the place to make changes.
 
 ## How to use this directory
 
@@ -10,13 +25,13 @@ This directory contains the v0.9.7 bible split into per-section files so Claude 
 
 **For engineering work:** fetch `18_engineering_tasks.md` and the specific narrative section(s) relevant to the task at hand.
 
-**For full grep:** use the canonical full bible (`bible/dreamstone_ruination_bible_v0.9.7.md`). Splits don't help for grep across the whole document.
+**For full grep:** use the canonical full bible (`bible/dreamstone_ruination_bible_v0.9.8.md`). Splits don't help for grep across the whole document.
 
 ## File index
 
 ### `00_thesis_and_overview.md` — ~1,754 tokens (L1-68)
 
-Sections 1 (Canon Contract — what the project is, hard/soft constraints, canon humility). Includes the bible v0.9.7 header + patch summary.
+Sections 1 (Canon Contract — what the project is, hard/soft constraints, canon humility). Includes the bible v0.9.8 header + patch summary.
 
 ### `01_cormoria_worldbuilding.md` — ~19,833 tokens (L69-773)
 

@@ -4,6 +4,30 @@
 
 Consolidated list of decisions deferred but not forgotten. Updated for v0.9.7.
 
+### v0.9.8 closures (engine rebalance and custom-species lock)
+
+The following major opens are now CLOSED in v0.9.8 (the post-merged-PR engine patch from session 2):
+
+- ~~**Trial 4 Joustroll Egg sidequest narrative**~~ — **NARRATIVELY LOCKED in v0.9.8**: Cadmus dispatches the player to a deep cavern; the cavern is overrun by a Mega Gyarados boss flanked by a Crawdaunt-led clan of water Pokemon; the player solves environmental puzzles, defeats the boss, and reaches an incubation shrine where a single Joustroll egg is recovered. Egg dialogue: *"Is it just me or is the egg glowing?"* with a two-choice player response gating whether the hatched Joustroll is shiny or normal. On return to Cadmus, he delivers the line: *"Maybe our Jousteels can even face off in battle one day! Wouldn't that be exciting?"* See Section 10 — Trial 4 sidequest entry. **Event-scripting, map work, and battle scripting remain `[OPEN]`** — narrative is locked; engineering is task #53 in Section 14.
+- ~~**Mega Baxcalibur BST distribution**~~ — **PARTIALLY RESOLVED in v0.9.8**: BST 720 confirmed. Constraint locked: Speed > 120 AND Atk > 145. Specific stat distribution still `[OPEN]` pending a stat-design pass.
+- ~~**Hisuian (regular) Ursaluna obtainability**~~ — **RESOLVED in v0.9.8**: Hisuian Ursaluna is intentionally unobtainable in Ruination. The Teddiursa line evolves Teddiursa → Ursaring → Bloodmoon Ursaluna directly, gated by the Master Tutor teaching Blood Moon. Hisuian Ursaluna's canonical species data is preserved for Pokedex completeness only. See Section 6 — Teddiursa line evolution chain.
+- ~~**Unified starter-trio BST framework**~~ — **RESOLVED in v0.9.8**: All three starter lines now conform to 375 (Stage 1) / 480 (Stage 2) / 600 (Stage 3) with distinct role identities (Frigibax = physical-attacker+speed, Teddiursa Blue Moon = special-attacker apex, Tinkatink = defensive colossus). See Section 6 — starter lines.
+- ~~**Lv 77 starter-ace PP convention**~~ — **RESOLVED in v0.9.8**: All Lv 77 starter signature aces normalized to 10 PP (Behemoth Blade / Moongeist Beam / Sunsteel Strike). See Section 6 — starter learnsets.
+- ~~**Joustroll & Jousteel full Pokemon data**~~ — **RESOLVED in v0.9.8**: Both species fully implemented as custom species in session 2 — `SPECIES_JOUSTROLL = 1524`, `SPECIES_JOUSTEEL = 1525`. Complete species_info, level-up + teachable learnsets (39 TMs = Varoom + Escavalier union), evolution table (Joustroll → Jousteel at Lv 50), graphics-table registrations, compiled sprite binaries, overworld follower pic tables, Pokedex orderings, category names, descriptions, height/weight. Cry placeholders `CRY_VAROOM` and `CRY_VOLCANION` pending user-authored audio (engineering task #52). See Section 9 — Jousteel line entry.
+- ~~**Custom move signature collection**~~ — **RESOLVED in v0.9.8**: Behemoth Blade Cormorian (Dragon, 120 BP, Fairy override TODO), Behemoth Bash Cormorian (Normal, 100 BP, Steel override TODO), Mountain Gale Cormorian (Ice, 95 BP / 95 acc / 15 PP / 33% flinch, Water override TODO), Sunsteel Strike Cormorian (Fire non-STAB, 140 BP, ignoresTargetAbility preserved), Moongeist Beam buffed 100 → 140 BP. Double Slap and Covet retyped Normal → Fairy globally. See Section 9 — custom move subsections. **Engine type-override hooks for the three "override TODO" moves are engineering tasks #49, #50, #51.**
+- ~~**Cormorian engineered-weapons twin-pair narrative**~~ — **RESOLVED in v0.9.8**: The thematic conceit that four absent canonical legendaries (Zacian-Crowned, Zamazenta, Lunala, Solgaleo) have their signature moves repurposed as Cormorian-engineered weapons handed to the starter lines. The "Cormorian engineering > legendary gifts" thematic statement of the trio. See Section 9 — Cormorian engineered-weapons twin-pair subsection; cross-referenced in Section 12 — Bloodlines.
+
+### v0.9.8 new opens
+
+These items emerged from v0.9.8 lock work and are deferred:
+
+- **Mega Baxcalibur specific stat distribution** within the BST 720 + Speed>120 + Atk>145 constraint
+- **Cadmus's personal Jousteel battle spec** (moveset, item, ability) for the Vizier-gauntlet encounter — `[OPEN]`
+- **Engine type-override implementation pattern** — three damage-calc hooks (Behemoth Blade Fairy, Behemoth Bash Steel, Mountain Gale Water) parallel to existing Freeze-Dry pattern; engineering task #49–51
+- **Joustroll/Jousteel cry audio** — user-authored deliverable; placeholders in place
+- **Trial 4 Joustroll Egg sidequest event scripting** — map design, boss encounter, puzzle implementation, dialogue scripting; lore locked, engineering `[OPEN]`
+- **Build-pipeline JSON registry for new custom species** — the compile log emits non-fatal "Unable to find Joustroll/Jousteel in json" lines; the build still succeeds but a JSON metadata file expects entries that haven't been added. Low priority; investigate when there's slack.
+
 ### v0.9.7 closures (character expansions and major narrative locks)
 
 The following major opens are now CLOSED in v0.9.7:
