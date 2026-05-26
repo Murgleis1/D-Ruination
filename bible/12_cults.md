@@ -270,6 +270,16 @@ This is the operation that culminates in:
 - Her late-game return mechanism is still `[OPEN]` — possibilities include allying with Baradus despite mutual hatred (existential threat overrides their feud), attempting one more solo Chi-Yu revival path (after which she dies), or being the final cult agent the player must confront before the Sword Cult HQ raid
 - Whatever form her return takes, it should reflect *desperation* — Goma at her most dangerous because she has nothing left to lose
 
+**Goma's overworld ace-bonding interactions `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+Per Section 11 — Ace-Bonding Overworld Interactions, Goma qualifies for the project-level ace-bonding pattern as a major recurring antagonist with two named aces (Smolder, the shiny Emboar; and her Mega Houndoom secondary). Both aces are in scope for the pattern. *Unlike Baradus, Goma's relationship to her Pokémon is genuinely warm* — she works the margins of Cormorian society and her assets are people and Pokémon the system has rejected. **Her care for them is real, even though her cause is wrong.**
+
+- **Smolder (shiny Emboar) — the primary ace.** Goma's Fighting-type specialty (deliberate counter to Baradus's Ice signature) puts a Fire/Fighting Emboar at the head of her roster. Interaction tone: **gruff-fond.** Goma is not warm in the Simone-Splendor sense; her affection is *practical and earned, not effusive.* She addresses Smolder the way a war-veteran addresses her old combat partner — short remarks, occasional brief physical contact (a hand on the shoulder, a head-pat), the kind of bond that doesn't need words because both parties already know.
+- **Mega Houndoom — the secondary ace.** Dark/Fire typing reinforces the cult-aesthetic without compromising Goma's Fighting-specialist identity. Interaction tone: **respectful-watchful.** Mega Houndoom is *darker* in temperament than Smolder; Goma treats her secondary ace with the same gruff-fondness but layered with *recognition of its danger.* The Houndoom is *not* a pet; it is a high-discipline weapon Goma trusts but does not casually pet. Sample interaction: a quiet word, a nod of acknowledgment, never the unguarded warmth she extends to Smolder.
+- **The two-ace contrast tells the player something important about Goma:** she has Pokémon she *loves* (Smolder) and Pokémon she *commands* (Houndoom). The distinction shows that **Goma is morally complex in a way Baradus is not** — she is genuinely capable of love within her cult-leader role, but she also understands the difference between love and command, and she does both honestly. **This is the "morally complex villain who happens to be wrong" register**, contrasted with Baradus's "irredeemable antithesis-of-thesis."
+- `[OPEN]` Specific overworld appearance beats for Goma — the Royal Palace Assassination subplot, Mt. Ceram, possibly the late-game return scene (mechanism `[OPEN]`)
+- `[OPEN]` Whether Smolder and Mega Houndoom interact with each other in any overworld beats — *recommendation: yes, briefly, in a way that shows Houndoom deferring to Smolder as the senior partner*, parallel to the Solara/Gouging-Fire dynamic in Sable's case
+
 ### Tablets Cult (Wo-Chien) — DESTROYED IN BACKSTORY `[LOCKED]`
 
 - **Existed before the game; extinct by story start**
@@ -447,6 +457,38 @@ Immediately after Stage 1 (no breaks, no healing), Baradus reveals his true secr
 `[OPEN]` The 5 other Pokémon on Baradus's mid-game team (besides Crabominable)
 `[OPEN]` Geographic stronghold of the Sword Cult (where Nemo is held captive late-game)
 `[OPEN]` Whether Mega Evolution figures into Baradus's roster (he has access to Tellius/Yo'aki tradecraft; possibly unauthorized Megas)
+
+**Baradus's overworld ace-bonding interactions — the Shardik weapon-register and the late-game Guzzlord private moment `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+Per Section 11 — Ace-Bonding Overworld Interactions, Baradus qualifies for the pattern as the project's primary antagonist with a recurring overworld presence. **But Baradus's relationship to the pattern is *inverted relative to most characters in scope:* he is the project's anti-thesis character, and the pattern's primary function for him is to *demonstrate the anti-thesis through 95% of his overworld appearances*, with a single late-game exception that deepens his tragedy rather than redeems him.**
+
+**Shardik (the shiny Beartic, public-facing ace) — Baradus's 95% overworld pairing.** In nearly every overworld appearance, Shardik is the Pokémon at Baradus's side. The interaction tone is **emotionless command-register**. Baradus does not love Shardik. Shardik is a weapon — bred for Tough Claws across generations, deployed tactically, addressed *as a tool*.
+
+Sample register (Baradus to Shardik in overworld scenes):
+> *"Shardik, cut him down."*
+> *"Shardik, open a path for us."*
+> *"Shardik, hold the line."*
+
+There is no affection. There are no diminutives. The Beartic is not asked, it is **ordered**. The emoticon flourish over Shardik is not the warm hearts-and-sparkles of Simone-Splendor; if anything is shown at all over the Beartic, it is *acknowledgment-of-command* (a salute-equivalent or military-readiness signal). **This is the cult worldview made visible to the player every time Baradus appears in the overworld.**
+
+**Why Shardik's emotionless treatment is intentional design:** Section 11's ace-bonding pattern is the partnership-thesis demonstrated outside combat. Baradus is the project's *anti-thesis* character — his theology rejects partnership at the cosmic scale. **A Baradus who treated Shardik warmly would contradict his theology.** The emotionless command-register makes Baradus's worldview *legible* to the player in every overworld beat. Players observe the contrast against Simone's "darling-darling," Brie's gentleness with Domdaniel, Cadmus's familial warmth with Jousteel — *and feel the wrongness of how Baradus addresses Shardik.* **The wrongness is the point.** The partnership thesis becomes a *moral standard* the player carries into combat with Baradus.
+
+**Guzzlord (the strategic-deployment ace, kept boxed) — the single late-game private moment `[LOCKED v0.9.8 — Option B narrative lock]`:**
+
+In **one (1) optional or hard-to-reach overworld scene very late in the game**, the player witnesses Baradus alone with Guzzlord. Guzzlord — Baradus's pre-exile companion of ~20+ years, the only relationship in his life that wasn't a weapon, his Yo'aki past made visible — is briefly out of its Pokeball. Baradus believes he is unobserved. **The interaction the player sees is unmistakably warm.**
+
+The specifics of the scene are deliberately small. Maybe Baradus places a hand on Guzzlord's massive bulk. Maybe he says a single short phrase in *the language of his Yo'aki past*, untranslated in-game (deepening the implication that this register exists only for Guzzlord, and only ever has). Maybe Guzzlord makes a low sound that is *not* a battle cry — something the engine has to author specifically because no canonical Guzzlord cry communicates this register. **Whatever the specifics, the scene is brief, easy to miss, and unforgettable to the player who finds it.**
+
+**Why Option B is the right design choice:**
+- The scene **does not redeem Baradus.** It does the opposite. It proves he is *capable* of partnership, has chosen to let only one being matter, and has spent twenty years amputating that capacity from everything else in his life. **The man who knows what love is and refuses to extend it is *more* irredeemable than the man who never learned love at all.** This is sophisticated tragic villainy.
+- The scene **rewards engaged exploration.** Players who find it carry a different understanding of Baradus into the final battles than players who miss it. Both readings are valid; the engaged-player reading is *darker, not lighter.*
+- The scene **uses a lock already in the bible** (the 20-year Guzzlord bond established in Baradus's entry above) and *delivers* on it, rather than letting it remain a backstory detail the player never observes.
+- The scene **echoes Boran Surge's exclusion-by-anti-pattern** (Section 7 — Boran Surge): Boran is excluded from the pattern entirely *because he has no bonds.* Baradus is *partially included* through Guzzlord *because he has exactly one bond he refuses to expand.* The two anti-thesis characters are calibrated differently along the same axis: Boran is incapable, Baradus is unwilling. **Baradus is the more tragic of the two.**
+
+`[OPEN]` Specific location and triggering conditions of the late-game Guzzlord private moment scene — likely Act V or Act VI, possibly tied to the player's exploration of areas where Baradus has been operating
+`[OPEN]` Specific dialog (if any) — recommendation: minimal, possibly untranslated, possibly silent with body-language alone
+`[OPEN]` Whether Guzzlord's interaction-cry differs from its standard battle cry in this scene — *recommendation: yes, a custom or modulated cry communicating warmth rather than menace*
+`[OPEN]` Whether Baradus notices the player observing — *recommendation: no, the player is unobserved; if Baradus noticed, his next overworld appearance with Shardik would be especially cold as he overcorrects for the moment of vulnerability he didn't realize was witnessed*
 
 ### Successor lineages `[LOCKED]`
 

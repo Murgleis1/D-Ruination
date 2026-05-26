@@ -416,3 +416,46 @@ The interactions are accompanied by an emoticon-over-head visual flourish and a 
 - `[OPEN]` Trial 4's chapter-specific geography (the city or region where House Sylphon's seat is located)
 - `[OPEN]` Whether the player has any pre-Trial-4 social encounter with Simone in a court or fashion-event setting (extra-thematic reward for engaged players who explore Cormoria's social scene)
 
+---
+
+## v0.9.8 — Trial Baron Ace-Bonding Overworld Interaction Status
+
+Per Section 11 — Ace-Bonding Overworld Interactions, all 9 Trial Barons qualify for the project-level ace-bonding pattern as named recurring overworld characters with locked or imminent-lock aces. The interaction tone for each Trial Baron is *distinct*, reflecting that character's relationship to their ace and to the partnership thesis:
+
+**Kimaris Langerin + Crowley (shiny Spiritomb) `[LOCKED v0.9.8 — narrative; engineering OPEN]`**
+- Interaction tone: **sombre-ritual, occult-traditional register.** Kimaris addresses Crowley *as one would address a spirit summoned across generations of failed attempts* — formal, deferential, with the awareness that the bond between them is *itself a generational achievement* of his family's centuries-long summoning work. **Crowley is not a pet; Crowley is a kin-debt fulfilled.** Sample register: *"Hold yourself well, Crowley,"* *"Walk with me,"* — calm, measured, dignified. The emoticon flourish over Crowley should be *cool-toned* (purple/blue/black palette) rather than warm.
+- Note: Marshadow does NOT appear in Kimaris's standard overworld presence per Section 7's "deployed only in extreme circumstances" lock. Marshadow's only on-screen appearance is at the Necropolis Assault late-game.
+- `[OPEN]` Specific dialog beats for Kimaris-Crowley interactions; whether the Necropolis Assault deployment of Marshadow includes any pre-deployment Kimaris-Marshadow interaction beat (recommendation: yes, brief, the only Marshadow-overworld-bonding moment in the project)
+
+**Reid Ashland + his shiny Heatran `[LOCKED v0.9.8 — narrative; engineering OPEN]`**
+- Interaction tone: **reverence-and-prodigy.** Reid is 23 years old and *holds a Mythical-tier ace.* He is *aware* of how unusual this is for someone of his age and position, and he treats Heatran with **the careful respect of a young master who has not yet earned what he carries.** Sample register: *"Are you ready, friend?,"* a brief bow of the head before deployment, the kind of formal regard a prodigy reserves for the partner that has made his rise possible.
+- Heatran's named status is `[OPEN]` — the bible has not locked a nickname. Recommendation: a fire-coded name appropriate to the House Ashland register, possibly Latin/classical (consistent with Cormorian naming conventions for noble-house aces).
+- After Reid retires from his Trial Baron seat to study under Cadmus Umbra (~70% through the story), the interaction tone *shifts visibly* — Reid becomes *more relaxed* with Heatran in scholar-mode than he was in Trial-Baron-public-figure mode. **The shift is itself character:** Reid's career arc is "prodigy son shouldering disgrace → free scholar"; his overworld-interaction tone with Heatran tracks the same arc.
+- `[OPEN]` Heatran's name; specific dialog beats for the pre-retirement and post-retirement tone difference
+
+**Manus Surge + `[OPEN]` ace `[LOCKED v0.9.8 — pattern in-scope; ace identity OPEN]`**
+- Manus's ace and full team are `[OPEN]` per Section 7 — Manus Surge. **Whatever Manus's ace turns out to be, the interaction tone is locked v0.9.8: *parental and emotionally invested in a way his son Boran never learned.*** Manus is far more emotional than Boran; his grief at what his son became surfaces in pre/post-Trial dialog with the player, and surfaces in his everyday relationship with his Pokémon as well. **Manus's overworld interactions with his ace are part of what *contrasts* with Boran's anti-pattern in the project's design** — players who notice both are meant to understand that *the failure of Boran's partnership philosophy was Boran's specific failure, not a Surge-family inevitability.* Manus loves his Pokémon, palpably and warmly. Boran's coldness was *his own.*
+- `[OPEN]` Manus's ace species, name, and combat profile (Electric-type, House Surge tradition)
+- `[OPEN]` Specific dialog beats for the parental-investment interaction register
+
+**Simone Sylphon + Splendor (shiny Obstagoon)** — **fully locked v0.9.8, see Section 7 — Simone Sylphon entry above for complete interaction profile.**
+
+**Trial 5-7 Barons (Raptora / Alban / Nightfall) — `[OPEN]` Baron identities; ace-bonding pattern in-scope deferred to Baron-lock.**
+- Each will receive locked ace-bonding interaction content when the Baron's character profile is locked in a future session
+- House character expectations:
+  - **Raptora (Flying, Trial 5):** likely *fierce-aristocratic-warrior* register — Pokémon treated as comrades-in-arms, possibly with falconry-style address conventions reflecting the bird-of-prey family aesthetic
+  - **Alban (Grass, Trial 6):** likely *pastoral-rural-warm* register — Pokémon treated as *family*, given the house's complicity in the Nomad-Alban cover identity for 10 years; the Alban Baron's affection for their ace should *feel like the affection of a family that took a Nomad in*
+  - **Nightfall (Dark, Trial 7):** `[OPEN]` — the Nightfall house's relationship to the partnership thesis is structurally complex (Eldred Nightfall was Osrid's father; the current Baron is Osrid's never-met relative); recommendation: the interaction tone should *evoke Eldred in some way*, even if the Baron is not directly Eldred-similar in personality. **Half-Nightfall-blood Osrid meeting the half-uncle/cousin who shares his patriline is structurally the project's most loaded "house-of-the-father" beat**, and the ace-bonding interaction should carry weight accordingly.
+
+**Brie Moray + Domdaniel (shiny Scream Tail) `[LOCKED v0.9.8 — narrative; engineering OPEN]`**
+- Interaction tone: **gentle, direct, blunt-but-warm.** Brie is 15 years old and morally clear-eyed; she does not soften her speech for political reasons (Section 7 — Brie Moray). **Her interactions with Domdaniel reflect the same direct-warmth.** Sample register: *"Hey,"* *"You good?,"* a quick hand on Domdaniel's small body, a brief acknowledging look. **The interaction register is teenage-girl-and-her-best-friend, not noble-and-mythical-ace.** The contrast with what Silas's relationship to Domdaniel *would have been* is precisely what makes the Brie-Domdaniel bond moving — Brie wields a cosmic-tier Mythical Pokémon as a friend, not as a weapon, not as a heritage.
+- **Domdaniel responds to Brie with visible affection — gentleness in body language, brief vocalizations that read as conversational rather than combative.** The Pokémon that rejected Silas (Section 7 — Silas's deepest wound) has chosen Brie *because* of how she treats it; the overworld interactions make this choice legible to the player.
+- `[OPEN]` Specific dialog beats; the level-of-bluntness in Brie's casual register; whether Domdaniel's interaction-cry differs from its standard cry (recommendation: yes, softer, more conversational)
+
+**Nemo Korolev + Manticore (shiny Gliscor) + Ting-Lu `[LOCKED v0.9.8 — narrative; engineering OPEN]`**
+- Nemo has a **two-ace structure unique in the project** — one of his aces is a *Treasure of Ruin* (Ting-Lu), the others are conventional Pokémon (primarily Manticore).
+- **Manticore (shiny Gliscor) — the standard partner.** Interaction tone: **military-respectful, with veterans'-affection underneath.** Nemo and Manticore are *comrades-in-arms* who have served together across Nemo's Cormorian military career. Sample register: *"Manticore, you're with me,"* short military-cadenced affirmations, occasional brief physical contact. **The bond is real and earned**; it is not effusive because neither Nemo nor Manticore are effusive figures.
+- **Ting-Lu — the homeostatic-symbiosis partner.** Ting-Lu is *not Nemo's Pokémon in the conventional sense*; it is a Treasure of Ruin Nemo holds and contains through ongoing personal cost (Section 7 — Nemo). **The "interaction" between them is *not* the standard ace-bonding pattern** — it is a *quiet, ongoing burden-sharing* that the player observes in select scenes. Ting-Lu is not deployed casually; the symbiosis itself is the relationship. Sample register: *no dialog from Nemo, no cry from Ting-Lu; rather, a visible posture of mutual containment* — Nemo carrying weight, Ting-Lu held under that weight. **The interaction is silent and grave.**
+- The contrast between Manticore (warm-military) and Ting-Lu (silent-grave) reveals Nemo to the engaged player: *he is a man capable of both warmth and burden, simultaneously, and pays the cost of both with the same dignity.* When Ting-Lu eventually passes to Osrid at Nemo's death scene, the visual transfer of that *containment-posture* from Nemo to Osrid is one of the project's most loaded character beats.
+- `[OPEN]` Specific dialog and posture beats for Manticore (overworld scenes across Nemo's appearances)
+- `[OPEN]` Specific posture/visual treatment for the Nemo-Ting-Lu silent-symbiosis scenes — recommendation: never play Ting-Lu's standard cry in these scenes; the silence is the point

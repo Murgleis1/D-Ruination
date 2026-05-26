@@ -197,6 +197,35 @@ This relationship is structurally a *Tolkien-Elves-in-Middle-Earth* tragedy — 
 
 `[OPEN]` Whether either of them ever speaks directly about their relationship in dialogue. The simplest design is **no** — they speak around it, with weight implied but never named.
 
+**The Blue Moon Hermit's overworld ace `[LOCKED v0.9.8 — pattern in-scope; ace identity OPEN]`:**
+
+Per Section 11 — Ace-Bonding Overworld Interactions, the Blue Moon Hermit qualifies for the pattern: he is a major named character who appears in the overworld across multiple beats (Trial 6 Master Tutor for Blood Moon, mid-game introduction-by-Glaive at level ~45, post-Champion Ancient Peat Block side quest companion, possible late-game Cormoria scenes). His overworld presence is recurring and significant.
+
+The Hermit has a named ace Pokémon that accompanies him in overworld appearances. The ace's species, name, and combat profile are `[OPEN]` pending future design. **Candidates and constraints:**
+
+- The Hermit is a Master Partnership-Teacher; whatever Pokémon he holds should *demonstrate* partnership-mastery rather than combat-prowess. The ace's nature is *gentle, ancient, deeply-bonded* rather than fearsome.
+- Celestica origin permits canonical-PLA species (Hisuian forms, Paradox-Past Pokémon, Marshadow-era Mythicals).
+- Lunar-cyclical resonance with his name and Hermit identity points to Pokémon with moon/night thematic registers — Lunatone, Umbreon (Hisuian variant if added), Mimikyu, or perhaps a soft-moon-coded canonical Pokémon less obviously battle-defined.
+- Should *not* duplicate other major characters' aces (Kimaris already has Marshadow; Roma is the canonical Lunatone/Solrock-adjacent figure if we go that route).
+- Interaction tone should be *quiet, paternal, gently-curmudgeonly* — the Hermit is the project's wisest character without being its most articulate; he speaks in *small remarks made warmly*.
+
+`[OPEN]` Hermit's specific ace species, name, ability, and combat profile
+`[OPEN]` Interaction-dialog beats — likely tied to the Trial 6 chapter and the post-Champion side quest sequence
+
+**Madame Roma's overworld ace `[LOCKED v0.9.8 — pattern in-scope; ace identity OPEN]`:**
+
+Per Section 11 — Ace-Bonding Overworld Interactions, Madame Roma also qualifies for the pattern. She appears in the overworld across multiple beats (royal court visits as soothsayer, fossil-revival event scenes, late-game dialogue beats hinting at Cormor's status, possible post-game Book of the Moon synthesis moments). Her overworld presence is recurring and politically significant.
+
+Roma has a named ace Pokémon that accompanies her in overworld appearances. The ace's species, name, and combat profile are `[OPEN]` pending future design. **Candidates and constraints:**
+
+- Roma is the project's *Marshadow-progenitor figure* — she is canonically the original holder of the Marshadow-bargain that became House Langerin's generational ace via her descendants. **Her current overworld ace should not be Marshadow** (that line passes to Kimaris); rather, it should be a Pokémon that *speaks to her current role* as soothsayer-progenitor-keeper-of-secret-lore.
+- The fossil-revival aspect of her role suggests a Pokémon connected to *revival, age, ancient knowledge* — possibilities include Aerodactyl, Tyrunt/Tyrantrum (but the female Rock Vizier's ace is already Tyrantrum from Roma's revival, so duplication risk), Cryogonal, or a Past-Paradox Pokémon (parallel to Sable's Gouging Fire era).
+- Should resonate with Roma's *ancient*-coded character — she has lived centuries via the pact-extended-longevity framework (Section 7 — Madame Roma).
+- Interaction tone is *measured, oracular, with surprising flashes of warmth* — Roma is not cold, but her affection is *long-view affection*, the affection of someone who has loved many beings across centuries and knows what loss is.
+
+`[OPEN]` Roma's specific ace species, name, ability, and combat profile
+`[OPEN]` Interaction-dialog beats — likely tied to the royal court visits, the fossil-revival scenes, and the late-game Cormor-status hints
+
 ### Future-Red — The Multiverse-Displaced Strongest Trainer `[LOCKED v0.9.4]`
 
 A unique cross-canon character encountered *only* during the optional post-Champion Keerin capture sidequest (Section 9 — Keerin entry; Section 10 — post-Champion optional engagements). **Available only in Elite or Paragon difficulty modes** (Section 9 — Difficulty Modes).

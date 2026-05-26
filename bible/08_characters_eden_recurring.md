@@ -56,6 +56,10 @@ The starter Pokemon is *the agent that makes this entire epilogue beat possible*
 
 **The unboxable-starter mechanic is the technical scaffold that supports this narrative moment.** The starter's cosmic significance includes this single act of *bridging two lives at the moment they cross paths*. **The mechanic and the story are inseparable.**
 
+**Vandras and the Ace-Bonding Overworld Interaction principle `[LOCKED v0.9.8 — out of scope]`:**
+
+Per Section 11 — Ace-Bonding Overworld Interactions, the principle applies to named characters with a locked ace Pokémon who appear in the overworld more than once. **Vandras is not in scope.** He is a merchant, not a Pokémon trainer in the project's competitive-noble sense. He does not have a locked named ace, and the bible does not commit to one. His narrative role — *the merchant who recognizes Osrid through the starter and gifts him the Veddev identity* — is mediated *by Osrid's starter*, not by any Pokémon of Vandras's. Adding an ace to Vandras solely to fit the pattern would inflate his character profile against his story-function as the *quiet observer-gifter at the threshold of Osrid's new life.* The bible holds him deliberately at the role he occupies.
+
 ### Eden — Paldean thief, Beads Cult recruit, deuteragonist, future spouse `[LOCKED — promoted to deuteragonist v0.9.7]`
 
 **Promotion to deuteragonist tier (v0.9.7):** Eden is formally the **deuteragonist** of Dreamstone Ruination — co-protagonist alongside Osrid. Her emotional arc carries equal weight to his. The two arcs run in parallel, intersect repeatedly, and ultimately resolve together in the Paldean post-game. This was *implicit* in the v0.9.6 bible (the "one thing Osrid is unwilling to leave behind" framing already elevated her to peer-to-Osrid significance); v0.9.7 makes the deuteragonist status explicit.
@@ -99,6 +103,22 @@ The canonical event Ms. Raifort teaches in SV (the Paldean king's sealing of the
 - `[OPEN]` What aspects of her romance with Osrid play out in the main game vs. the epilogue?
 - `[OPEN]` Eden's exact involvement during the climactic sealing
 - `[OPEN]` Whether Eden specifically attended the Hall of Fame unmasking, or learned of it second-hand
+
+**Eden's overworld interactions with her stolen starter `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+Eden's bond with the starter she stole is one of the project's longest-arc partnership demonstrations — *rivalry-to-partnership* across the entire game. Per Section 11 — Ace-Bonding Overworld Interactions, Eden's starter is treated as her named ace and participates in overworld interaction beats alongside her across the story.
+
+**Asset branching, not dialog branching:** The starter's species depends on the player's pick (Frigibax-pick → Tinkatink stolen → Tinkatuff/Tinkaton evolution chain in Eden's possession; Teddiursa-pick → Frigibax stolen → Arctibax/Baxcalibur; Tinkatink-pick → Teddiursa stolen → Ursaring/Bloodmoon Ursaluna). **The interaction dialog stays constant across all three branches** — the same emotional beats, the same lines, the same character growth — because Eden's *human* arc (rivalry → bond → love → marriage) is identical regardless of which Pokémon was the catalyst. **What branches is the visual sprite and the cry played in interactions**, both of which are asset-table lookups rather than dialog-tree branches. This keeps the engineering scope tractable.
+
+**Interaction tone evolves with Eden's arc:**
+- **Early Act II (post-theft, pre-defection):** Eden's interactions with the stolen Pokémon are *possessive but not yet warm* — "mine now, deal with it" register. The Pokémon is still framed as a *cult-asset and insurance against the prince she is meant to undermine.* Player-visible distance.
+- **Mid-Act II → defection:** Interactions warm visibly. Eden begins addressing the Pokémon affectionately — uncertain about the change in herself, beginning to *love an asset she meant to use.* This is the **emotional pivot** of her arc made visible outside combat.
+- **Act III onward:** The starter is openly her partner. Interactions are unguarded — Eden trusts the Pokémon completely and *says so audibly* in overworld beats. By the Hall of Fame unmasking and the marriage epilogue, the starter is *family*.
+
+**Implementation note:** the per-stage tone shift is the dialog branching that actually matters — not branching by *which* Pokémon was stolen, but branching by *where in Eden's arc the interaction occurs.* Three or four tone-stage variants × one constant dialog tree per stage = manageable scope.
+
+`[OPEN]` Specific dialog lines for each tone stage
+`[OPEN]` Whether the marriage-epilogue scene in Paldea includes a final ace-bonding interaction between Eden and her starter, or whether the wedding-imagery presence is sufficient closure
 
 
 
@@ -208,6 +228,27 @@ There is *narrative cleanness* to this: other characters in the project get clea
 - His descendants in Kanto (eventually producing Lt. Surge) are a quiet narrative statement: the worst actions of the past sometimes produce the best people of the future. Lt. Surge canonically lives the partnership-thesis Boran couldn't.
 - **The combination of "never learns the truth" + "his bloodline produces the partnership-trainer" makes Boran's arc one of the project's most distinctive ironies: the man who corrupted the prince is unknowingly the ancestor of the trainer who lives the prince's lost ideal.**
 
+**Boran's exclusion from the Ace-Bonding Overworld Interaction principle `[LOCKED v0.9.8 — characterization-by-absence]`:**
+
+Per Section 11 — Ace-Bonding Overworld Interactions, the project's design principle is that every major named trainer with a locked ace participates in overworld bond-demonstration beats with that ace. **Boran Surge is the *intentional exception*** — and the exclusion is itself character.
+
+Boran doesn't form deep bonds with Pokémon. He treats them as instruments of military effectiveness, not as partners. His ranks well, his squads kill efficiently, his Pokémon are deployed precisely — but **none of them are *his Pokémon* in the relational sense.** The "Pokémon are weapons" philosophy he transmitted to young Osrid was not abstract theory; it was the actual daily texture of how Boran lived with his own Pokémon. That texture is what the player would observe if Boran *had* overworld interaction beats. **He doesn't, because he can't — there is no bond there to demonstrate.**
+
+This is the **anti-pattern characterization** the project uses to make the partnership thesis legible by absence. The reader of the bible (and the engaged player) is meant to *notice* that every other locked-ace trainer in Cormoria has visible bond-moments — Simone fusses over Splendor's fur, Brie is gentle with Domdaniel, Cadmus has familial warmth with his Jousteel — and that Boran *doesn't*. The absence is the diagnosis.
+
+**Boran's only in-game appearance — the PTSD dream-sequence trainer fight `[LOCKED v0.9.8]`:**
+
+- Boran does not exist as a present-day Cormorian overworld presence at any point in the main game.
+- His *only* in-game appearance is as a **trainer fight inside a PTSD dream sequence** that Osrid experiences at some point in the story (specific placement and trigger `[OPEN]`).
+- **Custom sprite + custom trainer sprite** for the dream-sequence appearance. Potentially also a portrait-silhouette flavor element during other dream/memory beats throughout the game.
+- The dream-sequence fight is **a trainer battle, not an overworld interaction.** It serves a different design purpose entirely — confronting the internalized voice of Boran is part of Osrid's emotional-arc healing, not a partnership demonstration.
+- Boran's dream-sequence team `[OPEN]` — should reflect his cold military-deployment register (no named Pokémon, no shiny variants, no custom abilities or movesets reflecting *bond-shaped optimization*; rather, *standard high-tier military-effective combinations* a competent officer would assemble without sentiment). The team's *very ordinariness* is character — Boran is what a hyper-competent trainer looks like *without* the partnership thesis.
+
+`[OPEN]` Specific placement of the PTSD dream-sequence fight in the story (likely mid-to-late Act II or Act III, possibly tied to the Crabominable adoption scene's emotional weight, possibly post-Mt-Ceram where Sable's return revives questions of Osrid's overseas service)
+`[OPEN]` Whether the dream sequence is one-time or recurring (single dream is cleaner; recurring would over-emphasize Boran's narrative weight)
+`[OPEN]` Whether the dream-sequence Boran has any dialogue that *acknowledges* his philosophy of Pokémon-as-weapons in a way the present-day Boran would never voice consciously
+`[OPEN]` Whether Osrid's dream-sequence team is his *current* team (with Crabominable if adopted, etc.) or a *flashback* team from his overseas service period
+
 
 
 ---
@@ -281,4 +322,14 @@ Jordan and Wakahisa appear as competitors in the Act V Paragon Gauntlet (Section
 - Whether the foreign origin is ever made explicit in dialogue
 - Whether Wakahisa has any specific *moral* objection to the assassin work (parallel to Jordan's resentment of his family), or operates from a more straightforward mercenary-pragmatism register
 - Whether Wakahisa and Jordan develop a friendship with each other after both convert — *two former cross-purposes killers* becoming friends after attempting mutual murder is fertile dramatic territory
+
+**Jordan and Wakahisa — Ace-Bonding Overworld Interaction status `[LOCKED v0.9.8 — pattern in-scope; specific interactions deferred]`:**
+
+Both Jordan Ramses and Wakahisa are named recurring trainers and qualify for Section 11 — Ace-Bonding Overworld Interactions under the project-level criterion. The pattern *applies to them*, but the specific interaction content is **deferred to the future session in which their respective Pokémon teams and named aces are locked.** Until then, the following placeholders apply:
+
+- **Jordan Ramses's ace** — Poison-type, identity `[OPEN]` (likely candidates given his stat-aspirant arc and chef-cover persona: a shiny variant of one of Drapion / Toxapex / Crobat / Salazzle, with a custom moveset reflecting both Poison-mastery and chef-themed mannerisms in idle animations). Interaction tone should reflect Jordan's character pivot — early-game interactions show *tense competence* (he is good with Poison-types because his family forced him to be, not because he loves them); later-game interactions, post-conversion, show *warming bond* as his relationship to his own family-imposed mastery is renegotiated. **The chef-vocabulary register should bleed into the interaction dialog** ("we'll get you a proper meal after this," etc.).
+- **Wakahisa's ace** — Bug-type, identity `[OPEN]` (likely candidates: shiny Scizor, Volcarona, Galvantula, Frosmoth, Heracross, or Centiskorch, with a ninja-themed combat profile). Interaction tone is `[OPEN]` pending Wakahisa's gender and personality lock; should reflect the cultural register of Wakahisa's foreign origin (different linguistic and behavioral cadence than the Cormorian native characters).
+
+`[OPEN]` Per-Pokémon interaction dialog beats for Jordan and Wakahisa (deferred to ace-lock session)
+`[OPEN]` Whether Jordan's and Wakahisa's *post-conversion friendship* gives rise to any joint-overworld scenes where their aces interact with each other (e.g., a tavern beat where both characters' aces are present)
 

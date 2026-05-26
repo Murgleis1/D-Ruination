@@ -706,23 +706,54 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     | 56.13 | Female Rock Vizier / Tyrantrum | Locked | Ready for design |
     | 56.14 | Rhydia / Justice + Puff | Locked | **Two-ace; needs two interaction styles** |
     | 56.15 | Goma / Smolder + Mega Houndoom | Locked | **Two-ace; needs two interaction styles** |
-    | 56.16 | Baradus / Guzzlord | Locked | Ready for design |
+    | 56.16 | Baradus / Shardik + Guzzlord | Locked v0.9.8 | **Two-ace (anti-thesis split); needs Shardik weapon-register interactions (95% of overworld) + a single late-game Guzzlord private-moment scene (Option B)** |
     | 56.17 | Jordan Ramses / `[OPEN ace]` | Open | **Blocked on ace lock** |
     | 56.18 | Wakahisa / `[OPEN ace]` | Open | **Blocked on ace lock** |
     | 56.19 | Ambrose Caymen / Temperance + Brunhilda | Locked v0.9.7 | **Two-ace; needs two interaction styles** |
-    | 56.20 | Eden / her stolen starter | Locked | **Type-counter-locked to player's pick; needs three interaction sets (Frigibax / Teddiursa BM / Tinkatink branches)** |
+    | 56.20 | Eden / her stolen starter | Locked | **Dialog constant; sprite + cry assets branch by player's starter pick (3-way asset reference, 1 dialog tree). Per Section 11 v0.9.8 lock — overcomplicated three-dialog-tree model rejected in favor of constant dialog + per-pick sprite/cry asset lookups.** Also: 3-stage tone evolution by Eden's arc phase (early possessive, mid pivot, late unguarded) |
     | 56.21 | Madame Roma / `[OPEN ace]` | Open | **Blocked on ace lock** |
     | 56.22 | Blue Moon Hermit (Lethys) / `[OPEN ace]` | Open | **Blocked on ace lock** |
-    | 56.23 | Sable Ashland / Gouging Fire | Locked v0.9.4 | Ready for design |
+    | 56.23 | Sable Ashland / Solara + Gouging Fire | Locked v0.9.8 | **Two-ace (elder/younger-sibling dynamic between Solara and Gouging Fire visible in overworld); needs two interaction styles + a Pokémon-Pokémon interaction sub-beat** |
 
     **Status summary:**
     - **13 sub-tasks ready for design** (aces locked)
     - **10 sub-tasks blocked** on ace locks (9 fully open + Silas's primary)
-    - **5 characters have two-ace structures** (Nemo, Rhydia, Goma, Ambrose, Silas) — these effectively double the per-character authoring work
+    - **6 characters have two-ace structures** (Nemo, Rhydia, Goma, Ambrose, Sable, Silas) — these effectively double the per-character authoring work. **Baradus is also two-ace (Shardik + Guzzlord) but in an inverted scope-pattern: Shardik gets standard recurring overworld presence, Guzzlord gets a single hard-to-find late-game scene only.**
     - **1 character (Glaive)** evolves mid-game — double-authoring for pre/post-evolution
     - **1 character (Eden)** branches three ways on player choice — triple-authoring
 
     **Estimated scope:** 2-4 hours per sub-task per ace, including dialogue authoring + map placement + testing. Total at full scope: **~80-160 hours** across the project lifecycle (does not all need to be done at once; sub-tasks can be batched per Trial chapter / per Act).
+
+57. **Sable Ashland's Shiny Charm side-quest battle — implementation** — `[MEDIUM]`
+
+    Per Section 7 — Sable Ashland (v0.9.8 update), the second-half-of-game Sable battle is a side-quest opportunity for the player to earn the **Shiny Charm** item. Sable leads with Solara (his elder-statesman opener) and finishes with Gouging Fire (his Paradox-tier cleanup ace). This is a single-trainer fight, above-cap, in the band of Roaring Moon/Walking Wake precedent.
+
+    **Components:**
+    - **Trigger:** an in-overworld scripted encounter at the Ashland Labyrinth or a related Ashland-family location, available after Sable's return in Act III
+    - **Custom Pokémon kits:** Solara (shiny male Pyroar, Competitive — `[OPEN]` moveset/item/IV-EV) + Gouging Fire (Paradox Past, `[OPEN]` moveset/item/ability/IV-EV) + 4 additional Fire-team members (`[OPEN]`)
+    - **Above-cap level signaling:** Sable's team levels in the L100-110 range (specific number `[OPEN]`); player is warned this is an above-cap fight before accepting the challenge
+    - **Pre-battle dialogue:** Sable explains the challenge — "test yourself against me, and if you win, you've earned the right to recognize your own bonds with your Pokémon"; the Shiny Charm framing fits Sable's *partnership-recognition* register as a returned-from-Ancient-Cormoria veteran
+    - **Post-battle dialogue:** Sable awards the Shiny Charm item upon player victory; loss allows a retry
+    - **Reward:** the Shiny Charm key item (canonical pokeemerald functionality — triples shiny encounter rate); engine already supports this item
+    - **Re-engagement:** the fight is *one-time-per-save* (once won, the player keeps the Shiny Charm; no replay)
+    - **Estimated scope:** ~8-12 hours (custom Pokémon data + script + dialogue authoring)
+    - **Cross-references:** Section 7 — Sable Ashland, Section 11 — Ace-Bonding Overworld Interactions (Sable's two-ace structure)
+
+58. **Boran Surge PTSD dream sequence — implementation** — `[MEDIUM]`
+
+    Per Section 7 — Boran Surge (v0.9.8 update), Boran's only in-game appearance is as a trainer fight inside a PTSD dream sequence experienced by Osrid. The dream-sequence is a one-time scripted event with custom visual treatment.
+
+    **Components:**
+    - **Trigger:** scripted event at a specific story beat (`[OPEN]` placement — likely mid-to-late Act II or Act III, possibly tied to the Crabominable adoption scene's emotional weight, possibly post-Mt-Ceram when Sable's return revives questions of Osrid's overseas service)
+    - **Custom sprite for Boran:** overworld NPC sprite + trainer-battle sprite (Windshear-rank ceremonial mask iconography per Section 7 — Cormorian military rank hierarchy); possibly stylized to read as *dream-sequence-aesthetic* (washed colors, soft edges, surreal framing)
+    - **Custom dream-sequence visual treatment:** battle background and transition effects styled to signal *this is not the present, this is Osrid's interior*. Sepia/desaturated palette, fog effects, no normal Cormoria geography in the background
+    - **Boran's team:** `[OPEN]` (intentionally *unremarkable, military-effective, without bond-shaped optimization* — what hyper-competent training looks like *without* partnership; specific species selection should reflect *standard high-tier military-effective combinations* a competent officer would assemble without sentiment)
+    - **Osrid's team in the dream:** `[OPEN]` — recommendation: the player's *current* team rather than a flashback team, so the dream-fight uses combat resources the player has actually built (preserves agency; makes the dream feel *now* rather than *then*)
+    - **Pre-/post-battle dialogue:** Boran addresses his student (using "Nomad" — he does not know Osrid is the prince); the dream is *psychologically* about Osrid finally confronting the internalized voice of his mentor's philosophy; dialogue should resonate with Osrid's *current* internal arc (more confident if he's been making compassionate choices like the Crabominable adoption; more confused if he hasn't)
+    - **Win-condition consequence:** beating dream-Boran *advances Osrid's emotional arc* (small positive flag tracked for late-game dialogue variation); losing does *not* gate progression but plays a different post-battle dialog beat (Boran's worldview confirmed by Osrid's defeat — *darker* but recoverable in later choices)
+    - **Boran is NOT in the ace-bonding pattern** — see Section 7 / Section 11 anti-pattern characterization
+    - **Estimated scope:** ~10-15 hours (custom sprite + dream-sequence visual effects + Boran team data + scripted event + dialog authoring with branching)
+    - **Cross-references:** Section 7 — Boran Surge, Section 11 — Ace-Bonding Overworld Interactions (Boran's anti-pattern exclusion), Section 5 — Osrid's psychological arc
 
 ### Production estimates summary `[UPDATED v0.9.7]`
 
