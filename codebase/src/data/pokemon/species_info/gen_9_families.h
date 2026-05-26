@@ -8165,13 +8165,13 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .cryId = CRY_VAROOM, // placeholder; final cry to be authored
         .natDexNum = NATIONAL_DEX_JOUSTROLL,
         .categoryName = _("Armory"),
-        .height = 10,   // placeholder — locked in Pokedex text session
-        .weight = 1000, // placeholder — locked in Pokedex text session
+        .height = 10,   // placeholder — final height in TBD measurement session
+        .weight = 1000, // placeholder — final weight in TBD measurement session
         .description = COMPOUND_STRING(
-            "Placeholder description — to be\n"
-            "written in the Pokedex text design\n"
-            "session. See bible Joustroll entry\n"
-            "for canonical lore."),
+            "A legendary species that serves the\n"
+            "Umbra family. Their metallic bodies\n"
+            "generate billows of steam as they\n"
+            "race around."),
         .pokemonScale = 356,
         .pokemonOffset = 17,
         .trainerScale = 256,
@@ -8240,13 +8240,13 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .cryId = CRY_VOLCANION, // placeholder; final cry to be authored
         .natDexNum = NATIONAL_DEX_JOUSTEEL,
         .categoryName = _("Paladin"),
-        .height = 17,   // placeholder — locked in Pokedex text session
-        .weight = 5300, // placeholder — locked in Pokedex text session
+        .height = 17,   // placeholder — final height in TBD measurement session
+        .weight = 5300, // placeholder — final weight in TBD measurement session
         .description = COMPOUND_STRING(
-            "Placeholder description — to be\n"
-            "written in the Pokedex text design\n"
-            "session. See bible Jousteel entry\n"
-            "for canonical lore."),
+            "Arbiters of war and justice, the ace\n"
+            "of Umbra scions. They dispatch foes\n"
+            "with blades of pure energy that can\n"
+            "be launched in an instant."),
         .pokemonScale = 259,
         .pokemonOffset = 0,
         .trainerScale = 290,
