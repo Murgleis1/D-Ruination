@@ -2523,6 +2523,7 @@ const u16 gPokedexOrder_Weight[] =
     NATIONAL_DEX_TROPIUS,
     NATIONAL_DEX_XURKITREE,
     NATIONAL_DEX_CUFANT,
+    NATIONAL_DEX_JOUSTROLL,
     // 221.6 lbs / 100.5 kg
     //NATIONAL_DEX_CHARIZARD_MEGA_Y,
     NATIONAL_DEX_MEGANIUM,
@@ -2888,6 +2889,8 @@ const u16 gPokedexOrder_Weight[] =
     NATIONAL_DEX_AVALUGG,
     // 1146.4 lbs / 520.0 kg
     NATIONAL_DEX_STONJOURNER,
+    // 1168.5 lbs / 530.0 kg
+    NATIONAL_DEX_JOUSTEEL,
     // 1212.5 lbs / 550.0 kg
     NATIONAL_DEX_METAGROSS,
     // 1300.7 lbs / 590.0 kg
@@ -2934,9 +2937,6 @@ const u16 gPokedexOrder_Weight[] =
     // 2204.4 lbs / 999.9 kg
     NATIONAL_DEX_COSMOEM,
     NATIONAL_DEX_CELESTEELA,
-    // Joustroll/Jousteel — placeholder positions; weights are TBD in Pokedex-text session
-    NATIONAL_DEX_JOUSTROLL,
-    NATIONAL_DEX_JOUSTEEL,
 };
 
 const u16 gPokedexOrder_Height[] =
@@ -3535,6 +3535,7 @@ const u16 gPokedexOrder_Height[] =
     NATIONAL_DEX_SCOVILLAIN,
     NATIONAL_DEX_IRON_TREADS,
     // 3'03" / 1.0m
+    NATIONAL_DEX_JOUSTROLL,
     NATIONAL_DEX_IVYSAUR,
     NATIONAL_DEX_WARTORTLE,
     NATIONAL_DEX_BEEDRILL,
@@ -3952,6 +3953,7 @@ const u16 gPokedexOrder_Height[] =
     NATIONAL_DEX_IRON_THORNS,
     NATIONAL_DEX_IRON_CROWN,
     // 5'07" / 1.7m
+    NATIONAL_DEX_JOUSTEEL,
     NATIONAL_DEX_CHARIZARD,
     //NATIONAL_DEX_CHARIZARD_MEGA_X,
     //NATIONAL_DEX_CHARIZARD_MEGA_Y,
@@ -4311,7 +4313,4 @@ const u16 gPokedexOrder_Height[] =
     NATIONAL_DEX_ETERNATUS,
     // 328'01" / 100m
     //NATIONAL_DEX_ETERNATUS_ETERNAMAX,
-    // Joustroll/Jousteel — placeholder positions; heights are TBD in Pokedex-text session
-    NATIONAL_DEX_JOUSTROLL,
-    NATIONAL_DEX_JOUSTEEL,
 };

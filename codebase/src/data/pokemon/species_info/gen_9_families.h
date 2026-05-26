@@ -8165,8 +8165,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .cryId = CRY_VAROOM, // placeholder; final cry to be authored
         .natDexNum = NATIONAL_DEX_JOUSTROLL,
         .categoryName = _("Armory"),
-        .height = 10,   // placeholder — final height in TBD measurement session
-        .weight = 1000, // placeholder — final weight in TBD measurement session
+        .height = 10,   // 1.0 m (decimeters)
+        .weight = 1000, // 100.0 kg (hectograms)
         .description = COMPOUND_STRING(
             "A legendary species that serves the\n"
             "Umbra family. Their metallic bodies\n"
@@ -8240,8 +8240,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .cryId = CRY_VOLCANION, // placeholder; final cry to be authored
         .natDexNum = NATIONAL_DEX_JOUSTEEL,
         .categoryName = _("Paladin"),
-        .height = 17,   // placeholder — final height in TBD measurement session
-        .weight = 5300, // placeholder — final weight in TBD measurement session
+        .height = 17,   // 1.7 m (decimeters)
+        .weight = 5300, // 530.0 kg (hectograms)
         .description = COMPOUND_STRING(
             "Arbiters of war and justice, the ace\n"
             "of Umbra scions. They dispatch foes\n"
