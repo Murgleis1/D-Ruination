@@ -190,6 +190,26 @@ During one of Osrid's return visits to the lab in the early-to-mid game, **condi
 - After Cormoria's eventual collapse, the line presumably ceases to exist anywhere in the modern Pokemon world *unless* descendants of the Umbra family (eventually Professor Tenebris of DM era) preserved seed-stock — `[OPEN]` whether this is canonical
 - Rhydia, having been tutored by Cadmus from infancy, has spent her childhood *around* Jousteel — she may have her own quiet connection to the line; `[OPEN]` whether she has a Jousteel of her own (likely no — Umbra-exclusive cultivation is significant)
 
+**The "three eggs" event in Cadmus's generation `[LOCKED v0.9.8]`:**
+
+The Umbra-family Jousteel-line cultivation normally proceeds at a cadence of **one egg per generation** — a Jousteel produces a single egg in its long lifespan, that egg hatches into a Joustroll, the next-generation Umbra head raises that Joustroll into adulthood, and the line continues. Centuries of disciplined husbandry.
+
+**Cadmus's generation produced an exceptional event:** the previous Jousteel laid **three eggs instead of one**. Two of the three hatched within the Umbra household — one became the **overworld attendant Joustroll** seen accompanying Cadmus around his laboratory; the other grew into his **personal ace Jousteel**. The third egg remained unhatched and was **sealed in a deep cavern accessible only to the Umbra family.**
+
+The third egg is the hook for the Trial 4 Joustroll Egg sidequest. Full Joustroll/Jousteel species lore lives in **Section 9 — The Joustroll/Jousteel Line**, including the canonical Pokedex descriptions, stat lines, learnsets, evolution chain, and the *Cormorian engineered-weapons twin-pair* narrative connecting House Umbra's cultivation to the broader Cormorian-engineering thematic. The Pokedex description for Joustroll itself is: *"A legendary species that serves the Umbra family. Their metallic bodies generate billows of steam as they race around."*
+
+**Trial 4 Joustroll Egg sidequest — Cadmus's role `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+When the player reaches Trial 4, **a Water-type cult has taken over the deep cavern where Cadmus's family sealed the third egg.** Cadmus dispatches the player to retrieve the egg before the cult can despoil what no one outside House Umbra is meant to touch.
+
+The cavern is held by a **Mega Gyarados boss** flanked by a **Crawdaunt-led clan of water Pokemon**. The player works through the cult's outer guard, solves environmental puzzles, defeats the boss, and reaches the **incubation shrine** where the sealed egg has rested across the generations.
+
+At the egg-discovery beat, the player chooses one of two responses to the line *"Is it just me or is the egg glowing?"* — the choice gates whether the hatched Joustroll is shiny or normal. On return to Cadmus, his closing line: **"Maybe our Jousteels can even face off in battle one day! Wouldn't that be exciting?"**
+
+**Narrative function:** the sidequest is the player's first direct participation in the Umbra cultivation tradition (previously discussed but never engaged with), and the moment where Cadmus's familial-philosophical warmth is most visible — he frames the player's hatched Joustroll as a *future partner-peer* to his own ace, not a tributary gift. The "exciting" line is one of Cadmus's warmest character beats in the entire game. The fact that the third egg was an *exceptional* event in his generation — not a routine third-of-three — means the gift is also a recognition of the player's specific worth to House Umbra's continuing tradition.
+
+`[OPEN]` Whether Rhydia is aware of the third egg's existence prior to the sidequest. Most likely no — the third-egg event is family-internal, and Cadmus's *judgment* about who to entrust with its hatching is exactly the kind of careful strategic-pastoral choice that defines his character.
+
 **What Cadmus Umbra knows about Cormorian deep history `[LOCKED v0.9.4]`:**
 
 **Cadmus Umbra does NOT know the deep cosmological truth of Cormoria's founding.** Despite being the most learned scholar in Cormoria, despite being the Pokemon Philosopher, despite tutoring Rhydia from infancy — he carries only the *fairy-tale-level* version of the founding myth:

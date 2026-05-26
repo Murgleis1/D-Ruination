@@ -43,11 +43,14 @@ Rhydia continues the matrilineal Cormorian royal line through her future descend
 - Glaive himself is not stated to be Lance's direct ancestor
 - His nickname *Blackthorn* is the in-game hint
 
-### Umbra → Professor Tenebris `[LOCKED]`
+### Umbra → Professor Tenebris `[LOCKED — expanded v0.9.8]`
 
 - Umbra's family preserves Latin-shadow naming tradition across ~2,000 years
 - Tenebris (Dreamstone Mysteries) is a descendant
 - Tied to scholarly/philosophical lineage
+- **House Umbra's heraldic-symbol Pokemon line is Joustroll/Jousteel** (Water/Steel; full lore in Section 9 — The Joustroll/Jousteel Line). The line is Cormorian-exclusive — no other house, commoner, or foreign trainer has access — and the Umbra family's centuries-long cultivation of this line is what has anchored an Umbra at the Vizier-of-Education role across so much of Cormorian history. Heraldic symbol *and* structural source of the family's political durability across generations.
+- **Cormorian engineered-weapons twin-pair narrative** (Section 9): four absent canonical legendaries (Zacian-Crowned, Zamazenta, Lunala, Solgaleo) have their signature moves repurposed as Cormorian-engineered weapons (Behemoth Blade, Behemoth Bash, Moongeist Beam, Sunsteel Strike) handed to the three starter lines + Tinkaton's Stage-3 Behemoth Bash. The thematic statement: *Cormorian engineering surpasses legendary gifts.* House Umbra's centuries-old Jousteel cultivation is the *living tradition* parallel to this engineering achievement — both are demonstrations of the Cormorian conviction that *partnership and craft can rival cosmic-tier resources.* Where the engineered weapons exist as moves in starter learnsets, House Umbra's contribution exists as the living Joustroll bloodline itself. **Same thematic, different medium.**
+- After Cormoria's collapse, the Jousteel line presumably ceases to exist anywhere in the modern Pokemon world *unless* Tenebris-line descendants preserved seed-stock from the family cultivation tradition. `[OPEN]` whether this is canonical to the DM-era continuity.
 
 ### Boran Surge → Lt. Surge of Vermillion City `[LOCKED — soft canon]`
 

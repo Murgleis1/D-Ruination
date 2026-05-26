@@ -342,5 +342,46 @@ A v0.9.7 demonstration of Section 11 Principle 2 (the player's choices have perm
 
 **Implementation implication:** Late-game scenes involving Brie should *acknowledge the complexity* without resolving it. Brie's reactions to her uncle's death (if witnessed onscreen) should be *layered* — grief that includes the years of corruption-loss, recognition that includes the redemption-relief, **none of it resolving into a single clean emotion.** The dialogue writing must be willing to leave this contradictory.
 
+### Principle: Unified Starter-Trio BST Framework `[LOCKED v0.9.8]`
+
+All three Dreamstone Ruination starter lines (Frigibax → Arctibax → Baxcalibur; Teddiursa Blue Moon → Ursaring Blue Moon → Bloodmoon Ursaluna; Tinkatink → Tinkatuff → Tinkaton) conform to a **single unified BST framework**:
+
+- **Stage 1: 375 BST**
+- **Stage 2: 480 BST**
+- **Stage 3: 600 BST** (Bloodmoon Ursaluna; baseline) — with cross-line variance pushed into stat *shape* rather than total, except where a specific final form has a named higher tier (Mega Baxcalibur sits at 720 per the Mega Evolution policy).
+
+**Distinct role identities at every stage, not just final form:**
+
+| Line | Role | Stat-shape signature |
+|---|---|---|
+| Frigibax → Baxcalibur | Physical attacker + speed | Baxcalibur signature stat: **Atk 145** |
+| Teddiursa Blue Moon → Bloodmoon Ursaluna | Special-attacker apex | Bloodmoon Ursaluna signature stat: **SpA 145** |
+| Tinkatink → Tinkaton | Defensive colossus | Tinkaton paired signature stats: **Def 125 / SpD 125** |
+
+**Why the framework matters at the design level:**
+
+- **Selectability without strict mechanical dominance.** A player picking any of the three starters sees roughly the same BST budget; the *choice* is which role identity to play, not which stat package to grab.
+- **Both physical-attacker lines (Frigibax, Tinkatink) dump SpA**, since their full kits are 100% physical. SpA stats below 70 across all stages signal to engaged players that these lines aren't intended for mixed builds.
+- **Only the Blue Moon line uses SpA**, with a full special kit (Echoed Voice → Psybeam → Torch Song → Moonblast → Lumina Crash → Moongeist Beam) that signals its identity from Lv 1.
+- **Identity-from-Stage-1.** Stage 1 stat shape already telegraphs role; players don't have to wait three evolutions to see what they picked. This is a deliberate departure from canonical Gen 1 starter-trio design (where Stages 1 and 2 are similar; identity emerges only at Stage 3).
+
+**This principle is the project-level abstraction of the Section 6 starter-line lock.** Detailed stat tables live in Section 6 — Starter Trio. The framework itself is the *pattern*; the stats are the *implementation*.
+
+### Principle: Lv 77 Starter-Ace 10-PP Convention `[LOCKED v0.9.8]`
+
+All three Stage-3 starter signatures learned at Lv 77 are normalized to **10 PP**:
+
+- **Behemoth Blade** (Baxcalibur, Lv 77, Dragon, 120 BP, Fairy-effectiveness override) — 10 PP
+- **Moongeist Beam** (Bloodmoon Ursaluna, Lv 77, Ghost, buffed 100 → 140 BP, ignoresTargetAbility) — 10 PP
+- **Sunsteel Strike** (Tinkaton, Lv 77, Fire non-STAB, 140 BP, ignoresTargetAbility) — 10 PP
+
+**Why the convention matters:**
+
+- **Signature-move scarcity is preserved.** A Lv 77 ace with 10 PP can be deployed ~8 times per battle (10 PP — modulo Leftovers/items). Players cannot spam it; they must choose moments.
+- **Cross-line equivalence.** The three signatures should *feel* equivalent in resource-cost terms. Different BP, different effects, different types — but the *opportunity cost* of pressing the button is the same across all three.
+- **Mechanical-narrative alignment.** The Lv 77 ace pattern across the trio is one of the project's cleanest mechanical-narrative alignments. **Four absent canonical legendaries** (Zacian-Crowned, Zamazenta, Lunala, Solgaleo) have their signatures repurposed for Cormorian-engineered use: Behemoth Blade on Frigibax, Behemoth Bash on Tinkaton (Lv 30), Moongeist Beam on Teddiursa Blue Moon, Sunsteel Strike on Tinkatink. **The "Cormorian engineering > legendary gifts" thematic statement is delivered through the trio's combined learnsets.** The 10-PP convention is the mechanical glue that makes the cross-line equivalence legible to engaged players.
+
+Full custom-move data lives in Section 9 — Custom Move subsections.
+
 ---
 
