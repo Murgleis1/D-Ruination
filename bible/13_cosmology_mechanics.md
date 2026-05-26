@@ -249,6 +249,126 @@ The line's mechanical kit is *retroactively perfect* for its bloodline lore. Pix
 - **Engineering effort:** moderate. Approximately 30-40 lines of code: move data modification (~5 lines), new MOVE_EFFECT flag (~10 lines including enum + handler), damage calculator integration (~15 lines), learnset assignment (~5 lines), localization (~5 lines).
 - See Section 14 — Production Discipline for full engineering tracking.
 
+### Behemoth Blade (Frigibax-line Cormorian variant) — Custom Move `[LOCKED v0.9.8]`
+
+A custom move designed for Baxcalibur as its post-Champion ace, paired thematically with Behemoth Bash as the **Cormorian engineered-weapons twin-pair** (see "Cormorian engineered-weapons twin-pair" subsection below). Replaces the canonical Zacian-Crowned signature move's data with a Cormorian variant.
+
+| Field | Canonical (Zacian) | Cormorian variant (Ruination) |
+|---|---|---|
+| Type | Steel | **Dragon** |
+| Category | Physical | Physical |
+| Power | 100 | **120** |
+| Accuracy | 100 | **95** |
+| PP | 5 | **10** |
+| Effect | Dynamax 2× damage | EFFECT_HIT + Fairy-effectiveness override |
+
+**Custom property `[LOCKED v0.9.8]` — Fairy-effectiveness override:**
+
+Behemoth Blade deals **super-effective damage to Fairy-type Pokemon regardless of resolved type.** The effectiveness multiplier vs. Fairy is hardcoded into the move's damage calculation, parallel to the Freeze-Dry "type override" pattern. Engine implementation TODO; pattern mirrors the existing Freeze-Dry override.
+
+**Role:** Lv 77 level-up learn for Baxcalibur (the line's late-game ace, paired with Lv 60 Glaive Rush as the line's penultimate signature). Dragon STAB at 120 BP is already strong; adding Fairy-effectiveness gives Baxcalibur the ability to punch through *Fairy types that would normally be immune to Dragon attacks.*
+
+**Engineering note:** Zacian does not appear in Dreamstone Ruination — not in any encounter table, cinematic, or cult roster. The implementation approach is to overwrite the canonical Behemoth Blade entry rather than create a new move (same pattern as Behemoth Bash). Same MOVE_BEHEMOTH_BLADE constant; modified power/accuracy/PP/type/effect to match the Cormorian variant.
+
+### Mountain Gale (Cormorian variant) — Custom Move `[LOCKED v0.9.8]`
+
+The Frigibax-line tutor-taught move that gates Arctibax → Baxcalibur evolution. A Cormorian variant of the canonical Lv-54-evolution-requirement move with buffed stats and a Freeze-Dry-style type override.
+
+| Field | Canonical | Cormorian variant (Ruination) |
+|---|---|---|
+| Type | Ice | Ice (unchanged) |
+| Category | Physical | Physical |
+| Power | 100 | **95** |
+| Accuracy | 85 | **95** |
+| PP | 5 | **15** |
+| Flinch chance | 30% | **33%** |
+| Effect | flinch | flinch + Water-effectiveness override |
+
+**Custom property `[LOCKED v0.9.8]` — Water-effectiveness override:**
+
+Mountain Gale deals **super-effective damage to Water-type Pokemon regardless of resolved type.** Same engine pattern as Behemoth Blade's Fairy override and Behemoth Bash's Steel override. Engine implementation TODO.
+
+**Role:** Tutor-only move taught by the Mountain Gale Master Tutor at Trial 6 (~Lv 45 player progression). Learning Mountain Gale triggers EVO_MOVE evolution from Arctibax to Baxcalibur. NOT in any level-up learnset for the Frigibax line.
+
+**Thematic resonance:** Ice attacks that *would* be resisted by Water types (Ice is neutral vs. Water canonically) now hit Water for 2× super-effective. This is Freeze-Dry's iconic pattern applied to a physical Ice move. Baxcalibur becomes the first major **physical Water-killer** in the game — a real role even ignoring the Cormorian framing.
+
+### Sunsteel Strike (Cormorian variant) — Custom Move `[LOCKED v0.9.8]`
+
+The Tinkatink-line late-game ace at Lv 77 on Tinkaton. A Cormorian-engineered overwrite of the canonical Solgaleo signature.
+
+| Field | Canonical (Solgaleo) | Cormorian variant (Ruination) |
+|---|---|---|
+| Type | Steel | **Fire** |
+| Category | Physical | Physical |
+| Power | 100 | **140** |
+| Accuracy | 100 | 100 |
+| PP | 5 | **10** |
+| ignoresTargetAbility | TRUE | TRUE (preserved) |
+
+**Design intent — intentional non-STAB:**
+
+Sunsteel Strike is Fire-type, NOT Steel-type, despite Tinkaton being Steel/Fairy. This is deliberate: the Tinkatink line's non-Pixilate builds (Cute Charm / Battle Armor) lack a meaningful answer to opposing Steel-types because Fairy moves are resisted by Steel. Sunsteel Strike at 140 BP non-STAB Fire still hits opposing Steels for 2× super-effective (Fire-vs-Steel), giving non-Pixilate players a real Steel-killer slot without competing with Behemoth Bash's Pixilate-build identity.
+
+**ignoresTargetAbility preserved** so Sunsteel Strike still punches through Flash Fire (Heatran), Levitate, and other defensive abilities — a parallel to Moongeist Beam's identity (see below).
+
+**Engineering note:** Solgaleo does not appear in Dreamstone Ruination. Safe overwrite, same pattern as Behemoth Blade / Bash. Same MOVE_SUNSTEEL_STRIKE constant; modified type/power/PP to match the Cormorian variant.
+
+### Moongeist Beam — Buffed for the Blue Moon Line `[LOCKED v0.9.8]`
+
+The Lv 77 level-up ace on Bloodmoon Ursaluna (Blue Moon). Stats buffed from canonical Lunala signature.
+
+| Field | Canonical | Ruination |
+|---|---|---|
+| Type | Ghost | Ghost (unchanged) |
+| Category | Special | Special |
+| Power | 100 | **140** |
+| Accuracy | 100 | 100 |
+| PP | 5 | **10** |
+| ignoresTargetAbility | TRUE | TRUE (preserved) |
+
+**Role:** Lv 77 level-up learn for Bloodmoon Ursaluna (Blue Moon), as the line's Ghost-coverage post-Champion ace. Pairs with Blood Moon (Ground) as the line's two 140-BP signature moves — Blood Moon for raw Ground STAB nuke (constrained by `cantUseTwice`), Moongeist Beam for unrestricted Ghost coverage that bypasses defensive abilities.
+
+**Engineering note:** Lunala does not appear in Dreamstone Ruination. Safe overwrite, same pattern as Behemoth Blade / Bash / Sunsteel Strike. Only the power and PP change; type and effects preserved.
+
+### Double Slap & Covet — Global Retyping to Fairy `[LOCKED v0.9.8]`
+
+Both moves are globally retyped from Normal to Fairy in Ruination's moves_info.h. This is the only global move retyping in the project that affects multiple species.
+
+**Motivation:** The Tinkatink line's non-Pixilate builds (Cute Charm / Battle Armor) need early-game Fairy physical options that don't depend on the Pixilate HA. Double Slap (Lv 1) and Covet (Lv 13) on Tinkatink were natural candidates — both already in the kit, both already physical, both moderate-power. Retyping them globally gives Tinkatink line *meaningful Fairy options at all ability slots*, not just Pixilate.
+
+**Ripple scope:** ~12 unique species learn Double Slap canonically (Wigglytuff, Lickitung line, Audino, Whismur line, etc.); ~35 unique species learn Covet (Skitty/Delcatty, Bidoof/Bibarel, etc.). All of them now wield these moves as Fairy. The ripple is *accepted as a Ruination design choice* — Fairy types like Wigglytuff gain STAB, Normal types like Lickitung lose Normal STAB on these specific moves.
+
+**Notable:** Covet's item-steal effect (`MOVE_EFFECT_STEAL_ITEM`) is preserved. The retype is type-only.
+
+**Engineering:** Standard `moves_info.h` edits — `.type = TYPE_FAIRY` swapped in for both moves' entries. No additional engine code needed.
+
+### Cormorian engineered-weapons twin-pair `[LOCKED v0.9.8]`
+
+The Tinkatink line (dragon-slayer-clan) and the Frigibax line (dragon-imperial-tradition) each receive a **Behemoth-tier engineered weapon** designed to bypass the natural type-chart counter to its line's STAB.
+
+| Move | Line | Repurposed from | Type override |
+|---|---|---|---|
+| Behemoth Bash | Tinkaton (Lv 30 on Tinkatuff) | Zamazenta-Crowned (absent in Ruination) | Steel-effectiveness override regardless of resolved type |
+| Behemoth Blade | Baxcalibur (Lv 77) | Zacian-Crowned (absent in Ruination) | Fairy-effectiveness override regardless of resolved type |
+
+The twin-pair operates on a clean Cormorian-cosmological logic:
+
+- **Behemoth Bash (Tinkatink line):** Pixilate retypes the Normal-physical move to Fairy. Fairy is resisted (0.5×) by Steel, which would normally wall Tinkaton. The Steel-effectiveness override forces 2× damage on Steel targets regardless — the Cormorian dragon-slayer-clan's *engineered counter to the Steel-types that would resist their Pixilate-Fairy STAB.*
+- **Behemoth Blade (Frigibax line):** Dragon attacks are immune to Fairy in the canonical type chart. The Fairy-effectiveness override forces 2× damage on Fairy targets regardless — the Cormorian dragon-empire's *engineered counter to the Fairy-types that would otherwise be immune to their Dragon STAB.*
+
+**Both override-effects are the same engine pattern**, parallel to Freeze-Dry. Each line gets a *single* engineered weapon designed to bypass *its own* type-chart vulnerability. This is also the project's first canonical narrative example of "Cormorian engineering can override Pokemon type-chart logic" — establishing precedent for any future engineered-weapon designs.
+
+**Together with the celestial-trio Lv 77 aces (Behemoth Blade / Moongeist Beam / Sunsteel Strike), Cormoria's engineered repurposings cover the three absent Galarian-wolf / Alolan-cosmic legendaries:**
+
+| Absent legendary | Cormorian repurposing |
+|---|---|
+| Zacian (Crowned) | Behemoth Blade (Frigibax line) |
+| Zamazenta (Crowned) | Behemoth Bash (Tinkatink line) |
+| Solgaleo | Sunsteel Strike (Tinkatink line ace) |
+| Lunala | Moongeist Beam (Blue Moon Teddiursa line ace) |
+
+The pattern reads narratively as "Cormoria has, over the centuries, *engineered* what the larger Pokemon world received as *legendary gifts*" — a thematic statement about Cormorian ingenuity and self-reliance, and the absence of those legendaries from Cormoria becomes itself a worldbuilding choice rather than an arbitrary omission.
+
 ### Blood Moon (Ground) — Custom Type Modification `[LOCKED v0.9.2]`
 
 **The canonical move Blood Moon is retyped from Normal to Ground in Dreamstone Ruination.** All other properties of the move are preserved.
@@ -633,54 +753,144 @@ Keerin has been provided as user-generated sprite content in the asset library:
 - **Overworld following sprites** — not yet provided; will need to be developed for Keerin to walk behind the player in the late-game post-capture sequence
 - All sprites are RPG Maker XP / Pokemon Essentials format (96×96); will need GBA-format remastering to 64×64 with palette quantization for pokeemerald-expansion compatibility
 
-### The Jousteel Line — Cormorian-Exclusive Water/Steel Species `[LOCKED v0.9.4]`
+### The Joustroll/Jousteel Line — Cormorian-Exclusive Custom Species `[LOCKED v0.9.8]`
 
-A two-stage Pokemon line cultivated *exclusively* by House Umbra — the **only known Pokemon species that exists *only* in Cormoria** (besides Keerin in legends).
+A two-stage Pokemon line cultivated *exclusively* by House Umbra — the **only known Pokemon species that exists *only* in Cormoria** (besides Keerin in legends). Implemented as new custom species in the codebase (SPECIES_JOUSTROLL = 1524, SPECIES_JOUSTEEL = 1525), with new National Dex slots (NATIONAL_DEX_JOUSTROLL, NATIONAL_DEX_JOUSTEEL).
 
-**Family-exclusive cultivation `[LOCKED v0.9.4]`:**
+**Lore — the long-lived self-propagating bloodline `[LOCKED v0.9.8]`:**
 
-The Jousteel line is *not* a wild species and *not* available to other Cormorian noble houses, commoners, or foreign trainers. House Umbra maintains the cultivation as a centuries-old family responsibility (Section 7 — Cadmus Umbra). Each Umbra raises their own Joustroll → Jousteel partnership as part of family tradition.
+Joustroll and Jousteel are *genderless, non-breeding, exceptionally long-lived* armored crustacean Pokemon. The line propagates through a single mechanism: a Jousteel produces *one egg per generation*, which hatches into a Joustroll that the next Umbra family head raises into adulthood. The Umbra family has maintained this cultivation as a centuries-old responsibility — every generation of Umbra Solomonars has had a Jousteel as their personal ace.
+
+Jousteel is the **literal heraldic symbol of House Umbra**, and the line's sheer power has been the structural reason an Umbra has held the Vizier role for so much of Cormorian history (Section 7 — Cadmus Umbra).
+
+**Cadmus's generation produced an exceptional event:** the previous Jousteel laid **three eggs instead of one**. Two hatched in the family's care — one became Cadmus's overworld attendant Joustroll (seen around his laboratory), the other grew into his ace Jousteel. The third egg remained unhatched, sealed in a deep cavern accessible only to the Umbra family. The Trial 4 sidequest (Section 10 — Story Spine; Section 7 — Cadmus Umbra) deals with the recovery of this third egg, which Cadmus dispatches the player to retrieve after a Water-type cult takes over the cavern.
 
 After Cormoria's eventual collapse, the line presumably ceases to exist anywhere in the modern Pokemon world *unless* descendants of the Umbra family (eventually Professor Tenebris of DM era) preserved seed-stock. `[OPEN]` whether this is canonical to the project.
 
-**Joustroll (Stage 1):**
+**Joustroll — "The Armory Pokemon" `[LOCKED v0.9.8]`:**
 
-| Attribute | Value | Notes |
+| Attribute | Value |
+|---|---|
+| Species ID | SPECIES_JOUSTROLL = 1524 (Ruination custom) |
+| National Dex | NATIONAL_DEX_JOUSTROLL |
+| Typing | **Steel** (pure Steel — Water typing unlocked only on evolution) |
+| Category | _("Armory") |
+| Height / Weight | 1.0 m / 100.0 kg |
+| BST | 505 (75/85/90/80/85/90 — HP/Atk/Def/Spe/SpA/SpD) |
+| Abilities | Filter, Motor Drive; HA: Speed Boost |
+| Gender ratio | Genderless |
+| Growth rate | Slow |
+| Egg groups | NoEggsDiscovered |
+| Catch rate | 3 (mythic-tier) |
+| Evolution | → Jousteel at Lv 50 (EVO_LEVEL) |
+| Cry placeholder | CRY_VAROOM (final cry pending user authoring) |
+
+**Joustroll Pokedex description (canonical):**
+
+> *"A legendary species that serves the Umbra family. Their metallic bodies generate billows of steam as they race around."*
+
+**Joustroll learnset (`[LOCKED v0.9.8]`):**
+
+| Lv | Move | Notes |
 |---|---|---|
-| **Typing** | Water/Steel | `[OPEN]` confirmation; Water family specialty + Steel armor visual |
-| **BST** | `[OPEN]` | Likely 350-400 (mid-stage Pokemon range) |
-| **Abilities** | `[OPEN]` | Suggestions: Battle Armor (defensive crab-knight) / Shell Armor; possible hidden ability *Water Veil* or *Heatproof* |
-| **Evolution** | → Jousteel at level `[OPEN]` (likely 36-42 range) |
-| **Visual** | Crab-like armored arthropod, low-slung quadruped, red carapace, lobster-like claws | Asset library: `Joustroll - Front.png`, `Joustroll - Back.png` |
+| 1 | Snap Trap | Steel trapping move |
+| 3 | Magnet Rise | Self-Levitate for 5 turns |
+| 5 | Shift Gear | +1 Atk +2 Spe setup |
+| 8 | Gear Grind | Steel 2-hit physical |
+| 13 | High Horsepower | Ground physical, 95 BP |
+| 19 | Water Shuriken | Water priority special (Joustroll generates steam pre-evolution) |
+| 24 | Recover | Status — full HP recovery |
+| 30 | Temper Flare | Fire physical, double power if last move missed |
+| 33 | Spin Out | Steel physical, -2 Spe self after use |
+| 37 | Strange Steam | Fairy special, 20% confusion |
+| 40 | Scald | Water special, 30% burn |
+| 48 | U-Turn | Bug pivot |
+| 60 | Electro Drift | Electric special, double power if super-effective |
 
-**Jousteel (Stage 2):**
+**Jousteel — "The Paladin Pokemon" `[LOCKED v0.9.8]`:**
 
-| Attribute | Value | Notes |
+| Attribute | Value |
+|---|---|
+| Species ID | SPECIES_JOUSTEEL = 1525 (Ruination custom) |
+| National Dex | NATIONAL_DEX_JOUSTEEL |
+| Typing | **Water/Steel** (defining Cormorian-exclusive typing; Empoleon is the only canonical Water/Steel) |
+| Category | _("Paladin") |
+| Height / Weight | 1.7 m / 530.0 kg |
+| BST | 590 (100/130/110/10/130/110) — **mythic-tier pseudo-legendary** |
+| Abilities | Levitate, Water Bubble; HA: Sharpness |
+| Gender ratio | Genderless |
+| Growth rate | Slow |
+| Egg groups | NoEggsDiscovered |
+| Catch rate | 3 |
+| `.isMythical` | TRUE |
+| Perfect IV count | 3 |
+| Evolves from | Joustroll at Lv 50 |
+| Cry placeholder | CRY_VOLCANION (final cry pending user authoring) |
+
+**Jousteel Pokedex description (canonical):**
+
+> *"Arbiters of war and justice, the ace of Umbra scions. They dispatch foes with blades of pure energy that can be launched in an instant."*
+
+**Jousteel design intent — Speed 10 is intentional `[LOCKED v0.9.8]`:**
+
+Jousteel's Speed of 10 is the lowest in the entire game (lower than Shuckle's 5 and Munchlax's 5 are *theoretical floor*; Jousteel sits next-to-bottom). This is the deliberate trade-off for its mythic-tier stat allocation:
+- 100 HP + 110 Def + 110 SpD = 320 defensive total
+- 130 Atk + 130 SpA = true mixed-attacker pseudo-legendary offense
+- Sharpness HA boosts the line's many slicing moves (Tachyon Cutter, Aqua Cutter, Air Slash, Kowtow Cleave, Sacred Sword, Secret Sword, Razor Shell, Mighty Cleave) by 1.5×
+
+The player's expected counter-strategies:
+- **Quick Claw** held item (~30% priority chance per turn)
+- **Trick Room** team support (reverses Speed order)
+- **King's Shield** on-evolution move (Lv 0; protects + drops attacker's Atk if they make contact)
+
+The intent is that Jousteel hits *like a freight train* when it actually moves — Sharpness-boosted Tachyon Cutter with STAB is an OHKO threat against most non-Steel-resistant targets.
+
+**Jousteel learnset (`[LOCKED v0.9.8]`):**
+
+| Lv | Move | Notes |
 |---|---|---|
-| **Typing** | Water/Steel | The defining Cormorian-exclusive typing |
-| **BST** | `[OPEN]` | Likely 510-540 (mid-tier fully-evolved Pokemon range, but possibly higher given its role as Cadmus's ace) |
-| **Abilities** | `[OPEN]` | Suggestions: Battle Armor / Shell Armor / Heatproof; possible hidden ability *Refrigerate* (Water punches become Ice?) or a custom Cormorian-knight ability |
-| **Visual** | Stands tall on hind legs in jousting stance; two enormous claw-arms held forward; blue/red/steel coloration; **lance-like protrusions emerging from forehead** (the "joust" nameelement) | Asset library: `Jousteel - Front.png`, `Jousteel - Back.png` |
+| 0 | Tachyon Cutter | **On-evolution signature — never-miss Steel special slash** (the only non-Paradox species to learn this naturally) |
+| 0 | King's Shield | **On-evolution defensive bulwark** (protects + -2 Atk on contact attackers — same canonical effect as Aegislash's) |
+| 1 | Snap Trap | (carried from Joustroll) |
+| 3 | Magnet Rise | (carried) |
+| 5 | Shift Gear | (carried) |
+| 8 | Gear Grind | (carried) |
+| 10 | Smart Strike | Steel never-miss physical |
+| 13 | High Horsepower | (carried) |
+| 19 | Water Shuriken | (carried) |
+| 24 | Recover | (carried) |
+| 30 | Temper Flare | (carried) |
+| 33 | Spin Out | (carried) |
+| 37 | Strange Steam | (carried) |
+| 40 | Scald | (carried) |
+| 48 | U-Turn | (carried) |
+| 51 | Aqua Cutter | Water slicing physical, 60 BP, high crit |
+| 53 | Sacred Sword | Fighting physical, 90 BP, ignores stat boosts |
+| 53 | Secret Sword | Fighting special, 85 BP scaling off SpA but hits Def |
+| 60 | Psyblade | Psychic physical slicing, 80 BP |
+| 66 | Air Slash | Flying special, 75 BP, 30% flinch |
+| 73 | Kowtow Cleave | Dark slicing physical, never-miss |
+| 80 | Razor Shell | Water slicing physical, 75 BP, 50% -1 Def |
+| 100 | Mighty Cleave | **Endgame ultimate Steel slicing physical** (the line's apex post-Lv-100 reward) |
 
-**Type matchups (Water/Steel):**
-- **Resists:** Steel, Ice, Fire, Water, Psychic, Dragon, Flying, Bug, Normal, Grass (when Water side dominant), Rock, Fairy
-- **Weaknesses:** Electric (×2), Ground (×2), Fighting (×2 from Steel; no Water counter)
-- **Excellent defensive typing** — one of the rarest and most powerful in canonical Pokemon (only Empoleon shares this Water/Steel combo canonically)
+**TM compatibility (`[LOCKED v0.9.8]`):** Joustroll and Jousteel share an identical teachable list of 39 unique TMs = the **deduped union of canonical Varoom + Escavalier teachable learnsets**. Includes Iron Head, Flash Cannon, Sludge Bomb, Toxic, Knock Off, Close Combat, X-Scissor, Aerial Ace, Giga Drain, Counter, Steel Beam, Bug Buzz, Swords Dance, Focus Blast, and others.
 
-**Cadmus Umbra's ace (Jousteel) — battle specifications:**
+**Engine floating-sprite parameters:**
 
-`[OPEN]` Specific moveset, stat allocation, item, ability choice for Cadmus's personal Jousteel
-- Likely signature physical Water move (Liquidation, Wave Crash)
-- Likely signature Steel move (Iron Head, Heavy Slam, Behemoth Bash if custom)
-- Defensive options (Iron Defense, Recover, possibly a custom support move)
-- Coverage for Cormorian meta (Earthquake / Stone Edge / Crunch)
+- **Joustroll:** parameters adapted from Revavroom (steam-engine flavor) — frontPicYOffset=8, backPicYOffset=16, SHADOW(0,7,L), TRACKS_NONE
+- **Jousteel:** parameters adapted from Aegislash (floating sword) — frontPicYOffset=0, backPicYOffset=9, enemyMonElevation=3, SHADOW(0,14,M), frontAnimId=ANIM_H_VIBRATE, backAnimId=BACK_ANIM_H_VIBRATE
 
-**Implementation:**
-- Custom species data for Joustroll and Jousteel (new dex slots)
-- Full Pokemon data: stats, abilities, learnsets, evolution method
-- Sprite GBA-remastering from asset library (front/back; icon needs to be developed)
-- House Umbra cultivation logic — Joustroll/Jousteel encounters gated to Umbra-associated locations; no wild population
-- Rhydia interaction `[OPEN]` (her childhood exposure to Jousteel through Umbra's tutoring may produce special dialogue when encountering Cadmus's Jousteel)
+**Type matchups (Water/Steel for Jousteel):**
+- **Resists:** Steel, Ice, Fire, Water, Psychic, Dragon, Flying, Bug, Normal, Rock, Fairy (×0.5 or better)
+- **Immune to:** Ground (via Levitate ability, default)
+- **Weaknesses:** Electric (×2), Fighting (×2)
+- **Excellent defensive typing** — combined with Levitate erasing the Ground 2× weakness, Jousteel's only true 2× weaknesses are Electric and Fighting
+
+**Cadmus Umbra's personal Jousteel — battle specifications:**
+
+`[OPEN]` Specific moveset, item, exact stat allocation choices for Cadmus's personal Jousteel (the in-game opponent encounter in the Vizier gauntlet). Likely includes Tachyon Cutter, Behemoth Bash (if Cadmus has taught it — unusual but possible), Recover, and one coverage move.
+
+**Implementation status:** Sprite art committed. Species constants allocated. species_info entries, learnsets, teachables, evolution table, Pokedex orderings, graphics-table registrations, overworld follower pic tables — all committed in the codebase. Remaining work: final cry audio (user authoring), Trial 4 Egg sidequest event scripting.
 
 ### The Book of the Moon — Lost-History Lore Reward `[LOCKED v0.9.4]`
 
