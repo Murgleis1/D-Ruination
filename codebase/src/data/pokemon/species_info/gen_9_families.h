@@ -3591,12 +3591,17 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #if P_FAMILY_TINKATINK
     [SPECIES_TINKATINK] =
     {
-        .baseHP        = 50,
-        .baseAttack    = 45,
-        .baseDefense   = 45,
-        .baseSpeed     = 58,
-        .baseSpAttack  = 35,
-        .baseSpDefense = 64,
+        // Dreamstone Ruination — defensive colossus line.
+        // BST 297 -> 375. High Def/SpD, moderate Atk, dump SpA
+        // (kit is purely physical — Fake Out, Double Slap, Metal
+        // Claw, Covet, Low Sweep, Bulk Up, Behemoth Bash, Body
+        // Slam, Body Press, Close Combat, Sunsteel Strike, etc.).
+        .baseHP        = 65,
+        .baseAttack    = 70,
+        .baseDefense   = 85,
+        .baseSpeed     = 50,
+        .baseSpAttack  = 30,
+        .baseSpDefense = 75,
         .types = MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 190,
         .expYield = 56,//59,
@@ -3655,12 +3660,17 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 
     [SPECIES_TINKATUFF] =
     {
-        .baseHP        = 65,
-        .baseAttack    = 55,
-        .baseDefense   = 55,
-        .baseSpeed     = 78,
-        .baseSpAttack  = 45,
-        .baseSpDefense = 82,
+        // Dreamstone Ruination — Stage 2 buff (BST 380 -> 480).
+        // Def +55 (55 -> 110) is the largest jump, reinforcing the
+        // defensive-colossus identity. SpA dumped.
+        // Note: Speed 78 -> 60 is INTENTIONAL — the bible-locked
+        // identity is "lowest speed" of the trio.
+        .baseHP        = 90,
+        .baseAttack    = 85,
+        .baseDefense   = 110,
+        .baseSpeed     = 60,
+        .baseSpAttack  = 40,
+        .baseSpDefense = 95,
         .types = MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 90,
         .expYield = 90, //133,
@@ -3713,17 +3723,29 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sTinkatuffLevelUpLearnset,
         .teachableLearnset = sTinkatuffTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 38, SPECIES_TINKATON}),
+        // Dreamstone Ruination — Stage 2 -> Stage 3 via tutor-taught Gigaton Hammer
+        // (Master Tutor unlocks at Trial 6, ~Lv 45 player progression).
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_GIGATON_HAMMER, SPECIES_TINKATON}),
     },
 
     [SPECIES_TINKATON] =
     {
-        .baseHP        = 85,
-        .baseAttack    = 75,
-        .baseDefense   = 77,
-        .baseSpeed     = 94,
-        .baseSpAttack  = 70,
-        .baseSpDefense = 105,
+        // Dreamstone Ruination — final-form defensive colossus.
+        // BST 506 -> 600. Paired Def 125 + SpD 125 anchors the
+        // line's identity (each starter Stage 3 has one stat at
+        // 145 OR paired 125s — Baxcalibur Atk 145, Bloodmoon
+        // Ursaluna SpA 145, Tinkaton Def/SpD 125/125).
+        // HP 115 makes Tinkaton the bulkiest of the trio.
+        // Speed 94 -> 75: intentional drop, the defensive line
+        // is the slowest of the trio.
+        // SUPERSEDES the prior bible-locked v0.9.7 stat-line
+        // (75/85/125/75/125/75, BST 560). Bible cleanup pending.
+        .baseHP        = 115,
+        .baseAttack    = 110,
+        .baseDefense   = 125,
+        .baseSpeed     = 75,
+        .baseSpAttack  = 50,
+        .baseSpDefense = 125,
         .types = MON_TYPES(TYPE_FAIRY, TYPE_STEEL),
         .catchRate = 45,
         .expYield = 253,
@@ -5996,12 +6018,15 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
 #if P_FAMILY_FRIGIBAX
     [SPECIES_FRIGIBAX] =
     {
+        // Dreamstone Ruination — physical-attacker + speed line.
+        // BST 320 -> 375. SpA dumped (no special moves in kit);
+        // points redistributed to Atk, Speed, and bulk shoring.
         .baseHP        = 65,
-        .baseAttack    = 75,
-        .baseDefense   = 45,
-        .baseSpeed     = 55,
-        .baseSpAttack  = 35,
-        .baseSpDefense = 45,
+        .baseAttack    = 80,
+        .baseDefense   = 55,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 30,
+        .baseSpDefense = 65,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 45,
         .expYield = 64,
@@ -6055,17 +6080,21 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .levelUpLearnset = sFrigibaxLevelUpLearnset,
         .teachableLearnset = sFrigibaxTeachableLearnset,
         .eggMoveLearnset = sFrigibaxEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 35, SPECIES_ARCTIBAX}),
+        // Dreamstone Ruination — uniform Stage 1 -> Stage 2 evolution at Lv 24.
+        .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_ARCTIBAX}),
     },
 
     [SPECIES_ARCTIBAX] =
     {
-        .baseHP        = 90,
-        .baseAttack    = 95,
-        .baseDefense   = 66,
-        .baseSpeed     = 62,
-        .baseSpAttack  = 45,
-        .baseSpDefense = 65,
+        // Dreamstone Ruination — Stage 2 buff (BST 423 -> 480).
+        // Speed +43 (62 -> 105), Atk +15, Def +4, SpD +5.
+        // SpA dumped (kit is purely physical).
+        .baseHP        = 85,
+        .baseAttack    = 110,
+        .baseDefense   = 70,
+        .baseSpeed     = 105,
+        .baseSpAttack  = 40,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 25,
         .expYield = 148,
@@ -6118,17 +6147,26 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         )
         .levelUpLearnset = sArctibaxLevelUpLearnset,
         .teachableLearnset = sArctibaxTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 54, SPECIES_BAXCALIBUR}),
+        // Dreamstone Ruination — Stage 2 -> Stage 3 via tutor-taught Mountain Gale
+        // (the tutor NPC unlocks at Trial 6, ~Lv 45 player progression).
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_MOUNTAIN_GALE, SPECIES_BAXCALIBUR}),
     },
 
     [SPECIES_BAXCALIBUR] =
     {
-        .baseHP        = 115,
+        // Dreamstone Ruination — final-form rebalance, BST 600 preserved.
+        // Speed 87 -> 120 (+33) for the physical-attacker + speed identity.
+        // Atk 145 preserved (canonical signature stat).
+        // HP -15 / Def -7 / SpA -20 / SpD +9 to fit the new BST budget.
+        // NOTE: when Mega Baxcalibur stats are locked (canonical BST 720),
+        // ensure Mega Speed and Atk exceed 120 / 145 respectively so the
+        // Mega is a strict upgrade in its identity stats.
+        .baseHP        = 100,
         .baseAttack    = 145,
-        .baseDefense   = 92,
-        .baseSpeed     = 87,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 86,
+        .baseDefense   = 85,
+        .baseSpeed     = 120,
+        .baseSpAttack  = 55,
+        .baseSpDefense = 95,
         .types = MON_TYPES(TYPE_DRAGON, TYPE_ICE),
         .catchRate = 10,
         .expYield = 300,
@@ -8092,6 +8130,158 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .teachableLearnset = sPecharuntTeachableLearnset,
     },
 #endif //P_FAMILY_PECHARUNT
+
+// === DREAMSTONE RUINATION CUSTOM SPECIES ===
+// Joustroll and Jousteel are always compiled (no P_FAMILY_ guard).
+
+    [SPECIES_JOUSTROLL] =
+    {
+        // === DREAMSTONE RUINATION CUSTOM SPECIES ===
+        // The Armory Pokemon — Steel-type. Stage 1 of the Umbra-line.
+        // Pre-evolution form is mechanically-built and steam-powered;
+        // generates its own water vapor as natural locomotion. Gains
+        // Water typing fully on evolution to Jousteel at Lv 50.
+        // Genderless, non-breeding, mythic-tier rarity. Engine parameters
+        // for floating shadow/offsets adapted from Revavroom.
+        .baseHP        = 75,
+        .baseAttack    = 85,
+        .baseDefense   = 90,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 85,
+        .baseSpDefense = 90,
+        .types = MON_TYPES(TYPE_STEEL),
+        .catchRate = 3,
+        .expYield = 180,
+        .evYield_Defense = 1,
+        .evYield_SpDefense = 1,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 120,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_FILTER, ABILITY_MOTOR_DRIVE, ABILITY_SPEED_BOOST },
+        .bodyColor = BODY_COLOR_RED,
+        .speciesName = _("Joustroll"),
+        .cryId = CRY_VAROOM, // placeholder; final cry to be authored
+        .natDexNum = NATIONAL_DEX_JOUSTROLL,
+        .categoryName = _("Armory"),
+        .height = 10,   // 1.0 m (decimeters)
+        .weight = 1000, // 100.0 kg (hectograms)
+        .description = COMPOUND_STRING(
+            "A legendary species that serves the\n"
+            "Umbra family. Their metallic bodies\n"
+            "generate billows of steam as they\n"
+            "race around."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Joustroll,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 8,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .backPic = gMonBackPic_Joustroll,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 16,
+        .palette = gMonPalette_Joustroll,
+        .shinyPalette = gMonShinyPalette_Joustroll,
+        .iconSprite = gMonIcon_Joustroll,
+        .iconPalIndex = 0,
+        SHADOW(0, 7, SHADOW_SIZE_L)
+        FOOTPRINT(Joustroll)
+        OVERWORLD(
+            sPicTable_Joustroll,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Joustroll,
+            gShinyOverworldPalette_Joustroll
+        )
+        .levelUpLearnset = sJoustrollLevelUpLearnset,
+        .teachableLearnset = sJoustrollTeachableLearnset,
+        .evolutions = EVOLUTION({EVO_LEVEL, 50, SPECIES_JOUSTEEL}),
+    },
+
+    [SPECIES_JOUSTEEL] =
+    {
+        // === DREAMSTONE RUINATION CUSTOM SPECIES ===
+        // The Paladin Pokemon — Water/Steel-type. Stage 2, evolves from
+        // Joustroll at Lv 50. The literal heraldic symbol of House Umbra;
+        // every generation of the Umbra family has had a Jousteel as
+        // their ace, keeping an Umbra in the Vizier role since the early
+        // days of the empire. Genderless and non-breeding: the line is
+        // a long-lived self-propagating armored crustacean species that
+        // produces one egg per generation under normal circumstances.
+        // Mythic-tier rarity (catchRate 3, growth slow).
+        // Pseudo-legendary BST 590 with intentional 10 Speed: the trade-
+        // off for massive bulk + dual 130 offenses + slicing-heavy
+        // movepool. Players typically pair with Quick Claw or Trick Room.
+        // Engine parameters for floating sprite adapted from Aegislash.
+        .baseHP        = 100,
+        .baseAttack    = 130,
+        .baseDefense   = 110,
+        .baseSpeed     = 10,
+        .baseSpAttack  = 130,
+        .baseSpDefense = 110,
+        .types = MON_TYPES(TYPE_WATER, TYPE_STEEL),
+        .catchRate = 3,
+        .expYield = 285,
+        .evYield_Attack = 2,
+        .evYield_SpAttack = 2,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 120,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_LEVITATE, ABILITY_WATER_BUBBLE, ABILITY_SHARPNESS },
+        .bodyColor = BODY_COLOR_RED,
+        .speciesName = _("Jousteel"),
+        .cryId = CRY_VOLCANION, // placeholder; final cry to be authored
+        .natDexNum = NATIONAL_DEX_JOUSTEEL,
+        .categoryName = _("Paladin"),
+        .height = 17,   // 1.7 m (decimeters)
+        .weight = 5300, // 530.0 kg (hectograms)
+        .description = COMPOUND_STRING(
+            "Arbiters of war and justice, the ace\n"
+            "of Umbra scions. They dispatch foes\n"
+            "with blades of pure energy that can\n"
+            "be launched in an instant."),
+        .pokemonScale = 259,
+        .pokemonOffset = 0,
+        .trainerScale = 290,
+        .trainerOffset = 1,
+        .frontPic = gMonFrontPic_Jousteel,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_H_VIBRATE,
+        .enemyMonElevation = 3,
+        .backPic = gMonBackPic_Jousteel,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 9,
+        .backAnimId = BACK_ANIM_H_VIBRATE,
+        .palette = gMonPalette_Jousteel,
+        .shinyPalette = gMonShinyPalette_Jousteel,
+        .iconSprite = gMonIcon_Jousteel,
+        .iconPalIndex = 0,
+        SHADOW(0, 14, SHADOW_SIZE_M)
+        FOOTPRINT(Jousteel)
+        OVERWORLD(
+            sPicTable_Jousteel,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Jousteel,
+            gShinyOverworldPalette_Jousteel
+        )
+        .isMythical = TRUE,
+        .perfectIVCount = 3,
+        .levelUpLearnset = sJousteelLevelUpLearnset,
+        .teachableLearnset = sJousteelTeachableLearnset,
+    },
+// === END RUINATION CUSTOM SPECIES ===
 
 #ifdef __INTELLISENSE__
 };

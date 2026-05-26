@@ -6727,4 +6727,15 @@ static const struct SpriteFrameImage sPicTable_Pecharunt[] = {
 };
 #endif //P_FAMILY_PECHARUNT
 
+// === DREAMSTONE RUINATION CUSTOM SPECIES — OVERWORLD PIC TABLES ===
+// Joustroll and Jousteel are always compiled (no P_FAMILY_ guard).
+static const struct SpriteFrameImage sPicTable_Joustroll[] = {
+    overworld_ascending_frames(gObjectEventPic_Joustroll, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_Jousteel[] = {
+    overworld_ascending_frames(gObjectEventPic_Jousteel, 4, 4),
+};
+// === END RUINATION CUSTOM SPECIES ===
+
+
 #endif //OW_POKEMON_OBJECT_EVENTS

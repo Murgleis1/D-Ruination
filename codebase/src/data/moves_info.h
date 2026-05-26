@@ -175,13 +175,20 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_DOUBLE_SLAP] =
     {
+        // Dreamstone Ruination — global retype Normal -> Fairy.
+        // Gives early-game Fairy physical options to Pokemon that learn
+        // Double Slap regardless of their ability. Especially relevant
+        // for the Tinkatink line, where non-Pixilate players (Cute
+        // Charm / Battle Armor) otherwise lack early Fairy physical STAB.
+        // Side effect: all other species learning Double Slap (Wigglytuff,
+        // Lickitung line, Audino, etc.) now wield it as a Fairy move.
         .name = COMPOUND_STRING("Double Slap"),
         .description = COMPOUND_STRING(
             "Repeatedly slaps the foe\n"
             "2 to 5 times."),
         .effect = EFFECT_MULTI_HIT,
         .power = 15,
-        .type = TYPE_NORMAL,
+        .type = TYPE_FAIRY,
         .accuracy = 85,
         .pp = 10,
         .target = MOVE_TARGET_SELECTED,
@@ -8944,13 +8951,24 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_COVET] =
     {
+        // Dreamstone Ruination — global retype Normal -> Fairy.
+        // Item-steal effect preserved (the "cutely begs and takes"
+        // identity carries cleanly into a Fairy attack). Parallels
+        // the Double Slap retype: Tinkatink-line Fairy physical
+        // options at all ability slots, not just Pixilate.
+        // Side effect: ~35 unique species learn Covet (Teddiursa
+        // line canonically, Skitty/Delcatty, Bidoof/Bibarel, etc.);
+        // they now wield it as a Fairy move with item-steal.
+        // Note: the Blue Moon Teddiursa line in Ruination no longer
+        // learns Covet (replaced with the lunar-mystic special-attacker
+        // spec), so the cross-line interaction is moot for starters.
         .name = COMPOUND_STRING("Covet"),
         .description = COMPOUND_STRING(
             "Cutely begs to obtain an\n"
             "item held by the foe."),
         .effect = EFFECT_HIT,
         .power = 40,//B_UPDATED_MOVE_DATA >= GEN_5 ? 60 : 40,
-        .type = TYPE_NORMAL,
+        .type = TYPE_FAIRY,
         .accuracy = 100,
         .pp = B_UPDATED_MOVE_DATA >= GEN_6 ? 25 : 40,
         .target = MOVE_TARGET_SELECTED,
@@ -16875,15 +16893,32 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_SUNSTEEL_STRIKE] =
     {
+        // Dreamstone Ruination — buffed late-game ace, retyped to Fire.
+        // Repurposed as the Tinkatink line's Lv 77 post-Champion ace.
+        // Solgaleo does not appear in Ruination; this overwrite of the
+        // canonical Solgaleo signature is safe (parallel to Moongeist
+        // Beam's Lunala overwrite for the Blue Moon Teddiursa line).
+        //
+        // Design intent: Fire-type, non-STAB for Tinkaton (Steel/Fairy)
+        // by deliberate choice. Players running a non-Pixilate build
+        // (Cute Charm / Battle Armor + Gigaton Hammer / Body Press /
+        // Play Rough / Sunsteel Strike) gain a high-power Fire coverage
+        // option to deal with opposing Steel-types that would wall
+        // Tinkaton's Fairy and Fighting moves. Pixilate players have
+        // Behemoth Bash for the same anti-Steel role.
+        //
+        // ignoresTargetAbility = TRUE is preserved from canonical:
+        // the celestial-weapon "ignores defenses" identity, and a
+        // real threat to Heatran (Flash Fire) and Levitate users.
         .name = COMPOUND_STRING("Sunsteel Strike"),
         .description = COMPOUND_STRING(
-            "A sun-fueled strike that\n"
-            "ignores abilities."),
+            "Sun-forged hammer-strike\n"
+            "ignoring the foe's ability."),
         .effect = EFFECT_HIT,
-        .power = 100,
-        .type = TYPE_STEEL,
+        .power = 140,
+        .type = TYPE_FIRE,
         .accuracy = 100,
-        .pp = 5,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
@@ -16899,15 +16934,22 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_MOONGEIST_BEAM] =
     {
+        // Dreamstone Ruination — buffed late-game ace (140 BP).
+        // Repurposed as the Blue Moon Teddiursa line's Lv 77 post-Champion
+        // signature backup to Blood Moon. Lunala does not appear in
+        // Ruination, so this overwrite is safe. No drawback added —
+        // strong-as-Blood-Moon ace by design (intended endgame option).
+        // PP normalized to 10 (consistent across the three Lv 77 starter aces:
+        // Behemoth Blade / Moongeist Beam / Sunsteel Strike).
         .name = COMPOUND_STRING("Moongeist Beam"),
         .description = COMPOUND_STRING(
-            "A moon-powered beam that\n"
-            "ignores abilities."),
+            "Lunar beam that ignores\n"
+            "the foe's abilities."),
         .effect = EFFECT_HIT,
-        .power = 100,
+        .power = 140,
         .type = TYPE_GHOST,
         .accuracy = 100,
-        .pp = 5,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_SPECIAL,
@@ -17896,15 +17938,23 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_BEHEMOTH_BLADE] =
     {
+        // Dreamstone Ruination — Cormorian variant.
+        // Repurposed as Baxcalibur's late-game signature (Lv 77).
+        // Zacian does not appear in Ruination; this overwrite is safe.
+        // TODO(Ruination): wire the Fairy-effectiveness override in
+        // src/battle_util.c damage-calc path (parallels Freeze-Dry's
+        // type-override pattern). Stats below are final; effect is stub.
+        // PP normalized to 10 (consistent across the three Lv 77 starter aces:
+        // Behemoth Blade / Moongeist Beam / Sunsteel Strike).
         .name = COMPOUND_STRING("Behemoth Blade"),
         .description = COMPOUND_STRING(
-            "Strikes as a sword. Deals 2x\n"
-            "damage to Dynamaxed foes."),
-        .effect = EFFECT_DYNAMAX_DOUBLE_DMG,
-        .power = 100,
-        .type = TYPE_STEEL,
-        .accuracy = 100,
-        .pp = 5,
+            "Strikes as a Cormorian dragon-\n"
+            "sword. Super-effective on Fairy."),
+        .effect = EFFECT_HIT,
+        .power = 120,
+        .type = TYPE_DRAGON,
+        .accuracy = 95,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
@@ -17923,15 +17973,37 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_BEHEMOTH_BASH] =
     {
+        // Dreamstone Ruination — Cormorian variant.
+        // The Tinkatink starter line's signature, learned at Lv 30
+        // on Tinkatuff/Tinkaton. Cormorian-engineered anti-Steel weapon
+        // forged by the dragon-slayer-clan (Tinkatink lore).
+        //
+        // The dragon-slayer twin to Behemoth Blade (Frigibax line's
+        // anti-Fairy weapon). Each side of the Cormorian conflict
+        // engineered a Behemoth-tier weapon to bypass the natural
+        // type-chart counter to its line's STAB.
+        //
+        // Zamazenta does not appear in Ruination; this overwrite
+        // of the canonical Zamazenta-Crowned signature is safe.
+        //
+        // TODO(Ruination): wire the Steel-effectiveness override in
+        // src/battle_util.c damage-calc path. The override forces
+        // super-effective damage on Steel targets REGARDLESS of
+        // resolved type at use-time. Crucial when Pixilate retypes
+        // Behemoth Bash to Fairy (Steel resists Fairy, but the
+        // override forces 2x effectiveness anyway). Mirrors the
+        // pattern of Behemoth Blade (Fairy override) and Mountain
+        // Gale (Water override). Stats below are final; effect
+        // is stub.
         .name = COMPOUND_STRING("Behemoth Bash"),
         .description = COMPOUND_STRING(
-            "Attacks as a shield. Deals 2x\n"
-            "damage to Dynamaxed foes."),
-        .effect = EFFECT_DYNAMAX_DOUBLE_DMG,
+            "Cormorian anti-Steel hammer.\n"
+            "Crushes Steel-type defenses."),
+        .effect = EFFECT_HIT,
         .power = 100,
-        .type = TYPE_STEEL,
-        .accuracy = 100,
-        .pp = 5,
+        .type = TYPE_NORMAL,
+        .accuracy = 95,
+        .pp = 10,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
@@ -19218,21 +19290,29 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_MOUNTAIN_GALE] =
     {
+        // Dreamstone Ruination — Cormorian variant.
+        // Master-Tutor-taught move that gates the Arctibax -> Baxcalibur
+        // evolution at Lv 45+. Buffed power/accuracy/PP and given a
+        // Freeze-Dry-style type override.
+        // TODO(Ruination): wire the Water-effectiveness override in
+        // src/battle_util.c damage-calc path (mirror Freeze-Dry's
+        // existing type-override pattern). Stats below are final;
+        // effect is stub.
         .name = COMPOUND_STRING("Mountain Gale"),
         .description = COMPOUND_STRING(
-            "Giant chunks of ice damage\n"
-            "the foe. It may flinch."),
+            "Giant ice chunks crush the foe.\n"
+            "May flinch. Hits Water hard."),
         .effect = EFFECT_HIT,
-        .power = 100,
+        .power = 95,
         .type = TYPE_ICE,
-        .accuracy = 85,
-        .pp = 5,
+        .accuracy = 95,
+        .pp = 15,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .additionalEffects = ADDITIONAL_EFFECTS({
             .moveEffect = MOVE_EFFECT_FLINCH,
-            .chance = 30,
+            .chance = 33,
         }),
         .battleAnimScript = gBattleAnimMove_MountainGale,
     },
@@ -20625,13 +20705,17 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
 
     [MOVE_BLOOD_MOON] =
     {
+        // Dreamstone Ruination — retyped from Normal to Ground.
+        // Tutor-taught by the Blue Moon Hermit (Trial 6 quest);
+        // learning it triggers Ursaring -> Bloodmoon Ursaluna evolution.
+        // Stats and can't-use-twice constraint preserved from canonical.
         .name = COMPOUND_STRING("Blood Moon"),
         .description = COMPOUND_STRING(
-            "Unleashes the blood moon.\n"
+            "Lunar-charged earth-strike.\n"
             "Can't be used twice in a row."),
         .effect = EFFECT_HIT,
         .power = 140,
-        .type = TYPE_NORMAL,
+        .type = TYPE_GROUND,
         .accuracy = 100,
         .pp = 5,
         .target = MOVE_TARGET_SELECTED,

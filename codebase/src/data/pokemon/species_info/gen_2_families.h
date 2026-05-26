@@ -5668,12 +5668,17 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
 #if P_FAMILY_TEDDIURSA
     [SPECIES_TEDDIURSA] =
     {
-        .baseHP        = 60,
-        .baseAttack    = 80,
-        .baseDefense   = 50,
-        .baseSpeed     = 40,
-        .baseSpAttack  = 50,
-        .baseSpDefense = 50,
+        // Dreamstone Ruination — Blue Moon line, special-attacker identity.
+        // BST 330 -> 375. Pure Atk<->SpA swap from canonical (80 SpA),
+        // plus +5 HP, +10 Def, +20 Speed, +20 SpD redistributed from the
+        // freed Atk and other smoothing. Establishes special-attacker
+        // role from Stage 1; HP is lowest of the trio per role lock.
+        .baseHP        = 55,
+        .baseAttack    = 50,
+        .baseDefense   = 60,
+        .baseSpeed     = 60,
+        .baseSpAttack  = 80,
+        .baseSpDefense = 70,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 120,
         .expYield = 54,//(P_UPDATED_EXP_YIELDS >= GEN_5) ? 66 : 124,
@@ -5736,17 +5741,28 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         .levelUpLearnset = sTeddiursaLevelUpLearnset,
         .teachableLearnset = sTeddiursaTeachableLearnset,
         .eggMoveLearnset = sTeddiursaEggMoveLearnset,
-        .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_URSARING}),
+        // Dreamstone Ruination — uniform Stage 1 -> Stage 2 evolution at Lv 24.
+        .evolutions = EVOLUTION({EVO_LEVEL, 24, SPECIES_URSARING}),
     },
 
     [SPECIES_URSARING] =
     {
-        .baseHP        = 90,
-        .baseAttack    = 130,
+        // Dreamstone Ruination — Blue Moon Stage 2.
+        // BST 500 -> 480 (small reduction). The canonical 130 Atk was
+        // dead weight on the special-attacker kit (Echoed Voice, Confuse
+        // Ray, Psybeam, Scorching Sands, Torch Song, Moonblast, Lumina
+        // Crash, Lunar Blessing, Hyper Beam, Calm Mind, Aura Sphere,
+        // Moongeist Beam — all special). Atk drops to 65; the 65 wasted
+        // points redistribute to SpA (75 -> 110), HP loss adjusted into
+        // Speed (55 -> 75), and SpD (75 -> 80).
+        // The mid-game power spike (Stage 1 -> Stage 2 BST 330 -> 480)
+        // is preserved; the line's Lv-24-evolution feels meaningful.
+        .baseHP        = 75,
+        .baseAttack    = 65,
         .baseDefense   = 75,
-        .baseSpeed     = 55,
-        .baseSpAttack  = 75,
-        .baseSpDefense = 75,
+        .baseSpeed     = 75,
+        .baseSpAttack  = 110,
+        .baseSpDefense = 80,
         .types = MON_TYPES(TYPE_NORMAL),
         .catchRate = 60,
         .expYield = (P_UPDATED_EXP_YIELDS >= GEN_5) ? 175 : 189,
@@ -5819,8 +5835,11 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
         )
         .levelUpLearnset = sUrsaringLevelUpLearnset,
         .teachableLearnset = sUrsaringTeachableLearnset,
-        .evolutions = EVOLUTION({EVO_ITEM, ITEM_PEAT_BLOCK, SPECIES_URSALUNA},
-                                {EVO_NONE, 0, SPECIES_URSALUNA_BLOODMOON}),
+        // Dreamstone Ruination — single evolution path to Bloodmoon Ursaluna,
+        // triggered by learning Blood Moon (taught by the Blue Moon Hermit at
+        // Trial 6, ~Lv 45 player progression). Regular Hisuian Ursaluna is
+        // unobtainable; the Peat Block evolution path is removed entirely.
+        .evolutions = EVOLUTION({EVO_MOVE, MOVE_BLOOD_MOON, SPECIES_URSALUNA_BLOODMOON}),
     },
 
 #if P_GEN_8_CROSS_EVOS
@@ -5888,12 +5907,24 @@ const struct SpeciesInfo gSpeciesInfoGen2[] =
 
     [SPECIES_URSALUNA_BLOODMOON] =
     {
-        .baseHP        = 113,
-        .baseAttack    = 70,
-        .baseDefense   = 120,
-        .baseSpeed     = 52,
-        .baseSpAttack  = 135,
-        .baseSpDefense = 65,
+        // Dreamstone Ruination — Blue Moon final form, BST 555 -> 600.
+        // SpA 135 -> 145 (peak special-attacker signature stat, paired
+        // with Baxcalibur Atk 145 and Tinkaton Def/SpD 125/125 as the
+        // trio's apex-stat anchors). Atk minor +5 to round out coverage
+        // moves like Mud Slap mythic interactions. Def 120 -> 95: trades
+        // off the canonical-Hisuian raw bulk in favor of better Speed
+        // (52 -> 90) and more SpD (65 -> 100). Net: less of a slow tank,
+        // more of a bulky mid-speed sweeper-pivot — better fits the
+        // lunar-mystic special-attacker identity than the Hisuian-bear
+        // boulder-tank shape.
+        // Regular Hisuian Ursaluna (above) is intentionally left at
+        // canonical BST 550 since it is unobtainable in Ruination.
+        .baseHP        = 95,
+        .baseAttack    = 75,
+        .baseDefense   = 95,
+        .baseSpeed     = 90,
+        .baseSpAttack  = 145,
+        .baseSpDefense = 100,
         .types = MON_TYPES(TYPE_GROUND, TYPE_NORMAL),
         .catchRate = 5,
         .expYield = 275,
