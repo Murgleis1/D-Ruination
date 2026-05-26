@@ -1638,7 +1638,11 @@
 #define SPECIES_MIMIKYU_BUSTED_TOTEM                    1523
 #define SPECIES_MIMIKYU_TOTEM_BUSTED                    SPECIES_MIMIKYU_BUSTED_TOTEM
 
-#define SPECIES_EGG                                     (SPECIES_MIMIKYU_BUSTED_TOTEM + 1)
+// === DREAMSTONE RUINATION CUSTOM SPECIES ===
+#define SPECIES_JOUSTROLL                               1524
+#define SPECIES_JOUSTEEL                                1525
+
+#define SPECIES_EGG                                     (SPECIES_JOUSTEEL + 1)
 
 #define NUM_SPECIES SPECIES_EGG
 
