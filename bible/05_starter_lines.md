@@ -59,6 +59,49 @@ Each starter occupies a distinct mechanical role:
 
 **No two are interchangeable. No pick is objectively weaker.** Each path has a clear Trial-6 Master Tutor evolution gate, a memorable ability suite creating multiple builds, a distinct combat identity, and a post-Champion Ancient Cormoria side quest that unlocks the line's coronation-tier bonus item. **This is the design level where players love their starter choice for personal mechanical reasons, not just narrative ones.**
 
+### Unified starter-trio BST framework `[LOCKED v0.9.8]`
+
+All three starter lines share an identical BST budget at each stage:
+
+| Stage | BST | Notes |
+|---|---|---|
+| 1 | 375 | All three Stage 1s have the same total stat budget |
+| 2 | 480 | All three Stage 2s have the same total stat budget |
+| 3 | 600 | All three Stage 3s have the same total stat budget |
+
+The intent is that **no starter is BST-disadvantaged at any progression point.** Each line distributes those 375/480/600 points differently to express its distinct role identity (see "Three-line role identity framework" below).
+
+Each Stage 3 has one signature stat at 145 OR paired stats at 125/125:
+
+| Line | Stage 3 | Signature stat(s) |
+|---|---|---|
+| Frigibax | Baxcalibur | Atk 145 |
+| Teddiursa Blue Moon | Bloodmoon Ursaluna | SpA 145 |
+| Tinkatink | Tinkaton | Def 125 paired with SpD 125 |
+
+This signature-stat anchoring makes each Stage 3 mechanically distinctive — at apex, each starter has a clear "best stat" identity that other starters can't match.
+
+### Three-line role identity framework `[LOCKED v0.9.8]`
+
+Each starter line dominates 2 stat slots, is mid-pack in 2, and trails in 2. The role differentiation is visible at every progression stage:
+
+| Role attribute | Frigibax (high) | Teddiursa Blue Moon (high) | Tinkatink (high) |
+|---|---|---|---|
+| Attack | **80 / 110 / 145** | 50 / 65 / 75 | 70 / 85 / 110 |
+| Sp. Attack | dump (30 / 40 / 55) | **80 / 110 / 145** | dump (30 / 40 / 50) |
+| Speed | **80 / 105 / 120** | 60 / 75 / 90 | 50 / 60 / 75 |
+| Defense | 55 / 70 / 85 | 60 / 75 / 95 | **85 / 110 / 125** |
+| Sp. Defense | 65 / 70 / 95 | 70 / 80 / 100 | **75 / 95 / 125** |
+| HP | 65 / 85 / 100 | 55 / 75 / 95 | 65 / 90 / 115 |
+
+**The three identities expressed as one-liners:**
+
+- **Frigibax line:** physical-attacker + speed identity; moderate HP; low Def/SpD; dump SpA. Cormorian dragon empire's chosen successor.
+- **Teddiursa Blue Moon line:** special-attacker apex; moderate Speed and bulk; lowest HP of trio. The lunar-mystic mind-and-voice line. The trio's coverage king (Ground / Fairy / Psychic / Fire / Fighting / Ghost access).
+- **Tinkatink line:** defensive colossus; paired Def + SpD identity; highest HP at apex; lowest Speed of trio; moderate Atk; dump SpA. Cormorian dragon-slayer-clan inheritor.
+
+**Both Frigibax and Tinkatink dump SpA `[LOCKED v0.9.8]`** because their kits are **100% physical-attacker** — every damage-dealing move on either line is a physical attack. SpA points on these lines would be wasted stats. Only the Blue Moon Teddiursa line uses SpA, and its kit is correspondingly all-special.
+
 ### Mechanical implementation `[LOCKED]`
 
 - **All three are true shinies with new custom palettes** (not the canonical shiny colors)
@@ -66,7 +109,7 @@ Each starter occupies a distinct mechanical role:
 - Shiny status is flagged genuinely in the data — they are mechanically shinies, not cosmetic-only
 - **Each starter line has its OWN unique shiny palette identity** — the three starters do NOT share a visual scheme. Each gets a one-of-a-kind look so that a player's choice of starter results in a genuinely distinctive partner.
 - Within an evolution line (e.g., Frigibax → Arctibax → Baxcalibur), the palette identity stays consistent so the line reads as a cohesive family.
-- **Tinkaton's BST is buffed to BST 560 `[LOCKED v0.9.7]`** — final stat line **75 / 85 / 125 / 75 / 125 / 75** (HP / Atk / Def / SpA / SpD / Spe). Parity with Bloodmoon Ursaluna (BST 560); Baxcalibur sits at canonical BST 600. The three starters' base-apex forms span BST 560-600, then *coronation-tier bonus forms* (Mega Baxcalibur 720, Bloodmoon Ursaluna with Lunacy, Tinkaton with Divine Cuirass) form the parallel competitive tier. **Tinkatink and Tinkatuff stat buffs `[OPEN]`** — to be locked alongside the line's full custom learnset
+- **Unified starter-trio BST framework `[LOCKED v0.9.8]`** — all three starter lines share the same BST budget at each stage: **375 / 480 / 600** for Stage 1 / Stage 2 / Stage 3. This SUPERSEDES the prior v0.9.7 Tinkaton stat lock (BST 560, 75/85/125/75/125/75) and the v0.9.5 Bloodmoon Ursaluna lock (BST 560, 113/75/85/145/90/52). Each Stage 3 has one signature stat at 145 (Baxcalibur Atk 145, Bloodmoon Ursaluna SpA 145) OR paired 125s (Tinkaton Def/SpD 125/125). See "Base stats" subsection below for full per-stage tables across all three lines.
 
 ### Starter palette identities
 
@@ -184,6 +227,56 @@ Around the mid-game, the player can travel to the desert region and encounter th
 `[OPEN]` Whether the Baxcaliburite post-Champion quest ("The Origins of Cormoria's Dragons") references the Tinkaton clan's ecological role in dragon scarcity, or whether that quest stays focused on pre-Tinkaton ancient dragon lineage (Roaring Moon, Walking Wake)
 `[OPEN]` Whether other named members of the clan appear (a Tinkaton lieutenant who defends the Matriarch's cave entrance, etc.)
 
+### The Frigibax Line — Cormorian Dragon Heritage `[LOCKED v0.9.8]`
+
+The Frigibax line in Dreamstone Ruination is a *uniquely-bloodlined individual* from the dragon-imperial-tradition — the lineage that represents what the Tinkaton clan's centuries of hunting has *not* yet driven to extinction. Where the Tinkatink line is the dragon-slayer-bloodline, the Frigibax line is *the dragon-empire's chosen successor.* Umbra's hand-selected starter from this line is one of the rarest specimens in modern Cormoria.
+
+**Base stats `[LOCKED v0.9.8]`:**
+
+| Form | Stats (HP/Atk/Def/Spe/SpA/SpD) | BST | Identity |
+|---|---|---|---|
+| Frigibax | **65/80/55/80/30/65** | 375 | Stage 1 — physical attacker + speed established. Atk 80 highest of trio at Stage 1; Speed 80 also trio-leading. SpA dumped (30). |
+| Arctibax | **85/110/70/105/40/70** | 480 | Stage 2 — Atk 110 and Speed 105 cement the physical-speed identity. Speed +43 over canonical (was 62) is the line's biggest stat shift. |
+| Baxcalibur | **100/145/85/120/55/95** | 600 | Stage 3 — Atk 145 is the trio's physical-offense signature stat. Speed 120 makes Baxcalibur outspeed canonical Garchomp (102) and Salamence (100); the line is now genuinely fast, not a slow wallbreaker. |
+
+**Mega Baxcalibur (post-Champion) carries BST 720 `[LOCKED v0.9.2]`** with the constraint that Mega Speed must exceed 120 and Mega Atk must exceed 145 (otherwise the Mega is a sidegrade in the line's identity stats). See Section 9 — Mega Baxcalibur entry for the full Mega stat spec.
+
+**Full Frigibax line learnset `[LOCKED v0.9.8]`:**
+
+All three stages share an **identical 16-move backbone**. The kit is **100% physical-attacker**; SpA is a dump stat across the line. Like the Tinkatink line, the line is intentionally physical-only to justify dumping SpA stats.
+
+| Lv | Move | Notes |
+|---|---|---|
+| 1 | Tackle | Basic Normal physical |
+| 3 | Leer | -1 Def status |
+| 7 | Ice Shard | Ice STAB priority |
+| 11 | Breaking Swipe | Dragon spread-hit physical, -1 Atk |
+| 15 | Metal Claw | Steel physical, 10% +1 Atk |
+| 19 | Chilly Reception | Sets snow + force-switch |
+| 27 | Dragon Claw | Dragon STAB physical, 80 BP |
+| 30 | Smart Strike | Steel never-miss physical |
+| 34 | Triple Axel | Ice 3-hit physical |
+| 38 | Dragon Dance | +1 Atk +1 Spe setup |
+| 42 | Crunch | Dark physical, 80 BP |
+| 49 | Outrage | Dragon STAB physical, 120 BP locks in |
+| 53 | Headlong Rush | Ground physical, 120 BP -1 Def/SpD |
+| 60 | Glaive Rush | Dragon STAB physical, 120 BP, 2× damage taken until next turn |
+| 65 | Snowscape | Sets snow weather |
+| 77 | Behemoth Blade | **Baxcalibur late-game ace (Cormorian variant — see Section 9).** Retyped Steel → Dragon, 120/95/10, super-effective vs Fairy override. |
+
+**Stage-specific differences:**
+
+- **Arctibax** additionally learns **Ice Fang at Lv 0 on evolution** (the line's classic Ice-Fang signature, gained as the evolution reward from Frigibax).
+- **Baxcalibur** does NOT have the canonical Lv 0 on-evolution Glaive Rush — it's removed from the on-evolution slot and pushed to Lv 60. Players using a Baxcalibur for the Lv 45-60 window must rely on Mountain Gale (tutor), Outrage, and Headlong Rush for 120-BP options before Glaive Rush unlocks.
+
+**Tutor-only — Mountain Gale (Cormorian variant):**
+
+Mountain Gale is taught exclusively by the **Mountain Gale Master Tutor** at the Trial 6 quest unlocked around player Lv 45. Cormorian variant stats: 95 BP / 95 acc / 15 PP / 33% flinch / Ice physical, **plus a Freeze-Dry-style Water-effectiveness override** (super-effective vs Water regardless of resolved type — engine TODO; see Section 9). Learning Mountain Gale triggers EVO_MOVE evolution from Arctibax to Baxcalibur.
+
+**Ability suite `[LOCKED v0.9.2]`:**
+
+(See "Starter line ability assignments" subsection below for the full ability breakdown — Ice Scales / Slush Rush / Armor Tail HA.)
+
 ### The Blue Moon Teddiursa Line — Cormorian Lunar-Mystic Variant `[LOCKED v0.9.2]`
 
 The Teddiursa line in Dreamstone Ruination is *not* the canonical Teddiursa → Ursaring → Ursaluna evolutionary path. It is a **uniquely Cormorian "Blue Moon" variant** with the following distinguishing features:
@@ -198,29 +291,29 @@ The Teddiursa line in Dreamstone Ruination is *not* the canonical Teddiursa → 
 
 The regular (brown) Ursaluna stage is not part of this variant's evolution. Players who choose Teddiursa receive the Cormorian Blue Moon variant from the start; their final form is Bloodmoon Ursaluna directly. This is consistent with Bloodmoon Ursaluna being canonically a form variant (not a separate evolutionary stage in the strict sense) and Ruination establishing the Cormorian Blue Moon lineage as a *unique regional variant* with its own evolutionary mechanics.
 
-**Special Attack identity (stat redistribution) `[LOCKED v0.9.5]`:**
+**Base stats `[LOCKED v0.9.8 — supersedes v0.9.5 redistribution]`:**
 
-The Blue Moon line is the trio's special-attack apex. The line begins as a pure Atk↔SpA swap at the baby form, then progressively *redistributes toward bulk* in the mid-stage, then *gains a final-form BST increase* with further bulk shoring at evolution. The result is a *bulky-tank-mage archetype* that grows progressively more durable as it evolves.
+All three obtainable Blue Moon Teddiursa stages now conform to the unified starter-trio BST budget (375 / 480 / 600). The bible's prior v0.9.5 stat lock (BST 330/500/560 with pure Atk↔SpA swap) is SUPERSEDED. The line's identity in the unified framework is **special-attacker apex with lowest HP of the trio, moderate Speed and bulk** — see "Three-line role identity framework" below for the full identity matrix.
 
-| Form | Canonical stats (HP/Atk/Def/SpA/SpD/Spe) | Blue Moon stats | BST | Change from canonical |
-|---|---|---|---|---|
-| Teddiursa (Blue Moon) | 60/80/50/50/50/40 | **60/50/50/80/50/40** | 330 | Pure Atk↔SpA swap; BST preserved |
-| Ursaring (Blue Moon) | 90/130/75/75/75/55 | **100/75/85/100/85/55** | 500 | Swap + redistribute 30 from SpA into HP/Def/SpD (+10 each); BST preserved |
-| Bloodmoon Ursaluna (Blue Moon) | 113/135/70/75/75/52 | **113/75/85/145/90/52** | 560 | SpA 75→145 (+70 apex), Def 70→85 (+15), SpD 75→90 (+15); BST increased from 520 to 560 |
+| Form | Blue Moon stats (HP/Atk/Def/Spe/SpA/SpD) | BST | Notes |
+|---|---|---|---|
+| Teddiursa (Blue Moon) | **55/50/60/60/80/70** | 375 | Special-attacker identity established from Stage 1. Atk dumped to 50 (kit is all-special); SpA 80 the highest of the trio at Stage 1. Lowest HP of trio. |
+| Ursaring (Blue Moon) | **75/65/75/75/110/80** | 480 | SpA jumps to 110 (highest of trio at Stage 2). Atk stays low (65) — the kit is now entirely special and the line's identity is solidified. HP 75 lowest of trio at Stage 2. |
+| Bloodmoon Ursaluna (Blue Moon) | **95/75/95/90/145/100** | 600 | SpA 145 anchors final form (the trio's special-offense signature stat). Speed 90 makes Bloodmoon less of a slow tank than canonical Hisuian Ursaluna (52 Speed). Def 95 trades canonical-Hisuian raw bulk for the higher Speed; SpD 100 is solid. Identity: *bulky mid-speed special-attacker pivot.* |
 
-**Design intent for the stat progression `[LOCKED v0.9.5]`:**
+**Regular Hisuian Ursaluna stays canonical (130/140/105/50/45/80, BST 550) and is intentionally unobtainable in Ruination** — no wild encounter, no evolution path, no trade. The Peat Block evolution path is removed entirely; only the EVO_MOVE Blood Moon path (Lv 45+, tutor-taught) leads anywhere from Ursaring, and it always produces Bloodmoon Ursaluna. Species data preserved for Pokedex / form-table integrity.
 
-- **Teddiursa (Blue Moon):** Frail special attacker at baby form — pure swap, no rebalancing yet. Identity: *fragile lunar pup*.
-- **Ursaring (Blue Moon):** The mid-stage *redistributes 30 points from SpA into bulk* — HP +10, Def +10, SpD +10, SpA −30. SpA drops from 130 to 100, which is still solid for a mid-evolution. The result: a *meaningfully bulkier* mid-form (100 HP / 85 Def / 85 SpD) that still hits hard with 100 SpA. Identity: *bulky special attacker still in training*.
-- **Bloodmoon Ursaluna (Blue Moon):** The final form is the apex — SpA jumps to **145** (the special-offense ceiling of the entire starter trio), Def and SpD each get +15 buffs over canonical, and BST increases from 520 to 560. Identity: *apex special-attack tank — slow, bulky, devastating*.
+**Design intent for the stat progression:**
 
-**Why the rebalance was needed (v0.9.5 reasoning):**
+- **Teddiursa (Blue Moon):** Pure special attacker from Stage 1. Atk dumped to a value lower than canonical Teddiursa (was 80, now 50) — the line's kit is all-special so Atk was dead weight. SpA 80 lets Teddiursa actually hit things; HP 55 makes it the trio's frail Stage 1.
+- **Ursaring (Blue Moon):** The canonical 130 Atk is wasted on a line whose entire kit is special (Echoed Voice, Psybeam, Scorching Sands, Torch Song, Moonblast, Lumina Crash, Lunar Blessing, Hyper Beam, Calm Mind, Aura Sphere, Moongeist Beam). Atk 130 → 65 reallocated to SpA (75 → 110) and Speed (55 → 75). The line now uses the stats it has.
+- **Bloodmoon Ursaluna (Blue Moon):** Apex — SpA 145 (the trio's special-offense signature stat). Bulk redistributed from canonical Hisuian-Ursaluna boulder (Def 120) into Speed (52 → 90) and SpD (65 → 100). Identity shifts from "immovable slow tank" to "bulky mid-speed sweeper-pivot" — a better fit for the lunar-mystic special-attacker identity than the canonical Hisuian-bear-tank stat shape.
 
-The original v0.9.2 spec had a pure Atk↔SpA swap throughout the line. While elegant, this produced a final form with 135 SpA and 75/70/75 defenses — a *glass-cannon mage* archetype. **The v0.9.5 redistribution shifts the line's identity from "glass cannon" to "bulky tank-mage"** — a more thematically appropriate match for the Teddiursa/Ursaring/Ursaluna species' canonical heavy-bear-tank visual identity, and a more interesting late-game play experience (the starter survives long enough to make multiple offensive plays per battle, rather than being one-shot).
+**Why the rebalance was needed (v0.9.8 reasoning):**
 
-The +40 BST increase at the Bloodmoon Ursaluna stage gives the line a *clear power spike at final evolution* matching the post-Champion narrative significance of the form — Bloodmoon Ursaluna is one of only two Pokémon in the project rated at BST 560+ (the other being post-Mega Baxcalibur at canonical 720). This positions the Blue Moon line as competitive against the Frigibax line's apex form on the Sp.Atk axis.
+The prior v0.9.5 redistribution (BST 330/500/560 — pure-swap baby, redistribute-to-bulk middle, +40-at-apex final) was thematically sound but never reached the codebase. The codebase shipped canonical Teddiursa/Ursaring stats with only Bloodmoon Ursaluna partially swapped. This left the line's identity inconsistent: canonical heavy-Atk stats on a line whose redesigned kit is entirely special.
 
-`[OPEN]` Whether Bloodmoon Ursaluna's BST 560 needs re-balancing against the other two starters' apex forms (Mega Baxcalibur is canonically 720; Tinkaton's coronation-tier Divine Cuirass-boosted form is still being specified; comparison TBD)
+The v0.9.8 unified-trio-BST framework solves this by (a) actually shipping the swap across the entire line in the codebase, (b) aligning the line to a balanced trio budget so no starter is BST-disadvantaged, and (c) giving Bloodmoon Ursaluna 145 SpA as the trio's special-offense signature stat (paired with Baxcalibur Atk 145 and Tinkaton Def/SpD 125/125 as the three "signature stat" anchors).
 
 **The four-ability suite `[LOCKED v0.9.2]`:**
 
@@ -247,40 +340,39 @@ The Blue Moon line has **two normal abilities + one Hidden ability + one post-Ch
 
 After becoming Champion and acquiring the Ancient Peat Block, the player can choose to consume it and unlock **Lunacy**. This is the line's *coronation-tier bonus*, parallel to Mega Baxcalibur (Frigibax) and Divine Cuirass (Tinkatink).
 
-**Learnset architecture `[LOCKED]`:**
+**Learnset architecture `[LOCKED v0.9.8]`:**
 
-The Blue Moon line's learnset emphasizes Normal special STAB, Ground special coverage, and late-game utility:
+The Blue Moon line shares an **identical 16-move backbone across all three obtainable stages** (Teddiursa, Ursaring, Bloodmoon Ursaluna), themed around voice, mind, and lunar energy. The line is *the most coverage-flexible starter* — wide type access (Ground, Fairy, Psychic, Fire, Fighting, Ghost) is the lore-justified trade-off for giving up the canonical Guts/Quick-Feet physical-attacker kit. The kit is **100% special-attacker.**
 
-**Teddiursa (Blue Moon):**
-- Lv 1: Covet, **Echoed Voice** (special Normal STAB)
-- Lv 5: **Round** (special Normal STAB)
-- Lv 9: Fake Tears (drops opponent Sp.Def — synergistic)
-- Lv 13: **Disarming Voice** (Fairy coverage)
-- Lv 17: **Mud-Slap** (Ground special, introduces typing)
-- Lv 21: **Mud Shot** (Ground special, 55 BP)
-- **Lv 24: EVOLVES INTO URSARING (Blue Moon)**
+**Shared backbone (all three obtainable stages):**
 
-**Ursaring (Blue Moon) — on-evolution + level-up additions:**
-- Lv 24 (on evolution): **Hyper Voice** (90 BP Normal special STAB — major power spike)
-- Lv 28: Mud Sport or Sandstorm (utility)
-- Lv 32: **Mud Bomb** (Ground special, 65 BP)
-- Lv 38: **Earth Power** (Ground special, 90 BP — first major Ground STAB)
-- Lv 42: **Boomburst** (140 BP Normal special — climactic Ursaring move pre-Bloodmoon evolution)
-- **Lv 45: EVOLUTION GATE** — visit the Blood Moon Master Tutor, learn Blood Moon (Ground), evolves to Bloodmoon Ursaluna (Blue Moon)
+| Lv | Move | Notes |
+|---|---|---|
+| 1 | Echoed Voice | Normal special STAB |
+| 3 | Confuse Ray | Status — confuses target |
+| 7 | Fake Tears | Drops target SpD; synergizes with all special attacks |
+| 10 | Mud Slap | Ground special, lowers accuracy |
+| 14 | Psybeam | Psychic special, 30% confusion |
+| 20 | Rest | Status — full HP recovery + sleep |
+| 20 | Snore | Pairs with Rest for SleepTalk-style sustain |
+| 28 | Scorching Sands | Ground special, 30% burn — line's Fire coverage analog |
+| 35 | Torch Song | Fire special with +1 SpA on hit |
+| 40 | Moonblast | Fairy special — Blue Moon thematic + Dark/Dragon coverage |
+| 44 | Lumina Crash | Psychic special, 80 BP, **guaranteed -2 SpD on hit** |
+| 49 | Lunar Blessing | Status — party heal + status cure |
+| 59 | Hyper Beam | Normal special, 150 BP with recharge |
+| 63 | Calm Mind | SpA+SpD setup, pairs with Soul-Heart/Lunacy snowballing |
+| 69 | Aura Sphere | Fighting special — Steel/Dark coverage, never-miss |
+| 77 | Moongeist Beam | Ghost special, **buffed to 140 BP in Ruination**, ignoresTargetAbility (canonical Lunala signature; safe overwrite since Lunala absent from Ruination) |
 
-**Bloodmoon Ursaluna (Blue Moon) — on-evolution + level-up additions:**
-- Lv 45 (on evolution via tutor): **Blood Moon (Ground)** — 140 BP, special, Ground type, cannot be used twice in a row consecutively (canonical Blood Moon restriction retained; only the type changes from Normal to Ground)
-- Lv 50: **Hyper Beam** (Normal, 150 BP special with recharge — line's hard-hitting Normal special)
-- Lv 55: **Moonblast** (Fairy, 95 BP special — coverage for Dark/Dragon, thematically resonant with the Blue Moon identity)
-- Lv 60: **Calm Mind** (Sp.Atk + Sp.Def boost — setup option that pairs powerfully with Soul-Heart/Lunacy snowballing)
-- Lv 65: **Slack Off** (recovery — endgame sustain)
+**Stage-specific differences:**
 
-`[OPEN]` Additional moves to consider via TM/move-tutor/relearner:
-- Sandsear Storm (Ground special, accuracy ignore — though thematically may not fit Blue Moon)
-- Psyshock or Stored Power (Psychic coverage — would push the lunar-mystic framing further)
-- Focus Blast (Fighting coverage)
-- Flash Cannon (Steel coverage)
-- Dark Pulse (Ghost/Psychic coverage)
+- **Ursaring (Blue Moon)** additionally learns **Hyper Voice at Lv 0 on evolution** (the line's classic voice-signature, gained as the evolution reward from Teddiursa).
+- **Bloodmoon Ursaluna (Blue Moon)** does not gain any on-evolution Lv 0 moves directly. Blood Moon (the tutor move that triggers the evolution) is already in the Pokemon's moveset at the moment of evolution; no separate Lv 0 entry needed.
+
+**Tutor-only — Blood Moon (Ground):**
+
+Blood Moon is taught exclusively by the **Blue Moon Hermit** at the Master Tutor quest unlocked around Trial 6. Stats: 140 BP / 100 acc / 5 PP / Ground special, with the canonical `cantUseTwice` constraint preserved. Learning Blood Moon triggers the EVO_MOVE evolution from Ursaring (Blue Moon) to Bloodmoon Ursaluna (Blue Moon). The "Lv 45+" requirement is enforced practically via tutor NPC availability (the Hermit's quest opens at Trial 6, ~Lv 45 player progression), not at the engine level — the engine condition is simply *knows-the-move*.
 
 **Why the Blue Moon line completes the trio's identity:**
 
@@ -333,12 +425,39 @@ The Tinkatink line learns **Behemoth Bash** at level 30 (on Tinkatuff, since Tin
 
 **Thematic resonance:** The move's Dragon-killer profile is *retroactively perfect* for the line's dragon-slayer-bloodline heritage (Section 6 — Tinkatink Line Dragon-Slayer Bloodline subsection). **The Hidden Ability + level-30 signature move = the line's mechanical expression of its inherited dragon-hunting purpose.** This connection was *not designed* with the bloodline lore in mind originally (Pixilate was locked v0.9.2 before the bloodline lore in v0.9.7); the alignment is a happy retroactive resonance that I'll explicitly preserve and lean into.
 
-**Other notable Tinkatink line learnset additions (full learnset `[OPEN]` pending Phase 1 design session):**
-- **Facade** — Normal physical, 70 BP doubling to 140 BP if user is statused. With Pixilate this becomes a 168 BP Fairy STAB threat (assuming the burn/poison status is acceptable to the player given Battle Armor protection)
-- **Body Slam** — Normal physical, 85 BP with 30% paralysis chance. Pixilate-boosted to 102 BP Fairy STAB; the paralysis chance synergizes with Tinkaton's mediocre 75 base Speed (slow-but-bulky knockout patterns)
-- Additional learnset entries TBD
+**Full Tinkatink line learnset `[LOCKED v0.9.8]`:**
 
-**Engineering note:** Behemoth Bash already exists in the engine as Zamazenta's signature move. **Zamazenta does not appear in Dreamstone Ruination** (not in any encounter table, not in any cinematic, not in any cult-Pokemon roster). The implementation approach is to *overwrite* the canonical Behemoth Bash entry with the Cormorian variant — same MOVE_BEHEMOTH_BASH constant, modified power/accuracy/PP/effect to match the Tinkatink-line variant, modified learnset assignment to remove from Zamazenta (where it's irrelevant) and add to the Tinkatink line. Custom Steel-effectiveness flag is the only engine-level new code. See Section 14 — engineering tracking.
+All three stages share an **identical 16-move backbone**, themed around build flexibility — supporting both Pixilate-HA Fairy-sweeper and non-Pixilate (Cute Charm / Battle Armor) coverage-tank builds. The kit is **100% physical-attacker**; SpA is a dump stat across the line.
+
+| Lv | Move | Notes |
+|---|---|---|
+| 1 | Fake Out | First-turn priority flinch |
+| 1 | Double Slap | **Retyped to Fairy globally** (see Section 9). Early Fairy physical option for non-Pixilate builds. |
+| 5 | Baby-Doll Eyes | -1 Atk priority status |
+| 8 | Metal Claw | Steel physical, 50 BP, 10% +1 Atk |
+| 13 | Covet | **Retyped to Fairy globally** (see Section 9). Item-steal effect preserved. |
+| 19 | Low Sweep | Fighting physical, -1 Spe on hit |
+| 24 | Bulk Up | +1 Atk +1 Def setup |
+| 30 | Behemoth Bash | **Tinkatuff signature (Cormorian variant — see below).** Normal physical, 100/95/10, with Steel-effectiveness override. |
+| 33 | Brutal Swing | Dark physical spread-hit |
+| 37 | Play Rough | Fairy STAB physical, 90 BP |
+| 40 | Body Slam | Normal physical, 30% paralysis (Pixilate-retyped to Fairy with the para chance preserved) |
+| 48 | Body Press | Fighting physical scaling off Def — pairs with Tinkaton's 125 Def |
+| 55 | Headlong Rush | Ground physical, 120 BP with -1 Def/SpD |
+| 59 | Shell Smash | +2 Atk/SpA/Spe -1 Def/SpD setup |
+| 66 | Close Combat | Fighting STAB physical, 120 BP with -1 Def/SpD |
+| 77 | Sunsteel Strike | **Tinkaton late-game ace (Cormorian variant — see below).** Retyped Steel → **Fire**, buffed to 140 BP / 100 acc / 10 PP, ignoresTargetAbility preserved. |
+
+**No Lv 0 on-evolution moves for Tinkatuff or Tinkaton.** Tinkatuff's reward for evolving is unlocking Lv 30 Behemoth Bash; Tinkaton's reward is surviving the Master Tutor quest to learn Gigaton Hammer (the move that triggers the evolution itself).
+
+**Build paths the learnset supports:**
+
+- **Pixilate-HA sweeper:** Behemoth Bash + Play Rough + Body Slam (or Body Press) + setup move. Behemoth Bash Pixilate-retypes to Fairy with the Steel override forcing 2× damage on Steel targets that would normally resist Fairy.
+- **Non-Pixilate coverage tank** (Cute Charm / Battle Armor + Gigaton Hammer tutor + Body Press + Play Rough + Sunsteel Strike): the Fire-coverage Sunsteel Strike gives non-Pixilate Tinkaton a real answer to opposing Steel-types that would otherwise wall the kit.
+- **Defensive colossus** (Bulk Up + Body Press + Iron Defense via TM + Play Rough): leans on Tinkaton's paired 125/125 defenses.
+- **Late-game sweeper** (Shell Smash + Sunsteel Strike + Close Combat + Play Rough): glass-cannon nuke build, sacrificing the line's natural bulk for raw offensive power.
+
+**Engineering note:** Behemoth Bash already exists in the engine as Zamazenta's signature move. **Zamazenta does not appear in Dreamstone Ruination** (not in any encounter table, not in any cinematic, not in any cult-Pokemon roster). The implementation approach is to *overwrite* the canonical Behemoth Bash entry with the Cormorian variant — same MOVE_BEHEMOTH_BASH constant, modified power/accuracy/PP/effect to match the Tinkatink-line variant, modified learnset assignment to remove from Zamazenta (where it's irrelevant) and add to the Tinkatink line. Custom Steel-effectiveness flag is the only engine-level new code. Same overwrite pattern applies to **Sunsteel Strike** (Solgaleo absent from Ruination, safe overwrite) and **Double Slap / Covet** (global retype to Fairy affects all canonical species that learn these moves, intentional ripple). See Section 14 — engineering tracking.
 
 **Teddiursa (Blue Moon) line:**
 - **Normal: Mind's Eye** — accuracy/evasion ignore + hit Ghosts with Normal/Fighting moves
@@ -357,23 +476,29 @@ The ability assignments also *complement* each line's existing identity rather t
 - Tinkatink's natural defense is *enhanced* (Battle Armor) or *reframed* (Pixilate adds genuine offensive threat)
 - Teddiursa's new special-attack identity is *enabled* (Mind's Eye removes Ghost wall) or *snowballed* (Soul-Heart, Lunacy) or *defensively reinforced* (Fur Coat)
 
-### Mechanic A — Trial 6 Master Tutor Evolution Gates `[LOCKED — updated v0.9.2]`
+### Mechanic A — Trial 6 Master Tutor Evolution Gates `[LOCKED v0.9.8 — engine convention clarified]`
 
 Around Trial 6 in the story progression (player level approximately 45), each starter undergoes its *final evolution into its base apex form* via a Master Tutor quest. This is **purely an evolution mechanic** — it does NOT grant any bonus items, coronation symbols, or political-state recognition. It is the equivalent of how Pokemon Legends: Arceus handles Baxcalibur and Ursaluna evolutions, extended to Tinkaton.
 
+**Engine convention `[LOCKED v0.9.8]`:** the engine condition is `EVO_MOVE` — the starter evolves the next time it levels up while knowing the gating move. The level-45 requirement is enforced **practically** by Master Tutor NPC availability: the tutors are gated behind a Trial 6 quest that the player cannot reach until ~Lv 45 player progression. The engine itself does NOT check level for these evolutions. This avoids needing a new `EVO_LEVEL_MOVE` engine enum and keeps the implementation clean.
+
 **Conditions for the Trial 6 Master Tutor evolution gate:**
-1. Pre-final stage must be **Level 45 or higher**
-2. Player must complete a quest to find the species-specific **Master Tutor** in a hard-to-reach location, who teaches the required gating move
-3. Once the gating move is learned, the starter evolves to its base apex form
+1. Pre-final stage must reach the Master Tutor NPC (gated behind Trial 6 quest progression)
+2. Master Tutor teaches the required gating move
+3. Next level-up triggers `EVO_MOVE` evolution to the apex form
 
 | Pre-evolution → Final form | Required move | Tutor location | Notes |
 |---|---|---|---|
-| Arctibax → Baxcalibur | **Mountain Gale** (canonical) | `[OPEN]` | Standard canonical evolution requirement |
-| Ursaring (Blue Moon) → Bloodmoon Ursaluna (Blue Moon) | **Blood Moon (Ground)** | `[OPEN]` | Custom Ruination variant — Blood Moon retyped from Normal to Ground (see Section 9 — Blood Moon (Ground) move spec). Replaces canonical Headlong Rush requirement. Skips regular Ursaluna stage entirely. |
-| Tinkatuff → Tinkaton | **Gigaton Hammer** (canonical) | `[OPEN]` | Standard canonical evolution requirement |
+| Arctibax → Baxcalibur | **Mountain Gale (Cormorian variant)** | `[OPEN]` | Buffed: 95 BP / 95 acc / 15 PP / 33% flinch + Water-effectiveness override (see Section 9 — Mountain Gale Cormorian variant). Replaces canonical 100/85/5 stats. |
+| Ursaring (Blue Moon) → Bloodmoon Ursaluna (Blue Moon) | **Blood Moon (Ground)** | The **Blue Moon Hermit** (see Section 7) | Blood Moon retyped Normal → Ground; canonical 140 BP / 100 acc / 5 PP / cantUseTwice preserved. Replaces canonical Peat-Block evolution path; skips regular Ursaluna entirely. |
+| Tinkatuff → Tinkaton | **Gigaton Hammer** (canonical) | `[OPEN]` | Standard canonical Tinkaton evolution requirement. |
 
-`[OPEN]` Who are the three Master Tutors as named characters?
-`[OPEN]` Where geographically are they located in Cormoria?
+**Stage 1 → Stage 2 evolutions are uniform across the trio at Lv 24 `[LOCKED v0.9.8]`:**
+
+All three starters reach Stage 2 at the same level (Lv 24), a major deviation from canonical (Frigibax Lv 35, Teddiursa Lv 30 happiness). This is a mechanical signal that *these are uniquely-bred individuals, not wild specimens* — Cadmus Umbra's hand-selected partners. The uniformity is itself a design statement: these three are a cohort, bred together, evolve together.
+
+`[OPEN]` Who are the three Master Tutors as named characters? (Blue Moon Hermit is `[LOCKED]` for the Blood Moon tutor; Mountain Gale and Gigaton Hammer tutors are TBD.)
+`[OPEN]` Where geographically are the Mountain Gale and Gigaton Hammer tutors located in Cormoria?
 `[OPEN]` What does the quest to reach each Master Tutor involve (challenge, proof-of-worthiness, story beat)?
 
 **Thematic note on the three Master Tutors:**
