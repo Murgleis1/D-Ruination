@@ -26735,6 +26735,44 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_FAMILY_PECHARUNT
 
+    // === DREAMSTONE RUINATION CUSTOM SPECIES — GRAPHICS REGISTRATIONS ===
+    // Joustroll and Jousteel are always compiled (no #if P_FAMILY_ guard) since
+    // they are Ruination-exclusive content with no upstream toggle.
+
+    const u32 gMonFrontPic_Joustroll[] = INCBIN_U32("graphics/pokemon/joustroll/front.4bpp.lz");
+    const u32 gMonPalette_Joustroll[] = INCBIN_U32("graphics/pokemon/joustroll/normal.gbapal.lz");
+    const u32 gMonBackPic_Joustroll[] = INCBIN_U32("graphics/pokemon/joustroll/back.4bpp.lz");
+    const u32 gMonShinyPalette_Joustroll[] = INCBIN_U32("graphics/pokemon/joustroll/shiny.gbapal.lz");
+    const u8 gMonIcon_Joustroll[] = INCBIN_U8("graphics/pokemon/joustroll/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Joustroll[] = INCBIN_U8("graphics/pokemon/joustroll/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Joustroll[] = INCBIN_COMP("graphics/pokemon/joustroll/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u32 gOverworldPalette_Joustroll[] = INCBIN_U32("graphics/pokemon/joustroll/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_Joustroll[] = INCBIN_U32("graphics/pokemon/joustroll/overworld_shiny.gbapal.lz");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+
+    const u32 gMonFrontPic_Jousteel[] = INCBIN_U32("graphics/pokemon/jousteel/front.4bpp.lz");
+    const u32 gMonPalette_Jousteel[] = INCBIN_U32("graphics/pokemon/jousteel/normal.gbapal.lz");
+    const u32 gMonBackPic_Jousteel[] = INCBIN_U32("graphics/pokemon/jousteel/back.4bpp.lz");
+    const u32 gMonShinyPalette_Jousteel[] = INCBIN_U32("graphics/pokemon/jousteel/shiny.gbapal.lz");
+    const u8 gMonIcon_Jousteel[] = INCBIN_U8("graphics/pokemon/jousteel/icon.4bpp");
+#if P_FOOTPRINTS
+    const u8 gMonFootprint_Jousteel[] = INCBIN_U8("graphics/pokemon/jousteel/footprint.1bpp");
+#endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_Jousteel[] = INCBIN_COMP("graphics/pokemon/jousteel/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u32 gOverworldPalette_Jousteel[] = INCBIN_U32("graphics/pokemon/jousteel/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_Jousteel[] = INCBIN_U32("graphics/pokemon/jousteel/overworld_shiny.gbapal.lz");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+
+    // === END RUINATION CUSTOM SPECIES ===
+
     const u32 gMonFrontPic_Egg[] = INCBIN_U32("graphics/pokemon/egg/anim_front.4bpp.lz");
     const u32 gMonPalette_Egg[] = INCBIN_U32("graphics/pokemon/egg/normal.gbapal.lz");
     const u8 gMonIcon_Egg[] = INCBIN_U8("graphics/pokemon/egg/icon.4bpp");
