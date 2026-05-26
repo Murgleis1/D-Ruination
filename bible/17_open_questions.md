@@ -16,6 +16,11 @@ The following major opens are now CLOSED in v0.9.8 (the post-merged-PR engine pa
 - ~~**Joustroll & Jousteel full Pokemon data**~~ — **RESOLVED in v0.9.8**: Both species fully implemented as custom species in session 2 — `SPECIES_JOUSTROLL = 1524`, `SPECIES_JOUSTEEL = 1525`. Complete species_info, level-up + teachable learnsets (39 TMs = Varoom + Escavalier union), evolution table (Joustroll → Jousteel at Lv 50), graphics-table registrations, compiled sprite binaries, overworld follower pic tables, Pokedex orderings, category names, descriptions, height/weight. Cry placeholders `CRY_VAROOM` and `CRY_VOLCANION` pending user-authored audio (engineering task #52). See Section 9 — Jousteel line entry.
 - ~~**Custom move signature collection**~~ — **RESOLVED in v0.9.8**: Behemoth Blade Cormorian (Dragon, 120 BP, Fairy override TODO), Behemoth Bash Cormorian (Normal, 100 BP, Steel override TODO), Mountain Gale Cormorian (Ice, 95 BP / 95 acc / 15 PP / 33% flinch, Water override TODO), Sunsteel Strike Cormorian (Fire non-STAB, 140 BP, ignoresTargetAbility preserved), Moongeist Beam buffed 100 → 140 BP. Double Slap and Covet retyped Normal → Fairy globally. See Section 9 — custom move subsections. **Engine type-override hooks for the three "override TODO" moves are engineering tasks #49, #50, #51.**
 - ~~**Cormorian engineered-weapons twin-pair narrative**~~ — **RESOLVED in v0.9.8**: The thematic conceit that four absent canonical legendaries (Zacian-Crowned, Zamazenta, Lunala, Solgaleo) have their signature moves repurposed as Cormorian-engineered weapons handed to the starter lines. The "Cormorian engineering > legendary gifts" thematic statement of the trio. See Section 9 — Cormorian engineered-weapons twin-pair subsection; cross-referenced in Section 12 — Bloodlines.
+- ~~**Trial 4 Trial Baron identity, House, type assignment**~~ — **RESOLVED in v0.9.8 (Trial 4 lock)**: **Trial 4 = Normal-type = House Sylphon = Simone Sylphon** (Trial Baroness, matriarch of House Sylphon, wife of Robard Sylphon who is Chairman of the Sylphon & Stone merchant guild). Forced double battle, level cap ~40, ace **Splendor** (shiny female Obstagoon, custom Fur Coat ability, Body Press / Sucker Punch / Bulk Up / Burning Bulwark, holding Leftovers). See Section 7 — Simone Sylphon for full entry.
+- ~~**Trials 5/6/7 type-to-Trial-number assignment**~~ — **RESOLVED in v0.9.8**: Trial 5 = Flying / House Raptora, Trial 6 = Grass / House Alban, Trial 7 = Dark / House Nightfall. Specific Trial Baron identities for all three remain `[OPEN]`.
+- ~~**Sylphon & Stone family heads — specific named characters within the guild leadership**~~ — **RESOLVED in v0.9.8**: Chairman **Robard Sylphon** and his wife **Simone Sylphon** are the named heads at story start. Robard's role is operational/commercial; Simone's role is fashion/luxury vertical + social-political network. The Stone branch's family heads remain `[OPEN]`.
+- ~~**Sylphon & Stone splintering mechanism**~~ — **RESOLVED in v0.9.8**: Robard's forced resignation following the Act IV cult-funding exposure fractures the guild's organizational structure; continental Sylphon-branch fragments eventually become the 2000-year ancestry of Silph Co. of Kanto. Simone breaks cleanly from the structure by selling her shares and founding a Kalos-based merchant guild on her own terms. See Section 12 — Sylphon bloodline expansion v0.9.8.
+- ~~**Ace-bonding overworld interaction pattern as project-level principle**~~ — **RESOLVED in v0.9.8**: Established as a new design principle (Section 11). Scope criterion: any named character with a locked ace Pokémon who appears in the overworld more than once across the story. 23 characters currently qualify; Simone-Splendor is the first full implementation. See Section 11 — Principle: Ace-Bonding Overworld Interactions; Section 14 engineering tasks #55, #56.
 
 ### v0.9.8 new opens
 
@@ -27,6 +32,34 @@ These items emerged from v0.9.8 lock work and are deferred:
 - **Joustroll/Jousteel cry audio** — user-authored deliverable; placeholders in place
 - **Trial 4 Joustroll Egg sidequest event scripting** — map design, boss encounter, puzzle implementation, dialogue scripting; lore locked, engineering `[OPEN]`
 - **Build-pipeline JSON registry for new custom species** — the compile log emits non-fatal "Unable to find Joustroll/Jousteel in json" lines; the build still succeeds but a JSON metadata file expects entries that haven't been added. Low priority; investigate when there's slack.
+
+**Trial 4 (Simone Sylphon) follow-up opens:**
+
+- **Trial 4 specific level cap number** — interpolated between Trial 3 (35-40) and Trial 8 (50-55); likely ~40; specific number `[OPEN]`
+- **Held items for Simone's 5 non-Splendor team members** (Hisuian Zoroark, Bewear, Grafaiai, Pyroar, shiny Farigiraf) — `[OPEN]`
+- **IV/EV optimization and natures** for the 5 non-Splendor team members — `[OPEN]`
+- **Robard Sylphon's appearance in the story** — does he appear in person, or remain offscreen as a referenced absent partner? If onscreen, in what scenes (palace functions? Act IV exposure scene? a confrontation with Simone post-exposure?). The fact that he raised three of Simone's Trial team Pokémon strongly implies he *is* a trainer; whether the player ever battles him is `[OPEN]`
+- **Robard's combat capability and roster** — `[OPEN]` if he ever appears in combat
+- **Specific Act IV Sylphon & Stone exposure scene scripting** — the moment Simone learns the full scale of Robard's compromise; the public revelation; the political-fallout scenes; the Simone-Robard private scene(s) following the public exposure — all `[OPEN]`
+- **Whether Simone reappears in any Act V or Act VI scenes** before her Kalos departure — `[OPEN]`
+- **Trial 4 chapter-specific geography** — the city or region where House Sylphon's seat is located — `[OPEN]`
+- **Whether the player has any pre-Trial-4 social encounter with Simone** in a court or fashion-event setting — `[OPEN]`
+- **Stone-branch family heads of Sylphon & Stone** — Robard's Stone-side counterpart who eventually produces the Devon Corporation lineage — `[OPEN]`
+
+**Trials 5/6/7 follow-up opens (Raptora, Alban, Nightfall):**
+
+- **Trial 5 (Flying / House Raptora) Baron identity** — name, gender, age, personality, ace, full team, level cap, narrative role — `[OPEN]`
+- **House Raptora character** — the family's broader profile; Latin *raptor* etymology implies fierce-aristocratic-warrior register, but specifics `[OPEN]`
+- **Trial 6 (Grass / House Alban) Baron identity** — name, gender, age, personality, ace, full team, level cap, narrative role — `[OPEN]`
+- **Whether the Trial 6 (Alban) Baron knew "Nomad Alban" was Osrid** during the 10-year cover-identity period — `[OPEN]` (per existing lock; this open carries forward)
+- **Trial 7 (Dark / House Nightfall) Baron identity** — name, gender, age, personality, ace, full team, level cap, narrative role — `[OPEN]`
+- **Trial 7 Baron's familial relationship to Eldred Nightfall (Osrid's late father)** — successor cousin, sibling, distant nephew, or non-blood House successor? `[OPEN]`
+- **Trial 7 Baron's awareness of Osrid being alive** — `[OPEN]` (likely no, but specific status undecided)
+
+**Ace-bonding overworld interactions — per-character openness:**
+
+- **9 ace locks are `[OPEN]`** for the 23 in-scope characters: Manus, T5 Raptora, T6 Alban, T7 Nightfall, Silas's primary, Jordan, Wakahisa, Madame Roma, Blue Moon Hermit. Each unlock cascades to enable the corresponding interaction sub-task (engineering task #56).
+- **Per-character interaction style content** for the 13 ready-to-design characters (excluding Simone-Splendor which is the locked example) — `[OPEN]` per character. Recommended approach: lock interaction style at the time each character's full bible entry is reviewed, not as a separate dedicated pass.
 
 ### v0.9.7 closures (character expansions and major narrative locks)
 

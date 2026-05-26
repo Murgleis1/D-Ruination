@@ -339,3 +339,80 @@ The Marshadow combat profile becomes important for this set-piece to deliver nar
 
 **Thematic resonance:** When Marshadow deploys, **the Pokemon that slips between underworlds is defending the threshold between worlds.** The lore-resonance is perfect. House Langerin's centuries-long guardianship of the Distortion gate is vindicated in this single defensive action.
 
+### Simone Sylphon — 4th Trial Baroness (Normal), matriarch of House Sylphon, wife of the Sylphon & Stone chairman `[LOCKED v0.9.8]`
+
+**The empire's fashionable Trial Baroness — and, by marriage, half the leadership of Cormoria's largest merchant guild. The Trial 4 fight is the player's first real doubles challenge, and it is staged as a fight against an absent-husband-present-wife partnership: Simone deploys her three personally-raised Pokémon alongside three raised by her husband Robard. The cosmetic register is fashion-house aristocracy; the strategic register is championship-caliber doubles tactics. She is one of the empire's most underestimated combatants.**
+
+**Background:**
+
+- **Full name:** Simone Sylphon. House Sylphon is the previously-unnamed Normal-type Trial House — Trial 4 of the 9 (Section 4 — Trial Barons listing). Sylphon's noble status is *earned-noble* rather than *ancient-blood*: the family was elevated to the Trial House structure on the strength of mercantile influence accumulated across generations and the consistent production of championship-caliber trainers despite the type-tradition's lack of prestige.
+- **Age:** early 40s. Mature, settled, at the peak of her social and political influence.
+- **Marriage:** Wife of **Robard Sylphon**, Chairman of the Sylphon & Stone merchant guild (Section 2 — Sylphon & Stone; Section 12 — Sylphon → Silph Co. bloodline). Robard and Simone are business partners as well as spouses — the family wealth is jointly held, and both contribute distinct strengths to the guild's market position (Robard runs the trading and logistics operations; Simone runs the fashion-and-luxury vertical and the social-political network).
+- **Public persona:** Cormoria's premier fashionista. *Prodigious at earning money, even better at spending it.* Cultivates an air of leisured aristocracy that conceals the strategic mind beneath. The Cormorian court takes her seriously as a tastemaker and *somewhat* seriously as a political voice; few take her seriously as a trainer — which is the empire's mistake.
+
+**Trainer philosophy — "exceptions to the norm":**
+
+Simone is a master of Normal-type Pokémon and articulates the type's value in a way no other Cormorian noble does. In her own words: *"Despite being saddled with the generic name of 'Normal,' they are Pokémon with endless creative potential and are anything but typical. My Pokémon are exceptions to the norm."* This is a worked philosophy, not a slogan — every member of her Trial team is a *deliberately atypical* representative of its species, distinguished by some combination of unusual ability, custom moveset, special breeding, or visual rarity. Simone's obsession with finding the unique within the mundane drives both her shopping and her training: *the same eye that spots an extraordinary scarf at market spots the extraordinary Pokémon in a litter of ordinary kits.*
+
+**The Trial battle (Trial 4):**
+
+- **Format: forced double battle.** Trial 4 is the player's first major doubles-format combat encounter outside Goma's Royal Palace assassination subplot. Simone tells the player explicitly during the pre-battle dialogue: *"The three male Pokémon on my team were raised by my husband, darling. You're really fighting both of us. Are you ready?"* The framing matters — the player is being tested on doubles tactics by a *husband-wife trainer partnership*, even though only one of them is physically present.
+- **Level cap:** `[OPEN]` specific number — interpolated between Trial 3 (Manus, 35–40) and Trial 8 (Brie, 50–55); likely ~40 given Trial 4's slot in the progression.
+- **Trial-tier roster (all 6 deliberate "exceptions to the norm"):**
+
+  | Slot | Pokémon | Gender | Ability | Moveset | Item | Notes |
+  |---|---|---|---|---|---|---|
+  | **Ace** | **shiny Obstagoon, "Splendor"** | ♀ | **Fur Coat** (custom override; canonical is Reckless/Guts/Defiant) | Body Press / Sucker Punch / Bulk Up / Burning Bulwark | **Leftovers** | Defense-oriented setup tank; Burning Bulwark is engine-custom on Obstagoon (canonical Armarouge-only); Body Press scales off boosted Defense |
+  | 2 | Hisuian Zoroark | ♂ | Illusion | Infernal Parade / Hyper Voice / Nasty Plot / Parting Shot | `[OPEN]` | Raised by Robard. Normal/Ghost; Illusion-bluff in doubles is brutal. |
+  | 3 | Bewear | ♀ | Fluffy | Close Combat / Double-Edge / Darkest Lariat / Swords Dance | `[OPEN]` | Normal/Fighting physical wallbreaker. Fluffy halves contact damage but doubles Fire damage — flagged risk vs. Fire-type opponents. |
+  | 4 | Grafaiai | ♂ | Prankster | Gunk Shot / Knock Off / Toxic / Parting Shot | `[OPEN]` | Raised by Robard. Poison/Normal hazard/momentum piece; Prankster Parting Shot is tempo-defining in doubles. |
+  | 5 | Pyroar | ♀ | Unnerve | Heat Wave / Mud-Slap / Taunt / Will-O-Wisp | `[OPEN]` | Fire/Normal disruptor. Note: this is the female Pyroar (maneless variant) — same stats as male, deliberate visual character choice. |
+  | 6 | shiny Farigiraf | ♂ | Armor Tail | Psyshock / Dazzling Gleam / Nasty Plot / Agility | `[OPEN]` | Raised by Robard. Normal/Psychic setup sweeper; Armor Tail blocks priority moves against user *and* allies — protects the rest of the team from revenge-killing in doubles. |
+
+- **Strategy and team identity:** This is a *real doubles team*, not a Normal-type theme arrangement. The intended battle pattern is Splendor + Farigiraf in front: Splendor tanks while Farigiraf sets up Nasty Plot or Agility under Armor Tail's priority-immunity blanket. Grafaiai pivots momentum via Prankster Parting Shot. Bewear functions as the physical hammer; Pyroar as the spread/status disruptor; Zoroark as the bluff/finisher. **Cross-team synergy is the point** — every member supports the others in turn, mirroring the husband-wife partnership the team's composition embodies.
+- **Splendor's combat profile:** Defense-leaning Obstagoon with custom Fur Coat ability and Burning Bulwark (canonical to Armarouge only). The expected sequence is Bulk Up → Body Press scaling off boosted Defense → Burning Bulwark to punish contact and recover positioning, with Sucker Punch held in reserve for frail special threats. Leftovers compounds Splendor's attrition profile.
+- **Difficulty signal:** Trial 4 is a *step up in tactical complexity* from Trial 3. Where Trial 3 (Manus, Electric) tests Pokémon-vs-Pokémon matchup judgment, Trial 4 (Simone, Normal) tests **team coordination and switch/move-prediction discipline.** Players who have been single-battling their way through Cormoria are forced to learn doubles tactics or lose. The Trial Barony's mandate to *teach the player Pokémon mastery, not merely test it* shows up most explicitly here.
+
+**The husband-wife framing — its weight in Trial 4 vs. its weight after Act IV:**
+
+During the Trial 4 encounter itself, the husband-wife framing reads as charming and clever. Simone is engaging, slightly playful, clearly devoted to Robard, and her tactical depth is unexpected and rewarding to engage with. The player walks away from Trial 4 with respect for the Sylphons as a *partnership couple at the top of Cormorian society.*
+
+**That reading turns on its head in Act IV** when the Sylphon & Stone cult-funding pipeline is publicly exposed (Section 10 — Act IV; Section 2 — Sylphon & Stone). Players who replay or reflect on the Trial 4 dialogue after the exposure read every line differently. *Was Simone complicit? Did she know? Did she ask?* The answer the bible commits to (below) is itself a careful answer — but the *post-revelation reframing* of Trial 4 is intentional design. **Trial 4 is a fight the player wins twice: once mechanically in the moment, and once retroactively in dramatic-irony comprehension after Act IV.**
+
+**Simone's relationship to Robard's cult-funding crimes `[LOCKED v0.9.8]`:**
+
+Simone is **knowingly ignoring** her husband's compromised business practices — but with a crucial nuance: she believes him when he says *"everything is fine, everything is above board."* She is not stupid. She has long suspected that not everything Robard does in their business is fully legal — minor regulatory shortcuts, gray-area trade routing, the everyday compromises of empire-scale merchant capitalism. *That* level of compromise she has implicitly accepted as the cost of her lifestyle.
+
+**What she has not imagined, and what is beyond her capacity to imagine without confronting it directly, is the scale of Robard's actual compromise** — that he has personally facilitated the funding of an active Ruin Cult engaged in metaphysical-scale mass murder. The gap between *"my husband bends rules to support our luxurious lifestyle"* and *"my husband is the operational financial backbone of the Beads Cult"* is the gap she has not allowed herself to see.
+
+When the Act IV exposure breaks and Robard is forced to step down as Chairman of Sylphon & Stone, **Simone has to reckon with the full scale of what her husband has been doing — and with the fact that he has been lying to her continuously across decades to support the lifestyle she loves.** The reckoning is not clean. Can their love survive a revelation of this magnitude? **That question lingers near the end of the game** without a resolved answer.
+
+**Simone's resolution `[LOCKED v0.9.8]`:**
+
+After Robard's exposure and forced resignation, Simone takes a course of action that is neither vindictive nor naïve: she **sells her shares in Sylphon & Stone, leaves Robard, and emigrates to Kalos**, where she founds her own merchant guild on her own terms. The guild's specific operations are unspecified but trade on her established expertise in luxury goods and her transferable social-network skills. **Her ultimate ending is left ambiguous; we can infer she became successful in Kalos but the bible does not commit to a canonical descendant entity** (this is one of the project's few "clean closure" character endings — Simone's life beyond Cormoria belongs to Simone, not to the cross-canon bloodline structure).
+
+The guild splintering that follows Robard's resignation is the historical mechanism by which Sylphon & Stone's Sylphon branch eventually becomes **Silph Co. of Kanto** ~2000 years later (Section 12 — Sylphon → Silph Co. bloodline, expanded v0.9.8). Simone's Kalos guild is *not* on this lineage; the Silph descent runs through whichever Sylphon-branch fragments stayed in continental territory after the splinter.
+
+**Overworld interactions with Splendor `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+Simone's bond with her ace is one of the project's flagship demonstrations of the partnership-thesis applied *outside combat* (Section 11 — Principle: Ace-bonding overworld interactions). When the player encounters Simone in the overworld outside of battle, Splendor is at her side, and Simone interacts with her continuously and audibly. Sample register:
+
+> *"Oh darling, you look so fabulous with that beautiful fur today. There is no other Pokémon on the continent that can even BEGIN to compare. We MUST go shopping for a new ribbon for you tomorrow, mustn't we, darling?"*
+
+The interactions are accompanied by an emoticon-over-head visual flourish and a Splendor cry, surfacing the bond as a cutscene-style moment the player observes from outside the battle frame. **Simone's overworld voice is unmistakable: every other word is "darling," every observation is loving and slightly imperious, every aspirational plan involves shopping.** The contrast with the *tactical-precision* trainer the player will face in Trial 4 is deliberate. The same Simone who plans Splendor's accessories with theatrical fuss is the Simone who deploys an Obstagoon-Farigiraf doubles core that exploits Armor Tail priority blocking — *the fashionable register and the tactical register are the same Simone, expressed in two domains.*
+
+`[OPEN]` Specific number of overworld interaction beats Simone has across the game (Trial 4 chapter ≥ 1; possibly additional in pre-Act-IV peaceful Cormoria scenes and contrasting post-Act-IV reckoning scenes).
+
+`[OPEN]` Whether Simone's post-Act-IV overworld interactions with Splendor *change tonally* — does the fashion-chatter survive, or is there a quiet period of grief in which Splendor's overworld presence is comforting silent companionship rather than playful fuss? *Lean: the chatter quiets but does not disappear. Splendor is the constant.*
+
+**Open items for Simone:**
+
+- `[OPEN]` Specific Trial 4 level cap number
+- `[OPEN]` Items for the 5 non-Splendor Trial team members
+- `[OPEN]` Robard's appearance in the story — does he appear in person, or remain offscreen as a referenced absent partner? If onscreen, in what scenes (palace functions? Act IV exposure scene? a confrontation with Simone post-exposure?)
+- `[OPEN]` Robard's combat capability — is he a trainer at all, or strictly a businessman? The fact that he raised three of Simone's Trial team Pokémon strongly implies he *is* a trainer; whether the player ever battles him is undecided
+- `[OPEN]` Specific Sylphon & Stone exposure scene scripting in Act IV (the moment Simone learns the full scale)
+- `[OPEN]` Whether Simone reappears in any Act V or Act VI scenes before her Kalos departure
+- `[OPEN]` Trial 4's chapter-specific geography (the city or region where House Sylphon's seat is located)
+- `[OPEN]` Whether the player has any pre-Trial-4 social encounter with Simone in a court or fashion-event setting (extra-thematic reward for engaged players who explore Cormoria's social scene)
+

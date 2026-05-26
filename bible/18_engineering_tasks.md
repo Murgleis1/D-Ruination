@@ -625,6 +625,105 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
 - **Regular Hisuian Ursaluna unobtainability** — engine-side, the Teddiursa → Ursaring → Bloodmoon Ursaluna chain is direct (no intermediate Hisuian Ursaluna). Hisuian Ursaluna species data is preserved for Pokedex completion only; no encounter, no evolution path. No engineering task required — this is the *current* shipped state.
 - **Build-pipeline JSON registry for new species** — the build emits informational lines `Unable to find Joustroll in json` and `Unable to find Jousteel in json`. These are non-fatal; the ROM compiles and links cleanly. Some JSON registry expects new-species metadata that hasn't been added. Low-priority follow-up; investigate when convenient. Likely a Porymap species JSON or an asset-pipeline mapping under `tools/` or `data/`.
 
+#### v0.9.8-continuing engineering tasks (Trial 4 lock + ace-bonding system)
+
+54. **Simone Sylphon (Trial 4 Baroness) — full trainer entry and custom Pokémon kits** — `[MEDIUM]`
+
+    Trial 4 is a forced doubles fight against Simone Sylphon at level cap ~40 (specific number `[OPEN]`). All 6 team members need trainer-Pokémon entries; the ace and one teammate need custom engine work.
+
+    **Splendor (Simone's ace) custom kit:**
+    - Species: SPECIES_OBSTAGOON with shiny flag set
+    - Gender: female
+    - Nickname: "Splendor"
+    - **Ability override: Fur Coat** (canonical Obstagoon abilities are Reckless / Guts / Defiant). This is the same pattern as the Tinkatink-line Fur Coat port (engineering task #16) — modify the trainer-Pokémon ability assignment for this specific instance; do *not* add Fur Coat to Obstagoon's species ability list.
+    - **Moveset:** Body Press / Sucker Punch / Bulk Up / Burning Bulwark
+    - **Burning Bulwark is canonical to Armarouge only** in pokeemerald-expansion. For Splendor it must be added as a *trainer-Pokémon-specific custom move override* — the move data already exists in `src/data/moves_info.h`; only the Obstagoon learnset gate needs to be bypassed for this trainer-Pokémon entry. Precedent: Justice's Iron Valiant with Sharpness + Choice Scarf + 4 slicing moves (Rhydia's team, locked v0.9). No species-level learnset edit required.
+    - Held item: Leftovers
+    - IV/EV optimization: Defense-leaning; recommend max-Def, max-HP, mild speed investment to outspeed defensive walls
+    - Nature: defense-favoring (Bold or Impish)
+
+    **Other team-member entries (5 Pokémon, standard trainer-Pokémon scope):**
+
+    | Slot | Species | Gender | Ability | Moveset |
+    |---|---|---|---|---|
+    | 2 | Hisuian Zoroark | ♂ | Illusion | Infernal Parade / Hyper Voice / Nasty Plot / Parting Shot |
+    | 3 | Bewear | ♀ | Fluffy | Close Combat / Double-Edge / Darkest Lariat / Swords Dance |
+    | 4 | Grafaiai | ♂ | Prankster | Gunk Shot / Knock Off / Toxic / Parting Shot |
+    | 5 | Pyroar | ♀ | Unnerve | Heat Wave / Mud-Slap / Taunt / Will-O-Wisp |
+    | 6 | shiny Farigiraf | ♂ | Armor Tail | Psyshock / Dazzling Gleam / Nasty Plot / Agility |
+
+    - `[OPEN]` Held items for the 5 non-Splendor team members
+    - `[OPEN]` IV/EV optimization and nature for the 5 non-Splendor team members
+    - **Doubles-format trainer script:** Trial 4's forced doubles encounter requires the trainer script to enforce doubles format regardless of player's preferred single/double setting. Existing precedent in the Goma Royal Palace assassination subplot (doubles-scripted battle alongside Rhydia) should be reusable.
+    - **NPC sprite for Simone:** custom overworld sprite, fashion-aristocracy aesthetic; reference asset library for closest match
+    - **Pre-battle dialogue authoring:** Simone's husband-wife-team framing, the "three male Pokémon raised by my husband" line, the doubles-format challenge
+    - **Post-battle dialogue authoring:** `[OPEN]` (Simone's reaction to victory/defeat — leans graceful regardless of outcome; she is *not* an emotionally fragile trainer)
+    - **Estimated scope:** ~6-10 hours total (4-6 for custom Splendor kit and trainer script, 2-4 for the 5 standard entries and dialogue authoring)
+
+55. **Ace-bonding overworld interaction system (engine + scripting framework)** — `[MEDIUM — one-time foundational]`
+
+    Implements the engine infrastructure for the ace-bonding overworld interactions principle (Section 11). This is a *one-time* engine task; per-character interaction content (task #56) is the recurring authoring work that uses this system.
+
+    **Engine components required:**
+
+    - **Overworld emoticon-over-head primitive.** Confirm pokeemerald-expansion has an existing emoticon system (likely yes — the standard pokeemerald has `EmoteScript` or similar). If yes, expose as a scripting primitive. If missing or incomplete, port from a relevant ROM hack reference base or implement from scratch (~50-100 lines).
+    - **Cry-from-overworld trigger.** Following Pokémon already have cry-triggering infrastructure (carried in from Dreamstone Mysteries). Expose as a scripting primitive that takes a species ID and plays the cry at the named-ace Pokémon's overworld position.
+    - **Common scripting template.** A single reusable `.pory` macro/script template that takes per-character parameters (trainer overworld object ID, ace species, ace overworld object ID, dialogue text array, emoticon type) and produces the standard 3-beat interaction: emoticon-over-trainer-head → dialogue line(s) → ace cry → optional emoticon-over-ace-head. Reuse across all 23 characters' interactions.
+    - **Proximity-trigger system.** Player walks within N tiles of trainer+ace pair → interaction fires. Should be configurable per-instance: some interactions are proximity-triggered (background flavor), others are scripted-scene-triggered (cutscene moments). Both modes should use the same underlying template.
+    - **Non-blocking-cutscene design.** The interaction should *not* freeze the player's movement; the player should be able to walk past the interaction as it plays out. Avoids the "every NPC stops you with a story" anti-pattern of older Pokémon games.
+    - **Per-interaction cooldown.** Prevent the same interaction from re-firing every time the player passes by. Recommended: 1-time-per-area-load, or once-per-day-cycle, configurable per instance.
+
+    **Estimated scope:** ~20-40 hours one-time engine work (~10-15 hours if pokeemerald-expansion already has most of the primitives in place; ~30-40 hours if multiple primitives need to be built from scratch).
+
+56. **Per-character ace-bonding overworld interaction backlog** — `[MEDIUM — recurring; 23 sub-tasks]`
+
+    For each of the 23 in-scope characters (Section 11 — Ace-Bonding Overworld Interactions principle), author and implement the per-character interaction content. Each sub-task uses the system from task #55.
+
+    **Per-character sub-task structure (each):**
+    - Lock the interaction style and emotional register
+    - Author 1-5 dialogue beats (varies by character and number of overworld appearances)
+    - Author the emoticon style (heart, sparkle, music note, ellipsis, sweatdrop, etc. — pick what fits the register)
+    - Place the interaction scripts at the appropriate overworld map locations
+    - For ace-evolves-mid-game cases (Glaive's Shelgon → Salamence), author two interaction sets
+    - For Eden's case, author *three* interaction sets (one per possible stolen-starter species)
+
+    **Sub-task status table:**
+
+    | # | Character | Ace status | Sub-task status |
+    |---|---|---|---|
+    | 56.1 | Kimaris Langerin / Crowley | Locked | Ready for design |
+    | 56.2 | Reid Ashland / Heatran | Locked | Ready for design |
+    | 56.3 | Manus Surge / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.4 | Simone Sylphon / Splendor | Locked v0.9.8 | **Ready — interaction style locked; "darling" register specified in Section 7** |
+    | 56.5 | Trial 5 Baron / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.6 | Trial 6 Baron / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.7 | Trial 7 Baron / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.8 | Brie Moray / Domdaniel | Locked | Ready for design |
+    | 56.9 | Nemo Korolev / Manticore + Ting-Lu | Locked | **Two-ace; needs two interaction styles** |
+    | 56.10 | Cadmus Umbra / Jousteel | Locked v0.9.8 | Ready for design |
+    | 56.11 | Glaive / Shelgon→Salamence | Locked | **Evolves mid-game; needs pre- and post-evolution interaction sets** |
+    | 56.12 | Silas Moray / `[OPEN primary]` + Thauma | Partial | Thauma sub-interaction ready; primary blocked on ace lock |
+    | 56.13 | Female Rock Vizier / Tyrantrum | Locked | Ready for design |
+    | 56.14 | Rhydia / Justice + Puff | Locked | **Two-ace; needs two interaction styles** |
+    | 56.15 | Goma / Smolder + Mega Houndoom | Locked | **Two-ace; needs two interaction styles** |
+    | 56.16 | Baradus / Guzzlord | Locked | Ready for design |
+    | 56.17 | Jordan Ramses / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.18 | Wakahisa / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.19 | Ambrose Caymen / Temperance + Brunhilda | Locked v0.9.7 | **Two-ace; needs two interaction styles** |
+    | 56.20 | Eden / her stolen starter | Locked | **Type-counter-locked to player's pick; needs three interaction sets (Frigibax / Teddiursa BM / Tinkatink branches)** |
+    | 56.21 | Madame Roma / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.22 | Blue Moon Hermit (Lethys) / `[OPEN ace]` | Open | **Blocked on ace lock** |
+    | 56.23 | Sable Ashland / Gouging Fire | Locked v0.9.4 | Ready for design |
+
+    **Status summary:**
+    - **13 sub-tasks ready for design** (aces locked)
+    - **10 sub-tasks blocked** on ace locks (9 fully open + Silas's primary)
+    - **5 characters have two-ace structures** (Nemo, Rhydia, Goma, Ambrose, Silas) — these effectively double the per-character authoring work
+    - **1 character (Glaive)** evolves mid-game — double-authoring for pre/post-evolution
+    - **1 character (Eden)** branches three ways on player choice — triple-authoring
+
+    **Estimated scope:** 2-4 hours per sub-task per ace, including dialogue authoring + map placement + testing. Total at full scope: **~80-160 hours** across the project lifecycle (does not all need to be done at once; sub-tasks can be batched per Trial chapter / per Act).
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.

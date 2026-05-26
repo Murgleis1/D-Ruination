@@ -383,5 +383,83 @@ All three Stage-3 starter signatures learned at Lv 77 are normalized to **10 PP*
 
 Full custom-move data lives in Section 9 — Custom Move subsections.
 
+### Principle: Ace-Bonding Overworld Interactions `[LOCKED v0.9.8]`
+
+A project-level design principle establishing how the partnership-thesis is demonstrated *outside combat*. This complements Section 11's earlier principles (which all centered on in-combat partnership demonstrations) by formalizing the project's commitment to **showcasing major trainers' bonds with their named ace Pokémon through overworld interactions outside of battle.**
+
+**What the pattern is:**
+
+When the player encounters a major named trainer in the overworld (i.e., not in a battle screen), that trainer's named ace Pokémon is present beside them whenever narratively appropriate, and the trainer is shown *interacting with the ace* in a way that demonstrates their bond and reveals character. Examples of the kind of interaction the pattern produces:
+
+- **Simone Sylphon with Splendor (shiny female Obstagoon):** the fashion-and-luxury register — *"Oh darling, you look so fabulous with that beautiful fur today. There is no other Pokémon on the continent that can even BEGIN to compare. We MUST go shopping for a new ribbon for you tomorrow, mustn't we, darling?"* (See Section 7 — Simone Sylphon for the full Trial 4 entry; this is the inaugural full implementation of the principle.)
+
+The interactions are designed to be **distinct per trainer-Pokémon pair** — Kimaris's interactions with Crowley should not sound like Simone's interactions with Splendor; Brie's interactions with Domdaniel should not sound like Manus's interactions with his ace. **The interaction *reveals* the bond's specific character**, not a generic "trainer loves Pokémon" register.
+
+**Engine implementation:**
+
+Each interaction is a small scripted event triggered by player proximity (or sometimes by a specific scripted scene). The technical components are:
+
+- **Emoticon-over-head visual flourish** above the trainer (or the Pokémon, or both, depending on the interaction's emotional register)
+- **Cry of the named Pokémon** is played during the interaction
+- **Brief dialogue text** in the trainer's voice (or the Pokémon's mannerism-driven response, where applicable)
+- The interaction is **non-blocking** — it plays out as the player passes through the area; it is not a forced cutscene the player has to dismiss
+
+The aggregate effect is a setting that *feels lived-in*. Trainers and their Pokémon are *together,* visibly, in ways that read as ongoing relationship rather than gameplay convenience.
+
+**Why the principle matters:**
+
+The partnership-thesis is the project's central design commitment. Section 11's earlier principles demonstrate partnership through *combat* — Eden's item-disruption style, Glaive's dragon-empathic ability, the three-redemption-arc pattern, etc. But partnership in real life is *not primarily a combat phenomenon* — it is daily presence, small affection, accumulated routine. **A project committed to partnership as its central thesis must show partnership in the unspectacular daily forms it actually takes**, not only in the dramatic combat moments where it pays off.
+
+The ace-bonding overworld interactions are the project's commitment to showing partnership at *non-combat resolution*. The contrast is also generative — players see Simone fuss over Splendor's ribbon in the overworld, then face an Obstagoon-Farigiraf doubles core that exploits Armor Tail priority blocking in Trial 4. *Same Simone, two domains, both real.* The fashion-register and the tactical-register are not in tension; they are the same expressed differently.
+
+**Characters this principle applies to `[LOCKED v0.9.8 — narrative; engineering OPEN per character]`:**
+
+**Scope criterion:** *Any named character with a locked ace Pokémon who appears in the overworld more than once across the story.* This criterion is the principle's actual gate — the list below is the v0.9.8 enumeration of who currently qualifies. As new aces are locked or new characters added, the criterion automatically determines whether they enter scope without bible amendment.
+
+**Currently in scope (23 characters as of v0.9.8):**
+
+| # | Character | Role | Ace(s) | Ace status |
+|---|---|---|---|---|
+| 1 | Kimaris Langerin | Trial Baron 1 (Ghost) | Crowley (shiny Spiritomb, Prankster) | Locked |
+| 2 | Reid Ashland | Trial Baron 2 (Fire) | unique shiny Heatran (Earth Eater) | Locked |
+| 3 | Manus Surge | Trial Baron 3 (Electric) | `[OPEN]` | Open |
+| 4 | Simone Sylphon | Trial Baroness 4 (Normal) | Splendor (shiny female Obstagoon, Fur Coat) | Locked v0.9.8 |
+| 5 | Trial 5 Baron (Raptora) | Trial Baron 5 (Flying) | `[OPEN]` | Open |
+| 6 | Trial 6 Baron (Alban) | Trial Baron 6 (Grass) | `[OPEN]` | Open |
+| 7 | Trial 7 Baron (Nightfall) | Trial Baron 7 (Dark) | `[OPEN]` | Open |
+| 8 | Brie Moray | Trial Baroness 8 (Fairy) | Domdaniel (shiny Scream Tail, Huge Power) | Locked |
+| 9 | Nemo Korolev | Trial Baron 9 (Ground) | **Manticore** (shiny Gliscor, Adaptability) **+ Ting-Lu** (two-ace structure) | Locked |
+| 10 | Cadmus Umbra | Vizier of Education | Jousteel | Locked v0.9.8 |
+| 11 | Glaive | Vizier of War | Salamence (Shelgon currently; evolves mid-game) | Locked |
+| 12 | Silas Moray | Vizier of Commerce | primary ace `[OPEN]` + Thauma (shiny Hisuian Braviary) | Partial |
+| 13 | Female Rock Vizier | Vizier (portfolio `[OPEN]`) | shiny Tyrantrum | Locked |
+| 14 | Rhydia | Champion | **Justice** (Iron Valiant, Sharpness) **+ Puff** (shiny Drampa, Multiscale) (two-ace structure) | Locked |
+| 15 | Goma | Beads Cult Harbinger | **Smolder** (shiny Emboar) **+ Mega Houndoom** (two-ace structure) | Locked |
+| 16 | Baradus | Sword Cult leader | Guzzlord (shiny, Dragon's Maw bred ability) | Locked |
+| 17 | Jordan Ramses | Poison-type recurring rival | `[OPEN]` | Open |
+| 18 | Wakahisa | Bug-type recurring rival | `[OPEN]` | Open |
+| 19 | Ambrose Caymen | Archbishop of the Templar Arceus Order (Steel) | **Temperance** (shiny Kingambit) **+ Brunhilda** (shiny female Perrserker) (two-ace structure) | Locked v0.9.7 |
+| 20 | Eden | Deuteragonist / future spouse | her stolen starter (Frigibax / Teddiursa Blue Moon / Tinkatink — type-counter-locked to player's pick per the Eden Theft Scene) | Locked |
+| 21 | Madame Roma | Soothsayer / progenitor of House Langerin | `[OPEN]` | Open |
+| 22 | Blue Moon Hermit (Lethys) | Sage / Master Tutor (Blood Moon) | `[OPEN]` | Open |
+| 23 | Sable Ashland | Returned-from-Ancient-Cormoria, uncle of Reid | **Gouging Fire** (raised from egg in Ancient Cormoria) | Locked v0.9.4 |
+
+**Notable structural observations:**
+
+- **Five characters have *two-ace* structures** (Nemo, Rhydia, Goma, Ambrose, plus Silas's partial Thauma secondary) — for these, the overworld interaction style may differ between primary and secondary aces, reflecting the trainer's distinct bonds with each. *Nemo's bond with Manticore is military-respectful; Nemo's bond with Ting-Lu is the older-soldier-with-a-tool-that-could-burn-him register.* Different bonds, same character.
+- **One ace evolves mid-game (Glaive's Shelgon → Salamence)** — Glaive's overworld interactions therefore need *two versions* of the dialogue/animation, pre- and post-evolution. The Hermit-saved-Glaive-from-sandstorm-which-enabled-Bagon→Shelgon backstory (Section 7 — Glaive arc) is already a locked partnership-thesis demonstration; the overworld interactions extend it into the everyday register.
+- **Eden's ace is type-counter-locked to the player's pick.** Engineering work for Eden's overworld interactions branches three ways (one per possible starter). This is moderate-scope additional work; the system must conditionally select the right interaction set based on the player's Act I choice.
+
+**Characters explicitly OUT of scope (recorded for clarity):**
+
+- **Vandras Amber-Letz** — merchant role, no locked ace Pokémon partnership; criterion-fail
+- **Boran Surge** — deceased / overseas; no overworld sprite (silhouette-only flashback appearances at most); criterion-fail
+- **Pierra** — Queen Mother, character role primarily political/familial rather than trainer-focused; no locked ace
+- **Future-Red, Cogita, other cross-canon characters** — appear as set-piece encounters rather than recurring overworld presences; criterion-fail
+
+`[OPEN]` Whether the overworld interaction pattern extends to *secondary* named Pokémon on these trainers' teams beyond the two-ace cases already enumerated (Justice + Puff for Rhydia, Smolder + Mega Houndoom for Goma, Temperance + Brunhilda for Ambrose, Manticore + Ting-Lu for Nemo). Recommendation: only the locked two-ace pairs receive the dual-treatment; if other trainers acquire a second named ace later, the criterion auto-adopts them.
+
+`[OPEN]` Whether *minor* named NPCs with notable Pokémon (e.g., recurring tavern NPCs, key plot NPCs without recurring overworld presence) also receive ace-bonding overworld interactions. Recommendation: no — keep the principle reserved for major named recurring trainers, where the bond-demonstration earns its engineering cost.
+
 ---
 
