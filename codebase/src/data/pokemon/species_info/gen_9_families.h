@@ -8131,6 +8131,158 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
     },
 #endif //P_FAMILY_PECHARUNT
 
+// === DREAMSTONE RUINATION CUSTOM SPECIES ===
+// Joustroll and Jousteel are always compiled (no P_FAMILY_ guard).
+
+    [SPECIES_JOUSTROLL] =
+    {
+        // === DREAMSTONE RUINATION CUSTOM SPECIES ===
+        // The Armory Pokemon — Steel-type. Stage 1 of the Umbra-line.
+        // Pre-evolution form is mechanically-built and steam-powered;
+        // generates its own water vapor as natural locomotion. Gains
+        // Water typing fully on evolution to Jousteel at Lv 50.
+        // Genderless, non-breeding, mythic-tier rarity. Engine parameters
+        // for floating shadow/offsets adapted from Revavroom.
+        .baseHP        = 75,
+        .baseAttack    = 85,
+        .baseDefense   = 90,
+        .baseSpeed     = 80,
+        .baseSpAttack  = 85,
+        .baseSpDefense = 90,
+        .types = MON_TYPES(TYPE_STEEL),
+        .catchRate = 3,
+        .expYield = 180,
+        .evYield_Defense = 1,
+        .evYield_SpDefense = 1,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 120,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_FILTER, ABILITY_MOTOR_DRIVE, ABILITY_SPEED_BOOST },
+        .bodyColor = BODY_COLOR_RED,
+        .speciesName = _("Joustroll"),
+        .cryId = CRY_VAROOM, // placeholder; final cry to be authored
+        .natDexNum = NATIONAL_DEX_JOUSTROLL,
+        .categoryName = _("Armory"),
+        .height = 10,   // placeholder — locked in Pokedex text session
+        .weight = 1000, // placeholder — locked in Pokedex text session
+        .description = COMPOUND_STRING(
+            "Placeholder description — to be\n"
+            "written in the Pokedex text design\n"
+            "session. See bible Joustroll entry\n"
+            "for canonical lore."),
+        .pokemonScale = 356,
+        .pokemonOffset = 17,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_Joustroll,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 8,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .backPic = gMonBackPic_Joustroll,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 16,
+        .palette = gMonPalette_Joustroll,
+        .shinyPalette = gMonShinyPalette_Joustroll,
+        .iconSprite = gMonIcon_Joustroll,
+        .iconPalIndex = 0,
+        SHADOW(0, 7, SHADOW_SIZE_L)
+        FOOTPRINT(Joustroll)
+        OVERWORLD(
+            sPicTable_Joustroll,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Joustroll,
+            gShinyOverworldPalette_Joustroll
+        )
+        .levelUpLearnset = sJoustrollLevelUpLearnset,
+        .teachableLearnset = sJoustrollTeachableLearnset,
+        .evolutions = EVOLUTION({EVO_LEVEL, 50, SPECIES_JOUSTEEL}),
+    },
+
+    [SPECIES_JOUSTEEL] =
+    {
+        // === DREAMSTONE RUINATION CUSTOM SPECIES ===
+        // The Paladin Pokemon — Water/Steel-type. Stage 2, evolves from
+        // Joustroll at Lv 50. The literal heraldic symbol of House Umbra;
+        // every generation of the Umbra family has had a Jousteel as
+        // their ace, keeping an Umbra in the Vizier role since the early
+        // days of the empire. Genderless and non-breeding: the line is
+        // a long-lived self-propagating armored crustacean species that
+        // produces one egg per generation under normal circumstances.
+        // Mythic-tier rarity (catchRate 3, growth slow).
+        // Pseudo-legendary BST 590 with intentional 10 Speed: the trade-
+        // off for massive bulk + dual 130 offenses + slicing-heavy
+        // movepool. Players typically pair with Quick Claw or Trick Room.
+        // Engine parameters for floating sprite adapted from Aegislash.
+        .baseHP        = 100,
+        .baseAttack    = 130,
+        .baseDefense   = 110,
+        .baseSpeed     = 10,
+        .baseSpAttack  = 130,
+        .baseSpDefense = 110,
+        .types = MON_TYPES(TYPE_WATER, TYPE_STEEL),
+        .catchRate = 3,
+        .expYield = 285,
+        .evYield_Attack = 2,
+        .evYield_SpAttack = 2,
+        .genderRatio = MON_GENDERLESS,
+        .eggCycles = 120,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_LEVITATE, ABILITY_WATER_BUBBLE, ABILITY_SHARPNESS },
+        .bodyColor = BODY_COLOR_RED,
+        .speciesName = _("Jousteel"),
+        .cryId = CRY_VOLCANION, // placeholder; final cry to be authored
+        .natDexNum = NATIONAL_DEX_JOUSTEEL,
+        .categoryName = _("Paladin"),
+        .height = 17,   // placeholder — locked in Pokedex text session
+        .weight = 5300, // placeholder — locked in Pokedex text session
+        .description = COMPOUND_STRING(
+            "Placeholder description — to be\n"
+            "written in the Pokedex text design\n"
+            "session. See bible Jousteel entry\n"
+            "for canonical lore."),
+        .pokemonScale = 259,
+        .pokemonOffset = 0,
+        .trainerScale = 290,
+        .trainerOffset = 1,
+        .frontPic = gMonFrontPic_Jousteel,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 0,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
+        .frontAnimId = ANIM_H_VIBRATE,
+        .enemyMonElevation = 3,
+        .backPic = gMonBackPic_Jousteel,
+        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = 9,
+        .backAnimId = BACK_ANIM_H_VIBRATE,
+        .palette = gMonPalette_Jousteel,
+        .shinyPalette = gMonShinyPalette_Jousteel,
+        .iconSprite = gMonIcon_Jousteel,
+        .iconPalIndex = 0,
+        SHADOW(0, 14, SHADOW_SIZE_M)
+        FOOTPRINT(Jousteel)
+        OVERWORLD(
+            sPicTable_Jousteel,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Jousteel,
+            gShinyOverworldPalette_Jousteel
+        )
+        .isMythical = TRUE,
+        .perfectIVCount = 3,
+        .levelUpLearnset = sJousteelLevelUpLearnset,
+        .teachableLearnset = sJousteelTeachableLearnset,
+    },
+// === END RUINATION CUSTOM SPECIES ===
+
 #ifdef __INTELLISENSE__
 };
 #endif
