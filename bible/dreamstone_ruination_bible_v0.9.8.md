@@ -1,10 +1,12 @@
 # Dreamstone Ruination — World Bible
 
-**Status:** Living document, v0.9.7
+**Status:** Living document, v0.9.8
 **Project base:** Fork of `dsmyst/dreamstone-mysteries` (itself a fork of `rh-hideout/pokeemerald-expansion`)
 **Working title:** Dreamstone Ruination
 
 > **Legend:** `[LOCKED]` = committed decision · `[WORKING]` = current direction, may refine · `[OPEN]` = unresolved, needs future discussion
+
+> **v0.9.8 patch summary:** Engine-rebalance lock + custom-species lock from session 2's merged PR. All three starter lines (Frigibax, Teddiursa Blue Moon, Tinkatink) brought onto a unified 375/480/600 BST framework with distinct role identities and 16-move shared learnsets per line. Lv 77 starter aces normalized to 10 PP (Behemoth Blade / Moongeist Beam / Sunsteel Strike). Master-Tutor-gated Stage 2 → Stage 3 evolutions for all three lines. Joustroll and Jousteel fully landed as custom species (SPECIES_JOUSTROLL = 1524, SPECIES_JOUSTEEL = 1525) — complete species_info, learnsets, evolution at Lv 50, graphics tables, sprite binaries, dex orderings. Custom moves landed: Behemoth Blade (Dragon, 120 BP, Fairy-effectiveness override pending engine hook), Mountain Gale (Ice, 95 BP, Water-effectiveness override pending), Sunsteel Strike Cormorian variant (Fire non-STAB, 140 BP, ignoresTargetAbility preserved), Moongeist Beam buffed 100 → 140 BP, Double Slap + Covet retyped Normal → Fairy globally. Blood Moon retyped Normal → Ground. Hisuian Ursaluna intentionally unobtainable. Mega Baxcalibur BST 720 + Speed>120 + Atk>145 constraint locked. Trial 4 Joustroll Egg sidequest narrative locked (engineering OPEN). House Umbra's "three eggs" Cadmus-generation lore captured. New design principles documented: Unified Starter-Trio BST Framework and Lv 77 Starter-Ace 10-PP Convention. Engineering tasks #49-53 added (three engine type-override hooks parallel to Freeze-Dry; Joustroll/Jousteel cry audio; Trial 4 sidequest scripting). Bible doctrine reversed: splits are the active edit target, canonical is regenerated from splits at session end.
 
 > **v0.9.7 patch summary:** Major character expansions (Eden to deuteragonist, Brie Moray to Trial Baroness, Ambrose Caymen as Archbishop of the Arceus Templar, female Rock Vizier, Jordan Ramses + Wakahisa as recurring rivals), the parallel-main-quest Mega-Dreamstone Shard hunt, the Tinkatink dragon-slayer bloodline lore, the Tinkaton Matriarch ancient-sleeper, the Solomonar title, the v0.9.7 Tinkaton stat lock (BST 560), the Behemoth Bash custom move with Steel-effectiveness override, the Vizier gauntlet reorder (Rock → Umbra → Silas → Glaive → Rhydia), and two terminology sweeps: Trial Lord → Trial Baron / Trial Baroness, and Supreme Sage → Lunacy. See full patch notes at end of document.
 
@@ -65,6 +67,8 @@ This thesis is *demonstrated* through character arcs (especially Glaive and Osri
 Note one design tension we hold deliberately: the starter Pokémon are weapons-coded (Baxcalibur, Ursaluna, Tinkaton). The prince begins his trainer journey with creatures that *look* like weapons and must learn they aren't. This is the thesis in microcosm.
 
 ---
+
+
 
 ## 2. Worldbuilding Foundations
 
@@ -771,6 +775,8 @@ The Cormorian royal family's secluded retreat — **physically far from the impe
 
 ---
 
+
+
 ## 3. Geopolitics — The World in Our Era
 
 ### Cormoria (our setting) `[LOCKED]`
@@ -821,6 +827,8 @@ This is not spelled out in dialogue. It is the *capstone subtext* of the game, i
 - `[OPEN]` Does Kalos play any direct role in our game's plot?
 
 ---
+
+
 
 ## 4. The Cormorian Empire (Internal Structure)
 
@@ -937,6 +945,8 @@ Cormoria-specific notes for empire-era worldbuilding:
 - **The Paldean embassy or merchant compound** `[OPEN]` — given the Paldean funding pipeline for the cults, there is likely a Paldean diplomatic or commercial presence in Cormoria worth establishing.
 
 ---
+
+
 
 ## 5. Protagonist — Osrid / Rainhawk / Veddev
 
@@ -1104,6 +1114,8 @@ Rhydia continues as Champion after Osrid disappears — but **she carries forwar
 
 ---
 
+
+
 ## 6. The Starter Trio and Umbra's Gift Scene
 
 ### The gift scene `[LOCKED]`
@@ -1163,6 +1175,49 @@ Each starter occupies a distinct mechanical role:
 
 **No two are interchangeable. No pick is objectively weaker.** Each path has a clear Trial-6 Master Tutor evolution gate, a memorable ability suite creating multiple builds, a distinct combat identity, and a post-Champion Ancient Cormoria side quest that unlocks the line's coronation-tier bonus item. **This is the design level where players love their starter choice for personal mechanical reasons, not just narrative ones.**
 
+### Unified starter-trio BST framework `[LOCKED v0.9.8]`
+
+All three starter lines share an identical BST budget at each stage:
+
+| Stage | BST | Notes |
+|---|---|---|
+| 1 | 375 | All three Stage 1s have the same total stat budget |
+| 2 | 480 | All three Stage 2s have the same total stat budget |
+| 3 | 600 | All three Stage 3s have the same total stat budget |
+
+The intent is that **no starter is BST-disadvantaged at any progression point.** Each line distributes those 375/480/600 points differently to express its distinct role identity (see "Three-line role identity framework" below).
+
+Each Stage 3 has one signature stat at 145 OR paired stats at 125/125:
+
+| Line | Stage 3 | Signature stat(s) |
+|---|---|---|
+| Frigibax | Baxcalibur | Atk 145 |
+| Teddiursa Blue Moon | Bloodmoon Ursaluna | SpA 145 |
+| Tinkatink | Tinkaton | Def 125 paired with SpD 125 |
+
+This signature-stat anchoring makes each Stage 3 mechanically distinctive — at apex, each starter has a clear "best stat" identity that other starters can't match.
+
+### Three-line role identity framework `[LOCKED v0.9.8]`
+
+Each starter line dominates 2 stat slots, is mid-pack in 2, and trails in 2. The role differentiation is visible at every progression stage:
+
+| Role attribute | Frigibax (high) | Teddiursa Blue Moon (high) | Tinkatink (high) |
+|---|---|---|---|
+| Attack | **80 / 110 / 145** | 50 / 65 / 75 | 70 / 85 / 110 |
+| Sp. Attack | dump (30 / 40 / 55) | **80 / 110 / 145** | dump (30 / 40 / 50) |
+| Speed | **80 / 105 / 120** | 60 / 75 / 90 | 50 / 60 / 75 |
+| Defense | 55 / 70 / 85 | 60 / 75 / 95 | **85 / 110 / 125** |
+| Sp. Defense | 65 / 70 / 95 | 70 / 80 / 100 | **75 / 95 / 125** |
+| HP | 65 / 85 / 100 | 55 / 75 / 95 | 65 / 90 / 115 |
+
+**The three identities expressed as one-liners:**
+
+- **Frigibax line:** physical-attacker + speed identity; moderate HP; low Def/SpD; dump SpA. Cormorian dragon empire's chosen successor.
+- **Teddiursa Blue Moon line:** special-attacker apex; moderate Speed and bulk; lowest HP of trio. The lunar-mystic mind-and-voice line. The trio's coverage king (Ground / Fairy / Psychic / Fire / Fighting / Ghost access).
+- **Tinkatink line:** defensive colossus; paired Def + SpD identity; highest HP at apex; lowest Speed of trio; moderate Atk; dump SpA. Cormorian dragon-slayer-clan inheritor.
+
+**Both Frigibax and Tinkatink dump SpA `[LOCKED v0.9.8]`** because their kits are **100% physical-attacker** — every damage-dealing move on either line is a physical attack. SpA points on these lines would be wasted stats. Only the Blue Moon Teddiursa line uses SpA, and its kit is correspondingly all-special.
+
 ### Mechanical implementation `[LOCKED]`
 
 - **All three are true shinies with new custom palettes** (not the canonical shiny colors)
@@ -1170,7 +1225,7 @@ Each starter occupies a distinct mechanical role:
 - Shiny status is flagged genuinely in the data — they are mechanically shinies, not cosmetic-only
 - **Each starter line has its OWN unique shiny palette identity** — the three starters do NOT share a visual scheme. Each gets a one-of-a-kind look so that a player's choice of starter results in a genuinely distinctive partner.
 - Within an evolution line (e.g., Frigibax → Arctibax → Baxcalibur), the palette identity stays consistent so the line reads as a cohesive family.
-- **Tinkaton's BST is buffed to BST 560 `[LOCKED v0.9.7]`** — final stat line **75 / 85 / 125 / 75 / 125 / 75** (HP / Atk / Def / SpA / SpD / Spe). Parity with Bloodmoon Ursaluna (BST 560); Baxcalibur sits at canonical BST 600. The three starters' base-apex forms span BST 560-600, then *coronation-tier bonus forms* (Mega Baxcalibur 720, Bloodmoon Ursaluna with Lunacy, Tinkaton with Divine Cuirass) form the parallel competitive tier. **Tinkatink and Tinkatuff stat buffs `[OPEN]`** — to be locked alongside the line's full custom learnset
+- **Unified starter-trio BST framework `[LOCKED v0.9.8]`** — all three starter lines share the same BST budget at each stage: **375 / 480 / 600** for Stage 1 / Stage 2 / Stage 3. This SUPERSEDES the prior v0.9.7 Tinkaton stat lock (BST 560, 75/85/125/75/125/75) and the v0.9.5 Bloodmoon Ursaluna lock (BST 560, 113/75/85/145/90/52). Each Stage 3 has one signature stat at 145 (Baxcalibur Atk 145, Bloodmoon Ursaluna SpA 145) OR paired 125s (Tinkaton Def/SpD 125/125). See "Base stats" subsection below for full per-stage tables across all three lines.
 
 ### Starter palette identities
 
@@ -1288,6 +1343,56 @@ Around the mid-game, the player can travel to the desert region and encounter th
 `[OPEN]` Whether the Baxcaliburite post-Champion quest ("The Origins of Cormoria's Dragons") references the Tinkaton clan's ecological role in dragon scarcity, or whether that quest stays focused on pre-Tinkaton ancient dragon lineage (Roaring Moon, Walking Wake)
 `[OPEN]` Whether other named members of the clan appear (a Tinkaton lieutenant who defends the Matriarch's cave entrance, etc.)
 
+### The Frigibax Line — Cormorian Dragon Heritage `[LOCKED v0.9.8]`
+
+The Frigibax line in Dreamstone Ruination is a *uniquely-bloodlined individual* from the dragon-imperial-tradition — the lineage that represents what the Tinkaton clan's centuries of hunting has *not* yet driven to extinction. Where the Tinkatink line is the dragon-slayer-bloodline, the Frigibax line is *the dragon-empire's chosen successor.* Umbra's hand-selected starter from this line is one of the rarest specimens in modern Cormoria.
+
+**Base stats `[LOCKED v0.9.8]`:**
+
+| Form | Stats (HP/Atk/Def/Spe/SpA/SpD) | BST | Identity |
+|---|---|---|---|
+| Frigibax | **65/80/55/80/30/65** | 375 | Stage 1 — physical attacker + speed established. Atk 80 highest of trio at Stage 1; Speed 80 also trio-leading. SpA dumped (30). |
+| Arctibax | **85/110/70/105/40/70** | 480 | Stage 2 — Atk 110 and Speed 105 cement the physical-speed identity. Speed +43 over canonical (was 62) is the line's biggest stat shift. |
+| Baxcalibur | **100/145/85/120/55/95** | 600 | Stage 3 — Atk 145 is the trio's physical-offense signature stat. Speed 120 makes Baxcalibur outspeed canonical Garchomp (102) and Salamence (100); the line is now genuinely fast, not a slow wallbreaker. |
+
+**Mega Baxcalibur (post-Champion) carries BST 720 `[LOCKED v0.9.2]`** with the constraint that Mega Speed must exceed 120 and Mega Atk must exceed 145 (otherwise the Mega is a sidegrade in the line's identity stats). See Section 9 — Mega Baxcalibur entry for the full Mega stat spec.
+
+**Full Frigibax line learnset `[LOCKED v0.9.8]`:**
+
+All three stages share an **identical 16-move backbone**. The kit is **100% physical-attacker**; SpA is a dump stat across the line. Like the Tinkatink line, the line is intentionally physical-only to justify dumping SpA stats.
+
+| Lv | Move | Notes |
+|---|---|---|
+| 1 | Tackle | Basic Normal physical |
+| 3 | Leer | -1 Def status |
+| 7 | Ice Shard | Ice STAB priority |
+| 11 | Breaking Swipe | Dragon spread-hit physical, -1 Atk |
+| 15 | Metal Claw | Steel physical, 10% +1 Atk |
+| 19 | Chilly Reception | Sets snow + force-switch |
+| 27 | Dragon Claw | Dragon STAB physical, 80 BP |
+| 30 | Smart Strike | Steel never-miss physical |
+| 34 | Triple Axel | Ice 3-hit physical |
+| 38 | Dragon Dance | +1 Atk +1 Spe setup |
+| 42 | Crunch | Dark physical, 80 BP |
+| 49 | Outrage | Dragon STAB physical, 120 BP locks in |
+| 53 | Headlong Rush | Ground physical, 120 BP -1 Def/SpD |
+| 60 | Glaive Rush | Dragon STAB physical, 120 BP, 2× damage taken until next turn |
+| 65 | Snowscape | Sets snow weather |
+| 77 | Behemoth Blade | **Baxcalibur late-game ace (Cormorian variant — see Section 9).** Retyped Steel → Dragon, 120/95/10, super-effective vs Fairy override. |
+
+**Stage-specific differences:**
+
+- **Arctibax** additionally learns **Ice Fang at Lv 0 on evolution** (the line's classic Ice-Fang signature, gained as the evolution reward from Frigibax).
+- **Baxcalibur** does NOT have the canonical Lv 0 on-evolution Glaive Rush — it's removed from the on-evolution slot and pushed to Lv 60. Players using a Baxcalibur for the Lv 45-60 window must rely on Mountain Gale (tutor), Outrage, and Headlong Rush for 120-BP options before Glaive Rush unlocks.
+
+**Tutor-only — Mountain Gale (Cormorian variant):**
+
+Mountain Gale is taught exclusively by the **Mountain Gale Master Tutor** at the Trial 6 quest unlocked around player Lv 45. Cormorian variant stats: 95 BP / 95 acc / 15 PP / 33% flinch / Ice physical, **plus a Freeze-Dry-style Water-effectiveness override** (super-effective vs Water regardless of resolved type — engine TODO; see Section 9). Learning Mountain Gale triggers EVO_MOVE evolution from Arctibax to Baxcalibur.
+
+**Ability suite `[LOCKED v0.9.2]`:**
+
+(See "Starter line ability assignments" subsection below for the full ability breakdown — Ice Scales / Slush Rush / Armor Tail HA.)
+
 ### The Blue Moon Teddiursa Line — Cormorian Lunar-Mystic Variant `[LOCKED v0.9.2]`
 
 The Teddiursa line in Dreamstone Ruination is *not* the canonical Teddiursa → Ursaring → Ursaluna evolutionary path. It is a **uniquely Cormorian "Blue Moon" variant** with the following distinguishing features:
@@ -1302,29 +1407,29 @@ The Teddiursa line in Dreamstone Ruination is *not* the canonical Teddiursa → 
 
 The regular (brown) Ursaluna stage is not part of this variant's evolution. Players who choose Teddiursa receive the Cormorian Blue Moon variant from the start; their final form is Bloodmoon Ursaluna directly. This is consistent with Bloodmoon Ursaluna being canonically a form variant (not a separate evolutionary stage in the strict sense) and Ruination establishing the Cormorian Blue Moon lineage as a *unique regional variant* with its own evolutionary mechanics.
 
-**Special Attack identity (stat redistribution) `[LOCKED v0.9.5]`:**
+**Base stats `[LOCKED v0.9.8 — supersedes v0.9.5 redistribution]`:**
 
-The Blue Moon line is the trio's special-attack apex. The line begins as a pure Atk↔SpA swap at the baby form, then progressively *redistributes toward bulk* in the mid-stage, then *gains a final-form BST increase* with further bulk shoring at evolution. The result is a *bulky-tank-mage archetype* that grows progressively more durable as it evolves.
+All three obtainable Blue Moon Teddiursa stages now conform to the unified starter-trio BST budget (375 / 480 / 600). The bible's prior v0.9.5 stat lock (BST 330/500/560 with pure Atk↔SpA swap) is SUPERSEDED. The line's identity in the unified framework is **special-attacker apex with lowest HP of the trio, moderate Speed and bulk** — see "Three-line role identity framework" below for the full identity matrix.
 
-| Form | Canonical stats (HP/Atk/Def/SpA/SpD/Spe) | Blue Moon stats | BST | Change from canonical |
-|---|---|---|---|---|
-| Teddiursa (Blue Moon) | 60/80/50/50/50/40 | **60/50/50/80/50/40** | 330 | Pure Atk↔SpA swap; BST preserved |
-| Ursaring (Blue Moon) | 90/130/75/75/75/55 | **100/75/85/100/85/55** | 500 | Swap + redistribute 30 from SpA into HP/Def/SpD (+10 each); BST preserved |
-| Bloodmoon Ursaluna (Blue Moon) | 113/135/70/75/75/52 | **113/75/85/145/90/52** | 560 | SpA 75→145 (+70 apex), Def 70→85 (+15), SpD 75→90 (+15); BST increased from 520 to 560 |
+| Form | Blue Moon stats (HP/Atk/Def/Spe/SpA/SpD) | BST | Notes |
+|---|---|---|---|
+| Teddiursa (Blue Moon) | **55/50/60/60/80/70** | 375 | Special-attacker identity established from Stage 1. Atk dumped to 50 (kit is all-special); SpA 80 the highest of the trio at Stage 1. Lowest HP of trio. |
+| Ursaring (Blue Moon) | **75/65/75/75/110/80** | 480 | SpA jumps to 110 (highest of trio at Stage 2). Atk stays low (65) — the kit is now entirely special and the line's identity is solidified. HP 75 lowest of trio at Stage 2. |
+| Bloodmoon Ursaluna (Blue Moon) | **95/75/95/90/145/100** | 600 | SpA 145 anchors final form (the trio's special-offense signature stat). Speed 90 makes Bloodmoon less of a slow tank than canonical Hisuian Ursaluna (52 Speed). Def 95 trades canonical-Hisuian raw bulk for the higher Speed; SpD 100 is solid. Identity: *bulky mid-speed special-attacker pivot.* |
 
-**Design intent for the stat progression `[LOCKED v0.9.5]`:**
+**Regular Hisuian Ursaluna stays canonical (130/140/105/50/45/80, BST 550) and is intentionally unobtainable in Ruination** — no wild encounter, no evolution path, no trade. The Peat Block evolution path is removed entirely; only the EVO_MOVE Blood Moon path (Lv 45+, tutor-taught) leads anywhere from Ursaring, and it always produces Bloodmoon Ursaluna. Species data preserved for Pokedex / form-table integrity.
 
-- **Teddiursa (Blue Moon):** Frail special attacker at baby form — pure swap, no rebalancing yet. Identity: *fragile lunar pup*.
-- **Ursaring (Blue Moon):** The mid-stage *redistributes 30 points from SpA into bulk* — HP +10, Def +10, SpD +10, SpA −30. SpA drops from 130 to 100, which is still solid for a mid-evolution. The result: a *meaningfully bulkier* mid-form (100 HP / 85 Def / 85 SpD) that still hits hard with 100 SpA. Identity: *bulky special attacker still in training*.
-- **Bloodmoon Ursaluna (Blue Moon):** The final form is the apex — SpA jumps to **145** (the special-offense ceiling of the entire starter trio), Def and SpD each get +15 buffs over canonical, and BST increases from 520 to 560. Identity: *apex special-attack tank — slow, bulky, devastating*.
+**Design intent for the stat progression:**
 
-**Why the rebalance was needed (v0.9.5 reasoning):**
+- **Teddiursa (Blue Moon):** Pure special attacker from Stage 1. Atk dumped to a value lower than canonical Teddiursa (was 80, now 50) — the line's kit is all-special so Atk was dead weight. SpA 80 lets Teddiursa actually hit things; HP 55 makes it the trio's frail Stage 1.
+- **Ursaring (Blue Moon):** The canonical 130 Atk is wasted on a line whose entire kit is special (Echoed Voice, Psybeam, Scorching Sands, Torch Song, Moonblast, Lumina Crash, Lunar Blessing, Hyper Beam, Calm Mind, Aura Sphere, Moongeist Beam). Atk 130 → 65 reallocated to SpA (75 → 110) and Speed (55 → 75). The line now uses the stats it has.
+- **Bloodmoon Ursaluna (Blue Moon):** Apex — SpA 145 (the trio's special-offense signature stat). Bulk redistributed from canonical Hisuian-Ursaluna boulder (Def 120) into Speed (52 → 90) and SpD (65 → 100). Identity shifts from "immovable slow tank" to "bulky mid-speed sweeper-pivot" — a better fit for the lunar-mystic special-attacker identity than the canonical Hisuian-bear-tank stat shape.
 
-The original v0.9.2 spec had a pure Atk↔SpA swap throughout the line. While elegant, this produced a final form with 135 SpA and 75/70/75 defenses — a *glass-cannon mage* archetype. **The v0.9.5 redistribution shifts the line's identity from "glass cannon" to "bulky tank-mage"** — a more thematically appropriate match for the Teddiursa/Ursaring/Ursaluna species' canonical heavy-bear-tank visual identity, and a more interesting late-game play experience (the starter survives long enough to make multiple offensive plays per battle, rather than being one-shot).
+**Why the rebalance was needed (v0.9.8 reasoning):**
 
-The +40 BST increase at the Bloodmoon Ursaluna stage gives the line a *clear power spike at final evolution* matching the post-Champion narrative significance of the form — Bloodmoon Ursaluna is one of only two Pokémon in the project rated at BST 560+ (the other being post-Mega Baxcalibur at canonical 720). This positions the Blue Moon line as competitive against the Frigibax line's apex form on the Sp.Atk axis.
+The prior v0.9.5 redistribution (BST 330/500/560 — pure-swap baby, redistribute-to-bulk middle, +40-at-apex final) was thematically sound but never reached the codebase. The codebase shipped canonical Teddiursa/Ursaring stats with only Bloodmoon Ursaluna partially swapped. This left the line's identity inconsistent: canonical heavy-Atk stats on a line whose redesigned kit is entirely special.
 
-`[OPEN]` Whether Bloodmoon Ursaluna's BST 560 needs re-balancing against the other two starters' apex forms (Mega Baxcalibur is canonically 720; Tinkaton's coronation-tier Divine Cuirass-boosted form is still being specified; comparison TBD)
+The v0.9.8 unified-trio-BST framework solves this by (a) actually shipping the swap across the entire line in the codebase, (b) aligning the line to a balanced trio budget so no starter is BST-disadvantaged, and (c) giving Bloodmoon Ursaluna 145 SpA as the trio's special-offense signature stat (paired with Baxcalibur Atk 145 and Tinkaton Def/SpD 125/125 as the three "signature stat" anchors).
 
 **The four-ability suite `[LOCKED v0.9.2]`:**
 
@@ -1351,40 +1456,39 @@ The Blue Moon line has **two normal abilities + one Hidden ability + one post-Ch
 
 After becoming Champion and acquiring the Ancient Peat Block, the player can choose to consume it and unlock **Lunacy**. This is the line's *coronation-tier bonus*, parallel to Mega Baxcalibur (Frigibax) and Divine Cuirass (Tinkatink).
 
-**Learnset architecture `[LOCKED]`:**
+**Learnset architecture `[LOCKED v0.9.8]`:**
 
-The Blue Moon line's learnset emphasizes Normal special STAB, Ground special coverage, and late-game utility:
+The Blue Moon line shares an **identical 16-move backbone across all three obtainable stages** (Teddiursa, Ursaring, Bloodmoon Ursaluna), themed around voice, mind, and lunar energy. The line is *the most coverage-flexible starter* — wide type access (Ground, Fairy, Psychic, Fire, Fighting, Ghost) is the lore-justified trade-off for giving up the canonical Guts/Quick-Feet physical-attacker kit. The kit is **100% special-attacker.**
 
-**Teddiursa (Blue Moon):**
-- Lv 1: Covet, **Echoed Voice** (special Normal STAB)
-- Lv 5: **Round** (special Normal STAB)
-- Lv 9: Fake Tears (drops opponent Sp.Def — synergistic)
-- Lv 13: **Disarming Voice** (Fairy coverage)
-- Lv 17: **Mud-Slap** (Ground special, introduces typing)
-- Lv 21: **Mud Shot** (Ground special, 55 BP)
-- **Lv 24: EVOLVES INTO URSARING (Blue Moon)**
+**Shared backbone (all three obtainable stages):**
 
-**Ursaring (Blue Moon) — on-evolution + level-up additions:**
-- Lv 24 (on evolution): **Hyper Voice** (90 BP Normal special STAB — major power spike)
-- Lv 28: Mud Sport or Sandstorm (utility)
-- Lv 32: **Mud Bomb** (Ground special, 65 BP)
-- Lv 38: **Earth Power** (Ground special, 90 BP — first major Ground STAB)
-- Lv 42: **Boomburst** (140 BP Normal special — climactic Ursaring move pre-Bloodmoon evolution)
-- **Lv 45: EVOLUTION GATE** — visit the Blood Moon Master Tutor, learn Blood Moon (Ground), evolves to Bloodmoon Ursaluna (Blue Moon)
+| Lv | Move | Notes |
+|---|---|---|
+| 1 | Echoed Voice | Normal special STAB |
+| 3 | Confuse Ray | Status — confuses target |
+| 7 | Fake Tears | Drops target SpD; synergizes with all special attacks |
+| 10 | Mud Slap | Ground special, lowers accuracy |
+| 14 | Psybeam | Psychic special, 30% confusion |
+| 20 | Rest | Status — full HP recovery + sleep |
+| 20 | Snore | Pairs with Rest for SleepTalk-style sustain |
+| 28 | Scorching Sands | Ground special, 30% burn — line's Fire coverage analog |
+| 35 | Torch Song | Fire special with +1 SpA on hit |
+| 40 | Moonblast | Fairy special — Blue Moon thematic + Dark/Dragon coverage |
+| 44 | Lumina Crash | Psychic special, 80 BP, **guaranteed -2 SpD on hit** |
+| 49 | Lunar Blessing | Status — party heal + status cure |
+| 59 | Hyper Beam | Normal special, 150 BP with recharge |
+| 63 | Calm Mind | SpA+SpD setup, pairs with Soul-Heart/Lunacy snowballing |
+| 69 | Aura Sphere | Fighting special — Steel/Dark coverage, never-miss |
+| 77 | Moongeist Beam | Ghost special, **buffed to 140 BP in Ruination**, ignoresTargetAbility (canonical Lunala signature; safe overwrite since Lunala absent from Ruination) |
 
-**Bloodmoon Ursaluna (Blue Moon) — on-evolution + level-up additions:**
-- Lv 45 (on evolution via tutor): **Blood Moon (Ground)** — 140 BP, special, Ground type, cannot be used twice in a row consecutively (canonical Blood Moon restriction retained; only the type changes from Normal to Ground)
-- Lv 50: **Hyper Beam** (Normal, 150 BP special with recharge — line's hard-hitting Normal special)
-- Lv 55: **Moonblast** (Fairy, 95 BP special — coverage for Dark/Dragon, thematically resonant with the Blue Moon identity)
-- Lv 60: **Calm Mind** (Sp.Atk + Sp.Def boost — setup option that pairs powerfully with Soul-Heart/Lunacy snowballing)
-- Lv 65: **Slack Off** (recovery — endgame sustain)
+**Stage-specific differences:**
 
-`[OPEN]` Additional moves to consider via TM/move-tutor/relearner:
-- Sandsear Storm (Ground special, accuracy ignore — though thematically may not fit Blue Moon)
-- Psyshock or Stored Power (Psychic coverage — would push the lunar-mystic framing further)
-- Focus Blast (Fighting coverage)
-- Flash Cannon (Steel coverage)
-- Dark Pulse (Ghost/Psychic coverage)
+- **Ursaring (Blue Moon)** additionally learns **Hyper Voice at Lv 0 on evolution** (the line's classic voice-signature, gained as the evolution reward from Teddiursa).
+- **Bloodmoon Ursaluna (Blue Moon)** does not gain any on-evolution Lv 0 moves directly. Blood Moon (the tutor move that triggers the evolution) is already in the Pokemon's moveset at the moment of evolution; no separate Lv 0 entry needed.
+
+**Tutor-only — Blood Moon (Ground):**
+
+Blood Moon is taught exclusively by the **Blue Moon Hermit** at the Master Tutor quest unlocked around Trial 6. Stats: 140 BP / 100 acc / 5 PP / Ground special, with the canonical `cantUseTwice` constraint preserved. Learning Blood Moon triggers the EVO_MOVE evolution from Ursaring (Blue Moon) to Bloodmoon Ursaluna (Blue Moon). The "Lv 45+" requirement is enforced practically via tutor NPC availability (the Hermit's quest opens at Trial 6, ~Lv 45 player progression), not at the engine level — the engine condition is simply *knows-the-move*.
 
 **Why the Blue Moon line completes the trio's identity:**
 
@@ -1437,12 +1541,39 @@ The Tinkatink line learns **Behemoth Bash** at level 30 (on Tinkatuff, since Tin
 
 **Thematic resonance:** The move's Dragon-killer profile is *retroactively perfect* for the line's dragon-slayer-bloodline heritage (Section 6 — Tinkatink Line Dragon-Slayer Bloodline subsection). **The Hidden Ability + level-30 signature move = the line's mechanical expression of its inherited dragon-hunting purpose.** This connection was *not designed* with the bloodline lore in mind originally (Pixilate was locked v0.9.2 before the bloodline lore in v0.9.7); the alignment is a happy retroactive resonance that I'll explicitly preserve and lean into.
 
-**Other notable Tinkatink line learnset additions (full learnset `[OPEN]` pending Phase 1 design session):**
-- **Facade** — Normal physical, 70 BP doubling to 140 BP if user is statused. With Pixilate this becomes a 168 BP Fairy STAB threat (assuming the burn/poison status is acceptable to the player given Battle Armor protection)
-- **Body Slam** — Normal physical, 85 BP with 30% paralysis chance. Pixilate-boosted to 102 BP Fairy STAB; the paralysis chance synergizes with Tinkaton's mediocre 75 base Speed (slow-but-bulky knockout patterns)
-- Additional learnset entries TBD
+**Full Tinkatink line learnset `[LOCKED v0.9.8]`:**
 
-**Engineering note:** Behemoth Bash already exists in the engine as Zamazenta's signature move. **Zamazenta does not appear in Dreamstone Ruination** (not in any encounter table, not in any cinematic, not in any cult-Pokemon roster). The implementation approach is to *overwrite* the canonical Behemoth Bash entry with the Cormorian variant — same MOVE_BEHEMOTH_BASH constant, modified power/accuracy/PP/effect to match the Tinkatink-line variant, modified learnset assignment to remove from Zamazenta (where it's irrelevant) and add to the Tinkatink line. Custom Steel-effectiveness flag is the only engine-level new code. See Section 14 — engineering tracking.
+All three stages share an **identical 16-move backbone**, themed around build flexibility — supporting both Pixilate-HA Fairy-sweeper and non-Pixilate (Cute Charm / Battle Armor) coverage-tank builds. The kit is **100% physical-attacker**; SpA is a dump stat across the line.
+
+| Lv | Move | Notes |
+|---|---|---|
+| 1 | Fake Out | First-turn priority flinch |
+| 1 | Double Slap | **Retyped to Fairy globally** (see Section 9). Early Fairy physical option for non-Pixilate builds. |
+| 5 | Baby-Doll Eyes | -1 Atk priority status |
+| 8 | Metal Claw | Steel physical, 50 BP, 10% +1 Atk |
+| 13 | Covet | **Retyped to Fairy globally** (see Section 9). Item-steal effect preserved. |
+| 19 | Low Sweep | Fighting physical, -1 Spe on hit |
+| 24 | Bulk Up | +1 Atk +1 Def setup |
+| 30 | Behemoth Bash | **Tinkatuff signature (Cormorian variant — see below).** Normal physical, 100/95/10, with Steel-effectiveness override. |
+| 33 | Brutal Swing | Dark physical spread-hit |
+| 37 | Play Rough | Fairy STAB physical, 90 BP |
+| 40 | Body Slam | Normal physical, 30% paralysis (Pixilate-retyped to Fairy with the para chance preserved) |
+| 48 | Body Press | Fighting physical scaling off Def — pairs with Tinkaton's 125 Def |
+| 55 | Headlong Rush | Ground physical, 120 BP with -1 Def/SpD |
+| 59 | Shell Smash | +2 Atk/SpA/Spe -1 Def/SpD setup |
+| 66 | Close Combat | Fighting STAB physical, 120 BP with -1 Def/SpD |
+| 77 | Sunsteel Strike | **Tinkaton late-game ace (Cormorian variant — see below).** Retyped Steel → **Fire**, buffed to 140 BP / 100 acc / 10 PP, ignoresTargetAbility preserved. |
+
+**No Lv 0 on-evolution moves for Tinkatuff or Tinkaton.** Tinkatuff's reward for evolving is unlocking Lv 30 Behemoth Bash; Tinkaton's reward is surviving the Master Tutor quest to learn Gigaton Hammer (the move that triggers the evolution itself).
+
+**Build paths the learnset supports:**
+
+- **Pixilate-HA sweeper:** Behemoth Bash + Play Rough + Body Slam (or Body Press) + setup move. Behemoth Bash Pixilate-retypes to Fairy with the Steel override forcing 2× damage on Steel targets that would normally resist Fairy.
+- **Non-Pixilate coverage tank** (Cute Charm / Battle Armor + Gigaton Hammer tutor + Body Press + Play Rough + Sunsteel Strike): the Fire-coverage Sunsteel Strike gives non-Pixilate Tinkaton a real answer to opposing Steel-types that would otherwise wall the kit.
+- **Defensive colossus** (Bulk Up + Body Press + Iron Defense via TM + Play Rough): leans on Tinkaton's paired 125/125 defenses.
+- **Late-game sweeper** (Shell Smash + Sunsteel Strike + Close Combat + Play Rough): glass-cannon nuke build, sacrificing the line's natural bulk for raw offensive power.
+
+**Engineering note:** Behemoth Bash already exists in the engine as Zamazenta's signature move. **Zamazenta does not appear in Dreamstone Ruination** (not in any encounter table, not in any cinematic, not in any cult-Pokemon roster). The implementation approach is to *overwrite* the canonical Behemoth Bash entry with the Cormorian variant — same MOVE_BEHEMOTH_BASH constant, modified power/accuracy/PP/effect to match the Tinkatink-line variant, modified learnset assignment to remove from Zamazenta (where it's irrelevant) and add to the Tinkatink line. Custom Steel-effectiveness flag is the only engine-level new code. Same overwrite pattern applies to **Sunsteel Strike** (Solgaleo absent from Ruination, safe overwrite) and **Double Slap / Covet** (global retype to Fairy affects all canonical species that learn these moves, intentional ripple). See Section 14 — engineering tracking.
 
 **Teddiursa (Blue Moon) line:**
 - **Normal: Mind's Eye** — accuracy/evasion ignore + hit Ghosts with Normal/Fighting moves
@@ -1461,23 +1592,29 @@ The ability assignments also *complement* each line's existing identity rather t
 - Tinkatink's natural defense is *enhanced* (Battle Armor) or *reframed* (Pixilate adds genuine offensive threat)
 - Teddiursa's new special-attack identity is *enabled* (Mind's Eye removes Ghost wall) or *snowballed* (Soul-Heart, Lunacy) or *defensively reinforced* (Fur Coat)
 
-### Mechanic A — Trial 6 Master Tutor Evolution Gates `[LOCKED — updated v0.9.2]`
+### Mechanic A — Trial 6 Master Tutor Evolution Gates `[LOCKED v0.9.8 — engine convention clarified]`
 
 Around Trial 6 in the story progression (player level approximately 45), each starter undergoes its *final evolution into its base apex form* via a Master Tutor quest. This is **purely an evolution mechanic** — it does NOT grant any bonus items, coronation symbols, or political-state recognition. It is the equivalent of how Pokemon Legends: Arceus handles Baxcalibur and Ursaluna evolutions, extended to Tinkaton.
 
+**Engine convention `[LOCKED v0.9.8]`:** the engine condition is `EVO_MOVE` — the starter evolves the next time it levels up while knowing the gating move. The level-45 requirement is enforced **practically** by Master Tutor NPC availability: the tutors are gated behind a Trial 6 quest that the player cannot reach until ~Lv 45 player progression. The engine itself does NOT check level for these evolutions. This avoids needing a new `EVO_LEVEL_MOVE` engine enum and keeps the implementation clean.
+
 **Conditions for the Trial 6 Master Tutor evolution gate:**
-1. Pre-final stage must be **Level 45 or higher**
-2. Player must complete a quest to find the species-specific **Master Tutor** in a hard-to-reach location, who teaches the required gating move
-3. Once the gating move is learned, the starter evolves to its base apex form
+1. Pre-final stage must reach the Master Tutor NPC (gated behind Trial 6 quest progression)
+2. Master Tutor teaches the required gating move
+3. Next level-up triggers `EVO_MOVE` evolution to the apex form
 
 | Pre-evolution → Final form | Required move | Tutor location | Notes |
 |---|---|---|---|
-| Arctibax → Baxcalibur | **Mountain Gale** (canonical) | `[OPEN]` | Standard canonical evolution requirement |
-| Ursaring (Blue Moon) → Bloodmoon Ursaluna (Blue Moon) | **Blood Moon (Ground)** | `[OPEN]` | Custom Ruination variant — Blood Moon retyped from Normal to Ground (see Section 9 — Blood Moon (Ground) move spec). Replaces canonical Headlong Rush requirement. Skips regular Ursaluna stage entirely. |
-| Tinkatuff → Tinkaton | **Gigaton Hammer** (canonical) | `[OPEN]` | Standard canonical evolution requirement |
+| Arctibax → Baxcalibur | **Mountain Gale (Cormorian variant)** | `[OPEN]` | Buffed: 95 BP / 95 acc / 15 PP / 33% flinch + Water-effectiveness override (see Section 9 — Mountain Gale Cormorian variant). Replaces canonical 100/85/5 stats. |
+| Ursaring (Blue Moon) → Bloodmoon Ursaluna (Blue Moon) | **Blood Moon (Ground)** | The **Blue Moon Hermit** (see Section 7) | Blood Moon retyped Normal → Ground; canonical 140 BP / 100 acc / 5 PP / cantUseTwice preserved. Replaces canonical Peat-Block evolution path; skips regular Ursaluna entirely. |
+| Tinkatuff → Tinkaton | **Gigaton Hammer** (canonical) | `[OPEN]` | Standard canonical Tinkaton evolution requirement. |
 
-`[OPEN]` Who are the three Master Tutors as named characters?
-`[OPEN]` Where geographically are they located in Cormoria?
+**Stage 1 → Stage 2 evolutions are uniform across the trio at Lv 24 `[LOCKED v0.9.8]`:**
+
+All three starters reach Stage 2 at the same level (Lv 24), a major deviation from canonical (Frigibax Lv 35, Teddiursa Lv 30 happiness). This is a mechanical signal that *these are uniquely-bred individuals, not wild specimens* — Cadmus Umbra's hand-selected partners. The uniformity is itself a design statement: these three are a cohort, bred together, evolve together.
+
+`[OPEN]` Who are the three Master Tutors as named characters? (Blue Moon Hermit is `[LOCKED]` for the Blood Moon tutor; Mountain Gale and Gigaton Hammer tutors are TBD.)
+`[OPEN]` Where geographically are the Mountain Gale and Gigaton Hammer tutors located in Cormoria?
 `[OPEN]` What does the quest to reach each Master Tutor involve (challenge, proof-of-worthiness, story beat)?
 
 **Thematic note on the three Master Tutors:**
@@ -1654,6 +1791,8 @@ Early in the game, **Eden** (Paldean thief, Beads Cult recruit) steals the start
 - `[OPEN]` Does the player ever recover the stolen starter? When? How?
 
 ---
+
+
 
 ## 7. Major NPCs
 
@@ -1832,6 +1971,8 @@ And finally, **Rhydia's continued existence after the epilogue is the project's 
 - `[OPEN]` Specific subplot details of how Osrid and Rhydia's paths first cross after Trial 2 in the doubles assassination arc — to be designed when we map the assassination beats in detail
 - `[OPEN]` Whether Rhydia ever learns Osrid survived (default: no, per the locked Pierra/Rhydia framing in Section 5/7/10)
 - `[OPEN]` Whether Rhydia has a Mega-evolution-sanctioned Pokemon (as Champion she would have authorization; the cycling team and aces shown don't include obvious Mega candidates)
+
+
 
 ### Glaive — Dragon Tamer, future Vizier of War, future Solomonar, future founder of Blackthorn City `[LOCKED — updated v0.9.7]`
 
@@ -2023,6 +2164,26 @@ During one of Osrid's return visits to the lab in the early-to-mid game, **condi
 - After Cormoria's eventual collapse, the line presumably ceases to exist anywhere in the modern Pokemon world *unless* descendants of the Umbra family (eventually Professor Tenebris of DM era) preserved seed-stock — `[OPEN]` whether this is canonical
 - Rhydia, having been tutored by Cadmus from infancy, has spent her childhood *around* Jousteel — she may have her own quiet connection to the line; `[OPEN]` whether she has a Jousteel of her own (likely no — Umbra-exclusive cultivation is significant)
 
+**The "three eggs" event in Cadmus's generation `[LOCKED v0.9.8]`:**
+
+The Umbra-family Jousteel-line cultivation normally proceeds at a cadence of **one egg per generation** — a Jousteel produces a single egg in its long lifespan, that egg hatches into a Joustroll, the next-generation Umbra head raises that Joustroll into adulthood, and the line continues. Centuries of disciplined husbandry.
+
+**Cadmus's generation produced an exceptional event:** the previous Jousteel laid **three eggs instead of one**. Two of the three hatched within the Umbra household — one became the **overworld attendant Joustroll** seen accompanying Cadmus around his laboratory; the other grew into his **personal ace Jousteel**. The third egg remained unhatched and was **sealed in a deep cavern accessible only to the Umbra family.**
+
+The third egg is the hook for the Trial 4 Joustroll Egg sidequest. Full Joustroll/Jousteel species lore lives in **Section 9 — The Joustroll/Jousteel Line**, including the canonical Pokedex descriptions, stat lines, learnsets, evolution chain, and the *Cormorian engineered-weapons twin-pair* narrative connecting House Umbra's cultivation to the broader Cormorian-engineering thematic. The Pokedex description for Joustroll itself is: *"A legendary species that serves the Umbra family. Their metallic bodies generate billows of steam as they race around."*
+
+**Trial 4 Joustroll Egg sidequest — Cadmus's role `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+When the player reaches Trial 4, **a Water-type cult has taken over the deep cavern where Cadmus's family sealed the third egg.** Cadmus dispatches the player to retrieve the egg before the cult can despoil what no one outside House Umbra is meant to touch.
+
+The cavern is held by a **Mega Gyarados boss** flanked by a **Crawdaunt-led clan of water Pokemon**. The player works through the cult's outer guard, solves environmental puzzles, defeats the boss, and reaches the **incubation shrine** where the sealed egg has rested across the generations.
+
+At the egg-discovery beat, the player chooses one of two responses to the line *"Is it just me or is the egg glowing?"* — the choice gates whether the hatched Joustroll is shiny or normal. On return to Cadmus, his closing line: **"Maybe our Jousteels can even face off in battle one day! Wouldn't that be exciting?"**
+
+**Narrative function:** the sidequest is the player's first direct participation in the Umbra cultivation tradition (previously discussed but never engaged with), and the moment where Cadmus's familial-philosophical warmth is most visible — he frames the player's hatched Joustroll as a *future partner-peer* to his own ace, not a tributary gift. The "exciting" line is one of Cadmus's warmest character beats in the entire game. The fact that the third egg was an *exceptional* event in his generation — not a routine third-of-three — means the gift is also a recognition of the player's specific worth to House Umbra's continuing tradition.
+
+`[OPEN]` Whether Rhydia is aware of the third egg's existence prior to the sidequest. Most likely no — the third-egg event is family-internal, and Cadmus's *judgment* about who to entrust with its hatching is exactly the kind of careful strategic-pastoral choice that defines his character.
+
 **What Cadmus Umbra knows about Cormorian deep history `[LOCKED v0.9.4]`:**
 
 **Cadmus Umbra does NOT know the deep cosmological truth of Cormoria's founding.** Despite being the most learned scholar in Cormoria, despite being the Pokemon Philosopher, despite tutoring Rhydia from infancy — he carries only the *fairy-tale-level* version of the founding myth:
@@ -2049,115 +2210,9 @@ During one of Osrid's return visits to the lab in the early-to-mid game, **condi
 - `[OPEN]` Specific scenes where he interacts with Osrid in early-game (where the audience may see their pre-existing trust before knowing why)
 - `[OPEN]` Whether Umbra's family lineage carries any Latin-tradition Pokemon or scholarly artifacts beyond Jousteel
 
-### Vandras Amber-Letz `[LOCKED — substantially revised v0.9.4]`
 
-A merchant whose path crosses Osrid's twice across the story — once incidentally during the main game (possibly), and once decisively in the epilogue when Osrid is found amnesiac after the climactic sealing cataclysm. The Vandras of the present-day story is *not* the naïve-stranger of earlier bible passes; v0.9.4 reframes him as a man who **recognizes Osrid in the epilogue and chooses, in a moment of deliberate compassion, to give him peace by giving him a new identity rather than revealing his lost one.**
 
-#### The epilogue scene `[LOCKED v0.9.4 — critical narrative beat]`
-
-After the climactic sealing cataclysm at the end of Act VI, Osrid is left amnesiac and isolated. **His starter Pokemon is with him** (per the unboxable-starter mechanic — Section 6) — the only Pokemon at his side, out of its Pokeball.
-
-**Vandras enters the scene.** What unfolds:
-
-1. **The starter runs up to Vandras.** The starter recognizes Vandras as a friendly figure — implying Vandras has interacted with Osrid's team earlier in the story (`[OPEN]` exact circumstance; possibly through a Cormorian-merchant-network encounter, possibly through some other Vandras-Osrid pre-epilogue interaction)
-2. **Vandras follows the starter back to Osrid.** The starter leads him directly to the unconscious prince.
-3. **Vandras recognizes the starter first.** Then he sees Osrid's face. **He recognizes Osrid.**
-4. **He almost speaks the recognition:** *"Wait...is this..."*
-5. **He does NOT finish the thought.** *Deliberately.* He stops himself mid-sentence.
-6. **He gently wakes Osrid.**
-7. **When Osrid cannot remember his name**, Vandras gives him the name **Veddev** — a name with no political weight, no royal blessing, no Cormorian sacrament. *A name given in love and chosen quietly.*
-8. **Vandras tells Osrid to come with him.** Osrid follows.
-
-#### What Vandras chose `[LOCKED v0.9.4]`
-
-This is one of the *quietly most profound moral acts in the project*. Vandras recognized who Osrid was — the Champion, the lost Prince, possibly even the man Cormoria mourned. **He had a choice:**
-
-- Reveal the truth, return Osrid to the empire, restore him to his lost role
-- Or *let this man have peace*, *give him a new identity*, *let him become someone he was not before*
-
-**Vandras chose compassion-over-recognition.** He gave Osrid the gift of *being a stranger to his own past*. **He knew. He chose not to say.**
-
-This refines Vandras's character significantly:
-- He is *not* naïve about Cormorian politics — he has merchant-network awareness and recognized a Champion in the flesh
-- He is *not* an unwitting Good Samaritan — he made a *conscious choice* to compass-protect a fallen prince
-- **He carries the secret across the rest of his life.** He may suspect, across decades of brotherhood with Veddev, that his foundling-brother was something more — but he never confirms it, never asks, never reveals it. **Vandras dies carrying this secret.**
-- Possibly Vandras's compassion is informed by his own family history (`[OPEN]` — possibly Vandras has reasons to value identity-protection, possibly he lost someone whose identity was forcefully restored, possibly he simply judges this man deserves peace)
-
-**This refines the Berlitz-bloodline framing.** The line that eventually produces Volo and Cynthia descends not from a man who *innocently* adopted a fallen prince, but from a man who **knowingly chose to let a fallen prince become someone new**. The Berlitz line carries — implicitly, ancestrally — *the genealogy of deliberate compassion*. Cynthia's quiet integrity in canonical Pokemon may, in this project's cosmology, be a long inheritance of her family's founding principle.
-
-#### Vandras's other locked details
-
-- Originally an Amber; married into the Letz merchant family
-- Founder (or major figure) of a merchant guild that, across ~1,800 years, contributes to the Ginkgo Guild
-- Direct ancestor of Volo; distant ancestor of Cynthia
-- `[OPEN]` Does Vandras appear earlier in the game, or only in the epilogue? *Likely yes for at least one prior scene* — the starter's recognition of Vandras in the epilogue is most naturally explained by prior on-screen interaction
-- `[OPEN]` What does Vandras know or suspect about the cursed objects he eventually sells?
-- `[OPEN]` What was Vandras's deeper motivation for the compassionate act — does he have a personal history of valuing chosen-identity over imposed-identity?
-
-#### The starter as bridge `[LOCKED v0.9.4]`
-
-The starter Pokemon is *the agent that makes this entire epilogue beat possible*. Without the starter:
-- The starter cannot be deposited (unboxable-starter mechanic; Section 6)
-- The starter is therefore at Osrid's side in the epilogue
-- The starter recognizes Vandras as a friendly figure
-- The starter brings Vandras to the unconscious Osrid
-- The starter is what Vandras recognizes first, *triggering* the recognition of Osrid
-
-**The unboxable-starter mechanic is the technical scaffold that supports this narrative moment.** The starter's cosmic significance includes this single act of *bridging two lives at the moment they cross paths*. **The mechanic and the story are inseparable.**
-
-### Eden — Paldean thief, Beads Cult recruit, deuteragonist, future spouse `[LOCKED — promoted to deuteragonist v0.9.7]`
-
-**Promotion to deuteragonist tier (v0.9.7):** Eden is formally the **deuteragonist** of Dreamstone Ruination — co-protagonist alongside Osrid. Her emotional arc carries equal weight to his. The two arcs run in parallel, intersect repeatedly, and ultimately resolve together in the Paldean post-game. This was *implicit* in the v0.9.6 bible (the "one thing Osrid is unwilling to leave behind" framing already elevated her to peer-to-Osrid significance); v0.9.7 makes the deuteragonist status explicit.
-
-**Origin:**
-- Born into Paldean serf class — illiterate by birth, denied schooling because she wasn't born into merchant or noble class
-- Her poor family in Paldea has zero prospects outside of serfdom
-- Crossed into Cormoria seeking a better life
-- Was recruited by the Beads Cult while in Cormoria — they targeted her *because* of what she lacked
-- Steals in Cormoria because she believes thievery is her path to changing her family's fortunes
-- **Envies Cormorian social mobility** — the meritocracy she was denied by birth. This emotional substrate matches Chi-Yu's domain.
-
-**Arc:**
-1. **Act I:** Introduced as a thief rival when she steals the starter mechanically strongest against Osrid's choice from Umbra's basement (see Section 6 — The Eden Theft Scene for the type-counter logic). Silver/Crystal homage explicitly intended. Pretends to be a self-interested rogue. **The stolen starter becomes Eden's permanent partner — she keeps it through the entire game and into the post-game marriage** `[LOCKED v0.9.7]`. Her bond with the stolen Pokemon is the deuteragonist mirror to Osrid's bond with his chosen starter: *both protagonists carry a starter throughout the entire game, both starters are present at the post-game marriage in Paldea, the symmetry is the resolution.*
-2. **Act II:** Recurring antagonist with shades of moral conflict. The Pokemon she stole — initially a tool, an asset, *insurance against the prince she was sent to undermine* — gradually becomes something else. She does not yet know how to name what's happening. She begins to question her cult's true goals. Eden's emerging bond with her stolen Pokemon is part of what loosens Chi-Yu's emotional pull on her (Section 8 — Treasures' influence mechanism: as her envy is *resolved* through belonging-formed-by-accident, the Treasure's grip weakens).
-3. **Mid-game defection:** Eden defects when she warns Osrid about Chien-Pao's true significance — she sees the cults' real plan and realizes she chose wrong. **Her cult-handlers learn of the defection and Eden becomes hunted by the Beads Cult.** She joins Osrid's side formally. The stolen Pokemon — now her *partner*, not her *asset* — comes with her.
-4. **Late Act II / Act III:** Becomes an ally. The romance develops through shared journey, shared confidences, shared losses. **Eden falls in love with the *masked* Rainhawk** — never seeing his face until the Hall of Fame unmasking at the climax of Act V. She loves him through his voice, his bearing, his choices, his quiet care — *not his face*. She does not know his real face for the entire romantic arc up to the unmasking.
-5. **Hall of Fame unmasking moment:** For Eden, the public unmasking is *simultaneously* recognition of the prince she had served AND seeing the face of the man she loved. **Two reveals collapsing into one.** Her experience of the unmasking is more intimate than the public's.
-6. **Climax:** Present (or absent — `[OPEN]`) for the sealing.
-7. **Epilogue — Paldean reunion:** Years later, Eden encounters Veddev during the Treasure transaction in Paldea. **She recognizes him in stages:**
-   - **Body language first** (pre-verbal, pre-rational) — she has loved this body's bearing for years, even before she saw his face. His body *moves like the man she loved*. Even with no mask, no acknowledgment of identity, presenting as a merchant, **she knows him.**
-   - **Face second** — the unmasked face she briefly saw at the Hall of Fame is now older, more weathered, lived-in. Confirms what her body recognition suspected.
-   - **Name choice third** — she chooses to call him **Veddev**, accepting his new identity rather than dragging him back to his old one. **Her love adapts to who he has chosen to become.**
-   - **She does not insist on the Osrid-name.** Calling him Osrid would feel cruel — it would reach for someone he has chosen not to be. Veddev is who he is now, and her love meets him in the present.
-8. **The marriage and after:** Veddev and Eden marry in Paldea. They build a new life together. **Eden never returns to Cormoria; neither does Veddev.** **At the marriage, both still carry their original starters** — Osrid the one Umbra gave him, Eden the one she stole from Umbra's basement in Act I. *Two starters that were partners across the entire game are now the wedding's quiet living witnesses.* The stolen-starter has become *family*. They may have a hand in further sealing the Treasures (alongside the Paldean king) and establishing the proto-detective tradition. The game leaves all of this implied, not stated.
-
-**The deuteragonist resolution thesis `[LOCKED v0.9.7]`:**
-
-*Rivalry turned into true love through partnership.* Eden's arc — from *stealing* a Pokemon as a cult-asset, to *bonding* with that Pokemon through accidental belonging, to *loving* both that Pokemon and the man whose starter she counter-picked — **enacts the partnership thesis at the *human* relationship layer.** The project's thesis ("Pokemon are partners, not weapons") extends to *Eden's relationship with both her stolen partner and her eventual husband.* All three relationships (Eden + stolen Pokemon, Eden + Osrid, Osrid + Eden) begin in *opposition* and resolve in *partnership.* **The most cleanly developed romance in the project is also the project's clearest application of its central thesis to human love.**
-
-**Echoes of Kohla:** Eden's temperament (observation, deduction, working-class outsider's eye, distrust of institutional authority) echoes Kohla from Dreamstone Mysteries. This is *foreshadowing*, not lineage.
-
-**Why this character matters:** Eden is the *one thing* Osrid is unwilling to leave behind. He gives up his name, his rank, his nation, his birthright, his family — but Eden he keeps. **She becomes the continuation of him, not the keeper of his old self.** Their marriage is between Veddev and Eden, not between Osrid-with-Eden. She is the only piece of his prior life that survives his renunciation — *because she is the only piece worth keeping.*
-
-There is also a deep symmetry: Eden was a Paldean serf-class thief, denied schooling and a future, whose social identity was *imposed* on her by caste. She chose a new life by leaving Paldea and joining Osrid's cause. **Now Osrid is doing the same thing — choosing a new identity rather than living within the one his birth assigned.** Eden and Veddev are now the same kind of person: people who chose their identity rather than inheriting it. **Their marriage is the union of two self-made identities.**
-
-The canonical event Ms. Raifort teaches in SV (the Paldean king's sealing of the Treasures) happens with two people inside it who know each other and are both pretending not to. **Eden is the only person on the Paldean side who knows where the Treasures truly came from.** That knowledge becomes part of the lineage she and Veddev pass forward — implicit, not stated — eventually contributing to Cynthia's gravitas two millennia later.
-
-- `[OPEN]` Specific scene structure for the starter-theft event
-- `[OPEN]` Specific scene structure for the defection moment
-- `[OPEN]` What aspects of her romance with Osrid play out in the main game vs. the epilogue?
-- `[OPEN]` Eden's exact involvement during the climactic sealing
-- `[OPEN]` Whether Eden specifically attended the Hall of Fame unmasking, or learned of it second-hand
-
-### Harbinger Baradus — leader of the Sword Cult `[LOCKED — needs detail]`
-
-- Title: Harbinger (the title used by each Ruin Cult leader)
-- Name "Baradus" has a Greek/Latin-foreign linguistic resonance — sets him apart from native Cormorian naming conventions, suggesting he may be foreign-born or chose a non-Cormorian name as a statement of distance from the empire he aims to overthrow
-- Primary antagonist of the game; the Sword Cult is dominant and Baradus is its head
-- Across the game, orchestrates the absorption/destruction of the other three cults
-- His susceptibility to Chien-Pao's hatred-aura suggests a personal wound — `[OPEN]` what loss made him susceptible?
-- `[OPEN]` Full backstory and personal motivation
-- `[OPEN]` His Pokémon team — Sword/Chien-Pao-themed, likely Dark/Ice and bladed-Pokémon coverage
+---
 
 ### Silas Moray — Vizier of Commerce, the tragic-redemption antagonist `[LOCKED]`
 
@@ -2268,6 +2323,445 @@ This is delusional possessiveness, a category of unsettling that has no clean na
 - **Pierra is still protected** by Silas's actions, but indirectly — by the sealing of the Treasures that would otherwise threaten everything, including her. **He dies enabling the protection his decades-long manipulation always claimed to be.** What was instrumentally a lie becomes literally true at the end. The shape of his redemption is the discovery that the role he played in delusion can finally be played for real.
 - **Silas's death is the only uncoerced act of love he ever performed.** He couldn't be Pierra's husband; he couldn't be Osrid's father. So in his final moments he is both, briefly — protecting Pierra and serving Osrid simultaneously.
 - Pierra survives the epilogue with Rhydia. The woman two men loved outlives them both.
+
+
+
+---
+
+### Ambrose Caymen — Archbishop of the Arceus Templar `[LOCKED v0.9.7]`
+
+**The empire's top religious authority — a Steel-type master, a torn-three-ways man, and a recurring fight whose resolution moves him from paralysis to becoming one of Osrid's staunchest allies in the second half of the game.**
+
+**Position:**
+- **Archbishop of the Arceus Templar** — the top religious authority of the order that maintains Cormoria's civic-religious infrastructure (Section 4 — Templar Arceus Order)
+- Sits at the apex of the order's **warrior-priest tradition** (the militant side of Arceus's service, alongside the civic-administration side that the Tavern network and Braviary travel represent)
+- One of the four most senior religious figures in the empire alongside the Viziers, though the Archbishop's authority is *religious* rather than *political-military*
+- Type specialty: **Steel** — completes the empire's institutional type-coverage map (Steel is otherwise unrepresented in formal Trial / Vizier structure, though ubiquitous in elite protagonist-side aces — Tinkaton, Justice, Jousteel)
+
+**Team `[LOCKED v0.9.7 — aces; rest of team OPEN]`:**
+
+- **Temperance** — shiny **Kingambit** (Dark/Steel), primary ace. The name "Temperance" invokes the Christian cardinal virtue (self-restraint, moderation, balance). **A Dark-typed Pokemon as the Archbishop's ace is a layered statement** — possibly that *Arceus's order is willing to wield Dark as a tool in defense of the world*, possibly that *Ambrose himself carries some moral darkness* that complicates his public role. **Or both true at once** (this is consistent with the project's emotional register).
+- **Brunhilda** — shiny female **Perrserker** (Steel), secondary ace. The name "Brunhilda" invokes the Norse Valkyrie warrior-maiden tradition (operatic Wagnerian resonance). **The Christian-virtue + Norse-warrior combination on his named aces is layered religious-cultural texture** — Ambrose's roster blends two different sacred-warrior iconographies. *The crusader-priest archetype emerges through the names alone.*
+- Rest of his Trial-tier roster `[OPEN]` — additional Steel-types and possibly cross-egg-group Pokemon supporting the Kingambit + Perrserker combat profile
+
+**The three forces pulling at Ambrose `[LOCKED v0.9.7]`:**
+
+Ambrose is not corrupted by the cults, but he is *not aligned with the crown* either. He has been paralyzed by indecision for years because three distinct forces pull him in different directions:
+
+1. **Sword Cult pressure via Silas Moray:** Baradus, through Silas, has been pressuring and manipulating Templar order members for several years. **Some bishops under Ambrose's authority are secretly cult-aligned** and whisper conflicting information into his ear about imperial politics, the royal family's true motives, and the moral standing of the crown. Ambrose can no longer fully trust his own subordinates — and *that loss of trust in his immediate institutional family* is itself a form of cult damage.
+
+2. **Genuine personal relationship with Cadmus Umbra:** Ambrose and Umbra are on **very good terms** through decades of religious-civil cooperation. Umbra has been candid with Ambrose about imperial matters within the bounds of state secrecy; Ambrose has provided religious-institutional support to Umbra's various initiatives. *This is a pull toward the crown.*
+
+3. **Deep formative friendship with Nemo Korolev:** When Nemo arrived in Cormoria as a Sinnohian war-orphan and grew up in and around the Templar order, **he became close friends with the young Ambrose.** The friendship persisted into adulthood — even as Nemo rose to Dawnstar and then stepped down to the 9th Trial Baron seat, even as Ambrose rose to Archbishop, they remained close adult friends across decades. **Of all Ambrose's relationships, this is the deepest.** *And this is the pull that Silas's lie targets.*
+
+**The Silas lie about Nemo `[LOCKED v0.9.7]`:**
+
+At some point in the early-to-mid game, **Silas — under Baradus's orders — tells Ambrose a calculated lie about Nemo's career:** that *"Nemo was forced to become a Trial Baron by the crown as punishment for rejecting the empire's demands that he commit atrocities overseas for the Cormorian military."*
+
+**The truth (already locked Section 7 — Nemo):** Nemo *voluntarily* stepped down from Dawnstar to negotiate the 9th Trial Baron seat himself, in exchange for the operational obscurity he needed to run his private cult-hunting intelligence network.
+
+**The lie's psychology — surgical precision targeting Ambrose's vulnerabilities:**
+- The lie frames the *crown* as the aggressor against Nemo (Ambrose's beloved friend) — which is the *one* claim that could turn the Archbishop against Pierra and Rhydia
+- It positions Nemo as the *moral hero* who refused atrocities, which is *fully consistent with Ambrose's existing view of his friend* (Nemo is the kind of man who would refuse atrocities)
+- It exploits Ambrose's *love for Nemo* to turn that love into anti-crown sentiment
+- **Silas can deliver this credibly because Silas served alongside Nemo under Eldred for years.** The man telling the lie has the documented military relationship with the supposed victim that makes the lie *plausible*
+
+**Silas's calculation is masterful and the cruelest specific act of his cult-aligned career.** He served beside Nemo. They were comrades-in-arms. Silas knows the truth about Nemo's voluntary retirement deal (he was Vizier of Commerce during the negotiation, part of the apparatus). **And Silas chose to weaponize that knowledge to corrupt Nemo's other closest friend.**
+
+**Holding a Mega-Dreamstone shard `[LOCKED v0.9.7]`:**
+
+Ambrose secretly possesses **one of the 9 scattered Mega-Dreamstone shards** (Section 9 — The Mega-Dreamstone Shard Quest). He has been holding it for years, unsure whom to entrust it to:
+
+- The crown might use it to consolidate power *or* might fail to protect it from the cults
+- The cults are after it but Ambrose understands them well enough to know they would weaponize it
+- The Templar order itself contains cult-aligned bishops Ambrose cannot trust
+- **There is no one Ambrose can fully trust.** And so he holds it himself, alone, and the holding is eating him alive.
+
+**He is in near emotional hysteria internally** — though he holds it together publicly because an Archbishop visibly hysterical would precipitate a political crisis. The shard's weight (literal and figurative) is *compounding* his torn-three-ways indecision. *He cannot give it to the wrong side, and he cannot identify the right side.*
+
+**The fight context — the bishop-coup foil `[LOCKED v0.9.7]`:**
+
+In the second half of the game, the **cult-aligned bishops under Ambrose's authority attempt a coup** — they move to seize the Templar apparatus from Ambrose, which would deliver empire-wide religious-civic infrastructure to the Sword Cult (the Tavern network, the Braviary travel system, the order's intelligence-gathering, the institutional moral authority). **Osrid intervenes and foils the coup, fighting off the cult-aligned bishops.**
+
+At that moment, Ambrose — who has been paralyzed by indecision for years — decides that he needs to **fight Osrid himself** as the way to *"get to the truth of things."* His coping mechanism for years of paralysis becomes a single-combat moral test:
+
+**For a Templar of the Arceus order — whose entire theology rests on partnership as cosmic-sacred — combat is a form of moral revelation.** Ambrose cannot tell through political argument who is telling him the truth. But he *can* judge a man through how that man fights and bonds with his Pokemon. **Ambrose is using the Pokemon-as-truth framework to break his own paralysis.**
+
+**The fight itself:**
+- Player team vs. Ambrose: Temperance (shiny Kingambit), Brunhilda (shiny female Perrserker), plus the rest of his Steel-tier roster `[OPEN]`
+- Combat tier appropriate to second-half-of-game placement `[OPEN — exact level cap]`; likely between Trial mid-tier and Vizier upper-tier
+- **The fight is a moral revelation event for Ambrose, not a strategic obstacle for Osrid.** The combat is *real and difficult*, but its narrative purpose is *Ambrose's clarity*, not the player's progression
+
+**The resolution — clarity and alliance `[LOCKED v0.9.7]`:**
+
+Once Osrid defeats Ambrose, **Ambrose gains true clarity.** The partnership demonstrated in combat communicates a moral truth that political argument could not. **Ambrose:**
+
+- **Surrenders the Mega-Dreamstone shard to Osrid** — joining the shard collection toward the eventual cosmological resolution
+- **Begins the process of cleansing cult influence out of the Templar order** — purging the corrupted bishops, restoring the order's institutional health
+- **Eventually learns that Silas's "Nemo punishment" story was a lie** (likely after Silas's death and the truth-revelation cascade that follows). *The grief of having been manipulated using Nemo's name is one of the most painful character beats in Ambrose's arc.* `[OPEN]` whether Ambrose explicitly forgives Silas posthumously or carries the betrayal with him
+- **Becomes one of Osrid's staunchest allies into the final half of the game**
+
+**Necropolis Assault — named defender `[LOCKED v0.9.7]`:**
+
+Ambrose fights alongside the player at the Necropolis Assault (Section 10 — Act VI) as a named defender, deploying Temperance and Brunhilda against the Sword Cult's incursion. **He is one of the major institutional figures the player can count on in the climactic operation** alongside Kimaris (with Marshadow), Brie (with Domdaniel), House Langerin retainers, and the broader Templar Arceus order operatives. **The Archbishop's presence at the Necropolis is also the Templar order's *public commitment* against the cults** — a religious-institutional declaration that the cults have no friend in Arceus's house.
+
+**Why Ambrose matters thematically:**
+
+Ambrose joins **Silas (corrupted, redeemed in death) and Glaive (vengeful, opened by partnership-teaching)** as the third major institutional figure whose moral arc resolves through *being defeated by Osrid in a Pokemon battle* and *gaining clarity through that defeat.* **All three arcs use the same mechanism: Osrid wins a Pokemon battle against a confused institutional figure, and the partnership demonstration communicates a moral truth that political argument couldn't.** This is the partnership thesis weaponized at the institutional scale — Osrid doesn't just save Cormoria from cults; he saves three major institutional figures from their respective forms of moral confusion, and he does it by *winning Pokemon battles against them.* (See Section 11 — Design Principles for the three-redemption-arc-pattern note.)
+
+`[OPEN]` Ambrose's full Trial-tier roster beyond Temperance and Brunhilda
+`[OPEN]` Specific dialogue beats — pre-fight, post-fight, post-clarity
+`[OPEN]` Exact location and pacing of the bishop-coup foil + Ambrose-fight sequence in Act III or IV
+`[OPEN]` Whether Ambrose's standard Braviary appears in his entourage (the *honest* national bird vs. Silas's *corrupted* Thauma — a quiet visual statement)
+`[OPEN]` Specific scene in which Ambrose learns Silas's lie about Nemo (likely post-Silas-death in Act V or VI)
+`[OPEN]` Whether Ambrose ever speaks to Osrid about the loss of Nemo as a shared grief
+`[OPEN]` Ambrose's age (likely 40s-50s given his Archbishop status and 30-year friendship with Nemo)
+
+### The Female Rock Vizier — name and house OPEN, character locked `[LOCKED v0.9.7 — stub]`
+
+**One of the four Viziers (Section 4 — The 4 Viziers). The unnamed Rock-type master who fills the second Vizier slot in the gauntlet sequence (Section 10 — Vizier gauntlet order).**
+
+**Locked details:**
+- **Female** — bible v0.9.6 line 2821 (Roma's Tyrunt-revival anecdote) incorrectly referenced "he/his/boy" and is corrected in v0.9.7 to female pronouns and equivalent phrasing
+- **Rock-type master** — the empire's senior Rock-type wielder
+- **Ace: shiny Tyrantrum** — regal, well-known across Cormoria for its battlefield power. **Origin:** when she was a girl, she found a Tyrunt fossil and brought it to Madame Roma, who revived it for her. The Tyrunt became her lifelong partner across decades of her rise to Vizier status (see Section 7 — Madame Roma; Section 9 — Fossil Revival System for Roma's revival mechanic). **Her Tyrantrum is therefore a *direct product of Roma's gift* — and one of only a small handful of Roma's revivals in the modern era.**
+- **Vizier gauntlet placement:** first Vizier fought in the Act V gauntlet, before Umbra (Section 10 — Act V)
+
+**`[OPEN]` items:**
+- Name
+- House identity (likely a senior noble house with Rock-type tradition, possibly cross-referenced with House Jalviss whose Ground-type lineage was destroyed — Rock and Ground are related types; *whether her house has any historical relationship to the Jalviss disaster is OPEN*)
+- Specific Vizier portfolio (Industry? Infrastructure? Justice? Religious affairs separate from Templar Arceus? — the four locked portfolios are Education / War / Commerce / [hers, OPEN])
+- Personality, dialogue voice, backstory beyond the Tyrunt-revival event
+- Her full Trial-tier roster beyond Tyrantrum
+- Her age (must be old enough that her childhood-Tyrunt is now a Tyrantrum she has mastered across decades — likely 40s-60s)
+- Whether she is aware of the cult crisis at the level Umbra is, or operates within her portfolio without the deeper cosmological knowledge
+- Whether she has any direct relationship with the Cormorian Empress (Pierra) or with Rhydia
+- Whether she has any connection to House Ashland (Rock and Fire being volcanic-adjacent) or House Langerin (her family may have ancient ties to other senior houses)
+
+**Roma's revival of her Tyrunt is one of only a small handful of fossil revivals Roma has performed across centuries** (Section 7 — Madame Roma; Section 9 — Fossil Revival System). The Vizier knows that her ace is *Roma's gift* and presumably treats Roma with corresponding deference. **Their relationship is therefore a quiet, decades-old, ace-mediated personal bond between the soothsayer and one of the empire's four Viziers.** *Whether the Vizier knows the deeper truth of Roma's identity is `[OPEN]`* (likely no — Roma keeps her ancient identity hidden from almost everyone).
+
+
+
+### Vandras Amber-Letz `[LOCKED — substantially revised v0.9.4]`
+
+A merchant whose path crosses Osrid's twice across the story — once incidentally during the main game (possibly), and once decisively in the epilogue when Osrid is found amnesiac after the climactic sealing cataclysm. The Vandras of the present-day story is *not* the naïve-stranger of earlier bible passes; v0.9.4 reframes him as a man who **recognizes Osrid in the epilogue and chooses, in a moment of deliberate compassion, to give him peace by giving him a new identity rather than revealing his lost one.**
+
+#### The epilogue scene `[LOCKED v0.9.4 — critical narrative beat]`
+
+After the climactic sealing cataclysm at the end of Act VI, Osrid is left amnesiac and isolated. **His starter Pokemon is with him** (per the unboxable-starter mechanic — Section 6) — the only Pokemon at his side, out of its Pokeball.
+
+**Vandras enters the scene.** What unfolds:
+
+1. **The starter runs up to Vandras.** The starter recognizes Vandras as a friendly figure — implying Vandras has interacted with Osrid's team earlier in the story (`[OPEN]` exact circumstance; possibly through a Cormorian-merchant-network encounter, possibly through some other Vandras-Osrid pre-epilogue interaction)
+2. **Vandras follows the starter back to Osrid.** The starter leads him directly to the unconscious prince.
+3. **Vandras recognizes the starter first.** Then he sees Osrid's face. **He recognizes Osrid.**
+4. **He almost speaks the recognition:** *"Wait...is this..."*
+5. **He does NOT finish the thought.** *Deliberately.* He stops himself mid-sentence.
+6. **He gently wakes Osrid.**
+7. **When Osrid cannot remember his name**, Vandras gives him the name **Veddev** — a name with no political weight, no royal blessing, no Cormorian sacrament. *A name given in love and chosen quietly.*
+8. **Vandras tells Osrid to come with him.** Osrid follows.
+
+#### What Vandras chose `[LOCKED v0.9.4]`
+
+This is one of the *quietly most profound moral acts in the project*. Vandras recognized who Osrid was — the Champion, the lost Prince, possibly even the man Cormoria mourned. **He had a choice:**
+
+- Reveal the truth, return Osrid to the empire, restore him to his lost role
+- Or *let this man have peace*, *give him a new identity*, *let him become someone he was not before*
+
+**Vandras chose compassion-over-recognition.** He gave Osrid the gift of *being a stranger to his own past*. **He knew. He chose not to say.**
+
+This refines Vandras's character significantly:
+- He is *not* naïve about Cormorian politics — he has merchant-network awareness and recognized a Champion in the flesh
+- He is *not* an unwitting Good Samaritan — he made a *conscious choice* to compass-protect a fallen prince
+- **He carries the secret across the rest of his life.** He may suspect, across decades of brotherhood with Veddev, that his foundling-brother was something more — but he never confirms it, never asks, never reveals it. **Vandras dies carrying this secret.**
+- Possibly Vandras's compassion is informed by his own family history (`[OPEN]` — possibly Vandras has reasons to value identity-protection, possibly he lost someone whose identity was forcefully restored, possibly he simply judges this man deserves peace)
+
+**This refines the Berlitz-bloodline framing.** The line that eventually produces Volo and Cynthia descends not from a man who *innocently* adopted a fallen prince, but from a man who **knowingly chose to let a fallen prince become someone new**. The Berlitz line carries — implicitly, ancestrally — *the genealogy of deliberate compassion*. Cynthia's quiet integrity in canonical Pokemon may, in this project's cosmology, be a long inheritance of her family's founding principle.
+
+#### Vandras's other locked details
+
+- Originally an Amber; married into the Letz merchant family
+- Founder (or major figure) of a merchant guild that, across ~1,800 years, contributes to the Ginkgo Guild
+- Direct ancestor of Volo; distant ancestor of Cynthia
+- `[OPEN]` Does Vandras appear earlier in the game, or only in the epilogue? *Likely yes for at least one prior scene* — the starter's recognition of Vandras in the epilogue is most naturally explained by prior on-screen interaction
+- `[OPEN]` What does Vandras know or suspect about the cursed objects he eventually sells?
+- `[OPEN]` What was Vandras's deeper motivation for the compassionate act — does he have a personal history of valuing chosen-identity over imposed-identity?
+
+#### The starter as bridge `[LOCKED v0.9.4]`
+
+The starter Pokemon is *the agent that makes this entire epilogue beat possible*. Without the starter:
+- The starter cannot be deposited (unboxable-starter mechanic; Section 6)
+- The starter is therefore at Osrid's side in the epilogue
+- The starter recognizes Vandras as a friendly figure
+- The starter brings Vandras to the unconscious Osrid
+- The starter is what Vandras recognizes first, *triggering* the recognition of Osrid
+
+**The unboxable-starter mechanic is the technical scaffold that supports this narrative moment.** The starter's cosmic significance includes this single act of *bridging two lives at the moment they cross paths*. **The mechanic and the story are inseparable.**
+
+### Eden — Paldean thief, Beads Cult recruit, deuteragonist, future spouse `[LOCKED — promoted to deuteragonist v0.9.7]`
+
+**Promotion to deuteragonist tier (v0.9.7):** Eden is formally the **deuteragonist** of Dreamstone Ruination — co-protagonist alongside Osrid. Her emotional arc carries equal weight to his. The two arcs run in parallel, intersect repeatedly, and ultimately resolve together in the Paldean post-game. This was *implicit* in the v0.9.6 bible (the "one thing Osrid is unwilling to leave behind" framing already elevated her to peer-to-Osrid significance); v0.9.7 makes the deuteragonist status explicit.
+
+**Origin:**
+- Born into Paldean serf class — illiterate by birth, denied schooling because she wasn't born into merchant or noble class
+- Her poor family in Paldea has zero prospects outside of serfdom
+- Crossed into Cormoria seeking a better life
+- Was recruited by the Beads Cult while in Cormoria — they targeted her *because* of what she lacked
+- Steals in Cormoria because she believes thievery is her path to changing her family's fortunes
+- **Envies Cormorian social mobility** — the meritocracy she was denied by birth. This emotional substrate matches Chi-Yu's domain.
+
+**Arc:**
+1. **Act I:** Introduced as a thief rival when she steals the starter mechanically strongest against Osrid's choice from Umbra's basement (see Section 6 — The Eden Theft Scene for the type-counter logic). Silver/Crystal homage explicitly intended. Pretends to be a self-interested rogue. **The stolen starter becomes Eden's permanent partner — she keeps it through the entire game and into the post-game marriage** `[LOCKED v0.9.7]`. Her bond with the stolen Pokemon is the deuteragonist mirror to Osrid's bond with his chosen starter: *both protagonists carry a starter throughout the entire game, both starters are present at the post-game marriage in Paldea, the symmetry is the resolution.*
+2. **Act II:** Recurring antagonist with shades of moral conflict. The Pokemon she stole — initially a tool, an asset, *insurance against the prince she was sent to undermine* — gradually becomes something else. She does not yet know how to name what's happening. She begins to question her cult's true goals. Eden's emerging bond with her stolen Pokemon is part of what loosens Chi-Yu's emotional pull on her (Section 8 — Treasures' influence mechanism: as her envy is *resolved* through belonging-formed-by-accident, the Treasure's grip weakens).
+3. **Mid-game defection:** Eden defects when she warns Osrid about Chien-Pao's true significance — she sees the cults' real plan and realizes she chose wrong. **Her cult-handlers learn of the defection and Eden becomes hunted by the Beads Cult.** She joins Osrid's side formally. The stolen Pokemon — now her *partner*, not her *asset* — comes with her.
+4. **Late Act II / Act III:** Becomes an ally. The romance develops through shared journey, shared confidences, shared losses. **Eden falls in love with the *masked* Rainhawk** — never seeing his face until the Hall of Fame unmasking at the climax of Act V. She loves him through his voice, his bearing, his choices, his quiet care — *not his face*. She does not know his real face for the entire romantic arc up to the unmasking.
+5. **Hall of Fame unmasking moment:** For Eden, the public unmasking is *simultaneously* recognition of the prince she had served AND seeing the face of the man she loved. **Two reveals collapsing into one.** Her experience of the unmasking is more intimate than the public's.
+6. **Climax:** Present (or absent — `[OPEN]`) for the sealing.
+7. **Epilogue — Paldean reunion:** Years later, Eden encounters Veddev during the Treasure transaction in Paldea. **She recognizes him in stages:**
+   - **Body language first** (pre-verbal, pre-rational) — she has loved this body's bearing for years, even before she saw his face. His body *moves like the man she loved*. Even with no mask, no acknowledgment of identity, presenting as a merchant, **she knows him.**
+   - **Face second** — the unmasked face she briefly saw at the Hall of Fame is now older, more weathered, lived-in. Confirms what her body recognition suspected.
+   - **Name choice third** — she chooses to call him **Veddev**, accepting his new identity rather than dragging him back to his old one. **Her love adapts to who he has chosen to become.**
+   - **She does not insist on the Osrid-name.** Calling him Osrid would feel cruel — it would reach for someone he has chosen not to be. Veddev is who he is now, and her love meets him in the present.
+8. **The marriage and after:** Veddev and Eden marry in Paldea. They build a new life together. **Eden never returns to Cormoria; neither does Veddev.** **At the marriage, both still carry their original starters** — Osrid the one Umbra gave him, Eden the one she stole from Umbra's basement in Act I. *Two starters that were partners across the entire game are now the wedding's quiet living witnesses.* The stolen-starter has become *family*. They may have a hand in further sealing the Treasures (alongside the Paldean king) and establishing the proto-detective tradition. The game leaves all of this implied, not stated.
+
+**The deuteragonist resolution thesis `[LOCKED v0.9.7]`:**
+
+*Rivalry turned into true love through partnership.* Eden's arc — from *stealing* a Pokemon as a cult-asset, to *bonding* with that Pokemon through accidental belonging, to *loving* both that Pokemon and the man whose starter she counter-picked — **enacts the partnership thesis at the *human* relationship layer.** The project's thesis ("Pokemon are partners, not weapons") extends to *Eden's relationship with both her stolen partner and her eventual husband.* All three relationships (Eden + stolen Pokemon, Eden + Osrid, Osrid + Eden) begin in *opposition* and resolve in *partnership.* **The most cleanly developed romance in the project is also the project's clearest application of its central thesis to human love.**
+
+**Echoes of Kohla:** Eden's temperament (observation, deduction, working-class outsider's eye, distrust of institutional authority) echoes Kohla from Dreamstone Mysteries. This is *foreshadowing*, not lineage.
+
+**Why this character matters:** Eden is the *one thing* Osrid is unwilling to leave behind. He gives up his name, his rank, his nation, his birthright, his family — but Eden he keeps. **She becomes the continuation of him, not the keeper of his old self.** Their marriage is between Veddev and Eden, not between Osrid-with-Eden. She is the only piece of his prior life that survives his renunciation — *because she is the only piece worth keeping.*
+
+There is also a deep symmetry: Eden was a Paldean serf-class thief, denied schooling and a future, whose social identity was *imposed* on her by caste. She chose a new life by leaving Paldea and joining Osrid's cause. **Now Osrid is doing the same thing — choosing a new identity rather than living within the one his birth assigned.** Eden and Veddev are now the same kind of person: people who chose their identity rather than inheriting it. **Their marriage is the union of two self-made identities.**
+
+The canonical event Ms. Raifort teaches in SV (the Paldean king's sealing of the Treasures) happens with two people inside it who know each other and are both pretending not to. **Eden is the only person on the Paldean side who knows where the Treasures truly came from.** That knowledge becomes part of the lineage she and Veddev pass forward — implicit, not stated — eventually contributing to Cynthia's gravitas two millennia later.
+
+- `[OPEN]` Specific scene structure for the starter-theft event
+- `[OPEN]` Specific scene structure for the defection moment
+- `[OPEN]` What aspects of her romance with Osrid play out in the main game vs. the epilogue?
+- `[OPEN]` Eden's exact involvement during the climactic sealing
+- `[OPEN]` Whether Eden specifically attended the Hall of Fame unmasking, or learned of it second-hand
+
+
+
+---
+
+### Sable Ashland — uncle of Reid Ashland, returned from Ancient Cormoria `[LOCKED]`
+
+**Pre-disappearance backstory:**
+- Best friend and military colleague of **Eldred Nightfall**
+- Was the one accompanying Eldred at the moment of Eldred's assassination (10 years before story)
+- During the assassination event, Sable was **kidnapped** by cult operatives and used in a **Dreamstone resonance experiment** — they used him as a test subject for early experiments with Dreamstone time-displacement
+- **The experiment displaced him into Ancient Cormoria.** He was thrown ~2000+ years into the past.
+
+**The Ashland family's 10-year shadow:**
+- Because Sable's disappearance coincided exactly with Eldred's death, the **Ashland family became the prime suspect** in Eldred's assassination
+- No proof was ever found, but the suspicion led to a decade of political isolation for House Ashland
+- The Ashland family withdrew politically, retreating into the Ashland Labyrinth at Mt. Ceram
+- **Reid Ashland (Sable's nephew) grew up watching his family's reputation collapse** from suspected traitors to socially isolated remnant. His acceptance as a Trial Baron at all was a conditional empire concession.
+
+**Sable's life in Ancient Cormoria (12 subjective years):**
+- Time flows asymmetrically across the Dreamstone displacement — Sable subjectively experienced ~12 years of time, while only ~10 years passed in the present timeline
+- Found a **Gouging Fire egg** in Ancient Cormoria, hatched it, and raised the Paradox Pokémon as his survival companion
+- Lived a *real* 12 years there — surviving, exploring, growing older. Not a brief adventure; a full life.
+- Returns to the present biologically and emotionally older than he was when displaced — *a settled veteran of an impossible existence*
+- His Paradox Pokémon Gouging Fire becomes his living evidence of the era he lived in
+
+**The return — the Mt. Ceram mid-game plot beat (~70% through):**
+
+When the Beads Cult attempts to raid Mt. Ceram for Chi-Yu's revival and the resonance goes uncontrolled, **the player, Reid, and the partially-revived Chi-Yu are all sucked into Ancient Cormoria**. The player and Reid pursue Chi-Yu through Ancient Cormoria, encountering the **shiny Slither Wing** in its lair (the singular shiny Slither Wing — capture-or-defeat in this single window).
+
+**Sable Ashland appears** to break up the fight between Chi-Yu and the Slither Wing, leading with his Gouging Fire. The Gouging Fire engages Chi-Yu while the player handles the angry Slither Wing.
+
+**Sable swears undying loyalty to Osrid before any unmasking** — he intuits Osrid's identity from his body language, his bearing, his Eldred-similar combat style. Sable knew the young Osrid as a child; he recognizes the prince he knew at 10 in the young man he meets at 20. The "intuition" framing means Sable doesn't *confront* Osrid about it. He just acts on it. He swears loyalty to "the prince" without naming him. **He has the wisdom of a man who has lived 12 years alone in the past not to insist on identity disclosures the player isn't ready to make.**
+
+**The Koraidon Breaking Swipe sequence:**
+- Player + Reid + Sable pursue Chi-Yu to the **ancient temple where the Ancient Terror lies dormant**
+- Chi-Yu, in fear/madness/rage, accidentally awakens Koraidon
+- **Koraidon destroys Chi-Yu's physical body with a single Breaking Swipe**
+- The player and the two Ashlands run in, seize the **singed Beads of Ruin**, escape before Koraidon decides to pursue
+- They find another Dreamstone formation resonating with the original, enter it, are spat out near Mt. Ceram in the present
+
+**Sable's restoration to House Ashland leadership:**
+- Sable's return alive **vindicates the Ashland family** — the 10-year treason suspicion is legally and politically dispelled
+- Sable resumes leadership of House Ashland (his pre-displacement position)
+- **Reid Ashland retires from his Trial Baron seat** to study under Vizier Umbra and pursue his own academic dream of researching Fire-type Pokémon
+- Reid's character arc completes: he goes from "prodigy son shouldering a disgraced family's reputation" to *free scholar* — no longer carrying the political burden of public service
+
+**Sable's battle ace:**
+- **Solara** — shiny **female Pyroar**
+- Ability: **Competitive** (bred over generations, like other major-character aces; +2 Special Attack when any stat is lowered by an opponent)
+- The Competitive ability makes Solara a *terror* against stat-disruption strategies — try to Intimidate her, try to Knock Off her item, try to lower any of her stats, and she becomes a Special Attack monster on the rebound
+
+**Why Sable matters:**
+- His return is a *political earthquake* — a noble family vindicated, a Trial Baron retiring, a new sworn ally of the prince
+- His **Gouging Fire** is the only Paradox Pokemon openly held by a Cormorian noble in the present timeline, raising eyebrows but not enough to delegitimize him given the circumstances of his disappearance
+- His subjective 12 years in Ancient Cormoria give him knowledge of pre-history that no other Cormorian has access to — possibly useful for late-game plot beats `[OPEN]`
+
+
+
+---
+
+### Boran Surge — Windshear-rank officer, minor noble of House Surge `[LOCKED]`
+
+**Background:**
+- Minor noble within House Surge (son of Manus Surge, the Electric Trial Baron)
+- Windshear rank (the first of the prestige ranks in the Cormorian military)
+- **Electric-type specialist** like his father, but with very different temperament
+- Brilliant strategic mind; very good at killing enemy combatants
+
+**Osrid's combat mentor during the overseas war (~10 years):**
+- Trained Osrid in combat and Pokemon command across the Kanto-Johto-Hoenn campaigns
+- His **cold attitude — "Pokemon are purely military assets"** — polluted Osrid's natural kind spirit across the 10 years of mentorship
+- This corruption is critical to Osrid's character arc — Osrid spends the game *re-learning* what he originally knew as a kind child (Section 5, Section 11 Principle 1+2 Exemplar)
+
+**Personal life:**
+- **Womanizer** — fathered children with multiple Kanto natives during the overseas campaigns
+- Osrid was aware of this aspect of Boran's character during their decade of service
+- The half-Kanto children are not part of the main game's plot, but they have *historical significance* (see Section 12 — Bloodlines): one of Boran's Kanto descendants is the ancestor of **Lt. Surge of Vermillion City** in the modern Pokemon canon. This lineage is implied through subtle worldbuilding details, never stated explicitly.
+
+**Status during our story:**
+- Boran is **alive but distant** at game start. Still serving in some military capacity, but Osrid does not seek him out. The mentorship influence is past.
+- Boran does *not* directly appear in the present-day story as a fightable opponent or major NPC. His influence is felt through Osrid's struggle to re-internalize the partnership thesis.
+- His father Manus (the Trial Baron battle) is the closer-quarters confrontation with the Surge family in our story.
+
+**Boran never learns the truth `[LOCKED]`:**
+
+This is one of the most distinctive and quietly devastating threads in the project. **Boran lives the rest of his life believing he mentored some forgotten Nomad-Alban bastard, never learning that his student was the missing Prince of Cormoria.**
+
+Several factors make this lock canonical:
+- During the 10-year overseas service, Boran knew Osrid only as "Nomad Alban" — Umbra's carefully constructed cover identity
+- After Osrid's return to Cormoria, Boran remained distant — Osrid did not seek him out, did not confront him, did not need to
+- After the Hall of Fame unmasking, the empire learns the truth — but Boran is presumably overseas or otherwise removed from the central political moment, and any news that reaches him is at-most rumor he may or may not connect to his old student
+- **After the sealing cataclysm, Osrid is presumed dead by Cormoria.** Boran has even less reason to connect the rumored deceased Prince Osrid to his former student "Nomad."
+- **Osrid never returns to Kanto, Johto, or Cormoria** after losing-and-renouncing his identity. He spends the rest of his life as Veddev in Paldea. *Boran never sees him again.*
+
+**The villain doesn't get the satisfaction of villainy because he never knows he succeeded.** Boran's whole impact on the protagonist — his cold philosophy, his corruption of Osrid's natural kindness — happens *to a person Boran will never know mattered*.
+
+The mentor doesn't get the regret of his mentor-role because he never knows his student became the central figure of an era.
+
+There is *narrative cleanness* to this: other characters in the project get clear resolutions (Silas dies redeemed, Baradus dies irredeemable, Nemo dies tragic, Eden marries the renounced prince). Boran just... *continues.* He's still alive at game's end, still cold, still mentoring other young soldiers, still fathering children he won't raise. **He is the unfinished business of Osrid's life.** And because Osrid renounces his identity, *Boran becomes nobody's problem anymore.* He is consequence-free, in a way no other significant character is.
+
+**The bloodline irony (Section 12) completes the structure:** Boran's Kanto descendants eventually produce Lt. Surge — a partnership-philosophy trainer whose existence undoes his ancestor's worldview. **Boran will, in some quiet way, be redeemed by a great-great-great-...-grandson he never meets.** The cold mentor's corruption of the prince is paid back, two thousand years later, by his own bloodline producing a Pokémon trainer who lives the partnership thesis. Boran himself never knows any of this. But the universe, in its slow patient way, balances his books without his awareness.
+
+**Why this character matters thematically:**
+- Boran is the *internal* antagonist that Osrid carries through the game — the voice of "Pokemon are weapons" that the player has to override in moments of compassion (e.g., the Crabominable adoption scene)
+- His distance from the player's direct opposition is *deliberate* — the corruption he inflicted is internal, and the player can't defeat it by defeating him in battle. The player can only defeat it by *making different choices* than Boran would have made.
+- His descendants in Kanto (eventually producing Lt. Surge) are a quiet narrative statement: the worst actions of the past sometimes produce the best people of the future. Lt. Surge canonically lives the partnership-thesis Boran couldn't.
+- **The combination of "never learns the truth" + "his bloodline produces the partnership-trainer" makes Boran's arc one of the project's most distinctive ironies: the man who corrupted the prince is unknowingly the ancestor of the trainer who lives the prince's lost ideal.**
+
+
+
+---
+
+### Jordan Ramses — exiled Ramses heir, Poison-type assassin-turned-Trial-aspirant `[LOCKED v0.9.7 — stub]`
+
+**One of two recurring side-character trainers who begin the game as cult-hired assassins and end as Osrid's friends and Paragon Gauntlet competitors. Full bio deferred for future design.**
+
+**Locked details:**
+- **Age:** approximately 20 years old (peer-cohort with Osrid, Rhydia, Eden)
+- **Family:** **House Ramses** — minor noble family disgraced 20 years before story start when accused of attempting to assassinate the previous Cormorian Emperor (Pierra's father, Osrid and Rhydia's grandfather). The attempt failed; the Emperor survived. The house was stripped of most political power but **retained their surname** per the Arceus-blessing irrevocability rule (Section 2 — Cormorian surnames). See Section 2 — House Ramses footnote.
+- **Position in the family:** youngest of the Ramses clan; born into family disgrace; **never knew the pre-disgrace family**
+- **Genuine passion:** **cooking.** Jordan is, by his own heart, a *chef* — food, recipes, taste, technique. This is what he loves and what he is by inclination.
+- **Family compulsion:** the disgraced Ramses, attempting to maintain *some* form of competence and relevance after losing political power, **forced Jordan to master Poison-type Pokemon instead of pursuing his cooking passion.** The pivot to Poison-mastery was not a personal choice; it was the family's attempt to preserve a usable skill set within the remaining clan members.
+- **The chef-cover-assassin duality:** Jordan's cover identity as a chef (when working as an assassin) is *not actually a cover* — he is *genuinely* a cook. **The lethal-poison-handler-and-the-passionate-cook are the same person**, layered, both real, in productive tension throughout his arc. The duality is *not deeply explored in dialogue* but is *definitely there* — engaged players will notice the chef's-vocabulary in his battle dialogue, the food at the Tavern, his quiet competence in kitchen scenes.
+- **Resentment toward his family:** for multiple reasons including the forced abandonment of his cooking passion, the legacy of disgrace he inherited, the failures of his elder relatives
+
+**Hired by Baradus:**
+
+After Osrid's interference with Goma's Royal Palace Assassination Plot (Section 10 — Act II), Baradus contracts Jordan to assassinate Osrid. **Jordan accepts because the work pays and his family-exile leaves him without other reliable income.** He uses his Poison-mastery and chef-cover persona to position himself for the kill.
+
+**The cross-purposes encounter (with Wakahisa) `[LOCKED v0.9.7]`:**
+
+In the early Act II period, **Jordan and Wakahisa both become aware of each other's existence and their respective employers** (Baradus for Jordan, Goma for Wakahisa). The cults' chronic disunity (Section 8 — Sword vs. Beads enmity) has resulted in *two simultaneous independent assassination contracts on the same target by rival cults.*
+
+**In a moment of dark humor**, the two assassins — instead of cooperating to complete their shared objective — begin **fighting each other to kill each other** rather than fighting Osrid. Each views the other as a *competing contractor* whose existence undermines their own contract's success. **Osrid ends up fighting both of them to prevent them from killing each other.** *The prince becomes the protector of the people sent to kill him.*
+
+**Conversion arc:**
+
+In the process of being prevented from murder-suicide by the man they were hired to kill, *and* being treated by Osrid with the same partnership-ethos Osrid extends to his Pokemon, **both assassins bond with Osrid.** They decide to abandon their assassin contracts and pursue the Trials as **legitimate trainers instead.** From that moment forward, both are recurring friends rather than recurring enemies.
+
+**The thematic resonance:**
+- The partnership-thesis applied to people, not just Pokemon
+- The cults' disunity (Section 8) is given a concrete operational expression — two cult-hired assassins canceled each other out and *both became allies of the empire's protagonist*
+- *Both Baradus and Goma waste resources on contracts that not only failed but converted to assets for the opposition.* A small but real strategic loss for both cults
+
+**Paragon Gauntlet appearance:**
+
+Jordan and Wakahisa appear as competitors in the Act V Paragon Gauntlet (Section 11 — Principle 3; Section 10 — Act V) alongside the original 6 recurring stat-themed rivals. **Exact Gauntlet structure with the new additions `[OPEN]`** — they may expand the Gauntlet to 7-8 sequential fights, or serve as alternate-track opponents, or be separate event battles outside the formal Gauntlet sequence.
+
+`[OPEN]` Jordan's full Pokemon team — Poison-type roster across his multiple appearances
+`[OPEN]` Specific scenes and dialogue across his arc
+`[OPEN]` Whether Jordan ever cooks for Osrid on-screen (one of the most natural character-bond beats in the project; *almost certainly* worth scripting)
+`[OPEN]` Whether the House Ramses pre-disgrace history is revealed in any depth (likely no — Jordan does not want to talk about his family; engaged players who explore the Ramses footnote will know)
+`[OPEN]` Whether the *truth* of the Ramses assassination attempt (guilty or framed) is ever revealed
+`[OPEN]` Jordan's preferred cuisine — Cormorian classical? Paldean street food? Western Coalition isolationist cuisine? A *fusion* style that reflects his between-worlds outsider status?
+
+### Wakahisa — foreign-born ninja, Bug-type assassin-turned-Trial-aspirant `[LOCKED v0.9.7 — stub]`
+
+**Jordan Ramses's counterpart. The other half of the cross-purposes cult-assassin arc. Goma's hire. Full bio deferred for future design.**
+
+**Locked details:**
+- **Naming convention:** *Wakahisa* — Japanese surname (waka = young, hisa = long-lasting). The name sets her/him apart linguistically from the project's Cormorian (Greek/Latin), occult-Goetia (Langerin family), and Anglo-descriptive (Nightfall, Ashland) naming traditions, suggesting **foreign origin** — possibly from one of the Western Coalition nations (Kanto/Johto/Hoenn are Japanese-coded per Section 3) or from a region not yet established. The foreign-mercenary-for-hire archetype fits Goma's recruitment methodology (Goma works the margins; her assets are outsiders the Cormorian system has rejected or excluded).
+- **Specialty:** Bug-type Pokemon, deployed in *ninja-style* combat — assassin tradecraft, stealth, poison and hazard layering, opportunistic strike patterns
+- **Cover identity:** ninja / shinobi — drawing on the Western Coalition's Tokugawa-era stylistic register (Section 3 — Cormoria's geopolitical neighbors)
+- **Hired by:** Harbinger Goma (Beads Cult) — under the same post-Royal-Palace-assassination contract logic as Jordan's hire by Baradus, but Goma and Baradus are operating *independently* and neither knows the other has contracted a separate killer
+
+**Conversion arc identical to Jordan's:**
+- Becomes aware of Jordan; both begin fighting each other instead of Osrid
+- Osrid intervenes to prevent their mutual murder
+- Bonds with Osrid; abandons assassin work; pursues the Trials as a legitimate trainer
+- Recurring friend through the rest of the game
+- Paragon Gauntlet competitor in Act V
+
+**`[OPEN]` items:**
+- Gender — not specified in the v0.9.7 lock; Wakahisa is presented as gender-neutral until designed
+- Full backstory — origin country, family history, training lineage, why hired-killer work is the available option
+- Specific Pokemon team — Bug-type roster across multiple appearances
+- Personality and dialogue voice
+- Specific scenes and dialogue across the arc
+- Whether the foreign origin is ever made explicit in dialogue
+- Whether Wakahisa has any specific *moral* objection to the assassin work (parallel to Jordan's resentment of his family), or operates from a more straightforward mercenary-pragmatism register
+- Whether Wakahisa and Jordan develop a friendship with each other after both convert — *two former cross-purposes killers* becoming friends after attempting mutual murder is fertile dramatic territory
+
+
+
+### Harbinger Baradus — leader of the Sword Cult `[LOCKED — needs detail]`
+
+- Title: Harbinger (the title used by each Ruin Cult leader)
+- Name "Baradus" has a Greek/Latin-foreign linguistic resonance — sets him apart from native Cormorian naming conventions, suggesting he may be foreign-born or chose a non-Cormorian name as a statement of distance from the empire he aims to overthrow
+- Primary antagonist of the game; the Sword Cult is dominant and Baradus is its head
+- Across the game, orchestrates the absorption/destruction of the other three cults
+- His susceptibility to Chien-Pao's hatred-aura suggests a personal wound — `[OPEN]` what loss made him susceptible?
+- `[OPEN]` Full backstory and personal motivation
+- `[OPEN]` His Pokémon team — Sword/Chien-Pao-themed, likely Dark/Ice and bladed-Pokémon coverage
+
+
+
+---
+
+### The Harbingers `[LOCKED]`
+
+(Locked content for the four Harbingers is documented above in Section 7's Baradus profile, Section 8's cult landscape, and individual character profiles. This section header is retained as a structural anchor.)
+
+
+
+Each will be encountered, defeated, or witnessed being absorbed/destroyed by the Sword Cult during Act II. Names, backstories, and Pokémon teams TBD.
+
+### Tertiary characters `[OPEN]`
+
+- Other Cormorian military officers (fellow Rainhawks, lower-ranked officers)
+- Royal household staff and advisors to Rhydia and Pierra
+- Members of Vandras's merchant guild
+- Students/scholars in Umbra's academy
+- Loyalist Trial House heads vs. corrupted Trial House heads
+- **The Rock-type Vizier's portfolio is `[OPEN]`** — the other three (Education / War / Commerce) are locked
+- Cormorian civilians whose lives are affected by cult activity
+- Templar bishops under Ambrose's authority — some loyal, some cult-aligned; named individuals `[OPEN]`
+
+---
+
+
 
 ### Brie Moray — 15-year-old niece, Domdaniel's chosen, Trial Baroness of the 8th Trial (Fairy), the next-generation Moray heir `[LOCKED — promoted to Trial Baroness v0.9.7]`
 
@@ -2506,57 +3000,9 @@ The player eventually penetrates the Sword Cult's secret headquarters and reache
 - His death prevents the coexistence path from being achievable — Osrid sees what was possible and must seal the Treasures anyway
 - His arc proves the project's thesis at its most extreme limit, and then shows the cost of being unable to extend that thesis to the rest of the world
 
-### Sable Ashland — uncle of Reid Ashland, returned from Ancient Cormoria `[LOCKED]`
 
-**Pre-disappearance backstory:**
-- Best friend and military colleague of **Eldred Nightfall**
-- Was the one accompanying Eldred at the moment of Eldred's assassination (10 years before story)
-- During the assassination event, Sable was **kidnapped** by cult operatives and used in a **Dreamstone resonance experiment** — they used him as a test subject for early experiments with Dreamstone time-displacement
-- **The experiment displaced him into Ancient Cormoria.** He was thrown ~2000+ years into the past.
 
-**The Ashland family's 10-year shadow:**
-- Because Sable's disappearance coincided exactly with Eldred's death, the **Ashland family became the prime suspect** in Eldred's assassination
-- No proof was ever found, but the suspicion led to a decade of political isolation for House Ashland
-- The Ashland family withdrew politically, retreating into the Ashland Labyrinth at Mt. Ceram
-- **Reid Ashland (Sable's nephew) grew up watching his family's reputation collapse** from suspected traitors to socially isolated remnant. His acceptance as a Trial Baron at all was a conditional empire concession.
-
-**Sable's life in Ancient Cormoria (12 subjective years):**
-- Time flows asymmetrically across the Dreamstone displacement — Sable subjectively experienced ~12 years of time, while only ~10 years passed in the present timeline
-- Found a **Gouging Fire egg** in Ancient Cormoria, hatched it, and raised the Paradox Pokémon as his survival companion
-- Lived a *real* 12 years there — surviving, exploring, growing older. Not a brief adventure; a full life.
-- Returns to the present biologically and emotionally older than he was when displaced — *a settled veteran of an impossible existence*
-- His Paradox Pokémon Gouging Fire becomes his living evidence of the era he lived in
-
-**The return — the Mt. Ceram mid-game plot beat (~70% through):**
-
-When the Beads Cult attempts to raid Mt. Ceram for Chi-Yu's revival and the resonance goes uncontrolled, **the player, Reid, and the partially-revived Chi-Yu are all sucked into Ancient Cormoria**. The player and Reid pursue Chi-Yu through Ancient Cormoria, encountering the **shiny Slither Wing** in its lair (the singular shiny Slither Wing — capture-or-defeat in this single window).
-
-**Sable Ashland appears** to break up the fight between Chi-Yu and the Slither Wing, leading with his Gouging Fire. The Gouging Fire engages Chi-Yu while the player handles the angry Slither Wing.
-
-**Sable swears undying loyalty to Osrid before any unmasking** — he intuits Osrid's identity from his body language, his bearing, his Eldred-similar combat style. Sable knew the young Osrid as a child; he recognizes the prince he knew at 10 in the young man he meets at 20. The "intuition" framing means Sable doesn't *confront* Osrid about it. He just acts on it. He swears loyalty to "the prince" without naming him. **He has the wisdom of a man who has lived 12 years alone in the past not to insist on identity disclosures the player isn't ready to make.**
-
-**The Koraidon Breaking Swipe sequence:**
-- Player + Reid + Sable pursue Chi-Yu to the **ancient temple where the Ancient Terror lies dormant**
-- Chi-Yu, in fear/madness/rage, accidentally awakens Koraidon
-- **Koraidon destroys Chi-Yu's physical body with a single Breaking Swipe**
-- The player and the two Ashlands run in, seize the **singed Beads of Ruin**, escape before Koraidon decides to pursue
-- They find another Dreamstone formation resonating with the original, enter it, are spat out near Mt. Ceram in the present
-
-**Sable's restoration to House Ashland leadership:**
-- Sable's return alive **vindicates the Ashland family** — the 10-year treason suspicion is legally and politically dispelled
-- Sable resumes leadership of House Ashland (his pre-displacement position)
-- **Reid Ashland retires from his Trial Baron seat** to study under Vizier Umbra and pursue his own academic dream of researching Fire-type Pokémon
-- Reid's character arc completes: he goes from "prodigy son shouldering a disgraced family's reputation" to *free scholar* — no longer carrying the political burden of public service
-
-**Sable's battle ace:**
-- **Solara** — shiny **female Pyroar**
-- Ability: **Competitive** (bred over generations, like other major-character aces; +2 Special Attack when any stat is lowered by an opponent)
-- The Competitive ability makes Solara a *terror* against stat-disruption strategies — try to Intimidate her, try to Knock Off her item, try to lower any of her stats, and she becomes a Special Attack monster on the rebound
-
-**Why Sable matters:**
-- His return is a *political earthquake* — a noble family vindicated, a Trial Baron retiring, a new sworn ally of the prince
-- His **Gouging Fire** is the only Paradox Pokemon openly held by a Cormorian noble in the present timeline, raising eyebrows but not enough to delegitimize him given the circumstances of his disappearance
-- His subjective 12 years in Ancient Cormoria give him knowledge of pre-history that no other Cormorian has access to — possibly useful for late-game plot beats `[OPEN]`
+---
 
 ### Reid Ashland — 2nd Trial Baron (Fire), prodigy son of House Ashland `[LOCKED — cross-referenced with Section 4 noble houses]`
 
@@ -2656,73 +3102,7 @@ The Marshadow combat profile becomes important for this set-piece to deliver nar
 
 **Thematic resonance:** When Marshadow deploys, **the Pokemon that slips between underworlds is defending the threshold between worlds.** The lore-resonance is perfect. House Langerin's centuries-long guardianship of the Distortion gate is vindicated in this single defensive action.
 
-### Manus Surge — 3rd Trial Baron (Electric), head of House Surge `[LOCKED]`
 
-**Background:**
-- Head of **House Surge** — Electric-type masters; a multi-generational noble line
-- Father of **Boran Surge** (see next entry) — Osrid's overseas combat mentor
-- **Promoted to Electric Trial Baron during the 10-year gap** while Osrid was overseas, replacing a prior Trial Baron. His promotion is one of the more notable Trial Baron roster changes in the post-Eldred decade.
-- **Far more emotional in temperament than his son.** Where Boran is cold and strategic, Manus carries his feelings openly.
-- **Openly aware** of his son Boran's "Pokemon as weapons" philosophy. **Has tried, unsuccessfully, to counsel Boran toward more compassionate ideas.** This failure is a personal grief Manus carries — he raised a son whose worldview he could not redirect.
-
-**The Trial fight — emotionally loaded:**
-- Trial 3 (immediately after Reid Ashland's Fire Trial)
-- Level cap: **35-40**
-- **Thematically:** Osrid arrives at this Trial confronting the *paternal source* of his combat mentor's corruption. Manus is not the direct corruptor — but he is the man who shaped (and tried to redirect) the corruptor. When Osrid fights Manus, **the player is, in microcosm, confronting the parental origin of Osrid's own corruption.**
-- Manus may surface his paternal grief over Boran in pre/post-Trial dialogue. He may ask after his son. He may try to understand what kind of soldier Boran has become. He may not yet know about Boran's half-Kanto children. **The dialogue possibilities here are extraordinary.**
-- Ace and full team: `[OPEN]` — to be designed when the Trial is fully scripted
-
-**Implications for the broader story:**
-- Manus's emotional openness contrasts with Silas's manipulative coldness, with Baradus's fanaticism, and with the various corrupt nobles the player has encountered. **He is one of the more openly *human* nobles the player meets.**
-- His arc could continue beyond his Trial defeat — possibly toward a post-game role (e.g., taking custody of Pokemon that have lost their trainers, mentoring young Trial-Lord aspirants, etc.) `[OPEN]`
-
-### Boran Surge — Windshear-rank officer, minor noble of House Surge `[LOCKED]`
-
-**Background:**
-- Minor noble within House Surge (son of Manus Surge, the Electric Trial Baron)
-- Windshear rank (the first of the prestige ranks in the Cormorian military)
-- **Electric-type specialist** like his father, but with very different temperament
-- Brilliant strategic mind; very good at killing enemy combatants
-
-**Osrid's combat mentor during the overseas war (~10 years):**
-- Trained Osrid in combat and Pokemon command across the Kanto-Johto-Hoenn campaigns
-- His **cold attitude — "Pokemon are purely military assets"** — polluted Osrid's natural kind spirit across the 10 years of mentorship
-- This corruption is critical to Osrid's character arc — Osrid spends the game *re-learning* what he originally knew as a kind child (Section 5, Section 11 Principle 1+2 Exemplar)
-
-**Personal life:**
-- **Womanizer** — fathered children with multiple Kanto natives during the overseas campaigns
-- Osrid was aware of this aspect of Boran's character during their decade of service
-- The half-Kanto children are not part of the main game's plot, but they have *historical significance* (see Section 12 — Bloodlines): one of Boran's Kanto descendants is the ancestor of **Lt. Surge of Vermillion City** in the modern Pokemon canon. This lineage is implied through subtle worldbuilding details, never stated explicitly.
-
-**Status during our story:**
-- Boran is **alive but distant** at game start. Still serving in some military capacity, but Osrid does not seek him out. The mentorship influence is past.
-- Boran does *not* directly appear in the present-day story as a fightable opponent or major NPC. His influence is felt through Osrid's struggle to re-internalize the partnership thesis.
-- His father Manus (the Trial Baron battle) is the closer-quarters confrontation with the Surge family in our story.
-
-**Boran never learns the truth `[LOCKED]`:**
-
-This is one of the most distinctive and quietly devastating threads in the project. **Boran lives the rest of his life believing he mentored some forgotten Nomad-Alban bastard, never learning that his student was the missing Prince of Cormoria.**
-
-Several factors make this lock canonical:
-- During the 10-year overseas service, Boran knew Osrid only as "Nomad Alban" — Umbra's carefully constructed cover identity
-- After Osrid's return to Cormoria, Boran remained distant — Osrid did not seek him out, did not confront him, did not need to
-- After the Hall of Fame unmasking, the empire learns the truth — but Boran is presumably overseas or otherwise removed from the central political moment, and any news that reaches him is at-most rumor he may or may not connect to his old student
-- **After the sealing cataclysm, Osrid is presumed dead by Cormoria.** Boran has even less reason to connect the rumored deceased Prince Osrid to his former student "Nomad."
-- **Osrid never returns to Kanto, Johto, or Cormoria** after losing-and-renouncing his identity. He spends the rest of his life as Veddev in Paldea. *Boran never sees him again.*
-
-**The villain doesn't get the satisfaction of villainy because he never knows he succeeded.** Boran's whole impact on the protagonist — his cold philosophy, his corruption of Osrid's natural kindness — happens *to a person Boran will never know mattered*.
-
-The mentor doesn't get the regret of his mentor-role because he never knows his student became the central figure of an era.
-
-There is *narrative cleanness* to this: other characters in the project get clear resolutions (Silas dies redeemed, Baradus dies irredeemable, Nemo dies tragic, Eden marries the renounced prince). Boran just... *continues.* He's still alive at game's end, still cold, still mentoring other young soldiers, still fathering children he won't raise. **He is the unfinished business of Osrid's life.** And because Osrid renounces his identity, *Boran becomes nobody's problem anymore.* He is consequence-free, in a way no other significant character is.
-
-**The bloodline irony (Section 12) completes the structure:** Boran's Kanto descendants eventually produce Lt. Surge — a partnership-philosophy trainer whose existence undoes his ancestor's worldview. **Boran will, in some quiet way, be redeemed by a great-great-great-...-grandson he never meets.** The cold mentor's corruption of the prince is paid back, two thousand years later, by his own bloodline producing a Pokémon trainer who lives the partnership thesis. Boran himself never knows any of this. But the universe, in its slow patient way, balances his books without his awareness.
-
-**Why this character matters thematically:**
-- Boran is the *internal* antagonist that Osrid carries through the game — the voice of "Pokemon are weapons" that the player has to override in moments of compassion (e.g., the Crabominable adoption scene)
-- His distance from the player's direct opposition is *deliberate* — the corruption he inflicted is internal, and the player can't defeat it by defeating him in battle. The player can only defeat it by *making different choices* than Boran would have made.
-- His descendants in Kanto (eventually producing Lt. Surge) are a quiet narrative statement: the worst actions of the past sometimes produce the best people of the future. Lt. Surge canonically lives the partnership-thesis Boran couldn't.
-- **The combination of "never learns the truth" + "his bloodline produces the partnership-trainer" makes Boran's arc one of the project's most distinctive ironies: the man who corrupted the prince is unknowingly the ancestor of the trainer who lives the prince's lost ideal.**
 
 ### The Blue Moon Hermit / Sage Lethys of the Celestica — Last of His Tribe, Master Partnership-Teacher, Lore-Keeper `[LOCKED — major v0.9.4 expansion]`
 
@@ -3105,208 +3485,7 @@ Together with Lethys, Roma drops *late-game dialogue hints* that **Cormor may no
 - Dialogue across all appearances must establish her *layered identity* — Madame Roma the public soothsayer + Roma Langerin the centuries-old progenitor (revealed gradually)
 - Possible personal Pokemon team data if she is ever challenged in combat (`[OPEN]` whether this happens)
 
-### Ambrose Caymen — Archbishop of the Arceus Templar `[LOCKED v0.9.7]`
 
-**The empire's top religious authority — a Steel-type master, a torn-three-ways man, and a recurring fight whose resolution moves him from paralysis to becoming one of Osrid's staunchest allies in the second half of the game.**
-
-**Position:**
-- **Archbishop of the Arceus Templar** — the top religious authority of the order that maintains Cormoria's civic-religious infrastructure (Section 4 — Templar Arceus Order)
-- Sits at the apex of the order's **warrior-priest tradition** (the militant side of Arceus's service, alongside the civic-administration side that the Tavern network and Braviary travel represent)
-- One of the four most senior religious figures in the empire alongside the Viziers, though the Archbishop's authority is *religious* rather than *political-military*
-- Type specialty: **Steel** — completes the empire's institutional type-coverage map (Steel is otherwise unrepresented in formal Trial / Vizier structure, though ubiquitous in elite protagonist-side aces — Tinkaton, Justice, Jousteel)
-
-**Team `[LOCKED v0.9.7 — aces; rest of team OPEN]`:**
-
-- **Temperance** — shiny **Kingambit** (Dark/Steel), primary ace. The name "Temperance" invokes the Christian cardinal virtue (self-restraint, moderation, balance). **A Dark-typed Pokemon as the Archbishop's ace is a layered statement** — possibly that *Arceus's order is willing to wield Dark as a tool in defense of the world*, possibly that *Ambrose himself carries some moral darkness* that complicates his public role. **Or both true at once** (this is consistent with the project's emotional register).
-- **Brunhilda** — shiny female **Perrserker** (Steel), secondary ace. The name "Brunhilda" invokes the Norse Valkyrie warrior-maiden tradition (operatic Wagnerian resonance). **The Christian-virtue + Norse-warrior combination on his named aces is layered religious-cultural texture** — Ambrose's roster blends two different sacred-warrior iconographies. *The crusader-priest archetype emerges through the names alone.*
-- Rest of his Trial-tier roster `[OPEN]` — additional Steel-types and possibly cross-egg-group Pokemon supporting the Kingambit + Perrserker combat profile
-
-**The three forces pulling at Ambrose `[LOCKED v0.9.7]`:**
-
-Ambrose is not corrupted by the cults, but he is *not aligned with the crown* either. He has been paralyzed by indecision for years because three distinct forces pull him in different directions:
-
-1. **Sword Cult pressure via Silas Moray:** Baradus, through Silas, has been pressuring and manipulating Templar order members for several years. **Some bishops under Ambrose's authority are secretly cult-aligned** and whisper conflicting information into his ear about imperial politics, the royal family's true motives, and the moral standing of the crown. Ambrose can no longer fully trust his own subordinates — and *that loss of trust in his immediate institutional family* is itself a form of cult damage.
-
-2. **Genuine personal relationship with Cadmus Umbra:** Ambrose and Umbra are on **very good terms** through decades of religious-civil cooperation. Umbra has been candid with Ambrose about imperial matters within the bounds of state secrecy; Ambrose has provided religious-institutional support to Umbra's various initiatives. *This is a pull toward the crown.*
-
-3. **Deep formative friendship with Nemo Korolev:** When Nemo arrived in Cormoria as a Sinnohian war-orphan and grew up in and around the Templar order, **he became close friends with the young Ambrose.** The friendship persisted into adulthood — even as Nemo rose to Dawnstar and then stepped down to the 9th Trial Baron seat, even as Ambrose rose to Archbishop, they remained close adult friends across decades. **Of all Ambrose's relationships, this is the deepest.** *And this is the pull that Silas's lie targets.*
-
-**The Silas lie about Nemo `[LOCKED v0.9.7]`:**
-
-At some point in the early-to-mid game, **Silas — under Baradus's orders — tells Ambrose a calculated lie about Nemo's career:** that *"Nemo was forced to become a Trial Baron by the crown as punishment for rejecting the empire's demands that he commit atrocities overseas for the Cormorian military."*
-
-**The truth (already locked Section 7 — Nemo):** Nemo *voluntarily* stepped down from Dawnstar to negotiate the 9th Trial Baron seat himself, in exchange for the operational obscurity he needed to run his private cult-hunting intelligence network.
-
-**The lie's psychology — surgical precision targeting Ambrose's vulnerabilities:**
-- The lie frames the *crown* as the aggressor against Nemo (Ambrose's beloved friend) — which is the *one* claim that could turn the Archbishop against Pierra and Rhydia
-- It positions Nemo as the *moral hero* who refused atrocities, which is *fully consistent with Ambrose's existing view of his friend* (Nemo is the kind of man who would refuse atrocities)
-- It exploits Ambrose's *love for Nemo* to turn that love into anti-crown sentiment
-- **Silas can deliver this credibly because Silas served alongside Nemo under Eldred for years.** The man telling the lie has the documented military relationship with the supposed victim that makes the lie *plausible*
-
-**Silas's calculation is masterful and the cruelest specific act of his cult-aligned career.** He served beside Nemo. They were comrades-in-arms. Silas knows the truth about Nemo's voluntary retirement deal (he was Vizier of Commerce during the negotiation, part of the apparatus). **And Silas chose to weaponize that knowledge to corrupt Nemo's other closest friend.**
-
-**Holding a Mega-Dreamstone shard `[LOCKED v0.9.7]`:**
-
-Ambrose secretly possesses **one of the 9 scattered Mega-Dreamstone shards** (Section 9 — The Mega-Dreamstone Shard Quest). He has been holding it for years, unsure whom to entrust it to:
-
-- The crown might use it to consolidate power *or* might fail to protect it from the cults
-- The cults are after it but Ambrose understands them well enough to know they would weaponize it
-- The Templar order itself contains cult-aligned bishops Ambrose cannot trust
-- **There is no one Ambrose can fully trust.** And so he holds it himself, alone, and the holding is eating him alive.
-
-**He is in near emotional hysteria internally** — though he holds it together publicly because an Archbishop visibly hysterical would precipitate a political crisis. The shard's weight (literal and figurative) is *compounding* his torn-three-ways indecision. *He cannot give it to the wrong side, and he cannot identify the right side.*
-
-**The fight context — the bishop-coup foil `[LOCKED v0.9.7]`:**
-
-In the second half of the game, the **cult-aligned bishops under Ambrose's authority attempt a coup** — they move to seize the Templar apparatus from Ambrose, which would deliver empire-wide religious-civic infrastructure to the Sword Cult (the Tavern network, the Braviary travel system, the order's intelligence-gathering, the institutional moral authority). **Osrid intervenes and foils the coup, fighting off the cult-aligned bishops.**
-
-At that moment, Ambrose — who has been paralyzed by indecision for years — decides that he needs to **fight Osrid himself** as the way to *"get to the truth of things."* His coping mechanism for years of paralysis becomes a single-combat moral test:
-
-**For a Templar of the Arceus order — whose entire theology rests on partnership as cosmic-sacred — combat is a form of moral revelation.** Ambrose cannot tell through political argument who is telling him the truth. But he *can* judge a man through how that man fights and bonds with his Pokemon. **Ambrose is using the Pokemon-as-truth framework to break his own paralysis.**
-
-**The fight itself:**
-- Player team vs. Ambrose: Temperance (shiny Kingambit), Brunhilda (shiny female Perrserker), plus the rest of his Steel-tier roster `[OPEN]`
-- Combat tier appropriate to second-half-of-game placement `[OPEN — exact level cap]`; likely between Trial mid-tier and Vizier upper-tier
-- **The fight is a moral revelation event for Ambrose, not a strategic obstacle for Osrid.** The combat is *real and difficult*, but its narrative purpose is *Ambrose's clarity*, not the player's progression
-
-**The resolution — clarity and alliance `[LOCKED v0.9.7]`:**
-
-Once Osrid defeats Ambrose, **Ambrose gains true clarity.** The partnership demonstrated in combat communicates a moral truth that political argument could not. **Ambrose:**
-
-- **Surrenders the Mega-Dreamstone shard to Osrid** — joining the shard collection toward the eventual cosmological resolution
-- **Begins the process of cleansing cult influence out of the Templar order** — purging the corrupted bishops, restoring the order's institutional health
-- **Eventually learns that Silas's "Nemo punishment" story was a lie** (likely after Silas's death and the truth-revelation cascade that follows). *The grief of having been manipulated using Nemo's name is one of the most painful character beats in Ambrose's arc.* `[OPEN]` whether Ambrose explicitly forgives Silas posthumously or carries the betrayal with him
-- **Becomes one of Osrid's staunchest allies into the final half of the game**
-
-**Necropolis Assault — named defender `[LOCKED v0.9.7]`:**
-
-Ambrose fights alongside the player at the Necropolis Assault (Section 10 — Act VI) as a named defender, deploying Temperance and Brunhilda against the Sword Cult's incursion. **He is one of the major institutional figures the player can count on in the climactic operation** alongside Kimaris (with Marshadow), Brie (with Domdaniel), House Langerin retainers, and the broader Templar Arceus order operatives. **The Archbishop's presence at the Necropolis is also the Templar order's *public commitment* against the cults** — a religious-institutional declaration that the cults have no friend in Arceus's house.
-
-**Why Ambrose matters thematically:**
-
-Ambrose joins **Silas (corrupted, redeemed in death) and Glaive (vengeful, opened by partnership-teaching)** as the third major institutional figure whose moral arc resolves through *being defeated by Osrid in a Pokemon battle* and *gaining clarity through that defeat.* **All three arcs use the same mechanism: Osrid wins a Pokemon battle against a confused institutional figure, and the partnership demonstration communicates a moral truth that political argument couldn't.** This is the partnership thesis weaponized at the institutional scale — Osrid doesn't just save Cormoria from cults; he saves three major institutional figures from their respective forms of moral confusion, and he does it by *winning Pokemon battles against them.* (See Section 11 — Design Principles for the three-redemption-arc-pattern note.)
-
-`[OPEN]` Ambrose's full Trial-tier roster beyond Temperance and Brunhilda
-`[OPEN]` Specific dialogue beats — pre-fight, post-fight, post-clarity
-`[OPEN]` Exact location and pacing of the bishop-coup foil + Ambrose-fight sequence in Act III or IV
-`[OPEN]` Whether Ambrose's standard Braviary appears in his entourage (the *honest* national bird vs. Silas's *corrupted* Thauma — a quiet visual statement)
-`[OPEN]` Specific scene in which Ambrose learns Silas's lie about Nemo (likely post-Silas-death in Act V or VI)
-`[OPEN]` Whether Ambrose ever speaks to Osrid about the loss of Nemo as a shared grief
-`[OPEN]` Ambrose's age (likely 40s-50s given his Archbishop status and 30-year friendship with Nemo)
-
-### The Female Rock Vizier — name and house OPEN, character locked `[LOCKED v0.9.7 — stub]`
-
-**One of the four Viziers (Section 4 — The 4 Viziers). The unnamed Rock-type master who fills the second Vizier slot in the gauntlet sequence (Section 10 — Vizier gauntlet order).**
-
-**Locked details:**
-- **Female** — bible v0.9.6 line 2821 (Roma's Tyrunt-revival anecdote) incorrectly referenced "he/his/boy" and is corrected in v0.9.7 to female pronouns and equivalent phrasing
-- **Rock-type master** — the empire's senior Rock-type wielder
-- **Ace: shiny Tyrantrum** — regal, well-known across Cormoria for its battlefield power. **Origin:** when she was a girl, she found a Tyrunt fossil and brought it to Madame Roma, who revived it for her. The Tyrunt became her lifelong partner across decades of her rise to Vizier status (see Section 7 — Madame Roma; Section 9 — Fossil Revival System for Roma's revival mechanic). **Her Tyrantrum is therefore a *direct product of Roma's gift* — and one of only a small handful of Roma's revivals in the modern era.**
-- **Vizier gauntlet placement:** first Vizier fought in the Act V gauntlet, before Umbra (Section 10 — Act V)
-
-**`[OPEN]` items:**
-- Name
-- House identity (likely a senior noble house with Rock-type tradition, possibly cross-referenced with House Jalviss whose Ground-type lineage was destroyed — Rock and Ground are related types; *whether her house has any historical relationship to the Jalviss disaster is OPEN*)
-- Specific Vizier portfolio (Industry? Infrastructure? Justice? Religious affairs separate from Templar Arceus? — the four locked portfolios are Education / War / Commerce / [hers, OPEN])
-- Personality, dialogue voice, backstory beyond the Tyrunt-revival event
-- Her full Trial-tier roster beyond Tyrantrum
-- Her age (must be old enough that her childhood-Tyrunt is now a Tyrantrum she has mastered across decades — likely 40s-60s)
-- Whether she is aware of the cult crisis at the level Umbra is, or operates within her portfolio without the deeper cosmological knowledge
-- Whether she has any direct relationship with the Cormorian Empress (Pierra) or with Rhydia
-- Whether she has any connection to House Ashland (Rock and Fire being volcanic-adjacent) or House Langerin (her family may have ancient ties to other senior houses)
-
-**Roma's revival of her Tyrunt is one of only a small handful of fossil revivals Roma has performed across centuries** (Section 7 — Madame Roma; Section 9 — Fossil Revival System). The Vizier knows that her ace is *Roma's gift* and presumably treats Roma with corresponding deference. **Their relationship is therefore a quiet, decades-old, ace-mediated personal bond between the soothsayer and one of the empire's four Viziers.** *Whether the Vizier knows the deeper truth of Roma's identity is `[OPEN]`* (likely no — Roma keeps her ancient identity hidden from almost everyone).
-
-### Jordan Ramses — exiled Ramses heir, Poison-type assassin-turned-Trial-aspirant `[LOCKED v0.9.7 — stub]`
-
-**One of two recurring side-character trainers who begin the game as cult-hired assassins and end as Osrid's friends and Paragon Gauntlet competitors. Full bio deferred for future design.**
-
-**Locked details:**
-- **Age:** approximately 20 years old (peer-cohort with Osrid, Rhydia, Eden)
-- **Family:** **House Ramses** — minor noble family disgraced 20 years before story start when accused of attempting to assassinate the previous Cormorian Emperor (Pierra's father, Osrid and Rhydia's grandfather). The attempt failed; the Emperor survived. The house was stripped of most political power but **retained their surname** per the Arceus-blessing irrevocability rule (Section 2 — Cormorian surnames). See Section 2 — House Ramses footnote.
-- **Position in the family:** youngest of the Ramses clan; born into family disgrace; **never knew the pre-disgrace family**
-- **Genuine passion:** **cooking.** Jordan is, by his own heart, a *chef* — food, recipes, taste, technique. This is what he loves and what he is by inclination.
-- **Family compulsion:** the disgraced Ramses, attempting to maintain *some* form of competence and relevance after losing political power, **forced Jordan to master Poison-type Pokemon instead of pursuing his cooking passion.** The pivot to Poison-mastery was not a personal choice; it was the family's attempt to preserve a usable skill set within the remaining clan members.
-- **The chef-cover-assassin duality:** Jordan's cover identity as a chef (when working as an assassin) is *not actually a cover* — he is *genuinely* a cook. **The lethal-poison-handler-and-the-passionate-cook are the same person**, layered, both real, in productive tension throughout his arc. The duality is *not deeply explored in dialogue* but is *definitely there* — engaged players will notice the chef's-vocabulary in his battle dialogue, the food at the Tavern, his quiet competence in kitchen scenes.
-- **Resentment toward his family:** for multiple reasons including the forced abandonment of his cooking passion, the legacy of disgrace he inherited, the failures of his elder relatives
-
-**Hired by Baradus:**
-
-After Osrid's interference with Goma's Royal Palace Assassination Plot (Section 10 — Act II), Baradus contracts Jordan to assassinate Osrid. **Jordan accepts because the work pays and his family-exile leaves him without other reliable income.** He uses his Poison-mastery and chef-cover persona to position himself for the kill.
-
-**The cross-purposes encounter (with Wakahisa) `[LOCKED v0.9.7]`:**
-
-In the early Act II period, **Jordan and Wakahisa both become aware of each other's existence and their respective employers** (Baradus for Jordan, Goma for Wakahisa). The cults' chronic disunity (Section 8 — Sword vs. Beads enmity) has resulted in *two simultaneous independent assassination contracts on the same target by rival cults.*
-
-**In a moment of dark humor**, the two assassins — instead of cooperating to complete their shared objective — begin **fighting each other to kill each other** rather than fighting Osrid. Each views the other as a *competing contractor* whose existence undermines their own contract's success. **Osrid ends up fighting both of them to prevent them from killing each other.** *The prince becomes the protector of the people sent to kill him.*
-
-**Conversion arc:**
-
-In the process of being prevented from murder-suicide by the man they were hired to kill, *and* being treated by Osrid with the same partnership-ethos Osrid extends to his Pokemon, **both assassins bond with Osrid.** They decide to abandon their assassin contracts and pursue the Trials as **legitimate trainers instead.** From that moment forward, both are recurring friends rather than recurring enemies.
-
-**The thematic resonance:**
-- The partnership-thesis applied to people, not just Pokemon
-- The cults' disunity (Section 8) is given a concrete operational expression — two cult-hired assassins canceled each other out and *both became allies of the empire's protagonist*
-- *Both Baradus and Goma waste resources on contracts that not only failed but converted to assets for the opposition.* A small but real strategic loss for both cults
-
-**Paragon Gauntlet appearance:**
-
-Jordan and Wakahisa appear as competitors in the Act V Paragon Gauntlet (Section 11 — Principle 3; Section 10 — Act V) alongside the original 6 recurring stat-themed rivals. **Exact Gauntlet structure with the new additions `[OPEN]`** — they may expand the Gauntlet to 7-8 sequential fights, or serve as alternate-track opponents, or be separate event battles outside the formal Gauntlet sequence.
-
-`[OPEN]` Jordan's full Pokemon team — Poison-type roster across his multiple appearances
-`[OPEN]` Specific scenes and dialogue across his arc
-`[OPEN]` Whether Jordan ever cooks for Osrid on-screen (one of the most natural character-bond beats in the project; *almost certainly* worth scripting)
-`[OPEN]` Whether the House Ramses pre-disgrace history is revealed in any depth (likely no — Jordan does not want to talk about his family; engaged players who explore the Ramses footnote will know)
-`[OPEN]` Whether the *truth* of the Ramses assassination attempt (guilty or framed) is ever revealed
-`[OPEN]` Jordan's preferred cuisine — Cormorian classical? Paldean street food? Western Coalition isolationist cuisine? A *fusion* style that reflects his between-worlds outsider status?
-
-### Wakahisa — foreign-born ninja, Bug-type assassin-turned-Trial-aspirant `[LOCKED v0.9.7 — stub]`
-
-**Jordan Ramses's counterpart. The other half of the cross-purposes cult-assassin arc. Goma's hire. Full bio deferred for future design.**
-
-**Locked details:**
-- **Naming convention:** *Wakahisa* — Japanese surname (waka = young, hisa = long-lasting). The name sets her/him apart linguistically from the project's Cormorian (Greek/Latin), occult-Goetia (Langerin family), and Anglo-descriptive (Nightfall, Ashland) naming traditions, suggesting **foreign origin** — possibly from one of the Western Coalition nations (Kanto/Johto/Hoenn are Japanese-coded per Section 3) or from a region not yet established. The foreign-mercenary-for-hire archetype fits Goma's recruitment methodology (Goma works the margins; her assets are outsiders the Cormorian system has rejected or excluded).
-- **Specialty:** Bug-type Pokemon, deployed in *ninja-style* combat — assassin tradecraft, stealth, poison and hazard layering, opportunistic strike patterns
-- **Cover identity:** ninja / shinobi — drawing on the Western Coalition's Tokugawa-era stylistic register (Section 3 — Cormoria's geopolitical neighbors)
-- **Hired by:** Harbinger Goma (Beads Cult) — under the same post-Royal-Palace-assassination contract logic as Jordan's hire by Baradus, but Goma and Baradus are operating *independently* and neither knows the other has contracted a separate killer
-
-**Conversion arc identical to Jordan's:**
-- Becomes aware of Jordan; both begin fighting each other instead of Osrid
-- Osrid intervenes to prevent their mutual murder
-- Bonds with Osrid; abandons assassin work; pursues the Trials as a legitimate trainer
-- Recurring friend through the rest of the game
-- Paragon Gauntlet competitor in Act V
-
-**`[OPEN]` items:**
-- Gender — not specified in the v0.9.7 lock; Wakahisa is presented as gender-neutral until designed
-- Full backstory — origin country, family history, training lineage, why hired-killer work is the available option
-- Specific Pokemon team — Bug-type roster across multiple appearances
-- Personality and dialogue voice
-- Specific scenes and dialogue across the arc
-- Whether the foreign origin is ever made explicit in dialogue
-- Whether Wakahisa has any specific *moral* objection to the assassin work (parallel to Jordan's resentment of his family), or operates from a more straightforward mercenary-pragmatism register
-- Whether Wakahisa and Jordan develop a friendship with each other after both convert — *two former cross-purposes killers* becoming friends after attempting mutual murder is fertile dramatic territory
-
-### The Harbingers `[LOCKED]`
-
-(Locked content for the four Harbingers is documented above in Section 7's Baradus profile, Section 8's cult landscape, and individual character profiles. This section header is retained as a structural anchor.)
-
-
-
-Each will be encountered, defeated, or witnessed being absorbed/destroyed by the Sword Cult during Act II. Names, backstories, and Pokémon teams TBD.
-
-### Tertiary characters `[OPEN]`
-
-- Other Cormorian military officers (fellow Rainhawks, lower-ranked officers)
-- Royal household staff and advisors to Rhydia and Pierra
-- Members of Vandras's merchant guild
-- Students/scholars in Umbra's academy
-- Loyalist Trial House heads vs. corrupted Trial House heads
-- **The Rock-type Vizier's portfolio is `[OPEN]`** — the other three (Education / War / Commerce) are locked
-- Cormorian civilians whose lives are affected by cult activity
-- Templar bishops under Ambrose's authority — some loyal, some cult-aligned; named individuals `[OPEN]`
-
----
 
 ## 8. The Four Ruin Cults
 
@@ -3763,6 +3942,8 @@ Immediately after Stage 1 (no breaks, no healing), Baradus reveals his true secr
 
 ---
 
+
+
 ## 9. Key Artifacts and Mechanics
 
 ### The Dreamstone `[LOCKED — substantially expanded v0.9.4]`
@@ -4011,6 +4192,126 @@ The line's mechanical kit is *retroactively perfect* for its bloodline lore. Pix
 - **The Steel-effectiveness override requires custom engine support** — a new MOVE_EFFECT flag (or equivalent) that the damage calculator checks: *"if move has Steel-effectiveness-override property, multiply final damage by 2× when target is Steel-type."* This is the only engine-level new code for the move; the rest is data modification.
 - **Engineering effort:** moderate. Approximately 30-40 lines of code: move data modification (~5 lines), new MOVE_EFFECT flag (~10 lines including enum + handler), damage calculator integration (~15 lines), learnset assignment (~5 lines), localization (~5 lines).
 - See Section 14 — Production Discipline for full engineering tracking.
+
+### Behemoth Blade (Frigibax-line Cormorian variant) — Custom Move `[LOCKED v0.9.8]`
+
+A custom move designed for Baxcalibur as its post-Champion ace, paired thematically with Behemoth Bash as the **Cormorian engineered-weapons twin-pair** (see "Cormorian engineered-weapons twin-pair" subsection below). Replaces the canonical Zacian-Crowned signature move's data with a Cormorian variant.
+
+| Field | Canonical (Zacian) | Cormorian variant (Ruination) |
+|---|---|---|
+| Type | Steel | **Dragon** |
+| Category | Physical | Physical |
+| Power | 100 | **120** |
+| Accuracy | 100 | **95** |
+| PP | 5 | **10** |
+| Effect | Dynamax 2× damage | EFFECT_HIT + Fairy-effectiveness override |
+
+**Custom property `[LOCKED v0.9.8]` — Fairy-effectiveness override:**
+
+Behemoth Blade deals **super-effective damage to Fairy-type Pokemon regardless of resolved type.** The effectiveness multiplier vs. Fairy is hardcoded into the move's damage calculation, parallel to the Freeze-Dry "type override" pattern. Engine implementation TODO; pattern mirrors the existing Freeze-Dry override.
+
+**Role:** Lv 77 level-up learn for Baxcalibur (the line's late-game ace, paired with Lv 60 Glaive Rush as the line's penultimate signature). Dragon STAB at 120 BP is already strong; adding Fairy-effectiveness gives Baxcalibur the ability to punch through *Fairy types that would normally be immune to Dragon attacks.*
+
+**Engineering note:** Zacian does not appear in Dreamstone Ruination — not in any encounter table, cinematic, or cult roster. The implementation approach is to overwrite the canonical Behemoth Blade entry rather than create a new move (same pattern as Behemoth Bash). Same MOVE_BEHEMOTH_BLADE constant; modified power/accuracy/PP/type/effect to match the Cormorian variant.
+
+### Mountain Gale (Cormorian variant) — Custom Move `[LOCKED v0.9.8]`
+
+The Frigibax-line tutor-taught move that gates Arctibax → Baxcalibur evolution. A Cormorian variant of the canonical Lv-54-evolution-requirement move with buffed stats and a Freeze-Dry-style type override.
+
+| Field | Canonical | Cormorian variant (Ruination) |
+|---|---|---|
+| Type | Ice | Ice (unchanged) |
+| Category | Physical | Physical |
+| Power | 100 | **95** |
+| Accuracy | 85 | **95** |
+| PP | 5 | **15** |
+| Flinch chance | 30% | **33%** |
+| Effect | flinch | flinch + Water-effectiveness override |
+
+**Custom property `[LOCKED v0.9.8]` — Water-effectiveness override:**
+
+Mountain Gale deals **super-effective damage to Water-type Pokemon regardless of resolved type.** Same engine pattern as Behemoth Blade's Fairy override and Behemoth Bash's Steel override. Engine implementation TODO.
+
+**Role:** Tutor-only move taught by the Mountain Gale Master Tutor at Trial 6 (~Lv 45 player progression). Learning Mountain Gale triggers EVO_MOVE evolution from Arctibax to Baxcalibur. NOT in any level-up learnset for the Frigibax line.
+
+**Thematic resonance:** Ice attacks that *would* be resisted by Water types (Ice is neutral vs. Water canonically) now hit Water for 2× super-effective. This is Freeze-Dry's iconic pattern applied to a physical Ice move. Baxcalibur becomes the first major **physical Water-killer** in the game — a real role even ignoring the Cormorian framing.
+
+### Sunsteel Strike (Cormorian variant) — Custom Move `[LOCKED v0.9.8]`
+
+The Tinkatink-line late-game ace at Lv 77 on Tinkaton. A Cormorian-engineered overwrite of the canonical Solgaleo signature.
+
+| Field | Canonical (Solgaleo) | Cormorian variant (Ruination) |
+|---|---|---|
+| Type | Steel | **Fire** |
+| Category | Physical | Physical |
+| Power | 100 | **140** |
+| Accuracy | 100 | 100 |
+| PP | 5 | **10** |
+| ignoresTargetAbility | TRUE | TRUE (preserved) |
+
+**Design intent — intentional non-STAB:**
+
+Sunsteel Strike is Fire-type, NOT Steel-type, despite Tinkaton being Steel/Fairy. This is deliberate: the Tinkatink line's non-Pixilate builds (Cute Charm / Battle Armor) lack a meaningful answer to opposing Steel-types because Fairy moves are resisted by Steel. Sunsteel Strike at 140 BP non-STAB Fire still hits opposing Steels for 2× super-effective (Fire-vs-Steel), giving non-Pixilate players a real Steel-killer slot without competing with Behemoth Bash's Pixilate-build identity.
+
+**ignoresTargetAbility preserved** so Sunsteel Strike still punches through Flash Fire (Heatran), Levitate, and other defensive abilities — a parallel to Moongeist Beam's identity (see below).
+
+**Engineering note:** Solgaleo does not appear in Dreamstone Ruination. Safe overwrite, same pattern as Behemoth Blade / Bash. Same MOVE_SUNSTEEL_STRIKE constant; modified type/power/PP to match the Cormorian variant.
+
+### Moongeist Beam — Buffed for the Blue Moon Line `[LOCKED v0.9.8]`
+
+The Lv 77 level-up ace on Bloodmoon Ursaluna (Blue Moon). Stats buffed from canonical Lunala signature.
+
+| Field | Canonical | Ruination |
+|---|---|---|
+| Type | Ghost | Ghost (unchanged) |
+| Category | Special | Special |
+| Power | 100 | **140** |
+| Accuracy | 100 | 100 |
+| PP | 5 | **10** |
+| ignoresTargetAbility | TRUE | TRUE (preserved) |
+
+**Role:** Lv 77 level-up learn for Bloodmoon Ursaluna (Blue Moon), as the line's Ghost-coverage post-Champion ace. Pairs with Blood Moon (Ground) as the line's two 140-BP signature moves — Blood Moon for raw Ground STAB nuke (constrained by `cantUseTwice`), Moongeist Beam for unrestricted Ghost coverage that bypasses defensive abilities.
+
+**Engineering note:** Lunala does not appear in Dreamstone Ruination. Safe overwrite, same pattern as Behemoth Blade / Bash / Sunsteel Strike. Only the power and PP change; type and effects preserved.
+
+### Double Slap & Covet — Global Retyping to Fairy `[LOCKED v0.9.8]`
+
+Both moves are globally retyped from Normal to Fairy in Ruination's moves_info.h. This is the only global move retyping in the project that affects multiple species.
+
+**Motivation:** The Tinkatink line's non-Pixilate builds (Cute Charm / Battle Armor) need early-game Fairy physical options that don't depend on the Pixilate HA. Double Slap (Lv 1) and Covet (Lv 13) on Tinkatink were natural candidates — both already in the kit, both already physical, both moderate-power. Retyping them globally gives Tinkatink line *meaningful Fairy options at all ability slots*, not just Pixilate.
+
+**Ripple scope:** ~12 unique species learn Double Slap canonically (Wigglytuff, Lickitung line, Audino, Whismur line, etc.); ~35 unique species learn Covet (Skitty/Delcatty, Bidoof/Bibarel, etc.). All of them now wield these moves as Fairy. The ripple is *accepted as a Ruination design choice* — Fairy types like Wigglytuff gain STAB, Normal types like Lickitung lose Normal STAB on these specific moves.
+
+**Notable:** Covet's item-steal effect (`MOVE_EFFECT_STEAL_ITEM`) is preserved. The retype is type-only.
+
+**Engineering:** Standard `moves_info.h` edits — `.type = TYPE_FAIRY` swapped in for both moves' entries. No additional engine code needed.
+
+### Cormorian engineered-weapons twin-pair `[LOCKED v0.9.8]`
+
+The Tinkatink line (dragon-slayer-clan) and the Frigibax line (dragon-imperial-tradition) each receive a **Behemoth-tier engineered weapon** designed to bypass the natural type-chart counter to its line's STAB.
+
+| Move | Line | Repurposed from | Type override |
+|---|---|---|---|
+| Behemoth Bash | Tinkaton (Lv 30 on Tinkatuff) | Zamazenta-Crowned (absent in Ruination) | Steel-effectiveness override regardless of resolved type |
+| Behemoth Blade | Baxcalibur (Lv 77) | Zacian-Crowned (absent in Ruination) | Fairy-effectiveness override regardless of resolved type |
+
+The twin-pair operates on a clean Cormorian-cosmological logic:
+
+- **Behemoth Bash (Tinkatink line):** Pixilate retypes the Normal-physical move to Fairy. Fairy is resisted (0.5×) by Steel, which would normally wall Tinkaton. The Steel-effectiveness override forces 2× damage on Steel targets regardless — the Cormorian dragon-slayer-clan's *engineered counter to the Steel-types that would resist their Pixilate-Fairy STAB.*
+- **Behemoth Blade (Frigibax line):** Dragon attacks are immune to Fairy in the canonical type chart. The Fairy-effectiveness override forces 2× damage on Fairy targets regardless — the Cormorian dragon-empire's *engineered counter to the Fairy-types that would otherwise be immune to their Dragon STAB.*
+
+**Both override-effects are the same engine pattern**, parallel to Freeze-Dry. Each line gets a *single* engineered weapon designed to bypass *its own* type-chart vulnerability. This is also the project's first canonical narrative example of "Cormorian engineering can override Pokemon type-chart logic" — establishing precedent for any future engineered-weapon designs.
+
+**Together with the celestial-trio Lv 77 aces (Behemoth Blade / Moongeist Beam / Sunsteel Strike), Cormoria's engineered repurposings cover the three absent Galarian-wolf / Alolan-cosmic legendaries:**
+
+| Absent legendary | Cormorian repurposing |
+|---|---|
+| Zacian (Crowned) | Behemoth Blade (Frigibax line) |
+| Zamazenta (Crowned) | Behemoth Bash (Tinkatink line) |
+| Solgaleo | Sunsteel Strike (Tinkatink line ace) |
+| Lunala | Moongeist Beam (Blue Moon Teddiursa line ace) |
+
+The pattern reads narratively as "Cormoria has, over the centuries, *engineered* what the larger Pokemon world received as *legendary gifts*" — a thematic statement about Cormorian ingenuity and self-reliance, and the absence of those legendaries from Cormoria becomes itself a worldbuilding choice rather than an arbitrary omission.
 
 ### Blood Moon (Ground) — Custom Type Modification `[LOCKED v0.9.2]`
 
@@ -4396,54 +4697,144 @@ Keerin has been provided as user-generated sprite content in the asset library:
 - **Overworld following sprites** — not yet provided; will need to be developed for Keerin to walk behind the player in the late-game post-capture sequence
 - All sprites are RPG Maker XP / Pokemon Essentials format (96×96); will need GBA-format remastering to 64×64 with palette quantization for pokeemerald-expansion compatibility
 
-### The Jousteel Line — Cormorian-Exclusive Water/Steel Species `[LOCKED v0.9.4]`
+### The Joustroll/Jousteel Line — Cormorian-Exclusive Custom Species `[LOCKED v0.9.8]`
 
-A two-stage Pokemon line cultivated *exclusively* by House Umbra — the **only known Pokemon species that exists *only* in Cormoria** (besides Keerin in legends).
+A two-stage Pokemon line cultivated *exclusively* by House Umbra — the **only known Pokemon species that exists *only* in Cormoria** (besides Keerin in legends). Implemented as new custom species in the codebase (SPECIES_JOUSTROLL = 1524, SPECIES_JOUSTEEL = 1525), with new National Dex slots (NATIONAL_DEX_JOUSTROLL, NATIONAL_DEX_JOUSTEEL).
 
-**Family-exclusive cultivation `[LOCKED v0.9.4]`:**
+**Lore — the long-lived self-propagating bloodline `[LOCKED v0.9.8]`:**
 
-The Jousteel line is *not* a wild species and *not* available to other Cormorian noble houses, commoners, or foreign trainers. House Umbra maintains the cultivation as a centuries-old family responsibility (Section 7 — Cadmus Umbra). Each Umbra raises their own Joustroll → Jousteel partnership as part of family tradition.
+Joustroll and Jousteel are *genderless, non-breeding, exceptionally long-lived* armored crustacean Pokemon. The line propagates through a single mechanism: a Jousteel produces *one egg per generation*, which hatches into a Joustroll that the next Umbra family head raises into adulthood. The Umbra family has maintained this cultivation as a centuries-old responsibility — every generation of Umbra Solomonars has had a Jousteel as their personal ace.
+
+Jousteel is the **literal heraldic symbol of House Umbra**, and the line's sheer power has been the structural reason an Umbra has held the Vizier role for so much of Cormorian history (Section 7 — Cadmus Umbra).
+
+**Cadmus's generation produced an exceptional event:** the previous Jousteel laid **three eggs instead of one**. Two hatched in the family's care — one became Cadmus's overworld attendant Joustroll (seen around his laboratory), the other grew into his ace Jousteel. The third egg remained unhatched, sealed in a deep cavern accessible only to the Umbra family. The Trial 4 sidequest (Section 10 — Story Spine; Section 7 — Cadmus Umbra) deals with the recovery of this third egg, which Cadmus dispatches the player to retrieve after a Water-type cult takes over the cavern.
 
 After Cormoria's eventual collapse, the line presumably ceases to exist anywhere in the modern Pokemon world *unless* descendants of the Umbra family (eventually Professor Tenebris of DM era) preserved seed-stock. `[OPEN]` whether this is canonical to the project.
 
-**Joustroll (Stage 1):**
+**Joustroll — "The Armory Pokemon" `[LOCKED v0.9.8]`:**
 
-| Attribute | Value | Notes |
+| Attribute | Value |
+|---|---|
+| Species ID | SPECIES_JOUSTROLL = 1524 (Ruination custom) |
+| National Dex | NATIONAL_DEX_JOUSTROLL |
+| Typing | **Steel** (pure Steel — Water typing unlocked only on evolution) |
+| Category | _("Armory") |
+| Height / Weight | 1.0 m / 100.0 kg |
+| BST | 505 (75/85/90/80/85/90 — HP/Atk/Def/Spe/SpA/SpD) |
+| Abilities | Filter, Motor Drive; HA: Speed Boost |
+| Gender ratio | Genderless |
+| Growth rate | Slow |
+| Egg groups | NoEggsDiscovered |
+| Catch rate | 3 (mythic-tier) |
+| Evolution | → Jousteel at Lv 50 (EVO_LEVEL) |
+| Cry placeholder | CRY_VAROOM (final cry pending user authoring) |
+
+**Joustroll Pokedex description (canonical):**
+
+> *"A legendary species that serves the Umbra family. Their metallic bodies generate billows of steam as they race around."*
+
+**Joustroll learnset (`[LOCKED v0.9.8]`):**
+
+| Lv | Move | Notes |
 |---|---|---|
-| **Typing** | Water/Steel | `[OPEN]` confirmation; Water family specialty + Steel armor visual |
-| **BST** | `[OPEN]` | Likely 350-400 (mid-stage Pokemon range) |
-| **Abilities** | `[OPEN]` | Suggestions: Battle Armor (defensive crab-knight) / Shell Armor; possible hidden ability *Water Veil* or *Heatproof* |
-| **Evolution** | → Jousteel at level `[OPEN]` (likely 36-42 range) |
-| **Visual** | Crab-like armored arthropod, low-slung quadruped, red carapace, lobster-like claws | Asset library: `Joustroll - Front.png`, `Joustroll - Back.png` |
+| 1 | Snap Trap | Steel trapping move |
+| 3 | Magnet Rise | Self-Levitate for 5 turns |
+| 5 | Shift Gear | +1 Atk +2 Spe setup |
+| 8 | Gear Grind | Steel 2-hit physical |
+| 13 | High Horsepower | Ground physical, 95 BP |
+| 19 | Water Shuriken | Water priority special (Joustroll generates steam pre-evolution) |
+| 24 | Recover | Status — full HP recovery |
+| 30 | Temper Flare | Fire physical, double power if last move missed |
+| 33 | Spin Out | Steel physical, -2 Spe self after use |
+| 37 | Strange Steam | Fairy special, 20% confusion |
+| 40 | Scald | Water special, 30% burn |
+| 48 | U-Turn | Bug pivot |
+| 60 | Electro Drift | Electric special, double power if super-effective |
 
-**Jousteel (Stage 2):**
+**Jousteel — "The Paladin Pokemon" `[LOCKED v0.9.8]`:**
 
-| Attribute | Value | Notes |
+| Attribute | Value |
+|---|---|
+| Species ID | SPECIES_JOUSTEEL = 1525 (Ruination custom) |
+| National Dex | NATIONAL_DEX_JOUSTEEL |
+| Typing | **Water/Steel** (defining Cormorian-exclusive typing; Empoleon is the only canonical Water/Steel) |
+| Category | _("Paladin") |
+| Height / Weight | 1.7 m / 530.0 kg |
+| BST | 590 (100/130/110/10/130/110) — **mythic-tier pseudo-legendary** |
+| Abilities | Levitate, Water Bubble; HA: Sharpness |
+| Gender ratio | Genderless |
+| Growth rate | Slow |
+| Egg groups | NoEggsDiscovered |
+| Catch rate | 3 |
+| `.isMythical` | TRUE |
+| Perfect IV count | 3 |
+| Evolves from | Joustroll at Lv 50 |
+| Cry placeholder | CRY_VOLCANION (final cry pending user authoring) |
+
+**Jousteel Pokedex description (canonical):**
+
+> *"Arbiters of war and justice, the ace of Umbra scions. They dispatch foes with blades of pure energy that can be launched in an instant."*
+
+**Jousteel design intent — Speed 10 is intentional `[LOCKED v0.9.8]`:**
+
+Jousteel's Speed of 10 is the lowest in the entire game (lower than Shuckle's 5 and Munchlax's 5 are *theoretical floor*; Jousteel sits next-to-bottom). This is the deliberate trade-off for its mythic-tier stat allocation:
+- 100 HP + 110 Def + 110 SpD = 320 defensive total
+- 130 Atk + 130 SpA = true mixed-attacker pseudo-legendary offense
+- Sharpness HA boosts the line's many slicing moves (Tachyon Cutter, Aqua Cutter, Air Slash, Kowtow Cleave, Sacred Sword, Secret Sword, Razor Shell, Mighty Cleave) by 1.5×
+
+The player's expected counter-strategies:
+- **Quick Claw** held item (~30% priority chance per turn)
+- **Trick Room** team support (reverses Speed order)
+- **King's Shield** on-evolution move (Lv 0; protects + drops attacker's Atk if they make contact)
+
+The intent is that Jousteel hits *like a freight train* when it actually moves — Sharpness-boosted Tachyon Cutter with STAB is an OHKO threat against most non-Steel-resistant targets.
+
+**Jousteel learnset (`[LOCKED v0.9.8]`):**
+
+| Lv | Move | Notes |
 |---|---|---|
-| **Typing** | Water/Steel | The defining Cormorian-exclusive typing |
-| **BST** | `[OPEN]` | Likely 510-540 (mid-tier fully-evolved Pokemon range, but possibly higher given its role as Cadmus's ace) |
-| **Abilities** | `[OPEN]` | Suggestions: Battle Armor / Shell Armor / Heatproof; possible hidden ability *Refrigerate* (Water punches become Ice?) or a custom Cormorian-knight ability |
-| **Visual** | Stands tall on hind legs in jousting stance; two enormous claw-arms held forward; blue/red/steel coloration; **lance-like protrusions emerging from forehead** (the "joust" nameelement) | Asset library: `Jousteel - Front.png`, `Jousteel - Back.png` |
+| 0 | Tachyon Cutter | **On-evolution signature — never-miss Steel special slash** (the only non-Paradox species to learn this naturally) |
+| 0 | King's Shield | **On-evolution defensive bulwark** (protects + -2 Atk on contact attackers — same canonical effect as Aegislash's) |
+| 1 | Snap Trap | (carried from Joustroll) |
+| 3 | Magnet Rise | (carried) |
+| 5 | Shift Gear | (carried) |
+| 8 | Gear Grind | (carried) |
+| 10 | Smart Strike | Steel never-miss physical |
+| 13 | High Horsepower | (carried) |
+| 19 | Water Shuriken | (carried) |
+| 24 | Recover | (carried) |
+| 30 | Temper Flare | (carried) |
+| 33 | Spin Out | (carried) |
+| 37 | Strange Steam | (carried) |
+| 40 | Scald | (carried) |
+| 48 | U-Turn | (carried) |
+| 51 | Aqua Cutter | Water slicing physical, 60 BP, high crit |
+| 53 | Sacred Sword | Fighting physical, 90 BP, ignores stat boosts |
+| 53 | Secret Sword | Fighting special, 85 BP scaling off SpA but hits Def |
+| 60 | Psyblade | Psychic physical slicing, 80 BP |
+| 66 | Air Slash | Flying special, 75 BP, 30% flinch |
+| 73 | Kowtow Cleave | Dark slicing physical, never-miss |
+| 80 | Razor Shell | Water slicing physical, 75 BP, 50% -1 Def |
+| 100 | Mighty Cleave | **Endgame ultimate Steel slicing physical** (the line's apex post-Lv-100 reward) |
 
-**Type matchups (Water/Steel):**
-- **Resists:** Steel, Ice, Fire, Water, Psychic, Dragon, Flying, Bug, Normal, Grass (when Water side dominant), Rock, Fairy
-- **Weaknesses:** Electric (×2), Ground (×2), Fighting (×2 from Steel; no Water counter)
-- **Excellent defensive typing** — one of the rarest and most powerful in canonical Pokemon (only Empoleon shares this Water/Steel combo canonically)
+**TM compatibility (`[LOCKED v0.9.8]`):** Joustroll and Jousteel share an identical teachable list of 39 unique TMs = the **deduped union of canonical Varoom + Escavalier teachable learnsets**. Includes Iron Head, Flash Cannon, Sludge Bomb, Toxic, Knock Off, Close Combat, X-Scissor, Aerial Ace, Giga Drain, Counter, Steel Beam, Bug Buzz, Swords Dance, Focus Blast, and others.
 
-**Cadmus Umbra's ace (Jousteel) — battle specifications:**
+**Engine floating-sprite parameters:**
 
-`[OPEN]` Specific moveset, stat allocation, item, ability choice for Cadmus's personal Jousteel
-- Likely signature physical Water move (Liquidation, Wave Crash)
-- Likely signature Steel move (Iron Head, Heavy Slam, Behemoth Bash if custom)
-- Defensive options (Iron Defense, Recover, possibly a custom support move)
-- Coverage for Cormorian meta (Earthquake / Stone Edge / Crunch)
+- **Joustroll:** parameters adapted from Revavroom (steam-engine flavor) — frontPicYOffset=8, backPicYOffset=16, SHADOW(0,7,L), TRACKS_NONE
+- **Jousteel:** parameters adapted from Aegislash (floating sword) — frontPicYOffset=0, backPicYOffset=9, enemyMonElevation=3, SHADOW(0,14,M), frontAnimId=ANIM_H_VIBRATE, backAnimId=BACK_ANIM_H_VIBRATE
 
-**Implementation:**
-- Custom species data for Joustroll and Jousteel (new dex slots)
-- Full Pokemon data: stats, abilities, learnsets, evolution method
-- Sprite GBA-remastering from asset library (front/back; icon needs to be developed)
-- House Umbra cultivation logic — Joustroll/Jousteel encounters gated to Umbra-associated locations; no wild population
-- Rhydia interaction `[OPEN]` (her childhood exposure to Jousteel through Umbra's tutoring may produce special dialogue when encountering Cadmus's Jousteel)
+**Type matchups (Water/Steel for Jousteel):**
+- **Resists:** Steel, Ice, Fire, Water, Psychic, Dragon, Flying, Bug, Normal, Rock, Fairy (×0.5 or better)
+- **Immune to:** Ground (via Levitate ability, default)
+- **Weaknesses:** Electric (×2), Fighting (×2)
+- **Excellent defensive typing** — combined with Levitate erasing the Ground 2× weakness, Jousteel's only true 2× weaknesses are Electric and Fighting
+
+**Cadmus Umbra's personal Jousteel — battle specifications:**
+
+`[OPEN]` Specific moveset, item, exact stat allocation choices for Cadmus's personal Jousteel (the in-game opponent encounter in the Vizier gauntlet). Likely includes Tachyon Cutter, Behemoth Bash (if Cadmus has taught it — unusual but possible), Recover, and one coverage move.
+
+**Implementation status:** Sprite art committed. Species constants allocated. species_info entries, learnsets, teachables, evolution table, Pokedex orderings, graphics-table registrations, overworld follower pic tables — all committed in the codebase. Remaining work: final cry audio (user authoring), Trial 4 Egg sidequest event scripting.
 
 ### The Book of the Moon — Lost-History Lore Reward `[LOCKED v0.9.4]`
 
@@ -4785,6 +5176,8 @@ Substantial engineering work — see Section 14 for full task specifications. Ke
 
 ---
 
+
+
 ## 10. Story Spine
 
 ### Act structure `[LOCKED — corrected climax architecture]`
@@ -4843,6 +5236,21 @@ This act structure reflects the corrected climax: **Osrid becomes Champion + Reg
   - `[OPEN]` Matriarch's name, clan name, desert/mountain region naming
   - `[OPEN]` Matriarch's combat profile (level cap, exact moveset, abilities — likely above-cap encounter precedent established by Roaring Moon/Walking Wake at level 120)
   - `[OPEN]` Tinkatink-picker player special dialogue with the Matriarch acknowledging the stolen-egg heritage
+- **The Trial 4 Joustroll Egg Side Quest `[LOCKED v0.9.8 — narrative; engineering OPEN]`** (Trial 4 chapter, Act II):
+  - This sidequest attaches to the Trial 4 chapter. The Trial 4 Baron identity, type, and location are still `[OPEN]` (per Act II Trials 4-8 open status); the sidequest can run within any Trial 4 chapter once those decisions are made.
+  - **Backstory:** Cadmus Umbra's generation produced an exceptional event — the previous Jousteel laid **three eggs instead of one**. Two hatched in the family's care (one became Cadmus's overworld attendant Joustroll, the other his ace Jousteel). The third egg has remained unhatched, sealed for years in a deep cavern accessible only to the Umbra family. (Section 7 — Cadmus Umbra; Section 9 — The Joustroll/Jousteel Line.)
+  - **Inciting beat:** A Water-type cult faction takes the cavern. Cadmus dispatches the player from his laboratory: the third egg must be retrieved before the cult despoils what no one outside House Umbra is meant to touch. Cadmus's framing is *strategic-pastoral* — this is the family's responsibility, and he is trusting the player with it.
+  - **The cavern:** a multi-floor descent with water and ice environmental elements (the Crawdaunt clan's presence shapes the geography). Multiple trainer battles scattered through the cavern — Crawdaunt-led water Pokemon including Carvanha, Sharpedo, Basculin, possibly Whiscash and Quagsire. Environmental puzzles: water-level manipulation and ice-platform sequences are the natural fit, exact form `[OPEN]`.
+  - **The boss encounter:** a **Mega Gyarados** flanked by the Crawdaunt clan's strongest members in the chamber leading to the incubation shrine. Above-cap precedent established by Roaring Moon / Walking Wake; exact level / kit `[OPEN]` but should reflect Trial-tier difficulty appropriate to mid-game placement.
+  - **The egg-discovery beat:** the player reaches the incubation shrine where the sealed egg has rested across the generations. **A line is delivered (either by the player, an in-party companion, or as a narrative thought):** *"Is it just me or is the egg glowing?"* The player chooses one of two responses; the choice gates whether the hatched Joustroll is **shiny or normal**. This is the project's first explicit shiny-vs-normal player choice gate; the engine support hooks for the conditional shiny flag on a given-egg are engineering task #53.
+  - **Return to Cadmus:** the player brings the egg back. Cadmus's closing line on receiving the player: **"Maybe our Jousteels can even face off in battle one day! Wouldn't that be exciting?"** This is one of Cadmus's warmest character beats in the game — he frames the player's eventual Joustroll as a *future partner-peer* to his own ace, not a tributary gift.
+  - **Narrative function:** the player's first direct participation in the Umbra cultivation tradition (previously discussed in Cadmus's exposition but never engaged with by the player); the moment where Cadmus's familial-philosophical warmth is most directly on screen; the *recognition* that the third egg was an exceptional event in Cadmus's generation — not a routine third-of-three — frames the gift as a recognition of the player's specific worth to House Umbra's continuing tradition.
+  - **Thematic resonance:** parallels the Tinkatink Clan side quest above (both are mid-game side-quest engagements with specific Pokemon-line lore, both involve recovery / acquisition tied to a noble or ancient bloodline, both produce a partner-Pokemon for the player). Together they form a *side-quest pair* across Act II reinforcing the Cormorian tradition of partnership-as-political-anchor.
+  - `[OPEN]` Exact Trial 4 chapter placement within Act II (which Trial number Trial 4 falls within the player's chosen path)
+  - `[OPEN]` Crawdaunt clan structure / lieutenants / specific water-cult identity (which Beads Cult cell takes the cavern, or whether this is a non-cult faction — likely Beads Cult given the Water typing and the timing within the Two-Cult War of Act II)
+  - `[OPEN]` Whether Rhydia, having been tutored by Cadmus from infancy, has any pre-sidequest awareness of the third egg's existence. Most likely no — the third-egg event is family-internal.
+  - `[OPEN]` Whether the player's hatched Joustroll is named or generically labeled at receipt. Recommendation: generic SPECIES_JOUSTROLL with player-renameable on hatch, mirroring the conventional Pokemon-acquisition pattern.
+  - `[OPEN]` Whether the player's Joustroll can be evolved to Jousteel within the same playthrough (Jousteel is gated by Lv 50 evolution — likely yes, the player has plenty of time to level it before Act V). The "face off in battle one day" line implies Cadmus expects the player's Joustroll to eventually become Jousteel.
 - **~50% through the story: The joint Sword Cult encounter with Rhydia.** Up until this point, **only Cadmus Umbra has known that Osrid is the prince *and* has returned to Cormoria** — Rhydia knows her brother is alive (Umbra told her years ago) but believes him still overseas. Not Pierra. Not Glaive. Rhydia joins Osrid for a Sword Cult engagement (specifics `[OPEN]`); during combat the truth is revealed to her — *"Rainhawk Alban" is her brother who has been back in Cormoria for months.* **From this moment onward, Rhydia is the second person who knows Osrid's identity.** She is also the only person who calls him by his first name (the previously-locked detail now has its activation moment).
 - **The Umbra-Rhydia tension after this reveal** (Section 7 — Cadmus Umbra). Rhydia realizes Umbra has been withholding her brother's return from her for months. *Umbra weighed his loyalty to the empire's strategic safety against his love for his pupil and chose the strategic calculus.* This complicates their relationship.
 - Eden's defection and shift from antagonist to ally
@@ -5076,6 +5484,8 @@ For implementation reference:
 - **~Epilogue:** Variable — Veddev arc in Paldea, Eden recognition, marriage
 
 ---
+
+
 
 ## 11. Design Principles (Carried Forward from Dreamstone Mysteries)
 
@@ -5419,7 +5829,50 @@ A v0.9.7 demonstration of Section 11 Principle 2 (the player's choices have perm
 
 **Implementation implication:** Late-game scenes involving Brie should *acknowledge the complexity* without resolving it. Brie's reactions to her uncle's death (if witnessed onscreen) should be *layered* — grief that includes the years of corruption-loss, recognition that includes the redemption-relief, **none of it resolving into a single clean emotion.** The dialogue writing must be willing to leave this contradictory.
 
+### Principle: Unified Starter-Trio BST Framework `[LOCKED v0.9.8]`
+
+All three Dreamstone Ruination starter lines (Frigibax → Arctibax → Baxcalibur; Teddiursa Blue Moon → Ursaring Blue Moon → Bloodmoon Ursaluna; Tinkatink → Tinkatuff → Tinkaton) conform to a **single unified BST framework**:
+
+- **Stage 1: 375 BST**
+- **Stage 2: 480 BST**
+- **Stage 3: 600 BST** (Bloodmoon Ursaluna; baseline) — with cross-line variance pushed into stat *shape* rather than total, except where a specific final form has a named higher tier (Mega Baxcalibur sits at 720 per the Mega Evolution policy).
+
+**Distinct role identities at every stage, not just final form:**
+
+| Line | Role | Stat-shape signature |
+|---|---|---|
+| Frigibax → Baxcalibur | Physical attacker + speed | Baxcalibur signature stat: **Atk 145** |
+| Teddiursa Blue Moon → Bloodmoon Ursaluna | Special-attacker apex | Bloodmoon Ursaluna signature stat: **SpA 145** |
+| Tinkatink → Tinkaton | Defensive colossus | Tinkaton paired signature stats: **Def 125 / SpD 125** |
+
+**Why the framework matters at the design level:**
+
+- **Selectability without strict mechanical dominance.** A player picking any of the three starters sees roughly the same BST budget; the *choice* is which role identity to play, not which stat package to grab.
+- **Both physical-attacker lines (Frigibax, Tinkatink) dump SpA**, since their full kits are 100% physical. SpA stats below 70 across all stages signal to engaged players that these lines aren't intended for mixed builds.
+- **Only the Blue Moon line uses SpA**, with a full special kit (Echoed Voice → Psybeam → Torch Song → Moonblast → Lumina Crash → Moongeist Beam) that signals its identity from Lv 1.
+- **Identity-from-Stage-1.** Stage 1 stat shape already telegraphs role; players don't have to wait three evolutions to see what they picked. This is a deliberate departure from canonical Gen 1 starter-trio design (where Stages 1 and 2 are similar; identity emerges only at Stage 3).
+
+**This principle is the project-level abstraction of the Section 6 starter-line lock.** Detailed stat tables live in Section 6 — Starter Trio. The framework itself is the *pattern*; the stats are the *implementation*.
+
+### Principle: Lv 77 Starter-Ace 10-PP Convention `[LOCKED v0.9.8]`
+
+All three Stage-3 starter signatures learned at Lv 77 are normalized to **10 PP**:
+
+- **Behemoth Blade** (Baxcalibur, Lv 77, Dragon, 120 BP, Fairy-effectiveness override) — 10 PP
+- **Moongeist Beam** (Bloodmoon Ursaluna, Lv 77, Ghost, buffed 100 → 140 BP, ignoresTargetAbility) — 10 PP
+- **Sunsteel Strike** (Tinkaton, Lv 77, Fire non-STAB, 140 BP, ignoresTargetAbility) — 10 PP
+
+**Why the convention matters:**
+
+- **Signature-move scarcity is preserved.** A Lv 77 ace with 10 PP can be deployed ~8 times per battle (10 PP — modulo Leftovers/items). Players cannot spam it; they must choose moments.
+- **Cross-line equivalence.** The three signatures should *feel* equivalent in resource-cost terms. Different BP, different effects, different types — but the *opportunity cost* of pressing the button is the same across all three.
+- **Mechanical-narrative alignment.** The Lv 77 ace pattern across the trio is one of the project's cleanest mechanical-narrative alignments. **Four absent canonical legendaries** (Zacian-Crowned, Zamazenta, Lunala, Solgaleo) have their signatures repurposed for Cormorian-engineered use: Behemoth Blade on Frigibax, Behemoth Bash on Tinkaton (Lv 30), Moongeist Beam on Teddiursa Blue Moon, Sunsteel Strike on Tinkatink. **The "Cormorian engineering > legendary gifts" thematic statement is delivered through the trio's combined learnsets.** The 10-PP convention is the mechanical glue that makes the cross-line equivalence legible to engaged players.
+
+Full custom-move data lives in Section 9 — Custom Move subsections.
+
 ---
+
+
 
 ## 12. Bloodlines and Canon Connections
 
@@ -5464,11 +5917,14 @@ Rhydia continues the matrilineal Cormorian royal line through her future descend
 - Glaive himself is not stated to be Lance's direct ancestor
 - His nickname *Blackthorn* is the in-game hint
 
-### Umbra → Professor Tenebris `[LOCKED]`
+### Umbra → Professor Tenebris `[LOCKED — expanded v0.9.8]`
 
 - Umbra's family preserves Latin-shadow naming tradition across ~2,000 years
 - Tenebris (Dreamstone Mysteries) is a descendant
 - Tied to scholarly/philosophical lineage
+- **House Umbra's heraldic-symbol Pokemon line is Joustroll/Jousteel** (Water/Steel; full lore in Section 9 — The Joustroll/Jousteel Line). The line is Cormorian-exclusive — no other house, commoner, or foreign trainer has access — and the Umbra family's centuries-long cultivation of this line is what has anchored an Umbra at the Vizier-of-Education role across so much of Cormorian history. Heraldic symbol *and* structural source of the family's political durability across generations.
+- **Cormorian engineered-weapons twin-pair narrative** (Section 9): four absent canonical legendaries (Zacian-Crowned, Zamazenta, Lunala, Solgaleo) have their signature moves repurposed as Cormorian-engineered weapons (Behemoth Blade, Behemoth Bash, Moongeist Beam, Sunsteel Strike) handed to the three starter lines + Tinkaton's Stage-3 Behemoth Bash. The thematic statement: *Cormorian engineering surpasses legendary gifts.* House Umbra's centuries-old Jousteel cultivation is the *living tradition* parallel to this engineering achievement — both are demonstrations of the Cormorian conviction that *partnership and craft can rival cosmic-tier resources.* Where the engineered weapons exist as moves in starter learnsets, House Umbra's contribution exists as the living Joustroll bloodline itself. **Same thematic, different medium.**
+- After Cormoria's collapse, the Jousteel line presumably ceases to exist anywhere in the modern Pokemon world *unless* Tenebris-line descendants preserved seed-stock from the family cultivation tradition. `[OPEN]` whether this is canonical to the DM-era continuity.
 
 ### Boran Surge → Lt. Surge of Vermillion City `[LOCKED — soft canon]`
 
@@ -5705,9 +6161,35 @@ This explicitly invokes the temporal-cosmological gap as a *test*. The player mu
 
 ---
 
+
+
 ## 13. Open Questions
 
 Consolidated list of decisions deferred but not forgotten. Updated for v0.9.7.
+
+### v0.9.8 closures (engine rebalance and custom-species lock)
+
+The following major opens are now CLOSED in v0.9.8 (the post-merged-PR engine patch from session 2):
+
+- ~~**Trial 4 Joustroll Egg sidequest narrative**~~ — **NARRATIVELY LOCKED in v0.9.8**: Cadmus dispatches the player to a deep cavern; the cavern is overrun by a Mega Gyarados boss flanked by a Crawdaunt-led clan of water Pokemon; the player solves environmental puzzles, defeats the boss, and reaches an incubation shrine where a single Joustroll egg is recovered. Egg dialogue: *"Is it just me or is the egg glowing?"* with a two-choice player response gating whether the hatched Joustroll is shiny or normal. On return to Cadmus, he delivers the line: *"Maybe our Jousteels can even face off in battle one day! Wouldn't that be exciting?"* See Section 10 — Trial 4 sidequest entry. **Event-scripting, map work, and battle scripting remain `[OPEN]`** — narrative is locked; engineering is task #53 in Section 14.
+- ~~**Mega Baxcalibur BST distribution**~~ — **PARTIALLY RESOLVED in v0.9.8**: BST 720 confirmed. Constraint locked: Speed > 120 AND Atk > 145. Specific stat distribution still `[OPEN]` pending a stat-design pass.
+- ~~**Hisuian (regular) Ursaluna obtainability**~~ — **RESOLVED in v0.9.8**: Hisuian Ursaluna is intentionally unobtainable in Ruination. The Teddiursa line evolves Teddiursa → Ursaring → Bloodmoon Ursaluna directly, gated by the Master Tutor teaching Blood Moon. Hisuian Ursaluna's canonical species data is preserved for Pokedex completeness only. See Section 6 — Teddiursa line evolution chain.
+- ~~**Unified starter-trio BST framework**~~ — **RESOLVED in v0.9.8**: All three starter lines now conform to 375 (Stage 1) / 480 (Stage 2) / 600 (Stage 3) with distinct role identities (Frigibax = physical-attacker+speed, Teddiursa Blue Moon = special-attacker apex, Tinkatink = defensive colossus). See Section 6 — starter lines.
+- ~~**Lv 77 starter-ace PP convention**~~ — **RESOLVED in v0.9.8**: All Lv 77 starter signature aces normalized to 10 PP (Behemoth Blade / Moongeist Beam / Sunsteel Strike). See Section 6 — starter learnsets.
+- ~~**Joustroll & Jousteel full Pokemon data**~~ — **RESOLVED in v0.9.8**: Both species fully implemented as custom species in session 2 — `SPECIES_JOUSTROLL = 1524`, `SPECIES_JOUSTEEL = 1525`. Complete species_info, level-up + teachable learnsets (39 TMs = Varoom + Escavalier union), evolution table (Joustroll → Jousteel at Lv 50), graphics-table registrations, compiled sprite binaries, overworld follower pic tables, Pokedex orderings, category names, descriptions, height/weight. Cry placeholders `CRY_VAROOM` and `CRY_VOLCANION` pending user-authored audio (engineering task #52). See Section 9 — Jousteel line entry.
+- ~~**Custom move signature collection**~~ — **RESOLVED in v0.9.8**: Behemoth Blade Cormorian (Dragon, 120 BP, Fairy override TODO), Behemoth Bash Cormorian (Normal, 100 BP, Steel override TODO), Mountain Gale Cormorian (Ice, 95 BP / 95 acc / 15 PP / 33% flinch, Water override TODO), Sunsteel Strike Cormorian (Fire non-STAB, 140 BP, ignoresTargetAbility preserved), Moongeist Beam buffed 100 → 140 BP. Double Slap and Covet retyped Normal → Fairy globally. See Section 9 — custom move subsections. **Engine type-override hooks for the three "override TODO" moves are engineering tasks #49, #50, #51.**
+- ~~**Cormorian engineered-weapons twin-pair narrative**~~ — **RESOLVED in v0.9.8**: The thematic conceit that four absent canonical legendaries (Zacian-Crowned, Zamazenta, Lunala, Solgaleo) have their signature moves repurposed as Cormorian-engineered weapons handed to the starter lines. The "Cormorian engineering > legendary gifts" thematic statement of the trio. See Section 9 — Cormorian engineered-weapons twin-pair subsection; cross-referenced in Section 12 — Bloodlines.
+
+### v0.9.8 new opens
+
+These items emerged from v0.9.8 lock work and are deferred:
+
+- **Mega Baxcalibur specific stat distribution** within the BST 720 + Speed>120 + Atk>145 constraint
+- **Cadmus's personal Jousteel battle spec** (moveset, item, ability) for the Vizier-gauntlet encounter — `[OPEN]`
+- **Engine type-override implementation pattern** — three damage-calc hooks (Behemoth Blade Fairy, Behemoth Bash Steel, Mountain Gale Water) parallel to existing Freeze-Dry pattern; engineering task #49–51
+- **Joustroll/Jousteel cry audio** — user-authored deliverable; placeholders in place
+- **Trial 4 Joustroll Egg sidequest event scripting** — map design, boss encounter, puzzle implementation, dialogue scripting; lore locked, engineering `[OPEN]`
+- **Build-pipeline JSON registry for new custom species** — the compile log emits non-fatal "Unable to find Joustroll/Jousteel in json" lines; the build still succeeds but a JSON metadata file expects entries that haven't been added. Low priority; investigate when there's slack.
 
 ### v0.9.7 closures (character expansions and major narrative locks)
 
@@ -5972,6 +6454,8 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Engineering investigation of the bible's eventual splitting into multiple documents (world bible / story bible / mechanics bible) — flagged in Section 14 for future consideration as the document grows past 2000 lines
 
 ---
+
+
 
 ## 14. Production Discipline
 
@@ -6534,6 +7018,69 @@ The v0.9.7 patch added a parallel main quest, three major character expansions, 
 48. **House Ramses worldbuilding integration** — `[SMALL]`
     - Background NPC dialogue references to the disgraced house (a single Tavern conversation reference, museum signage about the assassination attempt history, etc.) — establishing the worldbuilding without requiring narrative weight
     - Optional: a House Ramses estate ruin or remnant location the player can briefly visit for additional context
+
+### v0.9.8 new engineering tasks (post-merged-PR — session 2)
+
+Session 2 shipped a 27-commit merged PR that completed the starter-line rebalance and landed Joustroll/Jousteel as custom species. The following tasks reflect what changed, what's now LANDED, and what's now newly OPEN at the engine level.
+
+#### Phase 1 starter-line work — STATUS
+
+- **Phase 1 starter-line palettes (Frigibax, Teddiursa Blue Moon, Tinkatink)** — `[LANDED]` via commits `bef7b9f5` / `a984a437` / `8157e896` (Phase 1) plus starter-palette unification `8a6b6ae3` (Phase 2a). Prior task-list entries #3, #4, #5, #6 from earlier patches are superseded by the merged PR's actual deliverables.
+- **Phase 1 starter-line shared learnsets (16 moves per line, Lv 1–77)** — `[LANDED]` in session 2.
+- **Master Tutor evolution gating for Stage 2 → Stage 3 (Mountain Gale / Blood Moon / Gigaton Hammer)** — `[LANDED]` (engine-side conditional evolution check). Tutor *identities* and *map locations* for the Mountain Gale and Gigaton Hammer tutors remain `[OPEN]` (task #20 above).
+- **Joustroll / Jousteel custom species data + sprite binaries** — `[LANDED]` in session 2 (item #28 above is now fully satisfied at the data-tier; House Umbra cultivation encounter logic remains to be scripted in-game).
+- **Behemoth Bash Cormorian variant (data + learnset)** — `[LANDED]` in session 2. The engine-override hook is still pending — see task #50 below.
+
+#### New tasks introduced by session 2's deliverables
+
+49. **Engine type-effectiveness override — Behemoth Blade (Fairy override)** — `[SMALL — engine code]`
+    - Behemoth Blade is implemented as Dragon-type, 120 BP, physical, 10 PP, learned at Lv 77 by Baxcalibur.
+    - The engineering need: damage calculator hook so that against a **Fairy-type** target, the move resolves as super-effective (2×) regardless of the calculated Dragon-vs-Fairy 0× immunity that would otherwise apply.
+    - Pattern: parallel to the existing **Freeze-Dry** override (Ice-type move with super-effective override vs. Water).
+    - Implementation location: `src/battle_util.c` damage-modifier path; gate via a new `MOVE_EFFECT_*` flag on the move data entry.
+    - Localization: move-description text should note the special-effectiveness behavior.
+    - Estimated scope: ~30 lines across 2–3 files.
+
+50. **Engine type-effectiveness override — Behemoth Bash (Steel override)** — `[SMALL — engine code]`
+    - Behemoth Bash is implemented as Normal-type physical, 100 BP, 95% acc, 10 PP, learned at Lv 30 by Tinkatuff (carried to Tinkaton).
+    - The engineering need: damage calculator hook so that against a **Steel-type** target, the move resolves as super-effective (2×) regardless of its Normal-type resolution (including post-Pixilate Fairy resolution).
+    - This task supersedes the "New MOVE_EFFECT flag for Steel-effectiveness override" bullet inside task #36 above — that bullet described the same hook; this entry tracks it as standalone post-landing.
+    - Pattern: parallel to Freeze-Dry.
+    - Implementation location: `src/battle_util.c` damage-modifier path.
+    - Estimated scope: ~30 lines across 2–3 files.
+
+51. **Engine type-effectiveness override — Mountain Gale (Water override)** — `[SMALL — engine code]`
+    - Mountain Gale is implemented as Ice-type physical, 95 BP, 95% acc, 15 PP, 33% flinch chance, learned by Master Tutor and gating Arctibax → Baxcalibur evolution.
+    - The engineering need: damage calculator hook so that against a **Water-type** target, the move resolves as super-effective (2×) — flavoring the Cormorian-engineered ice weaponry as effective against water-bearing foes.
+    - Pattern: parallel to Freeze-Dry (the closest existing analogue, also an Ice move with Water-effectiveness override).
+    - Implementation location: `src/battle_util.c` damage-modifier path.
+    - Estimated scope: ~20 lines (Freeze-Dry pattern is the precedent; this may share infrastructure with #49/#50 if a generic "additional-super-effective-types" array is implemented as the engine pattern).
+    - **Cross-task note:** Tasks #49, #50, #51 are structurally identical. They should ideally be implemented as a single generic "additional super-effective types" engine pattern with per-move data, not as three independent hardcoded hooks. Recommend the engineering session implement the generic infrastructure once and apply to all three moves.
+
+52. **Joustroll / Jousteel cry audio** — `[USER-AUTHORED DELIVERABLE]`
+    - Both species currently use placeholder cries (`CRY_VAROOM` for Joustroll, `CRY_VOLCANION` for Jousteel) routed through the existing cry table.
+    - Need: user-authored cry audio. Cry format is signed 8-bit PCM at 13379 Hz, typically ~0.5–1.0 seconds.
+    - Replacement is a data-only change once the audio is recorded: replace the placeholder cry data files under `sound/direct_sound_samples/cries/` and update the cry table entry. No engine code required.
+    - **Scope:** audio authoring effort by user; integration is <1 hour.
+
+53. **Trial 4 Joustroll Egg sidequest — event scripting and map work** — `[MEDIUM-MAJOR — scripting + map design]`
+    - Narrative is LOCKED in Section 10 (Trial 4 sidequest); engineering implementation is the open work.
+    - **Components:**
+      - New deep cavern map (Porymap, multi-floor descent with water and ice environmental elements per the Crawdaunt clan presence)
+      - Mega Gyarados boss encounter — above-cap precedent (Section 9); needs custom data entry, scripted entry trigger, and unique pre-/post-battle dialogue
+      - Crawdaunt-led water-Pokemon clan: ~6–10 trainer battles scattered through the cavern (Crawdaunt, Carvanha, Sharpedo, Basculin, possibly Whiscash, Quagsire)
+      - Environmental puzzles — at minimum 2 (water-level manipulation and an ice-platform sequence are the natural fit)
+      - Incubation shrine destination map (small, atmospheric, focused on the egg)
+      - Egg dialogue beat with two-choice player response gating shiny-vs-normal Joustroll on hatch (engine support exists for `CMD_GIVEEGG` and conditional shiny flag; needs a new wrapper script)
+      - Return-to-Cadmus dialogue scene with the locked closing line
+      - Cadmus dispatch dialogue at sidequest entry
+    - **Cross-references:** Section 7 (Cadmus Umbra entry), Section 9 (Jousteel line entry), Section 10 (Act II/III placement of Trial 4 sequence)
+    - **Estimated production effort:** 25–40 hours focused implementation, not counting playtesting.
+
+#### Other session-2 items recorded for completeness
+
+- **Regular Hisuian Ursaluna unobtainability** — engine-side, the Teddiursa → Ursaring → Bloodmoon Ursaluna chain is direct (no intermediate Hisuian Ursaluna). Hisuian Ursaluna species data is preserved for Pokedex completion only; no encounter, no evolution path. No engineering task required — this is the *current* shipped state.
+- **Build-pipeline JSON registry for new species** — the build emits informational lines `Unable to find Joustroll in json` and `Unable to find Jousteel in json`. These are non-fatal; the ROM compiles and links cleanly. Some JSON registry expects new-species metadata that hasn't been added. Low-priority follow-up; investigate when convenient. Likely a Porymap species JSON or an asset-pipeline mapping under `tools/` or `data/`.
 
 ### Production estimates summary `[UPDATED v0.9.7]`
 
