@@ -582,5 +582,48 @@ A project-level deferment policy governing geographic and venue specifics in bib
 - **Worldbuilding *connections* between locations are locked.** "House Raptora operates the Bombirdier postal service that flies between cities" is a locked relationship even though the specific cities are open. "The Trial 5 fight happens at a Raptora-affiliated venue" is locked; the venue's name and geography are open.
 - **The deferment does not block writing.** Bible entries should reference locations as `[OPEN — venue TBD in map-design session]` and proceed with the narrative content. This is a common workflow pattern across professional game development.
 
+### Principle: Mechanical-Narrative Welds `[LOCKED v0.9.8]`
+
+A project-level design principle establishing how mechanical gating (combat outcomes, item unlocks, level-thresholds, progression locks) and narrative content (character beats, emotional moments, thematic statements) should ideally be *the same event*.
+
+**The principle:** When a mechanical gate exists in the project (the player can or cannot progress past X), and when a narrative beat exists at the same point (the player demonstrates Y), **design them as the same event whenever possible**. The mechanic IS the narrative. The combat victory IS the psychological renunciation. The unlock IS the recognition. **The two layers should reinforce each other, not run in parallel.**
+
+This is distinct from "gated content" in the conventional video-game sense. The conventional model: player must achieve X mechanical milestone (defeat boss, find key, reach level), and *as a reward* receives Y narrative content (cutscene, dialog, plot beat). In that model, the mechanic and the narrative are linked but separate — one *triggers* the other.
+
+**The Mechanical-Narrative Weld model is tighter than that.** The narrative beat *is* the mechanical gate's content. The fight IS the renunciation. The dialog IS the unlock-triggering action. There is no separation between *what the player did mechanically* and *what the player demonstrated narratively*. Both layers are the same act.
+
+**The paradigmatic example (locked v0.9.8 — Trial 6 chapter onset):**
+
+The starter Stage-2 → Stage-3 evolution at the Blue Moon Hermit's ritual is the project's tightest weld. The structure:
+
+- **Mechanical gate:** the player's starter cannot reach its 600 BST Stage-3 form until the player completes a specific challenge
+- **Narrative beat:** the player overcomes Osrid's internalized "Pokemon as weapons" philosophy that Boran Surge transmitted to him over 10 years
+- **The weld:** the challenge IS a 6v6 trainer fight against dream-Boran's military-effective team. Defeating the team is *the act of renunciation*. The starter evolves because *the player has demonstrated the partnership thesis through combat against its negation*. **No separate cutscene needed.** The combat victory and the psychological growth are the same event.
+
+The weld is reinforced through layered details:
+- Boran's dialog during the dream fight references the exact starter-specific signature move being unlocked (Mountain Gale / Blood Moon / Gigaton Hammer) — *the move is what's at stake in the fight, narratively as well as mechanically*
+- The Hermit's role is *passive witness* — he does not orchestrate; he *acknowledges* what the player accomplishes
+- The evolution happens *at whatever level the starter currently is* — the gate is not "grind to level 50"; the gate is "demonstrate readiness"
+- Loss does not gate progression in the conventional way; loss simply means *continued effort to overcome the trauma*, consistent with how psychological growth actually works
+
+**Other reference cases (existing welds in the project):**
+
+- **Crabominable adoption mechanic** (Section 9): the player's choice to adopt the discarded Crabominable, customize its nature/ability, and deploy it in the final battle is *both* a mechanical decision *and* a thematic statement. The player who adopts demonstrates the partnership thesis; the player who doesn't, doesn't. **The final battle changes based on the player's choice.** Mechanic = narrative.
+- **The Sable Shiny Charm sidequest** (Section 7 — Sable, locked v0.9.8): defeating Sable in an above-cap-adjacent peer-level fight earns the Shiny Charm — but the *framing* is that Sable recognizes the player as a partnership-coded peer. The reward is *the recognition*, not just the item. **The combat encounter and the character acknowledgment are the same event.**
+- **The Z-Bracelet acquisition at Trial 5** (Section 7 — Falco, locked v0.9.8): the player's defeat of Falco at Trial 5 unlocks both *a mechanical capability* (Mega Evolution) and *a political statement* (Falco recognizes the player as a peer-tier authority on partnership-mastery). **Mega is given because the recognition is given.** The two are inseparable.
+- **Trial 4 doubles-only format** (Section 7 — Simone): the Trial fight tests doubles tactics AND demonstrates the absent-husband-present-wife partnership *simultaneously*. The format choice is character.
+
+**Why the principle matters:**
+
+The project's commitment to *show-don't-tell* (locked v0.9.8) and *partnership-thesis through gameplay* (Section 11 foundations) both require that mechanics and narrative reinforce each other. **A game where mechanics are separate from narrative is a game where players learn to skip cutscenes.** A game where the mechanics ARE the narrative is a game where players cannot skip the meaningful parts — and where the meaningful parts are experienced through play rather than through reading.
+
+The principle is also a **design-discipline filter for future locks**: when designing a new event, the bible should ask — *is the mechanical layer and the narrative layer the same event, or are they running in parallel?* If parallel, can they be welded? If welded, the design is stronger.
+
+**Limits of the principle:**
+
+- Not every event needs to be a weld. Some narrative beats are *pure narrative* (a conversation, a memory, a quiet observation); some mechanical events are *pure mechanic* (an item pickup, a level-up, a route opening). The principle says *prefer welds when both layers exist at the same point*, not *force welds when only one layer is present*.
+- Welds are a *design ambition*, not a *requirement*. When a weld is too contrived or forced, the parallel structure may simply be the right design.
+- The principle should not be invoked to justify *adding* mechanical complexity to narrative scenes that don't need it. The Sable-Simone post-Act-IV scene (Section 7 — Sable, locked v0.9.8) is *pure narrative*; trying to weld a mechanical layer to it would *damage* it. Different beats deserve different design registers.
+
 ---
 

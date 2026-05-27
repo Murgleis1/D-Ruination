@@ -84,6 +84,73 @@ This act structure reflects the corrected climax: **Osrid becomes Champion + Reg
 - `[OPEN]` Specific Sword Cult plot beat that requires Rhydia's intervention
 - `[OPEN]` Order of remaining Trials encountered
 
+- **The Trial 6 chapter onset sequence `[LOCKED v0.9.8 — narrative; engineering OPEN]`** (Trial 6 chapter, Act II — the chapter where the player faces the Grass-type Trial House Alban):
+
+  This is the project's **paradigmatic mechanical-narrative weld**: an event sequence that simultaneously gates the player's most significant mid-game mechanical unlock (Stage-3 starter evolution to 600 BST) AND resolves the player's deepest psychological obstacle (Boran Surge's "Pokemon as weapons" philosophy). The structural premise: *unless the player can demonstrate readiness to embody the partnership thesis, the starter does not receive the cosmic-tier power it was made to carry.* The Blue Moon Hermit is the *gatekeeper*; the gate itself is a *combat encounter with the player's psychological past*.
+
+  **Chapter sequence (in order):**
+
+  1. **Player arrives in the Alban region** on their way to face Trial 6 (Grass / House Alban). The Trial 6 Baron's identity is `[OPEN]`; the chapter's broader Alban-house storyline is `[OPEN]` per the deferred-content protocol.
+
+  2. **G5 — the fifth Glaive fight with Cadmus Umbra present `[LOCKED v0.9.8]`:** Glaive intercepts the player. **Umbra is also present**, expressing interest in observing. Glaive's team for this fight: **Sandaconda, Scrafty, Turtonator, Dracovish, Shelgon** (Section 7 — Glaive arc, restructured v0.9.8). The player defeats him.
+
+  3. **The Hermit-revelation conversation `[LOCKED v0.9.8]`:** After G5, Umbra and the player begin discussing *how the player's starter might evolve to its final form* — Umbra openly admits even *he* doesn't know for sure, but theorizes that **the starter's evolution is tied to three specific moves that are spoken of only in legends.** Glaive, having been listening, speaks up. He mentions the Blue Moon Hermit — that during the desert sojourn after his second loss to the player, the Hermit saved him from a sandstorm and gave him partnership-training that enabled Bagon→Shelgon. **Glaive then recounts that the Hermit spoke of three lost moves — Mountain Gale, Blood Moon, and Gigaton Hammer — that were key to unlocking "the chosen partner of Cormor's Legacy."** Glaive openly admits he thought the old man was babbling in riddles at the time. **But Umbra and Osrid both immediately catch the true meaning of the phrase** — the player's starter is *the chosen partner of Cormor's Legacy* (the empire's founding figure; Section 1), and the three lost moves are what the player's ace needs to reach its 600 BST final form. **Glaive sees recognition cross both their faces but does not understand it himself.** Osrid asks Glaive where the Hermit is located; Glaive gives general directions; this initiates the Hermit quest.
+
+      **Starter-specific dialog branching at the recognition moment `[LOCKED v0.9.8]`:**
+      - **Teddiursa-pick:** Glaive notes that the Hermit referred to himself with the phrase "Blue Moon" — and Glaive *thinks there is a connection there* to the player's starter line.
+      - **Frigibax-pick:** `[OPEN]` specific dialog trigger — recommended: Glaive notes the Hermit mentioned a move that "freezes through mountains" (Mountain Gale-keyed pattern-matching to the Baxcalibur signature).
+      - **Tinkatink-pick:** `[OPEN]` specific dialog trigger — recommended: Glaive notes the Hermit mentioned a move that "rings like an empire's bells" (Gigaton Hammer-keyed pattern-matching to the Tinkaton signature).
+
+      **What this scene reveals about each character:**
+      - **Glaive carries cosmic-tier knowledge without understanding he carries it.** He's relating the Hermit's words as riddles he thought was babbling. Umbra catches the meaning instantly. Osrid catches it too. *Glaive is the warrior who carries cosmic-tier knowledge without knowing.*
+      - **Umbra is the encyclopedic mind of the empire** — and yet even *he* doesn't *know for sure* how the starters evolve; he only *theorizes*. Shows his epistemic humility.
+      - **Osrid moves.** Three Cormorian elites are in the room and Osrid is the one who *acts on the information.* Quiet protagonist-coding without exposition.
+      - **The phrase "the chosen partner of Cormor's Legacy"** is cosmologically heavy. Its full implications resonate forward to Mt. Ceram (Act III) and the Hall of Fame moment.
+
+  4. **The Hermit quest begins.** The player departs Alban region — temporarily — to seek the Hermit at the location Glaive described. `[OPEN]` whether Umbra and Glaive accompany the player or stay behind (recommendation: stay behind; this is *Osrid's* test, not theirs).
+
+  5. **The Hermit ritual `[LOCKED v0.9.8]`:** The player reaches the Hermit's location and meets him. The Hermit recognizes the player's starter and recognizes what the player has come for. **The Hermit's role here is *passive witness*, not active orchestrator** (Section 11 — Show, Don't Tell; the Hermit's character register is gentle, paternal, gently-curmudgeonly; he does not engineer trauma, he *acknowledges* what the player must do). The Hermit explains — *briefly, in his quiet measured way* — that the starter cannot receive its full cosmic-tier power until the trainer has overcome the psychological inheritance that prevents them from holding it. He invites the player to a ritual that will surface what the trainer has been carrying.
+
+  6. **The dream-Boran trauma fight `[LOCKED v0.9.8]`:** The player enters the ritual and finds themselves in a PTSD-coded dream environment — the visual treatment is sepia/desaturated, fog, surreal framing, no recognizable Cormorian geography. **Standing across from Osrid is Boran Surge** — his only on-screen appearance in the entire game (Section 7 — Boran Surge v0.9.8 lock). The fight is a 6v6 trainer battle against Boran's intentionally-unremarkable military-effective team. Boran's dialog references his "Pokemon as weapons" philosophy and his decade of treatment of Osrid; **the dialog acknowledges what the present-day Boran would never say aloud consciously.** *This is the trauma made articulate in the only place it can be — the dream that the Hermit's ritual surfaces.*
+
+      **Starter-specific dialog references (asset-light branching per Section 11 v0.9.8 lock):**
+      - **Frigibax-pick:** Boran's dialog references *Mountain Gale* — "*You'll never internalize a move like Mountain Gale, Nomad. It is too much power for a soldier with a heart like yours.*"
+      - **Teddiursa-pick:** Boran references *Blood Moon* — "*Blood Moon is a soldier's signature. You are not a soldier, Nomad — you have never been.*"
+      - **Tinkatink-pick:** Boran references *Gigaton Hammer* — "*A Gigaton Hammer is what soldiers use to break enemies. You don't have the conviction to break anything.*"
+      - **In all three cases, Boran's framing is the same:** the player is not worthy of the cosmic-tier power because they have never accepted his combat-philosophy. **The fight is the opportunity to prove him wrong.**
+
+      **Mechanical-narrative weld:** Defeating dream-Boran is *both* a combat victory *and* a psychological renunciation. **Players who defeat Boran in the dream-ritual demonstrate they have internalized the partnership thesis over Boran's "Pokemon as weapons" philosophy** — which is *exactly* what the Hermit's gate requires.
+
+      **Loss does not gate progression.** If the player loses, the ritual ends without the starter evolving and without dialog framing the loss as a failure — Boran's worldview is briefly reinforced in the dream's ending dialog (*"You are not ready"*), but the Hermit allows the player to attempt the ritual again. **Repeated losses simply mean continued effort to overcome the trauma**, which is consistent with how psychological growth actually works.
+
+  7. **Starter Stage-3 evolution `[LOCKED v0.9.8]`:** Upon defeating dream-Boran, the player exits the ritual back to the Hermit's presence. **The Hermit teaches the starter's signature gating move** (Mountain Gale / Blood Moon / Gigaton Hammer per the starter pick). **The starter evolves to its Stage-3 600 BST form** at whatever level it is currently at — the evolution is *ritual-gated*, not *level-gated* (Section 6 — starter evolution mechanics, v0.9.8 lock). The player gains:
+      - **Stage-3 starter** (Baxcalibur / Bloodmoon Ursaluna / Tinkaton) at current level
+      - **The signature gating move** taught to the starter (Mountain Gale / Blood Moon / Gigaton Hammer)
+      - **Implicit emotional milestone** — the player has internally renounced Boran's philosophy and embodied the partnership thesis
+
+  8. **Return to the Alban region.** The player makes their way back. **The Trial 6 fight (against the `[OPEN]` Alban Baron) follows** at the chapter's culmination, with the player's newly-evolved Stage-3 starter as their signature combat asset.
+
+  **Why this sequence is structurally important:**
+
+  - **It is the project's tightest mechanical-narrative weld.** The Hermit's gate is not a pretext for a story beat; the story beat IS the gate. The combat victory IS the psychological renunciation. The mechanic IS the narrative. **This is the project's paradigmatic example of design philosophy in execution.** (Section 11 — Principle: Mechanical-Narrative Welds, locked v0.9.8.)
+  - **It is required main-story progression**, not a side quest. The player cannot face Trial 6 without completing it. The gating is *narrative-required* (you must demonstrate readiness to wield cosmic-tier power) and *mechanical-required* (your starter must reach Stage 3 to win Trial 6 against an `[OPEN]` Baron team).
+  - **It uses Boran Surge's only in-game appearance to maximum effect.** Boran is *gone* — overseas, away, no overworld presence (Section 7 — Boran Surge v0.9.8 lock). The only place he appears is here, in the dream-ritual that surfaces what he taught Osrid. **He gets one scene, and that scene is *the* scene about him.**
+  - **It demonstrates the partnership thesis through a combat encounter against its negation.** The player wins by being someone Boran would not recognize as a soldier — and that not-recognition is exactly what makes them worthy of the Hermit's gate.
+  - **It is shown, not told.** The player does not receive an exposition dump about partnership philosophy. They *fight* the philosophy's antithesis. The starter's evolution is a *consequence* of demonstrated growth, not a narrated transformation.
+
+  **Open items for the Trial 6 chapter onset:**
+
+  - `[OPEN]` Specific Hermit location (deferred to map-design session per Section 11)
+  - `[OPEN]` Specific Alban-region geography (deferred to map-design session per Section 11)
+  - `[OPEN]` Whether Umbra and Glaive accompany the player to the Hermit (recommendation: no — this is Osrid's test)
+  - `[OPEN]` Dream-sequence specific visual treatment (sepia/fog/surreal, but detailed visual design `[OPEN]`)
+  - `[OPEN]` Boran's specific team composition for the dream fight (intentionally unremarkable per Section 7 — Boran v0.9.8 lock; specific Pokemon TBD)
+  - `[OPEN]` Whether Osrid's team in the dream is the player's *current* team (recommendation: yes — preserves player agency, makes the dream feel *now* rather than *then*)
+  - `[OPEN]` Specific dialog beats for the G5 conversation, the Hermit's quiet acknowledgment of the player, and Boran's PTSD-coded provocations
+  - `[OPEN]` Specific dialog for the Hermit's brief explanation of the ritual (recommended register: minimal, measured, neither overexplaining nor underexplaining; the Hermit's character voice from Section 7)
+  - `[OPEN]` Whether the starter evolution scene includes a visual effect distinct from canonical Pokemon evolution animations (recommendation: yes — this is a cosmic-tier ritual moment, not a level-up evolution)
+  - `[OPEN]` Specific connections between the Trial 6 chapter's broader Alban-house storyline and the Hermit-ritual side path (recommendation: the Hermit-ritual happens entirely off the Alban storyline; the two coexist in the same chapter but do not interact narratively)
+
 **Act III — The Mt. Ceram Pivot (~70% through)**
 - **Goma's escalation:** Having failed at the palace assassination/Dreamstone seizure plot, Goma escalates to a more desperate strategy — invade Mt. Ceram, use the lava-pool room deep in the Ashland Labyrinth as the resonance chamber, and revive Chi-Yu through that environment instead of through the palace Dreamstone.
 - **The Beads Cult attempts to seize Mt. Ceram** for the lava-pool revival of Chi-Yu through Dreamstone resonance

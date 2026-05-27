@@ -739,21 +739,22 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Estimated scope:** ~8-12 hours (custom Pokémon data + script + dialogue authoring)
     - **Cross-references:** Section 7 — Sable Ashland, Section 11 — Ace-Bonding Overworld Interactions (Sable's two-ace structure)
 
-58. **Boran Surge PTSD dream sequence — implementation** — `[MEDIUM]`
+58. **Boran Surge PTSD dream sequence — implementation** — `[MEDIUM — refined v0.9.8]`
 
-    Per Section 7 — Boran Surge (v0.9.8 update), Boran's only in-game appearance is as a trainer fight inside a PTSD dream sequence experienced by Osrid. The dream-sequence is a one-time scripted event with custom visual treatment.
+    Per Section 7 — Boran Surge (v0.9.8 update) and Section 14 — Trial 6 chapter onset (v0.9.8 lock), Boran's only in-game appearance is as a trainer fight inside a PTSD dream sequence experienced by Osrid. **The dream-sequence is now LOCKED in placement** as the Trial 6 chapter's Hermit-ritual gating event for the starter Stage-2 → Stage-3 evolution. The event is **required main-story progression** (not a side quest); the player cannot face Trial 6 without completing it (loss does not gate progression in the conventional way — the player can retry until they win, but the starter cannot evolve and Trial 6 cannot be faced until they do).
 
     **Components:**
-    - **Trigger:** scripted event at a specific story beat (`[OPEN]` placement — likely mid-to-late Act II or Act III, possibly tied to the Crabominable adoption scene's emotional weight, possibly post-Mt-Ceram when Sable's return revives questions of Osrid's overseas service)
-    - **Custom sprite for Boran:** overworld NPC sprite + trainer-battle sprite (Windshear-rank ceremonial mask iconography per Section 7 — Cormorian military rank hierarchy); possibly stylized to read as *dream-sequence-aesthetic* (washed colors, soft edges, surreal framing)
-    - **Custom dream-sequence visual treatment:** battle background and transition effects styled to signal *this is not the present, this is Osrid's interior*. Sepia/desaturated palette, fog effects, no normal Cormoria geography in the background
-    - **Boran's team:** `[OPEN]` (intentionally *unremarkable, military-effective, without bond-shaped optimization* — what hyper-competent training looks like *without* partnership; specific species selection should reflect *standard high-tier military-effective combinations* a competent officer would assemble without sentiment)
-    - **Osrid's team in the dream:** `[OPEN]` — recommendation: the player's *current* team rather than a flashback team, so the dream-fight uses combat resources the player has actually built (preserves agency; makes the dream feel *now* rather than *then*)
-    - **Pre-/post-battle dialogue:** Boran addresses his student (using "Nomad" — he does not know Osrid is the prince); the dream is *psychologically* about Osrid finally confronting the internalized voice of his mentor's philosophy; dialogue should resonate with Osrid's *current* internal arc (more confident if he's been making compassionate choices like the Crabominable adoption; more confused if he hasn't)
-    - **Win-condition consequence:** beating dream-Boran *advances Osrid's emotional arc* (small positive flag tracked for late-game dialogue variation); losing does *not* gate progression but plays a different post-battle dialog beat (Boran's worldview confirmed by Osrid's defeat — *darker* but recoverable in later choices)
-    - **Boran is NOT in the ace-bonding pattern** — see Section 7 / Section 11 anti-pattern characterization
-    - **Estimated scope:** ~10-15 hours (custom sprite + dream-sequence visual effects + Boran team data + scripted event + dialog authoring with branching)
-    - **Cross-references:** Section 7 — Boran Surge, Section 11 — Ace-Bonding Overworld Interactions (Boran's anti-pattern exclusion), Section 5 — Osrid's psychological arc
+    - **Placement:** Trial 6 chapter, between the G5 Glaive-Umbra-Osrid scene (task #64) and the Trial 6 Baron fight. **Trigger:** the player reaches the Blue Moon Hermit's location and accepts the partnership-readiness ritual.
+    - **Custom sprite for Boran:** overworld NPC sprite + trainer-battle sprite (Windshear-rank ceremonial mask iconography per Section 7 — Cormorian military rank hierarchy); stylized to read as *dream-sequence-aesthetic* (washed colors, soft edges, surreal framing).
+    - **Custom dream-sequence visual treatment:** battle background and transition effects styled to signal *this is not the present, this is Osrid's interior*. Sepia/desaturated palette, fog effects, no normal Cormoria geography in the background.
+    - **Boran's team:** `[OPEN]` (intentionally *unremarkable, military-effective, without bond-shaped optimization* — what hyper-competent training looks like *without* partnership). Difficulty calibrated to Trial 6 cap (45) at peer-level.
+    - **Osrid's team in the dream:** the player's *current* team — preserves agency, makes the dream feel *now* rather than *then*.
+    - **Pre-/post-battle dialogue:** Boran addresses his student (using "Nomad"); references the starter-specific signature move being unlocked (Mountain Gale / Blood Moon / Gigaton Hammer); dialog resonates with Osrid's internal arc.
+    - **Win-condition consequence:** beating dream-Boran *unlocks the starter Stage-2 → Stage-3 evolution* (the Hermit teaches the signature move, the starter evolves to its 600 BST form at current level). This is the project's tightest mechanical-narrative weld — the combat victory IS the psychological renunciation (Section 11 — Principle: Mechanical-Narrative Welds, locked v0.9.8).
+    - **Loss-condition behavior:** ritual ends without evolution; brief Boran-worldview-reinforced dialog ("You are not ready"); player can retry. Repeated losses are not punished — they simply mean *continued effort to overcome the trauma*.
+    - **Boran is NOT in the ace-bonding pattern** — see Section 7 / Section 11 anti-pattern characterization.
+    - **Estimated scope:** ~12-18 hours (custom sprite + dream-sequence visual effects + Boran team data + scripted event + dialog authoring with starter-branching + Hermit-ritual scene scripting + Stage-3 evolution scripted event).
+    - **Cross-references:** Section 7 — Boran Surge, Section 7 — Blue Moon Hermit, Section 11 — Mechanical-Narrative Welds principle, Section 11 — Ace-Bonding anti-pattern, Section 14 — Trial 6 chapter onset sequence, Section 5 — Osrid's psychological arc, Section 6 — starter Stage-3 evolution mechanics.
 
 59. **Cramorant Triple Dive + Gulp Missile engine modification** — `[SMALL — engine code]`
 
@@ -822,6 +823,41 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Re-engagement:** one-time-per-Toucannon (a given Toucannon cannot re-learn Bombard if forgotten; alternatively, allow re-learning via separate Move Tutor system)
     - **Cross-references:** Section 13 — Master Tutor system (Falco joins the Master Tutor roster as Bombard-only; parallel to Blue Moon Hermit teaching Mountain Gale/Blood Moon/Gigaton Hammer)
     - **Estimated scope:** ~2-4 hours
+
+64. **G5 Glaive-Umbra-Osrid Hermit-revelation scene — implementation** — `[MEDIUM — scripting + dialog]`
+
+    Per Section 14 — Trial 6 chapter onset (v0.9.8 lock), the Trial 6 chapter opens with the player's fifth Glaive encounter (G5) at a Alban-region waypoint. Cadmus Umbra is also present. After the player wins, Umbra and the player discuss starter evolution; Umbra theorizes the three signature gating moves are involved; Glaive recognizes the Hermit's words from his recent desert sojourn (between G2 and G3 per the v0.9.8 retcon) and provides directions. This is one of the project's tightest character scenes.
+
+    **Components:**
+    - **Trigger:** the player reaches a specific Alban-region waypoint en route to the Trial 6 location (`[OPEN — venue TBD in map-design session]`)
+    - **G5 fight:** Glaive's team is **Sandaconda, Scrafty, Turtonator, Dracovish, Shelgon** per Section 7 — Glaive arc, restructured v0.9.8. Player must defeat him to trigger the post-battle scene. Difficulty calibrated for the Trial 6 cap range (40-45).
+    - **Custom dialog scene (post-G5):** three-way conversation between Glaive, Umbra, and Osrid. Umbra leads with the evolution-theory hypothesis; Glaive contributes the Hermit recollection; **Glaive thinks the Hermit was babbling; Umbra and Osrid both immediately catch the meaning of "the chosen partner of Cormor's Legacy."** Visual: brief reaction-shot framing for Umbra's and Osrid's recognition moments (Glaive misses it because he is mid-sentence; the player catches the recognition).
+    - **Starter-specific dialog branch:**
+      - **Teddiursa-pick:** Glaive's recollection cues "Blue Moon" pattern-matching
+      - **Frigibax-pick:** `[OPEN]` recommended Mountain-Gale-keyed dialog
+      - **Tinkatink-pick:** `[OPEN]` recommended Gigaton-Hammer-keyed dialog
+    - **Scene closer:** Osrid asks Glaive for directions to the Hermit; Glaive provides them; the Hermit quest unlocks.
+    - **Glaive's recounting register:** This is Glaive describing a *recent transformation*, not a buried memory (per v0.9.8 retcon, the Hermit event happened between G2 and G3 in the same playthrough). His memory is vivid; his processing is ongoing.
+    - **Estimated scope:** ~8-12 hours (G5 fight data update + custom dialog scene + reaction-shot animations + starter-branching dialog + scene-end Hermit-quest unlock trigger)
+    - **Cross-references:** Section 7 — Glaive arc (restructured v0.9.8), Section 7 — Cadmus Umbra, Section 11 — Show Don't Tell principle, Section 14 — Trial 6 chapter onset sequence, Section 1 — Cormor's Legacy framing
+
+65. **Blue Moon Hermit ritual scene + starter Stage-2 → Stage-3 evolution event — implementation** — `[MEDIUM-MAJOR — scripting + dialog + custom evolution event + ties to task #58]`
+
+    Per Section 14 — Trial 6 chapter onset (v0.9.8 lock) and Section 6 — starter evolution mechanics (v0.9.8 lock), the player's Stage-2 → Stage-3 starter evolution is gated by the Blue Moon Hermit's partnership-readiness ritual. The ritual triggers the dream-Boran trauma fight (task #58); the fight's victory triggers the evolution event. This task covers the *non-Boran* components of the event: the Hermit encounter, the ritual setup, the Hermit's brief explanation, the post-ritual return, the signature-move tutoring, and the Stage-3 evolution scripted event.
+
+    **Components:**
+    - **Trigger:** the player reaches the Hermit's location after the G5 scene (location `[OPEN]` per map-design deferment).
+    - **Hermit greeting scene:** brief, quiet, the Hermit's measured-paternal register from Section 7 — Blue Moon Hermit. Recognition of the player's starter; quiet explanation of what the ritual will do; invitation.
+    - **Ritual transition:** scripted transition from the Hermit's location to the dream-sequence environment (visual effect, fade, music transition).
+    - **Dream-Boran fight:** task #58 handles this combat encounter.
+    - **Post-ritual return:** scripted transition back to the Hermit's location after dream-Boran victory.
+    - **Signature-move tutoring:** the Hermit teaches **Mountain Gale / Blood Moon / Gigaton Hammer** to the player's starter (per starter pick). This is the *only* canonical method by which these three moves enter player possession.
+    - **Stage-3 evolution scripted event:** the starter evolves from Stage 2 → Stage 3 *at its current level*. The evolution is **ritual-gated, not level-gated** — per Section 6 v0.9.8 lock. The evolution scene should have **distinct visual treatment from canonical Pokemon level-up evolution animations** — this is a cosmic-tier ritual moment, not a routine evolution.
+    - **Post-evolution scene:** brief Hermit acknowledgment of the player's accomplishment; the player departs back toward the Alban region to face Trial 6. The starter is now a Stage-3 (Baxcalibur / Bloodmoon Ursaluna / Tinkaton) at current level with its signature gating move learned.
+    - **Repeat-attempt handling:** if the player loses dream-Boran, the ritual ends and the Hermit allows another attempt. No punitive dialog; consistent with how psychological growth actually works.
+    - **Estimated scope:** ~15-20 hours (Hermit greeting scene + ritual transition scripting + post-Boran-fight return + signature-move tutoring + custom Stage-3 evolution visual + post-evolution scene + repeat-attempt scripting + custom dialog for 3 starter branches)
+    - **Engineering note — ritual-gated evolution:** the engine evolution-trigger system needs to support **scripted-event-triggered evolution** as a method alongside level-up and item-use. Implementation: add `EVO_SCRIPT_EVENT` or equivalent to the evolution method enum; check during scripted event for the species; trigger evolution with the existing evolution code path. Estimated ~4-6 hours of this 15-20 total is engine modification.
+    - **Cross-references:** Section 7 — Blue Moon Hermit, Section 11 — Mechanical-Narrative Welds principle, Section 11 — Show Don't Tell principle, Section 14 — Trial 6 chapter onset sequence, Section 6 — starter Stage-3 evolution mechanics (v0.9.8 ritual-gated lock), Section 14 task #58 (dream-Boran fight).
 
 ### Production estimates summary `[UPDATED v0.9.7]`
 
