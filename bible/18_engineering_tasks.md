@@ -755,6 +755,74 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Estimated scope:** ~10-15 hours (custom sprite + dream-sequence visual effects + Boran team data + scripted event + dialog authoring with branching)
     - **Cross-references:** Section 7 — Boran Surge, Section 11 — Ace-Bonding Overworld Interactions (Boran's anti-pattern exclusion), Section 5 — Osrid's psychological arc
 
+59. **Cramorant Triple Dive + Gulp Missile engine modification** — `[SMALL — engine code]`
+
+    Per Section 7 — Falco Raptora (v0.9.8 lock), Cramorant on Falco's Trial 5 team carries Triple Dive (custom move grant; canonical to Palafin only). The custom modification: **Cramorant's Gulp Missile ability now triggers on Triple Dive** in addition to its canonical Surf/Dive triggers.
+
+    **Implementation:**
+    - Locate the Gulp Missile ability hook in `src/battle_util.c` (or wherever the post-move ability resolution path lives)
+    - Add `MOVE_TRIPLE_DIVE` to the move-ID watchlist alongside `MOVE_SURF` and `MOVE_DIVE`
+    - **Trigger behavior:** fires *once per move use*, not once per individual hit. The lore is that Cramorant catches a single payload across the dive action regardless of how many strikes the dive lands. **The existing Gulp Missile code naturally fires after-move-resolution**, which is once-per-move regardless of multi-hit — so the default behavior is correct; just add the move ID to the watchlist.
+    - Verify no regression on existing Surf/Dive triggers
+    - **Estimated scope:** ~3-5 lines of code + testing
+
+60. **Bombard custom move implementation** — `[SMALL-MEDIUM — engine + data]`
+
+    Per Section 7 — Falco Raptora (v0.9.8 lock), Bombard is a Flying-type variant of Population Bomb, exclusive to Toucannon lineages raised in the Raptora tradition.
+
+    **Implementation:**
+    - **Copy Population Bomb data** (canonical multi-hit Normal-type move, 20 BP × up to 10 hits)
+    - **Change type to Flying**
+    - **Set accuracy to 80** (canonical Population Bomb is 90)
+    - **Set PP to 2** (canonical Population Bomb is 10) — balancing constraint; Falco can use Bombard at most twice per Trial 5 fight
+    - **Animation:** clone Barrage animation (Normal-type multi-hit projectile) — Flying-type particle/color variant
+    - **Name:** "Bombard"
+    - **Distribution:** custom-trainer-Pokémon move-table override on Falco's Drang; Falco's Bombard-tutor scripted event (task #62) is the player-facing distribution mechanism for Toucannons the player owns
+    - **Engine considerations:** with Skill Link (Drang's ability), Bombard attempts all 10 hits; on a hit-confirm roll the move lands; on a miss the entire move misses. **Lock-On set on Drang the prior turn raises Bombard's effective accuracy to 100%** — this is the design's central tactical pressure.
+    - **Estimated scope:** ~10-15 lines move-data entry + animation table update + testing
+
+61. **Custom trainer-Pokémon ability and move grants for Falco's Trial 5 team** — `[SMALL — data]`
+
+    Per Section 7 — Falco Raptora (v0.9.8 lock), several team members have custom abilities and/or moves outside their canonical learnsets/ability pools:
+
+    | Pokemon | Custom override | Notes |
+    |---|---|---|
+    | Sturm (shiny Galarian Zapdos) | Move grants: Coil, Bolt Beak | Defiant ability is canonical hidden, no override needed |
+    | Drang (shiny Toucannon) | Ability override: Skill Link (canonical Sheer Force/Keen Eye/Hustle); Move grant: Bombard, Lock-On | Bombard is task #60 |
+    | Crobat | Move grants: Sky Attack, Lock-On | Infiltrator ability is canonical hidden, no override needed |
+    | Cramorant | Move grants: Triple Dive (task #59), Lock-On | Gulp Missile ability is canonical hidden, no override needed |
+
+    **Implementation:** standard custom-trainer-Pokémon entry pattern in the trainer data. Same workflow as Splendor's Fur Coat + Burning Bulwark override on Obstagoon (engineering task #54), Solara's Competitive ability on Pyroar, and the broader Tinkatink-line Fur Coat assignment (task #16).
+
+    - **Estimated scope:** ~30 minutes per Pokemon × 4 Pokemon = ~2 hours total
+
+62. **Z-Bracelet acquisition event + global Mega Evolution unlock** — `[MEDIUM — scripting + engine flag]`
+
+    Per Section 7 — Falco Raptora (v0.9.8 lock), Falco's post-Trial-5 gift to the player is a **Z-Bracelet** which **unlocks Mega Evolution for the player for the entire game**.
+
+    **Components:**
+    - **Z-Bracelet key item data:** add `ITEM_Z_BRACELET` (or appropriate canonical name) to the item table
+    - **Global Mega Evolution flag:** add a save-file player flag `FLAG_PLAYER_HAS_Z_BRACELET` (or appropriate name) gated by ownership of the Z-Bracelet
+    - **Mega Evolution combat hook:** modify the Mega Evolution availability check in battle code to require both (a) appropriate Mega Stone held by Pokémon AND (b) `FLAG_PLAYER_HAS_Z_BRACELET` set. Without (b), Mega Evolution is unavailable even with a Mega Stone.
+    - **Scripted event at Trial 5 victory:** Falco hands the player the Z-Bracelet; the player gains the item; the flag is set; a brief celebratory/transformative animation may play (`[OPEN]` whether one is appropriate)
+    - **Dialog:** Falco's post-victory dialog (per Section 7 — Falco lock)
+    - **Cross-references:** Section 4 — Mega-Dreamstone Shard hunt (parallel-main-quest for acquiring the Mega Stones themselves); Section 13 — Mega Evolution restriction system
+    - **Pre-Trial-5 Mega Stone behavior:** if the player holds Mega Stones before Trial 5 (acquired via the Shard hunt's earlier portions), Mega Evolution is *blocked* until Trial 5 victory. **Pre-Trial-5 informational dialog** when the player attempts Mega Evolution: a message indicating the bracelet is needed (specific wording `[OPEN]`).
+    - **Estimated scope:** ~6-10 hours (item + flag + combat hook + scripted event + dialog)
+
+63. **Bombard tutor scripted event** — `[SMALL — scripting]`
+
+    Per Section 7 — Falco Raptora (v0.9.8 lock), after the player defeats Falco at Trial 5 and earns the Firmament Badge, Falco offers to tutor Bombard to a Toucannon in the player's party.
+
+    **Components:**
+    - **Trigger:** player talks to Falco at his post-Trial-5 location (Trial 5 venue `[OPEN]` per deferred-locations policy)
+    - **Eligibility check:** player has a Toucannon in their party
+    - **Cost:** `[OPEN]` (free, or a tutor-fee similar to other Master Tutors)
+    - **Scripted dialog:** Falco offers, player accepts/declines, Toucannon learns Bombard (replacing one of its existing moves)
+    - **Re-engagement:** one-time-per-Toucannon (a given Toucannon cannot re-learn Bombard if forgotten; alternatively, allow re-learning via separate Move Tutor system)
+    - **Cross-references:** Section 13 — Master Tutor system (Falco joins the Master Tutor roster as Bombard-only; parallel to Blue Moon Hermit teaching Mountain Gale/Blood Moon/Gigaton Hammer)
+    - **Estimated scope:** ~2-4 hours
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.

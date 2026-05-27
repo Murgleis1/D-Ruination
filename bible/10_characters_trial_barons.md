@@ -84,6 +84,8 @@ She is the *family's hope* in a story full of family-failure: Pierra cannot prot
 
 **One of the deepest characters in the project. The Trial Baron who is also the secret destroyer of the Vessels of Ruin cult. Killed by Baradus in the late game, his death drives Osrid's commitment to becoming Champion + Regent-King and confronting the cults directly.**
 
+**`[v0.9.8 ADDITION]` Nemo is also the *operator* of the empire's covert Resistance Triad**, alongside Cadmus Umbra (strategist) and Falco Raptora (institutional-reach senior counsel). The Triad operates against both Ruin Cults outside the official Concordance framework. **Nemo is the one who *acts most directly*** — his killing of Harbinger Alaric and his ongoing containment of Ting-Lu are the Triad's most consequential operational moves. He works alone in the field; he reports out to the other two; the three coordinate where possible and respect each other's independent judgment otherwise. **The Triad's existence is one of the project's quietest political truths**, never spoken aloud in the empire's visible institutions, only inferred by engaged players from small consistent observations across the late-game story.
+
 **Origin: Sinnohian war orphan.**
 - Was a child soldier in Sinnoh, already deployed in combat before legal enlistment age
 - Taken in by a **Cormorian military-managed orphanage** (Section 2) after a Cormoria-Sinnoh territorial dispute ~30 years before the story
@@ -440,10 +442,11 @@ Per Section 11 — Ace-Bonding Overworld Interactions, all 9 Trial Barons qualif
 
 **Simone Sylphon + Splendor (shiny Obstagoon)** — **fully locked v0.9.8, see Section 7 — Simone Sylphon entry above for complete interaction profile.**
 
-**Trial 5-7 Barons (Raptora / Alban / Nightfall) — `[OPEN]` Baron identities; ace-bonding pattern in-scope deferred to Baron-lock.**
+**Trial 5 Baron — Falco Raptora — fully locked v0.9.8; see Falco Raptora entry below.** Two-ace structure (Sturm + Drang with parent-child Pokémon-Pokémon relationship visible in overworld). Interaction tone: *patrician-affectionate-old-warrior* — Falco's century of experience colors every interaction with both aces as *measured tenderness from a long-lived senior* rather than effusive warmth. The Sturm-Drang relationship between the two aces themselves is itself part of what the player observes.
+
+**Trial 6-7 Barons (Alban / Nightfall) — `[OPEN]` Baron identities; ace-bonding pattern in-scope deferred to Baron-lock.**
 - Each will receive locked ace-bonding interaction content when the Baron's character profile is locked in a future session
 - House character expectations:
-  - **Raptora (Flying, Trial 5):** likely *fierce-aristocratic-warrior* register — Pokémon treated as comrades-in-arms, possibly with falconry-style address conventions reflecting the bird-of-prey family aesthetic
   - **Alban (Grass, Trial 6):** likely *pastoral-rural-warm* register — Pokémon treated as *family*, given the house's complicity in the Nomad-Alban cover identity for 10 years; the Alban Baron's affection for their ace should *feel like the affection of a family that took a Nomad in*
   - **Nightfall (Dark, Trial 7):** `[OPEN]` — the Nightfall house's relationship to the partnership thesis is structurally complex (Eldred Nightfall was Osrid's father; the current Baron is Osrid's never-met relative); recommendation: the interaction tone should *evoke Eldred in some way*, even if the Baron is not directly Eldred-similar in personality. **Half-Nightfall-blood Osrid meeting the half-uncle/cousin who shares his patriline is structurally the project's most loaded "house-of-the-father" beat**, and the ace-bonding interaction should carry weight accordingly.
 
@@ -459,3 +462,122 @@ Per Section 11 — Ace-Bonding Overworld Interactions, all 9 Trial Barons qualif
 - The contrast between Manticore (warm-military) and Ting-Lu (silent-grave) reveals Nemo to the engaged player: *he is a man capable of both warmth and burden, simultaneously, and pays the cost of both with the same dignity.* When Ting-Lu eventually passes to Osrid at Nemo's death scene, the visual transfer of that *containment-posture* from Nemo to Osrid is one of the project's most loaded character beats.
 - `[OPEN]` Specific dialog and posture beats for Manticore (overworld scenes across Nemo's appearances)
 - `[OPEN]` Specific posture/visual treatment for the Nemo-Ting-Lu silent-symbiosis scenes — recommendation: never play Ting-Lu's standard cry in these scenes; the silence is the point
+
+### Falco Raptora — 5th Trial Baron (Flying), centenarian patriarch of House Raptora, secret Resistance Triad collaborator `[LOCKED v0.9.8]`
+
+**The empire's hundred-year-old patriarch who refuses to retire because he genuinely does not believe his bloodline can carry what he carries. He is correct, by his own assessment — and incorrect, by what the bible quietly insists. Falco is the third member of the empire's covert Resistance Triad (alongside Cadmus Umbra and Nemo Korolev), operating against both Ruin Cults from outside the official Concordance framework. The Trial 5 fight tests whether the player can survive a 100-year-old man's setup-sweep tactics with an Empire-era cast of bird Pokémon hand-bred across generations specifically to be lethal.**
+
+**Background:**
+
+- **Full name:** Falco Raptora. Head of **House Raptora**, one of the empire's five-oldest noble families (Section 12 — Five-Oldest Families framework, locked v0.9.8). Raptora is the Flying-type Trial House — Trial 5 of the 9.
+- **Age:** 100. **His vitality is superhuman** — he is animated, limber, vigorous, with very little visible sign of slowing down. Witnesses who meet him for the first time consistently underestimate his age by 30-40 years. He looks like a vigorous 60-year-old at most, and moves like one.
+- **Public persona:** The empire's senior Flying-type master, a Trial Baron of unusual longevity, the man who *runs* House Raptora's Bombirdier postal/aerial-delivery service and *oversees* the Templar Arceus's Braviary inter-city travel system at the institutional level (House Raptora's centuries-old Braviary mount engineering is the foundation the Templars operationalize — see below). He is widely respected and somewhat feared.
+- **Family:** Multiple generations of Raptora descendants are alive — children, grandchildren, great-grandchildren. **His youngest great-grandchild is 10 years old and just received his first Pokémon, a Starly.** This child is `[OPEN]` whether present in chapter scenes the player observes (recommendation: yes, briefly — the child running around Raptora property with his Starly is one of the project's clearest *show-don't-tell* worldbuilding details, and his presence quietly costs Falco something the player will only understand in retrospect).
+- **The succession crisis (deeply personal):** Despite the multi-generational family alive around him, **Falco refuses to retire** and **refuses to acknowledge any official heir.** His stated position is that none of his children, grandchildren, or great-grandchildren have the *capability* to succeed him in the role he occupies. **He believes House Raptora will crumble after he dies, and he stubbornly holds this belief in the depths of his soul.** *He is not posturing; he genuinely thinks this is true.* The 10-year-old great-grandchild with his Starly represents — to Falco — the *cycle of life* he is trying not to abandon his family to. The child's small joy of his first partner Pokémon is exactly what Falco is *unwilling* to see end with his own death, and he cannot reconcile this with his belief that no successor can take his place.
+- **The Rhydia exhibition match:** **Falco has lost an exhibition match to Champion Rhydia.** This is the *one* admission in his life that a young trainer might be capable of carrying serious weight. *He is aware Rhydia is exceptional.* But he believes Rhydia *alone* is not enough — the empire needs more than one such trainer to weather the cult crisis. **If the player defeats him at Trial 5, Falco gains a second data point.** Two young trainers, in his lifetime, capable of besting him. *Maybe his pride will be humbled* — and this is the structural function of Trial 5's outcome.
+
+**The Resistance Triad — Falco, Cadmus, and Nemo `[LOCKED v0.9.8]`:**
+
+**Three of the empire's most senior figures are quietly working against the cult crisis from outside the official Concordance framework.** They are:
+
+- **Cadmus Umbra** — Vizier of Education, architect of Osrid's protective exile, keeper of cosmological depth-knowledge (Section 7 — Cadmus Umbra)
+- **Nemo Korolev** — 9th Trial Baron, "the Usurper" (secret killer of Harbinger Alaric, holder of Ting-Lu, the empire's secret-savior-who-doesn't-know-what-he-saved; Section 7 — Nemo Korolev)
+- **Falco Raptora** — 5th Trial Baron, centenarian patriarch, extremely perceptive about both Ruin Cults' machinations and operating against them
+
+The three of them have an operational relationship — they share information, coordinate where possible, and act independently otherwise. **Falco is the most senior and most experienced** of the three. He is the one who recognized what the cults were doing earlier than most. **Cadmus is the strategist** of the triad — the architect who maps the cult landscape and identifies pressure points. **Nemo is the operator** — the one who acts most directly, including the killing of Alaric. **Falco bridges the strategic and operational layers**, providing institutional reach (House Raptora's empire-wide aerial infrastructure means he sees movements across Cormoria that the other two would not).
+
+**The Concordance does not know about the Triad.** The Concordance is the empire's official deliberative body where Cormoria's Viziers and senior figures debate policy. The Triad operates *outside* the Concordance because they have determined the cult crisis requires *action* faster than the Concordance can deliberate — and because some Concordance members (Silas Moray most notably) are themselves compromised. **The Triad's existence is one of the project's quietest political truths.** Players who notice it understand that the empire's *visible* leadership is not the *actual* defense against the cults; the actual defense is three private individuals operating in the shadow of the visible structure.
+
+**The Triad's existence is not stated in dialog.** It is shown through *small consistent observations*: Falco, Cadmus, and Nemo crossing paths in unexplained ways; intel arriving at one of them that should have taken longer; conversations being broken off when the player approaches. Engaged players will piece it together; less-engaged players will not. *Both readings are valid.*
+
+**See Section 7 — Cadmus Umbra and Section 7 — Nemo Korolev for cross-referenced acknowledgments of the Triad's existence on those characters' pages (added v0.9.8).**
+
+**Trainer philosophy — high-risk, high-reward, accuracy-manipulated setup-sweep:**
+
+Falco's team is built around a single coherent strategic premise: **most members of the team carry one or more high-power-low-accuracy moves, and the team's structure exists to *guarantee* those moves land at the moment of maximum payoff.** The mechanism is Lock-On (carried by three team members, used to enable their own next moves) and Tailwind (carried by Killowattrel) and accuracy-boosting setup (Coil on Sturm, Hone Claws on Mega Aerodactyl). **The strategy is sophisticated, requires turn-by-turn reading of the player's intentions, and rewards Falco's century of combat experience.**
+
+**The strategy's design intent:** Trial 5 is the first Trial where *type advantages alone are not enough.* Trials 1-4 reward team-building and basic-tier strategy; **Trial 5 is the project's first genuine "tactics check"** — the moment the player must read patterns turn-by-turn and disrupt setups before they pay off. *The player who relies on type matchups alone will lose to Falco. The player who reads Falco's setup patterns and disrupts the right turn will win.* Falco himself states this if defeated: *the desert taught me everything about which moves to use; my century taught me when.*
+
+**The Trial battle (Trial 5):**
+
+- **Format:** standard 6v6 single-trainer battle.
+- **Trial level cap:** **41** (per Section 13 — Trial level cap structure, locked v0.9.8). Falco's team levels at the cap.
+- **Team:**
+
+  | Slot | Pokémon | Gender | Ability | Moveset | Item | Notes |
+  |---|---|---|---|---|---|---|
+  | **Ace 1** | **shiny Galarian Zapdos, "Sturm"** | Genderless | **Defiant** | High Jump Kick / Dual Wingbeat / Coil / Bolt Beak | `[OPEN]` (recommend Life Orb or Choice Band; not Mega-Stone since Aerodactyl uses the team's Mega slot) | Falco's strongest ace. Saved as a hatchling when larger bird Pokémon were attacking it; lifelong bond. Custom move grants: Coil and Bolt Beak (neither canonical to Galarian Zapdos). |
+  | **Ace 2** | **shiny Toucannon, "Drang"** | ♂ | **Skill Link** (custom override; canonical is Sheer Force/Keen Eye/Hustle) | Bombard / Bullet Seed / Rock Blast / Lock-On | `[OPEN]` | Falco's public-facing ace. Bombard is a custom Flying-type variant of Population Bomb (see engineering tasks). Falco's family gift to him as a young man; his original main ace before Sturm. |
+  | 3 | Crobat | ♂ | Infiltrator | Sky Attack / Gunk Shot / U-Turn / Lock-On | `[OPEN]` | Custom move grants: Sky Attack and Lock-On (neither canonical to Crobat). The Lock-On → Sky Attack two-turn setup is brutal. |
+  | 4 | Kilowattrel | ♀ | (canonical, e.g. Volt Absorb / Wind Power) `[OPEN]` | Thunderclap / Air Slash / Roost / Tailwind | `[OPEN]` | The team's tempo-setter. Tailwind first turn enables priority for the rest of the team's setups. Thunderclap is a priority Electric attack that only fires if target hasn't moved. |
+  | 5 | Cramorant | ♂ | **Gulp Missile (extended)** | Triple Dive / Hurricane / Defog / Lock-On | **Sitrus Berry** | **Engine modification:** Cramorant's Gulp Missile now triggers on Triple Dive (in addition to canonical Surf/Dive), fires once per move use (not once per hit). Custom move grants: Triple Dive (canonical to Palafin only), Lock-On. |
+  | 6 | **Mega Aerodactyl** | ♂ | **Tough Claws** (post-Mega) | Stone Edge / Dual Wingbeat / Earthquake / Hone Claws | **Aerodactylite (Mega Stone)** | The team's Mega slot. Hone Claws boosts Atk + accuracy → boosted Earthquake/Stone Edge as cleanup. State-sanctioned Mega per Falco's senior-Trial-Baron and Resistance-Triad standing. |
+
+- **Strategy and team identity:** Killowattrel typically opens with Tailwind to enable priority across the team. Drang or Crobat or Cramorant Lock-On into their own next move (Bombard at 80 acc → 100; Sky Attack at 90 acc → 100; Triple Dive at 95 acc → 100). Sturm sets up Coil for the +1/+1/+acc compound boost, then Bolt Beak for guaranteed-hit cleanup. Mega Aerodactyl is the late-game closer — Hone Claws then Earthquake/Stone Edge. **The team is redundantly equipped for setup-sweep play; failing to disrupt the setup on the right turn is what loses the fight.**
+
+**Sturm — the strongest ace `[LOCKED v0.9.8]`:**
+
+- Shiny Galarian Zapdos (Fighting/Flying typing, BST 580, canonical Mythical-tier). Genderless per Zapdos species convention.
+- **Defiant** ability — every stat lowered by an opponent triggers a +2 Attack boost. Combined with the team's setup-sweep play, this means **opponents who try to stat-disrupt Sturm enable Sturm.**
+- **Custom move grants:** Coil (canonical to Snake-family Pokemon only, +1 Atk/Def/Acc per use) and Bolt Beak (canonical to Dracovish, 85 BP / 170 BP if user moves first — the Coil-then-Tailwind enables the *moving-first* threshold).
+- **Origin story `[LOCKED v0.9.8]`:** Falco saved Sturm as a hatchling. **Larger bird Pokémon were attacking the young Galarian Zapdos.** Falco intervened, drove off the attackers, and bonded with the hatchling in the act of protecting it. This is one of Falco's most personal Pokemon stories — *he did not seek Sturm out; he rescued a struggling young being and the rest followed.*
+- **Sturm's deployment is restrained in most of Falco's life** — the legendary-tier Pokemon is not displayed casually; Falco's *public-facing* ace is Drang (Toucannon). Sturm is the *private* combat companion, fully deployed only when Falco is *seriously testing* an opponent. **Deploying Sturm in the Trial 5 fight is itself a statement** — Falco considers the player worth fighting at his peak.
+
+**Drang — the public-facing ace `[LOCKED v0.9.8]`:**
+
+- Shiny male Toucannon, Skill Link ability (custom override; canonical hidden ability is Sheer Force).
+- **Origin:** Drang was the official Pokemon given to Falco by his family as a young man. **Drang is *family*** — the gift that initiated Falco's life as a serious trainer. He has been Falco's public-facing ace for the majority of Falco's century-long career.
+- **Bombard custom move:** Flying-type clone of Population Bomb (the multi-strike Normal-type signature canonical to Smeargle and Diglett-line). **Empire-era Cormoria's signature ordnance-bombardment move; exclusive to Toucannon lineages raised in the Raptora tradition.** Bombard's parameters: Flying type, 20 BP × up to 10 hits, **80 accuracy**, **2 PP**, multi-hit (Skill Link guarantees 10-hit attempt; the move's accuracy roll still applies, and on a miss the whole move misses), animation cloned from Barrage. **At max strength against a neutral target: 200 BP physical Flying with no recoil — this is the strongest Flying-type move in Empire-era Cormoria, and it is locked to Drang and the Raptora tradition.**
+- **Lock-On + Bombard combo:** Drang's signature play. Turn 1 Lock-On (guaranteed hit on the next move regardless of accuracy), turn 2 Bombard (now effectively guaranteed 200 BP). **The 2 PP limit means Falco can attempt this combo at most twice in any given battle**, which is exactly the design constraint — the player has to survive the *first* Lock-On-Bombard and then exploit the cooldown.
+
+**The Sturm/Drang relationship `[LOCKED v0.9.8]`:**
+
+Sturm (Galarian Zapdos) and Drang (Toucannon) have a visible parent-child-like relationship in Falco's overworld appearances. **To Sturm, Drang is like a child.** Sturm helped raise Drang when Drang was just a freshly-hatched Pikipek — Falco's family-gifted Toucannon-line Pokemon was Drang's pre-evolution; Sturm was already with Falco when the Pikipek hatched. *Despite Sturm being significantly smaller than fully-grown Drang*, Sturm carries the parental authority and Drang carries the filial deference. **Drang, in turn, treats Sturm with the affection a grown bird-Pokemon offers the elder who raised it.**
+
+Overworld interactions show this dynamic. Examples:
+- Sturm grooms Drang's plumage; Drang stands still and accepts the attention with visible contentment
+- Drang offers food to Sturm; Sturm accepts with the small dignity of a parent receiving a gift from a grown child
+- Sturm signals to Drang non-verbally (a glance, a head-tilt) and Drang responds with action
+
+This is the project's *second* major visible Pokémon-Pokémon relationship in overworld appearances, parallel to Sable's Solara/Gouging-Fire (elder-sibling/younger-sibling). **The Sturm-Drang dynamic is parent-child.** *Project-level commitment to showing inter-Pokemon relationships in major characters' overworld scenes is a motif, not a requirement — see Section 11.*
+
+The names **Sturm and Drang** — *Sturm und Drang*, the German Romantic literary movement, "storm and stress" — are intentional. Together they represent *the storm and the stress of a century of combat partnership*, the elder-and-the-protege bond that has carried Falco through his career. **The names also signal that Falco is more literarily-educated than his rough-soldier reputation suggests.** *Show, don't tell, in the Pokemon nicknames themselves.*
+
+**Lock-On strategy and the team's accuracy-manipulation gimmick `[LOCKED v0.9.8]`:**
+
+Three Pokemon on Falco's team carry Lock-On (Drang, Crobat, Cramorant). The strategy is **each Pokemon enables their *own* next move**, not cross-Pokemon Lock-On transfer. The pattern:
+
+- **Drang:** Lock-On → Bombard (80 acc → 100 acc, 200 BP guaranteed)
+- **Crobat:** Lock-On → Sky Attack (the charge turn becomes useful; turn 1 Lock-On, turn 2 Sky Attack charge, turn 3 Sky Attack guaranteed; or alternative cycles)
+- **Cramorant:** Lock-On → Triple Dive (95 acc → 100 acc, three guaranteed strikes, with Gulp Missile firing once per move use after a successful hit)
+
+No engine modification needed for Lock-On itself — each Pokemon uses Lock-On to guarantee their *own* next move, which is the canonical Lock-On behavior. The strategic redundancy is the design: *the team has three different ways to deliver guaranteed high-impact damage*, and the player has to interrupt the setup turn each time.
+
+**Cramorant's Triple Dive + Gulp Missile interaction `[LOCKED v0.9.8 — requires engine modification]`:**
+
+Triple Dive (canonical to Palafin only) is granted to Cramorant. **The custom modification:** Cramorant's Gulp Missile ability now triggers on Triple Dive in addition to its canonical Surf/Dive triggers. **Implementation:** Triple Dive is added to the Gulp Missile move-watchlist in the engine ability hook. **Trigger behavior:** Gulp Missile fires *once per move use*, not once per individual hit — the lore is that Cramorant catches a single payload across the dive action regardless of how many strikes the dive lands. Engineering task #59 (see Section 14).
+
+**The Trial 5 fight outcome and Falco's character beat `[LOCKED v0.9.8]`:**
+
+- **Pre-battle dialog:** Falco invites the player to test themselves against him at full peak (no holding back). His framing is *I have lost only once in a century of combat — to a young woman of exceptional talent. You will be the second, or you will not be.* He deploys Sturm openly — signaling that he considers the player worth the legendary-tier deployment. **The player will understand from Falco's restraint-elsewhere-and-deployment-here that this is unusual.**
+- **Post-battle dialog (player victory):** Falco is visibly humbled. *The desert taught me everything about which moves to use; my century taught me when. And it appears my century is not enough by itself.* His pride breaks — and the break is **freeing**, not crushing. **The defeat liberates him from his belief that the future of Cormoria rests entirely on his shoulders.** He is no longer alone in his diagnosis.
+- **The Z-Bracelet gift `[LOCKED v0.9.8]`:** Falco gives the player a **Z-Bracelet** as a bonus gift alongside the Trial 5 Badge ("Firmament") and the standard TM. **The Z-Bracelet is the player's Mega Evolution unlock for the entire game** — before Trial 5, the player cannot Mega-Evolve any held Mega Stone; after Trial 5, the player can. **This is a major mid-game power-progression beat.** Mega Stones come from the Mega-Dreamstone Shard hunt (Section 4 — parallel-main-quest); the Z-Bracelet from Falco is the *enabler* that activates them. **Falco passing the Z-Bracelet to the player is a public political statement** as well as a personal one: Falco recognizes the player as a *peer-tier authority* on partnership-mastery, which is exactly what Mega Evolution requires.
+- **The Firmament Badge:** the Trial 5 Badge is named **Firmament** — the celestial vault, the canopy of sky-stars. The name evokes *the upper limit of the world*, fitting House Raptora's Flying-type sovereignty over the empire's airspace. **Trial Badge names are a project-level lock convention** — every Trial Badge will have a name; the others are `[OPEN]` (see Section 13).
+- **The Bombard tutor offer `[LOCKED v0.9.8]`:** If the player returns to Falco's location after the Trial 5 victory, Falco offers to **tutor Bombard to a Toucannon in the player's party.** This is the *only* way Bombard becomes accessible to non-Raptora-tradition Toucannons. Falco does not teach any other move — **he is a single-signature tutor**, teaching only the move that defines his family's legacy. Engineering task #60 (see Section 14).
+- **Post-defeat character path `[OPEN]`:** Whether Falco *actually* humbles himself and finally names an heir, or whether his pride re-asserts itself after the moment of liberation passes, is *open* — the Trial 5 outcome creates the *possibility* of the humbling, not the guarantee. **Both dramatic outcomes are valid.** The bible holds the question open for later decision based on how the broader Trial-5-aftermath story develops.
+
+**Post-defeat overworld interactions `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+Falco's overworld presence after Trial 5 is *different* from his pre-Trial-5 presence. **Players who return to House Raptora locations observe a slightly less rigid Falco** — Sturm and Drang are more visible together, the 10-year-old great-grandchild may appear in scenes with Falco watching from a distance, and Falco's posture relaxes by small degrees. **The player who beats Falco is *changing* Falco** — slowly, partially, but observably. *Show, don't tell.*
+
+**Open items for Falco:**
+
+- `[OPEN]` Falco's full backstory — his exact childhood, when he saved Sturm, what other key Pokemon partnerships he has had across his century
+- `[OPEN]` Whether Falco's wife / consort is alive or deceased, and what her House background was (potentially significant since Raptora is one of the five-oldest families)
+- `[OPEN]` Exact names of his children, grandchildren, and the 10-year-old great-grandchild
+- `[OPEN]` Falco's specific Concordance status and where he sits politically within Cormoria's official structure
+- `[OPEN]` Whether Falco ever drops the secrecy on the Resistance Triad — i.e., whether the empire's official leadership ever learns the Triad existed
+- `[OPEN]` Whether Falco's post-Trial-5 humbling leads to him naming a successor before story-end, or whether the question of House Raptora's future remains unresolved at game's end
+- `[OPEN]` Whether Falco appears at the Necropolis Assault as a defensive ally (likely yes, given his Triad standing — but his age and post-Trial-5 humbling may shape what role he plays)
+- `[OPEN]` Whether the 10-year-old great-grandchild has any direct interaction with the player at Trial 5 location
+

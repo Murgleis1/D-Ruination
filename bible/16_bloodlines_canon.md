@@ -23,6 +23,53 @@ Rhydia continues the matrilineal Cormorian royal line through her future descend
 - **Osrid's adopted line** (the Amber-Letz/Berlitz family) produces the more historically significant modern-canon descendants
 - Sister and brother, both lost to history in different ways
 
+### The Five-Oldest Noble Houses of Cormoria — and Ashland's exceptional status `[LOCKED v0.9.8]`
+
+Cormoria's noble House structure has *gradations of antiquity.* The empire's recognized noble Houses span centuries of accumulated history, but **five Houses are recognized as the absolute oldest** — the families whose names were among the first formally bestowed when the empire codified its noble structure (Section 2 — Cormorian surnames and the Arceus-blessing irrevocability rule).
+
+**The five-oldest Houses, in order of name-bestowal:**
+
+1. **House Langerin** — keepers of the Mirroh Necropolis (the sealed gate to Distortion World; Section 7 — Kimaris Langerin). Occult-traditional naming convention. Generational Marshadow ace.
+2. **House Nightfall** — Eldred Nightfall's family; Osrid is half-Nightfall by patriline (Section 7 — Eldred Nightfall). Current Trial 7 Baron `[OPEN]`.
+3. **House Moray** — Psychic-type tradition; Silas, Brie, and Domdaniel (Section 7 — Brie Moray, Silas Moray).
+4. **House Umbra** — Latin-shadow naming tradition; Vizier of Education; Joustroll/Jousteel heraldic line (Section 7 — Cadmus Umbra; Section 9 — Joustroll/Jousteel Line).
+5. **House Raptora** — Flying-type tradition; pioneered the Braviary mount infrastructure and the Bombirdier postal/aerial-delivery network across the continent (Section 7 — Falco Raptora; subsection below).
+
+**The Ashland exception `[LOCKED v0.9.8 — expands the v0.9.4 Naljo-Ashland lore at lines 164-168 below]`:**
+
+**House Ashland is *about as old* as Langerin and Nightfall** in terms of family lineage age — *but they are not counted among the five-oldest because they came to Cormoria with their family name already established.* The other five had their names *bestowed* by the empire as part of the formal noble-codification event (the Arceus-blessing ritual that makes Cormorian surnames irrevocable; Section 2). **Ashland brought their pre-existing Naljo name with them and the empire honored it.**
+
+This makes Ashland a *uniquely-situated* House:
+
+- Their *bloodline* age is in the same tier as the five-oldest
+- Their *Cormorian noble status* postdates the original five
+- **They are functionally a sixth "ancient House" — but structurally a *recent-arriving* House** in terms of empire-recognition timing
+
+**The Naljo backstory (expanded from v0.9.4 lore at lines 164-168):**
+
+House Ashland originated in **Naljo** — the region setting of the *Pokémon Naljo* fan project series (Brown/Prism). They were known there as a *supposedly divine family of Fire magic users*. **They were cast out from Naljo by Varaneous, the region's chief legendary, alongside several other Naljo legendaries**, for reasons that remain unstated in our game's surface narrative (deeper-canon-attentive players may know the Naljo source material; players who don't will simply see Ashland as a Fire-tradition House with an old foreign-origin story).
+
+After the exile, the Ashland family migrated. They eventually settled in Cormoria, bringing with them:
+- **Their family name** (which the empire honored rather than re-bestowing)
+- **Their deep Fire-magic tradition** (which became House Ashland's Fire-type Trial-House mastery in Cormoria)
+- **Their accumulated combat and craft knowledge** from their Naljo period
+- **The latent shame of exile** — they are an *exiled-aristocracy* family making good in a new empire, and the family's quiet relationship to this displacement is part of their character (Section 7 — Reid Ashland's "decade of public service to defend his family's reputation" arc echoes this generational positioning)
+
+**Sable Ashland's displacement-and-return arc** (Section 7 — Sable Ashland) takes on a deeper resonance against this background: Sable is the Ashland who is *literally displaced again*, this time temporally rather than geographically — *the family that was exiled from Naljo produces a son who is exiled from his own present.* And Sable's eventual return to a Cormoria where his childhood friends (the Sylphons) have rearranged their lives carries echoes of the Ashland founders' arrival in Cormoria centuries earlier — *coming back to find the world changed.*
+
+**House Raptora's empire-service legacy `[LOCKED v0.9.8]`:**
+
+House Raptora is the youngest of the five-oldest Houses but became one of the empire's most operationally important. Two specific infrastructures were *engineered by House Raptora* and have shaped Cormorian everyday life across centuries:
+
+- **The Braviary mount system.** House Raptora *pioneered* the breeding-and-training program that produces Cormoria's distinctive Braviary partner-Pokemon — the Normal/Flying *honest civic-service form* that became the empire's national bird and cultural icon (Section 9 — Braviary Inter-City Travel System). Raptora's centuries of selective breeding established the Braviary line as it is currently known across the empire. **The Templar Arceus order operationalizes the system as a public service** (citizens pay Templars at city Taverns for inter-city Braviary flights), but the engineering substrate is Raptora's. *This means House Raptora is upstream of the Templars' Braviary partnership without being part of the Templar order itself.* It is a quiet structural relationship — the Templars *manage* what Raptora *built*.
+- **The Bombirdier postal and aerial-delivery service.** A *specially-bred Bombirdier line*, engineered by House Raptora across generations, that runs the empire's inter-continental postal and package-delivery infrastructure. **This is genuinely new lore as of v0.9.8** — the Bombirdier service was not previously documented; Falco Raptora's character entry establishes it as the family's signature *commercial* contribution to the empire (parallel to House Sylphon's mercantile guild contribution, House Surge's military/electrical contribution, etc.). The Bombirdier service is run by House Raptora directly, not delegated to a religious or civic intermediary the way Braviary travel is.
+
+**The dual infrastructure (Braviary mounts + Bombirdier postal) gives House Raptora extraordinary *empire-wide informational reach.*** Raptora-affiliated personnel are present in every city, watching every routine flight, observing every package routed. **This reach is part of why Falco Raptora is so well-positioned to be a member of the covert Resistance Triad** (Section 7 — Falco Raptora). The Triad operates partly *because* one of its members has line-of-sight into the empire's everyday movement patterns at a granularity no Concordance member possesses.
+
+`[OPEN]` Whether the cult crisis has begun *exploiting* Raptora infrastructure (forged postage, cult messengers using public Braviary travel, etc.) and whether Falco has had to take counter-measures
+`[OPEN]` Whether the Bombirdier postal service has its own modern-canon descendant (parallel to Sylphon → Silph Co or Vandras → Berlitz family lineages), or whether it remains a Cormorian-empire-only institution
+`[OPEN]` Whether the Bombirdier service has its own employees / hierarchy / specific recurring NPCs the player encounters across the game (recommendation: yes — postal workers / aerial-delivery couriers as recurring incidental NPC presence; one or two named recurring couriers as flavor)
+
 ### Vandras Amber-Letz → Volo → Cynthia `[LOCKED]`
 
 - Vandras Amber-Letz finds Osrid post-cataclysm — **as a stranger, with no idea who Osrid is** — and takes him in out of pure compassion

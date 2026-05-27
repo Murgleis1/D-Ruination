@@ -424,7 +424,7 @@ The ace-bonding overworld interactions are the project's commitment to showing p
 | 2 | Reid Ashland | Trial Baron 2 (Fire) | unique shiny Heatran (Earth Eater) | Locked |
 | 3 | Manus Surge | Trial Baron 3 (Electric) | `[OPEN]` | Open |
 | 4 | Simone Sylphon | Trial Baroness 4 (Normal) | Splendor (shiny female Obstagoon, Fur Coat) | Locked v0.9.8 |
-| 5 | Trial 5 Baron (Raptora) | Trial Baron 5 (Flying) | `[OPEN]` | Open |
+| 5 | Falco Raptora | Trial Baron 5 (Flying) | **Sturm** (shiny Galarian Zapdos, Defiant — strongest ace) **+ Drang** (shiny male Toucannon, Skill Link — public-facing ace; Sturm/Drang have parent-child Pokémon relationship visible in overworld) | Locked v0.9.8 |
 | 6 | Trial 6 Baron (Alban) | Trial Baron 6 (Grass) | `[OPEN]` | Open |
 | 7 | Trial 7 Baron (Nightfall) | Trial Baron 7 (Dark) | `[OPEN]` | Open |
 | 8 | Brie Moray | Trial Baroness 8 (Fairy) | Domdaniel (shiny Scream Tail, Huge Power) | Locked |
@@ -434,7 +434,7 @@ The ace-bonding overworld interactions are the project's commitment to showing p
 | 12 | Silas Moray | Vizier of Commerce | primary ace `[OPEN]` + Thauma (shiny Hisuian Braviary) | Partial |
 | 13 | Female Rock Vizier | Vizier (portfolio `[OPEN]`) | shiny Tyrantrum | Locked |
 | 14 | Rhydia | Champion | **Justice** (Iron Valiant, Sharpness) **+ Puff** (shiny Drampa, Multiscale) (two-ace structure) | Locked |
-| 15 | Goma | Beads Cult Harbinger | **Smolder** (shiny Emboar) **+ Mega Houndoom** (two-ace structure) | Locked |
+| 15 | Goma | Beads Cult Harbinger | **Smolder** (shiny Emboar — *single bonded ace*; Mega Houndoom is a *combat asset* she Mega-evolves in battle but does not bond with as an overworld-visible ace) | Locked v0.9.8 (corrected from v0.9.7 erroneous two-ace framing) |
 | 16 | Baradus | Sword Cult leader | **Shardik** (shiny Beartic, Tough Claws — public-facing overworld ace, weapon-register interactions) **+ Guzzlord** (Dragon's Maw — strategic-deployment ace; *single late-game private-moment overworld scene only*) | Locked v0.9.8 (Option B arrangement) |
 | 17 | Jordan Ramses | Poison-type recurring rival | `[OPEN]` | Open |
 | 18 | Wakahisa | Bug-type recurring rival | `[OPEN]` | Open |
@@ -446,7 +446,7 @@ The ace-bonding overworld interactions are the project's commitment to showing p
 
 **Notable structural observations:**
 
-- **Six characters have *two-ace* structures** (Nemo, Rhydia, Goma, Ambrose, Sable, plus Silas's partial Thauma secondary) — for these, the overworld interaction style may differ between primary and secondary aces, reflecting the trainer's distinct bonds with each. *Nemo's bond with Manticore is military-respectful; Nemo's bond with Ting-Lu is the older-soldier-with-a-tool-that-could-burn-him register.* Different bonds, same character. **Sable's two-ace structure is unique in featuring a Pokémon-Pokémon bond visible in the overworld** — Solara treats Gouging Fire as a much younger sibling (despite Gouging Fire being 10× Solara's mass); Gouging Fire defers to Solara as a big-brother figure. The size-mismatch is comedic and intentional. **Baradus's two-ace structure is the project's antagonist-inverted version of the pattern** — Shardik gets the standard repeated public overworld presence (treated as weapon, demonstrating the anti-thesis); Guzzlord gets a *single* hard-to-find late-game private moment (the one bond Baradus refused to extend to anything else). See Section 8 — Baradus entry for the Option B narrative lock.
+- **Seven characters have *two-ace* structures** (Nemo, Rhydia, Goma — *no, corrected v0.9.8 to single-ace; see below*, Ambrose, Sable, Falco, plus Silas's partial Thauma secondary). **Corrected scope:** Six characters fully have two-ace structures (Nemo, Rhydia, Ambrose, Sable, Falco, plus Silas's partial Thauma secondary). For these, the overworld interaction style may differ between primary and secondary aces, reflecting the trainer's distinct bonds with each. *Nemo's bond with Manticore is military-respectful; Nemo's bond with Ting-Lu is the older-soldier-with-a-tool-that-could-burn-him register.* Different bonds, same character. **Three characters have *visible Pokémon-Pokémon relationships in overworld interactions*:** Sable (Solara treats Gouging Fire as a much younger sibling), Falco (Sturm raised Drang from a Pikipek and treats him as a grown child — parent-child dynamic), and Ambrose (Temperance and Brunhilda interact briefly — recommended). **These are *motif* not requirement** — see the Motifs-as-Tools meta-principle below. **Baradus's two-ace structure is the project's antagonist-inverted version of the pattern** — Shardik gets the standard repeated public overworld presence (treated as weapon, demonstrating the anti-thesis); Guzzlord gets a *single* hard-to-find late-game private moment (the one bond Baradus refused to extend to anything else). Shardik and Guzzlord do *not* have any inter-Pokemon relationship in the overworld. See Section 8 — Baradus entry for the Option B narrative lock.
 - **One ace evolves mid-game (Glaive's Shelgon → Salamence)** — Glaive's overworld interactions therefore need *two versions* of the dialogue/animation, pre- and post-evolution. The Hermit-saved-Glaive-from-sandstorm-which-enabled-Bagon→Shelgon backstory (Section 7 — Glaive arc) is already a locked partnership-thesis demonstration; the overworld interactions extend it into the everyday register.
 - **Eden's ace is type-counter-locked to the player's pick.** Engineering work for Eden's overworld interactions branches three ways (one per possible starter). This is moderate-scope additional work; the system must conditionally select the right interaction set based on the player's Act I choice.
 
@@ -505,6 +505,82 @@ When designing any scene with emotional weight, the bible authoring process shou
 - **Brie's overworld interactions with Domdaniel** (Section 7 — Brie Moray / Section 11 — Trial Baron Ace-Bonding): the *contrast* against what Silas's relationship with Domdaniel would have been is shown through Brie's casual gentle handling of the Pokemon, not stated.
 
 The principle is **the project's writing-quality contract with itself**: emotional density without overwhelming the player, accomplished by trusting the player to read what the bible has carefully constructed for them to see.
+
+### Principle: Player-Driven Design Over Mainline Canonicity `[LOCKED v0.9.8]`
+
+A project-level design standard governing the relationship between Empire-era Cormoria's content and mainline Pokémon-canon learnsets, abilities, evolution mechanics, and species traits.
+
+**The principle:** **What matters is whether the design is cool, thematically coherent, and serves the character's story.** Mainline-canonical learnsets, abilities, evolution gates, and species traits are *suggestions and starting points*, not constraints. When user-specified Pokémon kits, ability assignments, custom moves, or evolution mechanics diverge from mainline canon, **the project implements the user's design** rather than reverting to mainline behavior.
+
+This is *Empire-era Cormoria, not the modern Pokémon world.* The empire-era has its own breeding programs, training traditions, family signature moves, and species-engineering practices. What modern Toucannon canonically learns is what modern Toucannon learns; what Raptora-tradition Empire-era Toucannons learn is what Falco Raptora has bred them to learn. The two are different populations across two millennia. **They do not have to be identical.**
+
+**Practical implementation:**
+- **Custom abilities on existing species** are implemented via custom trainer-Pokémon ability override entries (precedent: Splendor's Fur Coat on Obstagoon — Section 7 Simone; Drang's Skill Link on Toucannon — Section 7 Falco; the Tinkatink-line Fur Coat ability assignment — engineering task #16).
+- **Custom move grants on existing species** are implemented via per-trainer-Pokémon move-table overrides without modifying the species learnset (precedent: Sturm's Coil and Bolt Beak on Galarian Zapdos; Crobat's Sky Attack and Lock-On; Cramorant's Triple Dive and Lock-On).
+- **Custom evolution gates** for project-original Pokémon and project-specific evolution paths (precedent: starter Stage-2 → Stage-3 evolution gated by tutored signature move, not by level; Section 6).
+- **New custom moves** implemented as engine additions (precedent: Behemoth Blade Cormorian, Behemoth Bash, Mountain Gale, Bombard).
+- **Engine modifications** to ability behaviors when justified by character design (precedent: Cramorant's Gulp Missile extended to trigger on Triple Dive in addition to canonical Surf/Dive).
+
+**What the principle does NOT mean:**
+- It does not mean *ignore engine constraints.* Custom-move kits still must respect the engine's combat-resolution rules (Skill Link still rolls accuracy once for the whole move; Lock-On still applies to the user's next move, not transferred across switches; etc.).
+- It does not mean *invent species traits without rationale.* Each custom assignment should make *thematic sense* — Falco's Drang gets Skill Link because Falco trained the Raptora line for guaranteed multi-strike volley delivery; Splendor gets Fur Coat because Simone bred her for defense; etc.
+- It does not mean *reject all canonical learnsets.* Most Pokemon on most trainers use canonical movesets; the custom assignments are reserved for major characters' aces and signature combat profiles where the *design intent* justifies the divergence.
+
+**Why the principle matters:**
+
+Empire-era Cormoria is a *worldbuild,* not a port. The empire-era characters have spent centuries developing their own training traditions, breeding programs, and combat philosophies. **Forcing the bible to conform to mainline-canon Pokémon traits would erase those centuries of empire-internal development.** The project's commitment to mature character work requires that each major trainer's team *reflect their character* — and that often means custom assignments that mainline canon does not have.
+
+This principle is also a *practical authoring discipline*: the auditor's job (Claude's job) is to flag *engine concerns* (does the kit interact correctly with combat mechanics? does Skill Link multi-hit miss together or separately? does Lock-On transfer or not?) — **not** to flag *canonicity concerns* (does Pokemon X canonically learn Move Y?). Confusing the two wastes design energy on the wrong question.
+
+### Principle: Motifs Are Tools, Not Templates `[LOCKED v0.9.8]`
+
+A meta-principle governing how project-level design patterns and recurring motifs are applied across characters and story beats.
+
+**The principle:** *Motifs are tools the project uses **when they serve the character or the story**. They are not requirements that must apply to every major character or every plot beat.*
+
+The project has multiple recurring motifs woven through its design:
+- **Two-ace structures** with named primary and secondary aces (Rhydia/Justice+Puff, Ambrose/Temperance+Brunhilda, Sable/Solara+Gouging Fire, Falco/Sturm+Drang, Nemo/Manticore+Ting-Lu, Baradus/Shardik+Guzzlord-inverted)
+- **Visible Pokémon-Pokémon relationships in overworld interactions** (Sable's elder/younger-sibling Solara/Gouging Fire; Falco's parent-child Sturm/Drang; Ambrose's Temperance/Brunhilda recommended)
+- **Pre-game-locked-character + new-evolution-revealed-mid-game patterns** (Glaive's Bagon→Shelgon→Salamence visible across the story)
+- **Bloodline descents to modern Pokémon canon** (Umbra→Tenebris, Sylphon→Silph Co, Stone→Devon, etc.)
+- **Cross-fandom references to other fan projects** (Naljo-Varaneous-Ashland, Sinnoh-pre-Cynthia Volo lineage, etc.)
+- **Generational Mythical-tier defensive aces deployed at critical late-game moments** (Kimaris's Marshadow; Brie's Domdaniel; Nemo's Ting-Lu)
+- **Ace-bonding overworld interactions** (Section 11 — pattern locked)
+- **Show, don't tell as the writing register** (Section 11 — pattern locked)
+
+**The motifs above are *tools the project reaches for when they best serve the character or beat.*** They are not checklists.
+
+**Examples of the principle in action:**
+- **Kimaris does not have a two-ace structure** despite being a major Trial Baron — Crowley is his only ace, and Marshadow is a *generational defensive deployment*, not a co-bonded ace. The bible does not force a second bonded ace onto Kimaris because his character is best served by his solitary intensity with Crowley.
+- **Goma has a single bonded ace** (Smolder), with Mega Houndoom as a *combat asset* she Mega-evolves in battle but does not bond with as an overworld-visible second ace. The bible does not inflate Goma's character with a fake second-ace bond.
+- **Falco's Sturm and Drang have a visible parent-child relationship**, but **Rhydia's Justice and Puff may or may not interact substantially in the overworld** — Rhydia's character is best served by the *contrast* between her empire-public-Justice bond and her family-private-Puff bond, not necessarily by a Justice-Puff inter-Pokemon relationship. The motif applies where it serves the story.
+- **Most non-major-character trainers don't have named aces at all.** The ace-bonding pattern is reserved for major recurring trainers where the bond-demonstration earns its engineering cost. Other trainers have generic team rosters.
+
+**Why the principle matters:**
+
+Mature world-building uses patterns *flexibly.* The project's strength is not in rigid template application — it is in *recognizing which patterns serve which characters.* The bible's author (and the auditor) must always ask: *does this motif serve this specific character or beat, or am I applying it because it exists?* When the answer is "applying because it exists," the application should be skipped.
+
+This principle is the *aesthetic discipline* alongside the player-driven-design-over-canonicity practical discipline above. Together they form the project's design-judgment foundation.
+
+### Principle: Deferred Locations Until Map-Design Session `[LOCKED v0.9.8]`
+
+A project-level deferment policy governing geographic and venue specifics in bible entries.
+
+**The principle:** *Specific locations (cities, regions, building names, exact venues for Trial fights and scripted scenes) are intentionally deferred to a dedicated map-design session.* Until that session, all location-specific decisions in the bible are tagged `[OPEN — deferred to map-design session]`.
+
+**Rationale:** Empire-era Cormoria has substantially more locations than modern-Cormoria (the Dreamstone Mysteries setting), and the modern-Cormoria already has dozens of cities, routes, and named regions. Designing the empire-era map requires:
+- A holistic view of where each Trial House's seat is located
+- Geography that supports the story beats (the desert for Glaive's sandstorm; the deep cavern for Trial 4 Joustroll Egg; the cliff or mountain or aviary for Trial 5; etc.)
+- Connection routes that pace the game's progression naturally
+- Visual reference materials and map sketches not currently in hand
+- Consistency with Dreamstone Mysteries' existing geography where applicable
+
+**This work cannot be done piecemeal across character-design sessions** without producing geographic incoherence. Therefore the bible explicitly *defers* location specifics in all character entries written across other sessions, leaving them tagged for the dedicated map-design pass.
+
+**What the principle does NOT mean:**
+- **Narrative structure remains locked.** *What* happens at each Trial, *what* happens in each chapter, the *order* of events — these remain firmly locked even when *where* they happen is open. The Trial 5 fight is locked; the venue is open. The Trial 4 Joustroll Egg sidequest is locked; the cavern's location is open. The Hermit ritual is locked; the Hermit's location is open.
+- **Worldbuilding *connections* between locations are locked.** "House Raptora operates the Bombirdier postal service that flies between cities" is a locked relationship even though the specific cities are open. "The Trial 5 fight happens at a Raptora-affiliated venue" is locked; the venue's name and geography are open.
+- **The deferment does not block writing.** Bible entries should reference locations as `[OPEN — venue TBD in map-design session]` and proceed with the narrative content. This is a common workflow pattern across professional game development.
 
 ---
 
