@@ -92,11 +92,11 @@ The Hermit is the sole figure in Cormoria who knows the **Blood Moon (Ground) te
 - Teaches Blood Moon (Ground) to a Blue Moon Ursaring at level 45+ upon completion of the trial-quest to reach the Hermit's location
 - `[OPEN]` Specific challenge or proof-of-bond required before the Hermit teaches the move
 
-#### Function 2: Master Partnership-Teacher (mid-game introduction via Glaive) `[LOCKED v0.9.4]`
+#### Function 2: Master Partnership-Teacher (mid-game introduction via Glaive) `[LOCKED — restructured v0.9.8 to correct v0.9.4 pre-game-Hermit framing]`
 
-**Glaive is the player's connection point to the Hermit.** During Glaive's wandering-the-wilderness years training Bagon, he was saved from a brutal sandstorm by the Hermit and given shelter. The Hermit then provided **partnership-training** that enabled Bagon → Shelgon evolution (Section 7 — Glaive arc, step 5-7).
+**Glaive is the player's connection point to the Hermit.** During Glaive's *recent desert sojourn between his 2nd and 3rd on-screen fights with the player* (Section 7 — Glaive arc, restructured v0.9.8), Glaive was caught in a brutal sandstorm while pursuing the legendary Garchomp; the Hermit rescued him and provided shelter. The Hermit then provided **partnership-training** that enabled Bagon → Shelgon evolution. **The v0.9.4 framing erroneously placed this event in Glaive's pre-game wandering years; the v0.9.8 retcon corrects this to an on-screen event during the early game (between Glaive G2 and G3 fights).** See Section 7 — Glaive arc, restructured v0.9.8.
 
-**Around the mid-game when the player reaches level 45 and is discussing final evolution with Cadmus Umbra**, Glaive joins the conversation and brings up the Blue Moon Hermit. For Teddiursa-pickers, this becomes the player's pathway to Trial 6 evolution; for Frigibax/Tinkatink-pickers, this may be a separate introduction (`[OPEN]` whether the Hermit teaches the other gating moves or only Blood Moon).
+**At the Trial 6 chapter onset (after Glaive G5)**, Glaive recounts his recent desert experiences to Umbra and the player. This is the conversation that initiates the Hermit quest for the player. The conversation occurs in-flow with the broader Trial 6 chapter setup; the player has by this point completed Trials 1-5 and faces the Trial 6 cap rising from 41 to 45 across the chapter. For Teddiursa-pickers, the conversation triggers via the Hermit's "Blue Moon" self-reference; for Frigibax/Tinkatink-pickers, the conversation triggers via Glaive's broader partnership-mentor framing of the Hermit's role. **The Hermit teaches all three signature gating moves** (Mountain Gale, Blood Moon, Gigaton Hammer) — he is the singular Master Tutor for the Stage-2 → Stage-3 starter evolutions.
 
 **Glaive's recounting** to the player and Umbra establishes the Hermit's broader significance — the Hermit is **the master partnership-teacher of the project**, not just a Teddiursa-specific tutor:
 
