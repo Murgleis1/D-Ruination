@@ -166,15 +166,76 @@ When the Beads Cult attempts to raid Mt. Ceram for Chi-Yu's revival and the reso
 - **Reid Ashland retires from his Trial Baron seat** to study under Vizier Umbra and pursue his own academic dream of researching Fire-type Pokémon
 - Reid's character arc completes: he goes from "prodigy son shouldering a disgraced family's reputation" to *free scholar* — no longer carrying the political burden of public service
 
-**Sable's battle ace:**
-- **Solara** — shiny **female Pyroar**
-- Ability: **Competitive** (bred over generations, like other major-character aces; +2 Special Attack when any stat is lowered by an opponent)
-- The Competitive ability makes Solara a *terror* against stat-disruption strategies — try to Intimidate her, try to Knock Off her item, try to lower any of her stats, and she becomes a Special Attack monster on the rebound
+**Sable's twin-ace structure `[LOCKED v0.9.8 — corrects v0.9.4 single-ace framing]`:**
+
+Sable carries two named aces in the present-day story — Solara, his childhood Pyroar, and Gouging Fire, the Paradox companion he raised from an egg during his 12 subjective years in Ancient Cormoria. The two are not interchangeable; they represent different layers of Sable's life, and *both* are visible in Sable's overworld appearances and in his Shiny Charm side-quest fight.
+
+**Solara — the elder-statesman opener `[LOCKED v0.9.8; corrects v0.9.4 gender from female to male]`:**
+- Shiny **male** Pyroar (manelessness is *female* Pyroar; Solara is the *maned* variant — visually distinctive, courtly-looking, regal)
+- Ability: **Competitive** — bred over generations like other major-character aces; +2 Special Attack when any stat is lowered by an opponent
+- **Twin litter origin `[LOCKED v0.9.8]`:** Solara is one of *two* Pyroars born in a single elite Sylphon-bred litter. His twin sister is Simone Sylphon's Trial 4 team Pyroar (Section 7 — Simone Sylphon). The litter was raised within House Sylphon's prized Normal-type breeding program.
+- **The Sylphon gift `[LOCKED v0.9.8]`:** Solara was given to young Sable as a Sylphon goodwill gesture during the childhood friendship period (see below). The other twin stayed with the Sylphon household and grew up to become Simone's adult Pyroar. **The two Pyroars are *blood siblings* who have lived their lives in two different noble houses, and the player can — if they look closely — see the family resemblance in the two Trial-and-side-quest fights.**
+- **Sable's combat use of Solara:** Solara is Sable's **opener** — the Pokemon he leads with in most battles. He uses her to *feel out* opponents, test their patterns, identify their kit-vulnerabilities. **Solara has more practical battle experience than any other Pokemon on Sable's team**, including Gouging Fire; she has been with Sable since childhood (pre-displacement) and through some portion of his Ancient-Cormoria-era survival fighting. The Competitive ability rewards opponents who try to gain stat advantages, which means *Solara teaches Sable everything he needs to know about an opponent's playstyle in the first turn or two.*
+- **Solara is the deep-pocket utility piece**, not the sweeper. She softens, she probes, she occasionally takes herself out by mid-game; Gouging Fire then comes in to clean.
+
+**Gouging Fire — the successor / cleanup sweeper `[LOCKED v0.9.8]`:**
+- Paradox-Past Fire/Dark Mythical Pokemon, BST 670, raised from an egg discovered in Ancient Cormoria
+- Sable is **grooming Gouging Fire as his ultimate ace** — the Pokemon who will eventually anchor his entire team's combat identity. In the present-day story, Gouging Fire is still in that grooming phase: powerful, present, but *not yet fully arrived at the cleanup-ace role.* (`[OPEN]` whether the bible eventually shows the moment when Gouging Fire crosses fully into the ace role; the *grooming* framing implies an arc.)
+- **The only Paradox Pokemon openly held by a Cormorian noble in the present timeline** — raises eyebrows but not enough to delegitimize Sable given the documented circumstances of his disappearance
+- Specific moveset, item, and IV/EV optimization `[OPEN]` — to be locked when the Shiny Charm side-quest is designed in detail
+
+**The Solara-Gouging-Fire dynamic `[LOCKED v0.9.8]`:**
+
+The two aces have a visible relationship in Sable's overworld appearances that the player can observe directly (Section 11 — Ace-Bonding Overworld Interactions). **Solara treats Gouging Fire like a much younger sibling. Gouging Fire treats Solara like a big-brother figure**, despite Gouging Fire being roughly ten times Solara's mass.
+
+The size mismatch is comedic and intentional. The player observes small moments — Solara nudges Gouging Fire toward a specific patch of grass to lie on; Gouging Fire complies meekly. Solara grooms herself in front of Gouging Fire and the Paradox-tier dragon-cat watches with quiet attention as if learning. **The interactions read as *family*, not as Mythical-and-mundane.** That is the project's partnership thesis at its most charming: **rank in Sable's household isn't determined by Pokemon-tier; it's determined by relationship-tenure and personal bond.** Solara grandfathered in; Gouging Fire — for all its cosmic-tier statline — defers to that natural hierarchy.
+
+This is also a project-level character beat for Sable: *most* trainers' aces would jostle for primacy. Sable's don't. **That fact makes Sable one of the project's most cleanly partnership-coded trainers**, elevating his role narratively beyond his political function as the returned Ashland heir.
+
+**The Sylphon childhood friendship `[LOCKED v0.9.8]`:**
+
+Before his displacement, Sable Ashland was a **childhood friend of both Simone and Robard Sylphon** (Section 7 — Simone Sylphon). The three were of the same generation among Cormoria's noble youth, and their friendship predated the political weight all three would later carry. The twin-Pyroar gift was a tangible expression of that friendship — the Sylphon family's *welcome gesture* to a young noble friend.
+
+When Sable returns from his 12 subjective years in Ancient Cormoria, he returns to a Cormoria where one childhood friend (Robard) has fallen into cult-funding compromise and another (Simone) is approaching marriage-crisis and emigration. **Sable does not learn of any of this until well after his Mt. Ceram return**, and the bible chooses to handle the recognition with restraint — Sable is processing his own 12-year-displacement trauma alongside political-restoration duties; the news of his childhood friends' situations reaches him slowly, indirectly, and painfully.
+
+**The post-Act-IV Sable-Simone scene `[LOCKED v0.9.8 — Option A]`:**
+
+Late in the game, after the Act IV Sylphon & Stone Exposure beat has played out and Simone has decided to sell her shares and emigrate to Kalos, **Sable visits her once before she leaves Cormoria.** The scene is *brief, private, with no easy comfort offered or accepted.*
+
+Per the project's show-don't-tell principle (Section 11 — Principle: Show, Don't Tell — locked v0.9.8 as a project-level writing standard), **the scene does not exposit the friendship's history or eulogize what is being lost.** It is constructed instead from small concrete elements the player observes:
+
+- The two of them sitting together somewhere quiet, with Solara and Gouging Fire (and possibly Simone's Pyroar) present — *the twin Pyroars are in the same room for the last time*
+- Few words exchanged; the dialog that *is* exchanged carries weight but is *concrete* (referring to specific shared memories from childhood, or specific present-tense practical concerns about Simone's departure) — never abstract about emotion
+- A long pause; one of them places a hand on the other's shoulder; nothing said about it
+- Solara and Simone's Pyroar make brief eye contact across the room. **Two twin siblings, raised in two different noble houses, recognizing each other one last time.** No translation provided. The player either sees it or doesn't.
+- Sable does not try to talk Simone out of the Kalos move. Simone does not apologize for not knowing what Robard was doing. **Both of them know each other well enough that *neither* the persuasion *nor* the apology is needed.**
+
+The scene's emotional weight comes from *what is not said* — the silence of three decades of friendship rearranging itself into the shape that survives the catastrophe. **The player will understand this scene to the extent they have been paying attention to the project's quiet character work all along.** Engaged players will feel the full weight; players who haven't tracked the Sylphon-Sable connection will simply see a brief late-game scene between two characters and may not fully decode it. *Both readings are valid by design.*
+
+`[OPEN]` Specific geographic location of the scene (Simone's residence? a Tavern? somewhere thematically resonant?)
+`[OPEN]` Specific dialog beats — should be authored when the broader Act IV-V transition is mapped in detail
+`[OPEN]` Whether the player has the option to *witness* the scene (cutscene-style observation) or whether it is a referenced-off-screen beat that surfaces in subsequent NPC dialog
+
+**Sable's Shiny Charm side-quest battle `[LOCKED v0.9.8]`:**
+
+A second-half-of-game side-quest battle against Sable's full Fire team. Available after Sable's Mt. Ceram return arc completes (Act III onward). **Player reward: the Shiny Charm key item.**
+
+- **Level cap:** **early 80s** (peer-level fight, not above-cap). Specific level `[OPEN]`. The Roaring Moon / Walking Wake L120 above-cap precedent is *not* applied here — Sable's Gouging Fire is *constrained-Mythical*, scaled to L80-85 to match the encounter and the player's natural team level at that point in the story.
+- **Combat structure:** standard 6v6 single-trainer battle, no doubles. **Sable leads with Solara** (his elder-statesman opener — uses Solara to feel out the player's strategy) and **finishes with Gouging Fire** (the cleanup sweeper). The 4 middle slots are `[OPEN]` Fire-team members appropriate to Sable's House Ashland tradition and Ancient-Cormoria-era experience.
+- **Pre-battle dialogue:** Sable invites the player to test themselves; the framing is *partnership-recognition* (consistent with Sable's character) — he wants to see how the player has grown, not to humiliate them. The Shiny Charm is offered as a *reward for being seen as a peer*.
+- **Post-battle dialogue (victory):** Sable awards the Shiny Charm. Brief, gracious. The Shiny Charm in the player's hands has *narrative weight beyond its mechanical function* — it represents one of Cormoria's senior partnership-coded trainers recognizing the player's bonds.
+- **Post-battle dialogue (loss):** allows retry. Sable's response on loss should be *teaching-coded*, not contemptuous (Boran Surge would be contemptuous; Sable is not Boran).
+- **Re-engagement:** one-time-per-save once won; the Shiny Charm is retained.
+- **Engineering task:** Section 14 task #57 (Sable Shiny Charm sidequest implementation).
+
+**Sable's combat ace classification update:**
+- Solara was previously framed (v0.9.4) as Sable's "battle ace." The v0.9.8 expansion recategorizes: **Solara is the opener; Gouging Fire is the closing ace.** The functional change is structural — Solara still appears first in combat and is still strategically critical, but the "ultimate ace" designation transfers to Gouging Fire as part of Sable's broader returned-from-Ancient-Cormoria narrative.
 
 **Why Sable matters:**
 - His return is a *political earthquake* — a noble family vindicated, a Trial Baron retiring, a new sworn ally of the prince
 - His **Gouging Fire** is the only Paradox Pokemon openly held by a Cormorian noble in the present timeline, raising eyebrows but not enough to delegitimize him given the circumstances of his disappearance
 - His subjective 12 years in Ancient Cormoria give him knowledge of pre-history that no other Cormorian has access to — possibly useful for late-game plot beats `[OPEN]`
+- **(v0.9.8)** His childhood friendship with Simone and Robard Sylphon provides a quiet emotional throughline connecting his return to the Act IV cult-funding exposure and Simone's Kalos emigration. **Sable is the project's *witness* to what 12 years' absence costs in personal terms** — he comes home to find friends who have rearranged their lives in his absence, and his presence in the late-game story is partly the *cost-counting* of that displacement.
 
 
 

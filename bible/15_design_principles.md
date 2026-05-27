@@ -461,5 +461,50 @@ The ace-bonding overworld interactions are the project's commitment to showing p
 
 `[OPEN]` Whether *minor* named NPCs with notable Pokémon (e.g., recurring tavern NPCs, key plot NPCs without recurring overworld presence) also receive ace-bonding overworld interactions. Recommendation: no — keep the principle reserved for major named recurring trainers, where the bond-demonstration earns its engineering cost.
 
+### Principle: Show, Don't Tell `[LOCKED v0.9.8]`
+
+A project-level writing standard governing how emotional, relational, and historical content is conveyed to the player. **The default register of the project is *shown*, not *narrated*.**
+
+**What the principle is:**
+
+When a character beat carries emotional or relational weight — a friendship reckoning, a grief moment, a shift in trust, the recognition of a hidden truth — the bible's commitment is to **construct that beat from concrete observable elements** rather than from exposition or interior-monologue narration. The player should be able to read the beat from what they see and hear in the scene, not from a character telling them what to feel.
+
+This complements but extends the existing Section 11 principles (Living-World NPCs, the Crabominable Adoption mechanic, the partnership-thesis demonstrated through combat). Where those principles establish *what* the project shows, this principle establishes *how* it shows.
+
+**The concrete tools the principle uses:**
+
+- **Physical action and gesture in scenes.** A hand placed on a shoulder. A pause. A glance exchanged. Two characters sitting in the same room with little dialog between them. The body language is the content.
+- **Object presence as emotional marker.** Two characters' aces in the same room signaling family resemblance; a relic on a desk that wasn't there last time; an item the character is *not* wearing that they used to wear.
+- **Indirection through specific concrete detail.** Characters discussing *practical concerns* whose emotional subtext is unstated — e.g., logistics of a move, a recipe, a route — letting the *practicality* of the discussion convey the relationship's accumulated familiarity.
+- **What is *not* said.** Pauses where exposition would normally fill. Topics raised and not pursued. Names not invoked. *Silences are content*; the bible should be willing to leave conversations incomplete when completeness would mean over-explaining.
+- **Player-discovered detail rather than narrator-supplied.** When a connection exists between characters (Sable's childhood friendship with the Sylphons, Solara and Simone's Pyroar being twin siblings, etc.), the bible builds the connection into the *visual and narrative texture* of late-game scenes rather than having any character announce it directly. Engaged players notice; less-engaged players don't, and that's *fine* — the project does not punish either reading.
+- **Multi-layer dialog.** When characters do speak, their dialog should *also* be capable of *not* directly stating the subject at hand. The most important scenes in the project's emotional architecture should be playable as **two intelligent adults navigating around something neither is willing to name aloud**, with the player understanding the navigation by observing it.
+
+**Why the principle matters:**
+
+The project's narrative architecture is **complex enough that direct exposition would overwhelm the player.** Twelve major characters, nine Trial chapters, three Acts of cult-crisis politics, three optional post-Champion side quests, two thousand years of cross-canon descent, dozens of `[OPEN]` items to be filled across multiple sessions. **If every emotional connection were stated in dialog, the player would drown in expository text.**
+
+The show-don't-tell principle preserves the project's emotional fidelity *and* the player's attention. **Players retain more about characters they had to *figure out* than about characters who were explained to them.** The Sylphon-Sable childhood friendship, the Solara-Pyroar-twin-relationship, the Domdaniel-rejected-Silas-chose-Brie cosmic-tier judgment — all of these read more powerfully when *discovered through observation* than when stated.
+
+**Equally important: the principle preserves character dignity.** Characters who *don't* explain themselves — Sable, Cadmus Umbra, Rhydia, the Blue Moon Hermit, even Baradus — read as *more weighted with their interior lives* than characters who do. **People in real life rarely articulate their full inner state aloud.** The project's commitment to mature characterization requires that the bible's narrative not violate this norm in order to make character beats easy to extract.
+
+**What the principle does NOT permit:**
+
+- **It does not mean "no exposition."** Cosmological mechanics (Section 8 cult framework, Section 9 cosmology), engineering tasks (Section 14), and structural worldbuilding (Section 2) are *legitimately expository content* — they are the architecture the players exist inside. The principle governs the *emotional and relational layer* of writing, not the structural layer.
+- **It does not mean "every scene is opaque."** Some emotional beats are direct and explicit by intentional design — Pierra's grief, Nemo's death scene, the Eden marriage epilogue. **Directness is sometimes the right register**, especially at climactic moments. The principle says *prefer indirection by default*, not *require indirection always*.
+- **It does not mean "withhold information from the player."** The cosmological depth, the bloodline structure, the cult mechanics — these are *available* to engaged players (especially through the Book of the Moon post-game content, Section 9). The principle is about *how* information surfaces in the moment-to-moment scenes, not whether it is reachable.
+
+**Implementation implication for future bible work:**
+
+When designing any scene with emotional weight, the bible authoring process should ask: *what would the player observe in this scene if they were physically present?* Build the scene from those observable elements first. Add narrative interior-content only when it adds *something the observables alone could not convey*. **Most of the time, the observables alone will be sufficient — and the scene will be stronger for not being over-stated.**
+
+**Reference cases as of v0.9.8:**
+
+- **The Sable-Simone post-Act-IV scene** (Section 7 — Sable Ashland v0.9.8 update): a model of the principle. The 30-year friendship's reckoning is conveyed through Solara and Simone's Pyroar making eye contact across the room, a hand on a shoulder, practical-detail conversation. No exposition of the friendship's history is included; the player infers it from accumulated context.
+- **Baradus's late-game Guzzlord private moment** (Section 8 — Baradus v0.9.8 update): the principle at its most loaded. The scene's content is *minimal* (a hand, possibly a phrase in an untranslated language, a non-battle cry) and *the player's understanding of who Baradus is changes through observation*. Stating "Baradus is capable of love but chooses to weaponize everything else" in dialog would be flat; *showing* it through a single brief private moment is unforgettable.
+- **Brie's overworld interactions with Domdaniel** (Section 7 — Brie Moray / Section 11 — Trial Baron Ace-Bonding): the *contrast* against what Silas's relationship with Domdaniel would have been is shown through Brie's casual gentle handling of the Pokemon, not stated.
+
+The principle is **the project's writing-quality contract with itself**: emotional density without overwhelming the player, accomplished by trusting the player to read what the bible has carefully constructed for them to see.
+
 ---
 
