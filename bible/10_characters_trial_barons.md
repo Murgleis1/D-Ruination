@@ -581,3 +581,95 @@ Falco's overworld presence after Trial 5 is *different* from his pre-Trial-5 pre
 - `[OPEN]` Whether Falco appears at the Necropolis Assault as a defensive ally (likely yes, given his Triad standing — but his age and post-Trial-5 humbling may shape what role he plays)
 - `[OPEN]` Whether the 10-year-old great-grandchild has any direct interaction with the player at Trial 5 location
 
+### Bridget Nightfall — 7th Trial Baroness (Dark), matriarch-by-default of declining House Nightfall, Osrid and Rhydia's first cousin `[LOCKED v0.9.8]`
+
+**The third person to learn Osrid's true identity (after Cadmus Umbra, who always knew, and Rhydia, who learns during the post-Trial-2 assassination subplot). Bridget is the player's blood cousin — daughter of Eldred Nightfall's older brother Dantalion — and an older-sister figure to Rhydia across the ten years since Eldred's assassination. The Trial 7 fight is one of the project's most significant emotional milestones: Osrid reveals himself to the cousin who watched over his sister and grieved his presumed death, and the revelation breaks open her frozen heart. She is a 30-year-old woman who has resigned herself to the inevitability of ruin — and the player is the one who gives her a reason to fight again.**
+
+**Family position and the Nightfall decline:**
+
+- **Full name:** Bridget Nightfall (carries the Alban-Nightfall dual bloodline through her mother; see below). Age **30** at game start — born exactly 10 years before Osrid and Rhydia (a clean 10-year gap).
+- **Parents:** Father **Dantalion "Dan" Nightfall** (Eldred's older brother, the once-chosen Nightfall heir); mother **Leah Alban Nightfall** (married into House Nightfall from House Alban — the Grass-type Trial 6 House).
+- **Grandfather:** **Mordred Nightfall** — former Trial Baron (10 years) and then Champion of Cormoria (50 years), defeated by his own 15-year-old granddaughter Rhydia 5 years before game start (Section 6 — Rhydia; Section 12 — Nightfall family tree).
+- **Uncle:** **Eldred Nightfall** — Bridget's uncle, Osrid and Rhydia's father, Prince-Consort, assassinated by Baradus 10 years before game start (Section 6 — Eldred).
+- **Cousins:** **Osrid and Rhydia** — Eldred's children, Bridget's first cousins by blood.
+
+**The Nightfall family's collapse `[LOCKED v0.9.8]`:**
+
+House Nightfall is one of the five-oldest Cormorian noble Houses (Section 12). At game start it is **in steep decline** — a shadow of the political dominance it once held. The collapse came in stages:
+
+1. **Eldred's assassination (10 years pre-game)** shattered the family's central pillar. Eldred had become the *face* of House Nightfall — the self-made Dark-type prodigy who surpassed his own tutored older brother and became Emperor-Consort. His death by Baradus's hand removed the family's brightest figure and, more broadly, **catalyzed the splintering of the Widening Eye into the four competing Ruin Cults and the rise of the Swords of Ruin** (Section 8 — cult origins, v0.9.8 catalyst lock).
+2. **Mordred's loss of the Champion seat (5 years pre-game)** to his own 15-year-old granddaughter Rhydia. Mordred — the family patriarch, the 50-year Champion — retired to the estate after the defeat. The Nightfall name lost its most prestigious living title in the most personally painful way possible (Section 6 — Rhydia's Champion acquisition).
+3. **Dantalion's self-exile.** Bridget's father, carrying a tangle of guilt, trauma, humiliation, love, sadness, and hatred toward his dead younger brother and toward the niece and nephew Eldred left behind, **fled into diplomatic service as Cormoria's envoy to Kalos.** He has spent most of the intervening years away from home. *He never appears on-screen in the game; he is referenced in dialogue only.*
+4. **Leah's emotional collapse.** Bridget's mother, neglected by the secluded Dantalion and emotionally unstable, was *mostly absent* during Bridget's upbringing. The marriage that once united two old Houses (Alban and Nightfall) became another casualty of the family's disintegration.
+
+**By the time Osrid arrives at House Nightfall for Trial 7, the house is barely held together — and Bridget is the one holding it.**
+
+**Bridget's character at the time of the Trial 7 fight `[LOCKED v0.9.8]`:**
+
+- **Cold, emotionally stagnant, deeply depressed.** Bridget has frozen her heart as a survival response to watching her family disintegrate. She broods. She feels helpless against what she knows is wrong with the kingdom.
+- **Vampire-like nocturnal habits.** She spends most of her time training in darkness with her Pokémon, typically only emerging at night. The Dark-type mastery is not just her Trial specialty — it is the literal environment she has retreated into. *She trains in darkness because darkness is where she now lives, emotionally and literally.*
+- **Resigned to ruin.** Bridget believes ruin is *inevitable*. She has seen it happen firsthand — the breaking of her own family is, to her, a microcosm of what is coming for all of Cormoria. **She is not motivated to fight it.** Her intelligence and observational acuity mean she *understands* the cult crisis (she talks with Cadmus Umbra occasionally), but understanding has not produced hope; it has produced fatalism.
+- **Smart and observant, with peripheral awareness of the cult crisis.** She is one of Umbra's individual contacts — *not* a Resistance Triad member (the Triad is Cadmus + Nemo + Falco; Section 7 — Falco Raptora). **Bridget's resignation-to-ruin worldview is the opposite of the Triad's active-resistance worldview**, which is precisely why she is not part of it. She knows things; she does not act on them.
+- **Her relationship to Rhydia.** Of all her family members, the only two Bridget still talks to are **Mordred** (her grandfather, whom she feels closest to) and **occasionally Rhydia** (with whom there is distance and unspoken negativity tangled together with real love). This distance is poignant because **Bridget was, for the ten years after Eldred's assassination, the family member who spent the most time visiting and watching over the young Rhydia — alongside Cadmus Umbra.** When Dantalion and Leah both broke down, *Bridget stepped in.* She was 20 when she began watching over the 10-year-old Rhydia. **She is almost an older-sister figure to Rhydia**, in addition to being her blood cousin. The "distance and unspoken negativity" of the present is the residue of years of shared grief that neither cousin has fully processed.
+
+**The Trial 7 emotional climax — Osrid's revelation to Bridget `[LOCKED v0.9.8 — flagged as the Show-Don't-Tell directness exception, Section 11]`:**
+
+This is **one of the project's largest emotional milestones.** After the player defeats Bridget in the Trial 7 fight, Osrid approaches her. **He whispers something to her that the player does not hear, and lifts his mask for a moment.**
+
+Bridget's reaction: **she breaks down crying uncontrollably and hugs him.**
+
+The meaning of the moment: **Bridget watched over Rhydia for ten years, grieving the cousin (Osrid) she believed was dead — the lost younger member of her shattered family.** When Osrid reveals himself, it is, for her, *like discovering a lost younger brother who was missing all this time and has finally come home.* **By losing to the cousin she worried about for a decade, she regains her heart — and with it, a desire to fight and rebuild what is broken.**
+
+**This scene is deliberately direct — the Show-Don't-Tell directness exception (Section 11 — Principle: Show, Don't Tell).** Most of the project's emotional content is conveyed through observable indirection. *This scene is not.* It is one of the climactic beats the principle explicitly permits to be stated directly, because the emotional payoff of a ten-year grief resolving into reunion *requires* directness to land. The uncontrollable crying, the hug, the mask-lift — these are shown plainly and felt fully. **Restraint here would betray the moment.** (The *content* of Osrid's whisper remains unheard by the player — that single element preserves a sliver of intimacy that belongs to the cousins alone.)
+
+**Bridget is the third person to fully know Osrid's identity before the Champion fight.** The revelation order across the game:
+1. **Cadmus Umbra** — always knew (architect of the protective exile)
+2. **Rhydia** — learns during the post-Trial-2 assassination subplot (Section 8 — Goma's Palace Assassination)
+3. **Bridget** — learns here, at Trial 7
+4. **Glaive** — learns *much later*, at the Vizier-of-War final fight before the Champion (Section 7 — Glaive arc, corrected v0.9.8)
+
+**Bridget's post-Trial-7 role `[LOCKED v0.9.8]`:**
+
+After her defeat and the revelation, **Bridget becomes a recurring side character and part of the core group of allies who support Osrid.** Her heart unfrozen, she commits to fighting the ruin she had resigned herself to. **She hates the Ruin Cults** — she blames their activities as the catalyst that broke her family and threw her own heart into darkness (Eldred's assassination by Baradus being the specific wound). Her arc from this point is *rebuilding* — both her family's standing and her own capacity for hope.
+
+`[OPEN]` Bridget's specific contributions to the core group after Trial 7 (combat ally? intelligence? House Nightfall's residual resources? emotional anchor for Rhydia now that the cousins are reunited through Osrid?)
+`[OPEN]` Whether Bridget and Rhydia's "distance and unspoken negativity" resolves on-screen after Osrid reunites the family — recommendation: yes, a quiet later scene (Show-Don't-Tell register) where the two cousins begin to repair what a decade of shared grief left unspoken
+`[OPEN]` Whether Bridget plays a role at the Necropolis Assault or the final battle
+
+**The Trial 7 battle (Trial 7) `[LOCKED v0.9.8]`:**
+
+- **Format:** standard 6v6 single-trainer battle. **A very hard fight** — Trial 7 cap is 50, and Bridget's team architecture (speed control + relentless pivoting + multiple sweepers) makes the practical difficulty significantly steeper than the raw level suggests.
+- **Trial level cap:** **50** (per Section 13 — Trial cap structure).
+- **Team:**
+
+  | Slot | Pokémon | Gender | Ability | Moveset | Item | Notes |
+  |---|---|---|---|---|---|---|
+  | **Ace** | **shiny Grimmsnarl, "Grendel"** | ♂ `[OPEN — gender unspecified; recommend male per Grimmsnarl species lean]` | **Tangling Hair** (custom override; canonical is Prankster/Frisk/Pickpocket) | Beat Up / Play Rough / Drain Punch / Thunder Wave | **Quick Claw** | The centerpiece. Beat Up hits ~6 times (once per non-fainted teammate); each contact drops the player's Pokémon Speed via Tangling Hair. Attacking Grendel with contact moves *also* drops the attacker's Speed. Combined with Thunder Wave paralysis, the player's whole team can be slowed to a crawl, enabling the rest of Bridget's team to sweep. Drain Punch + Quick Claw make Grendel hard to remove. |
+  | 2 | **Mega Absol** | ♀ | (canonical Mega Absol: Magic Bounce) | Ceaseless Edge / Spirit Break / Swords Dance / Parting Shot | **Absolite (Mega Stone)** | Sweeper and backup ace. Swords Dance setup → Ceaseless Edge sweep. Parting Shot for momentum/pivot. Custom move grant: Ceaseless Edge. State-sanctioned Mega per Bridget's old-noble-House Trial Baron standing. |
+  | 3 | Sharpedo | ♂ | **Speed Boost** | Waterfall / Crunch / Obstruct / Baton Pass | **Focus Sash** | The team's most dangerous pivot. Speed Boost gains +1 Speed/turn; Baton Pass transfers the accumulated Speed (and any other boosts) to a teammate. Focus Sash guarantees Sharpedo survives one hit to complete the Baton Pass. Custom move grant: Obstruct. |
+  | 4 | Overqwil | ♂ | Intimidate | Barb Barrage / Sucker Punch / Needle Arm / Baneful Bunker | **Life Orb** | All-around physical attacker. Intimidate weakens incoming physical threats on entry; Sucker Punch priority; Barb Barrage poison-spread; Baneful Bunker protects + poisons on contact. |
+  | 5 | Zweilous | ♂ | Hustle | False Surrender / Scale Shot / Head Smash / Hone Claws | **Eviolite** | Hustle (+50% Atk, −accuracy) offset by Hone Claws (+Atk +accuracy) setup. Eviolite makes the Stage-2 dragon surprisingly bulky. Head Smash is a massive hit once accuracy is fixed. Custom move grant: False Surrender (never-miss). |
+  | 6 | Zarude | ♂ | Leaf Guard | Wicked Blow / Power Whip / Synthesis / U-Turn | **Leftovers** | All-around attacker/pivot. Wicked Blow (guaranteed-crit Dark) + Power Whip STAB + Synthesis recovery + U-Turn momentum. Custom move grant: Wicked Blow. |
+
+- **Strategy and team identity:** Bridget's team is built on **speed control + relentless pivoting + multiple endgame sweepers.** The player faces several potential win conditions Bridget can set up (Mega Absol Swords Dance sweep; Zweilous Hone Claws sweep; Sharpedo Baton-Pass-Speed to any heavy hitter) and must identify and disrupt the right one in time — *while* fighting through Grendel's Speed-drop debuffing and Thunder Wave paralysis. **This is a Trial 7 tactics test an order of magnitude harder than Trial 5's, requiring the player's full post-Z-Bracelet Mega-Evolution capability.**
+- **Grendel's Speed-control mechanism is the fight's signature pressure:** the player must decide whether to break Grendel before Beat Up lands (hard — it's bulky with Drain Punch + Quick Claw) or to bring Speed-independent answers (priority moves, Trick Room, etc.). *The fight punishes players who rely on raw Speed.*
+
+**Bridget's overworld interactions with Grendel `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+Per Section 11 — Ace-Bonding Overworld Interactions, Bridget interacts with Grendel in her overworld presence — but the register is *distinct from every other character's*, reflecting her depressed/nocturnal state at the time the player encounters her. **Pre-Trial-7 (depressed Bridget):** the interactions are *quiet, sombre, nocturnal* — Bridget and Grendel in darkness, a hand resting on the Grimmsnarl's mane, few words, the bond real but *muted* under her resignation. Grendel is *the one constant* in her frozen life — the partner that has stayed with her through the family's collapse. **Post-Trial-7 (heart-unfrozen Bridget):** the interactions warm — Grendel is still her dark-trained ace, but the bond surfaces more openly as Bridget rejoins the world of the living. *Show-don't-tell: the player observes Bridget's emotional thaw through how her interactions with Grendel change after the reunion.*
+
+`[OPEN]` Grendel's gender (recommend male)
+`[OPEN]` Specific overworld interaction dialog beats (pre- and post-Trial-7 registers)
+
+**Open items for Bridget:**
+
+- `[OPEN]` Grendel's gender
+- `[OPEN]` Bridget's specific post-Trial-7 contributions to the core ally group
+- `[OPEN]` Whether the Bridget-Rhydia relationship repair happens on-screen
+- `[OPEN]` Bridget's role (if any) at the Necropolis Assault / final battle
+- `[OPEN]` Whether Bridget's Trial Baron seat passes to anyone, or whether she holds it through the rest of the story as part of her rebuilding arc
+- `[OPEN]` The content of Osrid's unheard whisper (recommendation: keep permanently unheard — it belongs to the cousins)
+- `[OPEN]` Whether Dantalion ever learns (via off-screen Kalos correspondence) that Osrid is alive — and what that does to him, referenced in dialogue
+- `[OPEN]` The Trial 7 Badge name (per the Trial Badge naming convention; only Firmament/T5 locked so far)
+- `[OPEN]` Trial 7 venue (deferred to map-design session per Section 11)
+

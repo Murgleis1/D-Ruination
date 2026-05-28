@@ -859,6 +859,36 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Engineering note — ritual-gated evolution:** the engine evolution-trigger system needs to support **scripted-event-triggered evolution** as a method alongside level-up and item-use. Implementation: add `EVO_SCRIPT_EVENT` or equivalent to the evolution method enum; check during scripted event for the species; trigger evolution with the existing evolution code path. Estimated ~4-6 hours of this 15-20 total is engine modification.
     - **Cross-references:** Section 7 — Blue Moon Hermit, Section 11 — Mechanical-Narrative Welds principle, Section 11 — Show Don't Tell principle, Section 14 — Trial 6 chapter onset sequence, Section 6 — starter Stage-3 evolution mechanics (v0.9.8 ritual-gated lock), Section 14 task #58 (dream-Boran fight).
 
+66. **Bridget Nightfall Trial 7 custom team — ability and move grants** — `[SMALL-MEDIUM — data]`
+
+    Per Section 7 — Bridget Nightfall (v0.9.8 lock), Bridget's Trial 7 team uses several custom abilities and moves outside canonical learnsets/ability pools. Standard custom-trainer-Pokémon entry pattern (same workflow as Falco's team, task #61; Splendor, task #54).
+
+    | Pokemon | Custom override | Notes |
+    |---|---|---|
+    | Grendel (shiny Grimmsnarl) | Ability override: **Tangling Hair** (canonical: Prankster/Frisk/Pickpocket); Move grant: Beat Up is canonical, Thunder Wave canonical, Play Rough canonical, Drain Punch canonical — verify all in expansion learnset | Quick Claw item. **Key interaction:** Beat Up triggers Tangling Hair speed-drop per hit on the target; verify engine applies Tangling Hair on each Beat Up strike (expected behavior — each strike is a contact hit). This is the fight's signature mechanic. |
+    | Mega Absol | Move grant: Ceaseless Edge (canonical to Samurott-H et al.) | Absolite held; Magic Bounce post-Mega (canonical). State-sanctioned Mega. |
+    | Sharpedo | Ability: Speed Boost (canonical hidden); Move grant: Obstruct (canonical to Obstagoon et al.) | Focus Sash. **Speed Boost + Baton Pass** is the team's central pivot engine — verify Baton Pass correctly transfers Speed Boost accumulated stages. |
+    | Overqwil | Ability: Intimidate (canonical hidden); moves canonical (Barb Barrage signature, Sucker Punch, Needle Arm, Baneful Bunker) | Life Orb. No override expected beyond verifying learnset. |
+    | Zweilous | Ability: Hustle (canonical); Move grant: False Surrender (canonical to Dragapult) | Eviolite (applies — Zweilous is mid-stage). **Hustle accuracy penalty offset by Hone Claws** — standard interaction, no special handling. |
+    | Zarude | Ability: Leaf Guard (canonical single ability); Move grant: Wicked Blow (canonical to Urshifu-Single-Strike) | Leftovers. Wicked Blow guaranteed-crit — verify engine applies the always-crit property on the granted move. |
+
+    - **Key verification items:** (1) Tangling Hair fires per-Beat-Up-strike; (2) Baton Pass transfers Speed Boost stages; (3) Wicked Blow always-crit on Zarude; (4) Quick Claw on Grendel functions normally.
+    - **Estimated scope:** ~3 hours (6 custom Pokemon entries + interaction verification)
+
+67. **Bridget Nightfall Trial 7 reveal scene — implementation** — `[MEDIUM — scripting + dialog]`
+
+    Per Section 7 — Bridget Nightfall and Section 14 — Trial 7 chapter (v0.9.8 locks), the post-fight reveal scene is one of the project's largest emotional milestones and the flagship Show-Don't-Tell directness exception.
+
+    **Components:**
+    - **Trigger:** player defeats Bridget in the Trial 7 fight
+    - **Scene:** Osrid approaches Bridget; whispers something (text NOT shown to player — render as an unheard murmur, no dialog box content, or a "[...]" obscured-text effect); lifts his mask for a moment (mask-lift animation — may reuse/adapt any existing Rainhawk-mask asset); Bridget's reaction: uncontrollable crying animation + embrace animation
+    - **Emotional directness:** this scene is INTENTIONALLY direct (Section 11 — Show-Don't-Tell directness exception). No indirection except the unheard whisper. The crying and the embrace are shown plainly.
+    - **Dialog:** Bridget's post-reveal dialog (heart-unfrozen; recognition of her lost cousin; commitment to fight). `[OPEN]` specific dialog.
+    - **Flag-set:** `FLAG_BRIDGET_KNOWS_OSRID` (or equivalent) — Bridget joins the core ally group; her subsequent overworld interactions shift to the warmer post-Trial-7 register (Section 7 — Bridget overworld interactions).
+    - **Custom assets:** mask-lift animation, Bridget crying animation, embrace animation (or adapt existing emotive overworld animation assets)
+    - **Estimated scope:** ~6-10 hours (scripted scene + custom emotive animations + obscured-whisper effect + dialog + ally-group flag)
+    - **Cross-references:** Section 7 — Bridget Nightfall, Section 11 — Show-Don't-Tell directness exception, Section 14 — Trial 7 chapter
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.

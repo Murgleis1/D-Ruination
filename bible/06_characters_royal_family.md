@@ -21,13 +21,20 @@
 - The classical tragedy of her arc: she is the central beloved figure of the project, and she ends the story alone except for one daughter, having been loved by two men whose love became weapons aimed at others (Eldred's tactical mind, Silas's psychic manipulation).
 
 **Prince-Consort Eldred Nightfall Cormoria** (deceased)
-- Descendant of **House Nightfall**, one of the noble houses; masters of Dark-types
+- Descendant of **House Nightfall**, one of the five-oldest noble houses (Section 12); masters of Dark-types
 - House Nightfall has a long bloodline of military commanders and intelligence officers
 - Incredibly skilled tactician; rose to the top of the Cormorian military
+- **`[EXPANDED v0.9.8]` Eldred's background and rise:** Eldred was the **second and youngest son of Mordred Nightfall.** His older brother **Dantalion "Dan" Nightfall** was the chosen family heir, tutored by the best trainers and groomed for prominence, while Eldred was enrolled in military school in his early teens. Eldred became a **completely self-taught Dark-type specialist** after being drafted into formal military service at age 15. He became the **youngest person in Cormorian history to advance past the Rainhawk military rank to Tarasque before the age of 20.** When he returned from service, he **defeated his tutored older brother Dantalion in a highly-marketed public match** — and, combined with his military reputation, became *the face of House Nightfall* and a *better Dark-type trainer than his own brother the Trial Baron.* Dantalion was humiliated and went into seclusion (Section 12 — Nightfall family tree). Eldred subsequently married Pierra (winning her over his childhood-friend-and-rival Silas Moray; Section 7 — Silas) and became Emperor-Consort.
 - Married Pierra in his early adulthood and took the Cormoria surname (in addition to keeping his House surname)
 - **Prince-Consort, not King** — Pierra is the actual heir of the Cormoria line
-- **Assassinated by the Sword Cult (or proto-Widening-Eye faction) during Osrid and Rhydia's childhood** — this was the *opening move* of the cults' long political campaign against Cormoria. The cults removed the tactical anchor first; the rest of their infiltration followed.
+- **Assassinated by Baradus (Sword Cult / proto-Widening-Eye) during Osrid and Rhydia's childhood (10 years before game start, when the twins were 10)** — this was the *opening move* of the cults' long political campaign against Cormoria. The cults removed the tactical anchor first; the rest of their infiltration followed. **Eldred's assassination was also the catalyst that splintered the Widening Eye into the four competing Ruin Cults and triggered the rise of the Swords of Ruin** (Section 8 — cult origins, v0.9.8 catalyst lock).
 - `[LOCKED]` The "unknown party" the public believes assassinated him remains officially unknown. The player learns the truth as part of the late-game revelation.
+
+**The extended Nightfall family `[LOCKED v0.9.8 — full tree in Section 12]`:**
+- **Mordred Nightfall** — Eldred's father, the Nightfall patriarch. Former Trial Baron (10 years), then **Champion of Cormoria for 50 years** until defeated by his own 15-year-old granddaughter Rhydia 5 years before game start. **Childhood friend and lifelong rival of Falco Raptora** (Section 7 — Falco); the two were considered the strongest trainers of their generation, both with immense vitality. Mordred's 50-year Champion tenure wore him down — his loss to Rhydia was partly weariness and a possibly-subconscious readiness to pass the baton (his peak skill was so immense that even the best 15-year-old in the world could not have beaten him at full power). Retired to the Nightfall estate after the defeat. *Bridget feels closest to Mordred of all her family.*
+- **Dantalion "Dan" Nightfall** — Eldred's older brother, the once-chosen heir. Humiliated by Eldred's public defeat of him; went into seclusion; after Eldred's assassination, carrying guilt/trauma/humiliation/love/sadness/hatred, **fled into diplomatic service as Cormoria's envoy to Kalos.** Never appears on-screen; referenced in dialogue only.
+- **Leah Alban Nightfall** — Dantalion's wife, married into House Nightfall from **House Alban** (the Grass-type Trial 6 House). Neglected by the secluded Dantalion and emotionally unstable; largely absent during her daughter's upbringing. *The Alban-Nightfall marriage is one example of how deeply Cormoria's old Houses have intermarried over time.*
+- **Bridget Nightfall** — Dantalion and Leah's daughter; Osrid and Rhydia's first cousin; born exactly 10 years before the twins (age 30 at game start). **The 7th Trial Baroness (Dark-type), matriarch-by-default of declining House Nightfall.** Spent the 10 years after Eldred's assassination as an older-sister figure to the young Rhydia (alongside Cadmus Umbra). See Section 7 — Bridget Nightfall for the full entry.
 
 **Prince Osrid Cormoria** — protagonist, elder twin, first of his name
 - Inherits the Cormoria royal line through Pierra
@@ -40,7 +47,7 @@
 
 **Queen-Regent Rhydia Cormoria** — younger twin, first of her name, Champion of Cormoria
 - **See the full Rhydia profile below** in this Section for complete documentation.
-- Brief summary: 20 years old, slightly younger twin of Osrid; tutored from infancy by Cadmus Umbra; effectively ruling Cormoria for 10 years while Pierra is in seclusion at the Villa; Champion of Cormoria with the strongest known trainer-bonded Pokemon in the empire (Justice the Iron Valiant, plus shiny Drampa Puff); two years before story start defeated Kimaris Langerin's Marshadow in a public Champion's match; idolized by the citizenry; missing her brother daily; **the only person besides Cadmus Umbra who knew Osrid was alive during his 10-year exile**, though she does not know he has returned at game start.
+- Brief summary: 20 years old, slightly younger twin of Osrid; tutored from infancy by Cadmus Umbra; effectively ruling Cormoria for 10 years while Pierra is in seclusion at the Villa; Champion of Cormoria with the strongest known trainer-bonded Pokemon in the empire (Justice the Iron Valiant, plus shiny Drampa Puff); **won the Champion seat 5 years before story start by defeating her own grandfather Mordred Nightfall — the 50-year reigning Champion — when she was 15** (Section 12 — Nightfall family tree; Mordred's loss was partly weariness after 50 years, but Rhydia's victory was real and cemented her reputation as exceptional); two years before story start defeated Kimaris Langerin's Marshadow in a public Champion's-defense match; idolized by the citizenry; missing her brother daily; **the only person besides Cadmus Umbra who knew Osrid was alive during his 10-year exile**, though she does not know he has returned at game start. **Her first cousin Bridget Nightfall served as an older-sister figure to her across the 10 years after Eldred's assassination** (alongside Umbra), though at game start there is distance and unspoken negativity tangled with real love between the cousins (Section 7 — Bridget Nightfall).
 
 **Constitutional shadow:** Osrid is the elder twin and was heir-presumptive. His return creates a quiet, unaddressed question — should he resume the role? Osrid's character resolves this by *not wanting* it. His arc is finding new purpose outside the prince identity. He quietly cedes any claim. Rhydia is functionally Empire's leader, and Osrid prefers it that way.
 
@@ -51,7 +58,7 @@
 
 ---
 
-### Queen-Regent Rhydia Cormoria — the empire's pride, the unseen Champion's twin `[LOCKED]`
+### Queen-Regent Rhydia Cormoria — the empire's pride, the reigning Champion, the hidden prince's twin `[LOCKED — header corrected v0.9.8]`
 
 **Rhydia is one of the largest and most fully-realized characters in the project — the strongest Pokemon trainer in the empire, the de facto ruler for the past decade, and the missing-piece-keeper for her exiled brother.**
 

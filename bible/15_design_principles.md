@@ -426,7 +426,7 @@ The ace-bonding overworld interactions are the project's commitment to showing p
 | 4 | Simone Sylphon | Trial Baroness 4 (Normal) | Splendor (shiny female Obstagoon, Fur Coat) | Locked v0.9.8 |
 | 5 | Falco Raptora | Trial Baron 5 (Flying) | **Sturm** (shiny Galarian Zapdos, Defiant — strongest ace) **+ Drang** (shiny male Toucannon, Skill Link — public-facing ace; Sturm/Drang have parent-child Pokémon relationship visible in overworld) | Locked v0.9.8 |
 | 6 | Trial 6 Baron (Alban) | Trial Baron 6 (Grass) | `[OPEN]` | Open |
-| 7 | Trial 7 Baron (Nightfall) | Trial Baron 7 (Dark) | `[OPEN]` | Open |
+| 7 | Bridget Nightfall | Trial Baron 7 (Dark) | **Grendel** (shiny Grimmsnarl, Tangling Hair — single ace) | Locked v0.9.8 |
 | 8 | Brie Moray | Trial Baroness 8 (Fairy) | Domdaniel (shiny Scream Tail, Huge Power) | Locked |
 | 9 | Nemo Korolev | Trial Baron 9 (Ground) | **Manticore** (shiny Gliscor, Adaptability) **+ Ting-Lu** (two-ace structure) | Locked |
 | 10 | Cadmus Umbra | Vizier of Education | Jousteel | Locked v0.9.8 |
@@ -491,7 +491,7 @@ The show-don't-tell principle preserves the project's emotional fidelity *and* t
 **What the principle does NOT permit:**
 
 - **It does not mean "no exposition."** Cosmological mechanics (Section 8 cult framework, Section 9 cosmology), engineering tasks (Section 14), and structural worldbuilding (Section 2) are *legitimately expository content* — they are the architecture the players exist inside. The principle governs the *emotional and relational layer* of writing, not the structural layer.
-- **It does not mean "every scene is opaque."** Some emotional beats are direct and explicit by intentional design — Pierra's grief, Nemo's death scene, the Eden marriage epilogue. **Directness is sometimes the right register**, especially at climactic moments. The principle says *prefer indirection by default*, not *require indirection always*.
+- **It does not mean "every scene is opaque."** Some emotional beats are direct and explicit by intentional design — Pierra's grief, Nemo's death scene, the Eden marriage epilogue, **and the Bridget Nightfall reveal at Trial 7** (Section 7 — Bridget; the mask-lift, the unheard whisper, the uncontrollable crying, the embrace — a ten-year grief resolving into reunion *requires* directness to land; restraint there would betray the moment). **Directness is sometimes the right register**, especially at climactic moments. The principle says *prefer indirection by default*, not *require indirection always*. **The Bridget Trial 7 reveal is the project's flagship example of the permitted directness exception** — even within it, one element stays indirect (Osrid's whisper is unheard), preserving a sliver of intimacy that belongs to the cousins alone.
 - **It does not mean "withhold information from the player."** The cosmological depth, the bloodline structure, the cult mechanics — these are *available* to engaged players (especially through the Book of the Moon post-game content, Section 9). The principle is about *how* information surfaces in the moment-to-moment scenes, not whether it is reachable.
 
 **Implementation implication for future bible work:**
