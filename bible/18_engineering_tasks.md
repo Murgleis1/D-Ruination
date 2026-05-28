@@ -889,6 +889,46 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Estimated scope:** ~6-10 hours (scripted scene + custom emotive animations + obscured-whisper effect + dialog + ally-group flag)
     - **Cross-references:** Section 7 — Bridget Nightfall, Section 11 — Show-Don't-Tell directness exception, Section 14 — Trial 7 chapter
 
+68. **Indrid Alban Trial 6 custom team — ability and move grants** — `[SMALL-MEDIUM — data]`
+
+    Per Section 7 — Indrid Alban (v0.9.8 lock). Standard custom-trainer-Pokémon entry pattern.
+
+    | Pokemon | Custom override | Notes |
+    |---|---|---|
+    | Nero (shiny Scovillain) | As-raised ability: **Grassy Surge** (custom — canonical Scovillain abilities are Chlorophyll/Insomnia/Moody); **species hidden ability set to Intimidate** so post-adoption Ability Patch can swap Grassy Surge → Intimidate; Move grants: Sappy Seed (Ogerpon/Decidueye-line), Sacred Fire (Ho-Oh signature), Forest's Cure (Trevenant-line signature self-heal) | **Adoptable by the player** after Indrid's death (task #70). Must arrive as-raised: shiny, Grassy Surge, full kit. Dual ability setup: Grassy Surge (as-raised) + Intimidate (species hidden, Ability-Patch-reachable). |
+    | Sinistcha | Hospitality (canonical hidden) — note: doubles-ability, largely inert in single battle; moves canonical (Matcha Gotcha, Hex, Growth, Spore) | No override beyond verifying learnset. |
+    | Arboliva | Seed Sower (canonical hidden); moves canonical (Leaf Storm, Hyper Beam, Earth Power, Strength Sap) | No override. |
+    | Ludicolo | Swift Swim (canonical hidden); Move grant: Origin Pulse (Kyogre signature) | Rain-sweep alternate game plan (Rain Dance + Swift Swim). |
+    | Breloom | Poison Heal (canonical hidden); moves canonical | Toxic Orb item. |
+    | Mega Venusaur | **Chlorophyll** custom carryover to Mega forme (canonical Mega Venusaur ability is Thick Fat) | Venusaurite. Sunny Day + Chlorophyll Speed-double synergy. |
+
+    - **Key verification items:** (1) Nero's dual ability setup (Grassy Surge as-raised, Intimidate species-hidden); (2) Mega Venusaur retains Chlorophyll post-Mega; (3) three competing field-condition setters (Grassy Terrain / Rain / Sun) coexist correctly on one team.
+    - **Estimated scope:** ~3 hours
+
+69. **Trial 6 horror sequence — Alban estate environment + corpse battles** — `[MAJOR — map/environment + scripting + custom encounters]`
+
+    Per Section 7 — Indrid Alban and Section 14 — Trial 6 culmination (v0.9.8 locks). The project's most horror-tinged sequence.
+
+    **Components:**
+    - **Decayed-estate environment art:** the deceptively-beautiful Alban forest routes transformed into withered/sinister versions — withered trees, Pokémon corpses, decay palette. Manor interior with vine-tendril motifs. Greenhouse final area. (Venue specifics deferred to map-design session per Section 11, but the *horror art treatment* is a locked requirement.)
+    - **Vine-puppeted corpse NPCs/battles:** the reanimated murdered Alban family members shambling under Wo-Chien's tendrils. Custom sprites + creepy movement/animation. The player fights some of these (dead-Alban-family trainer battles — `[OPEN]` teams).
+    - **Journal-entry environmental storytelling:** readable manor documents conveying the two-phase compromise (Neven's Tablets infiltration → Baradus's Wo-Chien planting → the family's rot → Indrid's fall). `[OPEN]` specific content.
+    - **Wo-Chien environmental presence:** tendrils throughout; NOT a battle (Section 8 — Wo-Chien stays Baradus's contained asset). The devouring of Indrid is a scripted cutscene, not a fight.
+    - **Atmosphere/audio:** horror-tinged music and sound design distinct from the rest of the game.
+    - **Estimated scope:** ~30-50 hours (this is a major bespoke environment + horror-sequence scripting; one of the larger single-chapter builds in the project)
+
+70. **Trial 6 climax — Indrid devouring cutscene + cooperative Glaive double-battle + Nero adoption** — `[MEDIUM-MAJOR — scripting + cutscene + adoption mechanic]`
+
+    Per Section 7 — Indrid Alban and Section 14 — Trial 6 culmination (v0.9.8 locks).
+
+    **Components:**
+    - **Post-Indrid-fight sequence:** Indrid tosses the Verdant Badge; lucid-moment dialog (reaching toward player + Nero); **Wo-Chien devouring cutscene** (the player's first Treasure-of-Ruin sighting — major horror beat, custom cutscene + Wo-Chien reveal animation).
+    - **Baradus arrival + cooperative Glaive double-battle:** Baradus + Sword cultists swoop in; **Glaive arrives as the player's ally** in a double battle vs two Sword cultists (Glaive's G5 roster: Sandaconda, Scrafty, Turtonator, Dracovish, Shelgon — cooperative AI-controlled ally). After the win, **Baradus re-contains Wo-Chien in a special device and flees** (scripted — not a Wo-Chien fight, not a Baradus fight).
+    - **Cooperative-ally battle engine support:** verify the engine supports an AI-controlled ally trainer fighting alongside the player in a double battle (Glaive controls his own team; player controls theirs vs two cultist trainers). May require engine work if cooperative-ally double-battles aren't already supported.
+    - **Nero adoption mechanic:** after the cultists flee, Nero (injured, crying over Indrid) is approachable; the player may add it to their team. Crabominable-style adoption weld (Section 11 — Mechanical-Narrative Welds). Nero joins as-raised (shiny, Grassy Surge, full kit). `[OPEN]` whether adoption is optional (player can decline) — recommendation: optional, consistent with Crabominable.
+    - **Estimated scope:** ~15-25 hours (devouring cutscene + cooperative double-battle setup + Nero adoption mechanic + dialog), *plus* engine work if cooperative-ally double-battles need implementing
+    - **Cross-references:** Section 7 — Indrid Alban, Section 8 — Wo-Chien/Baradus, Section 7 — Glaive (cooperative G-battle), Section 11 — Mechanical-Narrative Welds, Section 9 — Crabominable adoption precedent
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.
