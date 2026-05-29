@@ -40,7 +40,7 @@ Brie's Fairy mastery proved exceptional enough that the empire granted her the 8
 **Trial 8 ace: Domdaniel `[LOCKED v0.9.7]`** — the shiny Scream Tail (Fairy/Psychic, Huge Power) that has been House Moray's generational ace across centuries. **The player faces House Moray's Mythical-tier generational Pokemon as a Trial encounter** — not held in reserve for "existential crisis only" deployment (as the Marshadow protocol is for House Langerin), but as Brie's *primary* Trial deployment. *The cosmic-tier rejection of Silas is publicly visible in this single fact:* every Cormorian who knows the Moray family sees, in Brie's Trial fights, *who Domdaniel actually chose.*
 
 **Trial 8 framing:**
-- Trial level cap: 50-55 (penultimate Trial; between Manus Surge's 35-40 at Trial 3 and Nemo's 60+ at Trial 9)
+- Trial level cap: 65 (per the locked Trial cap structure — penultimate Trial)
 - Domdaniel's combat kit at Brie's deployment: Champion-tier moveset and item, but **deployed with the constraint of Brie's age and inexperience** — Domdaniel's full capability is what we saw when Kimaris Langerin's Marshadow lost to Rhydia at full Champion-tier; *Brie's deployment is one tier below Rhydia's level of mastery*, which still makes Domdaniel one of the strongest Pokemon the player has faced
 - Brie's other Trial team members `[OPEN]` — Fairy-types appropriate to her age and personality (likely Florges, Gardevoir, Mimikyu, Sylveon, Granbull, or similar; not all need to be canonical pure-Fairy — some could be Fairy-egg-group or dual-Fairy)
 - **Pre-battle dialogue from Brie:** she tells the player directly about her concerns with her uncle. *She does not soften it for political reasons.* The player will hear a 15-year-old speak the truth about a Vizier in front of the prince. This is one of the most morally clear-eyed dialogue beats in the game.
@@ -198,7 +198,7 @@ The world finds his absence of fear *unsettling*. People who cannot intimidate h
 
 **The 9th Trial battle — two-phase boss:**
 
-**Phase 1: Manticore + standard Ground-type team.** The player faces Nemo's official Trial Baron lineup. Standard Ground-type Trial Baron battle, level cap appropriate to the 9th Trial position (high, presumably 60+ `[OPEN — exact cap]`).
+**Phase 1: Manticore + standard Ground-type team.** The player faces Nemo's official Trial Baron lineup. Standard Ground-type Trial Baron battle at the locked Trial 9 cap of 80.
 
 **Phase 2: Ting-Lu is brought out.** The moment Ting-Lu appears on the battlefield is *the moment the player realizes Nemo is the Usurper.* The mystery and the boss reveal collapse into a single moment of recognition.
 
@@ -253,7 +253,7 @@ The player eventually penetrates the Sword Cult's secret headquarters and reache
 - Genuinely talented with Fire-types; his appointment as Trial Baron was a grudging empire concession that couldn't ignore his ability despite the Ashland family suspicion
 
 **The Trial battle (Trial 2):**
-- Level cap: 30
+- Level cap: 25
 - Ace: **unique shiny Heatran** with **Earth Eater** ability (replaces canonical Flash Fire — Ground-immune instead of Fire-absorbing)
 - Moveset: **Torch Song** (Special Fire STAB, raises SpA on use), **Magnet Bomb** (Steel STAB, never misses), **Freeze-Dry** (Ice move that hits Water for super-effective), holds **Passho Berry** (halves Water super-effective damage on first hit)
 - This fight is designed to *break the obvious counter* — players who bring Water to fight Fire find their Water-type one-shot by Freeze-Dry through Passho's reduction. None of the three starters has a clean leverage against Heatran:
@@ -280,7 +280,7 @@ The player eventually penetrates the Sword Cult's secret headquarters and reache
 **The implication for the project's tone:** Kimaris has the power to *conjure and commune with the dead and lost souls*. This is genuinely supernatural — more than typing affinity, this is *real magic* in a world that mostly doesn't use it. The project is comfortable with this tone (Pokemon canonically has psychics, oracles, ghost-trainers); Kimaris just pushes the supernatural register slightly more explicit than usual.
 
 **The Trial battle (Trial 1):**
-- Level cap: 23 (the first Trial; the early-game)
+- Level cap: 18 (the first Trial; the early-game)
 - Ace: **Crowley** — a *unique* shiny Spiritomb with **Prankster** ability (rare on Ghost-types)
 - Moveset: **Curse** (Ghost-type self-damaging move, deals 25% per turn), **Strength Sap** (heals based on opponent Attack + lowers opponent Attack), **Shadow Claw** (STAB damage), **Protect**
 - Brought into the material realm "after thousands of failed summoning attempts" — Crowley exists only because the Langerin family worked at his summoning for generations
@@ -293,7 +293,7 @@ The player eventually penetrates the Sword Cult's secret headquarters and reache
 House Langerin holds **Marshadow** (Ghost/Fighting Mythical) as the family's generational ace — passed down within the Langerin lineage as the most powerful asset of their Ghost-tradition (Section 2 — Generational Aces of the Senior Noble Houses).
 
 - **Marshadow's lore-resonance with House Langerin is precise:** Marshadow canonically slips through underworlds and merges with the shadows of others. House Langerin keeps the Mirroh Necropolis and the sealed gate to the Distortion World. *The Pokemon and the family share the same spiritual register.*
-- **Marshadow does not appear in the standard Trial 1 battle** — Crowley the Spiritomb is the Trial ace at level cap 23. Marshadow is held in reserve and deployed only in extreme circumstances.
+- **Marshadow does not appear in the standard Trial 1 battle** — Crowley the Spiritomb is the Trial ace at level cap 18. Marshadow is held in reserve and deployed only in extreme circumstances.
 - **Two years before the game's story starts, Kimaris brought out Marshadow against Rhydia in a public, unrestricted-level Champion's match.** This was *not* a Trial battle — it was an exhibition or political-stakes match between the current Champion (Rhydia) and the former Champion (Kimaris) where the level cap did not apply. Kimaris's Marshadow was at level 100; he brought his full former-Champion roster. **Rhydia won.** This victory cemented her Championship legitimacy and triggered her two-year surge in popularity (Section 7 — Rhydia).
 - **The cults learned that House Langerin has a Mythical-tier ace through this match** and have factored this into their long-term strategy ever since. The Sword Cult has avoided direct confrontation with the Langerin family despite their religious-political opposition partly because Marshadow's existence makes such confrontation expensive.
 
@@ -359,7 +359,7 @@ Simone is a master of Normal-type Pokémon and articulates the type's value in a
 **The Trial battle (Trial 4):**
 
 - **Format: forced double battle.** Trial 4 is the player's first major doubles-format combat encounter outside Goma's Royal Palace assassination subplot. Simone tells the player explicitly during the pre-battle dialogue: *"The three male Pokémon on my team were raised by my husband, darling. You're really fighting both of us. Are you ready?"* The framing matters — the player is being tested on doubles tactics by a *husband-wife trainer partnership*, even though only one of them is physically present.
-- **Level cap:** `[OPEN]` specific number — interpolated between Trial 3 (Manus, 35–40) and Trial 8 (Brie, 50–55); likely ~40 given Trial 4's slot in the progression.
+- **Level cap:** 36 (per the locked Trial cap structure, v0.9.8).
 - **Trial-tier roster (all 6 deliberate "exceptions to the norm"):**
 
   | Slot | Pokémon | Gender | Ability | Moveset | Item | Notes |

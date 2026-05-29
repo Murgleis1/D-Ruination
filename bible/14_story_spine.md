@@ -16,7 +16,7 @@ This act structure reflects the corrected climax: **Osrid becomes Champion + Reg
 - Discovery that the cults have been spreading false news of his death
 - Discovery that two of the four cults are already destroyed (Tablets by Baradus, Vessels by an unknown "Usurper") — the cult landscape isn't four-cults-active but a more dangerous two-cults-and-mysteries
 - Inciting incident pulls him into investigation (`[OPEN]` specifics)
-- First Trial: **Kimaris Langerin (Ghost)** — Crowley the Spiritomb test, level cap 23. The player learns the Trial structure is *real Champion-tier combat*, not introductory.
+- First Trial: **Kimaris Langerin (Ghost)** — Crowley the Spiritomb test, level cap 18. The player learns the Trial structure is *real Champion-tier combat*, not introductory.
 - **First Mega-Dreamstone shard recovery `[OPEN — placement]`**: at some point in Act I or early Act II, the player recovers their first shard. Location and circumstances `[OPEN]`; possibly tied to a low-stakes worldbuilding event that introduces the shard mechanic without overwhelming the player.
 
 **Act II — The Trials and the Two-Cult War**

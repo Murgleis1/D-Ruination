@@ -102,7 +102,7 @@ When they reunite at ~50% (Rhydia learns Osrid is the new Rainhawk), they begin 
 - Has demonstrated her unbelievable battling prowess numerous times in public
 - Has bested **Dawnstar-level trainers** in exhibition matches and political-stakes battles
 - **Two years before the game's story starts, Rhydia defeated Kimaris Langerin** — the 1st Trial Baron, former Champion of Cormoria, head of House Langerin — **with his full team from his Champion era, including House Langerin's most special Pokemon inheritance: a level 100 Marshadow as his ace.**
-  - This was *not* a Trial battle (which is at level cap 23 for Kimaris). It was an exhibition or political-stakes match between the current Champion (Rhydia) and the former Champion (Kimaris) at *unrestricted* levels.
+  - This was *not* a Trial battle (which is at level cap 18 for Kimaris). It was an exhibition or political-stakes match between the current Champion (Rhydia) and the former Champion (Kimaris) at *unrestricted* levels.
   - **Rhydia won.** This victory cemented her Championship legitimacy beyond doubt and triggered her surge in popularity over the past two years.
   - The Cormorian public stopped seeing her as "the Regent-Queen who took her father's place" and started seeing her as "the Champion who can beat anyone, including the former Champion at full power."
   - **This victory is also what makes Marshadow a known existence in cult intelligence** — the cults learned that House Langerin has a Mythical-tier ace, and they have factored this into their long-term strategy.

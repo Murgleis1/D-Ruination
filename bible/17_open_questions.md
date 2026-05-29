@@ -111,7 +111,7 @@ These items emerged from v0.9.8 lock work and are deferred:
 
 **Trial 4 (Simone Sylphon) follow-up opens:**
 
-- **Trial 4 specific level cap number** — interpolated between Trial 3 (35-40) and Trial 8 (50-55); likely ~40; specific number `[OPEN]`
+- ~~**Trial 4 specific level cap number**~~ — **RESOLVED in v0.9.8** by the locked Trial cap structure (Trial 4 cap = 36). The prior interpolation note ("between Trial 3 35-40 and Trial 8 50-55") used stale per-Trial cap numbers that predated the locked v0.9.8 ladder; both endpoints are corrected by the ladder closure above. See Section 4 — Trial level cap structure.
 - **Held items for Simone's 5 non-Splendor team members** (Hisuian Zoroark, Bewear, Grafaiai, Pyroar, shiny Farigiraf) — `[OPEN]`
 - **IV/EV optimization and natures** for the 5 non-Splendor team members — `[OPEN]`
 - **Robard Sylphon's appearance in the story** — does he appear in person, or remain offscreen as a referenced absent partner? If onscreen, in what scenes (palace functions? Act IV exposure scene? a confrontation with Simone post-exposure?). The fact that he raised three of Simone's Trial team Pokémon strongly implies he *is* a trainer; whether the player ever battles him is `[OPEN]`

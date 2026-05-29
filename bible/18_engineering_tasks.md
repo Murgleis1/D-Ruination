@@ -629,7 +629,7 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
 
 54. **Simone Sylphon (Trial 4 Baroness) — full trainer entry and custom Pokémon kits** — `[MEDIUM]`
 
-    Trial 4 is a forced doubles fight against Simone Sylphon at level cap ~40 (specific number `[OPEN]`). All 6 team members need trainer-Pokémon entries; the ace and one teammate need custom engine work.
+    Trial 4 is a forced doubles fight against Simone Sylphon at level cap 36 (per the locked Trial cap structure, v0.9.8). All 6 team members need trainer-Pokémon entries; the ace and one teammate need custom engine work.
 
     **Splendor (Simone's ace) custom kit:**
     - Species: SPECIES_OBSTAGOON with shiny flag set
