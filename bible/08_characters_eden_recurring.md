@@ -124,7 +124,9 @@ Eden's bond with the starter she stole is one of the project's longest-arc partn
 
 ---
 
-### Sable Ashland — uncle of Reid Ashland, returned from Ancient Cormoria `[LOCKED]`
+### Sable Ashland — uncle of Reid Ashland, returned from Ancient Cormoria `[LOCKED — v0.9.8 pyrokinesis cross-ref added]`
+
+**`[v0.9.8 ADDITION]` Pyrokinetic strength — the family's elder anchor:** Per Section 12 — House Ashland Naljo backstory (expanded v0.9.8), House Ashland's foundational identity is *literal pyrokinesis* — the supernatural ability to physically conjure and direct fire. The power has diminished across most modern branches, and **succession follows strict pyrokinetic-strength rules.** Sable's pyrokinesis was the strongest of his generation — *which is why he was the family leader before his disappearance*. With Sable presumed lost, the family rule passed leadership to Reid Ashland, the next-strongest pyrokinetic — the first family member in a generation since Sable to be born with active powers (Section 7 — Reid Ashland v0.9.8 lock). **Sable and Reid are the *only two* living modern Ashlands with active pyrokinesis.** Sable's 12 subjective years in Ancient Cormoria as a survival-hardened warrior almost certainly involved using his pyrokinesis when his Pokemon-partnership combat resources were insufficient — though the bible does not commit to specific on-screen demonstrations on Sable's part (recommendation: keep his pyrokinesis primarily *implied* in his return arc; the single on-screen Ashland-pyrokinesis demonstration is Reid's at the Mt. Ceram raid scene — letting Sable's older-and-more-practiced power register through Reid's nephew framing rather than direct display).
 
 **Pre-disappearance backstory:**
 - Best friend and military colleague of **Eldred Nightfall**

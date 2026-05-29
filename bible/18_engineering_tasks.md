@@ -959,6 +959,37 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Engineering note:** the Necropolis Assault event (Section 14) also features Marshadow at this level — Marshadow's full peer-tier kit needs to be designed *once* and reused across both encounters. **This task and the Necropolis Assault task share Marshadow's data.**
     - **Estimated scope:** ~10-15 hours (custom team + dialog + scripted encounter; Marshadow's kit is shared work with the Necropolis Assault implementation)
 
+73. **Reid Ashland Trial 2 custom team — ability and move grants** — `[SMALL — data]`
+
+    Per Section 7 — Reid Ashland (v0.9.8 lock). Minimal engine cost — only one custom species ability override.
+
+    | Pokemon | Custom override | Notes |
+    |---|---|---|
+    | Phlegein (shiny Heatran) | **Earth Eater** ability override (canonical: Flash Fire); Move grants verify: Torch Song (canonical), Magnet Bomb (canonical), Freeze-Dry (custom — verify in expansion learnset for Heatran), Scorching Sands (canonical TM) | The only custom species ability on the team. Passho Berry item. Named "Phlegein" (Greek φλέγειν, "to blaze"). |
+    | Magmar | Ability: Flame Body (canonical regular); moves canonical | Eviolite item (applies to Magmar — engine verification per expansion's Eviolite-eligibility table). |
+    | Coalossal | Ability: Steam Engine (canonical regular); moves canonical | **Weakness Policy** item. **Engine verification needed:** confirm Steam Engine (+6 Speed on Water/Fire hit) and Weakness Policy (+2 Atk +2 SpA on super-effective hit) both correctly trigger on a single super-effective Water move Coalossal survives. Both should activate post-damage in standard order; no custom code needed but worth verifying interaction. |
+    | Charmeleon | Ability: Solar Power (canonical hidden); moves canonical | Eviolite item. |
+    | Arcanine | Ability: Intimidate (canonical regular); moves canonical | Sitrus Berry item. |
+    | Torkoal | Ability: Drought (canonical hidden); moves canonical | Leftovers item. |
+
+    - **Engine cost summary:** 1 custom species ability (Heatran Earth Eater); all other team members canonical. Per-trainer move grants only where needed.
+    - **Estimated scope:** ~2 hours
+
+74. **Reid Ashland Mt. Ceram raid pyrokinesis scene — implementation** — `[MEDIUM-LARGE — custom assets + scripting + dialog]`
+
+    Per Section 7 — Reid Ashland (v0.9.8 lock) and Section 14 — Mt. Ceram raid Act III. One of the project's most morally weighty scenes and a tonal-threshold beat (first on-screen instance of a sympathetic main character killing humans directly).
+
+    **Components:**
+    - **Trigger:** during the Mt. Ceram raid Act III sequence, after the player has fought through some early Beads cultist encounters with Reid (the "minutes that mattered" delay)
+    - **Custom sprites for Rain, Brook, and River Ashland:** the three sisters need overworld sprites for this scene (their first on-screen appearance — `[OPEN]` whether they appear in earlier Ashland Labyrinth scenes for sister familiarity before the danger lands; recommended yes, brief earlier scene)
+    - **Custom pyrokinesis visual effect:** Reid materializing/directing fire. **NOT a Pokemon move animation** — this is a *human-side* supernatural-power effect, visually distinct from Pokemon-based fire moves. Design language: more *embodied* and *intimate* than a Pokemon flamethrower (Reid's hands or stance generating the fire directly).
+    - **Cultist-burned visual treatment:** the on-screen aftermath of the burn. **Restraint matters here** — the project crosses a tonal threshold but should not become gratuitous. Recommendation: brief, decisive, the cultists are *gone* without dwelling on graphic gore. The horror is in the act and the aftermath, not the spectacle.
+    - **The "moments-too-late" pacing:** the scene's emotional center depends on the player feeling that they arrived *just too late*. Pacing of the immediately-preceding cultist encounters must reinforce this — *the player should feel the time running out*.
+    - **Aftermath dialog and silence:** Reid does not celebrate, does not speak much. Brief dialog (recommend minimal — *"I had hoped never to use this power that way"* or similar). Sister reactions (relief, fear, gratitude in different mixtures). Player has dialog options or quiet observation `[OPEN]`.
+    - **Engine considerations:** scripted cutscene with custom visual effects; no recurring engine modification needed beyond the visual-effect asset. Tone-and-pacing is the design challenge, not the engine.
+    - **Estimated scope:** ~15-25 hours (custom sister sprites + custom pyrokinesis visual effect + scripted scene + dialog + scene pacing tuning; tone restraint is the key constraint)
+    - **Cross-references:** Section 7 — Reid Ashland, Section 12 — House Ashland Naljo lore (the family's foundational moral identity that this scene resonates with), Section 11 — Show-Don't-Tell directness exceptions (v0.9.8 lock), Section 14 — Mt. Ceram raid Act III, Section 8 — Beads Cult Mt. Ceram raid
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.

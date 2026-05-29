@@ -243,30 +243,112 @@ The player eventually penetrates the Sword Cult's secret headquarters and reache
 
 ---
 
-### Reid Ashland — 2nd Trial Baron (Fire), prodigy son of House Ashland `[LOCKED — cross-referenced with Section 4 noble houses]`
+### Reid Ashland — 2nd Trial Baron (Fire), prodigy son of House Ashland, pyrokinetic heir holding his uncle Sable's seat `[LOCKED v0.9.8 — substantial expansion of v0.9.4 entry]`
 
-**Background:**
-- 23 years old at story start, the only male heir of House Ashland remaining in active service
-- Three younger sisters (named `[OPEN]`)
+**A 23-year-old prodigy who is genuinely competent and genuinely uncertain in equal measure. Reid believes in his heart that his uncle Sable is alive and will return — and that Reid himself is simply *holding the Trial Baron seat for the man who truly earned it.* He commands his shiny Heatran "Phlegein" with reverence rather than ownership, dreams of a Fire-type sanctuary at Mt. Ceram free from the empire's combat demands, and carries the full pyrokinetic legacy of House Ashland — the first family member in a generation since Sable to be born with active fire-conjuring power. He is good-natured, philosophically opposed to violence as a problem-solving tool, neither hothead nor pushover, and visibly stretched thin by a role he was never supposed to occupy. The Trial 2 fight is one of the project's most strategically demanding early-game battles. The Mt. Ceram raid scene where Reid uses his pyrokinesis to burn Beads cultists alive in defense of his younger sisters is one of the project's most morally weighty single moments.**
+
+**Background — Reid the prodigy:**
+- 23 years old at story start, the only male Ashland heir remaining in active service
+- **Three younger sisters: Rain, Brook, and River Ashland** `[LOCKED v0.9.8]` — `[OPEN]` specific ages and personalities. **None of the three sisters has pyrokinetic powers**, in keeping with the family's diminished-in-most-branches reality. The water-themed sister names against Reid's non-water name are the family's quiet open secret about who carries what gift.
 - Nephew of Sable Ashland (who disappeared during Eldred's assassination — see Sable entry above)
 - Has grown up under the political shadow of his family being suspected of treason — a decade of public service to defend his family's reputation
 - Genuinely talented with Fire-types; his appointment as Trial Baron was a grudging empire concession that couldn't ignore his ability despite the Ashland family suspicion
+- **`[v0.9.8 ADDITION]` Reid is the first Ashland in a generation since his uncle Sable to be born with *active* pyrokinetic powers** — the family's foundational supernatural gift, the literal ability to conjure and direct fire. Per Section 12 — House Ashland: pyrokinesis has diminished across most modern Ashland branches; **the determining factor each generation of who leads the family is who has the strongest pyrokinetic legacy and the deepest bond-potential with Fire-type Pokemon.** Sable's pyrokinesis was the strongest of his generation; Reid's is the strongest of his. **This is why leadership fell to Reid immediately after Sable's disappearance** — not just by birth order, but by the family's strict succession rules. *Reid was marked from birth.* The three sisters Rain, Brook, and River, lacking pyrokinesis, were never candidates by family rule.
 
-**The Trial battle (Trial 2):**
-- Level cap: 25
-- Ace: **unique shiny Heatran** with **Earth Eater** ability (replaces canonical Flash Fire — Ground-immune instead of Fire-absorbing)
-- Moveset: **Torch Song** (Special Fire STAB, raises SpA on use), **Magnet Bomb** (Steel STAB, never misses), **Freeze-Dry** (Ice move that hits Water for super-effective), holds **Passho Berry** (halves Water super-effective damage on first hit)
-- This fight is designed to *break the obvious counter* — players who bring Water to fight Fire find their Water-type one-shot by Freeze-Dry through Passho's reduction. None of the three starters has a clean leverage against Heatran:
-  - **Frigibax pickers** are worst off: Ice resists Ice (no damage), Dragon resists Steel (no damage). Frigibax-pick players need to build a real team beyond their starter.
-  - **Teddiursa pickers** have a Fighting-coverage path through Ursaring (Close Combat, Brick Break) — the best of the three starter matchups
-  - **Tinkatink pickers** have bulk to survive but no super-effective punch
-- The Trial **forces team-building** beyond starter monotony
+**Personality and voice `[LOCKED v0.9.8]`:**
 
-**Mid-game retirement:**
-- After Sable's return (Section 7 — Sable Ashland) ~70% through the game, Reid retires from his Trial Baron seat
-- Returns to study under Vizier Umbra
-- His personal dream: discover more Fire-type Pokémon, cultivate Mt. Ceram into a place where Fire-types can live in harmony and peace
-- This is a complete character arc — Trial Baron → student → scholar — that the player witnesses for a Trial Baron, an unusual narrative move that elevates the Trial House structure overall
+- **Confident with visible cracks.** Reid's public competence is real but he does not fully trust it. The strain shows in unguarded moments — a small pause before a decision, a brief glance at the empty chair where Sable should be. He is *aware* his confidence is fragile, and he chooses to act anyway. That choice is itself a kind of courage.
+- **No illusions about Ashland's standing or his own current capabilities.** He knows the family is under suspicion. He knows his own combat ceiling is lower than what the Trial Baron seat demands of a full master. He does not pretend otherwise. **This honesty with himself is one of his most likable traits** — *he is not posturing*, and the player feels it.
+- **Good-natured at baseline.** Kind, not bitter, not cynical despite the years of slander. The treason suspicion against his family did not curdle him; it sharpened his determination to *demonstrate* the family's actual character through his own conduct. Players who interact with Reid casually find him warm, patient, and quietly funny.
+- **Feels stretched thin; "not where I truly belong."** The Trial Baron role is a *holding pattern* in Reid's own mind, not his destination. He carries it dutifully but without identification — he is *playing a role*, and the role does not fit who he believes he is meant to become.
+- **Believes Sable is alive and will return.** *This is the private hope that keeps him going.* He has no proof. The decade of silence would have broken most relatives' faith. **Reid's hasn't broken.** He believes — quietly, without performance — that his uncle survived whatever happened during Eldred's assassination, and that one day Sable will come home. *Until then, Reid is the placeholder.* The bible's locked Sable-return arc vindicates this belief; Reid is *correct*, though he doesn't know how correct until Sable actually returns ~70% through the story.
+- **Dreams beyond combat.** Reid's personal aspiration is to discover more Fire-type Pokemon and **cultivate Mt. Ceram into a place where Fire-types can live in harmony and peace.** He believes "Pokemon have destinies beyond battle" and wishes to create environments where they can thrive **without constantly serving as combat surrogates for the petty feuds of human beings or being used for large-scale wars that only benefit humans.** This worldview is *foundational*, not casual — it shapes how he raises his team, how he speaks to Phlegein, and how he intends to live after retirement.
+- **Neither pacifist nor hothead nor pushover.** *Measured, deliberate, doesn't lead with fighting to solve problems.* But he does not avoid combat when the situation requires it — he simply prefers any other route first. **When fighting is the right answer, he fights, and he fights well.** When it isn't, he doesn't.
+- **Reveres Phlegein but does not idolize him.** He knows his shiny Heatran is exceptional — Mythical-tier potential, "power that is potentially unlimited" — and treats Phlegein with the careful regard of a young master who has not yet earned what he carries. *He does not flaunt the ace.* When Phlegein deploys, it is with a brief bow of the head and a quiet *"Are you ready, friend?"* — the formal register a prodigy reserves for the partner that has made his rise possible.
+
+**House Ashland's pyrokinetic legacy and Reid's place in it `[LOCKED v0.9.8]`:**
+
+House Ashland's foundational identity is that they are **a pyrokinetic family** — humans who can physically conjure and direct fire, not merely train Fire-type Pokemon. Originating in Naljo, the family fled the legendary Varaneous's coercive demand that they weaponize their power against other humans (Section 12 — House Ashland Naljo backstory, expanded v0.9.8). **The family's founding moral act was refusing to burn people alive at a tyrant's direction.** Reid's worldview — Pokemon have destinies beyond battle, fire should not be made to serve petty human violence — is the **same moral refusal his ancestors made, applied to a new domain**. Reid is not a deviation from family tradition; he is its truest inheritor.
+
+**The pyrokinesis itself, in Reid:**
+- Reid can physically conjure and direct fire. This is *real*, not metaphorical. **Not a routine combat capability** — he does not deploy pyrokinesis in standard Trial battles or political appearances; his Pokemon partnership is the *appropriate* combat vector and the family's modern public-facing identity.
+- The power *is* there, present and accessible. He simply chooses, in the conventional course of life, not to use it.
+- Most modern Cormorians know nothing of House Ashland's Naljo history. They treat the Ashlands as another long-standing noble house. **The pyrokinetic legacy is therefore invisible to the general public** — known only to the family itself, to other deeply-informed senior figures (Cadmus Umbra; possibly Kimaris Langerin via his exorcist consultancy work; possibly Mordred Nightfall from old family-to-family acquaintance), and eventually to the player when the bible's lore surfaces in the story.
+
+**The Mt. Ceram raid pyrokinesis scene `[LOCKED v0.9.8 — narrative; engineering OPEN]`:**
+
+**The player witnesses Reid use his pyrokinesis exactly once in the game**, during the Mt. Ceram raid arc (Section 8 — Beads Cult attack on the Ashland Labyrinth's lava-pool Leyline point; Section 10 — Mt. Ceram raid placement). The scene structure:
+
+- The Beads Cult is raiding the Ashland Labyrinth as part of their attempt to reach Chi-Yu's Leyline incarnation point at the deep lava pool
+- A group of cultists, breaking off from the main raid, has cornered **Rain, Brook, and River** (Reid's three younger sisters) and is attempting to harm them — either as leverage, as tactical hostages, or as opportunistic violence against the family
+- **The player and Reid arrive together — *just as Reid uses his power.*** The player arrives *during* the act, not after. Pokemon battles with other cultists during the broader raid had delayed the player and Reid by minutes that mattered. **Conventional combat had not been fast enough.**
+- **Reid burns the cultists alive with directed fire** — saving his sisters, in front of the player.
+- **The aftermath is quiet.** Reid does not celebrate. He does not speak much. *He had hoped never to use this power that way.* The player gathers what happened and what it cost him. **Show-Don't-Tell: the act *and* the cost both shown plainly.**
+- **The player's emotional center of the scene is *moral helplessness*.** The player feels — quietly, without dialog explicitly stating it — that *if they had arrived slightly earlier*, Pokemon battles alone could have saved the sisters, and Reid would not have had to make this choice. **This is the first moment in the game where the player's "Pokemon-battles-as-the-better-way" framework fails in real time** — not because the framework is wrong, but because real violence sometimes outruns it. **The scene quietly teaches that the partnership thesis is a *moral aspiration the world resists*, not a guarantee.** That landing deepens every subsequent partnership beat by reminding the player that the right answer doesn't always work fast enough.
+
+**Structural significance:** This is one of the project's most morally weighty single moments and **one of the very few on-screen instances of a sympathetic main character killing humans directly.** The act is morally legible (defense of children against immediate violent attack on them), but the project will have meaningfully crossed a tonal threshold once this scene ships — *real-stakes violence with consequences*, not stylized Pokemon-mediated combat. It works *because* it is shown with cost, restraint, and aftermath, not in triumph. **The Ashlands fled Naljo because they refused to burn people alive at a tyrant's direction. Reid uses his power on his own moral terms to defend the most vulnerable members of his family. The moral logic completes across generations** — the ancestors who refused Varaneous would *recognize and approve* of Reid's choice.
+
+`[OPEN]` Specific dialogue for the aftermath beat — recommendation: minimal. Reid says little; the player learns to read his silence.
+`[OPEN]` Specific cultist team(s) the player fights immediately before the scene (the encounters that delay them)
+`[OPEN]` Whether the sisters' relationship to Reid is further developed in scenes before this moment, or whether they are present primarily *here* — recommendation: brief earlier scene(s) at the Ashland Labyrinth so the sisters are not strangers to the player when the danger lands
+
+**The historical irony of the treason suspicion `[LOCKED v0.9.8]`:**
+
+The Cormorian common-knowledge view that "House Ashland probably helped assassinate Eldred Nightfall" is **not just unfair — it is *inverted from the family's actual character*.** Most Cormorians don't know House Ashland's Naljo history. They treat the Ashlands as just another long-standing noble house, and when post-Eldred suspicion crystallized, they repeated the slander *without any reference to the family's foundational identity.* **The people slandering the Ashlands could not even articulate what they are getting wrong, because they do not know the history.** The Ashlands fled their homeland *specifically to avoid being made instruments of violence against innocents*; the empire now suspects them of having abetted exactly such violence. **The historical ignorance is itself part of the tragedy** — the Ashlands are slandered by people who would *change their minds* if they understood what the family actually is. *That is sadder than simple injustice.* Reid carries this weight quietly; the player learns to feel it as the lore surfaces.
+
+**The Trial battle (Trial 2) — full team locked v0.9.8:**
+
+- **Level cap:** 25 (per the locked Trial cap structure)
+- **Format:** standard 6v6 single-trainer battle
+- **Design intent:** *break the obvious counter.* Water-pickers find their Water-type one-shot by Heatran's Freeze-Dry through Passho. The supporting team reinforces this trap with multiple layers of weather, hazards, intimidation, and burn pressure. **The fight forces team-building beyond starter monotony.** Per the existing v0.9.4 lock: Frigibax pickers worst off (Ice resists Ice; Dragon resists Steel); Teddiursa pickers have Fighting-coverage path through Ursaring; Tinkatink pickers have bulk but no super-effective punch.
+- **Engine cost is minimal** — only one custom species ability override (Heatran Earth Eater); every other team member uses canonical abilities. Per-trainer move grants where needed.
+
+| Slot | Pokémon | Gender | Ability | Moveset | Item | Notes |
+|---|---|---|---|---|---|---|
+| **Ace** | **Phlegein** — shiny Heatran | genderless | **Earth Eater** (custom override; canonical Flash Fire is replaced by Ground-immunity) | Torch Song / Magnet Bomb / Freeze-Dry / **Scorching Sands** | **Passho Berry** | Named *Phlegein* (Greek φλέγειν, "to blaze / to burn") — locked v0.9.8. Mostly-special attacker; massive SpA. Scorching Sands is the **trap-closer**: Ground-type special coverage on a Ground-immune ace. Rock-types who wall Fire get hit by Ground. The 30% burn chance compounds the team's burn pressure. Torch Song raises SpA per use → escalating threat. Freeze-Dry through Passho Berry one-shots Water counters. The 4-move kit has no obvious safe answer. |
+| 2 | Magmar | ♀ | Flame Body (canonical) | Flamethrower / Thunderbolt / Focus Blast / Sunny Day | **Eviolite** | Offensive special wallbreaker with burn-on-contact pressure (Flame Body). Eviolite makes her surprisingly tanky for a mid-stage. Sunny Day re-sets sun when Torkoal's Drought has worn off. **Thematic resonance with Reid:** Magmar is the *not-yet-Magmortar* mirror of Reid's *not-yet-finished* prodigy arc — both still becoming. |
+| 3 | Coalossal | ♂ | Steam Engine (canonical) | Rock Slide / Heat Crash / Stealth Rock / Rapid Spin | **Weakness Policy** | **The Water-bait trap.** A player Water move into Coalossal triggers Steam Engine (+6 Speed) AND Weakness Policy (+2 Atk +2 SpA) simultaneously = devastating sweep turn. Stealth Rock chips every player switch-in. Rapid Spin keeps Reid's side hazard-free. Lore-perfect Mt. Ceram volcanic resident. **Engine verification needed:** confirm Steam Engine and Weakness Policy correctly stack on a single super-effective Water hit Coalossal survives. |
+| 4 | Charmeleon | ♀ | Solar Power (canonical hidden) | Flamethrower / Dragon Pulse / Solar Beam / Roost | **Eviolite** | Sun-empowered special sweeper. Solar Power under sun = +50% SpA (1/8 HP per turn cost) → Solar Beam in 1 turn under sun shreds Ground/Rock counters. Roost sustains across Solar Power drain. Dragon Pulse covers Dragon counters (Frigibax-pick especially). Eviolite makes her unexpectedly tanky. **Thematic resonance with Reid:** *not-yet-Charizard* — the second of the team's three "still becoming" Pokemon (Magmar, Charmeleon, and implicit Reid himself as the third). |
+| 5 | Arcanine | ♂ | Intimidate (canonical) | Extreme Speed / Flare Blitz / Morning Sun / Snarl | **Sitrus Berry** | Anti-cleanup speed-control + dual-stat debuff threat. Extreme Speed +2 priority Normal STAB punishes setup-into-cleanup play. Intimidate stacks via switch-pivoting to keep player physical attackers debuffed. Snarl debuffs player SpA. *Across the fight, Reid can debuff both attack stats* (Intimidate physical + Snarl special). Morning Sun → 66% recovery in sun. Lore-perfect ancient guardian dog for an "ancient divine family of Fire magic users." |
+| 6 | Torkoal | ♂ | **Drought** (canonical hidden — Torkoal's signature) | Lava Plume / Earth Power / Yawn / Body Press | **Leftovers** | The team's primary sun-setter and stall anchor. Drought on entry → 5 turns of sun (boosts team Fire damage, halves player Water damage). Lava Plume burn pressure. Yawn forces sleep-or-switch. Body Press leverages massive Defense. Earth Power coverage. *The slow, ancient, magma-shelled tortoise that has lived inside Mt. Ceram so long that nothing surprises him* — the Ashland Labyrinth resident with no equal. |
+
+**Team-level strategic architecture:**
+
+- **Sun architecture:** Torkoal Drought (primary, 5 turns on entry) + Magmar Sunny Day (backup if sun lapses or Torkoal removed). **The team operates in sun more often than not** — boosts team Fire damage, halves player Water damage. The Trial 2 trap is precisely that *the obvious Water counter doesn't work because Reid built specifically against it.*
+- **Hazard layer:** Coalossal Stealth Rock chips every player switch-in by 12.5-50%. Compounds Reid's stall pressure.
+- **Burn pressure:** Phlegein Scorching Sands (30% burn special) + Magmar Flame Body (burn on contact, passive) + Torkoal Lava Plume (30% burn). **Three independent burn vectors** — player physical attackers get debuffed across the fight.
+- **Stat debuff layer:** Arcanine Intimidate (player Atk on Arcanine entry, stacks via switches) + Snarl (player SpA on attack). *Both attack stats can be reduced.*
+- **Pivot mechanics:** Arcanine switches in/out to re-apply Intimidate; Coalossal Rapid Spin clears player hazards; Torkoal Yawn forces switches into Stealth Rock.
+- **Closing threat layer:** Coalossal Weakness Policy boom turn + Phlegein Torch Song escalation + Arcanine Extreme Speed priority cleanup. **Three distinct win conditions, each requiring different player counter-strategies to neutralize.**
+
+**The strategic teaching:** *no single coverage axis carries the player through.* Per the locked design intent, the fight "forces team-building beyond starter monotony." The player must bring multiple coverage angles, manage weather, and out-think Reid's traps. **It is the fight that makes the player a real trainer, not just a starter-runner.**
+
+**The character resonance:** disciplined, layered, defensive-first, *built to prove competence under pressure*. The team is built the way Reid lives — carefully, deliberately, with multiple fallbacks. A decade of defending his family's reputation produced *exactly this kind of trainer*. **And yet Reid does not love the team because it wins; he loves the team because they are his.** *His personal dream is to retire with all of them to Mt. Ceram and live out his sanctuary vision together.*
+
+**Reid's combat voice (pre- and post-battle):**
+- **Pre-battle (controlled, formal-friendly):** Reid greets the player with quiet warmth. He acknowledges the player's progress through Trial 1, briefly references the difficulty of Cormoria's Trials, and deploys Phlegein with a small ceremonial gesture. *Are you ready, friend?* — the locked register for Phlegein deployment.
+- **During battle (focused, minimal):** Reid speaks rarely during the fight itself; the team's strategic depth speaks for him.
+- **Post-defeat (confidence cracks slightly; warmth surfaces):** Reid concedes openly, with no excuses or wounded pride. *That was masterfully done.* He grants the Trial Badge `[OPEN — Badge name to be locked]`. **If the player has shown particular ingenuity or kindness toward their Pokemon during the fight, Reid notes it briefly — recognizing something of his own worldview in the player.** The conversation is short; Reid does not linger over defeat. *He has work to return to.*
+
+**Mid-game retirement (~70% through the story) `[LOCKED, expanded v0.9.8]`:**
+
+- After Sable's return (Section 7 — Sable Ashland), Reid retires from his Trial Baron seat
+- Returns to study under **Cadmus Umbra** as a full-time student
+- **Keeps his entire Trial 2 team** — he does not hand any Pokemon off to Sable or anyone else. *He loves them all too much to ever let any of them go.* The team accompanies him into his scholar arc.
+- His personal dream: discover more Fire-type Pokemon, cultivate Mt. Ceram into a place where Fire-types can live in harmony and peace
+- **The overworld interaction tone shifts visibly after retirement** — Reid becomes *more relaxed* with Phlegein in scholar-mode than he was in Trial-Baron-public-figure mode. **The shift is itself character:** Reid's career arc is "prodigy son shouldering disgrace → free scholar"; his overworld-interaction tone with Phlegein tracks the same arc. *His real life begins here.*
+- This is a **complete character arc** — Trial Baron → student → scholar → eventual Fire-type sanctuary cultivator — that the player witnesses for a Trial Baron, an unusual narrative move that elevates the Trial House structure overall and **vindicates Reid's lifelong belief that he was holding the seat for Sable.** Once Sable returns, Reid is *free.*
+
+**Open items for Reid / House Ashland:**
+
+- `[OPEN]` Trial 2 Badge name (Trial Badge naming convention — 3 of 9 locked: Wraith/T1, Firmament/T5, Verdant/T6)
+- `[OPEN]` Specific personalities and ages of the three sisters (Rain, Brook, River)
+- `[OPEN]` Trial 2 venue specifics beyond "the Ashland Labyrinth inside Mt. Ceram" (deferred to map-design session per Section 11 — the Labyrinth itself is locked)
+- `[OPEN]` Pre- and post-battle specific dialog
+- `[OPEN]` Cultist teams the player fights immediately before the Mt. Ceram pyrokinesis scene
+- `[OPEN]` Reid's eventual Fire-type sanctuary at Mt. Ceram — does it actually get established in-story (post-game / late-game cutaway), or is it left as Reid's stated aspiration with the player understanding it as inevitable?
+- `[OPEN]` Whether Reid's pyrokinesis ever surfaces *again* after the Mt. Ceram raid scene (recommendation: no — the one moment is enough; it lands harder for being singular)
+- `[OPEN]` Specific arrangements for Reid's overworld-interactions with Phlegein and his Trial 2 team (the engineering scope of Section 11 ace-bonding interactions; Reid has been in scope since v0.9.7)
 
 ### Kimaris Langerin — 1st Trial Baron (Ghost), Reserve Champion of Cormoria, patriarch of House Langerin, spiritualist-sorcerer-exorcist `[LOCKED v0.9.8 — substantial rewrite of v0.9.4 "former Champion" framing]`
 
