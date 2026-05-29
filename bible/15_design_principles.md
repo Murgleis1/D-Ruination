@@ -420,7 +420,7 @@ The ace-bonding overworld interactions are the project's commitment to showing p
 
 | # | Character | Role | Ace(s) | Ace status |
 |---|---|---|---|---|
-| 1 | Kimaris Langerin | Trial Baron 1 (Ghost) | Crowley (shiny Spiritomb, Prankster) | Locked |
+| 1 | Kimaris Langerin | Trial Baron 1 (Ghost) / Reserve Champion | **Crowley** (shiny Spiritomb, custom Prankster — single ace; Kimaris treats him as a *newborn baby* with over-the-top goofy-affectionate baby-voice praise + rock-polishing + hugging — "the bestest most powerful most wonderful legion of ferocious spooksters" register, with a *deep stoic* contrast in serious moments) | Locked v0.9.8 — **the project's earliest Show-Don't-Tell partnership-thesis demonstration; Kimaris is placed as Trial 1 specifically to model what a true Master-Pokémon bond looks like before any other game beats develop the thesis** |
 | 2 | Reid Ashland | Trial Baron 2 (Fire) | unique shiny Heatran (Earth Eater) | Locked |
 | 3 | Manus Surge | Trial Baron 3 (Electric) | `[OPEN]` | Open |
 | 4 | Simone Sylphon | Trial Baroness 4 (Normal) | Splendor (shiny female Obstagoon, Fur Coat) | Locked v0.9.8 |

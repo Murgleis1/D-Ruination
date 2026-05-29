@@ -71,7 +71,7 @@ Section 7 — Cult cluster: Harbinger Baradus stub (Sword Cult leader). NOTE: mo
 
 ### `10_characters_trial_barons.md` — ~10,378 tokens (non-contiguous: L2272-2508, L2561-2658)
 
-Section 7 — Trial Barons cluster: Brie Moray (Trial Baroness 8 / Fairy / Domdaniel's chosen — promoted to Trial Baroness in v0.9.7), Nemo Korolev (9th Trial Baron / "The Usurper"), Sable Ashland (returned from Ancient Cormoria), Reid Ashland (2nd Trial Baron / Fire / House Ashland prodigy), Kimaris Langerin (1st Trial Baron / Ghost / former Champion), Manus Surge (3rd Trial Baron / Electric).
+Section 7 — Trial Barons cluster: Brie Moray (Trial Baroness 8 / Fairy / Domdaniel's chosen — promoted to Trial Baroness in v0.9.7), Nemo Korolev (9th Trial Baron / "The Usurper"), Sable Ashland (returned from Ancient Cormoria), Reid Ashland (2nd Trial Baron / Fire / House Ashland prodigy), Kimaris Langerin (1st Trial Baron / Ghost / Reserve Champion — v0.9.8 corrected from "former Champion"), Manus Surge (3rd Trial Baron / Electric).
 
 ### `11_characters_legendary.md` — ~11,103 tokens (L2727-3107)
 

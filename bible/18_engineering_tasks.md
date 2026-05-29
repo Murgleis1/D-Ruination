@@ -929,6 +929,36 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Estimated scope:** ~15-25 hours (devouring cutscene + cooperative double-battle setup + Nero adoption mechanic + dialog), *plus* engine work if cooperative-ally double-battles need implementing
     - **Cross-references:** Section 7 — Indrid Alban, Section 8 — Wo-Chien/Baradus, Section 7 — Glaive (cooperative G-battle), Section 11 — Mechanical-Narrative Welds, Section 9 — Crabominable adoption precedent
 
+71. **Kimaris Langerin Trial 1 custom team — ability and move grants** — `[SMALL — data]`
+
+    Per Section 7 — Kimaris Langerin (v0.9.8 lock). Standard custom-trainer-Pokémon entry pattern.
+
+    | Pokemon | Custom override | Notes |
+    |---|---|---|
+    | Crowley (shiny Spiritomb) | Ability override: **Prankster** (canonical: Pressure/Infiltrator hidden); moves canonical (Curse, Strength Sap, Shadow Claw, Protect) | Prankster + Curse = priority Curse residual on player. The locked ace combat identity since v0.9.4 — Prankster override carried forward. |
+    | Dusclops | Ability: **Pressure** (canonical regular); moves canonical (Shadow Sneak, Will-O-Wisp, Curse, Recover) | Eviolite item. No move override. |
+    | Shedinja | Ability: **Wonder Guard** (canonical only ability); moves canonical | King's Rock item. Curse-self-immolation on a 1-HP Ghost is the intentional design — when used, Shedinja faints but Curse-residual is applied to the player's active Pokemon. Engine verification: confirm Curse on Ghost-type with 1 HP correctly applies the residual-damage curse before fainting the user. |
+    | Honedge | Ability: **No Guard** (canonical only ability); Move grants: Aerial Ace, Reflect (both canonical to Honedge learnset — verify in expansion); other moves canonical | Muscle Band item. |
+    | Gastly | Ability: **Levitate** (canonical only ability); moves canonical (Night Shade, Confuse Ray, Curse, Parting Shot) | Eviolite item (applies to first-stage Gastly — engine verification: confirm Eviolite triggers on Gastly per expansion rules). |
+    | Dhelmise | Ability: **Steelworker** (canonical regular); moves canonical | Quick Claw item. Note: Curse on Dhelmise costs half max HP per use; viable for 1-2 self-Curse sacrifices on a high-HP Ghost. |
+
+    - **Key verification items:** (1) Prankster + Curse priority resolution on Crowley; (2) Curse-on-1-HP-Shedinja behavior (Shedinja faints AFTER applying Curse to target — verify the residual-damage hook fires before the self-faint); (3) Eviolite triggers correctly on first-stage Gastly per the expansion's Eviolite-eligibility table; (4) Quick Claw + Astonish (Ghost priority) interaction on Dhelmise.
+    - **Estimated scope:** ~2-3 hours
+
+72. **Kimaris Langerin post-Champion side quest fight — Reserve Champion true-team encounter** — `[MEDIUM — scripting + dialog + custom-tier balance; team composition OPEN]`
+
+    Per Section 7 — Kimaris Langerin (v0.9.8 lock), Kimaris's Trial 1 team is a *teaching fight*, not his actual best play. His true team — led by **Marshadow** at canonical Mythical-tier strength — is locked as a **post-Champion final-act side quest fight**, parallel to Sable Ashland's late-game peer-tier Shiny Charm side quest (task #57). The player faces Kimaris at his real strength: the man who tied Mordred 8 years pre-game, deploying the Pokemon he held back from every Trial fight in his career.
+
+    **Components:**
+    - **Trigger:** post-Champion final act (specific entry-point `[OPEN]` — likely a dialog option at the Mirroh Necropolis after some prior story milestone)
+    - **Team composition:** Marshadow ace + 5 supporting Pokemon at peer-tier above-cap (specific composition + abilities + items + custom move grants — `[OPEN — to be designed in a future session]`)
+    - **Level distribution:** above-cap, parallel to Sable's early-80s sidequest level placement. Likely high-90s/100 to put Marshadow at canonical Mythical-tier.
+    - **Marshadow's specific kit** — likely Spectral Thief signature + Close Combat + Shadow Sneak + Bulk Up; item `[OPEN]` (Marshadium Z or equivalent custom item)
+    - **Reward:** `[OPEN]` (recommend a thematic reward — possibly a unique item tied to Kimaris's spiritualist practice; possibly a special interaction with Crowley or with the Mirroh Necropolis grounds)
+    - **Dialog:** Kimaris fights with full stoic gravity here, not the goofy register — *both* sides of his personality on display in the same encounter (warm + stoic; the warm side surfaces in framing dialog, the stoic side in combat).
+    - **Engineering note:** the Necropolis Assault event (Section 14) also features Marshadow at this level — Marshadow's full peer-tier kit needs to be designed *once* and reused across both encounters. **This task and the Necropolis Assault task share Marshadow's data.**
+    - **Estimated scope:** ~10-15 hours (custom team + dialog + scripted encounter; Marshadow's kit is shared work with the Necropolis Assault implementation)
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.
