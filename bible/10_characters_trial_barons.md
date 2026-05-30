@@ -42,7 +42,20 @@ Brie's Fairy mastery proved exceptional enough that the empire granted her the 8
 **Trial 8 framing:**
 - Trial level cap: 65 (per the locked Trial cap structure — penultimate Trial)
 - Domdaniel's combat kit at Brie's deployment: Champion-tier moveset and item, but **deployed with the constraint of Brie's age and inexperience** — Domdaniel's full capability is what we saw when Kimaris Langerin's Marshadow lost to Rhydia at full Champion-tier; *Brie's deployment is one tier below Rhydia's level of mastery*, which still makes Domdaniel one of the strongest Pokemon the player has faced
-- Brie's other Trial team members `[OPEN]` — Fairy-types appropriate to her age and personality (likely Florges, Gardevoir, Mimikyu, Sylveon, Granbull, or similar; not all need to be canonical pure-Fairy — some could be Fairy-egg-group or dual-Fairy)
+- **Trial 8 team `[LOCKED v0.9.9]`** (cap 65; penultimate Trial, a deliberate difficulty spike):
+
+| Slot | Pokémon | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Ace** | **Domdaniel** — shiny Scream Tail | Huge Power | Leftovers | Play Rough / Psychic Fangs / Throat Chop / Wish |
+| 2 | Mega Mawile | Intimidate → **Huge Power** | Mawilite | Swords Dance / Play Rough / Iron Head / Sucker Punch |
+| 3 | Togekiss | Serene Grace | Leftovers | Nasty Plot / Air Slash / Dazzling Gleam / Flamethrower |
+| 4 | Primarina | Liquid Voice | Throat Spray | Calm Mind / Moonblast / Hyper Voice / Psychic |
+| 5 | Granbull | Intimidate | Leftovers | Play Rough / Close Combat / Fire Fang / Bulk Up |
+| 6 | Whimsicott | Prankster | Focus Sash | Tailwind / Encore / Taunt / Moonblast |
+
+  - **Strategy:** Whimsicott is the engine — Prankster-priority **Tailwind** flips the team's whole speed tier, or **Encore/Taunt** neutralizes the player's lead. Then a four-breaker assault: two Huge Power *physical* hammers (Domdaniel — fast, bulky, Wish-sustained; Mega Mawile with Sucker Punch priority) and two *special* setup sweepers (Togekiss Nasty Plot, Primarina Calm Mind). The anti-Fairy walls are pre-answered — **Steel** falls to Granbull's Close Combat, Togekiss's Flamethrower, and Primarina's Water-typed Hyper Voice (Liquid Voice); **Poison** falls to Primarina's and Domdaniel's Psychic moves. Granbull's Intimidate cushions physical hits. Bringing the obvious Steel/Poison counter doesn't save the player — that is where the +15 spike lives.
+  - **Tinkaton excluded by design `[LOCKED v0.9.9]`:** Tinkaton is one of the three player starters (the Fairy/Steel dragon-slayer line) and tied to the Tinkaton-clan ecology and the Solomonar lore; a Trial Baroness cannot field the player's own starter-species. Mega Mawile fills the Fairy/Steel niche instead.
+- **Trial 8 victory grants the Glamour Badge `[LOCKED v0.9.9]`** — "glamour," the old word for fae enchantment: pure Fairy, with a youthful sparkle fitting a 15-year-old prodigy.
 - **Pre-battle dialogue from Brie:** she tells the player directly about her concerns with her uncle. *She does not soften it for political reasons.* The player will hear a 15-year-old speak the truth about a Vizier in front of the prince. This is one of the most morally clear-eyed dialogue beats in the game.
 - **Post-battle dialogue from Brie:** depending on victory `[OPEN]`, may include her acknowledging that the player needs to confront her uncle directly and offering whatever help she can give
 
@@ -73,7 +86,7 @@ She is the *family's hope* in a story full of family-failure: Pierra cannot prot
 - **In Brie's hands, Domdaniel is constrained by her age and inexperience** — she may not deploy the Pokemon at maximum capability yet, the way Rhydia deploys Justice
 - However, even partial use of Domdaniel makes Brie one of the strongest young trainers in Cormoria; her Trial Baroness seat is *earned*, not ceremonial
 
-`[OPEN]` Brie's other Pokemon (Trial team beyond Domdaniel)
+~~`[OPEN]` Brie's other Pokemon~~ — **RESOLVED v0.9.9**: full Trial 8 team locked (see Trial 8 team above).
 `[OPEN]` Brie's specific story scenes — when and where the player encounters her outside the Trial 8 battle
 `[OPEN]` Whether Brie inherits House Moray formally after Silas's death (and at what age — the empire's youngest noble succession in recent memory)
 `[OPEN]` Specific dialogue lines for her direct-style truth-telling about Silas during Trial 8
@@ -198,7 +211,20 @@ The world finds his absence of fear *unsettling*. People who cannot intimidate h
 
 **The 9th Trial battle — two-phase boss:**
 
-**Phase 1: Manticore + standard Ground-type team.** The player faces Nemo's official Trial Baron lineup. Standard Ground-type Trial Baron battle at the locked Trial 9 cap of 80.
+**Phase 1: Manticore + standard Ground-type team `[LOCKED v0.9.9]`.** The player faces Nemo's official Trial Baron lineup — a disciplined sand-engine army at the locked Trial 9 cap of 80.
+
+| Slot | Pokémon | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Ace** | **Manticore** — shiny Gliscor | Adaptability | Leftovers | Beak Blast / Earthquake / Rest / Sleep Talk |
+| 2 | **Mega Garchomp** | Sand Force | Garchompite | Swords Dance / Earthquake / Stone Edge / Fire Fang |
+| 3 | Excadrill | Sand Rush | Life Orb | Swords Dance / Earthquake / Iron Head / Rock Slide |
+| 4 | Hippowdon *(lead)* | Sand Stream | Leftovers | Stealth Rock / Earthquake / Slack Off / Whirlwind |
+| 5 | Swampert | Torrent | Leftovers | Earthquake / Waterfall / Ice Punch / Curse |
+| 6 | Krookodile | Moxie | Choice Scarf | Earthquake / Knock Off / Stone Edge / Close Combat |
+
+- **Strategy:** Hippowdon leads, sets the **sandstorm** (Sand Stream) and Stealth Rock. The sand powers two sweepers — Excadrill's Sand Rush doubles its Speed; Mega Garchomp's Sand Force boosts Earthquake/Stone Edge. Swampert is the bulky pivot that switches into Water and answers Grass/Dragon with Ice Punch; Krookodile (Choice Scarf + Moxie) is the speed-control revenge-killer with item-stripping Knock Off. Manticore closes — Adaptability-boosted STABs with a Rest/Sleep Talk loop that heals to full while still attacking. **Every member is Ground-typed, so the entire army is immune to its own sandstorm** — a general's disciplined force, not a gimmick.
+- **The Garchomp `[LOCKED v0.9.9]`:** Nemo's Garchomp is a Sinnohian import — a Gible raised in his homeland, where the line is native — *not* a Cormorian catch. This keeps faith with Cormoria's near-extinct wild dragon population (driven out by the Tinkaton clan; Section 6) and with Glaive's failed hunt for the legendary desert Garchomp. The intended irony: Glaive, the empire's aspiring Dragon master, chases a Garchomp the whole game and ultimately never needs one — and the only Garchomp the player ever sees belongs to the Sinnohian who could simply raise one from home. Fitting, for one of the strongest trainers in the game.
+- **Phase 1 victory grants the Upheaval Badge `[LOCKED v0.9.9]`** — earth thrown skyward, and the political upheaval of the Usurper; the weightiest badge name for the final standard Trial.
 
 **Phase 2: Ting-Lu is brought out.** The moment Ting-Lu appears on the battlefield is *the moment the player realizes Nemo is the Usurper.* The mystery and the boss reveal collapse into a single moment of recognition.
 
@@ -328,7 +354,7 @@ The Cormorian common-knowledge view that "House Ashland probably helped assassin
 **Reid's combat voice (pre- and post-battle):**
 - **Pre-battle (controlled, formal-friendly):** Reid greets the player with quiet warmth. He acknowledges the player's progress through Trial 1, briefly references the difficulty of Cormoria's Trials, and deploys Phlegein with a small ceremonial gesture. *Are you ready, friend?* — the locked register for Phlegein deployment.
 - **During battle (focused, minimal):** Reid speaks rarely during the fight itself; the team's strategic depth speaks for him.
-- **Post-defeat (confidence cracks slightly; warmth surfaces):** Reid concedes openly, with no excuses or wounded pride. *That was masterfully done.* He grants the Trial Badge `[OPEN — Badge name to be locked]`. **If the player has shown particular ingenuity or kindness toward their Pokemon during the fight, Reid notes it briefly — recognizing something of his own worldview in the player.** The conversation is short; Reid does not linger over defeat. *He has work to return to.*
+- **Post-defeat (confidence cracks slightly; warmth surfaces):** Reid concedes openly, with no excuses or wounded pride. *That was masterfully done.* He grants the **Smelt Badge**. **If the player has shown particular ingenuity or kindness toward their Pokemon during the fight, Reid notes it briefly — recognizing something of his own worldview in the player.** The conversation is short; Reid does not linger over defeat. *He has work to return to.*
 
 **Mid-game retirement (~70% through the story) `[LOCKED, expanded v0.9.8]`:**
 
@@ -341,7 +367,7 @@ The Cormorian common-knowledge view that "House Ashland probably helped assassin
 
 **Open items for Reid / House Ashland:**
 
-- `[OPEN]` Trial 2 Badge name (Trial Badge naming convention — 4 of 9 locked: Wraith/T1, Haywire/T3, Firmament/T5, Verdant/T6)
+- ~~`[OPEN]` Trial 2 Badge name~~ — **LOCKED v0.9.9: Smelt** (smelting/forge — Mt. Ceram's volcanic refining, House Ashland). **All 9 Trial Badges now named:** Wraith/T1, Smelt/T2, Haywire/T3, Nonpareil/T4, Firmament/T5, Verdant/T6, Gloaming/T7, Glamour/T8, Upheaval/T9.
 - `[OPEN]` Specific personalities and ages of the three sisters (Rain, Brook, River)
 - `[OPEN]` Trial 2 venue specifics beyond "the Ashland Labyrinth inside Mt. Ceram" (deferred to map-design session per Section 11 — the Labyrinth itself is locked)
 - `[OPEN]` Pre- and post-battle specific dialog
@@ -581,6 +607,8 @@ The interactions are accompanied by an emoticon-over-head visual flourish and a 
 `[OPEN]` Specific number of overworld interaction beats Simone has across the game (Trial 4 chapter ≥ 1; possibly additional in pre-Act-IV peaceful Cormoria scenes and contrasting post-Act-IV reckoning scenes).
 
 `[OPEN]` Whether Simone's post-Act-IV overworld interactions with Splendor *change tonally* — does the fashion-chatter survive, or is there a quiet period of grief in which Splendor's overworld presence is comforting silent companionship rather than playful fuss? *Lean: the chatter quiets but does not disappear. Splendor is the constant.*
+
+**Trial 4 victory grants the Nonpareil Badge `[LOCKED v0.9.9]`** — "nonpareil" (having no equal) encodes Simone's thesis that her Normal-types are *exceptions to the norm.*
 
 **Open items for Simone:**
 
@@ -844,7 +872,7 @@ Per Section 11 — Ace-Bonding Overworld Interactions, Bridget interacts with Gr
 - `[OPEN]` Whether Bridget's Trial Baron seat passes to anyone, or whether she holds it through the rest of the story as part of her rebuilding arc
 - `[OPEN]` The content of Osrid's unheard whisper (recommendation: keep permanently unheard — it belongs to the cousins)
 - `[OPEN]` Whether Dantalion ever learns (via off-screen Kalos correspondence) that Osrid is alive — and what that does to him, referenced in dialogue
-- `[OPEN]` The Trial 7 Badge name (per the Trial Badge naming convention; Wraith/T1, Haywire/T3, Firmament/T5, Verdant/T6 locked)
+- ~~`[OPEN]` The Trial 7 Badge name~~ — **LOCKED v0.9.9: Gloaming** (twilight/dusk — the Dark type, the fading House Nightfall, Bridget's thawing heart).
 - `[OPEN]` Trial 7 venue (deferred to map-design session per Section 11)
 
 ### Indrid Alban — 6th Trial Baron (Grass), the corrupted prodigy, the dark mirror of Osrid `[LOCKED v0.9.8]`
