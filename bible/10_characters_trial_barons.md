@@ -341,7 +341,7 @@ The Cormorian common-knowledge view that "House Ashland probably helped assassin
 
 **Open items for Reid / House Ashland:**
 
-- `[OPEN]` Trial 2 Badge name (Trial Badge naming convention — 3 of 9 locked: Wraith/T1, Firmament/T5, Verdant/T6)
+- `[OPEN]` Trial 2 Badge name (Trial Badge naming convention — 4 of 9 locked: Wraith/T1, Haywire/T3, Firmament/T5, Verdant/T6)
 - `[OPEN]` Specific personalities and ages of the three sisters (Rain, Brook, River)
 - `[OPEN]` Trial 2 venue specifics beyond "the Ashland Labyrinth inside Mt. Ceram" (deferred to map-design session per Section 11 — the Labyrinth itself is locked)
 - `[OPEN]` Pre- and post-battle specific dialog
@@ -610,10 +610,9 @@ Per Section 11 — Ace-Bonding Overworld Interactions, all 9 Trial Barons qualif
 - After Reid retires from his Trial Baron seat to study under Cadmus Umbra (~70% through the story), the interaction tone *shifts visibly* — Reid becomes *more relaxed* with Heatran in scholar-mode than he was in Trial-Baron-public-figure mode. **The shift is itself character:** Reid's career arc is "prodigy son shouldering disgrace → free scholar"; his overworld-interaction tone with Heatran tracks the same arc.
 - `[OPEN]` Heatran's name; specific dialog beats for the pre-retirement and post-retirement tone difference
 
-**Manus Surge + `[OPEN]` ace `[LOCKED v0.9.8 — pattern in-scope; ace identity OPEN]`**
-- Manus's ace and full team are `[OPEN]` per Section 7 — Manus Surge. **Whatever Manus's ace turns out to be, the interaction tone is locked v0.9.8: *parental and emotionally invested in a way his son Boran never learned.*** Manus is far more emotional than Boran; his grief at what his son became surfaces in pre/post-Trial dialog with the player, and surfaces in his everyday relationship with his Pokémon as well. **Manus's overworld interactions with his ace are part of what *contrasts* with Boran's anti-pattern in the project's design** — players who notice both are meant to understand that *the failure of Boran's partnership philosophy was Boran's specific failure, not a Surge-family inevitability.* Manus loves his Pokémon, palpably and warmly. Boran's coldness was *his own.*
-- `[OPEN]` Manus's ace species, name, and combat profile (Electric-type, House Surge tradition)
-- `[OPEN]` Specific dialog beats for the parental-investment interaction register
+**Manus Surge + Modal (shiny Toxtricity) `[LOCKED v0.9.9]`**
+- Interaction tone: **parental and emotionally invested in a way his son Boran never learned.** Where Manus swings between passion, anger and grief everywhere else, with Modal he is simply *calm* — petting, feeding, talking to him as to an old friend. **The bond beat:** Modal cannot speak but has been *taught to write*, scorching words into paper, bare dirt, or floorboard with fine threads of his own current to converse directly with Manus — the most direct visual rebuttal of Boran, who has no bond worth demonstrating (anti-pattern exclusion). Register is the *scholarly intimacy of two old friends passing notes*, not generic warmth. This is what makes legible that *Boran's coldness was Boran's own failure, not a Surge-family inevitability.*
+- Full character profile, House-Surge schism, combat profile, team, and dialogue: see the Manus Surge profile (Trial Baron profiles, this file).
 
 **Simone Sylphon + Splendor (shiny Obstagoon)** — **fully locked v0.9.8, see Section 7 — Simone Sylphon entry above for complete interaction profile.**
 
@@ -845,7 +844,7 @@ Per Section 11 — Ace-Bonding Overworld Interactions, Bridget interacts with Gr
 - `[OPEN]` Whether Bridget's Trial Baron seat passes to anyone, or whether she holds it through the rest of the story as part of her rebuilding arc
 - `[OPEN]` The content of Osrid's unheard whisper (recommendation: keep permanently unheard — it belongs to the cousins)
 - `[OPEN]` Whether Dantalion ever learns (via off-screen Kalos correspondence) that Osrid is alive — and what that does to him, referenced in dialogue
-- `[OPEN]` The Trial 7 Badge name (per the Trial Badge naming convention; only Firmament/T5 locked so far)
+- `[OPEN]` The Trial 7 Badge name (per the Trial Badge naming convention; Wraith/T1, Haywire/T3, Firmament/T5, Verdant/T6 locked)
 - `[OPEN]` Trial 7 venue (deferred to map-design session per Section 11)
 
 ### Indrid Alban — 6th Trial Baron (Grass), the corrupted prodigy, the dark mirror of Osrid `[LOCKED v0.9.8]`
@@ -911,3 +910,61 @@ The Osrid / Indrid near-rhyme is intentional. **Both are prodigies of the newest
 - `[OPEN]` Trial 6 venue specifics beyond "the Alban Greenhouse / estate / surrounding forest routes" (deferred to map-design session)
 - `[OPEN]` Whether adopting Nero has any later-game narrative payoff (recommendation: yes — Nero as a living memorial of Indrid, possibly reacting to later Wo-Chien encounters)
 
+
+### Manus Surge — 3rd Trial Baron (Electric), head of House Surge, the grieving father `[LOCKED v0.9.9]`
+
+**The man.** Manus Surge is in his early fifties — distinguished, exquisitely well-spoken, a gentleman of the old Cormorian noble mould in every outward respect. His core conviction is the **inherent nobility of Pokémon**: that these creatures are partners to be honored, never instruments to be spent, and that those who would tarnish, exploit, or twist a Pokémon into something it is not commit an offense he regards as *unforgivable*. Beneath the gentleman's composure runs a far more volatile current than he shows the world — he swings, increasingly even in public, between passionate conviction, sudden anger, and a grief he can no longer fully contain. The one place that volatility never reaches is his Pokémon, with whom he is unfailingly calm and tender (see *Modal*, below). He took the 3rd (Electric) Trial Baron seat during the 10-year gap of Osrid's overseas service — one of the more notable roster changes of that decade — and is, by Baron standards, *younger in the seat* than most of his peers.
+
+**House Surge and its schism `[LOCKED v0.9.9]`.** House Surge are the empire's Electric-type masters — a multi-generational noble line whose signature contribution to Cormoria is *military and electrical*. Under Manus the house has fractured along the exact fault line that runs between him and his son Boran. Boran rejected his father's partnership creed early, holding instead that **Arceus's design places humanity above Pokémon in the hierarchy of worth**, and that asserting human will over a Pokémon — bending it to a purpose — is not desecration but right order. This was no abstract disagreement; it split the house. Relatives divided between those who saw Boran as the rightful next generation and those who held that Manus must keep power until a worthier heir emerged. **The house is today a divided and weakened thing** — which is part of why a Baron who "cannot afford to lose" guards his unbroken record so fiercely (below).
+
+**Exploited from outside `[LOCKED v0.9.9]`.** The pro-Boran faction is being quietly worked by the **Sword Cult** — almost certainly through **Silas Moray, Vizier of Commerce and Baradus's second-in-command** (see Sword Cult / Silas Moray entries), whose entire métier is infiltrating high society and destabilizing the empire from within. The cult feeds Boran's faction a *false premise*: that Boran is aligned with their design to topple the monarchy for a "new order." The deception's cruelty is theological — Boran's faction believes itself to be advancing an *Arceus-ordained* human-supremacy, while the Sword Cult's creed is explicitly *anti-Arceus*; they are being run as useful instruments toward an apocalypse their own stated beliefs would abhor. **Placement note `[LOCKED v0.9.9]`:** this political thread is carried in *overworld NPC dialogue around the Trial*, never in Manus's pre/post-Trial speech — the fight itself stays trained on the father-and-son weight.
+
+**Boran, and the scoreboard `[LOCKED v0.9.9]`.** Manus gave his son everything he is — every lesson, every kindness, every hour at his side learning what Pokémon truly are. Boran took none of it, becoming instead an unapologetic, faithless, domineering man who could conceive of Pokémon — and of his own human subordinates — only as tools. Those very traits made him an *excellent soldier*; the bible's quiet thesis here is that **a successful soldier is not thereby a successful or a happy human being**, and Boran is the proof. Manus knows this, and it has hollowed him. Here is the **tragic contradiction at the center of his character:** a man whose whole philosophy is that partnership is *not* about dominance has, for twenty years, hidden behind the one victory dominance gave him — *that his son could never defeat him in battle.* He keeps score in the only language Boran ever respected, and he hates that he does it. The bitter years, the slow disintegration of his house, and the layered estrangement from his own son have produced an internal schism that **can only be resolved by a loss** — not to Boran, but to someone carrying the partnership thesis Boran refused. Manus genuinely *needs* to lose; he simply cannot accept it from the one person it could never come from.
+
+**Arc role — the seed, not the cure `[LOCKED v0.9.9]`.** Osrid arrives at Trial 3 carrying the decade of Boran's "Pokémon as weapons" conditioning. Meeting Manus *recontextualizes* the source of that trauma: the looming monster of Osrid's last ten years is revealed as a man who threw away a good father's love and became efficient at war and hollow at everything else — demystified, cut to human size. **Defeating Manus is Osrid doing the one thing Boran never could**, and it plants the *seed* of true healing — but it does not cure the trauma. The reckoning comes later, at **the Blue Moon Hermit ritual (Lethys; ~L45, Act II)** — the 6v6 dream-fight that is Boran Surge's only on-screen appearance and that gates the starter's Stage-3 evolution (see Story Spine — the Hermit ritual). Trial 3 is where the seed goes in the ground; the Hermit ritual is where it is harvested. **Crucially, Manus never knows he is seeding anything** — per the Nomad cover lock (see Boran Surge entry), he has no knowledge that this Trial challenger is the student his son abused. He is a grieving man unburdening to a stranger who happens to battle the way he wishes his son had. The dramatic irony belongs entirely to the player.
+
+**Modal — the ace, and the bond `[LOCKED v0.9.9]`.** Manus's ace is **Modal, a shiny male Toxtricity** bred within House Surge tradition to be unusually powerful. Their chemistry is comfortable and deep, and it is the living proof that *Boran's coldness was Boran's own failure, not a Surge-family inevitability* (Section 11 — Ace-Bonding Overworld Interactions). Where Manus swings between passion and grief, with Modal he is simply *calm* — he pets him, feeds him, talks to him as one talks to an old friend. **The Ace-Bonding overworld beat `[LOCKED v0.9.9]`:** Modal cannot speak, but he has learned to *answer*. Using fine threads of his own current he scorches characters — words — into paper, into bare dirt, into the grain of a floorboard, and so converses directly with his master. This is Modal's singular *trained* gift, not a stray power: it is the fruit of a partnership patient enough to teach an animal to write, and it is the most direct possible visual rebuttal of Boran, who forms no bond worth demonstrating at all (Boran as the anti-pattern exclusion, Section 11). Register is *distinct per pair* per the locked principle — not generic warmth, but the specific, almost scholarly intimacy of two old friends passing notes.
+
+**Modal — combat profile `[LOCKED v0.9.9]`.**
+- Shiny ♂ Toxtricity. **Ability: Poison Puppeteer** (custom override — the only non-native ability on the team; set per-party). **Item: Air Balloon.** **Moves: Rising Voltage / Venoshock / Toxic / Electric Terrain.**
+- Base **75 Speed / 114 Sp.Atk** (verified against the fork): he hits enormously hard but is *outspeedable* — which is the point.
+- **Identity:** a flexible, multi-strategy ace. He sets Electric Terrain on entry; Toxic both poisons (doubling Venoshock to 130) and — via Poison Puppeteer — *confuses*; Rising Voltage doubles (70→140) into a grounded target on terrain. Air Balloon was a deliberate trade away from longevity (Sitrus) to deny the lazy Ground answer.
+- **The hard choice he forces `[LOCKED v0.9.9]`:** Toxtricity (Electric/Poison) is super-effective to *only* Ground (4×) and Psychic (2×). Air Balloon nullifies the first Ground move outright — immunity means no hit, so the balloon does not even pop and the turn is wasted — leaving a Ground attacker's STAB dead weight until something else pops the balloon, with Modal free to set up or strike in between. The clean answer is a *fast Psychic* that outspeeds and bursts him before terrain-boosted Rising Voltage ends it; mistime the engagement and you die. **Engineering caveat:** Air Balloon makes Modal *ungrounded*, so while it holds he loses Electric Terrain's flat +30% on his own Electric moves — Rising Voltage's *doubling* (which keys off the target's grounding, not Modal's) is unaffected.
+- **Hard counter by design:** a Steel/Ground type (Excadrill-class) is immune to *all* of Modal's damage (Ground immunity vs Electric; Steel immunity vs Poison and Toxic) — Modal cannot touch it. But the *team* can (see Eelektross's Flamethrower). No single switch-in solves the six.
+
+**Trial 3 team `[LOCKED v0.9.9]`** — cap 31; *singles*; the **matchup-judgment test** (contrast Trial 4, which first forces doubles). Pivots were deliberately trimmed to a single speed-control tool (Kilowattrel's Tailwind) so the fight reads as matchup judgment rather than momentum.
+
+| Slot | Pokémon | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Ace** | **Modal** — shiny ♂ Toxtricity | Poison Puppeteer *(override)* | Air Balloon | Rising Voltage / Venoshock / Toxic / Electric Terrain |
+| 2 | ♂ Vikavolt | Levitate | Poison Barb | Bug Buzz / Toxic / Venoshock / Roost |
+| 3 | ♂ Hisuian Electrode | Static | Magnet | Electro Ball / Energy Ball / Agility / Thunderbolt |
+| 4 | ♀ Eelektross | Levitate | Sitrus Berry | Thunderbolt / Venoshock / Toxic / Flamethrower |
+| 5 | ♂ Kilowattrel | Competitive | Leftovers | Buzzy Buzz / Air Slash / Roost / Tailwind |
+| 6 | ♀ Togedemaru | Sturdy | Quick Claw | Zing Zap / Iron Head / Toxic / Thunder Wave |
+
+- **Mechanical thesis `[LOCKED v0.9.9]`:** every member is part-Electric, baiting a reflexive Ground pick — but Vikavolt and Eelektross (Levitate) and Kilowattrel (Flying) are Ground-immune, and Hisuian Electrode answers the Ground switch-in with Energy Ball (Grass SE on Ground), while the *ace* and Togedemaru are themselves 4× Ground-weak. So the naive Ground answer wrecks two members and bricks on four. A Steel type walls the team's poison engine but is punished by Eelektross's Flamethrower. The player wins or loses on reading matchups *across the whole six* — exactly the Trial-3 mandate. The poison/Venoshock core (Modal, Vikavolt, Eelektross self-Toxic; Poison Barb on Vikavolt) is Manus's signature register; Buzzy Buzz/Thunder Wave add a paralysis-control second axis.
+- **Player victory grants the Haywire Badge `[LOCKED v0.9.9]`** — the Trial 3 badge, fitting the Electric trial and House Surge.
+- **Tuning `[OPEN]` (playtest, not lore):** the encounter's knife-edge lives in Modal's bulk and in which Psychics the player can field by cap 31 — calibrate there. Modal occupies the last slot; his turn-1 terrain set is standard ace tempo, with the five ahead of him chipping the player first.
+
+**Pre / post-Trial dialogue `[LOCKED v0.9.9]`.**
+
+*Pre-Trial:*
+> You carry yourself well, challenger — and that creature trusts you. I've grown weary of children who mistake a borrowed Pokémon for a borrowed will.
+> …Forgive me. You remind me of a thing I try not to think on. I had a son. Boran. I gave him every hour I had — every lesson, every kindness, everything I know of what these creatures truly are.
+> He took none of it. He traded the nobility of partnership for a quartermaster's arithmetic — Pokémon as ordnance, men as materiel — and he left this house and disgraced me. **But I can take pride in the fact that he was never able to defeat me in battle.**
+> So you understand: I do not lose. Not to him, not to the years, not to you. If you would pass, you must take from me the one thing my son never could.
+
+*On victory (player wins):*
+> …So. It can be done after all.
+> Twenty years I called his leaving his loss and not mine — told myself a man who could never best his own father had taken nothing from me worth mourning. You've just shown me what that was. A scoreboard. The same small, joyless comfort I spent his whole childhood condemning in him, kept in my own breast all this time.
+> Boran won every war they handed him. Commanded flawlessly. Needed no one, mourned nothing, was never once wrong — and he is the most thoroughly defeated man I have ever known. Whoever taught you to win *without emptying yourself out* taught you the only lesson I could never make my son hear.
+> *[Modal sets a claw to the floorboards; a thread of current scorches a single word into the wood. Manus reads it, and the gentleman's composure finally softens into something gentler.]*
+> Take the badge. And — thank you. I think I needed to lose that.
+
+*On loss (retry; deliberately not contemptuous — the anti-Boran beat):*
+> Up you get. There's no shame in it — only information.
+> My son would have told you a defeat proves you were never worth the field. He was wrong about a great many things. That was the first of them.
+> Tend to your team. Come back when they trust you to stand here again. I will be here — I am always here.
+
+**Still `[OPEN]`:** the specific overworld NPC lines carrying the House-Surge-schism / Silas-Moray thread; whether any post-victory scene later pays off Manus's arc (recommendation: a single quiet overworld beat post-Trial, not a second fight).
