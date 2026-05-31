@@ -42,6 +42,7 @@ Glaive does not hate the Tinkaton clan, but he is *wary* of them. His Sandaconda
 15. After the player defeats him, Glaive's heart is turned toward peace
 16. He departs Cormoria, having heard of an ancient dragon-tribe in Johto living in harmony with nature
 17. He becomes the first true Master and leader of that fledgling dragon tribe and founds a city in Johto
+18. **`[LOCKED v0.9.9]`** **Wakahisa** — the exiled Johto shinobi (Section 7 — Wakahisa) — accompanies him home and becomes his partner after his Vizier-of-War defeat opens his heart; the implication is marriage. *Downstream implication, consistent with the lineage note below that connects Glaive's Johto dragon-line to Lance's family: their union places Wakahisa within that line.*
 18. **The city is named after his Salamence — Blackthorn City**
 19. Lance's family eventually descends from the Dragon's Den order Glaive establishes
 

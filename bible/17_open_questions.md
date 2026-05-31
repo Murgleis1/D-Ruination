@@ -116,8 +116,8 @@ These items emerged from v0.9.8 lock work and are deferred:
 - **Female Rock Vizier name, House, Vizier portfolio** — character locked at trait-level v0.9.7; specific name and house assignment `[OPEN]`
 - **Madame Roma's overworld ace species/name/combat profile** — qualifies for ace-bonding pattern; specifics `[OPEN]`
 - **Blue Moon Hermit's overworld ace species/name/combat profile** — qualifies for ace-bonding pattern; specifics `[OPEN]`
-- **Jordan Ramses's full Poison-type team and named ace** — recurring rival; locked as in-scope for ace-bonding pattern; specifics `[OPEN]`
-- **Wakahisa's full Bug-type team and named ace, gender, foreign-origin country** — recurring rival; locked as in-scope for ace-bonding pattern; specifics `[OPEN]`
+- ~~**Jordan Ramses's full Poison-type team and named ace**~~ — **RESOLVED v0.9.9**: ace **Naga** (shiny ♀ Seviper, Multiscale); full mono-Poison team locked across all three fights (Naga, Fezandipiti, Toxapex, Toxicroak, Drapion, Amoonguss). See Section 7 — Jordan Ramses.
+- ~~**Wakahisa's full Bug-type team and named ace, gender, foreign-origin country**~~ — **RESOLVED v0.9.9**: female; Johto shinobi-clan exile; ace **Hayate** (shiny ♂ Ninjask, Speed Boost); full Bug team locked across all three fights (Ninjask, Accelgor, Mega Beedrill, Durant, Frosmoth, Volcarona); relationships locked (brother-bond with Jordan, closeness with Eden, romance with Glaive → leaves for Johto). See Section 7 — Wakahisa.
 - **Robard Sylphon's appearance, combat capability, post-exposure fate** — `[OPEN]` whether he appears on-screen, whether the player ever battles him, where he is after his forced resignation from Sylphon & Stone
 - **Sable's post-Act-IV scene with Simone** (childhood friend reckoning with her marriage crisis) — `[OPEN]` whether on-screen, off-screen, or absent
 - **PTSD dream sequence specific placement and triggering conditions** for Boran Surge fight — Section 14 task #58 `[OPEN]`
@@ -149,7 +149,7 @@ These items emerged from v0.9.8 lock work and are deferred:
 
 **Ace-bonding overworld interactions — per-character openness:**
 
-- **8 ace locks are `[OPEN]`** for the 23 in-scope characters: T5 Raptora, T6 Alban, T7 Nightfall, Silas's primary, Jordan, Wakahisa, Madame Roma, Blue Moon Hermit. (Manus's ace **Modal** locked v0.9.9.) Each unlock cascades to enable the corresponding interaction sub-task (engineering task #56).
+- **6 ace locks are `[OPEN]`** for the 23 in-scope characters: T5 Raptora, T6 Alban, T7 Nightfall, Silas's primary, Madame Roma, Blue Moon Hermit. (Manus's **Modal**, Jordan's **Naga**, and Wakahisa's **Hayate** locked v0.9.9.) Each unlock cascades to enable the corresponding interaction sub-task (engineering task #56).
 - **Per-character interaction style content** for the 13 ready-to-design characters (excluding Simone-Splendor which is the locked example) — `[OPEN]` per character. Recommended approach: lock interaction style at the time each character's full bible entry is reviewed, not as a separate dedicated pass.
 
 ### v0.9.7 closures (character expansions and major narrative locks)
@@ -266,11 +266,11 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 **Jordan Ramses & Wakahisa (Section 7):**
 - Full Pokemon teams across multiple appearances
 - Specific scenes and dialogue across both arcs
-- Wakahisa's gender, full backstory, origin country
+- ~~Wakahisa's gender, full backstory, origin country~~ — **RESOLVED v0.9.9**: female; Johto shinobi-clan heir exiled when her gender was exposed (patriarchal succession); Johto → Paldea → Cormoria.
 - Jordan's preferred cuisine style
 - Whether Jordan cooks for Osrid on-screen (almost certainly worth scripting)
 - Whether the truth of the Ramses assassination attempt (guilty or framed) is ever revealed
-- Whether Wakahisa and Jordan develop a friendship with each other after both convert
+- ~~Whether Wakahisa and Jordan develop a friendship with each other after both convert~~ — **RESOLVED v0.9.9**: yes — Jordan becomes the brother she never had.
 - Exact Paragon Gauntlet structure with the two new additions (expand to 7-8 fights, alternate-track, or separate-event)
 - Specific geographic location of the cross-purposes encounter and Osrid intervention
 

@@ -339,6 +339,8 @@ In the early Act II period, **Jordan and Wakahisa both become aware of each othe
 
 **In a moment of dark humor**, the two assassins — instead of cooperating to complete their shared objective — begin **fighting each other to kill each other** rather than fighting Osrid. Each views the other as a *competing contractor* whose existence undermines their own contract's success. **Osrid ends up fighting both of them to prevent them from killing each other.** *The prince becomes the protector of the people sent to kill him.*
 
+**Tone and structure `[LOCKED v0.9.9]`:** the encounter is comedic. The two never even reach Osrid — they collide first and fall to bickering and insults, and when Osrid walks in on the brawl they unite out of sheer wounded pride (*"fine — let's get the guy who interrupted us first"*). Two broke, immature 20-year-olds in over their heads — which is precisely why Osrid's partnership-ethos can convert them where it never could a hardened ideologue. Mechanically this is a **double battle**: Jordan and Wakahisa each field three Pokémon (a combined six) against the player — the only time the two rival-cult contractors fight side by side, against the man each was paid to kill. The deadly premise plays as farce, but the *threat stays real* — it is a genuine fight at level; only the characters are silly.
+
 **Conversion arc:**
 
 In the process of being prevented from murder-suicide by the man they were hired to kill, *and* being treated by Osrid with the same partnership-ethos Osrid extends to his Pokemon, **both assassins bond with Osrid.** They decide to abandon their assassin contracts and pursue the Trials as **legitimate trainers instead.** From that moment forward, both are recurring friends rather than recurring enemies.
@@ -352,7 +354,33 @@ In the process of being prevented from murder-suicide by the man they were hired
 
 Jordan and Wakahisa appear as competitors in the Act V Paragon Gauntlet (Section 11 — Principle 3; Section 10 — Act V) alongside the original 6 recurring stat-themed rivals. **Exact Gauntlet structure with the new additions `[OPEN]`** — they may expand the Gauntlet to 7-8 sequential fights, or serve as alternate-track opponents, or be separate event battles outside the formal Gauntlet sequence.
 
-`[OPEN]` Jordan's full Pokemon team — Poison-type roster across his multiple appearances
+**Jordan's team — across the three fights `[LOCKED v0.9.9]`.** A mono-Poison specialist's roster (every member Poison, each paired with a different second type), continuous across all three encounters: the pre-evolutions he fields early grow into the fully-evolved Gauntlet team.
+
+*Fight 1 — the cross-purposes double battle (with Wakahisa), early Act II `[~L18–22, tunable]`.* Jordan's three:
+
+| Pokémon | Ability | Item | Moves |
+|---|---|---|---|
+| **Naga** — shiny ♀ Seviper *(ace)* | Multiscale | Rocky Helmet | Barb Barrage / Throat Chop / Glare / Baneful Bunker |
+| ♀ Mareanie | Regenerator | Eviolite | Toxic Spikes / Scald / Recover / Venoshock |
+| ♂ Skorupi | Sniper | Eviolite | Knock Off / Cross Poison / Pin Missile / Bulldoze |
+
+*Fight 2 — mid-game `[~L50–60]`, five fully-evolved Pokémon (no Fezandipiti):* Naga / Toxapex / Toxicroak / Drapion / Amoonguss, on solid-but-unrefined items (Black Sludge / Leftovers tier).
+
+*Fight 3 — Act V Paragon Gauntlet, maximum power `[~L85–90]`, six Pokémon:*
+
+| Pokémon | Ability | Item | Moves |
+|---|---|---|---|
+| **Naga** — shiny ♀ Seviper *(ace)* | Multiscale | Black Sludge | Barb Barrage / Freezing Glare / Throat Chop / Baneful Bunker |
+| ♂ Fezandipiti | Toxic Chain | Covert Cloak | Dire Claw / Play Rough / Roost / Tailwind |
+| ♀ Toxapex | Regenerator | Black Sludge | Scald / Toxic / Haze / Recover |
+| ♂ Toxicroak | Dry Skin | Life Orb | Gunk Shot / Drain Punch / Sucker Punch / Swords Dance |
+| ♂ Drapion | Sniper | Scope Lens | Knock Off / Cross Poison / Earthquake / Stone Edge |
+| ♂ Amoonguss | Effect Spore | Rocky Helmet | Giga Drain / Sludge Bomb / Hex / Foul Play |
+
+- **Continuity:** Mareanie→Toxapex and Skorupi→Drapion keep their abilities natively (Regenerator, Sniper). Naga's early **Glare** sharpens into **Freezing Glare** by full power; item upgrades from Rocky Helmet to Black Sludge.
+- **Fezandipiti `[LOCKED v0.9.9]`:** male (the species is gender-fixed male in the engine). Hatched from a generations-old Ramses egg that *never hatched for anyone* — until Jordan. His genuine spirit, his love of cooking, and his lack of any desire to kill drew the dormant Pokémon to choose him; it becomes his strongest besides Naga. *The loyalty-Pokémon choosing the gentle soul rather than the family's "rightful" heir mirrors Domdaniel choosing Brie over Silas — the partnership thesis made literal.*
+- **Mechanical identity:** a poison-engine team — Toxic / Toxic Chain / Baneful Bunker / Effect Spore spread status that Barb Barrage and Amoonguss's Hex punish; Drapion's Sniper + Scope Lens + high-crit Cross Poison/Stone Edge crit-fishes; Dry Skin Toxicroak breaks with a Swords Dance; Toxapex walls and pivot-heals.
+- **Overrides** (per-party, no learnset surgery): Naga's Multiscale ability + Freezing Glare + Baneful Bunker.
 `[OPEN]` Specific scenes and dialogue across his arc
 `[OPEN]` Whether Jordan ever cooks for Osrid on-screen (one of the most natural character-bond beats in the project; *almost certainly* worth scripting)
 `[OPEN]` Whether the House Ramses pre-disgrace history is revealed in any depth (likely no — Jordan does not want to talk about his family; engaged players who explore the Ramses footnote will know)
@@ -369,6 +397,8 @@ Jordan and Wakahisa appear as competitors in the Act V Paragon Gauntlet (Section
 - **Cover identity:** ninja / shinobi — drawing on the Western Coalition's Tokugawa-era stylistic register (Section 3 — Cormoria's geopolitical neighbors)
 - **Hired by:** Harbinger Goma (Beads Cult) — under the same post-Royal-Palace-assassination contract logic as Jordan's hire by Baradus, but Goma and Baradus are operating *independently* and neither knows the other has contracted a separate killer
 
+**Backstory `[LOCKED v0.9.9]`:** Wakahisa is **female**, a descendant of an ancient **shinobi clan of the Johto region** (Western Coalition; Section 3). She was raised as her clan's intended heir — until her gender was exposed. In her clan's patriarchal tradition only males may be named official heirs, so she was stripped of her position and **exiled from ninja society.** Cast out, she became nomadic and a *self-taught* trainer, turning her clan tradecraft — recon, surveillance, assassination, hit-and-run — into a living as a fighter-for-hire. Her road ran from Johto through a brief stay in **Paldea** before reaching Cormoria, where she fell into **Goma's service around the same time Eden was recruited** — not as a Beads Cult member but as a *yojimbo / mercenary*, a deniable asset who could act in the cult's interest without tracing back to it. The gender that cost her everything is, fittingly, the one truth she no longer hides.
+
 **Conversion arc identical to Jordan's:**
 - Becomes aware of Jordan; both begin fighting each other instead of Osrid
 - Osrid intervenes to prevent their mutual murder
@@ -376,22 +406,46 @@ Jordan and Wakahisa appear as competitors in the Act V Paragon Gauntlet (Section
 - Recurring friend through the rest of the game
 - Paragon Gauntlet competitor in Act V
 
-**`[OPEN]` items:**
-- Gender — not specified in the v0.9.7 lock; Wakahisa is presented as gender-neutral until designed
-- Full backstory — origin country, family history, training lineage, why hired-killer work is the available option
-- Specific Pokemon team — Bug-type roster across multiple appearances
-- Personality and dialogue voice
-- Specific scenes and dialogue across the arc
-- Whether the foreign origin is ever made explicit in dialogue
-- Whether Wakahisa has any specific *moral* objection to the assassin work (parallel to Jordan's resentment of his family), or operates from a more straightforward mercenary-pragmatism register
-- Whether Wakahisa and Jordan develop a friendship with each other after both convert — *two former cross-purposes killers* becoming friends after attempting mutual murder is fertile dramatic territory
+**Relationships `[LOCKED v0.9.9]`:** over the game Wakahisa appears alongside Osrid and Jordan repeatedly and her edges soften.
+- **Jordan** becomes the **brother she never had** — two ex-cross-purposes killers who tried to murder each other becoming family is the arc's quiet payoff.
+- She **befriends Osrid** and grows **close to Eden** — natural, as both came up as outsiders through Goma's Beads-Cult orbit around the same time.
+- **Glaive `[LOCKED v0.9.9]`:** she develops a romantic attraction to Glaive, and he reciprocates after his defeat as **Vizier of War** — the same heart-opening the partnership-thesis defeat triggers in him (and that earns his off-screen Shelgon→Salamence). When Glaive departs Cormoria for **Johto** at the very end — his locked ending, founding the dragon-tribe there — **Wakahisa goes with him.** The exiled Johto shinobi returns home at the side of the man she loves; the implication is marriage. *(Downstream implication, consistent with the locked lineage note: Glaive's Johto dragon-line is the one the bible connects to Lance's family — their union places Wakahisa within it. See Section 7 — Glaive's ending.)*
+
+**Wakahisa's team — across the three fights `[LOCKED v0.9.9]`.** A Bug-type ninja's roster — stealth, hit-and-run pivoting, hazards, setup sweepers — fronted by a hyperfast striker:
+
+*Fight 1 — the cross-purposes double battle (with Jordan), early Act II `[~L18–22, tunable]`.* Her three:
+
+| Pokémon | Ability | Item | Moves |
+|---|---|---|---|
+| **Hayate** — shiny ♂ Ninjask *(ace)* | Speed Boost | Focus Sash | Leech Life / Aerial Ace / Bug Bite / Protect |
+| ♂ Larvesta | Flame Body | Eviolite | Ember / Bug Bite / Flame Charge / Leech Life |
+| ♀ Beedrill | Swarm | Muscle Band | Poison Jab / U-Turn / Knock Off / Pin Missile |
+
+*Fight 2 — mid-game `[~L50–60]`, six Pokémon (Larvesta not yet evolved):*
+
+| Pokémon | Ability | Item | Moves |
+|---|---|---|---|
+| **Hayate** — shiny ♂ Ninjask *(ace)* | Speed Boost | Life Orb | Bolt Beak / Dual Wingbeat / Leech Life / Protect |
+| ♂ Accelgor | Sticky Hold | Assault Vest | Bug Buzz / Water Shuriken / U-Turn / Stone Axe |
+| ♀ Mega Beedrill | Adaptability | Beedrillite | U-Turn / Poison Jab / Drill Run / Knock Off |
+| ♂ Durant | Hustle | Leftovers | False Surrender / Smart Strike / Aerial Ace / Bulk Up |
+| ♀ Frosmoth | Ice Scales | Heavy-Duty Boots | Quiver Dance / Ice Beam / Bug Buzz / Giga Drain |
+| ♂ Larvesta | Flame Body | Eviolite | Flamethrower / Bug Buzz / Quiver Dance / Morning Sun |
+
+*Fight 3 — Act V Paragon Gauntlet, maximum power `[~L85–90]`, six Pokémon:* identical to Fight 2 with Larvesta evolved to **Volcarona** (Flame Body, Heavy-Duty Boots, Armor Cannon / Bug Buzz / Morning Sun / Quiver Dance).
+
+- **Continuity:** the ace Hayate is present in all three fights; he gains **Bolt Beak** by mid-game (base 160 Speed + Speed Boost means he moves first, doubling Bolt Beak to 170). Larvesta→Volcarona by the Gauntlet; **Beedrill holds Beedrillite from Fight 2 on and Mega-Evolves** (Fight 2 therefore sits after Mega Evolution is established in-world).
+- **Notable builds:** **Durant** runs only never-miss moves (False Surrender / Smart Strike / Aerial Ace) so Hustle's +50% Attack carries no accuracy cost; **Frosmoth** and **Volcarona** are Quiver Dance sweepers on Heavy-Duty Boots (both 4× Stealth Rock weak); **Accelgor** is a Sticky-Hold pivot (Stone Axe sets hazards, U-Turn keeps momentum).
+- **Overrides** (per-party): Bolt Beak (Ninjask), Water Shuriken + Stone Axe (Accelgor), Armor Cannon (Volcarona). Speed Boost and Mega Beedrill's Adaptability are native.
+
+**Remaining `[OPEN]` items:** specific scenes and dialogue across her arc; whether her foreign origin is made explicit in dialogue; the exact Paragon Gauntlet sequencing (how she and Jordan slot into the existing six stat-rivals — `[OPEN]`).
 
 **Jordan and Wakahisa — Ace-Bonding Overworld Interaction status `[LOCKED v0.9.8 — pattern in-scope; specific interactions deferred]`:**
 
 Both Jordan Ramses and Wakahisa are named recurring trainers and qualify for Section 11 — Ace-Bonding Overworld Interactions under the project-level criterion. The pattern *applies to them*, but the specific interaction content is **deferred to the future session in which their respective Pokémon teams and named aces are locked.** Until then, the following placeholders apply:
 
-- **Jordan Ramses's ace** — Poison-type, identity `[OPEN]` (likely candidates given his stat-aspirant arc and chef-cover persona: a shiny variant of one of Drapion / Toxapex / Crobat / Salazzle, with a custom moveset reflecting both Poison-mastery and chef-themed mannerisms in idle animations). Interaction tone should reflect Jordan's character pivot — early-game interactions show *tense competence* (he is good with Poison-types because his family forced him to be, not because he loves them); later-game interactions, post-conversion, show *warming bond* as his relationship to his own family-imposed mastery is renegotiated. **The chef-vocabulary register should bleed into the interaction dialog** ("we'll get you a proper meal after this," etc.).
-- **Wakahisa's ace** — Bug-type, identity `[OPEN]` (likely candidates: shiny Scizor, Volcarona, Galvantula, Frosmoth, Heracross, or Centiskorch, with a ninja-themed combat profile). Interaction tone is `[OPEN]` pending Wakahisa's gender and personality lock; should reflect the cultural register of Wakahisa's foreign origin (different linguistic and behavioral cadence than the Cormorian native characters).
+- **Jordan Ramses's ace — Naga (shiny ♀ Seviper, Multiscale) `[LOCKED v0.9.9]`.** Interaction tone tracks his arc: early, *tense competence* (he is good with Poison-types because his family forced him to be, not because he loves them); post-conversion, a *warming bond* as he renegotiates that family-imposed mastery on his own terms. **The chef-vocabulary register bleeds into the dialog** (*"we'll get you a proper meal after this"*) and into his battle trash-talk.
+- **Wakahisa's ace — Hayate (shiny ♂ Ninjask, Speed Boost) `[LOCKED v0.9.9]`.** Interaction tone reflects her foreign-shinobi cadence — clipped, precise, a different linguistic register from the Cormorian natives — thawing across the game as the brother-bond with Jordan and her closeness to Osrid and Eden soften her. Hayate's hyperspeed reads as restless, darting energy in idle animation.
 
 `[OPEN]` Per-Pokémon interaction dialog beats for Jordan and Wakahisa (deferred to ace-lock session)
 `[OPEN]` Whether Jordan's and Wakahisa's *post-conversion friendship* gives rise to any joint-overworld scenes where their aces interact with each other (e.g., a tavern beat where both characters' aces are present)
