@@ -610,6 +610,12 @@ Cult corruption isn't vague decay — it's **vote-by-vote erosion of Concordance
 `[OPEN]` The physical location of the Concordance chamber (in the imperial palace, in a separate civic building, etc.)
 `[OPEN]` Voting mechanics — simple majority, supermajority, weighted by house rank, etc.
 
+### The Academies — Northpoint and ECTI `[LOCKED v0.9.9]`
+
+**Cormorian Northpoint Military Academy** — the empire's oldest and most prestigious academy: where the nobility is formed, built around a celebrated military/strategic tradition though it educates the whole elite, not only officers. Its alumni include **Eldred Nightfall, Gideon Valic, Silas Moray, Glaive Valic, Cadmus Umbra, and Kimaris Langerin** (the previously-unnamed "academy" where Cadmus and Kimaris grew up together is Northpoint). The military pedigree of Cormoria's tacticians runs through it.
+
+**Eastern Charter Trainer Initiative (ECTI)** — the newer institution **Cadmus Umbra created under his authority as Vizier of Education.** Where Northpoint forms officers and strategists, ECTI is a deliberately **non-military, trainer-focused university** built to mold the next generation of Pokémon trainers around mastery and partnership rather than war. It is the "Umbra's academy" referenced elsewhere (Section 9). That the empire's quiet architect of the partnership ethos — Rhydia's tutor, the Resistance Triad's strategist — built a trainer academy *against* the militaristic mold of his own alma mater is squarely in character. *(Soft-canon seed: a charter university for "the next generation of trainers" is a natural ancestor of the trainer-academy tradition commonplace ~2,000 years later.)*
+
 ### Sylphon & Stone — The Empire's Largest Merchant Guild `[LOCKED]`
 
 The **largest merchant guild in Cormoria.** Its next biggest competitor is the **Amber-Letz merchant guild** (Vandras's family — Section 7, Section 12).
@@ -625,6 +631,8 @@ These specializations create *parallel* dominance rather than direct competition
 **Beads Cult compromise `[LOCKED]`:**
 
 **Sylphon & Stone has been compromised by the Beads Cult as their *primary funding vehicle*.** Goma's operations across the past decade — including the failed Royal Palace assassination plot and the Mt. Ceram lava-pool operation — have been funded through Sylphon & Stone's commercial network. The cult-funds move as legitimate-appearing commercial transactions through the guild's accounts.
+
+**`[LOCKED v0.9.9]`** The current head of House Stone is **Zeldra Stone, Vizier of Infrastructure** (Section 7 — Zeldra Stone) — herself an *independent cult-hunter* who has **no idea** her own family's guild bankrolls the Beads Cult. The Act III/IV exposure therefore strikes her personally: she is the unknowing heiress of the dynasty funding the *rival* cult to the one she pursues, and the mirror of Simone Sylphon, who *knowingly* looks away.
 
 **This gives the Beads Cult *political leverage against Baradus's approach*.** Baradus's path runs through:
 - Converting Silas Moray (Section 7)

@@ -113,7 +113,7 @@ These items emerged from v0.9.8 lock work and are deferred:
 - ~~**Manus Surge's ace, full team, level cap specifics**~~ — **RESOLVED v0.9.9**: ace **Modal** (shiny Toxtricity, Poison Puppeteer, Air Balloon); full 6-Pokémon singles matchup-judgment team locked at cap 31; full character profile, House-Surge schism, the Modal bond beat, and pre/post-Trial dialogue all locked. See Trial Baron profiles — Manus Surge.
 - **Cadmus Umbra's overworld attendant Joustroll** — separate from his ace Jousteel; engineering and dialog beats `[OPEN]` (cross-ref: Section 9 — Joustroll/Jousteel Line)
 - **Silas Moray's primary ace species/name** — Vizier-of-Commerce; Psychic-type tradition; Thauma (shiny Hisuian Braviary) is locked as either his Templar mount or secondary ace, `[OPEN]` whether it is the primary ace deployed in Act V Vizier gauntlet
-- **Female Rock Vizier name, House, Vizier portfolio** — character locked at trait-level v0.9.7; specific name and house assignment `[OPEN]`
+- ~~**Female Rock Vizier name, House, Vizier portfolio**~~ — **RESOLVED v0.9.9**: **Zeldra Stone, House Stone, Vizier of Infrastructure** (Section 7 — Zeldra Stone). Ace **Regis** (blue shiny ♂ Tyrantrum, Strong Jaw); full Elite-Four-tier mono-Rock hazard/sand team locked (Regis, Tyranitar, Omastar, Probopass, Coalossal, Garganacl). **Also locked v0.9.9 in the same arc:** **Gideon Valic** (deceased previous Vizier of War, Glaive's adoptive father, assassinated by Baradus ~1yr pre-game — Section 7); **Glaive Valic** surname + foundling origin + vengeance-source — Section 7; **Northpoint Military Academy** + **ECTI** named institutions — Section 1; **Baradus's Chien-Pao radicalization** + the Ice-vs-Rock blind spot — Section 12.
 - **Madame Roma's overworld ace species/name/combat profile** — qualifies for ace-bonding pattern; specifics `[OPEN]`
 - **Blue Moon Hermit's overworld ace species/name/combat profile** — qualifies for ace-bonding pattern; specifics `[OPEN]`
 - ~~**Jordan Ramses's full Poison-type team and named ace**~~ — **RESOLVED v0.9.9**: ace **Naga** (shiny ♀ Seviper, Multiscale); full mono-Poison team locked across all three fights (Naga, Fezandipiti, Toxapex, Toxicroak, Drapion, Amoonguss). See Section 7 — Jordan Ramses.
@@ -158,7 +158,7 @@ The following major opens are now CLOSED in v0.9.7:
 - ~~**Tinkaton stat buff numbers**~~ — **RESOLVED in v0.9.7**: 75/85/125/75/125/75 = BST 560 (parity with Bloodmoon Ursaluna). See Section 6 — starter mechanical implementation.
 - ~~**Does the player recover the stolen starter from Eden?**~~ — **RESOLVED in v0.9.7**: No. Eden keeps the stolen starter through the entire game and into the post-game marriage. See Section 7 — Eden.
 - ~~**Supreme Sage final ability name**~~ — **RESOLVED in v0.9.7**: Renamed to **Lunacy**. Mechanics unchanged. ABILITY_LUNACY constant. See Section 9 — Lunacy entry.
-- ~~**The 4th unnamed Vizier (besides Umbra/Education, Glaive/War, Silas/Commerce)**~~ — **PARTIALLY RESOLVED in v0.9.7**: type is Rock, gender is female, ace is shiny Tyrantrum (Roma's revival of her girlhood Tyrunt fossil); name, House, portfolio still `[OPEN]`. See Section 7 — Female Rock Vizier; Section 4 — Viziers.
+- ~~**The 4th unnamed Vizier (besides Umbra/Education, Glaive/War, Silas/Commerce)**~~ — **RESOLVED v0.9.9**: **Zeldra Stone — Vizier of Infrastructure, House Stone**; ace Regis (blue shiny Tyrantrum); full team locked. See Section 7 — Zeldra Stone.
 - ~~**Vizier gauntlet order in Act V**~~ — **RESOLVED in v0.9.7**: Rock female → Umbra → Silas → Glaive → Rhydia. See Section 10 — Act V.
 - ~~**Silas's identity-reveal scene placement**~~ — **RESOLVED in v0.9.7**: Relocated to after Silas's defeat as third Vizier (no longer fourth); Silas then witnesses Glaive's fight and Rhydia's Champion battle before the unmasking. See Section 10 — Act V (Silas third fight bullet).
 - ~~**Trial Lord vs Trial Baron terminology**~~ — **RESOLVED in v0.9.7**: Sweep complete; 66 occurrences updated to Trial Baron / Trial Baroness with appropriate gendering.
@@ -213,7 +213,7 @@ These items emerged from v0.9.4 lock work and are deferred for future design:
 - **Madame Roma's full character design** (appearance, personality, dialogue voice)
 - **Madame Roma's residence** (royal palace adjacent? traveling between locations?)
 - **Madame Roma's Pokemon team** (if any beyond the metaphysical revival/soothsaying role)
-- **The Rock-type Vizier** — name, House identity, Vizier portfolio, full character profile. **v0.9.7 update:** gender locked as female; her shiny Tyrantrum ace via Roma's revival is locked; the rest remains `[OPEN]`
+- ~~**The Rock-type Vizier**~~ — **RESOLVED v0.9.9**: Zeldra Stone, House Stone, Vizier of Infrastructure; full profile, family (Sylphon & Stone / Devon weld), arc, and team locked. See Section 7 — Zeldra Stone.
 - **Fossil revival quest specific narratives and locations** across Cormoria
 - **Cormor's specific resting location** — `[OPEN]` permanently by design as part of the Avalon-sleep mystery
 - **The exact mechanism by which Baradus discovers the Necropolis gate** in late Act V (likely Silas Moray's intelligence network indirectly leaking the knowledge — completing Silas's tragic-enabler arc)
@@ -277,7 +277,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 **The Female Rock Vizier (Section 7):**
 - Name
 - House identity (possibly ancient ties to the destroyed House Jalviss given Rock/Ground adjacency, possibly other lineage)
-- Specific Vizier portfolio (Industry? Infrastructure? Justice? Religious affairs?)
+- ~~Specific Vizier portfolio~~ — **RESOLVED v0.9.9**: Infrastructure (the Rock ↔ construction weld).
 - Personality, dialogue voice, backstory beyond the Tyrunt-revival event
 - Full Trial-tier roster beyond Tyrantrum
 - Age (likely 40s-60s given decades of Tyrantrum mastery)

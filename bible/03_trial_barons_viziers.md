@@ -46,7 +46,7 @@ This is the empire's institutional structure for recognizing martial-Pokémon ex
 - **Vizier of Education — Cadmus Umbra** (Water-type master; Pokémon Philosopher; proto-Professor figure)
 - **Vizier of War — Glaive** (Dragon-type master; the second Solomonar in 1700+ years; ascends to the post mid-game after his revelation event)
 - **Vizier of Commerce — Silas Moray** (Psychic-type master; head of House Moray; secret 2IC of the Sword Cult)
-- **Vizier of `[OPEN portfolio]`** `[LOCKED v0.9.7]` — the **female Rock-type master** Vizier (name and house `[OPEN]`). Her boyhood-Tyrunt-revival anecdote is locked (Section 7 — Madame Roma; her ace is a shiny Tyrantrum, regal and well-known across Cormoria as the result of Roma's fossil revival when she was a girl). Her specific Vizier portfolio (Industry? Infrastructure? Justice? Religious affairs separate from Templar Arceus?) is `[OPEN]`. See Section 7 — Female Rock-master Vizier for character profile.
+- **Vizier of Infrastructure — Zeldra Stone, House Stone `[LOCKED v0.9.9]`** — the female Rock-type master Vizier. Her ace is the regal blue shiny ♂ Tyrantrum **Regis**, revived for her in girlhood by the ancient soothsayer Madame Roma from a Tyrunt fossil (Section 7 — Zeldra Stone; Section 7 — Madame Roma). House Stone is the empire's premier construction/engineering dynasty and co-founder of the Sylphon & Stone merchant guild (Section 1). See Section 7 — Zeldra Stone for full profile.
 
 **The Champion** is the highest authority in the realm — currently Rhydia (Section 5 / 7). Defeating the Viziers is the prerequisite for challenging the Champion.
 

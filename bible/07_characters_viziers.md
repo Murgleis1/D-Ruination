@@ -1,6 +1,20 @@
 <!-- This file is a split-section view derived from dreamstone_ruination_bible_v0.9.7.md (the canonical full bible at the repo root). Lines below correspond to the source lines noted in INDEX.md. Edit the canonical file and regenerate splits — do not edit splits directly. -->
 
+### Gideon Valic — the previous Vizier of War (deceased) `[LOCKED v0.9.9]`
+
+**Glaive's adoptive father; the Vizier of War assassinated ~1 year before the game.**
+
+- **A peer of Prince-Consort Eldred Nightfall** and nearly his equal as a tactician — one of the empire's two great military minds. Northpoint-educated (Section 1 — Northpoint), of **House Valic.**
+- **His grief, and Glaive:** Gideon lost his **wife and child** to a highway-robbery of their carriage gone horribly wrong. Years later he found an abandoned infant near the edge of his estate and, under extraordinary circumstances, took the child as his own — **Glaive Valic** (Section 7 — Glaive). The adoption was a bereaved man latching onto a second chance at fatherhood.
+- **His death `[LOCKED v0.9.9]`:** **Baradus personally assassinated Gideon** roughly a year before the game, under "mysterious circumstances." It was a **targeted strike with two aims** — to further destabilize the empire, and to **elevate Silas Moray** into a more relied-upon, critical-operations Vizier role beyond mere commerce, deepening the Sword Cult's institutional reach through its asset. Baradus saw Gideon as a genuine long-term threat (an Eldred-tier tactician) and removed him as he had removed Eldred.
+- **The two-stage decapitation:** with **Eldred (10 years pre-game)** and **Gideon (1 year pre-game)**, Baradus eliminated Cormoria's two foremost tacticians in sequence — Gideon having held the defensive line for the nine years after Eldred's fall. His murder is why the empire's tactical leadership sits at its weakest as the game opens, and why the seat passed to the young, grief-driven Glaive (Section 12 — Baradus; Section 6 — Eldred Nightfall).
+- **Zeldra:** Gideon and **Zeldra Stone** (Section 7 — Zeldra Stone) were on poor terms in life, yet his death is precisely what set her on her independent cult-hunt — disliking the man did not stop his murder from troubling her.
+
 ### Glaive — Dragon Tamer, future Vizier of War, future Solomonar, future founder of Blackthorn City `[LOCKED — updated v0.9.7]`
+
+**Origin — Glaive Valic, the foundling `[LOCKED v0.9.9]`:** Glaive was an **abandoned infant**, found — under extraordinary circumstances — near the edge of the estate of **Gideon Valic**, then Vizier of War (Section 7 — Gideon Valic). Grieving the wife and child he had lost, Gideon took the abandoned child as his own. So **Glaive carries the Valic name**, and though adopted he was **raised as a noble** and formally educated at the **Cormorian Northpoint Military Academy** (Section 1 — Northpoint), the empire's most prestigious academy and the alma mater of Eldred, Silas, Gideon, Cadmus, and Kimaris. *(The "extraordinary circumstances" attach to his innate, unrecognized dragon-empathic aura — below — not to any dragon bloodline: Glaive remains the first dragon-master without precedent.)*
+
+**His vengeance — its source `[LOCKED v0.9.9]`:** the "residual vengeance" and "older wounds" that keep Glaive's heart closed (and Shelgon from evolving) are grief for **Gideon, assassinated by Baradus** about a year before the game. Glaive does not know the killer's identity and on some level **wrongly suspects Kanto and/or Johto** orchestrated it. His arc runs in three stages: **misaimed** vengeance (at foreign powers) → **correctly aimed** (he learns the truth — that Baradus killed Gideon — at the Wo-Chien retrieval at House Alban, Trial 6, where he encounters Baradus for the first time) → **released** (the partnership-defeat at the Vizier-of-War fight, the locked moment his heart opens and Salamence becomes possible). His eventual choice to make his home in **Johto** — the very region he once blamed — closes the wound. He ascends to **Vizier of War**, filling the seat Gideon's murder left empty.
 
 **Critical background context `[UPDATED v0.9.7]`:** Dragons in our era are generally regarded in Cormoria as **the most wild and hostile Pokémon type to humans** — *and* they are *ecologically rare* in Cormoria because of centuries of suppression by the Tinkaton clan in the deep desert (Section 6 — Tinkatink Line Dragon-Slayer Bloodline; Section 2 — Solomonar title). The combined effect: very few Cormorians ever encounter wild dragons, and those who do struggle to master them. Some trainers across Cormorian history have managed to keep a single Dragon-type on their team here and there, but **no family has ever specialized in or mastered Dragon-types in the modern empire era**. **Glaive is the first trainer in 1700+ years of Cormorian history to be officially recognized as a true dragon-master — the second Solomonar in the empire's entire 2000-year span.** Cormoria publicly acknowledges that a *first* Solomonar existed in Cormor's third century (with a shiny Haxorus ace, identity forgotten to history), but Glaive is the first dragon-master since that ancient era.
 
@@ -459,28 +473,40 @@ Ambrose joins **Silas (corrupted, redeemed in death) and Glaive (vengeful, opene
 `[OPEN]` Whether Ambrose ever speaks to Osrid about the loss of Nemo as a shared grief
 `[OPEN]` Ambrose's age (likely 40s-50s given his Archbishop status and 30-year friendship with Nemo)
 
-### The Female Rock Vizier — name and house OPEN, character locked `[LOCKED v0.9.7 — stub]`
+### Zeldra Stone — Vizier of Infrastructure, House Stone `[LOCKED v0.9.9]`
 
-**One of the four Viziers (Section 4 — The 4 Viziers). The unnamed Rock-type master who fills the second Vizier slot in the gauntlet sequence (Section 10 — Vizier gauntlet order).**
+**One of the four Viziers (Section 4). The Rock-type master, and the first Vizier fought in the Act V gauntlet (before Umbra; Section 10 — Vizier gauntlet order).**
 
-**Locked details:**
-- **Female** — bible v0.9.6 line 2821 (Roma's Tyrunt-revival anecdote) incorrectly referenced "he/his/boy" and is corrected in v0.9.7 to female pronouns and equivalent phrasing
-- **Rock-type master** — the empire's senior Rock-type wielder
-- **Ace: shiny Tyrantrum** — regal, well-known across Cormoria for its battlefield power. **Origin:** when she was a girl, she found a Tyrunt fossil and brought it to Madame Roma, who revived it for her. The Tyrunt became her lifelong partner across decades of her rise to Vizier status (see Section 7 — Madame Roma; Section 9 — Fossil Revival System for Roma's revival mechanic). **Her Tyrantrum is therefore a *direct product of Roma's gift* — and one of only a small handful of Roma's revivals in the modern era.**
-- **Vizier gauntlet placement:** first Vizier fought in the Act V gauntlet, before Umbra (Section 10 — Act V)
+**House and portfolio:** House Stone is the empire's premier **construction and engineering dynasty** — residential and commercial structures, roads, aqueducts, the physical bedrock of civilization — and **co-founder, with the Sylphon family, of the Sylphon & Stone merchant guild** (Section 1 — Sylphon & Stone). Zeldra holds the **Vizier of Infrastructure** portfolio: the empire's builder. The Rock ↔ construction weld is the core of her identity, in lore and on the battlefield alike (see team, below).
 
-**`[OPEN]` items:**
-- Name
-- House identity (likely a senior noble house with Rock-type tradition, possibly cross-referenced with House Jalviss whose Ground-type lineage was destroyed — Rock and Ground are related types; *whether her house has any historical relationship to the Jalviss disaster is OPEN*)
-- Specific Vizier portfolio (Industry? Infrastructure? Justice? Religious affairs separate from Templar Arceus? — the four locked portfolios are Education / War / Commerce / [hers, OPEN])
-- Personality, dialogue voice, backstory beyond the Tyrunt-revival event
-- Her full Trial-tier roster beyond Tyrantrum
-- Her age (must be old enough that her childhood-Tyrunt is now a Tyrantrum she has mastered across decades — likely 40s-60s)
-- Whether she is aware of the cult crisis at the level Umbra is, or operates within her portfolio without the deeper cosmological knowledge
-- Whether she has any direct relationship with the Cormorian Empress (Pierra) or with Rhydia
-- Whether she has any connection to House Ashland (Rock and Fire being volcanic-adjacent) or House Langerin (her family may have ancient ties to other senior houses)
+**Personality:** aloof, flighty, fiercely independent. She trusts almost no one in the Vizier circle — she actively distrusts both **Cadmus Umbra** (whose compartmentalized secrecy reads to her as something to be suspicious of — an irony, since he is her natural ally) and **Silas Moray** (whom she is *right* to distrust). She was on **especially bad terms with Gideon Valic**, the previous Vizier of War (Section 7 — Gideon Valic).
 
-**Roma's revival of her Tyrunt is one of only a small handful of fossil revivals Roma has performed across centuries** (Section 7 — Madame Roma; Section 9 — Fossil Revival System). The Vizier knows that her ace is *Roma's gift* and presumably treats Roma with corresponding deference. **Their relationship is therefore a quiet, decades-old, ace-mediated personal bond between the soothsayer and one of the empire's four Viziers.** *Whether the Vizier knows the deeper truth of Roma's identity is `[OPEN]`* (likely no — Roma keeps her ancient identity hidden from almost everyone).
+**Her arc — the odd one out `[LOCKED v0.9.9]`:** Zeldra is the outlier among Cormoria's anti-cult actors. Unlike Cadmus or Nemo she does **not** carry the deep cosmological knowledge of the cults — she knows only that they exist and are a threat, nothing of Treasures of Ruin, Dreamstones, or incarnation. What set her on her path was **Gideon's death**: though she disliked him alive, his assassination under "mysterious circumstances" troubled her deeply, and she began — quietly, independently, trusting no one — to **hunt the cults on her own.** She does not know what Cadmus and Silas are each doing; she runs her own operation. She is **extremely resourceful**, and as one of the strongest trainers in the empire she is **feared by Goma and by acolytes of both cults** — with one exception (below). After the destruction of the **Alban family** (the Trial 6 chapter) she finally tracks down Baradus, and in the aftermath **sides with Osrid and Cadmus.**
+
+**Her shadow over the first half of the game `[LOCKED v0.9.9]`:** Zeldra's relentless pursuit of the **Swords of Ruin** — in which she finds and **destroys several of the Sword Cult's smaller bases of operation** — keeps Baradus on the back foot through the first half. This is the in-world reason the Sword Cult is **sidelined** until Baradus makes the deliberate move to retrieve Wo-Chien (Trial 6), and the reason the Swords **fail to notice Osrid's Dreamstone-fragment collection until after the midgame**: a harried, defending Baradus cannot complete his research into Chien-Pao's ideal revival-leyline point until very late. Crucially this *complements* rather than contradicts his locked tunnel vision — he never identifies Zeldra as the cause. She is material operational friction he refuses to take seriously: exactly the human-scale resistance his arrogance dismisses (Section 12 — Baradus).
+
+**The one who isn't afraid of her — Baradus `[LOCKED v0.9.9]`:** every cult actor fears Zeldra except Baradus, who **dismisses her** on two false premises — that **Ice "wipes the floor with" Rock** (it does not; Rock is super-effective into Ice and his own Chien-Pao is Rock-weak — his type-contempt is an extension of Chien-Pao's radicalizing superiority, Section 12 — Baradus), and that nothing she does can ultimately derail his plans. He allocates **recurring recruited acolytes** to harry her, treating her as an expected nuisance. **The payoff `[LOCKED v0.9.9 — narrative thread]`:** Zeldra is **present at the Necropolis climax**, where the Rock specialist Baradus dismissed becomes the embodiment of exactly the threat Chien-Pao's hubris refused to fear — the type-truth made flesh against him.
+
+**Her family's secret — the gut-punch she does not see coming `[LOCKED v0.9.9]`:** Zeldra **does not know** that her own House's guild, **Sylphon & Stone, is the Beads Cult's primary funding vehicle** (Section 1 — Sylphon & Stone; exposed late Act III / early Act IV). The cult-hunter is, unknowingly, the heiress of the dynasty bankrolling a cult — the *rival* cult to the one she hunts. When the compromise is exposed it lands on her as a **major personal gut-punch**, hardening her crusade into something closer to atonement. She is the mirror of **Simone Sylphon** (the other founding family's matriarch, who *knowingly* looks away): two founding-family women, opposite responses to the same rot. *(Soft-canon: House Stone's shareholders' descendants become **Devon Corporation** — Section 1.)*
+
+**Ace: Regis — blue shiny ♂ Tyrantrum `[LOCKED v0.9.9]`.** Strong Jaw; Focus Sash; Dragon Dance / Hyper Fang (retyped **Dragon** in Ruination) / Crunch / Psychic Fangs — all three attacks are biting moves, so Strong Jaw boosts each, and Dragon-typed Hyper Fang carries STAB *and* Strong Jaw. **Origin:** as a girl she found a Tyrunt fossil and brought it to **Madame Roma**, who revived it for her; Regis has been her partner across the decades of her rise to Vizier — **the longest single Pokémon-partnership of any locked-ace character except possibly Cadmus + Jousteel.** **Roma sees Zeldra as something like a granddaughter** — a quiet, lightly-handled warmth the player can infer from their few interactions, never spelled out. Zeldra treats Roma with deference and does not know Roma's deeper ancient identity. (Section 7 — Madame Roma; Section 9 — Fossil Revival System.)
+
+**Her team — Elite-Four-tier, the Vizier of Infrastructure made literal `[LOCKED v0.9.9]`.** A mono-Rock fortress that does not out-damage the player so much as *out-builds* them — laying hazard "roadworks," raising a sandstorm that erodes the player while hardening her own line, and walling behind load-bearing Rock-types until Regis comes down as the keystone:
+
+| Slot | Pokémon | Ability | Item | Moves | Role |
+|---|---|---|---|---|---|
+| Ace | **Regis** — blue shiny ♂ Tyrantrum | Strong Jaw | Focus Sash | Dragon Dance / Hyper Fang *(Dragon)* / Crunch / Psychic Fangs | Keystone sweeper |
+| 2 | Tyranitar | Sand Stream | Smooth Rock | Dragon Tail / Stone Edge / Crunch / Earthquake | Sand engine; phazes the player back through the hazards |
+| 3 | Omastar | Shell Armor | Mental Herb | Stealth Rock / Spikes / Toxic Spikes / Scald | Hazard-layer lead (Mental Herb beats a Taunt lead) |
+| 4 | Probopass | Sturdy | Leftovers | Volt Switch / Power Gem / Flash Cannon / Thunder Wave | Special wall + slow pivot that delivers Regis safely; paralysis support |
+| 5 | Coalossal | Flame Body | Heavy-Duty Boots | Rapid Spin / Will-O-Wisp / Lava Plume / Stone Edge | Hazard control (clears the player's side for Regis) + burns physical breakers |
+| 6 | Garganacl | Purifying Salt | Leftovers | Salt Cure / Recover / Body Press / Stealth Rock | Status-immune chip-staller; Body Press off its huge Defense; backup Rocks |
+
+- **Sand synergy:** every member is Rock-type → immune to sandstorm chip and **+50% Special Defense** under it, so the entire wall core only hardens as the battle goes on.
+- **Win condition:** hazards (Stealth Rock + Spikes + Toxic Spikes) + Tyranitar's Dragon Tail phaze-loop + Salt Cure + burns wear the player down behind near-unbreakable bulk; then Probopass pivots Regis in on a clean field (Coalossal having spun the player's hazards away), he Dragon Dances behind the Focus Sash, and the Strong-Jaw Dragon Hyper Fang cleans up. Focus Sash is reliable here precisely because the team keeps his entry clean and her own sand never chips him (Lum Berry is the alternative if status-stalling the setup becomes a problem).
+- **Overrides** (per-party): Hyper Fang retyped Dragon (Ruination); Strong Jaw and the biting-move synergy are native. Alternatives considered: Gigalith for a purer/more passive sand-setter; Cradily (Storm Drain) over Garganacl for a hard Water immunity.
+
+**Remaining `[OPEN]`:** her age (40s–60s — old enough that her girlhood Tyrunt is a decades-mastered Tyrantrum); specific scenes/dialogue; any historical House-Stone tie to the destroyed Ground-type House Jalviss.
 
 ---
 
@@ -505,11 +531,11 @@ Per Section 11 — Ace-Bonding Overworld Interactions, all four Viziers qualify 
 - `[OPEN]` Specific ace species, name, and combat profile
 - `[OPEN]` Whether the hollowness in Silas's ace-bonding is detectable to the player visually (a slightly *less-bright* emoticon, a flatter cry, the Pokémon's idle animation showing physical distance from Silas rather than affection) or only through the contrast with other Viziers' interactions
 
-**The Female Rock Vizier + her shiny Tyrantrum `[LOCKED v0.9.8 — pattern in-scope; ace combat profile and Vizier name OPEN]`**
+**Zeldra Stone + Regis (blue shiny Tyrantrum) `[LOCKED v0.9.9]`**
 - The Vizier's overworld presence is decades-deep (she has mastered her Tyrantrum since girlhood; the Pokémon was Roma's gift). **Their bond is the longest single Pokémon-partnership of any locked-ace character in the project except possibly Cadmus + Jousteel.**
 - Interaction tone: **regal-familiar.** The shiny Tyrantrum is *both* her Vizier-tier ace AND her childhood companion — public-functional AND personal. The Vizier addresses Tyrantrum with **the casual affection of someone who has known her partner for thirty-plus years** combined with **the dignified register expected of a Vizier-tier public figure.** No baby-talk; no hyperbolic praise (like Simone's Splendor register); rather, *small remarks of long-familiar care*, often non-verbal, the kind of bond where a glance suffices.
 - The "regal" visual treatment of the shiny Tyrantrum (Section 7 — Female Rock Vizier) extends to its overworld appearances — the dragon is treated and presented as *court-tier dignified*, not as ordinary trainer-Pokémon.
-- `[OPEN]` Vizier's name, full backstory, and Tyrantrum's combat profile (combat ace tier; specific moveset)
+- Combat profile locked v0.9.9: Strong Jaw; Focus Sash; Dragon Dance / Hyper Fang (Dragon) / Crunch / Psychic Fangs (Section 7 — Zeldra Stone).
 
 **Archbishop Ambrose Caymen + Temperance and Brunhilda `[LOCKED v0.9.8 — narrative; engineering OPEN]`**
 
