@@ -82,7 +82,7 @@ The conversation differs slightly by starter pick:
 - **Bagon → Shelgon → Salamence (Blackthorn)** — his signature, raised from Bagon, uniquely shiny black-and-crimson
 - **Sandaconda** — Ground type, Dragon egg group; defensively counters Ice (the canonical Dragon-counter)
 - **Gyarados** — Water/Flying, Dragon egg group; Mega Gyarados presents draconically; covers Dragon weaknesses
-- **Turtonator** — Fire/Dragon, legitimately a Dragon Pokemon. **Will be buffed significantly in Ruination** (specific stat buff numbers `[OPEN]`)
+- **Turtonator** — Fire/Dragon, legitimately a Dragon Pokemon. **Ruination buff `[LOCKED v0.9.9]`: HP 60→100, SpA 91→115, SpD 85→100 (BST 485→564); new ability Dragon's Maw** (×1.5 Dragon moves) alongside Shell Armor. The +40 HP turns its elite 135 Defense into a real wall (Shell Trap and Body Press finally function); Dragon's Maw + 115 SpA make its Dragon STAB a genuine nuke. Speed stays 36 — the slow anchor by design.
 - **Sceptile** — Grass, Dragon egg group; resists Electric and Ground
 - **Heliolisk** — Electric/Normal, Dragon egg group; Special attacker complementing his Physical-leaning core
 - **Scrafty** — Dark/Fighting, Dragon egg group; immune to Psychic, resists Dark
@@ -107,10 +107,26 @@ Glaive's Salamence (Blackthorn) eventually obtains Mega Evolution capability. **
 
 **Why this character matters:** Glaive's arc is the thematic thesis made literal. His Shelgon refuses to evolve while Glaive treats it as a weapon for vengeance. The moment Glaive opens his heart, evolution becomes possible. The player witnesses Pokémon-as-partners-not-weapons embodied in a single character. **And the deeper truth** — that Glaive's apparent talent is actually an unrecognized psychic gift his soul has been using to do partnership-work he didn't know he was doing — *underlines* the thesis: real bonds with Pokémon are quietly metaphysical even when the trainer doesn't notice.
 
+**Glaive's Vizier-of-War final team — the apex dragon-master `[LOCKED v0.9.9]`.** His last stand before the Champion (cap ~90, with state Mega sanction). This is the heart-opened culmination of the G1–G5 journey — the partners the player watched him raise, now at their peak, plus the otherworldly capstone. Built on the **Dragon egg-group** philosophy, so the team answers its own weaknesses through kin rather than abandoning the theme.
+
+| Pokémon | Type | Ability | Item | Moves | Role |
+|---|---|---|---|---|---|
+| **Blackthorn** (Mega Salamence) | Dragon/Flying | Aerilate | Salamencite | Dragon Dance / Dual Wingbeat / Earthquake / Roost | Ace. The heart-opening payoff — one Dragon Dance off 145 Speed sweeps; Aerilate Dual Wingbeat is its STAB nuke |
+| **Dracovish** | Water/Dragon | Strong Jaw | Choice Scarf | Fishious Rend / Crunch / Psychic Fangs / Ice Fang | Scarf guarantees it moves first, doubling Fishious Rend to a ~170-power Strong-Jaw nuke; Ice Fang answers opposing dragons |
+| **Turtonator** (buffed) | Fire/Dragon | Dragon's Maw | Leftovers | Dragon Pulse / Flamethrower / Body Press / Shell Trap | The bulky anchor — 100/135/100 walls, Dragon's-Maw Dragon Pulse nukes, Shell Trap punishes physical attackers; resists Fairy |
+| **Sandaconda** | Ground | Shed Skin | Leftovers | Stealth Rock / Glare / Earthquake / Coil | The glue/enabler — rocks, Glare paralysis (lets his hitters move first), EQ for Steel/Rock; counters Ice |
+| **Sceptile** | Grass | Overgrow | Life Orb | Leaf Storm / Dragon Pulse / Focus Blast / Giga Drain | The coverage glue — resists Ground (cushions Turtonator's 4×), Water, and Electric; fast special breaker |
+| **Naganadel** | Poison/Dragon | Beast Boost | Life Orb | Nasty Plot / Sludge Wave / Dragon Pulse / Fire Blast | The Ultra-Beast capstone *and* the Fairy answer — Sludge Wave punishes the type every other dragon fears; Beast Boost snowballs |
+
+- **The Mega `[LOCKED v0.9.9]`:** the team Mega is **Mega Salamence** (Glaive has state Mega-Evolution sanction as Vizier of War). Gyarados is *not* in the final six — one Mega per battle, and Blackthorn's Mega is the whole point of his arc.
+- **Naganadel — the across-universes wink `[LOCKED v0.9.9]`:** an Ultra Beast on a Cormorian dragon-master's apex team literalises Glaive's gift at its furthest reach — his dragon-empathy extends even to a dragon from *another universe*, a being no Cormorian could conceive of. And Poison/Dragon makes its Poison STAB the team's super-effective answer to **Fairy**, the one type the rest of his dragons fold to.
+- **Coverage logic:** the squad's *fixable* hole is **Ground** (Turtonator 4×, Naganadel 2×), patched by Sceptile's Ground resistance and Salamence's Flying immunity; the *unfixable* one is **Ice** (Mega Salamence 4×), mitigated by Turtonator's and Dracovish's Ice resistances and careful pivoting. Fairy is answered offensively by Naganadel.
+- **Dracovish acquisition `[OPEN]`** (between G3 and G5) — a Madame Roma fossil-revival connection remains the leading candidate.
+
 - `[OPEN]` Specific "major mistake" Glaive is about to make at the mid-game revelation
-- `[OPEN]` Exact stat buff numbers for Turtonator
-- `[OPEN]` His Vizier-of-War final fight roster (which members of his roster, at what levels)
-- `[OPEN]` Whether Mega Gyarados or any other Mega is part of his final fight (subject to Mega Evolution restriction; he would have state sanction as Vizier of War)
+- ~~`[OPEN]` Exact stat buff numbers for Turtonator~~ — **RESOLVED v0.9.9**: HP 60→100, SpA 91→115, SpD 85→100 (BST 485→564); new ability Dragon's Maw.
+- ~~`[OPEN]` His Vizier-of-War final fight roster~~ — **RESOLVED v0.9.9** (apex team locked above; cap ~90).
+- ~~`[OPEN]` Whether any Mega is part of his final fight~~ — **RESOLVED v0.9.9**: Mega Salamence is the team Mega (state-sanctioned); Gyarados is not in the final six.
 - `[OPEN]` Exact scene structure of the prince-reveal moment
 
 ### Cadmus Umbra, the Pokémon Philosopher — Vizier of Education `[LOCKED]`

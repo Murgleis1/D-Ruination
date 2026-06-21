@@ -337,12 +337,9 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - **Specific Dreamstone(s) used in the climactic sealing ritual** — the royal palace one? a different one? multiple?
 - **Investigator(s) who expose Sylphon & Stone's cult-funding compromise** — Rhydia's intelligence network, Eden's defection-era knowledge, Nemo's pre-Trial-9 intel, or a combination
 - **Locations of Wo-Chien and Ting-Lu's Leyline incarnation points** — Hoya River area for Wo-Chien; a deep forgotten cave system for Ting-Lu; specific geography still open
-- Glaive's specific stat-buff numbers for Turtonator
-- Glaive's roster progression across his 4-5 encounters
-- Glaive's Vizier-of-War final fight roster and Mega-Pokemon question
-- Glaive's specific stat-buff numbers for Turtonator
-- Glaive's roster progression across his 4-5 encounters
-- Glaive's Vizier-of-War final fight roster and Mega-Pokemon question
+- ~~Glaive's specific stat-buff numbers for Turtonator~~ — **RESOLVED v0.9.9**: HP 60→100, SpA 91→115, SpD 85→100 (BST 485→564); new ability Dragon's Maw.
+- ~~Glaive's roster progression across his 4-5 encounters~~ — **LOCKED v0.9.8** (G1–G5 ladder; see Section 7 — Glaive).
+- ~~Glaive's Vizier-of-War final fight roster and Mega-Pokemon question~~ — **RESOLVED v0.9.9**: Mega Salamence / Dracovish / Turtonator / Sandaconda / Sceptile / Naganadel; team Mega = Mega Salamence (state-sanctioned). See Section 7 — Glaive.
 - Glaive's "major mistake" at the mid-game reveal
 - Umbra's full team (Vizier of Education)
 - Umbra's Vizier-of-Education fight team

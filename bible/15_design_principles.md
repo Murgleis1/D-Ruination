@@ -178,7 +178,7 @@ The 5 gauntlet rivals besides the player are *the 6 stat-themed trainers, minus 
 - **Bagon → Shelgon → Salamence (Blackthorn)** — his signature, raised from Bagon and named after the rare mutated shiny Bagon he originally caught. Black-and-crimson Salamence.
 - **Sandaconda** — Ground type, Dragon egg group; defensively counters Ice (the canonical Dragon-counter)
 - **Gyarados** — Water/Flying, Dragon egg group; Mega Gyarados presents draconically and covers Dragon weaknesses
-- **Turtonator** — Fire/Dragon; legitimately a Dragon Pokemon. **Will be buffed significantly in Ruination** (specific stat buff numbers `[OPEN]`).
+- **Turtonator** — Fire/Dragon; legitimately a Dragon Pokemon. **Ruination buff `[LOCKED v0.9.9]`: HP 60→100, SpA 91→115, SpD 85→100 (BST 485→564); new ability Dragon's Maw (×1.5 Dragon moves).**
 - **Sceptile** — Grass, Dragon egg group; resists Electric and Ground (Salamence's weaknesses)
 - **Heliolisk** — Electric/Normal, Dragon egg group; Special attacker complementing his Physical-leaning core
 - **Scrafty** — Dark/Fighting, Dragon egg group; immune to Psychic, resists Dark
@@ -187,12 +187,12 @@ The 5 gauntlet rivals besides the player are *the 6 stat-themed trainers, minus 
 
 **The thesis statement embedded in Glaive:** real bonds with Pokemon are *quietly metaphysical* even when the trainer doesn't notice. Pokémon-as-partners-not-weapons isn't just a moral stance — it touches something cosmic that even materialistically-minded trainers participate in unconsciously.
 
-**Turtonator buff:** Turtonator is a perpetual underdog (BST 485, great typing and signature move held back by frailty). Buffing it in Ruination both (a) makes Glaive's late fight harder and (b) gives the player a *catchable* version worth using. Glaive's Turtonator should arguably be the version that demonstrates *why* the buff matters — players who fight him then want to use it themselves.
+**Turtonator buff:** Turtonator is a perpetual underdog (BST 485, great typing and signature move held back by frailty). Buffing it in Ruination both (a) makes Glaive's late fight harder and (b) gives the player a *catchable* version worth using. Glaive's Turtonator should arguably be the version that demonstrates *why* the buff matters — players who fight him then want to use it themselves. **`[LOCKED v0.9.9]`:** HP 60→100, SpA 91→115, SpD 85→100 (BST 485→564, +79); new ability **Dragon's Maw** (×1.5 Dragon moves) alongside Shell Armor. The +40 HP converts the elite 135 Defense into a real wall and makes Shell Trap and Body Press function; the SpA bump plus Dragon's Maw give it a genuine Dragon-STAB nuke; Speed stays 36 to preserve its slow-anchor identity.
 
 **Frigibax-pick player dialogue:** If the player picked Frigibax, Glaive has extra respectful dialogue acknowledging the Frigibax (a Dragon-egg-group Pokemon) in their party. **Glaive recognizes the Frigibax, not the player themselves.** The player does not share Glaive's psychic gift; Glaive is empathizing with the dragon-egg-group Pokemon in the player's care.
 
 **Open questions for Glaive:**
-- `[OPEN]` Specific stat buff numbers for Turtonator
+- ~~`[OPEN]` Specific stat buff numbers for Turtonator~~ — **RESOLVED v0.9.9** (HP 60→100, SpA 91→115, SpD 85→100, BST 564; Dragon's Maw).
 - `[OPEN]` Exact roster progression across the 4-5 Glaive encounters (which Pokemon he brings at which encounter)
 - `[OPEN]` His Vizier-of-War final fight roster (which members of the above list, and at what levels)
 - `[OPEN]` Whether Mega Gyarados or any other Mega is part of his final fight (gating: state Mega sanction; he has Vizier-of-War authorization)
