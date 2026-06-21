@@ -259,8 +259,23 @@ At the egg-discovery beat, the player chooses one of two responses to the line *
 `[OPEN]` Whether Cadmus would, post-game, be interested in reading the Book of the Moon himself if the player gave it to him — and what his reaction would be
 `[OPEN]` Whether Cadmus has any *suspicions* about deeper truth (e.g., he has theorized that the official founding myth is too simple, but he has no evidence for the deeper structure)
 
+**Cadmus Umbra's Vizier team — the Pokémon Philosopher's rain + Trick Room engine `[LOCKED v0.9.9]`.** A mono-Water team (plus the wildcard starter) built to weaponise Jousteel's Speed-10 freight-train profile: **rain** (set by the team) drives the damage, **Trick Room** flips the turn order so the slowest Pokémon in the game strikes first, and the slow Water nukes cash the window. A connoisseur's build, not a brute sweep — fitting the man who fathered the bond-centred worldview.
+
+| Slot | Pokémon | Type | Ability | Item | Moves | Role |
+|---|---|---|---|---|---|---|
+| Ace | **Jousteel** | Water/Steel | Water Bubble | Mystic Water | Aqua Cutter / Tachyon Cutter / Sacred Sword / King's Shield | Freight train — moves first under TR, ~3× Water in rain (Water Bubble ×2 + rain); Tachyon Cutter is the never-miss Steel STAB |
+| 2 | **Politoed** | Water | Drizzle | Damp Rock | Scald / Encore / Ice Beam / Toxic | Rain engine (8 turns) + disruptor |
+| 3 | **Slowking** | Water/Psychic | Regenerator | Leftovers | Trick Room / Scald / Future Sight / Slack Off | Primary TR setter; sticky Regenerator pivot |
+| 4 | **Lapras** | Water/Ice | Water Absorb | Leftovers | Trick Room / Freeze-Dry / Surf / Perish Song | Second TR setter; Water immunity (heals); Freeze-Dry breaks opposing Water walls; the patient closer |
+| 5 | **Crawdaunt** | Water/Dark | Adaptability | Life Orb | Crabhammer / Knock Off / Close Combat / Aqua Jet | Second slow nuke — Adaptability + rain Crabhammer is its own OHKO |
+| 6 | **The unstolen third starter** | (branching) | — | — | — | The **wildcard** — see below |
+
+- **The wildcard `[LOCKED v0.9.9]`:** Umbra keeps and raises the *third* starter — the one neither the player nor Eden took — even though it falls outside his Water specialty and may actively fight his Trick Room (a base-120-Speed Baxcalibur moves *last* under TR). This is deliberate character, not inefficiency: as the intellectual headwater of the entire bond-centred Pokémon world, Umbra fields a non-specialty companion out of *conviction in the bond over the optimisation* — the player faces a master who could min-max and chooses not to. Played straight, not TR-optimised.
+- **Two Trick Room setters** (Slowking + Lapras) so the strategy cannot be decapitated by removing one — standard for an Elite-Four-tier TR team. Lapras also patches mono-Water's worst structural matchup (opposing Water) in both directions: Water Absorb walls it, Freeze-Dry punishes it.
+- **Ability note:** Water Bubble maximises the rain payoff (the build's whole point); **Sharpness** is the alternative if Jousteel should never be hard-walled — it boosts every slash 1.5× for type-flexible coverage, at the cost of the rain multiplier.
+
 **Open items for Umbra:**
-- `[OPEN]` His full Pokémon team and Vizier-of-Education fight composition (Jousteel as ace locked; secondary Pokemon `[OPEN]` — likely Water-typed with possible additions)
+- ~~`[OPEN]` His full Pokémon team and Vizier-of-Education fight composition~~ — **RESOLVED v0.9.9** (rain + Trick Room team locked above; Jousteel + Politoed/Slowking/Lapras/Crawdaunt + the wildcard third starter).
 - `[OPEN]` Specific scenes where he interacts with Osrid in early-game (where the audience may see their pre-existing trust before knowing why)
 - `[OPEN]` Whether Umbra's family lineage carries any Latin-tradition Pokemon or scholarly artifacts beyond Jousteel
 

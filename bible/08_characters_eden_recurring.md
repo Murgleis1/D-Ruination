@@ -120,6 +120,36 @@ Eden's bond with the starter she stole is one of the project's longest-arc partn
 `[OPEN]` Specific dialog lines for each tone stage
 `[OPEN]` Whether the marriage-epilogue scene in Paldea includes a final ace-bonding interaction between Eden and her starter, or whether the wedding-imagery presence is sufficient closure
 
+**Eden's team and the five fights `[LOCKED v0.9.9]`.** The player battles Eden **five times**, her team and her stolen-starter ace growing across the game as her arc turns from thief to ally. The build identity is **disruption and status-control** around her signature partner, with the stolen starter as the type-advantaged finisher.
+
+**Pilfer — her signature partner `[LOCKED v0.9.9]`.** A **shiny ♂ Nickit → Thievul** named **Pilfer**, Eden's *own* Pokémon — she has him before the theft (the stolen starter is the second pillar of her team, not the first). Ruination overrides on the line: buffed stats (Nickit 60/60/50/75/85/50; **Thievul 90/70/70/100/125/85**), the **Prankster** ability (base fork: Run Away / Unburden / Stakeout), and a **Baddy Bad buffed to 95 BP** that still sets Light Screen. Set: **Baddy Bad / Glare / Hex / Parting Shot**, Light Clay. Prankster gives priority to the *status* moves — Glare (reliable paralysis before the foe acts) and Parting Shot (priority debuff-pivot) — while Baddy Bad and Hex deal damage at normal speed. Pilfer pivots in and out, paralyses with priority Glare, throws boosted Hex into the status, chips-and-screens with Baddy Bad, and Parting-Shots away to a better matchup. (Prankster status fails into Dark-types — the one caveat.)
+
+**The constant supporting four `[LOCKED v0.9.9]`** (identical in every branch; none Dark-typed and none sharing the starter typings, so they play the same regardless of which starter she holds):
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Rotom-Wash** | Electric/Water | Levitate | Leftovers | Volt Switch / Hydro Pump / Will-O-Wisp / Nasty Plot |
+| **Glimmora** | Rock/Poison | Corrosion | Black Sludge | Toxic / Sludge Bomb / Power Gem / Mortal Spin |
+| **Breloom** | Grass/Fighting | Technician | Loaded Dice | Spore / Mach Punch / Bullet Seed / Rock Tomb |
+| **Chandelure** | Ghost/Fire | Flame Body | Heavy-Duty Boots | Calm Mind / Hex / Fire Blast / Energy Ball |
+
+The team spreads **four flavours of status** — paralysis (Glare), sleep (Spore), burn (Will-O-Wisp / Flame Body), and guaranteed poison (Corrosion Toxic, which lands even on Steel/Poison walls) — so almost nothing the player fields escapes a status, and the two Hex users (Pilfer, Chandelure) hit doubled. Light Clay-extended Light Screen from Pilfer's Baddy Bad keeps the frail special core alive; Breloom's Mach Punch is the priority pickoff; Glimmora doubles as hazard control (Mortal Spin) and the Water-mirror coverage. Win conditions: Chandelure sweeping behind the screen, or the stolen starter cleaning up on its locked type advantage over the player's ace.
+
+**The stolen-starter ace — three branches, Fight 4–5 final-stage builds (drawn from the Ruination starter kits, Section 5) `[LOCKED v0.9.9]`:**
+- **Tinkaton** (Fairy/Steel; stolen on a Frigibax pick) — Pixilate · Leftovers · **Bulk Up / Behemoth Bash / Body Press / Sunsteel Strike.** Bulk Up feeds Attack and (via Def) Body Press; Pixilate makes Behemoth Bash a ~120-BP Fairy hit the Steel-override forces through Steel; she is immune to your Baxcalibur's Dragon STAB and resists its Ice. Physical — leans on paralysis + her 125/125 bulk, not the screen.
+- **Baxcalibur** (Dragon/Ice; stolen on a Teddiursa pick) — **Armor Tail** · Lum Berry · **Dragon Dance / Behemoth Blade / Mountain Gale / Headlong Rush.** One Dragon Dance off base 120 Speed is near-unrevengeable, and Armor Tail makes her immune to priority; Mountain Gale's Ice doubles your Bloodmoon Ursaluna's Ground.
+- **Bloodmoon Ursaluna** (Normal/Ground; stolen on a Tinkatink pick) — **Mind's Eye** · Leftovers · **Calm Mind / Blood Moon / Hyper Voice / Moonblast.** The only special ace, so it fully cashes Pilfer's Light Screen; Mind's Eye lets the Normal STAB hit Ghosts for unwallable coverage; Blood Moon's Ground doubles your Tinkaton's Steel. (Soul-Heart is the spicier snowball alt at the cost of being Ghost-walled.)
+
+**The five fights** (levels tuned to each cap; one new member per fight; ace evolves on the Trial-6 tutor gate):
+
+| Fight | When | Lv | Roster | Ace stage | Tone |
+|---|---|---|---|---|---|
+| 1 | Umbra's Oratory lab, Act I (resolves the prior `[OPEN]` on whether the theft has combat — it does) | ~7 | Pilfer (Nickit) + stolen starter | Stage 1 | Thief — adversarial |
+| 2 | Ambush after Trial 1 | ~20 | + Glimmet; Pilfer → Thievul | Stage 1 | Adversarial |
+| 3 | ~Trial 4 | ~37 | + Breloom; Glimmet → Glimmora | Stage 2 | Hinge — softening to ally |
+| 4 | After Trial 7 | ~52 | + Rotom-Wash; ace fully evolved | Stage 3 | Friendly rivalry |
+| 5 | Act V Paragon Gauntlet (before the Viziers) | ~83 | + Chandelure — full six | Stage 3, full set | Redeemed rival |
+
 
 
 ---
