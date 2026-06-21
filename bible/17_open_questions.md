@@ -112,7 +112,7 @@ These items emerged from v0.9.8 lock work and are deferred:
 - **Trial 5, 6, 7 Baron identities** (Raptora, Alban, Nightfall) — type-to-Trial assignment locked v0.9.8; specific Baron names, aces, levels, team compositions, narrative roles all `[OPEN]`
 - ~~**Manus Surge's ace, full team, level cap specifics**~~ — **RESOLVED v0.9.9**: ace **Modal** (shiny Toxtricity, Poison Puppeteer, Air Balloon); full 6-Pokémon singles matchup-judgment team locked at cap 31; full character profile, House-Surge schism, the Modal bond beat, and pre/post-Trial dialogue all locked. See Trial Baron profiles — Manus Surge.
 - **Cadmus Umbra's overworld attendant Joustroll** — separate from his ace Jousteel; engineering and dialog beats `[OPEN]` (cross-ref: Section 9 — Joustroll/Jousteel Line)
-- **Silas Moray's primary ace species/name** — Vizier-of-Commerce; Psychic-type tradition; Thauma (shiny Hisuian Braviary) is locked as either his Templar mount or secondary ace, `[OPEN]` whether it is the primary ace deployed in Act V Vizier gauntlet
+- ~~**Silas Moray's primary ace species/name**~~ — **RESOLVED v0.9.9**: **Thauma** (shiny Hisuian Braviary, Psychic/Flying, Tinted Lens) is his **primary ace** in the Act V Vizier gauntlet; **Malamar** (Dark/Psychic, Contrary) is the backup ace. Full mind-domination team locked in Section 7 — Hypno, Galarian Slowking, Gallade, and Hatterene round it out.
 - ~~**Female Rock Vizier name, House, Vizier portfolio**~~ — **RESOLVED v0.9.9**: **Zeldra Stone, House Stone, Vizier of Infrastructure** (Section 7 — Zeldra Stone). Ace **Regis** (blue shiny ♂ Tyrantrum, Strong Jaw); full Elite-Four-tier mono-Rock hazard/sand team locked (Regis, Tyranitar, Omastar, Probopass, Coalossal, Garganacl). **Also locked v0.9.9 in the same arc:** **Gideon Valic** (deceased previous Vizier of War, Glaive's adoptive father, assassinated by Baradus ~1yr pre-game — Section 7); **Glaive Valic** surname + foundling origin + vengeance-source — Section 7; **Northpoint Military Academy** + **ECTI** named institutions — Section 1; **Baradus's Chien-Pao radicalization** + the Ice-vs-Rock blind spot — Section 12.
 - **Madame Roma's overworld ace species/name/combat profile** — qualifies for ace-bonding pattern; specifics `[OPEN]`
 - **Blue Moon Hermit's overworld ace species/name/combat profile** — qualifies for ace-bonding pattern; specifics `[OPEN]`
@@ -149,7 +149,7 @@ These items emerged from v0.9.8 lock work and are deferred:
 
 **Ace-bonding overworld interactions — per-character openness:**
 
-- **6 ace locks are `[OPEN]`** for the 23 in-scope characters: T5 Raptora, T6 Alban, T7 Nightfall, Silas's primary, Madame Roma, Blue Moon Hermit. (Manus's **Modal**, Jordan's **Naga**, and Wakahisa's **Hayate** locked v0.9.9.) Each unlock cascades to enable the corresponding interaction sub-task (engineering task #56).
+- **5 ace locks are `[OPEN]`** for the 23 in-scope characters: T5 Raptora, T6 Alban, T7 Nightfall, Madame Roma, Blue Moon Hermit. (Manus's **Modal**, Jordan's **Naga**, Wakahisa's **Hayate**, and Silas's **Thauma** + **Malamar** locked v0.9.9.) Each unlock cascades to enable the corresponding interaction sub-task (engineering task #56).
 - **Per-character interaction style content** for the 13 ready-to-design characters (excluding Simone-Splendor which is the locked example) — `[OPEN]` per character. Recommended approach: lock interaction style at the time each character's full bible entry is reviewed, not as a separate dedicated pass.
 
 ### v0.9.7 closures (character expansions and major narrative locks)

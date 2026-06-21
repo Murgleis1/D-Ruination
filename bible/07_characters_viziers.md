@@ -354,13 +354,30 @@ This is delusional possessiveness, a category of unsettling that has no clean na
 - Name from Greek θαῦμα (*thauma*, meaning *wonder*, *marvel*, *miracle*)
 - The fact that Silas calls his manipulation-bird "Wonder" reveals how he conceives of his power: as **thaumaturgy**, sacred and beautiful, not as violation
 - Hisuian Braviary's canonical lore involves it diving from great heights with psychic-amplified shouts that stun prey. **Silas attacks from above and through the mind** — exactly his character.
-- Mechanical role: high-tier psychic damage and manipulation in battle
+- Mechanical role: high-tier psychic damage and manipulation in battle. **Battle kit `[LOCKED v0.9.9]`: Tinted Lens · Heavy-Duty Boots · Esper Wing / Oblivion Wing / Heat Wave / Roost.** Esper Wing's self-Speed boost fixes Thauma's mediocre base Speed; Tinted Lens drives Psychic through the Dark- and Steel-types that resist it (nothing is safe from *the wonder*); Oblivion Wing's 75% drain makes it a self-healing attacker that *also* answers Bug; Heat Wave melts Steel. (Oblivion Wing added per design v0.9.9 to make the bird *extra* dangerous.)
 - Custom shiny palette planned (a more sinister color scheme to distinguish Silas's "perverted national bird" from the Templars' standard Braviary partners)
 - See Section 14 (Production Discipline) for the pending custom shiny palette work for Thauma
 
 **Malamar** — backup ace (Dark/Psychic)
 - The Pokémon canonically associated with manipulation and control (Malamar's signature is Topsy-Turvy / Hypnosis-led psychological tactics)
 - Likely runs sets focused on suppressive tactics: status conditions, stat-flipping, mental disruption
+
+**Silas's full Vizier team — the mind-domination lock `[LOCKED v0.9.9]`.** Silas's gauntlet team (third of the four Viziers, cap ~90) is a mono-Psychic control engine built on a single idea: *he does not out-muscle you, he takes your turns away.* It traps the opponent in sleep and confusion, drains them while they cannot act, and sweeps the disabled husk — the truth-revealing psychic gift of House Moray turned to violation. Its two structural walls, **Dark and Bug**, are each answered several ways so the lock never has a safe exit.
+
+| Slot | Pokémon | Type | Ability | Item | Moves | Role |
+|---|---|---|---|---|---|---|
+| Ace | **Thauma** (shiny H-Braviary) | Psychic/Flying | Tinted Lens | Heavy-Duty Boots | Esper Wing / Oblivion Wing / Heat Wave / Roost | Self-accelerating, self-healing dual-STAB attacker; Tinted Lens pushes Psychic through Dark/Steel resists; Oblivion Wing answers Bug |
+| Backup ace | **Malamar** | Dark/Psychic | Contrary | Leftovers | Superpower / Knock Off / Psycho Cut / Hypnosis | The Dark keystone — immune to Psychic, resists Dark/Ghost; Contrary Superpower snowballs through Dark and Steel; third sleep source |
+| 3 | **Hypno** | Psychic | Insomnia | Wide Lens | Hypnosis / Confuse Ray / Dream Eater / Nightmare | The pure sleep/confusion/drain engine; Insomnia = the hypnotist cannot be slept; 115 SpD sponge |
+| 4 | **Galarian Slowking** | Poison/Psychic | Regenerator | Black Sludge | Eerie Spell / Yawn / Confuse Ray / Slack Off | The unkillable disruptor — Yawn (reliable sleep), Eerie Spell (saps the foe's PP), Confuse Ray, self-heal; neutral to Bug |
+| 5 | **Gallade** | Psychic/Fighting | Sharpness | Life Orb | Psycho Cut / Sacred Sword / Leaf Blade / Swords Dance | The punisher that breaks both walls at once — Fighting STAB hits Dark *and* Steel super-effectively; sets up on a disabled foe |
+| 6 | **Hatterene** | Psychic/Fairy | Magic Bounce | Leftovers | Calm Mind / Psyshock / Dazzling Gleam / Draining Kiss | The manipulator who cannot be manipulated — Magic Bounce reflects status/Taunt/hazards; Fairy is the second hard Dark answer; self-healing wincon |
+
+**The lock loop:** one of three sleep sources (Hypno's Hypnosis, Malamar's Hypnosis, G-Slowking's Yawn) puts the foe down → Nightmare and Dream Eater drain it while it sleeps → Confuse Ray (Hypno, G-Slowking) greets it on wake-up → Hatterene's Magic Bounce refuses any status the player fires back → Thauma, Gallade, and Malamar sweep whatever is left twitching. The player spends the fight unable to act while Silas feeds on them.
+
+**Weakness coverage (the Dark/Bug problem, solved):** Dark is answered three ways — Malamar's typing and Superpower, Gallade's Fighting STAB, Hatterene's Fairy STAB; Bug by Thauma's Flying + Fire and G-Slowking's Poison-typed neutrality; Steel by Gallade, Thauma, and Malamar; Ghost by Malamar's Dark typing and Knock Off.
+
+**Why a Galarian Slowking `[LOCKED v0.9.9]`:** the choice is *character.* Silas, whose whole life is shaped by an inferiority complex toward the major figures of Cormoria, watches Cadmus Umbra's Kantonian Slowking dismantle challengers in the gauntlet just ahead of him — and a man who has spent his life being told he is not *enough* reaches for the same power in its darker, poisoned form. He cannot have what the better man has, so he takes the corrupted version. It is the same psychology that built his self-made psychic arsenal after Domdaniel's rejection, and the same wound Baradus exploited. The roster echo with Umbra is deliberate — Silas measuring himself against a better man and coming up twisted.
 
 **Silas's memory-erasure mechanics (limits):**
 - **Short-term memory only** — hours to days, NOT core identity memories. Silas cannot erase someone's whole life or fundamental sense of self.
