@@ -170,7 +170,7 @@ The following major opens are now CLOSED in v0.9.7:
 - ~~**Tinkatink line custom shiny palette identity**~~ — **PARTIALLY RESOLVED in v0.9.7**: Dragon-slayer-clan bloodline coloration is the locked visual identity; specific palette values TBD pending Phase 1 sprite production session. See Section 6 — Tinkatink line palette identities.
 - ~~**Tinkatink/Tinkatuff/Tinkaton signature offensive move**~~ — **RESOLVED in v0.9.7**: Behemoth Bash (Cormorian variant) — Normal physical, 100 BP, 95% acc, 10 PP, custom Steel-effectiveness override regardless of resolved type after Pixilate. Learned at Lv 30 on Tinkatuff. See Section 9 — Behemoth Bash.
 - ~~**Templar Arceus order leadership structure**~~ — **RESOLVED in v0.9.7**: Archbishop Ambrose Caymen leads the order. See Section 4 — Templar Arceus Order; Section 7 — Ambrose Caymen.
-- ~~**Goma's Pokemon team**~~ — **PARTIALLY RESOLVED in v0.9.7**: Fighting-type specialist (deliberate counter to Baradus's Ice signature); Smolder (shiny Emboar) as primary ace; Mega Houndoom as secondary; rest of roster `[OPEN]`. See Section 8 — Goma.
+- ~~**Goma's Pokemon team**~~ — **RESOLVED v0.9.9**: full Fighting roster locked — Smolder (shiny Emboar, primary) / Flamigo / Lucario / Annihilape / Toxicroak / Mega Houndoom (secondary). Two fights (3 then 6). See Section 8 — Goma.
 - ~~**House Nightfall Trial Baron seat**~~ — **PARTIALLY RESOLVED in v0.9.7**: House Nightfall holds the Dark-type Trial Baron seat; specific Trial Baron/Baroness identity still `[OPEN]`. See Section 4 — Trial Barons.
 - ~~**Final Trial type slot**~~ — **PARTIALLY RESOLVED in v0.9.7**: The remaining Trial type is Normal; specific Trial Baron, House, and number `[OPEN]`. See Section 4 — Trial Barons; type coverage map.
 
@@ -331,7 +331,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - **Sylphon and Stone family heads** — specific named characters within the guild leadership `[OPEN]` (deferred per design decision)
 - **The Royal Secret Villa** — whether the player visits it in the main game, whether Pierra ever learns the full truth about Silas or about Osrid's survival
 - **Sword Cult organizational rank-naming convention** — whether the Sword Cult uses chess-piece naming like the Beads Cult (Acolyte/Bishop) or its own (likely military-styled given Baradus's Yo'aki background)
-- **Goma's full Pokemon team** — Beads Cult thematic, Champion-tier-ish given her status as best-trainer-besides-Baradus
+- ~~**Goma's full Pokemon team**~~ — **RESOLVED v0.9.9**: Smolder / Flamigo / Lucario / Annihilape / Toxicroak / Mega Houndoom (Fighting specialist + commanded Dark/Fire secondary). See Section 8 — Goma.
 - **Brie Moray's specific story role** — confirmed locked as a character with a specific subplot/encounter; details `[OPEN]` for future design (likely involves Silas's late-game arc, possibly the Necropolis Assault defense, possibly House Moray succession after Silas's death)
 - **Necropolis Assault structural placement** — exact placement in Act V or early Act VI; multi-stage scripted battle sequence design; command structure (Baradus personally? a lieutenant?)
 - **Specific Dreamstone(s) used in the climactic sealing ritual** — the royal palace one? a different one? multiple?
