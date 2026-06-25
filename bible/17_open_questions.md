@@ -254,7 +254,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Specific details of the accident that killed her parents (likely genuine accident, but `[OPEN]`)
 
 **Ambrose Caymen (Section 7):**
-- Full Trial-tier roster beyond Temperance and Brunhilda
+- ~~Full Trial-tier roster beyond Temperance and Brunhilda~~ — **RESOLVED v0.9.9**: Roland (Escavalier) / Justice (Aegislash) / Fortitude (Corviknight) / Prudence (Bronzong) complete the four cardinal virtues + two named warriors. See Section 7 — Ambrose.
 - Specific dialogue beats for pre-fight, post-fight clarity, and subsequent ally relationship
 - Exact placement of the bishop-coup foil + Ambrose-fight sequence in Act III or IV
 - Whether Ambrose's standard Braviary appears in his entourage (honest national bird counterpoint to Silas's Thauma)

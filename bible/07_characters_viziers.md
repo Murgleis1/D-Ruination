@@ -224,7 +224,7 @@ During one of Osrid's return visits to the lab in the early-to-mid game, **condi
 
 **Cadmus Umbra's ace is Jousteel** (Water/Steel; see Section 9 — The Jousteel Line for full Pokemon data). Jousteel is *the* Pokemon species most closely identified with House Umbra — and uniquely so:
 
-- **The Jousteel line is cultivated *exclusively* by the Umbra family.** No other Cormorian noble house, no commoner, no foreign trainer, no wild population has access to the Jousteel line.
+- **The Jousteel line is cultivated *exclusively* by the Umbra family.** No other Cormorian noble house, no commoner, no foreign trainer, no wild population has access to the Jousteel line. (Even Archbishop **Ambrose Caymen** once tried to coerce the family into surrendering a Joustroll egg — he coveted a Jousteel of his own; House Umbra refused. See Section 7 — Ambrose.)
 - **The Jousteel line is the only known Pokemon species that exists *only* in Cormoria** (besides Keerin in legends).
 - The line is *not* a singular individual ace passed down generationally — it is a *bred lineage* the Umbra family maintains as a family project. Each Umbra raises their own Joustroll → Jousteel partnership.
 - Cadmus's specific Jousteel is his lifelong partner, raised from his Joustroll days. Their bond is *long-term family-tradition deep.*
@@ -440,11 +440,24 @@ This is delusional possessiveness, a category of unsettling that has no clean na
 - One of the four most senior religious figures in the empire alongside the Viziers, though the Archbishop's authority is *religious* rather than *political-military*
 - Type specialty: **Steel** — completes the empire's institutional type-coverage map (Steel is otherwise unrepresented in formal Trial / Vizier structure, though ubiquitous in elite protagonist-side aces — Tinkaton, Justice, Jousteel)
 
-**Team `[LOCKED v0.9.7 — aces; rest of team OPEN]`:**
+**Team `[LOCKED v0.9.9 — full team]`:**
 
 - **Temperance** — shiny **Kingambit** (Dark/Steel), primary ace. The name "Temperance" invokes the Christian cardinal virtue (self-restraint, moderation, balance). **A Dark-typed Pokemon as the Archbishop's ace is a layered statement** — possibly that *Arceus's order is willing to wield Dark as a tool in defense of the world*, possibly that *Ambrose himself carries some moral darkness* that complicates his public role. **Or both true at once** (this is consistent with the project's emotional register).
 - **Brunhilda** — shiny female **Perrserker** (Steel), secondary ace. The name "Brunhilda" invokes the Norse Valkyrie warrior-maiden tradition (operatic Wagnerian resonance). **The Christian-virtue + Norse-warrior combination on his named aces is layered religious-cultural texture** — Ambrose's roster blends two different sacred-warrior iconographies. *The crusader-priest archetype emerges through the names alone.*
-- Rest of his Trial-tier roster `[OPEN]` — additional Steel-types and possibly cross-egg-group Pokemon supporting the Kingambit + Perrserker combat profile
+- **The full order — four cardinal virtues, two named warriors `[LOCKED v0.9.9]`.** The roster extends the naming creed: with Temperance already a cardinal virtue, the order's knights complete the set — **Prudence, Justice, Temperance, Fortitude** — flanked by the two named holy-warriors **Brunhilda** (Valkyrie) and **Roland** (the legendary Paladin lance-knight). The roster *is* the Templar creed, which sharpens the irony of the man fielding it (see the Umbra wrinkle below).
+
+| Name | Pokémon | Type | Ability | Item | Moves | Role |
+|---|---|---|---|---|---|---|
+| **Temperance** | Kingambit | Dark/Steel | Supreme Overlord | Black Glasses | Swords Dance / Kowtow Cleave / Iron Head / Sucker Punch | Ace — grows stronger for every fallen ally; the last knight standing, avenging the order. A leader *empowered by loss*, mirroring his hollowed-out order |
+| **Brunhilda** | Perrserker | Steel | Tough Claws | Life Orb | Swords Dance / Iron Head / Close Combat / Crunch | The Valkyrie berserker |
+| **Roland** | Escavalier | Bug/Steel | Overcoat | Leftovers | Swords Dance / Iron Head / Megahorn / Drill Run | The lance cavalier |
+| **Justice** | Aegislash | Steel/Ghost | Stance Change | Weakness Policy | King's Shield / Sacred Sword / Shadow Sneak / Iron Head | The sword and shield — endures the blow (Weakness Policy), then strikes back twice as hard: combat as moral revelation |
+| **Fortitude** | Corviknight | Flying/Steel | Mirror Armor | Leftovers | Bulk Up / Body Press / Brave Bird / Roost | The enduring armored knight; Ground immunity, reflects stat-drops |
+| **Prudence** | Bronzong | Steel/Psychic | Heatproof | Leftovers | Stealth Rock / Body Press / Gyro Ball / Trick Room | The temple-bell relic — Fire wall, hazards, and Trick Room so the slow order strikes first |
+
+- **Weakness coverage:** the three mono-Steel holes each get a dedicated knight — Ground → Fortitude/Corviknight (Flying immunity), Fighting → Justice/Aegislash (Ghost immunity), Fire → Prudence/Bronzong (Heatproof). Fire stays the team's softest point *by design* (Roland is 4× weak), which is thematically apt: the cults all wield Fire/Dark, so *heretical fire melts the holy steel* is the player's cleanest line of attack.
+- **Trick Room (built-in, optional):** the order is deliberately slow (Escavalier base 20, Bronzong, Kingambit), so Prudence's Trick Room turns that into an edge — the patient knights moving out of time.
+- **Fight placement:** second half, after Osrid foils the bishop-coup; **~L73–78** (upper-Trial / lower-Vizier), the moral-revelation single combat.
 
 **The three forces pulling at Ambrose `[LOCKED v0.9.7]`:**
 
@@ -453,6 +466,8 @@ Ambrose is not corrupted by the cults, but he is *not aligned with the crown* ei
 1. **Sword Cult pressure via Silas Moray:** Baradus, through Silas, has been pressuring and manipulating Templar order members for several years. **Some bishops under Ambrose's authority are secretly cult-aligned** and whisper conflicting information into his ear about imperial politics, the royal family's true motives, and the moral standing of the crown. Ambrose can no longer fully trust his own subordinates — and *that loss of trust in his immediate institutional family* is itself a form of cult damage.
 
 2. **Genuine personal relationship with Cadmus Umbra:** Ambrose and Umbra are on **very good terms** through decades of religious-civil cooperation. Umbra has been candid with Ambrose about imperial matters within the bounds of state secrecy; Ambrose has provided religious-institutional support to Umbra's various initiatives. *This is a pull toward the crown.*
+
+   **The hidden wrinkle in that friendship `[LOCKED v0.9.9]`:** the relationship is real, but it carries a wound — and the wound is Ambrose's. Years ago, **Ambrose tried to coerce the Umbra family into surrendering a Joustroll egg.** He coveted a Jousteel of his own — wanted, badly, the one Pokémon his friend possessed that no amount of Templar authority could grant him (the line is cultivated *exclusively* by House Umbra; see the Jousteel-line section). Cadmus refused, and quietly never forgot. **It is a core reason Cadmus does not *fully* confide in Ambrose** even now — his candor always stopping just short of total trust. The wrinkle is what makes Ambrose human and tragic: the Archbishop who names his knights for the cardinal virtues — *Temperance, Prudence* — carries the one vice he cannot master, **covetousness**, and he knows it is wrong even as the envy gnaws at him. **It also quietly binds him to Goma:** the Harbinger of the cult of *envy* and the Archbishop of the holy order are, beneath everything, running on the same engine — one wearing it openly, the other strangling it behind a virtuous face. His Steel order's virtue-names are an act of self-discipline against his own envy as much as they are a creed.
 
 3. **Deep formative friendship with Nemo Korolev:** When Nemo arrived in Cormoria as a Sinnohian war-orphan and grew up in and around the Templar order, **he became close friends with the young Ambrose.** The friendship persisted into adulthood — even as Nemo rose to Dawnstar and then stepped down to the 9th Trial Baron seat, even as Ambrose rose to Archbishop, they remained close adult friends across decades. **Of all Ambrose's relationships, this is the deepest.** *And this is the pull that Silas's lie targets.*
 
@@ -490,8 +505,8 @@ At that moment, Ambrose — who has been paralyzed by indecision for years — d
 **For a Templar of the Arceus order — whose entire theology rests on partnership as cosmic-sacred — combat is a form of moral revelation.** Ambrose cannot tell through political argument who is telling him the truth. But he *can* judge a man through how that man fights and bonds with his Pokemon. **Ambrose is using the Pokemon-as-truth framework to break his own paralysis.**
 
 **The fight itself:**
-- Player team vs. Ambrose: Temperance (shiny Kingambit), Brunhilda (shiny female Perrserker), plus the rest of his Steel-tier roster `[OPEN]`
-- Combat tier appropriate to second-half-of-game placement `[OPEN — exact level cap]`; likely between Trial mid-tier and Vizier upper-tier
+- Player team vs. Ambrose `[LOCKED v0.9.9]`: the full Steel order — Temperance (Kingambit) / Brunhilda (Perrserker) / Roland (Escavalier) / Justice (Aegislash) / Fortitude (Corviknight) / Prudence (Bronzong).
+- Combat tier `[LOCKED v0.9.9]`: second-half placement after the bishop-coup is foiled — **~L73–78** (upper-Trial / lower-Vizier).
 - **The fight is a moral revelation event for Ambrose, not a strategic obstacle for Osrid.** The combat is *real and difficult*, but its narrative purpose is *Ambrose's clarity*, not the player's progression
 
 **The resolution — clarity and alliance `[LOCKED v0.9.7]`:**
