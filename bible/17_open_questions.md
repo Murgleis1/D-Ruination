@@ -350,7 +350,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Whether any of the 6 rivals have arc reversals (e.g., friend-to-corrupted vs. grudge-to-respect)
 - **House Ashland family details** — Reid's three sisters, exact internal family dynamics
 - **Goma's late-game return mechanism** — how/when the escaped Beads Cult Harbinger resurfaces as a desperate antagonist
-- **The 5 other members of Baradus's mid-game team** (besides Crabominable) for the Crabominable discard encounter
+- ~~**The 5 other members of Baradus's mid-game team**~~ — **RESOLVED v0.9.9**: Abomasnow / Mamoswine / Weavile / Cetitan / Walrein (snow archetype, a tier below the finale; plus the early-game solo-Crabominable curbstomp now locked). See Section 12 — Baradus.
 - **Eden's specific fate** during the late-game cult crisis and final battle
 - Sable Ashland's possible ongoing role beyond his Mt. Ceram return moment
 - Reid Ashland's three sisters (names, ages, anything)

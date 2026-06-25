@@ -395,9 +395,29 @@ For all his cunning and capability, **Baradus only legitimately fears three thin
 
 **This is sophisticated tragic villainy.** Baradus's optimization is *real* — he is genuinely efficient at managing cosmic-tier threats. His blindness is the *unavoidable cost* of that optimization. To see the things below his attention threshold, he would have to abandon the focus that makes him dangerous at all. **He cannot see the partnership thesis without abandoning his anti-partnership theology.** And he will not abandon it. So he dies blind to what kills him.
 
+**Baradus's early-game first encounter — the solo Crabominable curbstomp `[LOCKED v0.9.9]`:**
+
+The player's *first* real meeting with Baradus is not a cutscene but a beating. Early in the game he deigns to fight Osrid with a **single Pokémon — a level-50 shiny Crabominable** — far above the player's level at that point, and sweeps the team. His dialogue is pure contempt: *"You aren't even enough to entertain my weakest pawns. Crabominable, clean up this mess."* The fight is a scripted near-unwinnable curbstomp whose narrative job is to establish Baradus's menace and to leave the player *certain they have just met his ace.* They have not — they have met a pawn he considers disposable, and that dramatic irony is the engine of the entire Crabominable arc.
+
+- **Set (early fight):** Crabominable (shiny) · **Iron Fist** · Punching Glove · Ice Hammer / Close Combat / Earthquake / Ice Shard. Iron Fist is weather-independent, so it dominates solo. It is the *same* Crabominable he later fields mid-game and then discards — Iron Fist throughout, because to Baradus it was only ever a fist.
+- **The three-act arc this opens:** (1) here it *crushes* the player as his "weakest pawn"; (2) mid-game the player beats his full team and he discards it (below); (3) adopted, it can fell Chien-Pao or Baradus himself in the finale. Victim → victor → partner, the same Pokémon throughout. The adoption re-spec (Slush Rush / Iron Fist / Defiant) lets the player unlock potential Baradus never saw.
+
 **Baradus's Stage 1 (mid-game encounter) team — Snow/Hail strategy with Crabominable:**
 
-Earlier in the game (mid-game, ~65-75% through, between Mt. Ceram and Nemo's Trial), the player has a **second encounter with Baradus** (the first encounter being early-game introductions). Player wins this fight. Baradus's team at this encounter includes a **shiny Crabominable**.
+Earlier in the game (mid-game, ~65-75% through, between Mt. Ceram and Nemo's Trial), the player has a **second encounter with Baradus** (the first encounter being the early-game solo-Crabominable curbstomp described above). Player wins this fight. Baradus's team at this encounter includes a **shiny Crabominable**.
+
+**The full mid-game roster `[LOCKED v0.9.9]`** (~L65 — the same snow archetype as the finale but a tier rougher: recognizable, beatable, and spending none of the final battle's reveals):
+
+| Pokémon | Type | Ability | Item | Moves | Role |
+|---|---|---|---|---|---|
+| **Crabominable** (shiny) | Fighting/Ice | Iron Fist | Punching Glove | Ice Hammer / Close Combat / Earthquake / Ice Shard | The discard mon — the same one that curbstomped the player early game |
+| **Abomasnow** | Grass/Ice | Snow Warning | Icy Rock | Blizzard / Aurora Veil / Giga Drain / Ice Shard | The weather engine + screens (his one piece shared with the finale) |
+| **Mamoswine** | Ice/Ground | Thick Fat | Life Orb | Earthquake / Icicle Crash / Ice Shard / Knock Off | Physical bruiser with priority |
+| **Weavile** | Dark/Ice | Pickpocket | Choice Band | Triple Axel / Ice Shard / Knock Off / Low Kick | Fast Dark/Ice — the quiet foreshadow of Chien-Pao |
+| **Cetitan** | Ice | Slush Rush | Leftovers | Belly Drum / Ice Spinner / Earthquake / Ice Shard | Bulky Slush Rush sweeper |
+| **Walrein** | Ice/Water | Thick Fat | Leftovers | Blizzard / Surf / Protect / Toxic | Bulky staller — a lite version of his "grind you down" wall |
+
+- **Foreshadow without matching:** it shares his weather engine (Abomasnow) and Slush Rush + Ice identity, but uses entirely different species from the locked final six, so the finale (Beartic false-ace reveal, Refrigerate Aurorus, Articuno, Froslass, Alolan Sandslash + the four legendaries) reads as a genuine escalation. The finale's *frustration layer* (Snow Cloak evasion, Refrigerate spread) is deliberately absent here — this fight is *fair* and meant to be won, which is exactly what triggers the discard scene. Exploitable by Fire / Fighting / Steel / Rock.
 
 **The discard scene — one of the project's signature thesis moments:**
 - After the loss, Baradus enters a fanatical rage that he could lose to a "nameless worthless nobody" like the player
@@ -474,7 +494,7 @@ Immediately after Stage 1 (no breaks, no healing), Baradus reveals his true secr
 - He is irredeemable because he cannot conceive of value-judgments different from his own
 
 `[OPEN]` Where the Crabominable mid-game encounter happens geographically
-`[OPEN]` The 5 other Pokémon on Baradus's mid-game team (besides Crabominable)
+~~`[OPEN]` The 5 other Pokémon on Baradus's mid-game team~~ — **RESOLVED v0.9.9**: Abomasnow, Mamoswine, Weavile, Cetitan, Walrein (full roster above).
 `[OPEN]` Geographic stronghold of the Sword Cult (where Nemo is held captive late-game)
 `[OPEN]` Whether Mega Evolution figures into Baradus's roster (he has access to Tellius/Yo'aki tradecraft; possibly unauthorized Megas)
 
