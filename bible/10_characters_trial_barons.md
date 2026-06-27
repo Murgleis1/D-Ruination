@@ -524,20 +524,35 @@ This is **the largest team-fight set-piece in the project outside the 7v9 final 
 The Marshadow combat profile becomes important for this set-piece to deliver narratively:
 - Marshadow must be *visibly powerful* in a way the player witnesses
 - As Kimaris's generational ace at level 100 fighting alongside the player, Marshadow should be the *clear apex predator* of the scene
-- `[OPEN]` Marshadow's specific kit (likely Spectral Thief signature move + Close Combat + Shadow Sneak + Bulk Up; item: Marshadium Z or equivalent custom item)
+- ~~`[OPEN]` Marshadow's specific kit~~ — **RESOLVED v0.9.9**: Technician · Life Orb · **Spectral Thief / Shadow Sneak / Close Combat / Bulk Up**.
 
 **Thematic resonance:** When Marshadow deploys, **the Pokemon that slips between underworlds is defending the threshold between worlds.** The lore-resonance is perfect. House Langerin's centuries-long guardianship of the Distortion gate is vindicated in this single defensive action.
 
 **Kimaris's "true team" post-game side quest `[LOCKED v0.9.8]`:**
 
-The Trial 1 team (Crowley + 5 supporting Ghosts at cap 18) is *not* Kimaris's actual best play — it is a teaching fight calibrated for the early-game player. Kimaris's **true team**, led by **Marshadow** as the family's generational ace, is locked as a **post-Champion final-act side quest fight.** This is an *above-cap* peer-tier encounter (specific level `[OPEN]` — likely high-90s/100 to put Marshadow at canonical Mythical-tier strength) — comparable to Sable Ashland's late-game peer-tier Shiny Charm side quest (Section 7 — Sable, locked v0.9.8). **The post-game side quest is the player's opportunity to face Kimaris at his real strength** — the man who tied Mordred 8 years pre-game, deploying the Pokemon he held back from every Trial fight in his career. Specific team composition, items, and engineering details for the side quest are `[OPEN — to be designed in a future session]`. The Trial 1 team's stall-and-Curse strategy is *not* representative of how Kimaris would actually fight at full strength; the side quest is where the player sees what Reserve-Champion-tier Ghost mastery actually looks like.
+The Trial 1 team (Crowley + 5 supporting Ghosts at cap 18) is *not* Kimaris's actual best play — it is a teaching fight calibrated for the early-game player. Kimaris's **true team**, led by **Marshadow** as the family's generational ace, is locked as a **post-Champion final-act side quest fight.** This is an *above-cap* peer-tier encounter (level **~L100 `[LOCKED v0.9.9]`** — Marshadow at canonical Mythical-tier strength) — comparable to Sable Ashland's late-game peer-tier Shiny Charm side quest (Section 7 — Sable, locked v0.9.8). **The post-game side quest is the player's opportunity to face Kimaris at his real strength** — the man who tied Mordred 8 years pre-game, deploying the Pokemon he held back from every Trial fight in his career. The full Reserve-Champion roster is locked below `[LOCKED v0.9.9]`. The Trial 1 team's stall-and-Curse strategy is *not* representative of how Kimaris would actually fight at full strength; the side quest is where the player sees what Reserve-Champion-tier Ghost mastery actually looks like.
+
+**The Reserve-Champion roster `[LOCKED v0.9.9]`** (~L100, Marshadow-led — his actual best play and the deliberate anti-thesis of the Trial-1 stall: fast, trapping, overwhelming, anti-attrition):
+
+| Pokémon | Type | Ability | Item | Moves | Role / register |
+|---|---|---|---|---|---|
+| **Marshadow** | Ghost/Fighting | Technician | Life Orb | Spectral Thief / Shadow Sneak / Close Combat / Bulk Up | The ace — the **soul-thief**; Spectral Thief steals the player's stat boosts, then strikes |
+| **Gengar (Mega)** | Ghost/Poison | Shadow Tag | Gengarite | Shadow Ball / Sludge Wave / Nasty Plot / Destiny Bond | The **soul-binder** — Shadow Tag denies escape; Destiny Bond takes you down with it. (The grown form of his Trial-1 Gastly) |
+| **Dragapult** | Dragon/Ghost | Infiltrator | Choice Specs | Draco Meteor / Shadow Ball / Flamethrower / U-turn | The **speed reveal** — Champion-tier pressure the teaching fight never hinted at |
+| **Mimikyu** | Ghost/Fairy | Disguise | Life Orb | Swords Dance / Play Rough / Shadow Sneak / Shadow Claw | The **Dark answer** (Fairy) and a guaranteed free setup turn |
+| **Gholdengo** | Steel/Ghost | Good as Gold | Air Balloon | Make It Rain / Shadow Ball / Nasty Plot / Recover | The **soul beyond affliction** — immune to all status; Steel patches Fairy |
+| **Houndstone** | Ghost | Fluffy | Leftovers | Last Respects / Shadow Sneak / Body Press / Play Rough | The **grave-guardian** — Last Respects grows for every fallen ally, so the keeper of the Necropolis dead only strengthens as his legion falls |
+
+- **The reveal:** the Trial-1 team was slow Curse-stall (Eviolite babies, Shedinja's Wonder-Guard gate). This is the opposite — fast, trapping (Mega Gengar's Shadow Tag), and *anti-attrition* (Houndstone punishes grinding his team down). The gentle man who baby-talks a Spiritomb commands a Reserve-Champion machine; that gap is the point.
+- **Soul register:** every member is death-coded — soul-thief, soul-binder, soul-commander, disguised soul, unafflicted soul, grave-guardian — the exorcist-sorcerer's spiritual register rendered as a roster.
+- **Coverage:** the mono-Ghost Dark weakness is answered by Mimikyu (Fairy) and Marshadow (Fighting); the team wins on speed, trapping, and snowball rather than the Trial-1 stall.
 
 **Open items for Kimaris / House Langerin:**
 
 - `[OPEN]` Specific dialog for Kimaris's pre- and post-Trial-1 conversations (recommended register: warm, paternal, perceptive of the player without pressing for backstory; goofy when interacting with Crowley)
 - `[OPEN]` Specific overworld scene with Kimaris hugging/polishing Crowley (the project's earliest Show-Don't-Tell partnership demonstration — Section 11)
 - `[OPEN]` Specific teams and dialog for the older brothers Dale and Gram (lesser Necropolis-keeper Ghost trainers fought before reaching Kimaris; cap 18)
-- `[OPEN]` Kimaris's true team for the post-Champion side quest (Marshadow-led, peer-tier above-cap; specific composition, items, level distribution)
+- ~~`[OPEN]` Kimaris's true team for the post-Champion side quest~~ — **RESOLVED v0.9.9** (full Reserve-Champion roster locked above; ~L100).
 - `[OPEN]` Specific exorcism / supernatural-consultancy scenes with Ambrose Caymen (recommend at least one mid-game observation scene where the player sees Kimaris and the Archbishop collaborating on a haunting — Show-Don't-Tell institutional alliance demonstration before the late-game Necropolis Assault)
 - `[OPEN]` Specific Kimaris-Cadmus academy-friendship moments (recommend brief reference scenes; the friendship is a structural pillar but doesn't need extensive on-screen depiction)
 - `[OPEN]` Trial 1 venue specifics beyond "the Mirroh Necropolis" (deferred to map-design session per Section 11 — though the Necropolis itself is locked)
