@@ -212,7 +212,7 @@ The Hermit has a named ace Pokémon that accompanies him in overworld appearance
 `[OPEN]` Hermit's specific ace species, name, ability, and combat profile
 `[OPEN]` Interaction-dialog beats — likely tied to the Trial 6 chapter and the post-Champion side quest sequence
 
-**Madame Roma's overworld ace `[LOCKED v0.9.8 — pattern in-scope; ace identity OPEN]`:**
+**Madame Roma's overworld ace `[LOCKED v0.9.8 — pattern in-scope; ace + combat team LOCKED v0.9.9]`:**
 
 Per Section 11 — Ace-Bonding Overworld Interactions, Madame Roma also qualifies for the pattern. She appears in the overworld across multiple beats (royal court visits as soothsayer, fossil-revival event scenes, late-game dialogue beats hinting at Cormor's status, possible post-game Book of the Moon synthesis moments). Her overworld presence is recurring and politically significant.
 
@@ -223,7 +223,23 @@ Roma has a named ace Pokémon that accompanies her in overworld appearances. The
 - Should resonate with Roma's *ancient*-coded character — she has lived centuries via the pact-extended-longevity framework (Section 7 — Madame Roma).
 - Interaction tone is *measured, oracular, with surprising flashes of warmth* — Roma is not cold, but her affection is *long-view affection*, the affection of someone who has loved many beings across centuries and knows what loss is.
 
-`[OPEN]` Roma's specific ace species, name, ability, and combat profile
+**Her ace — shiny Munkidori "Tiresias" `[LOCKED v0.9.9]`:** Roma's bonded ace is a **shiny Munkidori** named **Tiresias** — after the long-lived seer of myth consulted by kings across generations, a mirror of Roma's own role advising every ruler from Cormor to Rhydia. Munkidori's glowing third eye renders her farseer gift as a living creature. Per her ace-bond register (*measured, oracular, with flashes of warmth*), Tiresias is not a power-flex but her one constant companion: **Roma met him while astral-traveling as a child** — a thread tied directly to her miko (spirit-medium) origin — and across the centuries he has been her spiritual guide, partner, and anchor through all the loss she has outlived. `[OPEN]` the fuller backstory of the astral-plane meeting (deferred for later authoring).
+
+**Roma's combat team — "the future is already written" `[LOCKED v0.9.9]`:** A control/clock team that weaponizes time itself — the mechanical expression of an omniscient soothsayer. She stacks multiple independent timers, then stalls behind near-unkillable walls until they all come due at once. It blends her three threads: the omniscience/future engine, the Langerin Ghost lineage (Spectrier, Flutter Mane), and her fossil-reviver identity (Cradily a literal revival; Flutter Mane the Ancient Paradox). She is *not* locked into Ghost.
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Munkidori "Tiresias"** (shiny) | Poison/Psychic | Toxic Chain | Leftovers | Future Sight / Nasty Plot / Sludge Bomb / Protect |
+| **Sigilyph** | Psychic/Flying | Magic Guard | Leftovers | Future Sight / Yawn / Roost / Protect |
+| **Jirachi** | Steel/Psychic | Serene Grace | Leftovers | Doom Desire / Wish / U-turn / Protect |
+| **Spectrier** | Ghost | Grim Neigh | Heavy-Duty Boots | Shadow Ball / Will-O-Wisp / Parting Shot / Perish Song |
+| **Flutter Mane** | Ghost/Fairy | Protosynthesis | Booster Energy | Moonblast / Shadow Ball / Thunder Wave / Protect |
+| **Cradily** | Rock/Grass | Storm Drain | Leftovers | Stealth Rock / Giga Drain / Recover / Protect |
+
+- **Five clocks at once:** three delayed strikes (Future Sight from Munkidori + Sigilyph, Doom Desire from Jirachi); Yawn (Sigilyph) forcing a switch straight into the inbound Future Sight; and Perish Song (Spectrier) as a three-turn death sentence. Underneath: Protect on five of six, Magic Guard / Roost / Recover / Wish sustaining her, Thunder Wave + Will-O-Wisp slowing the player, Stealth Rock + Toxic Chain chipping. She does not out-damage the player — she runs out the clock on a future she set turns ago.
+- **Per-party overrides** (allowed; moves exist in-fork, assignment free): Sigilyph's **Future Sight** and **Yawn**; Spectrier's **Parting Shot** and **Perish Song**. Everything else is native (Munkidori's Future Sight is native).
+- **Intentional weakness:** stacked Psychic/Ghost makes a strong **Dark**-type the way to disrupt the oracle — Flutter Mane (Fairy) is her only answer. You beat the prophet by being the one thing she would rather not foresee.
+- **Tier note:** half the team is cosmic-tier (Jirachi / Spectrier / Flutter Mane), fitting the woman who bargained with Giratina and Marshadow; her signature (Munkidori) and her fossil (Cradily) are deliberately non-legendary, keeping her true bond personal. `[OPEN]` exact levels (peer vs above-cap; recommend high given her cosmic status) and whether/when she is challengeable in combat.
 `[OPEN]` Interaction-dialog beats — likely tied to the royal court visits, the fossil-revival scenes, and the late-game Cormor-status hints
 
 ### Future-Red — The Multiverse-Displaced Strongest Trainer `[LOCKED v0.9.4]`
@@ -396,7 +412,7 @@ Together with Lethys, Roma drops *late-game dialogue hints* that **Cormor may no
 
 - `[OPEN]` Roma's full character design (appearance, personality, dialogue voice — likely *graceful elder mystic*, possibly with hints of court-formality from centuries among nobility)
 - `[OPEN]` Where she lives — a permanent residence in Cormoria the player can visit? travels between Cormorian locations? lives in a specific neighborhood adjacent to the royal palace?
-- `[OPEN]` Whether she has Pokemon of her own beyond her metaphysical role (likely yes — Ghost-types, possibly a personal Marshadow or other supernatural ace; her powers suggest a competent trainer though her *primary* role is metaphysical rather than combat)
+- ~~`[OPEN]` Whether she has Pokemon of her own~~ — **RESOLVED v0.9.9**: yes — her shiny Munkidori "Tiresias" ace and full control/clock combat team are locked (see *Madame Roma's overworld ace*). Her ace is *not* Marshadow (that line passes to Kimaris).
 - `[OPEN]` Specific dialogue beats that establish her ancientness in subtle ways
 - `[OPEN]` The exact mechanic and limitations of her revival power (can she revive any fossil? does revival require specific conditions or materials? what is the *cost* to her of each revival?)
 - `[OPEN]` Whether any of her foretellings during the present-day story prove prophetic — and which characters receive the prophecies (the player? Rhydia? Umbra?)
@@ -408,5 +424,5 @@ Together with Lethys, Roma drops *late-game dialogue hints* that **Cormor may no
 - Multiple scripted appearances across the game: royal court visits (where she occasionally appears as soothsayer); fossil-revival event scenes (the player brings fossils, she revives them); late-game dialogue beats (Cormor-sleeping hints; mutual acquaintance with Lethys); possibly post-game Book of the Moon synthesis moments
 - **Fossil revival system implementation** — see Section 9 — Fossil Revival System and Section 14 — Engineering Tasks
 - Dialogue across all appearances must establish her *layered identity* — Madame Roma the public soothsayer + Roma Langerin the centuries-old progenitor (revealed gradually)
-- Possible personal Pokemon team data if she is ever challenged in combat (`[OPEN]` whether this happens)
+- Personal Pokemon team data — **team LOCKED v0.9.9** (see *Madame Roma's overworld ace*); `[OPEN]` whether/when she is challenged in combat and at what level
 
