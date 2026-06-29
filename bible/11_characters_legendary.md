@@ -149,7 +149,7 @@ The Book becomes the *reward for nerds before they go and confront the Swords Of
   - A proper name offered once the player has proven themselves (e.g., at Trial 6 or post-game)
   - A name from his nomadic-tribe lineage (`[OPEN]` whether this is canonical to the project)
 - `[OPEN]` Whether the Hermit has any post-quest presence in the story (e.g., a final dialogue after the Book compilation, possibly a reference in the epilogue)
-- `[OPEN]` The Hermit's Pokemon team — competent trainer; possibly Champion-tier; lunar/dark/Psychic-thematic; possibly includes a Bloodmoon Ursaluna of his own from a previous generation of the Blue Moon line (which would tie his tribe's lineage to the Blue Moon Teddiursa cultivation specifically)
+- ~~`[OPEN]` The Hermit's Pokemon team~~ — **RESOLVED v0.9.9**: full partnership-relay team locked (see *The Blue Moon Hermit's overworld ace* above) — Cresselia "Selene" / Ursaluna / Umbreon / Lunatone / Clefable / Drifblim. He fields a lone **regular Ursaluna** rather than a Bloodmoon, kept distinct from the player's Blue Moon line.
 - `[OPEN]` Whether the Hermit knew Cormor Dream-Eater directly through ancestry (his tribe was almost certainly the same one Cormor came from, given the oral-tradition continuity)
 
 **Implementation effort:**
@@ -160,7 +160,7 @@ The Book becomes the *reward for nerds before they go and confront the Swords Of
 - Custom move-tutor logic for Blood Moon (Ground) — only the Hermit teaches it
 - Companion-AI behavior during the shadow-self mirror match (likely observes; possibly offers commentary)
 - Book of the Moon compilation event scripting (post-game, conditional on collected chapters)
-- Possible Hermit-Pokemon team data if he is challenged at any point (`[OPEN]` whether this happens)
+- Hermit-Pokemon team data — **team LOCKED v0.9.9** (see *The Blue Moon Hermit's overworld ace*); `[OPEN]` whether/when he is challenged in combat and at what level
 
 #### Lethys and Madame Roma — the implied centuries-old romance `[LOCKED v0.9.4 — implied through dialogue only]`
 
@@ -197,7 +197,7 @@ This relationship is structurally a *Tolkien-Elves-in-Middle-Earth* tragedy — 
 
 `[OPEN]` Whether either of them ever speaks directly about their relationship in dialogue. The simplest design is **no** — they speak around it, with weight implied but never named.
 
-**The Blue Moon Hermit's overworld ace `[LOCKED v0.9.8 — pattern in-scope; ace identity OPEN]`:**
+**The Blue Moon Hermit's overworld ace `[LOCKED v0.9.8 — pattern in-scope; ace + combat team LOCKED v0.9.9]`:**
 
 Per Section 11 — Ace-Bonding Overworld Interactions, the Blue Moon Hermit qualifies for the pattern: he is a major named character who appears in the overworld across multiple beats (Trial 6 Master Tutor for Blood Moon, mid-game introduction-by-Glaive at level ~45, post-Champion Ancient Peat Block side quest companion, possible late-game Cormoria scenes). His overworld presence is recurring and significant.
 
@@ -209,7 +209,24 @@ The Hermit has a named ace Pokémon that accompanies him in overworld appearance
 - Should *not* duplicate other major characters' aces (Kimaris already has Marshadow; Roma is the canonical Lunatone/Solrock-adjacent figure if we go that route).
 - Interaction tone should be *quiet, paternal, gently-curmudgeonly* — the Hermit is the project's wisest character without being its most articulate; he speaks in *small remarks made warmly*.
 
-`[OPEN]` Hermit's specific ace species, name, ability, and combat profile
+**His ace — shiny Cresselia "Selene" `[LOCKED v0.9.9]`:** The Hermit's bonded ace is a **shiny Cresselia** named **Selene** (the Greek moon-goddess) — the Lunar Pokemon as the literal Blue Moon at the heart of his team. Gentle, ancient, deeply-bonded, exactly as the partnership-master's ace should be: she does not overpower the player, she *sacrifices herself* for her partners (Lunar Dance). Per his ace-bond register (*quiet, paternal, gently-curmudgeonly*), Selene is the constant companion of his centuries of grief and waiting.
+
+**His combat team — the partnership relay `[LOCKED v0.9.9]`** (Champion-tier; whether/when he is actually challenged remains `[OPEN]`, likely a post-Champion side quest). The gimmick *is* the project's thesis made mechanical: where every other boss optimizes individuals, the Master Partnership-Teacher fields a team that lays down its lives *for each other*. Each fallen partner restores and empowers the next, so attrition fails — the team only comes back fresher and stronger. The player must out-tempo the relay or burst the empowered capstone, learning the lesson (bond beats optimization) in order to win. A deliberate thematic counterpart to Madame Roma's "the future is already written" clock team: Roma weaponizes foreknowledge to make defeat inevitable; Lethys weaponizes devotion to make his team unkillable.
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Cresselia "Selene"** (shiny) | Psychic | Levitate | Leftovers | Lunar Dance / Calm Mind / Moonblast / Moonlight |
+| **Ursaluna** (regular) | Ground/Normal | Guts | Flame Orb | Facade / Headlong Rush / Swords Dance / Crunch |
+| **Umbreon** | Dark | Synchronize | Leftovers | Wish / Baton Pass / Moonlight / Foul Play |
+| **Lunatone** | Rock/Psychic | Levitate | Leftovers | Cosmic Power / Stored Power / Moonlight / Baton Pass |
+| **Clefable** | Fairy | Magic Guard | Leftovers | Moonlight / Healing Wish / Calm Mind / Moonblast |
+| **Drifblim** | Ghost/Flying | Aftermath | Leftovers | Memento / Baton Pass / Shadow Ball / Will-O-Wisp |
+
+- **The relay:** two full-restore sacrifices — **Lunar Dance** (Selene) and **Healing Wish** (Clefable) — bring the capstone back at full HP, fully cured; **Memento** (Drifblim) sacrifices to cripple the foe and clear its path; **Baton Pass** (Umbreon, Lunatone, Drifblim) hands strength and Cosmic Power boosts down the chain; **Wish** (Umbreon, Clefable) keeps the team healthy. Everything feeds a fresh, boosted **Ursaluna** (Guts/Facade physical capstone), with **Clefable** and **Lunatone** (Cosmic Power → Stored Power) as backup wincons so it is not all-or-nothing on one sweeper.
+- **Lunar/dark/Psychic theme** as the bible flagged: Cresselia, Lunatone, Clefable (Moonlight), Umbreon (the Dark/Moonlight night-half), Drifblim (dusk psychopomp — *"at dusk it carries off the souls of the departed"*), and the lone **regular Ursaluna** — the only one the player ever sees, tying his ancient Celestica lineage to the Blue Moon line. (Lunatone is free for Lethys; Roma's locked team uses Munkidori, not Lunatone.)
+- **Coverage:** Clefable (Fairy) answers the team's shared Dark / Fighting / Bug weaknesses; Drifblim (Ghost/Flying) covers Fighting / Normal / Ground.
+- **Per-party override** (allowed; move exists in-fork, assignment free): Drifblim's **Memento**. Everything else is native — including Selene's Lunar Dance and Clefable's Healing Wish.
+- `[OPEN]` exact levels and whether/when the Hermit is challengeable (recommend a post-Champion side quest paralleling Sable, Kimaris's true team, and Roma).
 `[OPEN]` Interaction-dialog beats — likely tied to the Trial 6 chapter and the post-Champion side quest sequence
 
 **Madame Roma's overworld ace `[LOCKED v0.9.8 — pattern in-scope; ace + combat team LOCKED v0.9.9]`:**

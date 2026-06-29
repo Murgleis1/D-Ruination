@@ -441,7 +441,7 @@ The ace-bonding overworld interactions are the project's commitment to showing p
 | 19 | Ambrose Caymen | Archbishop of the Templar Arceus Order (Steel) | **Temperance** (shiny Kingambit) **+ Brunhilda** (shiny female Perrserker) (two-ace structure) | Locked v0.9.7 |
 | 20 | Eden | Deuteragonist / future spouse | her stolen starter (Frigibax / Teddiursa Blue Moon / Tinkatink — type-counter-locked to player's pick per the Eden Theft Scene) | Locked |
 | 21 | Madame Roma | Soothsayer / progenitor of House Langerin | shiny Munkidori "Tiresias" | Ace + team LOCKED v0.9.9 |
-| 22 | Blue Moon Hermit (Lethys) | Sage / Master Tutor (Blood Moon) | `[OPEN]` | Open |
+| 22 | Blue Moon Hermit (Lethys) | Sage / Master Tutor (Blood Moon) | shiny Cresselia "Selene" | Ace + team LOCKED v0.9.9 |
 | 23 | Sable Ashland | Returned-from-Ancient-Cormoria, uncle of Reid | **Solara** (shiny male Pyroar, Competitive — opener / elder-statesman ace; twin of Simone's Pyroar, gifted to childhood-Sable by the Sylphons) **+ Gouging Fire** (raised from egg in Ancient Cormoria — successor / cleanup-sweeper ace) (two-ace structure with elder/younger-sibling dynamic) | Locked v0.9.8 |
 
 **Notable structural observations:**
