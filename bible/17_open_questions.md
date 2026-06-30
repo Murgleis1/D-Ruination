@@ -346,7 +346,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Vandras's earlier appearances in the game (if any) before the epilogue
 - The three Move Tutors' names and locations (for the unified starter evolution mechanic)
 - Inciting incident in Act I
-- The 6 stat-themed recurring rivals' names, identities, and encounter geography (only the Speed rival is sketched with Ninjask)
+- The 6 stat-themed recurring rivals — now their own standalone side quest, *separate* from the Paragon Gauntlet — names, identities, encounter geography, and the **special reward at the side quest's end** (only the Speed rival, Wakahisa/Ninjask, is sketched; reward `[OPEN]`)
 - Whether any of the 6 rivals have arc reversals (e.g., friend-to-corrupted vs. grudge-to-respect)
 - **House Ashland family details** — Reid's three sisters, exact internal family dynamics
 - **Goma's late-game return mechanism** — how/when the escaped Beads Cult Harbinger resurfaces as a desperate antagonist

@@ -81,7 +81,7 @@ This is the thesis stated through agency: **partnership is not just what Pokemon
 
 **The underlying design intent:** route trainers normally feel like *filler*. Recurring them turns the player's whole journey through Cormoria into a web of *relationships with the world's denizens*. Filler becomes story.
 
-**Ruination's extension — The Six Stat-Themed Rivals + The Paragon Gauntlet:**
+**Ruination's extension — The Six Stat-Themed Rivals (a recurring side quest) + The Paragon Gauntlet (the three-fight gate):**
 
 We introduce **6 recurring side rival trainers**, each thematically organized around maximizing one of Pokémon's core stats. They are *type-agnostic* — their team compositions are diverse, but their training philosophy is unified around a single stat axis.
 
@@ -94,27 +94,28 @@ We introduce **6 recurring side rival trainers**, each thematically organized ar
 | 5 | **Special Defense** | Special tanking; specially-bulky strategies |
 | 6 | **Speed** | Outspeed everything; signature ace is a shiny Ninjask (Speed Boost ability) that eventually learns **Bolt Beak + Fishious Rend** (move-first damage doubling), **Obstruct** (protection + defense lowering), and **Leech Life** (recovery). A late-game menace. |
 
-**Design rationale:** stat-themed teams are an *organic in-game tutorial* for competitive battle strategy. By the time the player reaches the gauntlet, they have fought every fundamental stat archetype multiple times with escalating sophistication. They are *competitively literate* through play, not through reading guides.
+**Design rationale:** stat-themed teams are an *organic in-game tutorial* for competitive battle strategy. By the time the player reaches the endgame, they have fought every fundamental stat archetype multiple times with escalating sophistication — *competitively literate* through play, not through reading guides. **These six rivals form their own standalone, longer-running side quest with a special reward at its conclusion `[OPEN]` (reward TBD); they do *not* feed the Paragon Gauntlet** (the three-fight gate below).
 
 **The Paragon Gauntlet** — the prerequisite for facing the Viziers:
 
 The Cormorian trainer-merit gate has four tiers:
 1. **The 9 Trials** (presided by the 9 noble Trial Houses, monotype each)
-2. **The Paragon Gauntlet** — a no-holds-barred tournament restricted to the 6 best trainers who passed the Trials within a year. Six rivals fight in succession. **Limited healing: one healing item between fights**, no Pokémon Center breaks, no full heals.
+2. **The Paragon Gauntlet** — a no-holds-barred gate of **three marquee rivals fought in succession: Jordan (Poison), Wakahisa (the Speed ace, shiny Ninjask), then Eden (the deuteragonist)**, all at maximum power with full six-Pokémon teams. **No Pokémon Center breaks.** Between each fight a League attendant grants exactly one forced benefit — **fully heal one Pokémon *and* Max Revive one fainted party member** — and nothing else. Carrying damage and faints across all three makes it the most punishing sequence in the game.
 3. **The 4 Viziers** (Umbra, Glaive-as-Vizier-of-War, Silas Moray, and one more `[OPEN]`)
 4. **The Champion** (Rhydia)
 
-The 5 gauntlet rivals besides the player are *the 6 stat-themed trainers, minus one* (whichever one the player has met fewest times, or whatever makes narrative sense — `[OPEN]` exact selection logic). All 6 stat trainers reappear here at their *maximum* power, with full 6-Pokémon teams.
+The three gauntlet opponents are **fixed: Jordan → Wakahisa → Eden** — the three developed, named rivals, *not* drawn from the stat-themed six (those are a separate side quest, above). Each appears at maximum power with a full six. `[RESOLVED v0.9.9]` — supersedes the earlier 5-of-6-stat-rivals concept and the 7-8-fight expansion question.
 
-**Departure from DM:** DM's championship gives free healing between rounds via a lobby nurse (`Championship_R1_Lobby/scripts.pory:27`). Our Paragon Gauntlet *removes that healing* — a deliberate harder variant that fits Cormorian imperial meritocracy ("only the most consistent trainer wins").
+**Departure from DM:** DM's championship gives free *full* healing between rounds via a lobby nurse (`Championship_R1_Lobby/scripts.pory:27`). Our Paragon Gauntlet replaces that with the forced single benefit above (heal one + revive one) — a deliberately harsher variant that fits Cormorian imperial meritocracy ("only the most consistent trainer wins").
 
-**Structural elegance:** All six stat-themed rivals appear in the gauntlet at their full power. The player has seen each of them grow across the game. The gauntlet is the *payoff* of the recurring-trainer structure — every previous fight with these rivals was setup for this finale.
+**Structural elegance:** the gauntlet is the *payoff of the three marquee rival arcs* — the assassin duo (Jordan, Wakahisa) the player turned into allies, and Eden the deuteragonist. Every prior fight with these three was setup for this finale. (The six stat-themed rivals get their own payoff at the end of *their* side quest.)
 
-**Open questions for the 6 rivals:**
+**Open questions for the six stat-rivals (now their own side quest):**
 - `[OPEN]` Names and personality identities of all six
 - `[OPEN]` Geographic encounter order (which routes / cities do they each first appear on)
 - `[OPEN]` Whether any have arc reversals (grudge-to-respect like Stanja vs. friend-to-corrupted)
-- `[OPEN]` The exact gauntlet seeding/order
+- `[OPEN]` The special reward concluding the six-stat-rivals side quest
+- ~~`[OPEN]` The exact gauntlet seeding/order~~ — **RESOLVED v0.9.9**: the Paragon Gauntlet is the fixed three-fight sequence Jordan → Wakahisa → Eden (the stat-rivals are no longer gauntlet opponents)
 
 ### Principle 4 — One-Way Routes, Drifblim Pass, and HealPass Scarcity `[LOCKED]`
 
@@ -202,7 +203,7 @@ The 5 gauntlet rivals besides the player are *the 6 stat-themed trainers, minus 
 
 This consolidates Principles 3, 5, and 6 into a single ordering:
 
-- **The 6 stat-themed rivals** are *recurring side rivals*. They appear on routes throughout the game, grow stronger between encounters, and culminate in the Paragon Gauntlet.
+- **The 6 stat-themed rivals** are *recurring side rivals*. They appear on routes throughout the game, grow stronger between encounters, and culminate in **their own standalone side quest with a special reward `[OPEN]`** — *not* the Paragon Gauntlet (which is the three marquee rivals: Jordan, Wakahisa, Eden).
 - **Eden** is a *main rival* — she has her own arc (thief → cult recruit → defector → ally → spouse) that runs parallel to but separate from the 6 stat rivals.
 - **Glaive** is the *primary rival* — childhood friend, the traditional Pokemon-rival role. His arc culminates in the Vizier of War battle, which is the **last gate before Rhydia**.
 - **Rhydia** is the *Champion battle* — sister, regent, strongest trainer in generations. **Her relationship with the player is *cooperative-first, then adversarial*** — a deliberate inversion of the standard fan-game rival pattern.
@@ -224,7 +225,7 @@ This inverts the *standard* Pokemon-rival narrative arc (introduction-as-opposit
 
 **Encounter order in the endgame:**
 1. Player completes all 9 Trials
-2. Paragon Gauntlet: 5 of the 6 stat-themed rivals (selected per logic TBD)
+2. Paragon Gauntlet: three marquee rivals in fixed order — Jordan, Wakahisa, Eden
 3. The 4 Viziers in succession (order TBD; Glaive is one of them as Vizier of War)
 4. **Rhydia — the Champion fight.** Confirmed as locked endgame battle (no longer `[OPEN]` whether she is fought).
 5. Hall of Fame unmasking sequence (Section 5)

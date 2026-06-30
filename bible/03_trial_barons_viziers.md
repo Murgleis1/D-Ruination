@@ -52,7 +52,7 @@ This is the empire's institutional structure for recognizing martial-Pokémon ex
 
 **The full meritocratic gate sequence:**
 1. **9 Trials** (presided by Trial Barons)
-2. **The Paragon Gauntlet** (introduced in Section 11 Principle 3) — six recurring rivals fight in succession, no breaks/healing between fights, only one healing item allowed
+2. **The Paragon Gauntlet** (Section 11 Principle 3) — **three** marquee rivals fought in succession (**Jordan, Wakahisa, then Eden**), no Pokémon Center breaks; between each fight a League attendant grants one forced benefit only — fully heal one Pokémon **and** Max Revive one fainted party member
 3. **4 Viziers**
 4. **Champion (Rhydia)**
 

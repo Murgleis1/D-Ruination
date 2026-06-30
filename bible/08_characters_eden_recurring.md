@@ -407,7 +407,7 @@ In the process of being prevented from murder-suicide by the man they were hired
 
 **Paragon Gauntlet appearance:**
 
-Jordan and Wakahisa appear as competitors in the Act V Paragon Gauntlet (Section 11 — Principle 3; Section 10 — Act V) alongside the original 6 recurring stat-themed rivals. **Exact Gauntlet structure with the new additions `[OPEN]`** — they may expand the Gauntlet to 7-8 sequential fights, or serve as alternate-track opponents, or be separate event battles outside the formal Gauntlet sequence.
+Jordan and Wakahisa are **two of the three competitors in the Act V Paragon Gauntlet** (Section 11 — Principle 3; Section 10 — Act V), alongside **Eden**. **Gauntlet structure `[RESOLVED v0.9.9]`:** exactly **three sequential fights — Jordan, then Wakahisa, then Eden** — with a forced single benefit between each (fully heal one Pokémon + Max Revive one fainted member) and no other healing. The six stat-themed rivals are a *separate* recurring side quest, not gauntlet opponents.
 
 **Jordan's team — across the three fights `[LOCKED v0.9.9]`.** A mono-Poison specialist's roster (every member Poison, each paired with a different second type), continuous across all three encounters: the pre-evolutions he fields early grow into the fully-evolved Gauntlet team.
 
