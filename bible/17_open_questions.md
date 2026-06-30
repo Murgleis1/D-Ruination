@@ -149,7 +149,7 @@ These items emerged from v0.9.8 lock work and are deferred:
 
 **Ace-bonding overworld interactions — per-character openness:**
 
-- **3 ace locks are `[OPEN]`** for the 23 in-scope characters: T5 Raptora, T6 Alban, T7 Nightfall. (Manus's **Modal**, Jordan's **Naga**, Wakahisa's **Hayate**, Silas's **Thauma** + **Malamar**, Roma's **Tiresias** (Munkidori), and the Blue Moon Hermit's **Selene** (Cresselia) locked v0.9.9.) Each unlock cascades to enable the corresponding interaction sub-task (engineering task #56).
+- ~~**3 ace locks are `[OPEN]`**~~ — **RESOLVED v0.9.9: all 23 in-scope characters' aces are now locked.** Falco Raptora's **Sturm + Drang** (the parent-child bird bond) was already locked; T6 Alban's **Nero** (♂; the *corrupted-mirror* ace-bond) and T7 Nightfall's **Grendel** (♂; pre/post-Trial-7 beats) locked v0.9.9. (Earlier v0.9.9 ace locks: Manus's **Modal**, Jordan's **Naga**, Wakahisa's **Hayate**, Silas's **Thauma** + **Malamar**, Roma's **Tiresias**, the Blue Moon Hermit's **Selene**.) Each unlock cascades to enable the corresponding interaction sub-task (engineering task #56).
 - **Per-character interaction style content** for the 13 ready-to-design characters (excluding Simone-Splendor which is the locked example) — `[OPEN]` per character. Recommended approach: lock interaction style at the time each character's full bible entry is reviewed, not as a separate dedicated pass.
 
 ### v0.9.7 closures (character expansions and major narrative locks)
