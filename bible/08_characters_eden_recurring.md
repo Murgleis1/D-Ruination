@@ -493,7 +493,7 @@ Jordan and Wakahisa are **two of the three competitors in the Act V Paragon Gaun
 - **Notable builds:** **Durant** runs only never-miss moves (False Surrender / Smart Strike / Aerial Ace) so Hustle's +50% Attack carries no accuracy cost; **Frosmoth** and **Volcarona** are Quiver Dance sweepers on Heavy-Duty Boots (both 4× Stealth Rock weak); **Accelgor** is a Sticky-Hold pivot (Stone Axe sets hazards, U-Turn keeps momentum).
 - **Overrides** (per-party): Bolt Beak (Ninjask), Water Shuriken + Stone Axe (Accelgor), Armor Cannon (Volcarona). Speed Boost and Mega Beedrill's Adaptability are native.
 
-**Remaining `[OPEN]` items:** specific scenes and dialogue across her arc; whether her foreign origin is made explicit in dialogue; the exact Paragon Gauntlet sequencing (how she and Jordan slot into the existing six stat-rivals — `[OPEN]`).
+**Remaining `[OPEN]` items:** specific scenes and dialogue across her arc; whether her foreign origin is made explicit in dialogue. ~~The exact Paragon Gauntlet sequencing~~ — **RESOLVED v0.9.9**: the Gauntlet is the fixed three-fight sequence Jordan → Wakahisa → Eden; Wakahisa does **not** slot into the six stat-rivals (they are a separate recurring side quest — Section 15 — Principle 3).
 
 **Jordan and Wakahisa — Ace-Bonding Overworld Interaction status `[LOCKED v0.9.8 — pattern in-scope; specific interactions deferred]`:**
 

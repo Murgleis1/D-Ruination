@@ -346,7 +346,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Vandras's earlier appearances in the game (if any) before the epilogue
 - The three Move Tutors' names and locations (for the unified starter evolution mechanic)
 - Inciting incident in Act I
-- The 6 stat-themed recurring rivals — now their own standalone side quest, *separate* from the Paragon Gauntlet — names, identities, encounter geography, and the **special reward at the side quest's end** (only the Speed rival, Wakahisa/Ninjask, is sketched; reward `[OPEN]`)
+- The 6 stat-themed recurring rivals — their own standalone side quest, *separate* from the Paragon Gauntlet. ~~names, identities~~ — **RESOLVED v0.9.9**: Makaria (HP) / Wilhelm (Attack) / Kubrec (Defense) / Cassia (Sp.Atk) / Galene (Sp.Def) / Zephyra (Speed) — all six full teams locked (Section 15 — Principle 3, *The Six Stat-Rivals — Rosters*); the Speed rival is **Zephyra** (ace Hawlucha), **not** Wakahisa (whose shiny Ninjask "Hayate" is her Paragon-Gauntlet ace). Still `[OPEN]`: encounter geography and the **special reward** at the quest's end
 - Whether any of the 6 rivals have arc reversals (e.g., friend-to-corrupted vs. grudge-to-respect)
 - **House Ashland family details** — Reid's three sisters, exact internal family dynamics
 - **Goma's late-game return mechanism** — how/when the escaped Beads Cult Harbinger resurfaces as a desperate antagonist

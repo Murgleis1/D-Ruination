@@ -92,7 +92,7 @@ We introduce **6 recurring side rival trainers**, each thematically organized ar
 | 3 | **Defense** | Physical tanking; counter-stall the opponent |
 | 4 | **Special Attack** | High-SpA sweepers with coverage moves |
 | 5 | **Special Defense** | Special tanking; specially-bulky strategies |
-| 6 | **Speed** | Outspeed everything; signature ace is a shiny Ninjask (Speed Boost ability) that eventually learns **Bolt Beak + Fishious Rend** (move-first damage doubling), **Obstruct** (protection + defense lowering), and **Leech Life** (recovery). A late-game menace. |
+| 6 | **Speed** | Outspeed everything by *every* available means — raw base Speed, Unburden, Swift Swim, Tailwind, and Protean/Libero flexibility. Rival **Zephyra, "the Half-Beat"**; signature ace **Hawlucha** (Unburden), whose White-Herb pop doubles its Speed for a Swords-Dance sweep. A late-game menace. *(Wakahisa's shiny Ninjask "Hayate" is her Paragon-Gauntlet ace alone — Section 7 — not a stat-rival; her roster is decoupled from the six.)* |
 
 **Design rationale:** stat-themed teams are an *organic in-game tutorial* for competitive battle strategy. By the time the player reaches the endgame, they have fought every fundamental stat archetype multiple times with escalating sophistication — *competitively literate* through play, not through reading guides. **These six rivals form their own standalone, longer-running side quest with a special reward at its conclusion `[OPEN]` (reward TBD); they do *not* feed the Paragon Gauntlet** (the three-fight gate below).
 
@@ -111,11 +111,83 @@ The three gauntlet opponents are **fixed: Jordan → Wakahisa → Eden** — the
 **Structural elegance:** the gauntlet is the *payoff of the three marquee rival arcs* — the assassin duo (Jordan, Wakahisa) the player turned into allies, and Eden the deuteragonist. Every prior fight with these three was setup for this finale. (The six stat-themed rivals get their own payoff at the end of *their* side quest.)
 
 **Open questions for the six stat-rivals (now their own side quest):**
-- `[OPEN]` Names and personality identities of all six
+- ~~`[OPEN]` Names and personality identities of all six~~ — **RESOLVED v0.9.9**: **Makaria** (HP), **Wilhelm** (Attack), **Kubrec** (Defense), **Cassia** (Sp.Atk), **Galene** (Sp.Def), **Zephyra** (Speed) — graduates of Cadmus Umbra's academy, each the star pupil of one stat axis. Full teams locked below (*The Six Stat-Rivals — Rosters*).
 - `[OPEN]` Geographic encounter order (which routes / cities do they each first appear on)
 - `[OPEN]` Whether any have arc reversals (grudge-to-respect like Stanja vs. friend-to-corrupted)
 - `[OPEN]` The special reward concluding the six-stat-rivals side quest
 - ~~`[OPEN]` The exact gauntlet seeding/order~~ — **RESOLVED v0.9.9**: the Paragon Gauntlet is the fixed three-fight sequence Jordan → Wakahisa → Eden (the stat-rivals are no longer gauntlet opponents)
+
+#### The Six Stat-Rivals — Rosters `[LOCKED v0.9.9]`
+
+The six recurring stat-rivals are **graduates of Cadmus Umbra's academy** — a cohort of competitive-theory specialists who each took the empire's finest battle education and *majored* in maximizing a single core stat. They recur on routes throughout the game, escalate in power between encounters, and culminate in their own standalone side quest. *(Encounter geography and the special end reward remain `[OPEN]`.)* Every roster below is audited disjoint from all other major trainers and from the other five rivals; abilities are canonical unless flagged.
+
+**1 — Makaria, "the Long Siege" (HP).** Attrition incarnate — the deepest HP pools in the game behind Wish, Regenerator, and Rest, grinding the player out with Toxic and Curse.
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Blissey** (ace) | Normal | Natural Cure | Heavy-Duty Boots | Soft-Boiled / Seismic Toss / Toxic / Stealth Rock |
+| Snorlax | Normal | Thick Fat | Leftovers | Curse / Body Slam / Rest / Sleep Talk |
+| Alomomola | Water | Regenerator | Rocky Helmet | Wish / Flip Turn / Scald / Toxic |
+| Hariyama | Fighting | Thick Fat | Leftovers | Bulk Up / Drain Punch / Knock Off / Facade |
+| Dondozo | Water | Unaware | Leftovers | Curse / Wave Crash / Body Press / Rest |
+| Copperajah | Steel | Sheer Force | Leftovers | Heavy Slam / Earthquake / Play Rough / Stealth Rock |
+
+**2 — Wilhelm, "One Blow" (Attack).** Every hit a kill shot — raw Attack behind Choice Band and Swords Dance, backed by priority (Bullet Punch, Mach Punch, Extreme Speed) so nothing outruns the hammer.
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Rampardos** (ace) | Rock | Sheer Force | Choice Scarf | Head Smash / Earthquake / Zen Headbutt / Stone Edge |
+| Metagross | Steel/Psychic | Tough Claws | Choice Band | Meteor Mash / Bullet Punch / Earthquake / Ice Punch |
+| Conkeldurr | Fighting | Guts | Flame Orb | Mach Punch / Drain Punch / Knock Off / Facade |
+| Galarian Darmanitan | Ice | Gorilla Tactics | Choice Band | Icicle Crash / Flare Blitz / U-turn / Earthquake |
+| Rhyperior | Ground/Rock | Solid Rock | Assault Vest | Earthquake / Stone Edge / Megahorn / Ice Punch |
+| Dragonite | Dragon/Flying | Multiscale | Heavy-Duty Boots | Dragon Dance / Extreme Speed / Outrage / Earthquake |
+
+**3 — Kubrec, "the Immovable" (Defense).** A physical wall you can neither break nor out-stall — Iron Defense and Cotton Guard converted into offense through Body Press, with Foul Play and Storm Drain punishing whatever you commit.
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Steelix** (ace) | Steel/Ground | Sturdy | Leftovers | Iron Defense / Body Press / Earthquake / Stealth Rock |
+| Avalugg | Ice | Sturdy | Leftovers | Body Press / Recover / Avalanche / Rapid Spin |
+| Skarmory | Steel/Flying | Sturdy | Rocky Helmet | Body Press / Iron Defense / Roost / Spikes |
+| Mandibuzz | Dark/Flying | Overcoat | Leftovers | Foul Play / Roost / Toxic / U-turn |
+| Gastrodon | Water/Ground | Storm Drain | Leftovers | Recover / Earth Power / Ice Beam / Scald |
+| Dubwool | Normal | Fluffy | Leftovers | Cotton Guard / Body Press / Rest / Sleep Talk |
+
+**4 — Cassia, "the Spectralist" (Sp.Atk).** Every color of special damage — Nasty Plot, Calm Mind, and Choice Specs behind a coverage suite deep enough that no single defensive core answers all six.
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Hydreigon** (ace) | Dark/Dragon | Levitate | Life Orb | Nasty Plot / Draco Meteor / Dark Pulse / Fire Blast |
+| Alakazam | Psychic | Magic Guard | Life Orb | Nasty Plot / Psychic / Shadow Ball / Focus Blast |
+| Sylveon | Fairy | Pixilate | Choice Specs | Hyper Voice / Mystical Fire / Shadow Ball / Psyshock |
+| Starmie | Water/Psychic | Analytic | Choice Specs | Hydro Pump / Ice Beam / Thunderbolt / Psychic |
+| Roserade | Grass/Poison | Natural Cure | Life Orb | Leaf Storm / Sludge Bomb / Sleep Powder / Giga Drain |
+| Delphox | Fire/Psychic | Magician | Life Orb | Calm Mind / Fire Blast / Psyshock / Grass Knot |
+
+**5 — Galene, "the Still Water" (Sp.Def).** A specially-unbreakable wall — Calm Mind, Assault Vest, and colossal Sp.Def, with Reuniclus's Magic Guard shrugging off the chip damage that beats stall.
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Florges** (ace) | Fairy | Flower Veil | Leftovers | Calm Mind / Moonblast / Wish / Protect |
+| Goodra | Dragon | Sap Sipper | Assault Vest | Draco Meteor / Sludge Bomb / Flamethrower / Thunderbolt |
+| Mantine | Water/Flying | Water Absorb | Leftovers | Roost / Scald / Ice Beam / Haze |
+| Vaporeon | Water | Water Absorb | Leftovers | Wish / Protect / Scald / Calm Mind |
+| Reuniclus | Psychic | Magic Guard | Leftovers | Calm Mind / Psyshock / Recover / Focus Blast |
+| Alolan Muk | Poison/Dark | Poison Touch | Assault Vest | Knock Off / Gunk Shot / Poison Jab / Drain Punch |
+
+**6 — Zephyra, "the Half-Beat" (Speed).** Outspeed by every means at once — raw base Speed, Unburden, Swift Swim, Tailwind, and Protean/Libero flexibility — so the player never once moves first. *(Distinct in every slot from Wakahisa's Paragon-Gauntlet Ninjask "Hayate"; see Section 7 — Wakahisa. Hayate is Wakahisa's ace alone.)*
+
+| Pokémon | Type | Ability | Item | Moves |
+|---|---|---|---|---|
+| **Hawlucha** (ace) | Fighting/Flying | Unburden | White Herb | Swords Dance / Close Combat / Acrobatics / Stone Edge |
+| Barraskewda | Water | Swift Swim | Choice Band | Liquidation / Close Combat / Flip Turn / Psychic Fangs |
+| Noivern | Flying/Dragon | Infiltrator | Heavy-Duty Boots | Tailwind / Boomburst / Hurricane / Draco Meteor |
+| Meowscarada | Grass/Dark | Protean | Choice Band | Flower Trick / Knock Off / U-turn / Triple Axel |
+| Cinderace | Fire | Libero | Heavy-Duty Boots | Pyro Ball / High Jump Kick / Court Change / U-turn |
+| Inteleon | Water | Sniper | Choice Specs | Snipe Shot / Ice Beam / Dark Pulse / U-turn |
+
+**Cross-roster audit `[LOCKED v0.9.9]`:** all 36 species above are mutually distinct and verified disjoint from every other major trainer's locked roster (Eden, the Paragon-Gauntlet rivals Jordan/Wakahisa, the Trial Barons, the Viziers, the cult bosses, and the legendary-tier trainers). Near-collisions deliberately avoided include Chandelure (Eden), Kingambit (Ambrose), Toxtricity (Manus), Gliscor (Nemo), Sandaconda (Glaive), Crawdaunt + Slowking (Vizier of Education), Amoonguss + Toxapex (Jordan), and Umbreon (the Blue Moon Hermit).
 
 ### Principle 4 — One-Way Routes, Drifblim Pass, and HealPass Scarcity `[LOCKED]`
 
