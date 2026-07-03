@@ -990,6 +990,13 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Estimated scope:** ~15-25 hours (custom sister sprites + custom pyrokinesis visual effect + scripted scene + dialog + scene pacing tuning; tone restraint is the key constraint)
     - **Cross-references:** Section 7 — Reid Ashland, Section 12 — House Ashland Naljo lore (the family's foundational moral identity that this scene resonates with), Section 11 — Show-Don't-Tell directness exceptions (v0.9.8 lock), Section 14 — Mt. Ceram raid Act III, Section 8 — Beads Cult Mt. Ceram raid
 
+### v0.9.10 new engineering tasks (Ambrosia quest + stat-rivals reward)
+
+- **Six Ambrosia Drop items (color-keyed, cap-bypassing EV-max)** `[LOCKED v0.9.10]` — Add six consumable items: Green (HP), Red (Attack), Yellow (Defense), Purple (Sp.Atk), Blue (Sp.Def), Pink (Speed). Art is one base "Ambrosia Drop" icon + six palette swaps (color is the only differentiator). One shared out-of-battle item routine keyed to stat that **sets** the target stat's EVs to `MAX_PER_STAT_EVS` (252) in a single use.
+  - **Cap-bypass scope (verified):** `B_EV_ITEMS_CAP == FALSE` (`codebase/include/config/caps.h:31`), so the EV-item path caps at `MAX_TOTAL_EVS` (510), *not* the badge-scaled `GetCurrentEVCap()`. The Drop therefore only needs to skip the 510 total check at `src/pokemon.c:3912`; `GetCurrentEVCap()` never touches the item path unless `B_EV_ITEMS_CAP` is later flipped to TRUE (then the bypass must also skip it). Keep the 252 per-stat clamp at `src/pokemon.c:5472` intact — no stat exceeds 252, but the six-stat total may reach 1512.
+  - **Waste guard:** the Drops are finite (six in the whole game), so the item must refuse or warn when the target stat is already at 252 — a player must never silently burn one for zero gain.
+  - **Awarding:** 1:1 from the six stat-rivals on defeat during the Ambrosia quest. Design/lore spec lives in Section 15 (*The Ambrosia Quest — Structure & Reward*); this entry is the implementation task.
+
 ### Production estimates summary `[UPDATED v0.9.7]`
 
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.

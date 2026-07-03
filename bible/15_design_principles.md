@@ -112,9 +112,9 @@ The three gauntlet opponents are **fixed: Jordan → Wakahisa → Eden** — the
 
 **Open questions for the six stat-rivals (now their own side quest):**
 - ~~`[OPEN]` Names and personality identities of all six~~ — **RESOLVED v0.9.9**: **Makaria** (HP), **Wilhelm** (Attack), **Kubrec** (Defense), **Cassia** (Sp.Atk), **Galene** (Sp.Def), **Zephyra** (Speed) — graduates of Cadmus Umbra's academy, each the star pupil of one stat axis. Full teams locked below (*The Six Stat-Rivals — Rosters*).
-- `[OPEN]` Geographic encounter order (which routes / cities do they each first appear on)
+- ~~`[OPEN]` Geographic encounter order~~ — **STRUCTURE RESOLVED v0.9.10**: the six are a prominent later-mid-game **backtracking tour** — each re-stations in a city/route the player has already cleared, and defeating that rival awards their Ambrosia Drop (see *The Ambrosia Quest — Structure & Reward*). Specific per-rival location assignments remain `[OPEN]`.
 - `[OPEN]` Whether any have arc reversals (grudge-to-respect like Stanja vs. friend-to-corrupted)
-- `[OPEN]` The special reward concluding the six-stat-rivals side quest
+- ~~`[OPEN]` The special reward concluding the six-stat-rivals side quest~~ — **RESOLVED v0.9.10**: the six color-coded **Ambrosia Drops** (Green/HP, Red/Atk, Yellow/Def, Purple/SpA, Blue/SpD, Pink/Spe) — one per rival, each maxes that stat's EVs to 252 while bypassing the 510 total cap; finite, so the player builds one perfect-EV god-mon or distributes them. Full spec in *The Ambrosia Quest — Structure & Reward* below.
 - ~~`[OPEN]` The exact gauntlet seeding/order~~ — **RESOLVED v0.9.9**: the Paragon Gauntlet is the fixed three-fight sequence Jordan → Wakahisa → Eden (the stat-rivals are no longer gauntlet opponents)
 
 #### The Six Stat-Rivals — Rosters `[LOCKED v0.9.9]`
@@ -188,6 +188,27 @@ The six recurring stat-rivals are **graduates of Cadmus Umbra's academy** — a 
 | Inteleon | Water | Sniper | Choice Specs | Snipe Shot / Ice Beam / Dark Pulse / U-turn |
 
 **Cross-roster audit `[LOCKED v0.9.9]`:** all 36 species above are mutually distinct and verified disjoint from every other major trainer's locked roster (Eden, the Paragon-Gauntlet rivals Jordan/Wakahisa, the Trial Barons, the Viziers, the cult bosses, and the legendary-tier trainers). Near-collisions deliberately avoided include Chandelure (Eden), Kingambit (Ambrose), Toxtricity (Manus), Gliscor (Nemo), Sandaconda (Glaive), Crawdaunt + Slowking (Vizier of Education), Amoonguss + Toxapex (Jordan), and Umbreon (the Blue Moon Hermit).
+
+#### The Ambrosia Quest — Structure & Reward `[LOCKED v0.9.10]`
+
+The six stat-rivals anchor a prominent **later-mid-game side quest**. Having graduated Cadmus Umbra's academy, they disperse across the empire and re-station themselves in **cities and routes the player has already cleared**; the quest is a grand tour that hunts each one down where the player has been before. Beyond the fights it earns its keep two ways: it reuses existing maps (no new areas — in keeping with the game's asset economy), and revisiting early regions at endgame strength is a built-in measure of how far the player has come. *(The structure — backtracking tour, one rival per previously-cleared locale, defeat awards that rival's Drop — is locked; specific per-rival location assignments remain `[OPEN]`.)*
+
+**The reward — the six Ambrosia Drops.** On defeat, each stat-master hands over the single Ambrosia Drop keyed to *their* stat — a 1:1 mechanical-narrative weld: the master of a stat grants mastery of it. The Drops are **color-coded**, and the color is the item's only differentiator:
+
+| Drop | Stat | Awarded by |
+|---|---|---|
+| **Green Ambrosia Drop** | HP | Makaria, "the Long Siege" |
+| **Red Ambrosia Drop** | Attack | Wilhelm, "One Blow" |
+| **Yellow Ambrosia Drop** | Defense | Kubrec, "the Immovable" |
+| **Purple Ambrosia Drop** | Sp. Atk | Cassia, "the Spectralist" |
+| **Blue Ambrosia Drop** | Sp. Def | Galene, "the Still Water" |
+| **Pink Ambrosia Drop** | Speed | Zephyra, "the Half-Beat" |
+
+The color mapping is teachable rather than arbitrary: the **warm pair** (Red/Yellow) are the physical stats, the **cool pair** (Purple/Blue) the special stats, **Green** is HP (health bars), **Pink** is Speed.
+
+**What a Drop does.** Using a Drop **sets its stat's EVs to the 252 maximum in a single use** — one Drop fully EV-trains one stat. The player's choice is the point of the reward: **pour all six into a single Pokémon for a perfect-EV "god-mon" (all six stats at 252, 1512 total EVs), or distribute them across the team.** The Drops are **finite and non-renewable** — exactly six exist in the entire game, and once spent there are none to be found anywhere (consistent with the game's scarcity motifs).
+
+**Engine behavior `[LOCKED v0.9.10]`.** Each Drop is a per-stat EV item running one shared routine keyed to its stat. It **bypasses the 510-EV total cap** (`MAX_TOTAL_EVS`) while **honoring the 252 per-stat cap** (`MAX_PER_STAT_EVS`) — so no stat exceeds 252, but the six-stat total may reach 1512. Verified scope: with `B_EV_ITEMS_CAP = FALSE` in this fork (`codebase/include/config/caps.h:31`), the EV-item path caps at `MAX_TOTAL_EVS`, not the badge-scaled `GetCurrentEVCap()`, so the Drop only needs to skip the total-cap check at `src/pokemon.c:3912` and leave the per-stat clamp at `:5472` intact. Because the Drops are finite, the item **refuses or warns when the target stat is already at 252**, so one of the six can never be silently wasted. Assets: one base icon plus six palette swaps — the color carries the meaning, so no per-item art is needed. (Implementation task recorded in Section 18.)
 
 ### Principle 4 — One-Way Routes, Drifblim Pass, and HealPass Scarcity `[LOCKED]`
 
