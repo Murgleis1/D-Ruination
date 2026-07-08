@@ -14,7 +14,7 @@ This reverses the prior v0.9.7 doctrine which had the canonical as the only edit
 1. Identify which split file(s) your edit touches.
 2. Fetch the split via the Contents API.
 3. Edit and commit it.
-4. After all session edits are done, regenerate the canonical by concatenating the 20 splits in section-number order (`00_thesis_and_overview.md` through `19_location_atlas.md`), stripping each file's `<!-- This file is a split-section view... -->` header, and writing the result as `bible/dreamstone_ruination_bible_v0.9.X.md` with an updated version banner.
+4. After all session edits are done, regenerate the canonical by concatenating the 21 splits in section-number order (`00_thesis_and_overview.md` through `20_chapter1_build.md`), stripping each file's `<!-- This file is a split-section view... -->` header, and writing the result as `bible/dreamstone_ruination_bible_v0.9.X.md` with an updated version banner.
 5. Commit the regenerated canonical alongside the splits.
 
 The canonical is therefore a *derived* artifact for grep-and-archive purposes only; it is never the place to make changes.
@@ -108,6 +108,10 @@ Section 14 (Production Discipline) — all engineering tasks (~48 numbered items
 ### `19_location_atlas.md` — ~2,900 tokens
 
 Section 15 (Cormoria Location Atlas) — the canonical empire-era region layout, established from the illustrated region map and cross-referenced against DM's codebase map: the DM relationship (prequel / end-game calamity / DM-fate), region overview, every major location by region with story/trial role and connections, the 9 Trial venue assignments, the route list (two duplicate route numbers flagged for assignment), the empire→DM fate mapping, and open placements (Trial 3/4/8 confirmations, calamity epicenter, Shadowmarshes). The geography reference for map-building.
+
+### `20_chapter1_build.md` — ~3,400 tokens
+
+Section 16 (Chapter 1 Build Plan) — the buildable blueprint consolidated from working conversation: the Chapter-1 playthrough beat-by-beat (cold open + letter, starter/Eden theft, the three Pelluca sidequests, the Route-11/Eiscue hook, Mirroh/Necropolis Trial 1, Mt. Mirroh Peak climax); the Pelluca Valley build spec (all eight map layers); the opt-in portrait dialogue system engineering spec; new Chapter-1 mechanics (shiny-decision egg, Golisopod Tough-Claws HA + Wimpod kit, crack-tile ice puzzle); new/updated canon (Templar pre-Cormorian-proof goal, Loulan); the committed sprite-asset inventory; and open/needs-confirmation items. Verification-checked against canon; new and unconfirmed items flagged.
 
 ---
 
