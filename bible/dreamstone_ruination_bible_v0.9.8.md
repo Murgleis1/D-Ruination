@@ -1,4 +1,4 @@
-<!-- CANONICAL BIBLE (v0.9.8 baseline; content current through the complete Chapter-1 sprite cast) — MECHANICALLY REGENERATED from the 21 bible/ split files (00 through 20). DO NOT EDIT DIRECTLY; edit the splits and regenerate. Section 16 (Chapter 1 Build Plan, now [v0.9.13]): the full Ch.1 playthrough (cold open + Umbra letter, starter/Eden theft, three Pelluca sidequests, Route-11/Eiscue hook, Mirroh Necropolis Trial 1, Mt. Mirroh Peak climax 8a-8e with the Baradus shiny-Crabominable curbstomp, Kimaris/Marshadow intervention, and the Goma/Beads Rhydia-assassination plot seed), Glaive's Hollow Hill first appearance (Beat 6b), the Pelluca Valley build spec (8 layers), the opt-in portrait dialogue system spec, new mechanics, new canon, and — UPDATED THIS PASS — the complete sprite-asset inventory (16.7): ALL SEVEN Chapter-1 principals (Osrid, Cadmus, Eden, Glaive, Baradus, Kimaris, Ambrose) now have front + overworld + portrait art committed (7 front pics, 7 OW sets [1 engine-format + 6 sources], 1 battle back, 17 portraits), with the pending build tasks (OW 32x48->16x32 conversion, compiled front forms, table wiring, portrait-system build) listed. Prior: Section 15 atlas. -->
+<!-- CANONICAL BIBLE (v0.9.8 baseline; current through the complete Ch-1 cast + Evernahn tileset-source commit) — REGENERATED from the 21 bible/ splits (00-20). DO NOT EDIT DIRECTLY; edit splits + regenerate. Section 16 = Chapter 1 Build Plan (v0.9.13): full playthrough, Pelluca build spec (8 layers), portrait-system spec, complete 7-principal sprite inventory (16.7). THIS PASS: committed the Evernahn tileset SOURCE assets at assets/pelluca_tileset_source/ (RMXP 32px tiles + autotiles + water + .rxdata) and documented the conversion task in §18 (32px->16px downscale + palette fit + primary/secondary metatile split; the hard prerequisite for the Pelluca map). Prior: Section 15 atlas. -->
 
 # Dreamstone Ruination — World Bible
 
@@ -9321,6 +9321,18 @@ The project's narrative architecture is now substantially complete at the cosmol
 - Section 14 v0.9.7 engineering tasks (items 36-48) added
 - Document size now ~6500 lines; bible-split deferred to v0.9.8
 
+### Evernahn tileset conversion (Pelluca prerequisite) `[build task]`
+
+The Pelluca Valley map (§16.3) is painted from the **Evernahn** tileset, which currently exists only as **RMXP-format source**, now committed at `assets/pelluca_tileset_source/` (`Evernahn.png` + grass/water autotiles, `Calvera_Water*.png`, and the RMXP `Map005/Map588/Tilesets.rxdata`). It must be converted to pokeemerald format before any Pelluca tiles can be placed — the **hard prerequisite** for the whole map build.
+
+**The core constraint:** the RMXP set is ~1544 tiles at **32×32px**, but pokeemerald uses **16×16px metatiles** with a hard budget (~512 primary + ~512 secondary metatiles per map, 16-color sub-palettes, max 2 tilesets per map). So it is not a straight import; it needs:
+1. **Downscale** 32px → 16px per tile (a mode/nearest downscale keeps flatter blocks than smoothing — same lesson as the sprite work).
+2. **Palette fit** — quantize each tileset to the 16-color sub-palette budget.
+3. **Primary/secondary split** — partition into a shared **primary** tileset (ground/common) + a Pelluca-specific **secondary** tileset, cutting/merging redundant tiles to stay under the metatile budget.
+4. **Import via Porymap** — build metatile definitions + attributes; the map then paints from them.
+
+The `.rxdata` files are RMXP source (not directly usable in pokeemerald) — they hold the original Evernahn maps/tileset definitions and are kept as the conversion reference.
+
 ## 15. Cormoria Location Atlas `[v0.9.10]`
 
 ### 15.1 Purpose and the DM relationship
@@ -9506,7 +9518,7 @@ Chapter 1 is the **western arm**: start → Route 11 → Hollow Hill → Mirroh 
 
 Base decision (§15): **expand and re-skin DM's Pelluca City** into the grander empire-era **Pelluca Valley**, keeping DM's coastal/flooded footprint as the continuity anchor, adding the Umbra estate/academy, the deep cavern, the seaside docks, and the four nexus exits. A pokeemerald town is ~eight layers; this is the checklist:
 
-1. **Tileset** — the **Evernahn conversion** (32px-RMXP → 16px-metatile correspondence + palette fit; §18). **Prerequisite** — nothing gets placed until the tiles exist in-engine.
+1. **Tileset** — the **Evernahn conversion**: 32px-RMXP → 16px-metatiles + palette fit + a **primary/secondary tileset split**. **Source assets are committed at `assets/pelluca_tileset_source/`; the full conversion process + metatile-budget constraint are documented in §18.** **Prerequisite** — nothing gets placed until the tiles exist in-engine.
 2. **Outdoor layout** — the four-arm nexus (§15): N Ivy River, W Route 11 → Mirroh, E Hoya Delta, S Route 10 → Rivetshore; plus Umbra estate + Academy + secret lab, the deep-cavern entrance, seaside docks (the cold-open dock; fishing-village character), a Tavern, the Arceus church, houses/shops.
 3. **Connections** — the four directional exits, stubbed until those routes are built.
 4. **Interiors** (each its own map): Umbra estate + secret lab (starter scene), the Tavern, the Arceus church (+ the underground ice-path sub-map), the deep cavern (Joustroll egg — Trial-4-gated), houses/shops. *Interior list to finalize.*

@@ -43,7 +43,7 @@ Chapter 1 is the **western arm**: start → Route 11 → Hollow Hill → Mirroh 
 
 Base decision (§15): **expand and re-skin DM's Pelluca City** into the grander empire-era **Pelluca Valley**, keeping DM's coastal/flooded footprint as the continuity anchor, adding the Umbra estate/academy, the deep cavern, the seaside docks, and the four nexus exits. A pokeemerald town is ~eight layers; this is the checklist:
 
-1. **Tileset** — the **Evernahn conversion** (32px-RMXP → 16px-metatile correspondence + palette fit; §18). **Prerequisite** — nothing gets placed until the tiles exist in-engine.
+1. **Tileset** — the **Evernahn conversion**: 32px-RMXP → 16px-metatiles + palette fit + a **primary/secondary tileset split**. **Source assets are committed at `assets/pelluca_tileset_source/`; the full conversion process + metatile-budget constraint are documented in §18.** **Prerequisite** — nothing gets placed until the tiles exist in-engine.
 2. **Outdoor layout** — the four-arm nexus (§15): N Ivy River, W Route 11 → Mirroh, E Hoya Delta, S Route 10 → Rivetshore; plus Umbra estate + Academy + secret lab, the deep-cavern entrance, seaside docks (the cold-open dock; fishing-village character), a Tavern, the Arceus church, houses/shops.
 3. **Connections** — the four directional exits, stubbed until those routes are built.
 4. **Interiors** (each its own map): Umbra estate + secret lab (starter scene), the Tavern, the Arceus church (+ the underground ice-path sub-map), the deep cavern (Joustroll egg — Trial-4-gated), houses/shops. *Interior list to finalize.*

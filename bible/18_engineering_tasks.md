@@ -1071,3 +1071,14 @@ The project's narrative architecture is now substantially complete at the cosmol
 - Section 14 v0.9.7 engineering tasks (items 36-48) added
 - Document size now ~6500 lines; bible-split deferred to v0.9.8
 
+### Evernahn tileset conversion (Pelluca prerequisite) `[build task]`
+
+The Pelluca Valley map (§16.3) is painted from the **Evernahn** tileset, which currently exists only as **RMXP-format source**, now committed at `assets/pelluca_tileset_source/` (`Evernahn.png` + grass/water autotiles, `Calvera_Water*.png`, and the RMXP `Map005/Map588/Tilesets.rxdata`). It must be converted to pokeemerald format before any Pelluca tiles can be placed — the **hard prerequisite** for the whole map build.
+
+**The core constraint:** the RMXP set is ~1544 tiles at **32×32px**, but pokeemerald uses **16×16px metatiles** with a hard budget (~512 primary + ~512 secondary metatiles per map, 16-color sub-palettes, max 2 tilesets per map). So it is not a straight import; it needs:
+1. **Downscale** 32px → 16px per tile (a mode/nearest downscale keeps flatter blocks than smoothing — same lesson as the sprite work).
+2. **Palette fit** — quantize each tileset to the 16-color sub-palette budget.
+3. **Primary/secondary split** — partition into a shared **primary** tileset (ground/common) + a Pelluca-specific **secondary** tileset, cutting/merging redundant tiles to stay under the metatile budget.
+4. **Import via Porymap** — build metatile definitions + attributes; the map then paints from them.
+
+The `.rxdata` files are RMXP source (not directly usable in pokeemerald) — they hold the original Evernahn maps/tileset definitions and are kept as the conversion reference.
