@@ -363,7 +363,7 @@ These objects were **NOT originally legendary or magical artifacts**. They were 
 
 **The erasing event `[LOCKED v0.9.4]`:**
 
-Cormor and Keerin channeled their combined power through the four Dreamstone-material objects. The objects, charged with cosmic-tier resonance, created **a resonance field that broke Phancero's *physical ties* to the material world**.
+Cormor and Keerin channeled their combined power through the **three Mega Dreamstones**, using the **four Dreamstone-material objects** — crafted specifically as *resonance tools* to align with the stones — as the conduit. Stones and objects together, charged with cosmic-tier resonance, created **a resonance field that broke Phancero's *physical ties* to the material world**. *(Those same four tool-objects, later inverted to negative polarity, became the four Treasures of Ruin — which is why the Treasures resonate with Dreamstones at all: they were built to. The game's climax re-enacts this exact configuration — three stones + four objects — to **seal** the Treasures rather than banish a distortion. See Section 9 — Dreamstone resonance, and the three Mega Dreamstones.)*
 
 **Crucially: Phancero was *erased*, not sealed.** The incarnated fragment of Phancero was *removed* from material reality — *not bound, not imprisoned*. **There was no seal because the entire incarnated form was cleansed from the world.** Phancero's *true form* persists outside space and time in the void where its essence lies — but the material fragment that had walked the world as the glitch-bird was erased entirely.
 

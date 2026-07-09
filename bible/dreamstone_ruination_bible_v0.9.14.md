@@ -1,4 +1,7 @@
-<!-- CANONICAL BIBLE (v0.9.8 baseline; current through the complete Ch-1 cast + Evernahn tileset-source commit) — REGENERATED from the 21 bible/ splits (00-20). DO NOT EDIT DIRECTLY; edit splits + regenerate. Section 16 = Chapter 1 Build Plan (v0.9.13): full playthrough, Pelluca build spec (8 layers), portrait-system spec, complete 7-principal sprite inventory (16.7). THIS PASS: committed the Evernahn tileset SOURCE assets at assets/pelluca_tileset_source/ (RMXP 32px tiles + autotiles + water + .rxdata) and documented the conversion task in §18 (32px->16px downscale + palette fit + primary/secondary metatile split; the hard prerequisite for the Pelluca map). Prior: Section 15 atlas. -->
+# Dreamstone Ruination — Canonical Bible `v0.9.14`
+
+<!-- REGENERATED ARTIFACT — do not edit directly. Mechanically reconstituted by concatenating the 21 split-section files (00_*.md … 20_*.md) in order, stripping each split view-header line. Edit the splits, then regenerate (see INDEX.md). Regenerated 2026-07-09T22:34Z for the v0.9.14 canon pass: three Mega Dreamstones + Dreamstone resonance (disruptor / accelerator / three-stone macroresonance seal) + Chapter-1 estate briefing + Osrid memory reconciliation. -->
+
 
 # Dreamstone Ruination — World Bible
 
@@ -67,6 +70,8 @@ This thesis is *demonstrated* through character arcs (especially Glaive and Osri
 Note one design tension we hold deliberately: the starter Pokémon are weapons-coded (Baxcalibur, Ursaluna, Tinkaton). The prince begins his trainer journey with creatures that *look* like weapons and must learn they aren't. This is the thesis in microcosm.
 
 ---
+
+
 
 ## 2. Worldbuilding Foundations
 
@@ -431,7 +436,7 @@ These objects were **NOT originally legendary or magical artifacts**. They were 
 
 **The erasing event `[LOCKED v0.9.4]`:**
 
-Cormor and Keerin channeled their combined power through the four Dreamstone-material objects. The objects, charged with cosmic-tier resonance, created **a resonance field that broke Phancero's *physical ties* to the material world**.
+Cormor and Keerin channeled their combined power through the **three Mega Dreamstones**, using the **four Dreamstone-material objects** — crafted specifically as *resonance tools* to align with the stones — as the conduit. Stones and objects together, charged with cosmic-tier resonance, created **a resonance field that broke Phancero's *physical ties* to the material world**. *(Those same four tool-objects, later inverted to negative polarity, became the four Treasures of Ruin — which is why the Treasures resonate with Dreamstones at all: they were built to. The game's climax re-enacts this exact configuration — three stones + four objects — to **seal** the Treasures rather than banish a distortion. See Section 9 — Dreamstone resonance, and the three Mega Dreamstones.)*
 
 **Crucially: Phancero was *erased*, not sealed.** The incarnated fragment of Phancero was *removed* from material reality — *not bound, not imprisoned*. **There was no seal because the entire incarnated form was cleansed from the world.** Phancero's *true form* persists outside space and time in the void where its essence lies — but the material fragment that had walked the world as the glitch-bird was erased entirely.
 
@@ -781,6 +786,8 @@ The Cormorian royal family's secluded retreat — **physically far from the impe
 
 ---
 
+
+
 ## 3. Geopolitics — The World in Our Era
 
 ### Cormoria (our setting) `[LOCKED]`
@@ -831,6 +838,8 @@ This is not spelled out in dialogue. It is the *capstone subtext* of the game, i
 - `[OPEN]` Does Kalos play any direct role in our game's plot?
 
 ---
+
+
 
 ## 4. The Cormorian Empire (Internal Structure)
 
@@ -950,6 +959,8 @@ Cormoria-specific notes for empire-era worldbuilding:
 
 ---
 
+
+
 ## 5. Protagonist — Osrid / Rainhawk / Veddev
 
 ### Identity in three phases `[LOCKED]`
@@ -958,7 +969,7 @@ Cormoria-specific notes for empire-era worldbuilding:
 
 1. **Osrid (true name)** — player can rename. This is what the player types at the start. The "real" name in the sense of the prince's birth-given identity. Used in private dialogue by inner-circle characters who know the truth.
 2. **Nomad Alban / Rainhawk Alban / variants (overseas cover identity)** — **canonically locked.** Player cannot change "Nomad" or "Alban." Used by all generic NPCs throughout the entire game. The cover identity was constructed by Vizier Umbra to hide Osrid in plain sight during his 10-year overseas exile.
-3. **Veddev (post-cataclysm final identity)** — **canonically locked regardless of player entry.** The name Vandras gives him after finding him post-cataclysm. The name Osrid *chooses* to keep going forward, despite remembering his original identity.
+3. **Veddev (post-cataclysm final identity)** — **canonically locked regardless of player entry.** The name Vandras gives him after finding him (memory-wiped) post-cataclysm; the name Osrid *chooses* to keep going forward **once his memory returns in Paldea** — a renunciation made in full possession of who he was, not in ignorance of it (§9 — memory arc).
 
 **This name architecture is itself an expression of the project's thesis: identity is something we receive in compassion, not something we are given by birth or by the state. The player's chosen name matters during the journey. The cover identity is a cage the system forces on him. The name given in love (Veddev) is the name he chooses to keep.**
 
@@ -1029,7 +1040,7 @@ This is the project's most distinctive narrative move and one of its boldest dep
 - After the sealing cataclysm (Section 10), Osrid is presumed dead by Cormoria. The empire mourns its Regent-King and Champion. Pierra and Rhydia mourn him as lost. **Cormoria does not learn that he survived.**
 - He is found post-cataclysm by **Vandras Amber-Letz** (merchant, eventually direct ancestor of Volo and distant ancestor of Cynthia). **Vandras has no idea who Osrid is.** Vandras adopts him as a younger brother in pure compassion-for-a-stranger.
 - Vandras gives him the name **Veddev** — a name with no political weight, no royal blessing (Vandras has no surname-bestowing authority; Veddev is not an Arceus-blessed name). It is simply the name a stranger gives in love.
-- **Osrid remembers everything.** His memory was not wiped by the sealing cataclysm. He retains every memory of his childhood, his exile, his mentorship under Boran, his return, the Trials, the unmasking, the Champion battle, the cult crisis, Silas's death, Nemo's death, the sealing.
+- **Osrid's memory arc `[UPDATED v0.9.14]`.** The sealing cataclysm's backlash **shocks him and wipes nearly all of his memory** (§9 — the three-stone macroresonance seal). His memory is **restored later, in Paldea**, when he reunites with Eden in a Pokémon battle. By the end he again **remembers everything** — his childhood, his exile, his mentorship under Boran, his return, the Trials, the unmasking, the Champion battle, the cult crisis, Silas's death, Nemo's death, the sealing — and it is *from that recovered, memory-intact vantage* that he makes his final choice.
 - **Osrid chooses to discard his old identity completely.** He chooses to accept Veddev as his name going forward. He chooses not to return to Cormoria. He chooses not to inform Pierra or Rhydia that he survived. He chooses to leave the prince-life entirely behind.
 
 **Why Osrid chooses Veddev:**
@@ -1115,6 +1126,8 @@ Rhydia continues as Champion after Osrid disappears — but **she carries forwar
 - How is the Veddev epilogue implemented? (new sprite for Veddev distinct from both masked Rainhawk and unmasked Champion-Osrid; player-chosen true name no longer appears in dialogue after the renunciation)
 
 ---
+
+
 
 ## 6. The Starter Trio and Umbra's Gift Scene
 
@@ -1792,6 +1805,8 @@ Early in the game, **Eden** (Paldean thief, Beads Cult recruit) steals the start
 
 ---
 
+
+
 ## 7. Major NPCs
 
 ### The Royal Family of Cormoria `[LOCKED]`
@@ -1987,6 +2002,8 @@ Per Section 11 — Ace-Bonding Overworld Interactions, Rhydia qualifies for the 
 - **The relationship to Osrid's eventual return:** when Osrid is finally back in Rhydia's life as her brother, *Puff is the first member of the royal household Rhydia introduces him to.* Justice gets introduced through the Hall of Fame moment when Osrid sees Rhydia in combat at her Champion-tier; Puff gets a separate quieter introduction. **Puff is family-private; Justice is empire-public.** The distinction is part of how Rhydia signals to Osrid that she has *both* lives, and that her continued duty to the empire (Justice) does not exhaust her capacity to receive him as a brother (Puff).
 - `[OPEN]` Specific overworld interaction beats — palace scenes, training-yard scenes (Justice), private gardens (Puff), the post-Osrid-reveal scene where Puff is introduced
 - `[OPEN]` Whether Justice and Puff interact with each other in any overworld beats — recommendation: yes, occasionally; the contrast between the *living-weapon* Iron Valiant and the *gentle-giant* Drampa coexisting in Rhydia's household is one of the project's quietest character moments
+
+
 
 ### Gideon Valic — the previous Vizier of War (deceased) `[LOCKED v0.9.9]`
 
@@ -2600,6 +2617,8 @@ Ambrose is the most complex Vizier-tier ace-bonding case in the project, paralle
 `[OPEN]` Specific dialog beats for Temperance and Brunhilda across Ambrose's overworld appearances (the Archbishop arc, the cathedral scenes, the Templar Arceus order operations, the Necropolis Assault)
 `[OPEN]` Whether Temperance and Brunhilda interact with each other in overworld beats (parallel to Sable's Solara + Gouging Fire elder/younger-sibling dynamic) — *recommendation: yes, briefly, with the contrast that Temperance is older-warrior-serious while Brunhilda is younger-domestic-curious* — would be a delightful and rare on-screen Pokémon-Pokémon bond moment
 
+
+
 ### Vandras Amber-Letz `[LOCKED — substantially revised v0.9.4]`
 
 A merchant whose path crosses Osrid's twice across the story — once incidentally during the main game (possibly), and once decisively in the epilogue when Osrid is found amnesiac after the climactic sealing cataclysm. The Vandras of the present-day story is *not* the naïve-stranger of earlier bible passes; v0.9.4 reframes him as a man who **recognizes Osrid in the epilogue and chooses, in a moment of deliberate compassion, to give him peace by giving him a new identity rather than revealing his lost one.**
@@ -3105,6 +3124,8 @@ Both Jordan Ramses and Wakahisa are named recurring trainers and qualify for Sec
 `[OPEN]` Per-Pokémon interaction dialog beats for Jordan and Wakahisa (deferred to ace-lock session)
 `[OPEN]` Whether Jordan's and Wakahisa's *post-conversion friendship* gives rise to any joint-overworld scenes where their aces interact with each other (e.g., a tavern beat where both characters' aces are present)
 
+
+
 ### Harbinger Baradus — leader of the Sword Cult `[LOCKED — needs detail]`
 
 - Title: Harbinger (the title used by each Ruin Cult leader)
@@ -3139,6 +3160,8 @@ Each will be encountered, defeated, or witnessed being absorbed/destroyed by the
 - Templar bishops under Ambrose's authority — some loyal, some cult-aligned; named individuals `[OPEN]`
 
 ---
+
+
 
 ### Brie Moray — 15-year-old niece, Domdaniel's chosen, Trial Baroness of the 8th Trial (Fairy), the next-generation Moray heir `[LOCKED — promoted to Trial Baroness v0.9.7]`
 
@@ -4158,6 +4181,7 @@ The Osrid / Indrid near-rhyme is intentional. **Both are prodigies of the newest
 
 **Still `[OPEN]`:** the specific overworld NPC lines carrying the House-Surge-schism / Silas-Moray thread; whether any post-victory scene later pays off Manus's arc (recommendation: a single quiet overworld beat post-Trial, not a second fight).
 
+
 ### The Blue Moon Hermit / Sage Lethys of the Celestica — Last of His Tribe, Master Partnership-Teacher, Lore-Keeper `[LOCKED — major v0.9.4 expansion]`
 
 A reclusive Cormorian lunar-mystic figure who fulfills *five* distinct functions in the project. Once treated as a connecting character between Trial 6 and the post-Champion Teddiursa quest, his identity has substantially expanded in v0.9.4 to encompass the deepest character role in the project's worldbuilding — and to anchor the project's cross-canon connection to one of canonical Pokemon's most enigmatic figures.
@@ -4396,6 +4420,8 @@ Roma has a named ace Pokémon that accompanies her in overworld appearances. The
 - Roma is the project's *Marshadow-progenitor figure* — she is canonically the original holder of the Marshadow-bargain that became House Langerin's generational ace via her descendants. **Her current overworld ace should not be Marshadow** (that line passes to Kimaris); rather, it should be a Pokémon that *speaks to her current role* as soothsayer-progenitor-keeper-of-secret-lore.
 - The fossil-revival aspect of her role suggests a Pokémon connected to *revival, age, ancient knowledge* — possibilities include Aerodactyl, Tyrunt/Tyrantrum (but the female Rock Vizier's ace is already Tyrantrum from Roma's revival, so duplication risk), Cryogonal, or a Past-Paradox Pokémon (parallel to Sable's Gouging Fire era).
 - Should resonate with Roma's *ancient*-coded character — she has lived centuries via the pact-extended-longevity framework (Section 7 — Madame Roma).
+
+**Roma and the Mega Dreamstones `[LOCKED v0.9.14]`:** beyond fossil-revival, Roma holds a **blessing given to her by Keerin** (Section 9 — Keerin) that lets her **reconstruct the shattered Mt. Mirroh Mega Dreamstone from its 9 recovered shards** — the in-fiction mechanism that turns Osrid's shard-hunt into a usable catalyst (Section 9 — Dreamstone resonance / Mega-Dreamstone Shard Quest). She is also **one of only three people who know the Necropolis Mega Dreamstone exists** (with the Blue Moon Hermit and Kimaris Langerin) — fitting her role as keeper-of-secret-lore and Langerin progenitor.
 - Interaction tone is *measured, oracular, with surprising flashes of warmth* — Roma is not cold, but her affection is *long-view affection*, the affection of someone who has loved many beings across centuries and knows what loss is.
 
 **Her ace — shiny Munkidori "Tiresias" `[LOCKED v0.9.9]`:** Roma's bonded ace is a **shiny Munkidori** named **Tiresias** — after the long-lived seer of myth consulted by kings across generations, a mirror of Roma's own role advising every ruler from Cormor to Rhydia. Munkidori's glowing third eye renders her farseer gift as a living creature. Per her ace-bond register (*measured, oracular, with flashes of warmth*), Tiresias is not a power-flex but her one constant companion: **Roma met him while astral-traveling as a child** — a thread tied directly to her miko (spirit-medium) origin — and across the centuries he has been her spiritual guide, partner, and anchor through all the loss she has outlived. `[OPEN]` the fuller backstory of the astral-plane meeting (deferred for later authoring).
@@ -4601,6 +4627,8 @@ Together with Lethys, Roma drops *late-game dialogue hints* that **Cormor may no
 - Dialogue across all appearances must establish her *layered identity* — Madame Roma the public soothsayer + Roma Langerin the centuries-old progenitor (revealed gradually)
 - Personal Pokemon team data — **team LOCKED v0.9.9** (see *Madame Roma's overworld ace*); `[OPEN]` whether/when she is challenged in combat and at what level
 
+
+
 ## 8. The Four Ruin Cults
 
 ### Origin: The Widening Eye `[LOCKED]`
@@ -4612,6 +4640,8 @@ The Widening Eye name evokes surveillance, awakening, apocalyptic vision — eye
 **The split:** Over time, individual members of the Widening Eye gravitated toward different Treasures. The Treasures themselves — by their alignments — conflicted with one another and competed for devotee influence. This pulled the order apart into four denominations. They retain an uneasy cooperation today (in our era) under the larger goal of transforming Cormoria, but are simultaneously competing for top position in the coming "new world order."
 
 **The triggering historical event `[LOCKED v0.9.8]`:** While the Treasures' competing alignments were the *underlying* cause of the split, the *triggering historical event* that accelerated the Widening Eye's fracture into open four-way competition — and that catalyzed the rise of the Swords of Ruin specifically — was **Baradus's assassination of Prince-Consort Eldred Nightfall** 10 years before the game (Section 6 — Eldred Nightfall; Section 8 — Baradus). Eldred was Cormoria's tactical anchor and one of its strongest trainers; his removal both crippled Cormoria's defensive capability *and* demonstrated to the Widening Eye's factions that decisive unilateral action against the empire's pillars was possible. Baradus's success in this single audacious strike emboldened his Sword Cult faction and shattered whatever fragile unity the Widening Eye still retained — each faction now racing to make its own decisive move. **The theological pull pulled the order apart slowly; Eldred's assassination broke it open all at once.**
+
+**The Dreamstone-scarcity driver `[LOCKED v0.9.14]`:** Beneath the theology and the assassination-trigger lies a hard strategic fact the Widening Eye eventually worked out. The founding legend showed the three Mega Dreamstones brought *together* to seal the calamity — so to *revive* a Treasure, a cult needs its **own** stone kept **apart** from the others (a single stone accelerates one incarnation; multiple stones converging disrupt or seal it — Section 9 — Dreamstone resonance). But there are only **three** Mega Dreamstones for **four** Treasures. That scarcity guarantees at least one cult ends up the loser with no stone at all — which is precisely what turned uneasy cooperation into open four-way competition, each cult racing to secure a stone and revive its Treasure while sabotaging the others and subverting Cormorian society toward that end.
 
 ### The nature of the Treasures' influence `[LOCKED]`
 
@@ -4636,7 +4666,8 @@ The Treasures do not *create* their followers' emotional substrates. They *find 
 **Harbinger** is the title used by each leader of the four cult denominations. The title evokes "one who announces what is coming" — each Harbinger is preparing the world for the awakening of their Treasure.
 
 - **Harbinger Baradus** — leader of the Sword Cult (Chien-Pao). Primary antagonist. Full profile below.
-- **Harbinger Alaric** (deceased) — leader of the Vessels Cult (Ting-Lu). Killed by Nemo Korolev ~2 years before the story begins, during the Vessels Cult's Ting-Lu incarnation ritual. Ting-Lu was taken by Nemo in the same operation. The Vessels Cult was dismantled in this operation. `[OPEN]` Alaric's pre-death character details.
+- **Harbinger Alaric** (deceased) — leader of the Vessels Cult (Ting-Lu). Killed by Nemo Korolev ~2 years before the story begins, during the Vessels Cult's Ting-Lu incarnation ritual **in the Mt. Mirroh cave system**. Alaric had *luck-found the Mt. Mirroh Mega Dreamstone* (Section 9 — the three Mega Dreamstones) — his one success over Baradus and Goma — but, impatient, chose a **misaligned Leyline point**. The incarnation succeeded, yet the misalignment **shattered the Mega Dreamstone into the 9 scattered shards** and left Ting-Lu's body in an **unstable material state** — which is exactly what let Nemo swoop in, dismantle the cult, and seize Ting-Lu in the same operation. **Baradus arrived after the fact and found himself beaten to the site** — an outcome so far outside his calculations that it rattled him. `[OPEN]` Alaric's pre-death character details.
+  - **Spoiler-gate `[LOCKED v0.9.14]`:** **Cadmus Umbra knows Nemo stopped the Vessels Cult from claiming the Vessel (Ting-Lu)** — which reads, to Cadmus, as Nemo defending the empire. **What Cadmus does *not* know is that Nemo kept Ting-Lu and bonded with it.** That is one of the game's late reveals (Nemo's "the Usurper / holder of Ting-Lu" identity surfaces at the 9th Trial — Section 7 — Nemo Korolev), and the secret sits *inside* the Cadmus–Nemo Resistance-Triad trust: Nemo withholds it even from his closest ally.
 - **Harbinger Goma** — leader of the Beads Cult (Chi-Yu). **Female. The only woman who managed to become a Harbinger within the Widening Eye before its four-way split into the four denominational cults.** She is the **best Pokemon trainer in the cults besides Baradus himself** — her combat capability is what kept her alive through the cult-political infighting of the Widening Eye era. Profile detailed in Section 8 (Beads Cult subsection — expanded with Goma's full character).
 - **Harbinger of the Tablets Cult: Neven (deceased) `[name LOCKED v0.9.8]`**. Backstory `[partially OPEN]`. **Killed by Baradus** at the Hoya River altar when Baradus ambushed and slaughtered the Tablets Cult after they had successfully incarnated Wo-Chien. Wo-Chien was then seized by Baradus and the Sword Cult. **Neven's path to incarnation ran through House Alban** (Section 7 — Indrid Alban): the Tablets Cult infiltrated House Alban under the guise of a "partner" company to the family's agricultural projects (plus direct investment), and used that access to extract critical Wo-Chien information from the Alban family's deepest libraries — the knowledge that enabled the Hoya River incarnation.
 
@@ -4647,7 +4678,7 @@ The Treasures do not *create* their followers' emotional substrates. They *find 
 **Two cults destroyed in backstory:**
 
 1. **Tablets Cult: extinct (years before story start).**
-   - The Tablets Cult, led by their Harbinger (`[OPEN]` name), succeeded in incarnating Wo-Chien through ritual at an ancient altar in the northern Hoya River area
+   - The Tablets Cult, led by Harbinger **Neven**, succeeded in incarnating Wo-Chien through ritual at an ancient altar in the **northern Hoya River area** — using an **unorthodox brute-force method**: rather than spend years hunting a Mega Dreamstone, they assembled **hundreds of small (fossil) Dreamstones** and forced the resonance. The ritual **turned every one of those small Dreamstones to dust**, and because the Tablets had **hoarded essentially every small Dreamstone on the continent** to attempt it, the method is **not reproducible by any other cult** (Section 9 — the three Mega Dreamstones)
    - **Baradus ambushed and slaughtered the Tablets Cult at the altar**, using their slaughter as a blood sacrifice that completed the Wo-Chien incarnation and let him seize the Treasure for the Sword Cult
    - **The Sword Cult has held Wo-Chien since before the game begins.** This is a backstory fact that the player learns mid-game.
    - **`[v0.9.8]` Where Baradus kept Wo-Chien — the Alban Greenhouse staging operation:** After seizing Wo-Chien at Hoya River, Baradus needed a containment site. He chose **the Alban family's Greenhouse** (Section 7 — Indrid Alban) — reasoning that a structure already built as a habitat for Grass-types could contain the Dark/Grass Treasure's power for a time, and that the Albans (already softened up by Neven's earlier infiltration) made a convenient host. The placement was *deliberately* destructive: over a few years, Wo-Chien's aura rotted the Alban estate, corrupted the prodigal heir Indrid (a potential future threat to Baradus), and drove Indrid to massacre his own family. **Baradus retrieves Wo-Chien from the Greenhouse during the Trial 6 chapter** — the operation having "done its job" — re-containing it in a special Pokéball-like device and fleeing to move it to the next location in his plans. *He never lost possession; the player witnesses the retrieval, not a capture.* This is the player's first in-the-flesh sight of a Treasure of Ruin (the devouring of Indrid).
@@ -5138,6 +5169,8 @@ The specifics of the scene are deliberately small. Maybe Baradus places a hand o
 
 ---
 
+
+
 ## 9. Key Artifacts and Mechanics
 
 ### The Dreamstone `[LOCKED — substantially expanded v0.9.4]`
@@ -5167,7 +5200,7 @@ A source of resonance power — but per v0.9.4 cosmology, Dreamstones are now pr
   - **Cormor's Avalon-rest** (Section 9 — Cormor's True Status) — Cormor and Keerin used a Dreamstone to open a path to the distant past where Cormor sleeps in dreamless rest
   - **The Mt. Silver / Future-Red encounter** (Section 7 — Future-Red; Section 9 — Keerin) — Keerin's pact-power transports the player across temporal-cosmological space to face Future-Red
 - **Bloodmoon Ursaluna side quest** — used as a catalyst in the Teddiursa-pick post-Champion content
-- **The protagonist's sealing ritual** — Osrid (with Ting-Lu) eventually uses the Dreamstone's power to seal the Treasures back at the cost of his memory
+- **The protagonist's sealing ritual** — Osrid (with Ting-Lu) eventually uses the reassembled Mega Dreamstone's power to seal the Treasures back; the backlash costs him his memory (restored later in Paldea — Section 5 — Protagonist)
 
 **Time flows asymmetrically across Dreamstone displacement** — ~12 subjective years pass in Ancient Cormoria for every ~10 real-world years. Sable Ashland's 12-year subjective stay in Ancient Cormoria during a 10-year present-time absence is the canonical example of this asymmetry.
 
@@ -5175,22 +5208,40 @@ A source of resonance power — but per v0.9.4 cosmology, Dreamstones are now pr
 `[OPEN]` How is its power represented mechanically?
 `[OPEN]` Whether the player can witness any Dreamstone's polarity-state visually (e.g., color shifts, sound resonance)
 
+### Dreamstone resonance — disruptor, accelerator, and the three-stone seal `[LOCKED v0.9.14]`
+
+A Mega Dreamstone's resonance with a Treasure of Ruin can run in **either direction**, depending on configuration:
+
+- **Accelerator (single stone):** one Dreamstone resonating with one Treasure *re-aligns* the Treasure's negative-polarity frequency and drives its material incarnation — the operation every cult is attempting (Section 8 — Cult Cosmological Framework).
+- **Disruptor (competing stones):** if a *second* Dreamstone enters the resonance field while a Treasure is mid-ritual, the two stones destabilize the operation and can **shatter everything involved** — the Treasure and both Dreamstones. *(This is **not** what befell Alaric's ritual — that failure came from a **misaligned Leyline point**, not a competing stone — but the principle is why the cults keep their operations isolated and why the three-stone endgame below works.)*
+- **The three-stone macroresonance seal — the endgame `[LOCKED v0.9.14]`:** bring **all three Mega Dreamstones into the same place as all four Treasures of Ruin**, and the compound resonance can **seal all four Treasures away completely** — and potentially unmake the root distortions themselves. This is **the same class of event Cormor used against Phancero** at the founding (Section 2 — Founding Myth): a calamity-scale macroresonance, here turned to *pacify* the Treasures rather than banish a distortion — suppressing their reality-warping capacity for (at least) a few thousand years.
+
+**Roma's reconstruction `[LOCKED v0.9.14]`:** the 9 scattered shards are inert as a catalyst until reassembled. **Madame Roma** (Section 7 — Madame Roma) can **reconstruct the shattered Mt. Mirroh Mega Dreamstone from its 9 fragments**, drawing on a **blessing given to her by Keerin** (Keerin, below). This is the in-fiction mechanism behind the reassembled-Mega-Dreamstone catalyst — Osrid recovers the shards; Roma makes them whole.
+
+**How the climax actually goes `[LOCKED v0.9.14]`:** despite Osrid and the empire's best efforts, the macroresonance seal at the Necropolis does **not** cleanly solve the problem. It seals the Treasures *to a degree*, but **releases far too much energy** — triggering a massive cascade of **earthquakes that permanently reshape the terrain of Cormoria** (the aged, altered land seen ~2,000 years later in *Dreamstone Mysteries*) — and the backlash **shocks Osrid**, wiping nearly all of his memory. His memory is restored only much later, in Paldea, when he reunites with Eden in a Pokémon battle (Section 5 — Protagonist).
+
 ### The Mega-Dreamstone Shard Quest — Parallel Main Quest `[LOCKED v0.9.7]`
 
 **The single largest structural addition of v0.9.7.** Dreamstone Ruination's narrative spine is now a *double helix:* the public-facing Trial circuit and the clandestine Mega-Dreamstone shard hunt, running in parallel across all 9 chapters of the game leading to the Championship.
 
-**The Mega-Dreamstone — what it was:**
+**The three Mega Dreamstones `[LOCKED v0.9.14 — expanded from the v0.9.7 "two Dreamstones" framing]`:**
 
-Cormoria once possessed a **Mega-Dreamstone** — one of only **two confirmed Dreamstones in known existence**. The other is the **Dreamstone deeply hidden in the royal palace** in the capital (already-locked v0.9.6 detail; the Beads and Sword Cults suspect this Dreamstone exists but have not located it). **The Mega-Dreamstone and the palace Dreamstone are the only two intact natural Dreamstones documented in Cormorian institutional memory.**
+Dreamstones are common across the wider world — most are *small fossils* that have absorbed hundreds of thousands of years of Pokémon and human memory since prehistory (the same material as above, at natural/positive polarity). But Cormoria's official history and mythology speak of **three *special* Mega Dreamstones** — the three stones **Cormor Dream-Eater, Keerin, and their companions used to seal away the calamity (Phancero)** before the empire was founded (Section 2 — Founding Myth). Only these three hold enough resonance to fully align with a Treasure of Ruin, which is exactly why the four Ruin Cults hunt them.
 
-At some point in Cormoria's history (timing `[OPEN]`; cause `[OPEN]` but likely cult-related), **the Mega-Dreamstone was shattered into 9 shards.** The fragments were scattered across Cormoria — some hidden in remote locations, some buried in ancient ruins, some held secretly by Cormorian figures who recognized what they had and chose to safeguard rather than weaponize.
+**None of the three locations were publicly known.** It took the Widening Eye — and then the successor cults after it split — **years** of effort to even narrow down where the stones might be. The three:
+
+1. **The Silversun Mega Dreamstone** — sealed in **Silversun Palace**, in the same chamber where **Justice the Iron Valiant** (the royal family's ace) was uncovered (Section 7 — Royal Family; Justice, below). Held under the royal family's institutional protection. **No cult knows the royals hold it** — they have only *hypothesized* that a Mega Dreamstone lies in the capital (the Beads and Sword Cults *suspect* a palace Dreamstone exists but have not located it). This is the "palace Dreamstone" of prior canon.
+2. **The Mt. Mirroh Mega Dreamstone → the 9 shards.** Found by **Harbinger Alaric** through sheer luck — the one time he ever beat Baradus and Goma to anything (Section 8 — Vessels Cult). In his impatience to incarnate Ting-Lu he chose a Mt. Mirroh Leyline point that was **not** perfectly aligned; though the incarnation "succeeded," the misaligned resonance **shattered the Mega Dreamstone into 9 fragments**, scattered across Cormoria through **miniature interdimensional rifts** torn into space-time by the force of Ting-Lu's incarnation. These 9 shards are the object of the parallel main quest (below), hunted by Osrid *and* by both surviving cults. **This resolves the prior `[OPEN]` shatter-cause: it was Alaric's misaligned Mt. Mirroh incarnation.**
+3. **The Necropolis Mega Dreamstone** — hidden in the depths of the **Mirroh Necropolis**, guarded by **House Langerin** (Section 8 — Necropolis; the Necropolis is also Chien-Pao's Leyline gate). Its location is buried so deep that **almost no one in the main cast knows it exists** — only **Madame Roma, the Blue Moon Hermit, and Kimaris Langerin** (Section 7). The late/post-game crisis turns on **Baradus discovering this stone's location** and realizing the Necropolis is Chien-Pao's Leyline point — which is why the game's final conflict takes place there.
+
+**Why the three are scattered `[soft canon — implication, not spelled out in-story]`:** the implication is that **Cormor Dream-Eater himself scattered the three Mega Dreamstones apart** sometime before he "went missing" at the end of his ~300-year reign (Cormor's True Status, below), precisely so no one could reunite them and re-create a calamity-scale resonance. The cults' entire multi-generational project is the slow undoing of that safeguard.
 
 **The quest — Umbra's secret main task for the prince:**
 
 After the Eden theft scene in Act I (Section 6 — The Eden Theft Scene), **Cadmus Umbra briefs Osrid on the clandestine objective:** **recover all 9 shards of the lost Mega-Dreamstone.** This is the **secret parallel main quest** the player undertakes alongside the public-facing Trial circuit.
 
 **Why it must be clandestine:**
-- **Hidden from the cults at all costs.** If Baradus or Goma learned the empire was assembling Mega-Dreamstone shards, every shard location would become an immediate cult target. The cults are *desperate* for an intact Dreamstone catalyst (Section 8 — Cult Cosmological Framework; the Tablets and Vessels Cults' Dreamstone *fragments* turned to dust during incarnation rituals, leaving the cults *unable* to repeat the operation without a sufficiently intact Dreamstone). **Nine assembled shards = the cults' single greatest prize and most dangerous tool — if they could acquire even one shard, much less several, the timeline of cult-Treasure-incarnation would accelerate dramatically.**
+- **Hidden from the cults at all costs.** If Baradus or Goma learned the empire was assembling Mega-Dreamstone shards, every shard location would become an immediate cult target. The cults are *desperate* for an intact Dreamstone catalyst (Section 8 — Cult Cosmological Framework; the Tablets Cult's *hundreds of small Dreamstones* turned to dust in the Wo-Chien ritual, and the Vessels Cult's Mt. Mirroh Mega Dreamstone *shattered into the 9 scattered shards* during the misaligned Ting-Lu incarnation — leaving both operations non-repeatable. The Tablets Cult had also **collected essentially every small Dreamstone on the continent** for its unorthodox brute-force process, so no other cult can reproduce that method even if it wanted to). **Nine assembled shards = the cults' single greatest prize and most dangerous tool — if they could acquire even one shard, much less several, the timeline of cult-Treasure-incarnation would accelerate dramatically.**
 - **Hidden from the broader Cormorian public.** The empire's official intelligence apparatus is compromised (Silas Moray as Vizier of Commerce controls much of it). A public quest for the shards would leak through cult-aligned officials to Baradus immediately.
 - **Hidden even from Rhydia (during the first half of the game).** Rhydia is the public Champion and the focus of cult intelligence-gathering. Compartmentalizing the shard-hunt from her keeps her free of the *operational* knowledge that would make her a target for cult interrogation. **Umbra's broader pattern of compartmentalizing operational knowledge from his beloved pupil** (which causes the Umbra-Rhydia tension at the ~50% reveal — see Section 7 — Cadmus Umbra) extends to the shard-hunt.
 
@@ -6370,6 +6421,8 @@ Substantial engineering work — see Section 14 for full task specifications. Ke
 
 ---
 
+
+
 ## 10. Story Spine
 
 ### Act structure `[LOCKED — corrected climax architecture]`
@@ -6766,6 +6819,8 @@ For implementation reference:
 - **~Epilogue:** Variable — Veddev arc in Paldea, Eden recognition, marriage
 
 ---
+
+
 
 ## 11. Design Principles (Carried Forward from Dreamstone Mysteries)
 
@@ -7489,6 +7544,8 @@ The principle is also a **design-discipline filter for future locks**: when desi
 
 ---
 
+
+
 ## 12. Bloodlines and Canon Connections
 
 ### Cormor Dream-Eater → the Cormorian Royal Dynasty → Osrid and Rhydia `[LOCKED]`
@@ -7837,6 +7894,8 @@ This explicitly invokes the temporal-cosmological gap as a *test*. The player mu
 
 ---
 
+
+
 ## 13. Open Questions
 
 Consolidated list of decisions deferred but not forgotten. Updated for v0.9.7.
@@ -8068,10 +8127,10 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 
 **The Mega-Dreamstone Shard Quest (Section 9):**
 - 7 of the 9 shard locations (the Tinkaton Matriarch's cave and Ambrose's secret holding are locked; the remaining 7 are `[OPEN]`)
-- The original shattering event — when did it happen, who or what caused it (cult-orchestrated vs. accident)
+- ~~The original shattering event — when did it happen, who or what caused it (cult-orchestrated vs. accident)~~ — **RESOLVED v0.9.14**: caused by **Harbinger Alaric's misaligned Mt. Mirroh Ting-Lu incarnation** (~2 years pre-game). The botched Leyline choice shattered the Mt. Mirroh Mega Dreamstone into 9 shards, scattered via interdimensional rifts (Section 9 — the three Mega Dreamstones; Section 8 — Vessels Cult). Also settled v0.9.14: there are **three** Mega Dreamstones, not two (Silversun-palace / Mt.Mirroh-shattered / Necropolis-hidden), plus many small fossil Dreamstones.
 - Whether the reassembled Mega-Dreamstone has properties beyond a standard intact Dreamstone (its "Mega" designation suggests yes)
 - Whether the shard quest has a visible tracker in the player's UI
-- Whether the palace Dreamstone is also used in the climactic sealing alongside the reassembled Mega-Dreamstone
+- ~~Whether the palace Dreamstone is also used in the climactic sealing alongside the reassembled Mega-Dreamstone~~ — **RESOLVED v0.9.14**: yes — the climactic **three-stone macroresonance seal** brings **all three** Mega Dreamstones (the Silversun/palace stone, the reassembled Mt. Mirroh stone, and the Necropolis stone) together with all four Treasures (Section 9 — Dreamstone resonance).
 - The first shard recovery beat placement in Act I (which low-stakes event introduces the mechanic)
 
 **The Tinkaton clan / Matriarch (Section 6):**
@@ -8222,7 +8281,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Order of Trial encounters in Act II (Trials 2-8)
 - Order of cult encounters in Acts II-III
 - Specific climax structure beats — multiple `[OPEN]` items embedded in Section 10
-- ~~Final resolution of Osrid's memory state in epilogue~~ — **RESOLVED in v0.8.2**: Osrid retains his full memory but *chooses* to discard his Osrid identity and live as Veddev going forward. Not amnesia — voluntary renunciation. See Section 5 Phase 3.
+- ~~Final resolution of Osrid's memory state in epilogue~~ — **REVISED v0.9.14** (supersedes the v0.8.2 "memory fully intact" lock): the sealing-cataclysm backlash **wipes nearly all of Osrid's memory**; it is **restored later in Paldea** when he reunites with Eden in a Pokémon battle. He then *chooses* to keep the Veddev identity anyway — so the renunciation is a **memory-intact choice made after recovery**, not amnesia and not a choice made in ignorance. See Section 5 Phase 3; Section 9 — Dreamstone resonance (climax).
 - Eden's exact involvement during the climactic sealing
 - How much of the epilogue is playable vs. cinematic
 - **Geographic location of the mid-game Baradus encounter** (where Crabominable adoption happens)
@@ -8249,6 +8308,8 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Engineering investigation of the bible's eventual splitting into multiple documents (world bible / story bible / mechanics bible) — flagged in Section 14 for future consideration as the document grows past 2000 lines
 
 ---
+
+
 
 ## 14. Production Discipline
 
@@ -9333,6 +9394,7 @@ The Pelluca Valley map (§16.3) is painted from the **Evernahn** tileset, which 
 
 The `.rxdata` files are RMXP source (not directly usable in pokeemerald) — they hold the original Evernahn maps/tileset definitions and are kept as the conversion reference.
 
+
 ## 15. Cormoria Location Atlas `[v0.9.10]`
 
 ### 15.1 Purpose and the DM relationship
@@ -9475,6 +9537,7 @@ Corridor summary (empire-era): Pelluca ↔ Rivetshore (Route 10); Pelluca ↔ Mi
 - **Not yet mapped** (per design partner): **indoor maps** and **Ancient Cormoria**.
 - Several new locations still need fuller lore flagged as "later" (e.g., Sunset Tower interior, Gleamdusk operations, Graymoon Keep, Carabrue Keep).
 
+
 ## 16. Chapter 1 Build Plan `[v0.9.13]`
 
 ### 16.1 Purpose
@@ -9485,11 +9548,15 @@ This section is the **buildable blueprint** for Chapter 1 and the Pelluca Valley
 
 Chapter 1 is the **western arm**: start → Route 11 → Hollow Hill → Mirroh → Necropolis (Trial 1) → Mt. Mirroh Peak. It ends with the first **Dreamstone Fragment** recovery and the player's first contact with both the Sword and Beads cults.
 
-**Beat 1 — Cold open.** The masked prince's overworld sprite stands alone in darkness, looking down at his masked reflection in dark water (music: *How Distant Your Heart*, 4:03). Below, a letter from **Cadmus Umbra, Vizier of Education**: he recalls the Prince from the front, references frustration with **Boran Surge** and the Sevii-campaign injuries, notes the discharge at rank **Rainhawk**, hints at a "true destiny," and closes "burn this letter — there are eyes everywhere" plus a request to sign a reply with his true name. The player then composes a short reply and **signs** — a *diegetic* name prompt (default **Osrid**, editable). Screen fades; Pelluca Valley music comes up; Osrid stands on the southern **dock** with a ship behind him; Umbra meets him and takes him to the secret laboratory (staircase behind stone pillars by the estate). Uses the **portrait system** (§16.4): Umbra's portrait toggles **neutral ↔ smile** through the letter, then switches to **Osrid's masked portrait** for his reply.
+**Beat 1 — Cold open.** The masked prince's overworld sprite stands alone in darkness, looking down at his masked reflection in dark water (music: *How Distant Your Heart*, 4:03). Below, a letter from **Cadmus Umbra, Vizier of Education**: he recalls the Prince from the front, references frustration with **Boran Surge** and the Sevii-campaign injuries, notes the discharge at rank **Rainhawk**, hints at a "true destiny," and closes "burn this letter — there are eyes everywhere" plus a request to sign a reply with his true name. The player then composes a short reply and **signs** — a *diegetic* name prompt (default **Osrid**, editable). Screen fades; Pelluca Valley music comes up; Osrid stands on the southern **dock** with a ship behind him; Umbra meets him and takes him to the secret laboratory (staircase behind stone pillars by the estate). Uses the **portrait system** (§16.4): Umbra's portrait toggles **neutral ↔ smile** through the letter, then switches to **Osrid's masked portrait** for his reply — his nameplate reads **"Prince ???"** (his true name concealed even from the player at this point).
 - *Canon:* Rainhawk = the "grooming rank" for future nobility/Barons (§4); **Boran Surge "Windshear"** is Osrid's combat *mentor*, minor noble of House Surge (§7); the campaign is the Kanto-Johto-Hoenn war, Sevii lost to Kanto (§4).
 - *Optional, NOT locked (design intent only):* reflection ripple at the moment of signing; the letter visibly burns to ash after signing; the shot bookends with the Veddev/Eden ending. Keep or drop per the game's layered-depth philosophy.
 
-**Beat 2 — Starter selection (Umbra's lab).** Three Poké-Ball-like objects on the table. Umbra explains the unfolding situation and gives a starter. Starters (§5): **Frigibax** (Dragon/Ice → Baxcalibur), **Teddiursa** (Blue Moon → Bloodmoon Ursaluna, Normal → Normal/Ground), **Tinkatink** (Fairy/Steel → Tinkaton).
+**Beat 2 — The estate briefing + starter selection (Umbra's estate/lab).** Umbra takes Osrid to his estate and lays out the situation `[NEW canon; see §16.6]`. Osrid will assume the identity of **Nomad Alban** — an honorably discharged Rainhawk now serving as the **Vizier of Education's personal assistant**, reinforced by a public post as **"head of security" for the Academy** and a **small house in Pelluca Valley** as cover residence (the "Nomad Alban" exile-cover is already established — §5; §2 — House Alban). Umbra gives two tracks of mission:
+- **Public / cover mission:** learn what it means to be a true Pokémon Trainer and **earn all the Trial Badges**, so that Osrid — as Nomad Alban — can formally **challenge his sister Rhydia for the Championship** and, from that platform, safely **reveal his true identity** to the Empire (the Act-V unmasking arc — §5/§14).
+- **True / covert mission:** clandestinely recover the **9 Mega-Dreamstone shards** (§9 — Mega-Dreamstone Shard Quest), competing against both surviving cults. *Umbra briefs this at **his** knowledge level — the operational plan (recover the 9 shards → Madame Roma reconstructs the Mega Dreamstone → use it to disrupt the cults' revivals of Chien-Pao and Chi-Yu) — not the deep metaphysics, which he himself does not know (§1 — Cadmus knows only the "fairy-tale level").*
+
+Then the starter scene proper: three Poké-Ball-like objects on the table; Umbra gives a starter. Starters (§5): **Frigibax** (Dragon/Ice → Baxcalibur), **Teddiursa** (Blue Moon → Bloodmoon Ursaluna, Normal → Normal/Ground), **Tinkatink** (Fairy/Steel → Tinkaton).
 
 **Beat 3 — Eden theft.** **Eden** steals the starter mechanically strongest against the player's choice (type-counter table, §5/§6). She plays a self-interested rogue; the stolen starter becomes her **permanent partner** for the whole game and the post-game marriage (§8, `[LOCKED v0.9.7]`). Explicit Silver/Crystal homage.
 
@@ -9534,6 +9601,7 @@ Base decision (§15): **expand and re-skin DM's Pelluca City** into the grander 
 Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by default** (ordinary Pokémon textbox). Only a line explicitly tagged with a *registered* character + expression shows a framed **portrait window** to the left of the box, matching the textbox theme.
 - **Portrait registry:** character ID → portrait art + expression set (committed portraits: Osrid masked; Cadmus neutral + smile; Eden). Only cast members who "earn" a portrait are registered; all other NPC dialogue is untouched.
 - **Per-line tag:** portrait ID + expression, supporting mid-sequence **expression swaps** (Umbra neutral ↔ smile) and **speaker swaps** (Umbra → Osrid).
+- **Speaker nameplate (script-overridable):** the box shows a nameplate for the registered speaker, defaulting to the registry name — but **Osrid's nameplate is scene-dependent and must be script-overridable**: **"Prince ???"** in the cold open (identity concealed), **"Nomad Alban"** in public once he takes the cover (§16.6), and his **true name** at the Act-V reveal (§5). The engine already exposes a `gSpeakerName` opt-in nameplate; the registry supplies the default and scripts override per scene.
 - **First use case:** the cold open (§16.2 Beat 1).
 - **Implementation:** C against the codebase (portrait-window draw + a message/script tag + registry lookup + load from `graphics/portraits/`). This is engine code, **verifiable against source** — the reliable lane. Add as an §18 engineering task.
 
@@ -9549,6 +9617,7 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 2. **Loulan** (minor NPC, addition to §7): a young female **Templar knight-priest** with a shiny **Eiscue** overworld partner. Chapter-1 questgiver (the Route-11 Eiscue-retrieval hook); recurs minorly at **Templar Headquarters** with the Eiscue and has minor involvement around the **Ambrose Caymen** fight. Not a major character — this single entry exists so she is canon and not accidentally re-invented or contradicted.
 3. **Rhydia assassination plot** (`[NEW canon]`): the **Beads Cult, under Harbinger Goma, is planning to assassinate Queen-Regent Rhydia at the Silversun royal palace.** The player first learns of it in Ch.1 by overhearing a **captured Beads cultist being tortured by Sword Cult acolytes** on Mt. Mirroh (Beat 8a) — the Sword Cult extracting intel to relay to Baradus (who oversees the fragment hunt). **Consistent with canon:** this is a **Goma/Beads operation, not Baradus's** — Baradus's slow long-game exists precisely to avoid provoking **Justice**, Rhydia's shiny Iron Valiant and his single greatest fear (§7/§9/§12), so a direct strike at Rhydia fits Goma's reckless, independent, envy-driven pattern (§12) rather than Baradus's caution. `[perpetrator RESOLVED = Goma/Beads; mid-game threading still open.]`
 4. **Glaive — Chapter-1 first appearance** (placement note; profile is §7): the player first **meets and fights Glaive at Hollow Hill's north exit** (Beat 6b), locating the start of his on-screen arc. Already-canon dragon-master / future **second Solomonar** and **Vizier of War** (§1/§7). `[first-appearance placement NEW.]`
+5. **Osrid's Chapter-1 cover deployment** (`[NEW canon]`; the identity itself is already locked — §5; §2 — House Alban): on arrival at Pelluca harbor, Cadmus Umbra installs Osrid under his established **"Nomad Alban"** exile-cover as the **Vizier of Education's personal assistant**, with a reinforcing public post as **"head of security" for the Academy** and a **small house in Pelluca Valley** as cover residence. This frames the whole chapter's two-track mission (public Trial circuit → challenge Rhydia → reveal; covert 9-shard recovery — §9), delivered in the estate briefing (Beat 2). Cadmus briefs only at the operational level he himself knows — not the deep cosmology (§1).
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
@@ -9584,4 +9653,5 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 - **Trial 3 (Rivetshore) + Trial 4 (Sylphon seat)** placements — still `[PROPOSED]`/`[OPEN]` in §15.
 - **Pelluca build decisions (§16.3):** layout size, which DM-Pelluca elements to keep vs. cut, the full interior list, the NPC roster, and the wild-encounter table.
 - **Cold-open optional flourishes** — reflection ripple, letter-burn, ending bookend: pick or drop.
+
 

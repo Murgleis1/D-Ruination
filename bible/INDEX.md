@@ -1,8 +1,8 @@
-# Bible v0.9.8 — Split Section Index
+# Bible v0.9.14 — Split Section Index
 
-This directory contains the v0.9.8 bible split into per-section files so Claude sessions can fetch only the sections they actually need, rather than burning ~190K tokens reading the canonical file in full.
+This directory contains the v0.9.14 bible split into per-section files so Claude sessions can fetch only the sections they actually need, rather than burning ~190K tokens reading the canonical file in full.
 
-**Canonical source:** `bible/dreamstone_ruination_bible_v0.9.8.md` (at repo root). The canonical file is a regenerated artifact — it is mechanically reconstituted from the splits at the end of each session.
+**Canonical source:** `bible/dreamstone_ruination_bible_v0.9.14.md` (at repo root). The canonical file is a regenerated artifact — it is mechanically reconstituted from the splits at the end of each session.
 
 ## Edit policy (changed in session 2)
 
@@ -25,7 +25,7 @@ The canonical is therefore a *derived* artifact for grep-and-archive purposes on
 
 **For engineering work:** fetch `18_engineering_tasks.md` and the specific narrative section(s) relevant to the task at hand.
 
-**For full grep:** use the canonical full bible (`bible/dreamstone_ruination_bible_v0.9.8.md`). Splits don't help for grep across the whole document.
+**For full grep:** use the canonical full bible (`bible/dreamstone_ruination_bible_v0.9.14.md`). Splits don't help for grep across the whole document.
 
 ## File index
 

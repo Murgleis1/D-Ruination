@@ -8,7 +8,7 @@
 
 1. **Osrid (true name)** — player can rename. This is what the player types at the start. The "real" name in the sense of the prince's birth-given identity. Used in private dialogue by inner-circle characters who know the truth.
 2. **Nomad Alban / Rainhawk Alban / variants (overseas cover identity)** — **canonically locked.** Player cannot change "Nomad" or "Alban." Used by all generic NPCs throughout the entire game. The cover identity was constructed by Vizier Umbra to hide Osrid in plain sight during his 10-year overseas exile.
-3. **Veddev (post-cataclysm final identity)** — **canonically locked regardless of player entry.** The name Vandras gives him after finding him post-cataclysm. The name Osrid *chooses* to keep going forward, despite remembering his original identity.
+3. **Veddev (post-cataclysm final identity)** — **canonically locked regardless of player entry.** The name Vandras gives him after finding him (memory-wiped) post-cataclysm; the name Osrid *chooses* to keep going forward **once his memory returns in Paldea** — a renunciation made in full possession of who he was, not in ignorance of it (§9 — memory arc).
 
 **This name architecture is itself an expression of the project's thesis: identity is something we receive in compassion, not something we are given by birth or by the state. The player's chosen name matters during the journey. The cover identity is a cage the system forces on him. The name given in love (Veddev) is the name he chooses to keep.**
 
@@ -79,7 +79,7 @@ This is the project's most distinctive narrative move and one of its boldest dep
 - After the sealing cataclysm (Section 10), Osrid is presumed dead by Cormoria. The empire mourns its Regent-King and Champion. Pierra and Rhydia mourn him as lost. **Cormoria does not learn that he survived.**
 - He is found post-cataclysm by **Vandras Amber-Letz** (merchant, eventually direct ancestor of Volo and distant ancestor of Cynthia). **Vandras has no idea who Osrid is.** Vandras adopts him as a younger brother in pure compassion-for-a-stranger.
 - Vandras gives him the name **Veddev** — a name with no political weight, no royal blessing (Vandras has no surname-bestowing authority; Veddev is not an Arceus-blessed name). It is simply the name a stranger gives in love.
-- **Osrid remembers everything.** His memory was not wiped by the sealing cataclysm. He retains every memory of his childhood, his exile, his mentorship under Boran, his return, the Trials, the unmasking, the Champion battle, the cult crisis, Silas's death, Nemo's death, the sealing.
+- **Osrid's memory arc `[UPDATED v0.9.14]`.** The sealing cataclysm's backlash **shocks him and wipes nearly all of his memory** (§9 — the three-stone macroresonance seal). His memory is **restored later, in Paldea**, when he reunites with Eden in a Pokémon battle. By the end he again **remembers everything** — his childhood, his exile, his mentorship under Boran, his return, the Trials, the unmasking, the Champion battle, the cult crisis, Silas's death, Nemo's death, the sealing — and it is *from that recovered, memory-intact vantage* that he makes his final choice.
 - **Osrid chooses to discard his old identity completely.** He chooses to accept Veddev as his name going forward. He chooses not to return to Cormoria. He chooses not to inform Pierra or Rhydia that he survived. He chooses to leave the prince-life entirely behind.
 
 **Why Osrid chooses Veddev:**

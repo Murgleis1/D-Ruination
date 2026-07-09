@@ -231,10 +231,10 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 
 **The Mega-Dreamstone Shard Quest (Section 9):**
 - 7 of the 9 shard locations (the Tinkaton Matriarch's cave and Ambrose's secret holding are locked; the remaining 7 are `[OPEN]`)
-- The original shattering event — when did it happen, who or what caused it (cult-orchestrated vs. accident)
+- ~~The original shattering event — when did it happen, who or what caused it (cult-orchestrated vs. accident)~~ — **RESOLVED v0.9.14**: caused by **Harbinger Alaric's misaligned Mt. Mirroh Ting-Lu incarnation** (~2 years pre-game). The botched Leyline choice shattered the Mt. Mirroh Mega Dreamstone into 9 shards, scattered via interdimensional rifts (Section 9 — the three Mega Dreamstones; Section 8 — Vessels Cult). Also settled v0.9.14: there are **three** Mega Dreamstones, not two (Silversun-palace / Mt.Mirroh-shattered / Necropolis-hidden), plus many small fossil Dreamstones.
 - Whether the reassembled Mega-Dreamstone has properties beyond a standard intact Dreamstone (its "Mega" designation suggests yes)
 - Whether the shard quest has a visible tracker in the player's UI
-- Whether the palace Dreamstone is also used in the climactic sealing alongside the reassembled Mega-Dreamstone
+- ~~Whether the palace Dreamstone is also used in the climactic sealing alongside the reassembled Mega-Dreamstone~~ — **RESOLVED v0.9.14**: yes — the climactic **three-stone macroresonance seal** brings **all three** Mega Dreamstones (the Silversun/palace stone, the reassembled Mt. Mirroh stone, and the Necropolis stone) together with all four Treasures (Section 9 — Dreamstone resonance).
 - The first shard recovery beat placement in Act I (which low-stakes event introduces the mechanic)
 
 **The Tinkaton clan / Matriarch (Section 6):**
@@ -385,7 +385,7 @@ These items emerged from the v0.9.7 character-expansion and parallel-quest patch
 - Order of Trial encounters in Act II (Trials 2-8)
 - Order of cult encounters in Acts II-III
 - Specific climax structure beats — multiple `[OPEN]` items embedded in Section 10
-- ~~Final resolution of Osrid's memory state in epilogue~~ — **RESOLVED in v0.8.2**: Osrid retains his full memory but *chooses* to discard his Osrid identity and live as Veddev going forward. Not amnesia — voluntary renunciation. See Section 5 Phase 3.
+- ~~Final resolution of Osrid's memory state in epilogue~~ — **REVISED v0.9.14** (supersedes the v0.8.2 "memory fully intact" lock): the sealing-cataclysm backlash **wipes nearly all of Osrid's memory**; it is **restored later in Paldea** when he reunites with Eden in a Pokémon battle. He then *chooses* to keep the Veddev identity anyway — so the renunciation is a **memory-intact choice made after recovery**, not amnesia and not a choice made in ignorance. See Section 5 Phase 3; Section 9 — Dreamstone resonance (climax).
 - Eden's exact involvement during the climactic sealing
 - How much of the epilogue is playable vs. cinematic
 - **Geographic location of the mid-game Baradus encounter** (where Crabominable adoption happens)
