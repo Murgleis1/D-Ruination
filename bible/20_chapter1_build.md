@@ -1,6 +1,6 @@
 <!-- This file is a split-section view derived from dreamstone_ruination_bible_v0.9.7.md (the canonical full bible at the repo root). Lines below correspond to the source lines noted in INDEX.md. Edit the canonical file and regenerate splits — do not edit splits directly. -->
 
-## 16. Chapter 1 Build Plan `[v0.9.12]`
+## 16. Chapter 1 Build Plan `[v0.9.13]`
 
 ### 16.1 Purpose
 
@@ -77,12 +77,24 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
-- **Osrid** — `trainers/front_pics/osrid.png` (64×64 indexed), `object_events/pics/people/osrid.png` (144×32 overworld, 9-frame), `trainers/back_pics/osrid.png` (64×64 battle back), `portraits/osrid.png` (96×96 masked). All engine-format. Unmasked portrait = a *future* post-Champion reveal only.
-- **Cadmus** — `trainers/front_pics/cadmus.png` (64×64 indexed; narrow in-frame — optional reframe later), `object_events/pics/people/cadmus_ow_essentials.png` (128×192 recolored **source** — needs 16×32/144×32 conversion), `portraits/cadmus_neutral.png` + `cadmus_smile.png` (96×96).
-- **Eden** — `trainers/front_pics/eden.png` (64×64 indexed), `object_events/pics/people/eden_ow_essentials.png` (128×192 **source** — needs conversion), `portraits/eden.png` (96×96).
-- **Pending for all:** the two overworld **sources** need the 32×48 → 16×32/144×32 conversion (best verified in-engine); front pics need build-generated compiled forms; everything needs **wiring into the object-event graphics + trainer-pic tables**; and the **portrait system (§16.4)** must be built for the portraits to be used.
-- **Glaive** — **no sprites yet.** His Ch.1 first appearance (Beat 6b, Hollow Hill) needs front / overworld / portrait art — a follow-up in the same workflow.
-- **Division that works (established this cycle):** the user provides base art + does pixel-precision edits (masks, hair/silhouette shaping); the assistant does deterministic recolor/format/index/commit and the engine-code (portrait system, wiring). Blind pixel-editing of small sprites is the assistant's weak spot; palette/format/code work is reliable.
+**STATUS — the entire critical Chapter-1 principal cast (all seven) is complete and committed.** 7 front pics + 7 overworld sets + 1 battle back + 17 portraits. All front pics are 64×64 16-color indexed (index 0 transparent); all portraits are 96×96; overworld sheets are 128×192 (32×48 RPG-Maker frames) **sources** except Osrid's, which is already engine-format.
+
+- **Osrid** (masked prince) — `trainers/front_pics/osrid.png`, `object_events/pics/people/osrid.png` (144×32 9-frame — *engine-format*), `trainers/back_pics/osrid.png` (battle back), `portraits/osrid.png` (masked). Fully engine-format. Unmasked portrait = a *future* post-Champion reveal only.
+- **Cadmus** (Vizier of Education) — `front_pics/cadmus.png`, `people/cadmus_ow_essentials.png` (source), `portraits/cadmus_neutral.png` + `cadmus_smile.png`.
+- **Eden** (rival) — `front_pics/eden.png`, `people/eden_ow_essentials.png` (source), `portraits/eden.png`.
+- **Glaive** (dragon-master / future Vizier of War) — `front_pics/glaive.png`, `people/glaive_ow_essentials.png` (source), `portraits/glaive_neutral.png` + `glaive_positive.png` + `glaive_negative.png`.
+- **Baradus** (Sword Cult Harbinger / primary antagonist) — `front_pics/baradus.png`, `people/baradus_ow_essentials.png` (source), `portraits/baradus_positive.png` + `baradus_anger.png` + `baradus_negative.png`.
+- **Kimaris** (Trial-1 Ghost Baron / Reserve Champion) — `front_pics/kimaris.png`, `people/kimaris_ow_essentials.png` (source), `portraits/kimaris_neutral.png` + `kimaris_positive.png` + `kimaris_smile.png` + `kimaris_negative.png`. *(Portrait expression→file labels are a best guess; verify/rename against the actual faces.)*
+- **Ambrose Caymen** (Archbishop / Steel-master) — `front_pics/ambrose.png`, `people/ambrose_ow_essentials.png` (source), `portraits/ambrose_neutral.png` + `ambrose_positive.png` + `ambrose_negative.png`.
+
+**Pending for the build (applies to all of the above — nothing is wired into game logic yet; the files exist but are not referenced):**
+1. **Overworld conversion** — the six `*_ow_essentials.png` need converting from 32×48 RPG-Maker frames to pokeemerald's **16×32 / 144×32 9-frame** layout (downscale + frame rearrangement; best verified in-engine). Osrid's OW is already engine-format.
+2. **Compiled front-pic forms** — the build must generate the `.4bpp`/`.gbapal` for each front pic (only the `.png` is committed).
+3. **Table wiring** — register each OW sprite in the object-event graphics info and point the trainer front/back-pic tables at the new art.
+4. **Portrait system** — the 17 portraits are unused until the opt-in portrait dialogue system (§16.4) is built.
+5. *(Optional)* several front pics sit narrow in-frame (slim standing bases fit to 64 tall); reframe to compact poses later if desired.
+
+**Division that works (established this cycle):** the user provides base art + does the pixel-precision/shape edits (masks, sunglasses/stubble, hair-shaping, cleanup); the assistant does deterministic recolor/format/index/commit and (next) the engine code. Blind pixel-editing of small sprites is the assistant's weak spot; palette/format/code work is reliable. **All seven principals were completed this way in a single cycle.**
 
 ### 16.8 Open items / needs-confirmation
 
