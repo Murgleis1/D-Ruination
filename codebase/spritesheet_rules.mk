@@ -5053,3 +5053,15 @@ $(OBJEVENTGFXDIR)/misc/ball_%.4bpp: $(OBJEVENTGFXDIR)/misc/ball_%.png ; $(GFX) $
 
 graphics/door_anims/battle_tower_multi_corridor.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
+
+# --- Dreamstone Ruination: portrait dialogue busts (96x96 rendered as a 3x3 grid of 32x32 subsprites) ---
+PORTRAITGFXDIR := graphics/portraits
+
+$(PORTRAITGFXDIR)/%.4bpp: $(PORTRAITGFXDIR)/%.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+
+$(PORTRAITGFXDIR)/%.gbapal: $(PORTRAITGFXDIR)/%.png
+	$(GFX) $< $@
+
+$(PORTRAITGFXDIR)/%.4bpp.lz: $(PORTRAITGFXDIR)/%.4bpp
+	$(GFX) $< $@

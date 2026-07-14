@@ -2674,3 +2674,17 @@
 	compare \a, \b
 	cant_see_if 5
 	.endm
+
+	@ Dreamstone Ruination — portrait dialogue system (see src/portrait.c).
+	@ showportrait shows/replaces the dialogue bust and sets the nameplate from the
+	@ registry (unless the portrait has no default name, e.g. Osrid); pair with
+	@ msgbox, and clear via hideportrait or closemessage.
+	.macro showportrait character:req, expression=PORTRAIT_EXPR_NEUTRAL
+	callnative Script_ShowPortrait
+	.byte \character
+	.byte \expression
+	.endm
+
+	.macro hideportrait
+	callnative Script_HidePortrait
+	.endm
