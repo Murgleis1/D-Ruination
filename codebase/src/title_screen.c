@@ -51,6 +51,7 @@ static void CB2_GoToResetRtcScreen(void);
 static void CB2_GoToBerryFixScreen(void);
 static void CB2_GoToCopyrightScreen(void);
 static void UpdateLegendaryMarkingColor(u8);
+static void Task_TitleSkyShimmer(u8);
 
 static void SpriteCB_VersionBannerLeft(struct Sprite *sprite);
 static void SpriteCB_VersionBannerRight(struct Sprite *sprite);
@@ -662,12 +663,46 @@ static void MainCB2(void)
 }
 
 // Shine the Pokémon logo two more times, and fade in the version banner
+// Dreamstone Ruination: gentle brightness "breathing" on the twilight sky/cloud
+// palette entries (light-blue clouds + deep purple-blue gradient; the sun/logo
+// yellows are left alone). Runs only while no palette fade is active, so it never
+// fights the fade-in or the transition-out to another screen.
+static const u8 sTitleSkyPalIndices[] = { 50, 51, 53, 83, 126, 171, 182, 185, 187, 196 };
+
+static void Task_TitleSkyShimmer(u8 taskId)
+{
+    u32 i;
+
+    if (gPaletteFade.active)
+        return;
+
+    gTasks[taskId].data[0]++;
+    for (i = 0; i < ARRAY_COUNT(sTitleSkyPalIndices); i++)
+    {
+        u32 idx = sTitleSkyPalIndices[i];
+        u16 base = gPlttBufferUnfaded[idx];
+        s32 r = base & 0x1F;
+        s32 g = (base >> 5) & 0x1F;
+        s32 b = (base >> 10) & 0x1F;
+        s32 d = Sin(((gTasks[taskId].data[0] >> 1) + i * 8) & 0xFF, 3);
+
+        r += d;
+        g += d;
+        b += d;
+        if (r < 0) r = 0; else if (r > 31) r = 31;
+        if (g < 0) g = 0; else if (g > 31) g = 31;
+        if (b < 0) b = 0; else if (b > 31) b = 31;
+        gPlttBufferFaded[idx] = r | (g << 5) | (b << 10);
+    }
+}
+
 static void Task_TitleScreenPhase1(u8 taskId)
 {
     // Dreamstone Ruination: the full title art is already on screen, so skip the
     // vanilla logo-shine + version-banner intro. Show Press Start + copyright and take input.
     CreatePressStartBanner(START_BANNER_X, 108);
     CreateCopyrightBanner(START_BANNER_X, 148);
+    CreateTask(Task_TitleSkyShimmer, 2);
     gTasks[taskId].tCounter = 0;
     gTasks[taskId].func = Task_TitleScreenPhase3;
 }
