@@ -682,3 +682,9 @@ $(SPINDAGFXDIR)/spot_2.1bpp: %.1bpp: %.png
 
 $(SPINDAGFXDIR)/spot_3.1bpp: %.1bpp: %.png
 	$(GFX) $< $@ -plain -data_width 2
+
+# --- Dreamstone Ruination title screen (full-screen 8bpp background) ---
+$(TITLESCREENGFXDIR)/dr_title.8bpp: %.8bpp: %.png
+	$(GFX) $< $@
+$(TITLESCREENGFXDIR)/dr_title.gbapal: %.gbapal: %.png
+	$(GFX) $< $@

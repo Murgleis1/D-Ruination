@@ -65,6 +65,11 @@ static const u32 sTitleScreenRayquazaTilemap[] = INCBIN_U32("graphics/title_scre
 static const u32 sTitleScreenLogoShineGfx[] = INCBIN_U32("graphics/title_screen/logo_shine.4bpp.lz");
 static const u32 sTitleScreenCloudsGfx[] = INCBIN_U32("graphics/title_screen/clouds.4bpp.lz");
 
+// Dreamstone Ruination: single full-screen 8bpp title background (240x160 baked art)
+static const u32 sDrTitleGfx[] = INCBIN_U32("graphics/title_screen/dr_title.8bpp.lz");
+static const u32 sDrTitleTilemap[] = INCBIN_U32("graphics/title_screen/dr_title.bin.lz");
+static const u16 sDrTitlePal[] = INCBIN_U16("graphics/title_screen/dr_title.gbapal");
+
 
 
 // Used to blend "Emerald Version" as it passes over over the Pokémon banner.
@@ -595,16 +600,10 @@ void CB2_InitTitleScreen(void)
         gMain.state = 1;
         break;
     case 1:
-        // bg2
-        LZ77UnCompVram(gTitleScreenPokemonLogoGfx, (void *)(BG_CHAR_ADDR(0)));
-        LZ77UnCompVram(gTitleScreenPokemonLogoTilemap, (void *)(BG_SCREEN_ADDR(9)));
-        LoadPalette(gTitleScreenBgPalettes, BG_PLTT_ID(0), 15 * PLTT_SIZE_4BPP);
-        // bg3
-        LZ77UnCompVram(sTitleScreenRayquazaGfx, (void *)(BG_CHAR_ADDR(2)));
-        LZ77UnCompVram(sTitleScreenRayquazaTilemap, (void *)(BG_SCREEN_ADDR(26)));
-        // bg1
-        LZ77UnCompVram(sTitleScreenCloudsGfx, (void *)(BG_CHAR_ADDR(3)));
-        LZ77UnCompVram(gTitleScreenCloudsTilemap, (void *)(BG_SCREEN_ADDR(27)));
+        // Dreamstone Ruination: one full-screen 8bpp background (art baked in)
+        LZ77UnCompVram(sDrTitleGfx, (void *)(BG_CHAR_ADDR(0)));
+        LZ77UnCompVram(sDrTitleTilemap, (void *)(BG_SCREEN_ADDR(28)));
+        LoadPalette(sDrTitlePal, BG_PLTT_ID(0), 16 * PLTT_SIZE_4BPP);
         ScanlineEffect_Stop();
         ResetTasks();
         ResetSpriteData();
@@ -634,40 +633,22 @@ void CB2_InitTitleScreen(void)
         gMain.state = 4;
         break;
     case 4:
-        PanFadeAndZoomScreen(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, 0x100, 0);
-        SetGpuReg(REG_OFFSET_BG2X_L, -29 * 256);
-        SetGpuReg(REG_OFFSET_BG2X_H, -1);
-        SetGpuReg(REG_OFFSET_BG2Y_L, -32 * 256);
-        SetGpuReg(REG_OFFSET_BG2Y_H, -1);
-        SetGpuReg(REG_OFFSET_WIN0H, 0);
-        SetGpuReg(REG_OFFSET_WIN0V, 0);
-        SetGpuReg(REG_OFFSET_WIN1H, 0);
-        SetGpuReg(REG_OFFSET_WIN1V, 0);
-        SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG_ALL | WININ_WIN0_OBJ | WININ_WIN1_BG_ALL | WININ_WIN1_OBJ);
-        SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG_ALL | WINOUT_WIN01_OBJ | WINOUT_WINOBJ_ALL);
-        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG2 | BLDCNT_EFFECT_LIGHTEN);
-        SetGpuReg(REG_OFFSET_BLDALPHA, 0);
-        SetGpuReg(REG_OFFSET_BLDY, 12);
-        SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(3) | BGCNT_CHARBASE(2) | BGCNT_SCREENBASE(26) | BGCNT_16COLOR | BGCNT_TXT256x256);
-        SetGpuReg(REG_OFFSET_BG1CNT, BGCNT_PRIORITY(2) | BGCNT_CHARBASE(3) | BGCNT_SCREENBASE(27) | BGCNT_16COLOR | BGCNT_TXT256x256);
-        SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(9) | BGCNT_256COLOR | BGCNT_AFF256x256);
+        SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_256COLOR | BGCNT_TXT256x256);
+        SetGpuReg(REG_OFFSET_BG1CNT, 0);
+        SetGpuReg(REG_OFFSET_BG2CNT, 0);
+        SetGpuReg(REG_OFFSET_BG0HOFS, 0);
+        SetGpuReg(REG_OFFSET_BG0VOFS, 0);
         EnableInterrupts(INTR_FLAG_VBLANK);
-        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_1
+        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0
                                     | DISPCNT_OBJ_1D_MAP
-                                    | DISPCNT_BG2_ON
-                                    | DISPCNT_OBJ_ON
-                                    | DISPCNT_WIN0_ON
-                                    | DISPCNT_OBJWIN_ON);
+                                    | DISPCNT_BG0_ON
+                                    | DISPCNT_OBJ_ON);
         m4aSongNumStart(MUS_TITLE);
         gMain.state = 5;
         break;
     case 5:
         if (!UpdatePaletteFade())
-        {
-            StartPokemonLogoShine(SHINE_MODE_SINGLE_NO_BG_COLOR);
-            ScanlineEffect_InitWave(0, DISPLAY_HEIGHT, 4, 4, 0, SCANLINE_EFFECT_REG_BG1HOFS, TRUE);
             SetMainCallback2(MainCB2);
-        }
         break;
     }
 }
@@ -683,46 +664,12 @@ static void MainCB2(void)
 // Shine the Pokémon logo two more times, and fade in the version banner
 static void Task_TitleScreenPhase1(u8 taskId)
 {
-    // Skip to next phase when A, B, Start, or Select is pressed
-    if (JOY_NEW(A_B_START_SELECT) || gTasks[taskId].tSkipToNext)
-    {
-        gTasks[taskId].tSkipToNext = TRUE;
-        gTasks[taskId].tCounter = 0;
-    }
-
-    if (gTasks[taskId].tCounter != 0)
-    {
-        u16 frameNum = gTasks[taskId].tCounter;
-        if (frameNum == 176)
-            StartPokemonLogoShine(SHINE_MODE_DOUBLE);
-        else if (frameNum == 64)
-            StartPokemonLogoShine(SHINE_MODE_SINGLE);
-
-        gTasks[taskId].tCounter--;
-    }
-    else
-    {
-        u8 spriteId;
-
-        SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_1 | DISPCNT_OBJ_1D_MAP | DISPCNT_BG2_ON | DISPCNT_OBJ_ON);
-        SetGpuReg(REG_OFFSET_WININ, 0);
-        SetGpuReg(REG_OFFSET_WINOUT, 0);
-        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_OBJ | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_ALL);
-        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(16, 0));
-        SetGpuReg(REG_OFFSET_BLDY, 0);
-
-        // Create left side of version banner
-        spriteId = CreateSprite(&sVersionBannerLeftSpriteTemplate, VERSION_BANNER_LEFT_X, VERSION_BANNER_Y, 0);
-        gSprites[spriteId].sAlphaBlendIdx = ARRAY_COUNT(gTitleScreenAlphaBlend);
-        gSprites[spriteId].sParentTaskId = taskId;
-
-        // Create right side of version banner
-        spriteId = CreateSprite(&sVersionBannerRightSpriteTemplate, VERSION_BANNER_RIGHT_X, VERSION_BANNER_Y, 0);
-        gSprites[spriteId].sParentTaskId = taskId;
-
-        gTasks[taskId].tCounter = 144;
-        gTasks[taskId].func = Task_TitleScreenPhase2;
-    }
+    // Dreamstone Ruination: the full title art is already on screen, so skip the
+    // vanilla logo-shine + version-banner intro. Show Press Start + copyright and take input.
+    CreatePressStartBanner(START_BANNER_X, 108);
+    CreateCopyrightBanner(START_BANNER_X, 148);
+    gTasks[taskId].tCounter = 0;
+    gTasks[taskId].func = Task_TitleScreenPhase3;
 }
 
 #undef sParentTaskId
