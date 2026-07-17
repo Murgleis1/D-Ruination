@@ -386,7 +386,7 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     [TRAINER_CLASS_CADMUS] = { _("Vizier"), 30 },
     [TRAINER_CLASS_EDEN] = { _("Rogue"), 10 },
     [TRAINER_CLASS_GLAIVE] = { _("Dragonmaster"), 25 },
-    [TRAINER_CLASS_BARADUS] = { _("Sword Zealot"), 20 },
+    [TRAINER_CLASS_HARBINGER] = { _("Harbinger"), 25 },
     [TRAINER_CLASS_KIMARIS] = { _("Wraith Lord"), 25 },
     [TRAINER_CLASS_AMBROSE] = { _("Archbishop"), 30 },
 };

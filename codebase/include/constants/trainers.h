@@ -444,7 +444,7 @@
 #define TRAINER_CLASS_CADMUS           0x65
 #define TRAINER_CLASS_EDEN             0x66
 #define TRAINER_CLASS_GLAIVE           0x67
-#define TRAINER_CLASS_BARADUS          0x68
+#define TRAINER_CLASS_HARBINGER        0x68
 #define TRAINER_CLASS_KIMARIS          0x69
 #define TRAINER_CLASS_AMBROSE          0x6A
 
