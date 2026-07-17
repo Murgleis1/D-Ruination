@@ -397,6 +397,22 @@ const u32 gTrainerPalette_JaniaArtist[] = INCBIN_U32("graphics/trainers/my_train
 const u32 gTrainerFrontPic_Rue[] = INCBIN_U32("graphics/trainers/my_trainers/rue.4bpp.lz");
 const u32 gTrainerPalette_Rue[] = INCBIN_U32("graphics/trainers/my_trainers/rue.gbapal.lz");
 
+// --- Dreamstone Ruination Chapter 1 cast ---
+const u32 gTrainerFrontPic_Osrid[] = INCBIN_U32("graphics/trainers/front_pics/osrid.4bpp.lz");
+const u32 gTrainerPalette_Osrid[] = INCBIN_U32("graphics/trainers/front_pics/osrid.gbapal.lz");
+const u32 gTrainerFrontPic_Cadmus[] = INCBIN_U32("graphics/trainers/front_pics/cadmus.4bpp.lz");
+const u32 gTrainerPalette_Cadmus[] = INCBIN_U32("graphics/trainers/front_pics/cadmus.gbapal.lz");
+const u32 gTrainerFrontPic_Eden[] = INCBIN_U32("graphics/trainers/front_pics/eden.4bpp.lz");
+const u32 gTrainerPalette_Eden[] = INCBIN_U32("graphics/trainers/front_pics/eden.gbapal.lz");
+const u32 gTrainerFrontPic_Glaive[] = INCBIN_U32("graphics/trainers/front_pics/glaive.4bpp.lz");
+const u32 gTrainerPalette_Glaive[] = INCBIN_U32("graphics/trainers/front_pics/glaive.gbapal.lz");
+const u32 gTrainerFrontPic_Baradus[] = INCBIN_U32("graphics/trainers/front_pics/baradus.4bpp.lz");
+const u32 gTrainerPalette_Baradus[] = INCBIN_U32("graphics/trainers/front_pics/baradus.gbapal.lz");
+const u32 gTrainerFrontPic_Kimaris[] = INCBIN_U32("graphics/trainers/front_pics/kimaris.4bpp.lz");
+const u32 gTrainerPalette_Kimaris[] = INCBIN_U32("graphics/trainers/front_pics/kimaris.gbapal.lz");
+const u32 gTrainerFrontPic_Ambrose[] = INCBIN_U32("graphics/trainers/front_pics/ambrose.4bpp.lz");
+const u32 gTrainerPalette_Ambrose[] = INCBIN_U32("graphics/trainers/front_pics/ambrose.gbapal.lz");
+
 const u32 gTrainerFrontPic_QwilsquadBoss[] = INCBIN_U32("graphics/trainers/my_trainers/qwilsquad_boss.4bpp.lz");
 const u32 gTrainerPalette_QwilsquadBoss[] = INCBIN_U32("graphics/trainers/my_trainers/qwilsquad_boss.gbapal.lz");
 
@@ -584,6 +600,14 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(TRAINER_PIC_RUE, gTrainerFrontPic_Rue ,gTrainerPalette_Rue),
     TRAINER_SPRITE(TRAINER_PIC_QWILSQUAD_BOSS, gTrainerFrontPic_QwilsquadBoss, gTrainerPalette_QwilsquadBoss),
     TRAINER_SPRITE(TRAINER_PIC_CHAMPION_LYNCH, gTrainerFrontPic_ChampionLynch, gTrainerPalette_ChampionLynch),
+    // --- Dreamstone Ruination Chapter 1 cast ---
+    TRAINER_SPRITE(TRAINER_PIC_OSRID, gTrainerFrontPic_Osrid, gTrainerPalette_Osrid),
+    TRAINER_SPRITE(TRAINER_PIC_CADMUS, gTrainerFrontPic_Cadmus, gTrainerPalette_Cadmus),
+    TRAINER_SPRITE(TRAINER_PIC_EDEN, gTrainerFrontPic_Eden, gTrainerPalette_Eden),
+    TRAINER_SPRITE(TRAINER_PIC_GLAIVE, gTrainerFrontPic_Glaive, gTrainerPalette_Glaive),
+    TRAINER_SPRITE(TRAINER_PIC_BARADUS, gTrainerFrontPic_Baradus, gTrainerPalette_Baradus),
+    TRAINER_SPRITE(TRAINER_PIC_KIMARIS, gTrainerFrontPic_Kimaris, gTrainerPalette_Kimaris),
+    TRAINER_SPRITE(TRAINER_PIC_AMBROSE, gTrainerFrontPic_Ambrose, gTrainerPalette_Ambrose),
 };
 
 static const union AnimCmd sAnimCmd_Hoenn[] =

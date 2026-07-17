@@ -150,7 +150,15 @@
 #define TRAINER_PIC_QWILSQUAD_BOSS        126
 #define TRAINER_PIC_CHAMPION_LYNCH        127
 
-#define TRAINER_PIC_COUNT                 128
+// --- Dreamstone Ruination Chapter 1 cast ---
+#define TRAINER_PIC_OSRID                 128
+#define TRAINER_PIC_CADMUS                129
+#define TRAINER_PIC_EDEN                  130
+#define TRAINER_PIC_GLAIVE                131
+#define TRAINER_PIC_BARADUS               132
+#define TRAINER_PIC_KIMARIS               133
+#define TRAINER_PIC_AMBROSE               134
+#define TRAINER_PIC_COUNT                 135
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -431,8 +439,16 @@
 //championship trainers
 #define TRAINER_CLASS_KOHLA_FINAL    0x62
 #define TRAINER_CLASS_CONTENDER      0x63
+// --- Dreamstone Ruination Chapter 1 cast ---
+#define TRAINER_CLASS_OSRID            0x64
+#define TRAINER_CLASS_CADMUS           0x65
+#define TRAINER_CLASS_EDEN             0x66
+#define TRAINER_CLASS_GLAIVE           0x67
+#define TRAINER_CLASS_BARADUS          0x68
+#define TRAINER_CLASS_KIMARIS          0x69
+#define TRAINER_CLASS_AMBROSE          0x6A
 
-#define TRAINER_CLASS_COUNT          0x64
+#define TRAINER_CLASS_COUNT          0x6B
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

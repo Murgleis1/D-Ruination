@@ -381,6 +381,14 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     [TRAINER_CLASS_RUE] = {_("Asst. Prof.") },    
     [TRAINER_CLASS_KOHLA_FINAL] = {_("Ace Rookie")},
     [TRAINER_CLASS_CONTENDER] = {_("Contender")},
+    // --- Dreamstone Ruination Chapter 1 cast ---
+    [TRAINER_CLASS_OSRID] = { _("Rainhawk"), 15 },
+    [TRAINER_CLASS_CADMUS] = { _("Vizier"), 30 },
+    [TRAINER_CLASS_EDEN] = { _("Rogue"), 10 },
+    [TRAINER_CLASS_GLAIVE] = { _("Dragonmaster"), 25 },
+    [TRAINER_CLASS_BARADUS] = { _("Sword Zealot"), 20 },
+    [TRAINER_CLASS_KIMARIS] = { _("Wraith Lord"), 25 },
+    [TRAINER_CLASS_AMBROSE] = { _("Archbishop"), 30 },
 };
 
 static void (* const sTurnActionsFuncsTable[])(void) =
