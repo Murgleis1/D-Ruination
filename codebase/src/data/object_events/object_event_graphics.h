@@ -475,6 +475,22 @@ const u32 gObjectEventPic_MunucuWatering[] = INCBIN_U32("graphics/object_events/
 const u32 gObjectEventPic_MunucuDecorating[] = INCBIN_U32("graphics/object_events/pics/custom/munucu/decorating.4bpp");
 const u32 gObjectEventPic_MunucuUnderwater[] = INCBIN_U32("graphics/object_events/pics/custom/munucu/underwater.4bpp");
 
+// --- Dreamstone Ruination Chapter 1 cast (overworld) ---
+const u32 gObjectEventPic_Osrid[] = INCBIN_U32("graphics/object_events/pics/people/osrid.4bpp");
+const u16 gObjectEventPal_Osrid[] = INCBIN_U16("graphics/object_events/pics/people/osrid.gbapal");
+const u32 gObjectEventPic_Cadmus[] = INCBIN_U32("graphics/object_events/pics/people/cadmus.4bpp");
+const u16 gObjectEventPal_Cadmus[] = INCBIN_U16("graphics/object_events/pics/people/cadmus.gbapal");
+const u32 gObjectEventPic_Eden[] = INCBIN_U32("graphics/object_events/pics/people/eden.4bpp");
+const u16 gObjectEventPal_Eden[] = INCBIN_U16("graphics/object_events/pics/people/eden.gbapal");
+const u32 gObjectEventPic_Glaive[] = INCBIN_U32("graphics/object_events/pics/people/glaive.4bpp");
+const u16 gObjectEventPal_Glaive[] = INCBIN_U16("graphics/object_events/pics/people/glaive.gbapal");
+const u32 gObjectEventPic_Baradus[] = INCBIN_U32("graphics/object_events/pics/people/baradus.4bpp");
+const u16 gObjectEventPal_Baradus[] = INCBIN_U16("graphics/object_events/pics/people/baradus.gbapal");
+const u32 gObjectEventPic_Kimaris[] = INCBIN_U32("graphics/object_events/pics/people/kimaris.4bpp");
+const u16 gObjectEventPal_Kimaris[] = INCBIN_U16("graphics/object_events/pics/people/kimaris.gbapal");
+const u32 gObjectEventPic_Ambrose[] = INCBIN_U32("graphics/object_events/pics/people/ambrose.4bpp");
+const u16 gObjectEventPal_Ambrose[] = INCBIN_U16("graphics/object_events/pics/people/ambrose.gbapal");
+
 //SHUBUBU
 const u32 gObjectEventPic_ShububuNormalRunning[] = INCBIN_U32("graphics/object_events/pics/custom/shububu/walking.4bpp", "graphics/object_events/pics/custom/shububu/running.4bpp");
 const u16 gObjectEventPal_Shububu[] = INCBIN_U16("graphics/object_events/pics/custom/shububu/walking.gbapal");

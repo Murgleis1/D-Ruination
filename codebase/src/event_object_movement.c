@@ -514,6 +514,14 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_RubySapphireBrendan,   OBJ_EVENT_PAL_TAG_RS_BRENDAN},
     {gObjectEventPal_RubySapphireMay,       OBJ_EVENT_PAL_TAG_RS_MAY},
     {gObjectEventPal_Munucu,                OBJ_EVENT_PAL_TAG_MUNUCU},
+    // --- Dreamstone Ruination Chapter 1 cast ---
+    {gObjectEventPal_Osrid, OBJ_EVENT_PAL_TAG_OSRID},
+    {gObjectEventPal_Cadmus, OBJ_EVENT_PAL_TAG_CADMUS},
+    {gObjectEventPal_Eden, OBJ_EVENT_PAL_TAG_EDEN},
+    {gObjectEventPal_Glaive, OBJ_EVENT_PAL_TAG_GLAIVE},
+    {gObjectEventPal_Baradus, OBJ_EVENT_PAL_TAG_BARADUS},
+    {gObjectEventPal_Kimaris, OBJ_EVENT_PAL_TAG_KIMARIS},
+    {gObjectEventPal_Ambrose, OBJ_EVENT_PAL_TAG_AMBROSE},
     {gObjectEventPal_Shububu,               OBJ_EVENT_PAL_TAG_SHUBUBU},
     {gObjectEventPal_Gubuking,              OBJ_EVENT_PAL_TAG_GUBUKING},
 

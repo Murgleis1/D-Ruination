@@ -1371,6 +1371,15 @@ static const struct SpriteFrameImage sPicTable_RubySapphireMay[] = {
 
 //Munucu
 
+// --- Dreamstone Ruination Chapter 1 cast (overworld) ---
+static const struct SpriteFrameImage sPicTable_Osrid[] = { overworld_ascending_frames(gObjectEventPic_Osrid, 2, 4), };
+static const struct SpriteFrameImage sPicTable_Cadmus[] = { overworld_ascending_frames(gObjectEventPic_Cadmus, 2, 4), };
+static const struct SpriteFrameImage sPicTable_Eden[] = { overworld_ascending_frames(gObjectEventPic_Eden, 2, 4), };
+static const struct SpriteFrameImage sPicTable_Glaive[] = { overworld_ascending_frames(gObjectEventPic_Glaive, 2, 4), };
+static const struct SpriteFrameImage sPicTable_Baradus[] = { overworld_ascending_frames(gObjectEventPic_Baradus, 2, 4), };
+static const struct SpriteFrameImage sPicTable_Kimaris[] = { overworld_ascending_frames(gObjectEventPic_Kimaris, 2, 4), };
+static const struct SpriteFrameImage sPicTable_Ambrose[] = { overworld_ascending_frames(gObjectEventPic_Ambrose, 2, 4), };
+
 static const struct SpriteFrameImage sPicTable_MunucuNormal[] = {
     overworld_ascending_frames(gObjectEventPic_MunucuNormalRunning, 2, 4),
 };

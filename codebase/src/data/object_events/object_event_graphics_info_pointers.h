@@ -15,6 +15,14 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Boy3;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Girl3;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RichBoy;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Woman1;
+// --- Dreamstone Ruination Chapter 1 cast ---
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Osrid;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Cadmus;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Eden;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Glaive;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Baradus;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kimaris;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Ambrose;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_FatMan;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PokefanF;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Man1;
@@ -307,6 +315,14 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_GIRL_3] =                   &gObjectEventGraphicsInfo_Girl3,
     [OBJ_EVENT_GFX_RICH_BOY] =                 &gObjectEventGraphicsInfo_RichBoy,
     [OBJ_EVENT_GFX_WOMAN_1] =                  &gObjectEventGraphicsInfo_Woman1,
+    // --- Dreamstone Ruination Chapter 1 cast ---
+    [OBJ_EVENT_GFX_OSRID] = &gObjectEventGraphicsInfo_Osrid,
+    [OBJ_EVENT_GFX_CADMUS] = &gObjectEventGraphicsInfo_Cadmus,
+    [OBJ_EVENT_GFX_EDEN] = &gObjectEventGraphicsInfo_Eden,
+    [OBJ_EVENT_GFX_GLAIVE] = &gObjectEventGraphicsInfo_Glaive,
+    [OBJ_EVENT_GFX_BARADUS] = &gObjectEventGraphicsInfo_Baradus,
+    [OBJ_EVENT_GFX_KIMARIS] = &gObjectEventGraphicsInfo_Kimaris,
+    [OBJ_EVENT_GFX_AMBROSE] = &gObjectEventGraphicsInfo_Ambrose,
     [OBJ_EVENT_GFX_FAT_MAN] =                  &gObjectEventGraphicsInfo_FatMan,
     [OBJ_EVENT_GFX_POKEFAN_F] =                &gObjectEventGraphicsInfo_PokefanF,
     [OBJ_EVENT_GFX_MAN_1] =                    &gObjectEventGraphicsInfo_Man1,
