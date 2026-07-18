@@ -162,7 +162,7 @@
 #define FLAG_HIDE_RIVETSHORE_MIMIKYU      0x4BC // Unused Flag
 #define FLAG_CHAMPIONSHIP_KOHLA_ROOM      0x4BD // Unused Flag
 #define FLAG_HIDE_PELLUCA_GAB             0x4BE // Unused Flag
-#define FLAG_UNUSED_0x4BF                 0x4BF // Unused Flag
+#define FLAG_FORCE_SHINY                  0x4BF // Dreamstone Ruination: forces the next wild/gift Pokemon shiny (shiny-tease helper, wired to P_FLAG_FORCE_SHINY)
 
 
 //I AM GOING TO USE THESE FLAGS | EXTRA FLAGS
