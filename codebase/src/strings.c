@@ -1075,6 +1075,11 @@ const u8 gText_BattleSpeed1X[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}1x");
 const u8 gText_BattleSpeed2X[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}2x");
 const u8 gText_BattleSpeed3X[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}3x");
 const u8 gText_BattleSpeed4X[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}4x");
+const u8 gText_MoveSpeed[] = _("Move Speed");
+const u8 gText_MoveSpeed8X[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}8x");
+const u8 gText_Autoheal[] = _("Autoheal");
+const u8 gText_AutohealOff[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}Off");
+const u8 gText_AutohealOn[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}On");
 
 const u8 gText_NumPlayerLink[] = _("{STR_VAR_1}P LINK");
 const u8 gText_BronzeCard[] = _("BRONZE");

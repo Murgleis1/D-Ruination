@@ -51,6 +51,7 @@ enum
     MENUITEM_BATTLESTYLE,
     MENUITEM_BATTLESPEED,
     MENUITEM_BATTLESCENE,  
+    MENUITEM_OVERWORLD_SPEED,
     MENUITEM_CANCEL_PG2,
     MENUITEM_COUNT_PG2,
 };
@@ -62,6 +63,7 @@ enum
     MENUITEM_SOUND,    
     MENUITEM_BIKESURFMUS,
     MENUITEM_AFFECTION,  
+    MENUITEM_AUTOHEAL,
     MENUITEM_CANCEL_PG3,
     MENUITEM_COUNT_PG3,
 };
@@ -84,6 +86,8 @@ enum
 #define YPOS_BATTLESPEED  (MENUITEM_BATTLESPEED * 16)
 #define YPOS_AUTORUN      (MENUITEM_AUTORUN * 16)
 #define YPOS_QUICKRUN     (MENUITEM_QUICKRUN * 16)
+#define YPOS_OVERWORLD_SPEED (MENUITEM_OVERWORLD_SPEED * 16)
+#define YPOS_AUTOHEAL     (MENUITEM_AUTOHEAL * 16)
 #define YPOS_BIKESURFMUS  (MENUITEM_BIKESURFMUS * 16)
 #define YPOS_AFFECTION    (MENUITEM_AFFECTION * 16)
 
@@ -112,6 +116,10 @@ static u8   Follower_ProcessInput(u8 selection);
 static void Follower_DrawChoices(u8 selection);
 static u8   BattleSpeed_ProcessInput(u8 selection);
 static void BattleSpeed_DrawChoices(u8 selection);
+static u8   OverworldSpeed_ProcessInput(u8 selection);
+static void OverworldSpeed_DrawChoices(u8 selection);
+static u8   Autoheal_ProcessInput(u8 selection);
+static void Autoheal_DrawChoices(u8 selection);
 static u8   AutoRun_ProcessInput(u8 selection);
 static void AutoRun_DrawChoices(u8 selection);
 static u8   QuickRun_ProcessInput(u8 selection);
@@ -161,6 +169,7 @@ static const u8 *const sOptionMenuItemsNames_Pg2[MENUITEM_COUNT_PG2] =
     [MENUITEM_BATTLESTYLE] = gText_BattleStyle,
     [MENUITEM_BATTLESPEED] = gText_BattleSpeed,       
     [MENUITEM_BATTLESCENE] = gText_BattleScene,   
+    [MENUITEM_OVERWORLD_SPEED] = gText_MoveSpeed,
     [MENUITEM_CANCEL_PG2]  = gText_OptionMenuCancel,
 };
 
@@ -171,6 +180,7 @@ static const u8 *const sOptionMenuItemsNames_Pg3[MENUITEM_COUNT_PG3] =
     [MENUITEM_SOUND]       = gText_Sound,
     [MENUITEM_BIKESURFMUS] = gText_BikeSurfMus,  
     [MENUITEM_AFFECTION]   = gText_Affection,       
+    [MENUITEM_AUTOHEAL]    = gText_Autoheal,
     [MENUITEM_CANCEL_PG3]  = gText_OptionMenuCancel,
 };
 
@@ -257,6 +267,8 @@ static void VBlankCB(void)
 #define tDifficulty data[13]
 #define tExpCap data[14]
 #define tAutoscroll data[15]
+#define tOverworldSpeed data[16]
+#define tAutoheal data[17]
 
 static void ReadAllCurrentSettings(u8 taskId)
 {
@@ -275,7 +287,9 @@ static void ReadAllCurrentSettings(u8 taskId)
     gTasks[taskId].tAffection = FlagGet(FLAG_SYS_AFFECTION_ENABLED);  
     gTasks[taskId].tDifficulty = VarGet(VAR_SYS_DIFFICULTY);
     gTasks[taskId].tExpCap = VarGet(VAR_SYS_EXP_CAP);     
-    gTasks[taskId].tAutoscroll = FlagGet(FLAG_SYS_AUTOSCROLL); 
+    gTasks[taskId].tAutoscroll = FlagGet(FLAG_SYS_AUTOSCROLL);
+    gTasks[taskId].tOverworldSpeed = VarGet(VAR_OVERWORLD_SPEEDUP);
+    gTasks[taskId].tAutoheal = FlagGet(FLAG_SYS_AUTOHEAL); 
 }
 
 static void DrawOptionsPg1(u8 taskId)
@@ -296,6 +310,7 @@ static void DrawOptionsPg2(u8 taskId)
     Difficulty_DrawChoices(gTasks[taskId].tDifficulty); 
     ExpCap_DrawChoices(gTasks[taskId].tExpCap);
     BattleStyle_DrawChoices(gTasks[taskId].tBattleStyle);
+    OverworldSpeed_DrawChoices(gTasks[taskId].tOverworldSpeed);
     BattleSpeed_DrawChoices(gTasks[taskId].tBattleSpeed);
     BattleScene_DrawChoices(gTasks[taskId].tBattleSceneOff);
     HighlightOptionMenuItem(gTasks[taskId].tMenuSelection);
@@ -306,6 +321,7 @@ static void DrawOptionsPg3(u8 taskId)
 { 
     ReadAllCurrentSettings(taskId); 
     Follower_DrawChoices(gTasks[taskId].tFollower);
+    Autoheal_DrawChoices(gTasks[taskId].tAutoheal);
     QuickRun_DrawChoices(gTasks[taskId].tQuickRun);
     Sound_DrawChoices(gTasks[taskId].tSound); 
     BikeSurfMus_DrawChoices(gTasks[taskId].tBikeSurfMus);  
@@ -458,6 +474,8 @@ static void Task_ChangePage(u8 taskId)
     VarSet(VAR_SYS_DIFFICULTY, gTasks[taskId].tDifficulty);
     VarSet(VAR_SYS_EXP_CAP, gTasks[taskId].tExpCap);
     gTasks[taskId].tAutoscroll == 0 ? FlagClear(FLAG_SYS_AUTOSCROLL) : FlagSet(FLAG_SYS_AUTOSCROLL);
+    VarSet(VAR_OVERWORLD_SPEEDUP, gTasks[taskId].tOverworldSpeed);
+    gTasks[taskId].tAutoheal == 0 ? FlagClear(FLAG_SYS_AUTOHEAL) : FlagSet(FLAG_SYS_AUTOHEAL);
 
     //now do
     DrawHeaderText();
@@ -665,6 +683,13 @@ static void Task_OptionMenuProcessInput_Pg2(u8 taskId)
             if (previousOption != gTasks[taskId].tBattleSpeed)
                 BattleSpeed_DrawChoices(gTasks[taskId].tBattleSpeed);
             break;
+        case MENUITEM_OVERWORLD_SPEED:
+            previousOption = gTasks[taskId].tOverworldSpeed;
+            gTasks[taskId].tOverworldSpeed = OverworldSpeed_ProcessInput(gTasks[taskId].tOverworldSpeed);
+
+            if (previousOption != gTasks[taskId].tOverworldSpeed)
+                OverworldSpeed_DrawChoices(gTasks[taskId].tOverworldSpeed);
+            break;
         case MENUITEM_BATTLESCENE:
             previousOption = gTasks[taskId].tBattleSceneOff;
             gTasks[taskId].tBattleSceneOff = BattleScene_ProcessInput(gTasks[taskId].tBattleSceneOff);
@@ -766,6 +791,13 @@ static void Task_OptionMenuProcessInput_Pg3(u8 taskId)
             if (previousOption != gTasks[taskId].tBikeSurfMus)
                 BikeSurfMus_DrawChoices(gTasks[taskId].tBikeSurfMus);
             break;
+        case MENUITEM_AUTOHEAL:
+            previousOption = gTasks[taskId].tAutoheal;
+            gTasks[taskId].tAutoheal = Autoheal_ProcessInput(gTasks[taskId].tAutoheal);
+
+            if (previousOption != gTasks[taskId].tAutoheal)
+                Autoheal_DrawChoices(gTasks[taskId].tAutoheal);
+            break;
         case MENUITEM_AFFECTION:
             previousOption = gTasks[taskId].tAffection;
             gTasks[taskId].tAffection = Affection_ProcessInput(gTasks[taskId].tAffection);
@@ -803,6 +835,8 @@ static void Task_OptionMenuSave(u8 taskId)
     VarSet(VAR_SYS_DIFFICULTY, gTasks[taskId].tDifficulty);
     VarSet(VAR_SYS_EXP_CAP, gTasks[taskId].tExpCap);
     gTasks[taskId].tAutoscroll == 0 ? FlagClear(FLAG_SYS_AUTOSCROLL) : FlagSet(FLAG_SYS_AUTOSCROLL);
+    VarSet(VAR_OVERWORLD_SPEEDUP, gTasks[taskId].tOverworldSpeed);
+    gTasks[taskId].tAutoheal == 0 ? FlagClear(FLAG_SYS_AUTOHEAL) : FlagSet(FLAG_SYS_AUTOHEAL);
 
     //call the difficulty changing script here?
 
@@ -1194,6 +1228,64 @@ static void QuickRun_DrawChoices(u8 selection)
 }
 
 
+
+static u8 OverworldSpeed_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_RIGHT))
+    {
+        PlayOptionChangeSE();
+        if (selection <= 2)
+            selection++;
+        else
+            selection = 0;
+        sArrowPressed = TRUE;
+    }
+    if (JOY_NEW(DPAD_LEFT))
+    {
+        PlayOptionChangeSE();
+        if (selection != 0)
+            selection--;
+        else
+            selection = 3;
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void OverworldSpeed_DrawChoices(u8 selection)
+{
+    u8 styles[4];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[2] = 0;
+    styles[3] = 0;
+    styles[selection] = 1;
+    DrawOptionMenuChoice(gText_BattleSpeed1X, 104, YPOS_OVERWORLD_SPEED, styles[0]);
+    DrawOptionMenuChoice(gText_BattleSpeed2X, 128, YPOS_OVERWORLD_SPEED, styles[1]);
+    DrawOptionMenuChoice(gText_BattleSpeed4X, 152, YPOS_OVERWORLD_SPEED, styles[2]);
+    DrawOptionMenuChoice(gText_MoveSpeed8X,   176, YPOS_OVERWORLD_SPEED, styles[3]);
+}
+
+static u8 Autoheal_ProcessInput(u8 selection)
+{
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
+    {
+        PlayOptionChangeSE();
+        selection ^= 1;
+        sArrowPressed = TRUE;
+    }
+    return selection;
+}
+
+static void Autoheal_DrawChoices(u8 selection)
+{
+    u8 styles[2];
+    styles[0] = 0;
+    styles[1] = 0;
+    styles[selection] = 1;
+    DrawOptionMenuChoice(gText_AutohealOff, 104, YPOS_AUTOHEAL, styles[0]);
+    DrawOptionMenuChoice(gText_AutohealOn,  162, YPOS_AUTOHEAL, styles[1]);
+}
 
 static u8 BikeSurfMus_ProcessInput(u8 selection)
 {

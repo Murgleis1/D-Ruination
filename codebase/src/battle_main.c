@@ -1,4 +1,5 @@
 #include "global.h"
+#include "script_pokemon_util.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_ai_main.h"
@@ -1858,6 +1859,8 @@ void CB2_QuitRecordedBattle(void)
         }
         FreeRestoreBattleData();
         FreeAllWindowBuffers();
+        if (FlagGet(FLAG_SYS_AUTOHEAL) && !(gBattleTypeFlags & BATTLE_TYPE_LINK))
+            HealPlayerParty();
         SetMainCallback2(gMain.savedCallback);
     }
 }

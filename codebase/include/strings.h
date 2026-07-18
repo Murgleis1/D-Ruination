@@ -276,6 +276,11 @@ extern const u8 gText_BattleSpeed1X[];
 extern const u8 gText_BattleSpeed2X[];
 extern const u8 gText_BattleSpeed3X[];
 extern const u8 gText_BattleSpeed4X[];
+extern const u8 gText_MoveSpeed[];
+extern const u8 gText_MoveSpeed8X[];
+extern const u8 gText_Autoheal[];
+extern const u8 gText_AutohealOff[];
+extern const u8 gText_AutohealOn[];
 
 extern const u8 gText_Option[];
 
