@@ -12,6 +12,7 @@
 #include "gpu_regs.h"
 #include "scanline_effect.h"
 #include "sound.h"
+#include "m4a.h"
 #include "string_util.h"
 #include "new_game.h"
 #include "menu.h"
@@ -60,7 +61,7 @@ static const u8 *const sIntroBlocks[] = {
 static const u16 sIntroPalette[16] = { RGB_BLACK, RGB_WHITE, RGB(12, 12, 12) };
 
 #define WIN_INTRO        0
-#define REVEAL_SPEED     3
+#define REVEAL_SPEED     6
 #define HOLD_FRAMES      150
 #define LINE_HEIGHT      16
 #define WIN_W_PX         (28 * 8)
@@ -119,7 +120,7 @@ void CB2_DrColdOpenIntro(void)
     DrIntro_InitBg();
     DrIntro_InitWindow();
 
-    PlayBGM(MUS_OSRID_THEME);
+    m4aSongNumStart(MUS_OSRID_THEME);
 
     BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
