@@ -21,8 +21,12 @@
 
 #include "data/portraits.h"
 
-// MAX_SPRITES doubles as the "no portrait shown" sentinel (valid ids are < MAX_SPRITES).
-static u8 sPortraitSpriteId = MAX_SPRITES;
+// sPortraitActive tracks whether a bust is on screen. It is zero-initialised
+// (inactive at boot) so no initialised .data is emitted: pokeemerald's linker
+// script places only .text/.rodata/.bss from src objects, and a non-zero-init
+// global (e.g. = MAX_SPRITES) would fall through to /DISCARD/ at link time.
+static bool8 sPortraitActive;
+static u8 sPortraitSpriteId;
 
 // A 96x96 bust is drawn as a 3x3 grid of 32x32 OAM subsprites. gbagfx builds the
 // tiles with -mwidth 4 -mheight 4, i.e. nine contiguous 32x32 cells in reading
@@ -83,18 +87,18 @@ static const struct PortraitExpr *GetPortraitExpression(const struct Portrait *p
 
 bool8 IsMsgPortraitActive(void)
 {
-    return sPortraitSpriteId != MAX_SPRITES;
+    return sPortraitActive;
 }
 
 void FreeMsgPortrait(void)
 {
-    if (sPortraitSpriteId == MAX_SPRITES)
+    if (!sPortraitActive)
         return;
 
     DestroySprite(&gSprites[sPortraitSpriteId]);
     FreeSpriteTilesByTag(PORTRAIT_TILE_TAG);
     FreeSpritePaletteByTag(PORTRAIT_PAL_TAG);
-    sPortraitSpriteId = MAX_SPRITES;
+    sPortraitActive = FALSE;
 }
 
 void SetMsgPortrait(u8 portraitId, u8 expression)
@@ -135,6 +139,7 @@ void SetMsgPortrait(u8 portraitId, u8 expression)
 
     SetSubspriteTables(&gSprites[spriteId], sPortraitSubspriteTable);
     sPortraitSpriteId = spriteId;
+    sPortraitActive = TRUE;
 
     // Default the nameplate from the registry. Portraits with no default name
     // (e.g. Osrid) leave any script-set speaker name untouched.
