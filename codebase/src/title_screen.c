@@ -701,7 +701,7 @@ static void Task_TitleScreenPhase1(u8 taskId)
     // Dreamstone Ruination: the full title art is already on screen, so skip the
     // vanilla logo-shine + version-banner intro. Show Press Start + copyright and take input.
     CreatePressStartBanner(START_BANNER_X, 108);
-    CreateCopyrightBanner(START_BANNER_X, 148);
+    // DSMYST credit banner removed (was the flashing bottom credit)
     CreateTask(Task_TitleSkyShimmer, 2);
     gTasks[taskId].tCounter = 0;
     gTasks[taskId].func = Task_TitleScreenPhase3;
@@ -739,7 +739,7 @@ static void Task_TitleScreenPhase2(u8 taskId)
                                     | DISPCNT_BG2_ON
                                     | DISPCNT_OBJ_ON);
         CreatePressStartBanner(START_BANNER_X, 108);
-        CreateCopyrightBanner(START_BANNER_X, 148);
+        // DSMYST credit banner removed (was the flashing bottom credit)
         gTasks[taskId].tBg1Y = 0;
         gTasks[taskId].func = Task_TitleScreenPhase3;
     }
