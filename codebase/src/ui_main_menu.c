@@ -396,17 +396,19 @@ void Task_OpenMainMenu(u8 taskId)
     {   
         switch (data[0]) // This data[0] comes from the main_menu.c Task_DisplayMainMenu, 
         {                //  where the UI is initialized by swapping a task func with this one 
-            case HAS_NO_SAVED_GAME:
             default:
                 SetMainCallback2(CB2_DrColdOpenIntro);
                 DestroyTask(taskId);
                 return;
+            case HAS_NO_SAVED_GAME:   // fresh save: show a New Game / Options menu
             case HAS_SAVED_GAME:       
             case HAS_MYSTERY_GIFT:
             case HAS_MYSTERY_EVENTS:
                 menuType = data[0];
                 break;
         }
+        if (menuType == HAS_NO_SAVED_GAME)
+            sSelectedOption = HW_WIN_NEW_GAME;   // no Continue on a fresh save
         CleanupOverworldWindowsAndTilemaps();
         MainMenu_Init(CB2_InitTitleScreen); // if need to bail go to title screen
         DestroyTask(taskId);
@@ -629,6 +631,10 @@ static void MainMenu_InitializeGPUWindows(void) // This function creates the win
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(HWinCoords[sSelectedOption].winv.left, HWinCoords[sSelectedOption].winv.right));
     switch(menuType)
     {
+            case HAS_NO_SAVED_GAME:    // fresh save: hide the Continue button (no save to continue)
+                SetGpuReg(REG_OFFSET_WIN1H,  WIN_RANGE(HWinCoords[HW_WIN_CONTINUE].winh.left, HWinCoords[HW_WIN_CONTINUE].winh.right));
+                SetGpuReg(REG_OFFSET_WIN1V,  WIN_RANGE(HWinCoords[HW_WIN_CONTINUE].winv.left, HWinCoords[HW_WIN_CONTINUE].winv.right));
+                break;
             case HAS_SAVED_GAME:    // The three Window 1 states either block out the mystery buttons both, just the mystery event, or nothing. 
                 SetGpuReg(REG_OFFSET_WIN1H,  WIN_RANGE(HWinCoords[HW_WIN_MYSTERY_BOTH].winh.left, HWinCoords[HW_WIN_MYSTERY_BOTH].winh.right));
                 SetGpuReg(REG_OFFSET_WIN1V,  WIN_RANGE(HWinCoords[HW_WIN_MYSTERY_BOTH].winv.left, HWinCoords[HW_WIN_MYSTERY_BOTH].winv.right));
@@ -1100,6 +1106,7 @@ static void Task_MainMenuMain(u8 taskId)
     {
         switch (menuType)
         {
+            case HAS_NO_SAVED_GAME:   // fresh save: toggle New Game <-> Options
             case HAS_SAVED_GAME:
                 if(sSelectedOption == HW_WIN_NEW_GAME)
                     sSelectedOption = HW_WIN_OPTIONS;

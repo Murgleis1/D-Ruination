@@ -61,8 +61,8 @@ static const u8 *const sIntroBlocks[] = {
 static const u16 sIntroPalette[16] = { RGB_BLACK, RGB_WHITE, RGB(12, 12, 12) };
 
 #define WIN_INTRO        0
-#define REVEAL_SPEED     6
-#define HOLD_FRAMES      150
+#define REVEAL_SPEED     12
+#define HOLD_FRAMES      180
 #define LINE_HEIGHT      16
 #define WIN_W_PX         (28 * 8)
 #define WIN_H_PX         (18 * 8)
@@ -120,7 +120,7 @@ void CB2_DrColdOpenIntro(void)
     DrIntro_InitBg();
     DrIntro_InitWindow();
 
-    m4aSongNumStart(MUS_OSRID_THEME);
+    FadeInNewBGM(MUS_OSRID_THEME, 8);
 
     BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
