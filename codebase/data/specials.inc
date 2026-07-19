@@ -537,6 +537,8 @@ gSpecials::
 	def_special TryBufferWaldaPhrase
 	def_special DoWaldaNamingScreen
 	def_special DrReflectionMakeBlack
+	def_special DrSetPlayerOsridSprite
+	def_special DrDoPlayerNaming
 	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint

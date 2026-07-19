@@ -1,14 +1,28 @@
 #include "global.h"
 #include "palette.h"
+#include "event_object_movement.h"
+#include "naming_screen.h"
+#include "overworld.h"
+#include "field_screen_effect.h"
+#include "constants/event_objects.h"
 #include "constants/rgb.h"
 
-// Cold open reflection scene (PellucaReflection).
-// Blacks out the map's tileset BG palettes so the scene reads as a pure-black void.
-// The pond metatile keeps its MB_POND_WATER behavior, so the standing character's
-// reflection still renders on the now-black water -- exactly the reference look.
-// BG palettes 0-12 are the two tilesets; 13-15 are left alone for text/UI.
+// (unused now that the black-palette tileset handles the void; harmless)
 void DrReflectionMakeBlack(void)
 {
     CpuFill16(RGB_BLACK, &gPlttBufferUnfaded[BG_PLTT_ID(0)], 13 * PLTT_SIZE_4BPP);
     CpuFill16(RGB_BLACK, &gPlttBufferFaded[BG_PLTT_ID(0)], 13 * PLTT_SIZE_4BPP);
+}
+
+// Cold-open cutscene: make the player character appear as the masked Osrid.
+void DrSetPlayerOsridSprite(void)
+{
+    ObjectEventSetGraphicsId(&gObjectEvents[gPlayerAvatar.objectEventId], OBJ_EVENT_GFX_OSRID);
+}
+
+// Cold-open cutscene: open the player naming screen; the map script resumes after.
+void DrDoPlayerNaming(void)
+{
+    DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName,
+                   gSaveBlock2Ptr->playerGender, 0, 0, CB2_ReturnToFieldContinueScript);
 }
