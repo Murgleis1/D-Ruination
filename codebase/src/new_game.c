@@ -133,7 +133,8 @@ static void ClearFrontierRecord(void)
 
 static void WarpToTruck(void)
 {
-    SetWarpDestination(MAP_GROUP(CARABRUE_TOWN_HOME1F), MAP_NUM(CARABRUE_TOWN_HOME1F), WARP_ID_NONE, -1, -1);
+    // Cold open: new game starts at the reflection scene, which continues to the real start.
+    SetWarpDestination(MAP_GROUP(PELLUCA_REFLECTION), MAP_NUM(PELLUCA_REFLECTION), 0, -1, -1);
     WarpIntoMap();
 }
 void WarpToStorage(void)

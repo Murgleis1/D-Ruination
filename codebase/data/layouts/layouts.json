@@ -6060,6 +6060,16 @@
       "secondary_tileset": "gTileset_Slateport",
       "border_filepath": "data/layouts/Rivetshore_Lookout/border.bin",
       "blockdata_filepath": "data/layouts/Rivetshore_Lookout/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_REFLECTION",
+      "name": "PellucaReflection_Layout",
+      "width": 16,
+      "height": 14,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/PellucaReflection/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaReflection/map.bin"
     }
   ]
 }
