@@ -17,7 +17,7 @@
   "warp_events": [
     {
       "x": 7,
-      "y": 7,
+      "y": 6,
       "elevation": 3,
       "dest_map": "MAP_CARABRUE_TOWN_HOME1F",
       "dest_warp_id": "0"
