@@ -1,3 +1,18 @@
+// Dreamstone Ruination cold-open reflection scene: reuses General's tiles, metatiles,
+// and attributes, but with all-black palettes so every tile renders pure black while
+// each keeps its behavior (the pond still triggers the character's reflection).
+static const u16 sDrReflectionBlackPalettes[16][16] = {0};
+const struct Tileset gTileset_DrBlackReflection =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_General,
+    .palettes = sDrReflectionBlackPalettes,
+    .metatiles = gMetatiles_General,
+    .metatileAttributes = gMetatileAttributes_General,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_General =
 {
     .isCompressed = TRUE,

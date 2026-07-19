@@ -6066,7 +6066,7 @@
       "name": "PellucaReflection_Layout",
       "width": 16,
       "height": 14,
-      "primary_tileset": "gTileset_General",
+      "primary_tileset": "gTileset_DrBlackReflection",
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/PellucaReflection/border.bin",
       "blockdata_filepath": "data/layouts/PellucaReflection/map.bin"
