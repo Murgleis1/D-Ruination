@@ -29,7 +29,8 @@ from PIL import Image
 
 PORTRAIT_DIR = os.path.join("graphics", "portraits")
 SRC_DIR = os.path.join(PORTRAIT_DIR, "_src")
-EXPECT_W, EXPECT_H = 96, 96
+EXPECT_W, EXPECT_H = 96, 96     # source master size
+OUT_W, OUT_H = 64, 64           # output sprite (48x48 bust centred in 64x64)
 MAX_OPAQUE_COLORS = 15          # 16 total minus index 0 (transparent)
 ALPHA_CUTOFF = 128
 SENTINEL = (255, 0, 255)        # index-0 fill (magenta); hardware-transparent for OBJ
@@ -54,6 +55,15 @@ def quantize(src_path, dst_path):
     im = Image.open(src_path).convert("RGBA")
     if im.size != (EXPECT_W, EXPECT_H):
         raise SystemExit(f"{src_path}: expected {EXPECT_W}x{EXPECT_H}, got {im.size[0]}x{im.size[1]}")
+
+    # Dreamstone Ruination: render a smaller, sharper bust. Downscale the 96x96
+    # master to 48x48 (LANCZOS resample smooths the pixelation) and centre it in
+    # a 64x64 transparent canvas. The engine then draws it as a 2x2 grid of
+    # 32x32 subsprites, so the visible art is ~50% smaller on screen. The 8px
+    # transparent margin becomes index-0 (hardware-transparent).
+    small = im.resize((48, 48), Image.LANCZOS)
+    im = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+    im.paste(small, (8, 8))
 
     rgb = list(im.convert("RGB").getdata())
     alpha = list(im.getchannel("A").getdata())
@@ -89,7 +99,7 @@ def check(dst_path):
     im = Image.open(dst_path)
     if im.mode != "P":
         return f"{dst_path}: not indexed (mode={im.mode})"
-    if im.size != (EXPECT_W, EXPECT_H):
+    if im.size != (OUT_W, OUT_H):
         return f"{dst_path}: wrong size {im.size}"
     idx = set(im.getdata())
     if max(idx) > 15:

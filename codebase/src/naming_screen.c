@@ -1391,21 +1391,13 @@ static void NamingScreen_NoIcon(void)
 
 static void NamingScreen_CreatePlayerIcon(void)
 {
-    u16 rivalGfxId;
     u8 spriteId;
 
-    //Original had this rival code for some reason?
-        rivalGfxId = GetRivalAvatarGraphicsIdByStateIdAndGender(PLAYER_AVATAR_STATE_MACH_BIKE, sNamingScreen->monSpecies);
-        spriteId = CreateObjectGraphicsSprite(rivalGfxId, SpriteCallbackDummy, 56, 37, 0);
-        gSprites[spriteId].oam.priority = 3;
-        StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_SOUTH);
-
-    //My code adjusts GetRivalAvatar to GetPlayerAvatar - but it doesn't work?
-    // rivalGfxId = GetPlayerAvatarGraphicsIdByStateIdAndGender(PLAYER_AVATAR_STATE_NORMAL, sNamingScreen->monSpecies);
-    // spriteId = CreateObjectGraphicsSprite(rivalGfxId, SpriteCallbackDummy, 56, 37, 0);
-    // gSprites[spriteId].oam.priority = 3;
-    // StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_SOUTH);
-
+    // Dreamstone Ruination: the player being named is Osrid, so show his masked
+    // overworld sprite facing the camera (not the stock rival-on-a-bike).
+    spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_OSRID, SpriteCallbackDummy, 56, 37, 0);
+    gSprites[spriteId].oam.priority = 3;
+    StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_SOUTH);
 }
 
 static void NamingScreen_CreatePCIcon(void)

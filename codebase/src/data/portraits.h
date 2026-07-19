@@ -46,6 +46,7 @@ static const u16 sPortraitPal_AmbroseNegative[] = INCBIN_U16("graphics/portraits
 // Default nameplate strings (edit freely). Osrid is scene-dependent
 // (Prince ??? -> Nomad Alban -> true name), so his default is NULL and scripts
 // set the name explicitly (setspeaker / SetSpeakerName after showportrait).
+static const u8 sPortraitName_Osrid[]   = _("Prince ???");
 static const u8 sPortraitName_Cadmus[]  = _("Cadmus");
 static const u8 sPortraitName_Eden[]    = _("Eden");
 static const u8 sPortraitName_Glaive[]  = _("Glaive");
@@ -92,7 +93,7 @@ static const struct PortraitExpr sPortraitExpr_Ambrose[] = {
 };
 
 const struct Portrait gPortraits[PORTRAIT_COUNT] = {
-    [PORTRAIT_OSRID]   = { NULL,                  sPortraitExpr_Osrid,   ARRAY_COUNT(sPortraitExpr_Osrid)   },
+    [PORTRAIT_OSRID]   = { sPortraitName_Osrid,   sPortraitExpr_Osrid,   ARRAY_COUNT(sPortraitExpr_Osrid)   },
     [PORTRAIT_CADMUS]  = { sPortraitName_Cadmus,  sPortraitExpr_Cadmus,  ARRAY_COUNT(sPortraitExpr_Cadmus)  },
     [PORTRAIT_EDEN]    = { sPortraitName_Eden,    sPortraitExpr_Eden,    ARRAY_COUNT(sPortraitExpr_Eden)    },
     [PORTRAIT_GLAIVE]  = { sPortraitName_Glaive,  sPortraitExpr_Glaive,  ARRAY_COUNT(sPortraitExpr_Glaive)  },

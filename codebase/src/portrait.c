@@ -10,14 +10,15 @@
 #define PORTRAIT_TILE_TAG   0x4B00
 #define PORTRAIT_PAL_TAG    0x4B00
 
-#define PORTRAIT_WIDTH      96
-#define PORTRAIT_HEIGHT     96
-#define PORTRAIT_NUM_TILES  ((PORTRAIT_WIDTH / 8) * (PORTRAIT_HEIGHT / 8))   // 144
+#define PORTRAIT_WIDTH      64
+#define PORTRAIT_HEIGHT     64
+#define PORTRAIT_NUM_TILES  ((PORTRAIT_WIDTH / 8) * (PORTRAIT_HEIGHT / 8))   // 64
 
 // On-screen anchor (the sprite's centre). Bottom-left, sitting above the text
-// box. Nudge these two if the bust needs repositioning.
-#define PORTRAIT_CENTER_X   52
-#define PORTRAIT_CENTER_Y   60
+// box. The visible 48x48 bust is centred inside the 64x64 sprite, so this is
+// the centre of that art. Nudge these two if the bust needs repositioning.
+#define PORTRAIT_CENTER_X   36
+#define PORTRAIT_CENTER_Y   76
 
 #include "data/portraits.h"
 
@@ -28,20 +29,15 @@
 static bool8 sPortraitActive;
 static u8 sPortraitSpriteId;
 
-// A 96x96 bust is drawn as a 3x3 grid of 32x32 OAM subsprites. gbagfx builds the
-// tiles with -mwidth 4 -mheight 4, i.e. nine contiguous 32x32 cells in reading
+// A 64x64 bust is drawn as a 2x2 grid of 32x32 OAM subsprites. gbagfx builds the
+// tiles with -mwidth 4 -mheight 4, i.e. four contiguous 32x32 cells in reading
 // order, so each cell is 16 tiles and the tileOffsets step by 16. .x/.y are the
 // cell's top-left offset from the sprite centre.
 static const struct Subsprite sPortraitSubsprites[] = {
-    { .x = -48, .y = -48, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =   0, .priority = 0 },
-    { .x = -16, .y = -48, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  16, .priority = 0 },
-    { .x =  16, .y = -48, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  32, .priority = 0 },
-    { .x = -48, .y = -16, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  48, .priority = 0 },
-    { .x = -16, .y = -16, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  64, .priority = 0 },
-    { .x =  16, .y = -16, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  80, .priority = 0 },
-    { .x = -48, .y =  16, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  96, .priority = 0 },
-    { .x = -16, .y =  16, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 112, .priority = 0 },
-    { .x =  16, .y =  16, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 128, .priority = 0 },
+    { .x = -32, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  0, .priority = 0 },
+    { .x =   0, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 16, .priority = 0 },
+    { .x = -32, .y =   0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 32, .priority = 0 },
+    { .x =   0, .y =   0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 48, .priority = 0 },
 };
 
 static const struct SubspriteTable sPortraitSubspriteTable[] = {

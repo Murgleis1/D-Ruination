@@ -1405,6 +1405,12 @@ u16 GetRivalAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 
 u16 GetPlayerAvatarGraphicsIdByStateIdAndGender(u8 state, u8 gender)
 {
+    // Dreamstone Ruination: the player character is Osrid. Use his masked
+    // overworld sprite for the normal walking state so he is Osrid from the
+    // first drawn frame (no Brendan flash). Bike/surf states keep the base
+    // graphics; those are unused in Chapter 1.
+    if (state == PLAYER_AVATAR_STATE_NORMAL)
+        return OBJ_EVENT_GFX_OSRID;
     return sPlayerAvatarGfxIds[state][gender];
 }
 
