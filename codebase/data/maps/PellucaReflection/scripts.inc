@@ -13,6 +13,7 @@ PellucaReflection_Cutscene::
 	applymovement OBJ_EVENT_ID_PLAYER, PellucaReflection_FaceDown
 	waitmovement 0
 	delay 40
+	msgbox PellucaReflection_LetterIntro, MSGBOX_DEFAULT
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 	msgbox PellucaReflection_LetterA, MSGBOX_DEFAULT
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
@@ -39,8 +40,11 @@ PellucaReflection_FaceDown:
 	face_down
 	step_end
 
+PellucaReflection_LetterIntro:
+	.string "You have received a letter.$"
+
 PellucaReflection_LetterA:
-	.string "My Prince. Far too long has\npassed since your last\lletter.\pWord of your condition\nreached me not long ago,\palong with the truth of\nwhat happened during the\pSevii campaign. I will not\ninsult you by calling it\panything less than a\ntravesty.\pBoran Surge's negligence\nhas earned my fury, as has\pthe choice to fight Kanto\nand Johto at once. I have\pmade it known to your\nsuperiors in terms they\lwill not soon forget.$"
+	.string "My Prince. Far too long has\npassed since your last\lletter.\pWord of your condition\nreached me not long ago,\palong with the truth of\nwhat happened during the\pSevii campaign. I will not\ninsult you by calling it\panything less than a\ntravesty.\pThere is no shortage of\nfolly and negligence from\pthose around and above you,\nmy Prince. Your superior\pofficer and handler Boran\nSurge's choice to\poverextend and strike Kanto\nand Johto across two\pseparate fronts has\nresulted in nothing but\ploss. I have made my wrath\nknown to your commanders,\pand I have been assured\nthat he will be dealt with.\pThis does not reverse the\nharms done to you or\pjustify it, but it is a\nfair starting point.$"
 
 PellucaReflection_LetterB:
 	.string "I did not write to you in\nanger alone. From this day\pyou are reassigned to serve\nunder my authority as\pVizier of Education, and\nraised to the rank of\lRainhawk.\pThe youngest to hold it in\nall of Cormoria's history.\lYounger even than “him”.$"
