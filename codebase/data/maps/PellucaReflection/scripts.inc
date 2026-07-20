@@ -40,13 +40,13 @@ PellucaReflection_FaceDown:
 	step_end
 
 PellucaReflection_LetterA:
-	.string "My Prince, it has been far\ntoo long since our last\pcorrespondence.\pWord has reached me of your\ncurrent physical condition\pin light of what happened\nduring the Sevii campaign.\pIt is sheer travesty.\pMy fury at Boran Surge's\nnegligence and the\pincompetence of his\ncommanding officers in\ptheir choice of strategy\nagainst both Kanto and\pJohto is a fury I cannot\ntranscribe here in written\pform, for the very ink\nwould turn to fire if I\pwere to try.\pAs you can imagine, I have\nmade my displeasure to your\psuperiors excruciatingly\nknown.$"
+	.string "My Prince. Far too long has\npassed since your last\lletter.\pWord of your condition\nreached me not long ago,\palong with the truth of\nwhat happened during the\pSevii campaign. I will not\ninsult you by calling it\panything less than a\ntravesty.\pBoran Surge's negligence\nhas earned my fury, as has\pthe choice to fight Kanto\nand Johto at once. I have\pmade it known to your\nsuperiors in terms they\lwill not soon forget.$"
 
 PellucaReflection_LetterB:
-	.string "You will be given full\ndetails later, I will say\pthat in brief, you are now\nreassigned formally to\pservice under my authority\nas Vizier Of Education,\palong with an honorable\npromotion to the rank of\pRainhawk.\pYou will be the youngest in\nCormoria's history to\pachieve this rank...yes,\neven younger than “him”.$"
+	.string "I did not write to you in\nanger alone. From this day\pyou are reassigned to serve\nunder my authority as\pVizier of Education, and\nraised to the rank of\lRainhawk.\pThe youngest to hold it in\nall of Cormoria's history.\lYounger even than “him”.$"
 
 PellucaReflection_LetterC:
-	.string "I will see you at my\nlaboratories soon. I am\pmaking arrangements with\nthe captain of the Pale\pVeluza to receive you, so\ninquire with General\pAlbrecht for additional\ndetails. By the time you\preceive this, he will have\nmore to share with you.\pP.S. Please burn this\nletter as soon as you have\pdrafted your acceptance, as\nwe must minimize the paper\ptrail. There are many eyes\nin places even I cannot\pgrasp.\pPlease sign your response\nwith the name that only\p“you” know, so I may know\nthis was not intercepted.\pThe Templar near your\ncurrent base of operations\pshould be able to deliver\nyour response to me\pdirectly.$"
+	.string "Come to my laboratories as\nsoon as you are able. The\pcaptain of the Pale Veluza\nwill carry you to me, and\pGeneral Albrecht holds the\nrest of your instructions.\pSign your reply with the\nname only “you” know, so I\pmay be certain it is truly\nfrom you. The Templar near\pyour post will place it in\nmy hand, and no other's.\pThen burn this letter. We\ncan leave no trail. Matters\pat home have grown more\ndelicate than they appear,\pand there are eyes in\nplaces even I cannot reach.$"
 
 PellucaReflection_LetterD:
 	.string "My dearest regards,\nCadmus Umbra$"
