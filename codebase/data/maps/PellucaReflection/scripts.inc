@@ -27,6 +27,7 @@ PellucaReflection_Cutscene::
 	special DrDoPlayerNaming
 	waitstate
 	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+	special DrSetPrinceNameplate
 	msgbox PellucaReflection_Reply, MSGBOX_DEFAULT
 	hideportrait
 	delay 40
@@ -44,16 +45,16 @@ PellucaReflection_LetterIntro:
 	.string "You have received a letter.$"
 
 PellucaReflection_LetterA:
-	.string "My Prince. Far too long has\npassed since your last\lletter.\pWord of your condition\nreached me not long ago,\palong with the truth of\nwhat happened during the\pSevii campaign. I will not\ninsult you by calling it\panything less than a\ntravesty.\pThere is no shortage of\nfolly and negligence from\pthose around and above you,\nmy Prince. Your superior\pofficer and handler Boran\nSurge's choice to\poverextend and strike Kanto\nand Johto across two\pseparate fronts has\nresulted in nothing but\ploss. I have made my wrath\nknown to your commanders,\pand I have been assured\nthat he will be dealt with.\pThis does not reverse the\nharms done to you or\pjustify it, but it is a\nfair starting point.$"
+	.string "My Prince....far too long\nhas passed since our last\pletter over a year ago. It\nwas before you were even\passigned to your formal\nunit, if I'm not mistaken.\pWord of your condition has\nreached me, along with the\ptruth of what happened\nduring the Sevii campaign.\pI hear you now wear a mask\nto cover your burns, and I\pwill not insult you by\ncalling this anything less\lthan a travesty.\pThere is no shortage of\nfolly and negligence around\pyou, my Prince. Your\nsuperior officer and\phandler Boran Surge's\nfoolish choice to strike\pKanto and Johto across two\nseparate fronts has\presulted in countless\nlosses.\pI have made my wrath known\nto your commanders, and I\phave been assured that he\nwill be dealt with. This\pdoes not reverse the harms\nthat were done to you, but\phe will wish he was dead by\nthe end of this process.$"
 
 PellucaReflection_LetterB:
-	.string "I did not write to you in\nanger alone. From this day\pyou are reassigned to serve\nunder my authority as\pVizier of Education, and\nraised to the rank of\lRainhawk.\pThe youngest to hold it in\nall of Cormoria's history.\lYounger even than “him”.$"
+	.string "However, I have not written\nto you merely out of\pfrustration and anger. As a\nresult of my demands, you\pare now formally reassigned\nto serve under my direct\pcommand as Vizier of\nEducation, and raised to\pthe rank of Rainhawk. You\nhave been discharged from\pthe front lines with the\nhighest of honors.\pFurthermore, you are now\nthe youngest to hold this\ptitle in all of Cormoria's\nhistory. Yes, younger even\pthan “him”. You know of\nwhom I speak. This comes\pwith numerous benefits,\nthough we will speak more\lon that later.$"
 
 PellucaReflection_LetterC:
-	.string "Come to my laboratories as\nsoon as you are able. The\pcaptain of the Pale Veluza\nwill carry you to me, and\pGeneral Albrecht holds the\nrest of your instructions.\pSign your reply with the\nname only “you” know, so I\pmay be certain it is truly\nfrom you. The Templar near\pyour post will place it in\nmy hand, and no other's.\pThen burn this letter. We\ncan leave no trail. Matters\pat home have grown more\ndelicate than they appear,\pand there are eyes in\nplaces even I cannot reach.$"
+	.string "My request is this. Please\ncome to see me at my\plaboratory as soon as you\nare able. General Albrecht\pwill fill you in on\nadditional details of your\pdeparture aboard the Pale\nVeluza which will be\pdocking near you soon, so\nspeak with him as soon as\lyou can.\pSign your reply with the\nname only “you” know, so I\pmay be certain of your\n“true” identity. The\pTemplar who serves near\nyour barracks will deliver\lit to my hand directly.\pAlso...please burn this\nletter. We must leave no\ptrail. Matters in your\nhomeland of Cormoria have\pgrown more delicate than\nthey appear, and there are\peyes in places even I\ncannot see. Be vigilant.$"
 
 PellucaReflection_LetterD:
-	.string "My dearest regards,\nCadmus Umbra$"
+	.string "Best regards,\nCadmus Umbra$"
 
 PellucaReflection_SignPrompt:
 	.string "You take up your pen to\ndraft your reply.$"
