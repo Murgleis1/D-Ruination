@@ -904,7 +904,7 @@ The intent is that Jousteel hits *like a freight train* when it actually moves �
 - **Weaknesses:** Electric (×2), Fighting (×2)
 - **Excellent defensive typing** — combined with Levitate erasing the Ground 2× weakness, Jousteel's only true 2× weaknesses are Electric and Fighting
 
-**Cadmus Umbra's personal Jousteel — battle specifications:**
+**Cadmus Umbra's personal Jousteel (Neptune) — battle specifications:**
 
 `[OPEN]` Specific moveset, item, exact stat allocation choices for Cadmus's personal Jousteel (the in-game opponent encounter in the Vizier gauntlet). Likely includes Tachyon Cutter, Behemoth Bash (if Cadmus has taught it — unusual but possible), Recover, and one coverage move.
 

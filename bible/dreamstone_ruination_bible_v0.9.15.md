@@ -2227,12 +2227,12 @@ During one of Osrid's return visits to the lab in the early-to-mid game, **condi
 
 **House Umbra's noble-family Pokemon-type specialty is Water.** Water as the type of *reflection, depth, philosophy* — perfectly aligned with the Pokemon Philosopher identity. Water gives the family defensive coverage and access to the Steel/Fairy/Water meta the Cormorian aristocracy plays in.
 
-**Cadmus Umbra's ace is Jousteel** (Water/Steel; see Section 9 — The Jousteel Line for full Pokemon data). Jousteel is *the* Pokemon species most closely identified with House Umbra — and uniquely so:
+**Cadmus Umbra's ace is Jousteel**, nicknamed **Neptune** `[LOCKED]` (Water/Steel; see Section 9 — The Jousteel Line for full Pokemon data). Jousteel is *the* Pokemon species most closely identified with House Umbra — and uniquely so:
 
 - **The Jousteel line is cultivated *exclusively* by the Umbra family.** No other Cormorian noble house, no commoner, no foreign trainer, no wild population has access to the Jousteel line. (Even Archbishop **Ambrose Caymen** once tried to coerce the family into surrendering a Joustroll egg — he coveted a Jousteel of his own; House Umbra refused. See Section 7 — Ambrose.)
 - **The Jousteel line is the only known Pokemon species that exists *only* in Cormoria** (besides Keerin in legends).
 - The line is *not* a singular individual ace passed down generationally — it is a *bred lineage* the Umbra family maintains as a family project. Each Umbra raises their own Joustroll → Jousteel partnership.
-- Cadmus's specific Jousteel is his lifelong partner, raised from his Joustroll days. Their bond is *long-term family-tradition deep.*
+- Cadmus's specific Jousteel (nicknamed **Neptune**) is his lifelong partner, raised from his Joustroll days. Their bond is *long-term family-tradition deep.*
 
 **Implications for Cormorian Pokemon ecology:**
 - The Umbra family's cultivation of this line is a centuries-old responsibility
@@ -2284,7 +2284,7 @@ At the egg-discovery beat, the player chooses one of two responses to the line *
 
 | Slot | Pokémon | Type | Ability | Item | Moves | Role |
 |---|---|---|---|---|---|---|
-| Ace | **Jousteel** | Water/Steel | Water Bubble | Mystic Water | Aqua Cutter / Tachyon Cutter / Sacred Sword / King's Shield | Freight train — moves first under TR, ~3× Water in rain (Water Bubble ×2 + rain); Tachyon Cutter is the never-miss Steel STAB |
+| Ace | **Jousteel** (Neptune) | Water/Steel | Water Bubble | Mystic Water | Aqua Cutter / Tachyon Cutter / Sacred Sword / King's Shield | Freight train — moves first under TR, ~3× Water in rain (Water Bubble ×2 + rain); Tachyon Cutter is the never-miss Steel STAB |
 | 2 | **Politoed** | Water | Drizzle | Damp Rock | Scald / Encore / Ice Beam / Toxic | Rain engine (8 turns) + disruptor |
 | 3 | **Slowking** | Water/Psychic | Regenerator | Leftovers | Trick Room / Scald / Future Sight / Slack Off | Primary TR setter; sticky Regenerator pivot |
 | 4 | **Lapras** | Water/Ice | Water Absorb | Leftovers | Trick Room / Freeze-Dry / Surf / Perish Song | Second TR setter; Water immunity (heals); Freeze-Dry breaks opposing Water walls; the patient closer |
@@ -2583,7 +2583,7 @@ Ambrose joins **Silas (corrupted, redeemed in death) and Glaive (vengeful, opene
 Per Section 11 — Ace-Bonding Overworld Interactions, all four Viziers qualify for the project-level ace-bonding pattern as named recurring overworld characters with locked or imminent-lock aces. The interaction tone for each Vizier is *distinct*, reflecting that character's relationship to their ace:
 
 **Cadmus Umbra + Jousteel `[LOCKED v0.9.8 — narrative; engineering OPEN]`**
-- Cadmus is normally surrounded by *both* of his current-generation Jousteel-line companions: his ace **Jousteel** (Water/Steel, his lifelong partner) and the **overworld attendant Joustroll** (the second of the three Cadmus-generation eggs to hatch — both are pre-Trial-4 active in his lab, see Section 9 — Joustroll/Jousteel Line).
+- Cadmus is normally surrounded by *both* of his current-generation Jousteel-line companions: his ace **Jousteel** (nicknamed Neptune; Water/Steel, his lifelong partner) and the **overworld attendant Joustroll** (the second of the three Cadmus-generation eggs to hatch — both are pre-Trial-4 active in his lab, see Section 9 — Joustroll/Jousteel Line).
 - Interaction tone: **familial-philosophical warmth.** Cadmus speaks to Jousteel as a *colleague-companion*, often consulting it on philosophical points as if expecting a thoughtful response. The Joustroll-attendant is treated more like an apprentice — younger, present in the lab, occasionally given small responsibilities ("Joustroll, fetch that text for me, would you?"). The bond is **multi-generational pastoral**: Cadmus's care for the Jousteel line is centuries-deep family responsibility lived as everyday gentle attentiveness.
 - `[OPEN]` Specific dialog beats — multiple appearances expected across Acts I through V (the lab is a recurring return-location for Osrid).
 
@@ -6075,7 +6075,7 @@ The intent is that Jousteel hits *like a freight train* when it actually moves �
 - **Weaknesses:** Electric (×2), Fighting (×2)
 - **Excellent defensive typing** — combined with Levitate erasing the Ground 2× weakness, Jousteel's only true 2× weaknesses are Electric and Fighting
 
-**Cadmus Umbra's personal Jousteel — battle specifications:**
+**Cadmus Umbra's personal Jousteel (Neptune) — battle specifications:**
 
 `[OPEN]` Specific moveset, item, exact stat allocation choices for Cadmus's personal Jousteel (the in-game opponent encounter in the Vizier gauntlet). Likely includes Tachyon Cutter, Behemoth Bash (if Cadmus has taught it — unusual but possible), Recover, and one coverage move.
 
