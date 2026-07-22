@@ -460,8 +460,6 @@ Mugshot: Yellow
 Rockruff
 Level: 12
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
-- Tackle
-- Leer
 - Sand Attack
 - Rock Throw
 
@@ -489,8 +487,6 @@ Mugshot: Yellow
 
 Rockruff
 Level: 12
-- Tackle
-- Leer
 - Sand Attack
 - Rock Throw
 
@@ -24124,3 +24120,150 @@ Double Battle: No
 Kyogre
 Level: 5
 IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_DR_EDEN_LAB_1 ===
+Name: Eden
+Difficulty: Easy
+Class: Brigand
+Pic: Eden
+Gender: Female
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Pilfer (Nickit) (M)
+Level: 5
+Ability: Prankster
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tail Whip
+- Fake Tears
+- Beat Up
+- Tackle
+
+Tinkatink
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_DR_EDEN_LAB_2 ===
+Name: Eden
+Difficulty: Easy
+Class: Brigand
+Pic: Eden
+Gender: Female
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Pilfer (Nickit) (M)
+Level: 5
+Ability: Prankster
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tail Whip
+- Fake Tears
+- Beat Up
+- Tackle
+
+Frigibax
+Level: 5
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_DR_EDEN_LAB_3 ===
+Name: Eden
+Difficulty: Easy
+Class: Brigand
+Pic: Eden
+Gender: Female
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Pilfer (Nickit) (M)
+Level: 5
+Ability: Prankster
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tail Whip
+- Fake Tears
+- Beat Up
+- Tackle
+
+Teddiursa
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_DR_EDEN_LAB_1 ===
+Name: Eden
+Difficulty: Normal
+Class: Brigand
+Pic: Eden
+Gender: Female
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Pilfer (Nickit) (M)
+Level: 5
+Ability: Prankster
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tail Whip
+- Fake Tears
+- Beat Up
+- Tackle
+
+Tinkatink
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_DR_EDEN_LAB_2 ===
+Name: Eden
+Difficulty: Normal
+Class: Brigand
+Pic: Eden
+Gender: Female
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Pilfer (Nickit) (M)
+Level: 5
+Ability: Prankster
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tail Whip
+- Fake Tears
+- Beat Up
+- Tackle
+
+Frigibax
+Level: 5
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+
+=== TRAINER_DR_EDEN_LAB_3 ===
+Name: Eden
+Difficulty: Normal
+Class: Brigand
+Pic: Eden
+Gender: Female
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Pilfer (Nickit) (M)
+Level: 5
+Ability: Prankster
+Shiny: Yes
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+- Tail Whip
+- Fake Tears
+- Beat Up
+- Tackle
+
+Teddiursa
+Level: 5
+IVs: 0 HP / 0 Atk / 0 Def / 0 SpA / 0 SpD / 0 Spe
+

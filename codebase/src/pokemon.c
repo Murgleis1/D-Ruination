@@ -904,6 +904,15 @@ static const struct SpriteTemplate sTrainerBackSpriteTemplates[] =
         .affineAnims = gAffineAnims_BattleSpritePlayerSide,
         .callback = SpriteCB_BattleSpriteStartSlideLeft,
     },
+    [TRAINER_BACK_PIC_OSRID] = {
+        .tileTag = TAG_NONE,
+        .paletteTag = 0,
+        .oam = &gOamData_BattleSpritePlayerSide,
+        .anims = NULL,
+        .images = gTrainerBackPicTable_Osrid,
+        .affineAnims = gAffineAnims_BattleSpritePlayerSide,
+        .callback = SpriteCB_BattleSpriteStartSlideLeft,
+    },
 
     [TRAINER_BACK_PIC_MUNUCU] = {
         .tileTag = TAG_NONE,
@@ -6443,6 +6452,11 @@ u16 FacilityClassToPicIndex(u16 facilityClass)
 
 u16 PlayerGenderToFrontTrainerPicId(u8 playerGender)
 {
+    // Dreamstone Ruination: the player is always Osrid, so every front-pic
+    // surface (main menu Continue box, Pokedex size screen, Hall of Fame,
+    // battle transitions) uses his sprite rather than a gender default.
+    return TRAINER_PIC_OSRID;
+
     switch (playerGender)
     {
         case MALE:

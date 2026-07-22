@@ -21052,9 +21052,10 @@ static const struct LevelUpMove sEspathraLevelUpLearnset[] = {
 // Double Slap and Covet are retyped globally to Fairy (see moves_info.h)
 // so non-Pixilate players still have Fairy physical options early.
 static const struct LevelUpMove sTinkatinkLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
-    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_SLAP),
-    LEVEL_UP_MOVE( 5, MOVE_BABY_DOLL_EYES),
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 6, MOVE_DOUBLE_SLAP),
+    LEVEL_UP_MOVE( 7, MOVE_BABY_DOLL_EYES),
     LEVEL_UP_MOVE( 8, MOVE_METAL_CLAW),
     LEVEL_UP_MOVE(13, MOVE_COVET),
     LEVEL_UP_MOVE(19, MOVE_LOW_SWEEP),
@@ -21068,13 +21069,13 @@ static const struct LevelUpMove sTinkatinkLevelUpLearnset[] = {
     LEVEL_UP_MOVE(59, MOVE_SHELL_SMASH),
     LEVEL_UP_MOVE(66, MOVE_CLOSE_COMBAT),
     LEVEL_UP_MOVE(77, MOVE_SUNSTEEL_STRIKE),
-    LEVEL_UP_END
 };
 
 static const struct LevelUpMove sTinkatuffLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
-    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_SLAP),
-    LEVEL_UP_MOVE( 5, MOVE_BABY_DOLL_EYES),
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 6, MOVE_DOUBLE_SLAP),
+    LEVEL_UP_MOVE( 7, MOVE_BABY_DOLL_EYES),
     LEVEL_UP_MOVE( 8, MOVE_METAL_CLAW),
     LEVEL_UP_MOVE(13, MOVE_COVET),
     LEVEL_UP_MOVE(19, MOVE_LOW_SWEEP),
@@ -21088,13 +21089,13 @@ static const struct LevelUpMove sTinkatuffLevelUpLearnset[] = {
     LEVEL_UP_MOVE(59, MOVE_SHELL_SMASH),
     LEVEL_UP_MOVE(66, MOVE_CLOSE_COMBAT),
     LEVEL_UP_MOVE(77, MOVE_SUNSTEEL_STRIKE),
-    LEVEL_UP_END
 };
 
 static const struct LevelUpMove sTinkatonLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_FAKE_OUT),
-    LEVEL_UP_MOVE( 1, MOVE_DOUBLE_SLAP),
-    LEVEL_UP_MOVE( 5, MOVE_BABY_DOLL_EYES),
+    LEVEL_UP_MOVE( 1, MOVE_POUND),
+    LEVEL_UP_MOVE( 1, MOVE_GROWL),
+    LEVEL_UP_MOVE( 6, MOVE_DOUBLE_SLAP),
+    LEVEL_UP_MOVE( 7, MOVE_BABY_DOLL_EYES),
     LEVEL_UP_MOVE( 8, MOVE_METAL_CLAW),
     LEVEL_UP_MOVE(13, MOVE_COVET),
     LEVEL_UP_MOVE(19, MOVE_LOW_SWEEP),
@@ -21108,7 +21109,6 @@ static const struct LevelUpMove sTinkatonLevelUpLearnset[] = {
     LEVEL_UP_MOVE(59, MOVE_SHELL_SMASH),
     LEVEL_UP_MOVE(66, MOVE_CLOSE_COMBAT),
     LEVEL_UP_MOVE(77, MOVE_SUNSTEEL_STRIKE),
-    LEVEL_UP_END
 };
 #endif //P_FAMILY_TINKATINK
 
@@ -21780,6 +21780,7 @@ static const struct LevelUpMove sIronThornsLevelUpLearnset[] = {
 static const struct LevelUpMove sFrigibaxLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 3, MOVE_LEER),
+    LEVEL_UP_MOVE( 5, MOVE_MUD_SLAP),
     LEVEL_UP_MOVE( 7, MOVE_ICE_SHARD),
     LEVEL_UP_MOVE(11, MOVE_BREAKING_SWIPE),
     LEVEL_UP_MOVE(15, MOVE_METAL_CLAW),
@@ -21801,6 +21802,7 @@ static const struct LevelUpMove sArctibaxLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 0, MOVE_ICE_FANG),
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 3, MOVE_LEER),
+    LEVEL_UP_MOVE( 5, MOVE_MUD_SLAP),
     LEVEL_UP_MOVE( 7, MOVE_ICE_SHARD),
     LEVEL_UP_MOVE(11, MOVE_BREAKING_SWIPE),
     LEVEL_UP_MOVE(15, MOVE_METAL_CLAW),
@@ -21821,6 +21823,7 @@ static const struct LevelUpMove sArctibaxLevelUpLearnset[] = {
 static const struct LevelUpMove sBaxcaliburLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 3, MOVE_LEER),
+    LEVEL_UP_MOVE( 5, MOVE_MUD_SLAP),
     LEVEL_UP_MOVE( 7, MOVE_ICE_SHARD),
     LEVEL_UP_MOVE(11, MOVE_BREAKING_SWIPE),
     LEVEL_UP_MOVE(15, MOVE_METAL_CLAW),

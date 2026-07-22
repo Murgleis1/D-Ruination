@@ -983,6 +983,42 @@ bool8 ScriptMenu_ShowPokemonPic(u16 species, u8 x, u8 y)
     }
 }
 
+bool8 ScriptMenu_ShowPokemonPicShiny(u16 species, u8 x, u8 y)
+{
+    u8 taskId;
+    u8 spriteId;
+
+    if (FindTaskIdByFunc(Task_PokemonPicWindow) != TASK_NONE)
+    {
+        return FALSE;
+    }
+    else
+    {
+        spriteId = CreateMonSprite_PicBoxShiny(species, x * 8 + 40, y * 8 + 40, 0);
+        taskId = CreateTask(Task_PokemonPicWindow, 0x50);
+        gTasks[taskId].tWindowId = CreateWindowFromRect(x, y, 8, 8);
+        gTasks[taskId].tState = 0;
+        gTasks[taskId].tMonSpecies = species;
+        gTasks[taskId].tMonSpriteId = spriteId;
+        gSprites[spriteId].callback = SpriteCallbackDummy;
+        gSprites[spriteId].oam.priority = 0;
+        SetStandardWindowBorderStyle(gTasks[taskId].tWindowId, TRUE);
+        ScheduleBgCopyTilemapToVram(0);
+        return TRUE;
+    }
+}
+
+// Dreamstone Ruination: showmonpicshiny - draws the SHINY palette, so the
+// Heraldic/Bloodmoon/Dragonmaul starters match the mon the player is given.
+void Script_ShowMonPicShiny(struct ScriptContext *ctx)
+{
+    u16 species = ScriptReadHalfword(ctx);
+    u8 x = ScriptReadByte(ctx);
+    u8 y = ScriptReadByte(ctx);
+
+    ScriptMenu_ShowPokemonPicShiny(species, x, y);
+}
+
 bool8 (*ScriptMenu_HidePokemonPic(void))(void)
 {
     u8 taskId = FindTaskIdByFunc(Task_PokemonPicWindow);

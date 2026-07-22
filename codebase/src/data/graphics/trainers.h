@@ -281,6 +281,8 @@ const u32 gTrainerFrontPic_RubySapphireMay[] = INCBIN_U32("graphics/trainers/fro
 const u32 gTrainerPalette_RubySapphireMay[] = INCBIN_U32("graphics/trainers/palettes/may_rs.gbapal.lz");
 
 const u8 gTrainerBackPic_Brendan[] = INCBIN_U8("graphics/trainers/back_pics/brendan.4bpp");
+const u8 gTrainerBackPic_Osrid[] = INCBIN_U8("graphics/trainers/back_pics/osrid.4bpp");
+const u32 gTrainerPalette_Osrid_Back[] = INCBIN_U32("graphics/trainers/back_pics/osrid.gbapal.lz");
 const u32 gTrainerPalette_Brendan_Back[] = INCBIN_U32("graphics/trainers/back_pics/brendan.gbapal.lz");
 const u8 gTrainerBackPic_May[] = INCBIN_U8("graphics/trainers/back_pics/may.4bpp");
 const u32 gTrainerPalette_May_Back[] = INCBIN_U32("graphics/trainers/back_pics/may.gbapal.lz");
@@ -667,6 +669,14 @@ static const union AnimCmd *const sBackAnims_Kanto[] =
     sAnimCmd_Point_HGSS_Red_Leaf,
 };
 
+const struct SpriteFrameImage gTrainerBackPicTable_Osrid[] =
+{
+    {gTrainerBackPic_Osrid + TRAINER_PIC_SIZE * 0, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Osrid + TRAINER_PIC_SIZE * 1, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Osrid + TRAINER_PIC_SIZE * 2, TRAINER_PIC_SIZE},
+    {gTrainerBackPic_Osrid + TRAINER_PIC_SIZE * 3, TRAINER_PIC_SIZE},
+};
+
 const struct SpriteFrameImage gTrainerBackPicTable_Brendan[] =
 {
     {gTrainerBackPic_Brendan + TRAINER_PIC_SIZE * 0, TRAINER_PIC_SIZE},
@@ -788,6 +798,7 @@ const struct TrainerBacksprite gTrainerBacksprites[] =
 {
     TRAINER_BACK_SPRITE(TRAINER_BACK_PIC_BRENDAN, 4, gTrainerBackPic_Brendan, gTrainerBackPicTable_Brendan, gTrainerPalette_Brendan_Back, sBackAnims_Hoenn),
     TRAINER_BACK_SPRITE(TRAINER_BACK_PIC_MAY, 4, gTrainerBackPic_May, gTrainerBackPicTable_May, gTrainerPalette_May_Back, sBackAnims_Hoenn),
+    TRAINER_BACK_SPRITE(TRAINER_BACK_PIC_OSRID, 4, gTrainerBackPic_Osrid, gTrainerBackPicTable_Osrid, gTrainerPalette_Osrid_Back, sBackAnims_Hoenn),
 
     //Custom characters
     TRAINER_BACK_SPRITE(TRAINER_BACK_PIC_MUNUCU, 4, gTrainerBackPic_Munucu, gTrainerBackPicTable_Munucu, gTrainerPalette_Munucu, sBackAnims_Hoenn),

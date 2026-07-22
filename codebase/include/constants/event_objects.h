@@ -292,6 +292,10 @@
 #define OBJ_EVENT_GFX_AMBROSE                      282
 #define OBJ_EVENT_GFX_TEMPLAR                      283
 
+// Dreamstone Ruination: named Pokemon used as overworld objects
+#define OBJ_EVENT_GFX_NEPTUNE                      OBJ_EVENT_GFX_SPECIES(JOUSTEEL)
+#define OBJ_EVENT_GFX_PILFER                       OBJ_EVENT_GFX_SPECIES_SHINY(NICKIT)
+
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)

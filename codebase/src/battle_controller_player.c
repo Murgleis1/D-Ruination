@@ -1961,7 +1961,7 @@ static u32 PlayerGetTrainerBackPicId(void)
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         trainerPicId = LinkPlayerGetTrainerPicId(GetMultiplayerId());
     else
-        trainerPicId = gSaveBlock2Ptr->playerGender + TRAINER_BACK_PIC_BRENDAN;
+        trainerPicId = TRAINER_BACK_PIC_OSRID; // Dreamstone Ruination: the player is always Osrid
 
     return trainerPicId;
 }
@@ -2371,7 +2371,7 @@ static void PlayerHandleOneReturnValue_Duplicate(u32 battler)
 
 static void PlayerHandleIntroTrainerBallThrow(u32 battler)
 {
-    const u32 *trainerPal = gTrainerBacksprites[gSaveBlock2Ptr->playerGender].palette.data;
+    const u32 *trainerPal = gTrainerBacksprites[TRAINER_BACK_PIC_OSRID].palette.data;
     BtlController_HandleIntroTrainerBallThrow(battler, 0xD6F8, trainerPal, 31, Intro_TryShinyAnimShowHealthbox);
 }
 

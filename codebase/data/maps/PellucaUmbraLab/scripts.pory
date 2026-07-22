@@ -1,0 +1,238 @@
+raw`
+    .set LOCALID_DRL_CADMUS,     1
+    .set LOCALID_DRL_BALL_FRIG,  2
+    .set LOCALID_DRL_BALL_TEDD,  3
+    .set LOCALID_DRL_BALL_TINK,  4
+    .set LOCALID_DRL_EDEN,       5
+    .set LOCALID_DRL_NEPTUNE,    6
+    .set LOCALID_DRL_PILFER,     7
+`
+
+// ================= DREAMSTONE RUINATION - Chapter 1, Beat 2 & 3 =================
+// Lab briefing -> three-starter selection -> Eden's theft, fight, and jailing.
+// VAR_UNUSED_0x40A1 = lab stage (0 fresh, 1 briefed/choosing, 2 done)
+// VAR_UNUSED_0x4083 = starter picked (1 Frigibax, 2 Teddiursa, 3 Tinkatink)
+
+mapscripts PellucaUmbraLab_MapScripts{
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_UNUSED_0x886)
+        setflag(FLAG_UNUSED_0x887)
+        setflag(FLAG_UNUSED_0x88E)
+        if (var(VAR_UNUSED_0x40A1) == 1){
+            clearflag(FLAG_UNUSED_0x885)
+        } else {
+            setflag(FLAG_UNUSED_0x885)
+        }
+        return
+    }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_UNUSED_0x40A1, 0: DR_Lab_Briefing
+    ]
+}
+
+script DR_Lab_Briefing{
+    lockall
+    setvar(VAR_UNUSED_0x40A1, 1)
+    delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2))
+    waitmovement(0)
+    applymovement(LOCALID_DRL_CADMUS, moves(face_down))
+    waitmovement(0)
+    delay(20)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Welcome back to Pelluca Valley, my Prince. As you can see, the place is still a mess.\pYou and Rhydia were just 10 years old the last time I let you roam around. How does it feel?"))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("... I remember it well, but it feels like it was a different life. It feels strange to be here, like I'm somehow out of place."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("I'm sure it does feel strange. You've grown into a fine young man, albeit under challenging circumstances.\pTell me... what do you think of Pokémon, my Prince?"))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("... I don't have any strong feelings towards them. I directed soldiers who trained and used Pokémon on the battlefield.\pBut I was never given any formal instruction on being a Trainer. Why do you ask?"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Because in order for you to become what Cormoria needs you to be, you will need to fully utilize the power that comes from bonding with Pokémon.\pI know a thing or two about what you have experienced in your last few years, especially if someone like Boran Surge was your commanding officer.\pI simply have this to say: you WILL need to unlearn what Surge and anyone else taught you about Pokémon, starting from today. And it begins with this-"))
+    hideportrait
+    closemessage
+    delay(20)
+    applymovement(LOCALID_DRL_CADMUS, moves(walk_left * 3 walk_up * 1 face_up))
+    waitmovement(0)
+    delay(20)
+    clearflag(FLAG_UNUSED_0x885)
+    addobject(LOCALID_DRL_BALL_FRIG)
+    playse(SE_BALL_TRAY_ENTER)
+    delay(14)
+    addobject(LOCALID_DRL_BALL_TEDD)
+    playse(SE_BALL_TRAY_ENTER)
+    delay(14)
+    addobject(LOCALID_DRL_BALL_TINK)
+    playse(SE_BALL_TRAY_ENTER)
+    delay(24)
+    applymovement(LOCALID_DRL_CADMUS, moves(walk_down * 1 walk_right * 3 face_down))
+    waitmovement(0)
+    delay(16)
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("... are those starter Pokémon? I've heard that Cormorian noble children are given one and a Trainer certification by the Concordance every year.\pAre these the same kind?"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Not exactly. These three are exceptionally special. Go look at each one and see which one catches your fancy.\pI attached notes to each Ball for you to learn more about them before deciding."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("... alright."))
+    hideportrait
+    releaseall
+    end
+}
+
+script DR_Lab_BallFrigibax{
+    lock
+    faceplayer
+    showmonpicshiny(SPECIES_FRIGIBAX, 10, 3)
+    msgbox(format("Heraldic Frigibax\pHatched from an egg I found at Mt. Mirroh. It has unique coloring and powerful offensive capabilities with Dragon and Ice type attacks, but it has a diverse movepool.\pMy research indicates that it's final form, Baxcaliber, is so rare on the continent that only one other has been seen in the past 200 years.\pOne document I found hypothesized that it can evolve further beyond with the help of a special stone, but this information is not confirmed."))
+    hidemonpic
+    msgbox(format("Take the Heraldic Frigibax as your partner?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        setvar(VAR_UNUSED_0x4083, 1)
+        givemon(SPECIES_FRIGIBAX, 5, item=ITEM_SITRUS_BERRY, isShiny=TRUE)
+        removeobject(LOCALID_DRL_BALL_FRIG)
+        closemessage
+        goto(DR_Lab_Theft)
+    }
+    release
+    end
+}
+
+script DR_Lab_BallTeddiursa{
+    lock
+    faceplayer
+    showmonpic(SPECIES_TEDDIURSA, 10, 3)
+    msgbox(format("Bloodmoon Teddiursa\pThe Blood Moon variant of the Teddiursa has been whispered about in legends for over a century, but I only found this cub by chance during a survey I conducted on a small forested island to the far east of Cormoria one year ago.\pMuch about this long rumored species is a mystery, but I surmise that they have a tendency toward high Special Attack and Defense stats, with a movepool and evolutionary path reflecting these traits."))
+    hidemonpic
+    msgbox(format("Take the Bloodmoon Teddiursa as your partner?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        setvar(VAR_UNUSED_0x4083, 2)
+        givemon(SPECIES_TEDDIURSA, 5, item=ITEM_SITRUS_BERRY)
+        removeobject(LOCALID_DRL_BALL_TEDD)
+        closemessage
+        goto(DR_Lab_Theft)
+    }
+    release
+    end
+}
+
+script DR_Lab_BallTinkatink{
+    lock
+    faceplayer
+    showmonpic(SPECIES_TINKATINK, 10, 3)
+    msgbox(format("Dragonmaul Tinkatuff\pWhile visiting the dunes north of Mt. Ceram several months ago, I was extremely fortunate enough to run across a wayward egg of this extremely rare Steel/Fairy species.\pSupposedly the Tinkatuff clan that dwell in Cormoria's deserts are all uniquely colored and learn moves that make them exceptionally suited to hunting dragons and even other Fairy-types.\pA fellow academic informed me that Cormorian Tinkaton can theoretically become even stronger by equipping some sort of unique material, but I was not able to confirm this rumor."))
+    hidemonpic
+    msgbox(format("Take the Dragonmaul Tinkatuff as your partner?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == 1){
+        setvar(VAR_UNUSED_0x4083, 3)
+        givemon(SPECIES_TINKATINK, 5, item=ITEM_SITRUS_BERRY)
+        removeobject(LOCALID_DRL_BALL_TINK)
+        closemessage
+        goto(DR_Lab_Theft)
+    }
+    release
+    end
+}
+
+script DR_Lab_Theft{
+    lockall
+    additem(ITEM_POTION, 1)
+    setvar(VAR_UNUSED_0x40A1, 2)
+    delay(20)
+    fadescreen(FADE_TO_BLACK)
+    delay(90)
+    setobjectxy(OBJ_EVENT_ID_PLAYER, 4, 10)
+    turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    clearflag(FLAG_UNUSED_0x886)
+    addobject(LOCALID_DRL_EDEN)
+    if (var(VAR_UNUSED_0x4083) == 1){ removeobject(LOCALID_DRL_BALL_TINK) }
+    if (var(VAR_UNUSED_0x4083) == 2){ removeobject(LOCALID_DRL_BALL_FRIG) }
+    if (var(VAR_UNUSED_0x4083) == 3){ removeobject(LOCALID_DRL_BALL_TEDD) }
+    delay(90)
+    fadescreen(FADE_FROM_BLACK)
+    delay(30)
+    delay(20)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_ANGER)
+    msgbox(format("What? How did the steam generator get cut off?"))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    msgbox(format("Sorry for the intrusion, boys! But on behalf of the Beads Of Ruin, I'm taking this 'mon for my team."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_ANGER)
+    msgbox(format("You just made the biggest mistake of your life, little girl. Do you know who I am?\pNeptune, block her escape path!"))
+    hideportrait
+    closemessage
+    clearflag(FLAG_UNUSED_0x887)
+    addobject(LOCALID_DRL_NEPTUNE)
+    playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
+    waitmoncry
+    delay(16)
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_down * 2 walk_left * 1 face_up))
+    waitmovement(0)
+    delay(20)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEGATIVE)
+    msgbox(format("So that's the one-of-kind special 'mon I was told about. Your reputation certainly precedes you, Vizier Umbra.\pBut I don't need a door to escape!"))
+    hideportrait
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_fast_left * 1 walk_fast_up * 1 face_left))
+    applymovement(LOCALID_DRL_EDEN, moves(face_right))
+    waitmovement(0)
+    delay(12)
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("I don't know who you are, but I will stop you here."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("You wish, mask-boy! Let's see what your made of! Pilfer, lets go!"))
+    hideportrait
+    closemessage
+    clearflag(FLAG_UNUSED_0x88E)
+    addobject(LOCALID_DRL_PILFER)
+    applymovement(LOCALID_DRL_PILFER, moves(face_right))
+    waitmovement(0)
+    playmoncry(SPECIES_NICKIT, CRY_MODE_NORMAL)
+    waitmoncry
+    delay(20)
+    if (var(VAR_UNUSED_0x4083) == 1){ trainerbattle_no_intro(TRAINER_DR_EDEN_LAB_1, DR_Lab_Text_EdenDefeat) }
+    if (var(VAR_UNUSED_0x4083) == 2){ trainerbattle_no_intro(TRAINER_DR_EDEN_LAB_2, DR_Lab_Text_EdenDefeat) }
+    if (var(VAR_UNUSED_0x4083) == 3){ trainerbattle_no_intro(TRAINER_DR_EDEN_LAB_3, DR_Lab_Text_EdenDefeat) }
+    lockall
+    delay(20)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("There's no way a novice could beat me. I even stole the Pokémon that was strong against yours.\pWho are you? No...WHAT are you?"))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("Nomad Alban. Rainhawk. That was a good battle, huh?"))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    msgbox(format("Hah...it actually was! We'll need to do it again sometime. See you soon-"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_ANGER)
+    msgbox(format("You aren't going anywhere."))
+    hideportrait
+    closemessage
+    playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
+    waitmoncry
+    delay(30)
+    fadescreen(FADE_TO_BLACK)
+    setflag(FLAG_UNUSED_0x885)
+    setflag(FLAG_UNUSED_0x886)
+    setflag(FLAG_UNUSED_0x887)
+    setflag(FLAG_UNUSED_0x88E)
+    warp(MAP_PELLUCA_TEMPLAR_MONASTERY, 6, 6)
+    waitstate
+    releaseall
+    end
+}
+
+text DR_Lab_Text_EdenDefeat{
+    format("Did I just lose against a nobody with zero battling experience? I really screwed this up.")
+}
+
+script PellucaUmbraLab_EventScript_Umbra{
+    lock
+    faceplayer
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Take the time you need. When you are ready, we will begin in earnest."))
+    hideportrait
+    release
+    end
+}

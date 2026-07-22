@@ -3916,6 +3916,10 @@ $(POKEMONGFXDIR)/orbeetle/overworld.4bpp: %.4bpp: %.png
 
 $(POKEMONGFXDIR)/nickit/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
+$(POKEMONGFXDIR)/jousteel/overworld.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+$(POKEMONGFXDIR)/joustroll/overworld.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
 
 $(POKEMONGFXDIR)/thievul/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4

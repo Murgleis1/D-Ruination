@@ -178,6 +178,7 @@
 #define TRAINER_BACK_PIC_WALLY                  9
 #define TRAINER_BACK_PIC_GABRIELLE              10
 #define TRAINER_BACK_PIC_STEVEN                 11
+#define TRAINER_BACK_PIC_OSRID                  12
 
 
 #define FACILITY_CLASS_HIKER                 0x0
@@ -449,8 +450,9 @@
 #define TRAINER_CLASS_KIMARIS          0x69
 #define TRAINER_CLASS_AMBROSE          0x6A
 #define TRAINER_CLASS_TEMPLAR          0x6B
+#define TRAINER_CLASS_BRIGAND          0x6C
 
-#define TRAINER_CLASS_COUNT          0x6C
+#define TRAINER_CLASS_COUNT          0x6D
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

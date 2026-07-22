@@ -945,6 +945,14 @@
 	.byte \y
 	.endm
 
+	@ Dreamstone Ruination: like showmonpic, but draws the shiny palette.
+	.macro showmonpicshiny species:req, x:req, y:req
+	callnative Script_ShowMonPicShiny
+	.2byte \species
+	.byte \x
+	.byte \y
+	.endm
+
 	@ Hides the box displayed by showmonpic.
 	.macro hidemonpic
 	.byte SCR_OP_HIDEMONPIC
