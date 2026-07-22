@@ -1229,7 +1229,7 @@ Each starter line dominates 2 stat slots, is mid-pack in 2, and trails in 2. The
 - **Teddiursa Blue Moon line:** special-attacker apex; moderate Speed and bulk; lowest HP of trio. The lunar-mystic mind-and-voice line. The trio's coverage king (Ground / Fairy / Psychic / Fire / Fighting / Ghost access).
 - **Tinkatink line:** defensive colossus; paired Def + SpD identity; highest HP at apex; lowest Speed of trio; moderate Atk; dump SpA. Cormorian dragon-slayer-clan inheritor.
 
-**Both Frigibax and Tinkatink dump SpA `[LOCKED v0.9.8]`** because their kits are **100% physical-attacker** — every damage-dealing move on either line is a physical attack. SpA points on these lines would be wasted stats. Only the Blue Moon Teddiursa line uses SpA, and its kit is correspondingly all-special.
+**Both Frigibax and Tinkatink dump SpA `[LOCKED v0.9.8]`** because their kits are **physical-attacker** — every damage-dealing move on either line is a physical attack, with one deliberate exception: **Frigibax's Lv 5 Mud Slap** `[AMENDED — Chapter-1 balance pass]`, added for Chapter-1 balance (see the Frigibax learnset caveat). SpA points on these lines would be wasted stats. Only the Blue Moon Teddiursa line uses SpA, and its kit is correspondingly all-special.
 
 ### Mechanical implementation `[LOCKED]`
 
@@ -1372,12 +1372,15 @@ The Frigibax line in Dreamstone Ruination is a *uniquely-bloodlined individual* 
 
 **Full Frigibax line learnset `[LOCKED v0.9.8]`:**
 
-All three stages share an **identical 16-move backbone**. The kit is **100% physical-attacker**; SpA is a dump stat across the line. Like the Tinkatink line, the line is intentionally physical-only to justify dumping SpA stats.
+All three stages share an **identical 17-move backbone**. The kit is **physical-attacker**; SpA is a dump stat across the line. Like the Tinkatink line, the line is intentionally physical-first to justify dumping SpA stats.
+
+> `[AMENDED — Chapter-1 balance pass]` **Mud Slap (Lv 5) is the single special-category exception on this line.** It was added so a Lv 5 Frigibax has a Ground answer to the Steel/Fairy starter that Eden steals in the Chapter-1 lab theft — without it, Tackle is 0.5x into Steel and Dragon Tail is 0x into Fairy, leaving the fight unwinnable. It fires off a dumped 30 base SpA and is deliberately a niche utility option (accuracy drop), not a staple; the line's identity remains physical.
 
 | Lv | Move | Notes |
 |---|---|---|
 | 1 | Tackle | Basic Normal physical |
 | 3 | Leer | -1 Def status |
+| 5 | Mud Slap | `[AMENDED — Chapter-1 balance pass]` Ground **special**, 20 BP, -1 accuracy on hit. Early Ground coverage vs Steel; see the caveat above. |
 | 7 | Ice Shard | Ice STAB priority |
 | 11 | Breaking Swipe | Dragon spread-hit physical, -1 Atk |
 | 15 | Metal Claw | Steel physical, 10% +1 Atk |
@@ -1556,13 +1559,14 @@ The Tinkatink line learns **Behemoth Bash** at level 30 (on Tinkatuff, since Tin
 
 **Full Tinkatink line learnset `[LOCKED v0.9.8]`:**
 
-All three stages share an **identical 16-move backbone**, themed around build flexibility — supporting both Pixilate-HA Fairy-sweeper and non-Pixilate (Cute Charm / Battle Armor) coverage-tank builds. The kit is **100% physical-attacker**; SpA is a dump stat across the line.
+All three stages share an **identical 17-move backbone**, themed around build flexibility — supporting both Pixilate-HA Fairy-sweeper and non-Pixilate (Cute Charm / Battle Armor) coverage-tank builds. The kit is **100% physical-attacker**; SpA is a dump stat across the line.
 
 | Lv | Move | Notes |
 |---|---|---|
-| 1 | Fake Out | First-turn priority flinch |
-| 1 | Double Slap | **Retyped to Fairy globally** (see Section 9). Early Fairy physical option for non-Pixilate builds. |
-| 5 | Baby-Doll Eyes | -1 Atk priority status |
+| 1 | Pound | `[AMENDED — Chapter-1 balance pass]` Normal physical, 40 BP. Replaces Fake Out as the line's opening attack. |
+| 1 | Growl | `[AMENDED — Chapter-1 balance pass]` -1 Atk status. |
+| 6 | Double Slap | **Retyped to Fairy globally** (see Section 9). Early Fairy physical option for non-Pixilate builds. `[AMENDED — Chapter-1 balance pass]` **Moved from Lv 1 to Lv 6** so the Lv 5 Tinkatink that Eden steals cannot open with a Fairy move — it is 2x into the player's Dragon/Ice Frigibax and was one-shotting the player. |
+| 7 | Baby-Doll Eyes | -1 Atk priority status. `[AMENDED — Chapter-1 balance pass]` Moved from Lv 5 to Lv 7 so a Lv 5 Tinkatink knows exactly Pound + Growl. |
 | 8 | Metal Claw | Steel physical, 50 BP, 10% +1 Atk |
 | 13 | Covet | **Retyped to Fairy globally** (see Section 9). Item-steal effect preserved. |
 | 19 | Low Sweep | Fighting physical, -1 Spe on hit |
@@ -9393,6 +9397,67 @@ The Pelluca Valley map (§16.3) is painted from the **Evernahn** tileset, which 
 4. **Import via Porymap** — build metatile definitions + attributes; the map then paints from them.
 
 The `.rxdata` files are RMXP source (not directly usable in pokeemerald) — they hold the original Evernahn maps/tileset definitions and are kept as the conversion reference.
+
+
+#### Confirmed Evernahn source assignments `[LOCKED — Pelluca conversion]`
+
+Source rows are tile-row indices into `assets/pelluca_tileset_source/Evernahn.png`
+(8 tiles wide, 193 tile-rows, 32px tiles). Located by template + colour-signature
+matching and confirmed visually.
+
+| Structure | Source rows | Size | Tileset | Notes |
+|---|---|---|---|---|
+| **Templar Monastery** | 18–23 | 8×6 | primary | **Every town in Ruination has one.** Recurring architecture. |
+| **Pokémon Tavern** | 69–71 | 8×3 | primary | **Every town has one.** Replaces the Pokémon Center role-slot visually. |
+| **Generic house** | 100–104 | 5 rows | primary | The default structure for all ordinary buildings. |
+| **Cadmus's lab** | 173–178 | 7×6 | secondary | One-off; the glass-fronted conservatory. Can afford detail. |
+| **Ship (period vessel)** | 179–186 | 8 rows | secondary | Replaces the modern `OBJ_EVENT_GFX_SS_TIDAL` at the Pelluca dock. |
+
+**Primary/secondary split:** the monastery, tavern and generic house are shared by
+every Ruination town, so they belong in the **primary** tileset along with terrain
+and the autotiles. Cadmus's lab, the ship, the dock and Pelluca-specific decoration
+go in the **Pelluca secondary**.
+
+**Autotile semantics** (measured, not assumed):
+
+| File | Format | Conversion |
+|---|---|---|
+| `Evernahn_Grass_1/2` | 8 **distinct variants** each | separate metatiles |
+| `Evernahn_Grass_3` | 6 near-identical frames | animated tile |
+| `Evernahn_Water`, `_Water_2` | 4 near-identical frames | animated tile |
+| `Calvera_Water` | RMXP autotile, **8 anim frames** of 3×4 | animated tile |
+| `Calvera_Water_Calm` | RMXP autotile, **2 anim frames** of 3×4 | animated tile |
+
+**Downscale method `[LOCKED]`:** use **box or nearest**, never a smoothing filter.
+Measured on a 9-colour source tile: box and nearest both return exactly 9 colours,
+Lanczos returns 117. The art is flat pixel work with hard edges, so 32→16 is
+colour-lossless — the 1005-colour source problem stays a culling problem and is not
+made worse by the downscale.
+
+**Budget reality:** 1354 unique non-blank 32px tiles against a ~1024 metatile budget
+(~330 over), and 1005 source colours against roughly 160 usable (10 sub-palettes × 16).
+Culling is mandatory, which is why the structure list above is explicit.
+
+#### Pelluca dock preservation `[CRITICAL]`
+
+Pelluca Valley is being **repainted from scratch** in Evernahn tiles rather than
+re-skinned, because a re-skin would remap every metatile ID in the existing 80×60
+`map.bin`. The Chapter-1 ferry-arrival dock must be **recreated** in the new paint.
+
+Its exact geometry is captured at `assets/pelluca_dock_spec/dock_geometry.json`
+(cell grid of `[metatile_id, collision, elevation]` plus warps and objects) for the
+region x38–52, y42–58. Key structure:
+
+- **Pier** — metatile 175, x43–45, y47–50, elevation 3, walkable
+- **Island landing** — x43–45, y51 (metatile 2) and y52 (metatile 1), elevation 3
+- **Water** — metatile 368 at elevation 1, with shore edges 393/400/402/408/410
+- **Lab warp** — (47,44) → `MAP_PELLUCA_UMBRA_LAB`
+- **Ferry** — localid 61 at (44,55); **to be replaced by the Evernahn period ship**
+- **Cadmus (arrival cutscene)** — localid 62 at (44,46), elevation 3
+
+The arrival cutscene depends on this geometry: Osrid warps in at (44,52) and walks
+the pier north, so the walkable elevation-3 column from y52 up to y45 must survive
+the repaint intact.
 
 
 ## 15. Cormoria Location Atlas `[v0.9.10]`

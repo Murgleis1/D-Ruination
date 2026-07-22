@@ -142,6 +142,7 @@ script DR_Lab_Theft{
     additem(ITEM_POTION, 1)
     setvar(VAR_UNUSED_0x40A1, 2)
     delay(20)
+    fadeoutbgm(4)
     fadescreen(FADE_TO_BLACK)
     delay(90)
     setobjectxy(OBJ_EVENT_ID_PLAYER, 4, 10)
@@ -153,8 +154,8 @@ script DR_Lab_Theft{
     if (var(VAR_UNUSED_0x4083) == 3){ removeobject(LOCALID_DRL_BALL_TEDD) }
     delay(90)
     fadescreen(FADE_FROM_BLACK)
-    delay(30)
-    delay(20)
+    playbgm(MUS_ENCOUNTER_AQUA, FALSE)
+    delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_ANGER)
     msgbox(format("What? How did the steam generator get cut off?"))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)

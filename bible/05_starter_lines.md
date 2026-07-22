@@ -100,7 +100,7 @@ Each starter line dominates 2 stat slots, is mid-pack in 2, and trails in 2. The
 - **Teddiursa Blue Moon line:** special-attacker apex; moderate Speed and bulk; lowest HP of trio. The lunar-mystic mind-and-voice line. The trio's coverage king (Ground / Fairy / Psychic / Fire / Fighting / Ghost access).
 - **Tinkatink line:** defensive colossus; paired Def + SpD identity; highest HP at apex; lowest Speed of trio; moderate Atk; dump SpA. Cormorian dragon-slayer-clan inheritor.
 
-**Both Frigibax and Tinkatink dump SpA `[LOCKED v0.9.8]`** because their kits are **100% physical-attacker** — every damage-dealing move on either line is a physical attack. SpA points on these lines would be wasted stats. Only the Blue Moon Teddiursa line uses SpA, and its kit is correspondingly all-special.
+**Both Frigibax and Tinkatink dump SpA `[LOCKED v0.9.8]`** because their kits are **physical-attacker** — every damage-dealing move on either line is a physical attack, with one deliberate exception: **Frigibax's Lv 5 Mud Slap** `[AMENDED — Chapter-1 balance pass]`, added for Chapter-1 balance (see the Frigibax learnset caveat). SpA points on these lines would be wasted stats. Only the Blue Moon Teddiursa line uses SpA, and its kit is correspondingly all-special.
 
 ### Mechanical implementation `[LOCKED]`
 
@@ -243,12 +243,15 @@ The Frigibax line in Dreamstone Ruination is a *uniquely-bloodlined individual* 
 
 **Full Frigibax line learnset `[LOCKED v0.9.8]`:**
 
-All three stages share an **identical 16-move backbone**. The kit is **100% physical-attacker**; SpA is a dump stat across the line. Like the Tinkatink line, the line is intentionally physical-only to justify dumping SpA stats.
+All three stages share an **identical 17-move backbone**. The kit is **physical-attacker**; SpA is a dump stat across the line. Like the Tinkatink line, the line is intentionally physical-first to justify dumping SpA stats.
+
+> `[AMENDED — Chapter-1 balance pass]` **Mud Slap (Lv 5) is the single special-category exception on this line.** It was added so a Lv 5 Frigibax has a Ground answer to the Steel/Fairy starter that Eden steals in the Chapter-1 lab theft — without it, Tackle is 0.5x into Steel and Dragon Tail is 0x into Fairy, leaving the fight unwinnable. It fires off a dumped 30 base SpA and is deliberately a niche utility option (accuracy drop), not a staple; the line's identity remains physical.
 
 | Lv | Move | Notes |
 |---|---|---|
 | 1 | Tackle | Basic Normal physical |
 | 3 | Leer | -1 Def status |
+| 5 | Mud Slap | `[AMENDED — Chapter-1 balance pass]` Ground **special**, 20 BP, -1 accuracy on hit. Early Ground coverage vs Steel; see the caveat above. |
 | 7 | Ice Shard | Ice STAB priority |
 | 11 | Breaking Swipe | Dragon spread-hit physical, -1 Atk |
 | 15 | Metal Claw | Steel physical, 10% +1 Atk |
@@ -427,13 +430,14 @@ The Tinkatink line learns **Behemoth Bash** at level 30 (on Tinkatuff, since Tin
 
 **Full Tinkatink line learnset `[LOCKED v0.9.8]`:**
 
-All three stages share an **identical 16-move backbone**, themed around build flexibility — supporting both Pixilate-HA Fairy-sweeper and non-Pixilate (Cute Charm / Battle Armor) coverage-tank builds. The kit is **100% physical-attacker**; SpA is a dump stat across the line.
+All three stages share an **identical 17-move backbone**, themed around build flexibility — supporting both Pixilate-HA Fairy-sweeper and non-Pixilate (Cute Charm / Battle Armor) coverage-tank builds. The kit is **100% physical-attacker**; SpA is a dump stat across the line.
 
 | Lv | Move | Notes |
 |---|---|---|
-| 1 | Fake Out | First-turn priority flinch |
-| 1 | Double Slap | **Retyped to Fairy globally** (see Section 9). Early Fairy physical option for non-Pixilate builds. |
-| 5 | Baby-Doll Eyes | -1 Atk priority status |
+| 1 | Pound | `[AMENDED — Chapter-1 balance pass]` Normal physical, 40 BP. Replaces Fake Out as the line's opening attack. |
+| 1 | Growl | `[AMENDED — Chapter-1 balance pass]` -1 Atk status. |
+| 6 | Double Slap | **Retyped to Fairy globally** (see Section 9). Early Fairy physical option for non-Pixilate builds. `[AMENDED — Chapter-1 balance pass]` **Moved from Lv 1 to Lv 6** so the Lv 5 Tinkatink that Eden steals cannot open with a Fairy move — it is 2x into the player's Dragon/Ice Frigibax and was one-shotting the player. |
+| 7 | Baby-Doll Eyes | -1 Atk priority status. `[AMENDED — Chapter-1 balance pass]` Moved from Lv 5 to Lv 7 so a Lv 5 Tinkatink knows exactly Pound + Growl. |
 | 8 | Metal Claw | Steel physical, 50 BP, 10% +1 Atk |
 | 13 | Covet | **Retyped to Fairy globally** (see Section 9). Item-steal effect preserved. |
 | 19 | Low Sweep | Fighting physical, -1 Spe on hit |

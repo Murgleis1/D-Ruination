@@ -1082,3 +1082,64 @@ The Pelluca Valley map (§16.3) is painted from the **Evernahn** tileset, which 
 4. **Import via Porymap** — build metatile definitions + attributes; the map then paints from them.
 
 The `.rxdata` files are RMXP source (not directly usable in pokeemerald) — they hold the original Evernahn maps/tileset definitions and are kept as the conversion reference.
+
+#### Confirmed Evernahn source assignments `[LOCKED — Pelluca conversion]`
+
+Source rows are tile-row indices into `assets/pelluca_tileset_source/Evernahn.png`
+(8 tiles wide, 193 tile-rows, 32px tiles). Located by template + colour-signature
+matching and confirmed visually.
+
+| Structure | Source rows | Size | Tileset | Notes |
+|---|---|---|---|---|
+| **Templar Monastery** | 18–23 | 8×6 | primary | **Every town in Ruination has one.** Recurring architecture. |
+| **Pokémon Tavern** | 69–71 | 8×3 | primary | **Every town has one.** Replaces the Pokémon Center role-slot visually. |
+| **Generic house** | 100–104 | 5 rows | primary | The default structure for all ordinary buildings. |
+| **Cadmus's lab** | 173–178 | 7×6 | secondary | One-off; the glass-fronted conservatory. Can afford detail. |
+| **Ship (period vessel)** | 179–186 | 8 rows | secondary | Replaces the modern `OBJ_EVENT_GFX_SS_TIDAL` at the Pelluca dock. |
+
+**Primary/secondary split:** the monastery, tavern and generic house are shared by
+every Ruination town, so they belong in the **primary** tileset along with terrain
+and the autotiles. Cadmus's lab, the ship, the dock and Pelluca-specific decoration
+go in the **Pelluca secondary**.
+
+**Autotile semantics** (measured, not assumed):
+
+| File | Format | Conversion |
+|---|---|---|
+| `Evernahn_Grass_1/2` | 8 **distinct variants** each | separate metatiles |
+| `Evernahn_Grass_3` | 6 near-identical frames | animated tile |
+| `Evernahn_Water`, `_Water_2` | 4 near-identical frames | animated tile |
+| `Calvera_Water` | RMXP autotile, **8 anim frames** of 3×4 | animated tile |
+| `Calvera_Water_Calm` | RMXP autotile, **2 anim frames** of 3×4 | animated tile |
+
+**Downscale method `[LOCKED]`:** use **box or nearest**, never a smoothing filter.
+Measured on a 9-colour source tile: box and nearest both return exactly 9 colours,
+Lanczos returns 117. The art is flat pixel work with hard edges, so 32→16 is
+colour-lossless — the 1005-colour source problem stays a culling problem and is not
+made worse by the downscale.
+
+**Budget reality:** 1354 unique non-blank 32px tiles against a ~1024 metatile budget
+(~330 over), and 1005 source colours against roughly 160 usable (10 sub-palettes × 16).
+Culling is mandatory, which is why the structure list above is explicit.
+
+#### Pelluca dock preservation `[CRITICAL]`
+
+Pelluca Valley is being **repainted from scratch** in Evernahn tiles rather than
+re-skinned, because a re-skin would remap every metatile ID in the existing 80×60
+`map.bin`. The Chapter-1 ferry-arrival dock must be **recreated** in the new paint.
+
+Its exact geometry is captured at `assets/pelluca_dock_spec/dock_geometry.json`
+(cell grid of `[metatile_id, collision, elevation]` plus warps and objects) for the
+region x38–52, y42–58. Key structure:
+
+- **Pier** — metatile 175, x43–45, y47–50, elevation 3, walkable
+- **Island landing** — x43–45, y51 (metatile 2) and y52 (metatile 1), elevation 3
+- **Water** — metatile 368 at elevation 1, with shore edges 393/400/402/408/410
+- **Lab warp** — (47,44) → `MAP_PELLUCA_UMBRA_LAB`
+- **Ferry** — localid 61 at (44,55); **to be replaced by the Evernahn period ship**
+- **Cadmus (arrival cutscene)** — localid 62 at (44,46), elevation 3
+
+The arrival cutscene depends on this geometry: Osrid warps in at (44,52) and walks
+the pier north, so the walkable elevation-3 column from y52 up to y45 must survive
+the repaint intact.
+
