@@ -1,3 +1,5 @@
+const u16 gMetatiles_Evernahn[] = INCBIN_U16("data/tilesets/primary/evernahn/metatiles.bin");
+const u16 gMetatileAttributes_Evernahn[] = INCBIN_U16("data/tilesets/primary/evernahn/metatile_attributes.bin");
 const u16 gMetatiles_General[] = INCBIN_U16("data/tilesets/primary/general/metatiles.bin");
 const u16 gMetatileAttributes_General[] = INCBIN_U16("data/tilesets/primary/general/metatile_attributes.bin");
 const u16 gMetatileAttributes_DrBlack[] = INCBIN_U16("data/tilesets/primary/general/metatile_attributes_drblack.bin");

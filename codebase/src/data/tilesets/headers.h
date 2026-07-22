@@ -13,6 +13,17 @@ const struct Tileset gTileset_DrBlackReflection =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_Evernahn =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_Evernahn,
+    .palettes = gTilesetPalettes_Evernahn,
+    .metatiles = gMetatiles_Evernahn,
+    .metatileAttributes = gMetatileAttributes_Evernahn,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_General =
 {
     .isCompressed = TRUE,
