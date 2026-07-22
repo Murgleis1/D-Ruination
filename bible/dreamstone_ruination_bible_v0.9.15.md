@@ -9548,6 +9548,16 @@ Three consequences:
    resolves the `[OPEN]` question on whether they are the same wetland system —
    they are connected, though they remain distinct *regions* on the surface.
 
+**Secret cavern entrance — placement** `[LOCKED — Ruination era hydrology]` The surface entrance to the
+Umbra deep cavern sits on the **east shore of the southern lake**, across the water
+from the central peninsula that carries the dock. On the Pelluca Valley blueprint
+grid (80x60) it occupies roughly **x63-65, y40-42**. It is **not reachable on foot
+from the town centre** - the water lies between - which is consistent with it being
+Umbra-sealed and unknown to the public. It should be **present in the map from
+Chapter 1** so that when the Trial 4 sidequest opens it reads as *discovered*
+rather than newly appearing.
+
+
 #### The East arm — marsh → delta → desert → volcano
 Gated pacing: **Veddev is sealed** by a shadowy barrier until mid-game, forcing the early Trial 2 approach via a **northern Shadowmarsh side-route** → **Agustrei Heights** → north to **Mt. Ceram**.
 - **Hoya River Delta** `[LOCKED v0.9.10]` — *(E of Pelluca)* — the east arm out of the nexus. Hosts the **Hoya River altar** `[LOCKED]` — **Wo-Chien's Leyline incarnation point**, where Neven's **Tablets Cult incarnated Wo-Chien using hundreds of small Dreamstones (all reduced to dust)** `[LOCKED v0.9.15]` before **Baradus slaughtered them** and seized the Treasure; now a Sword Cult secret altar (Sections 8, 9). DM-fate: **Hoya River N/S**.
