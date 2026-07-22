@@ -13,6 +13,9 @@ raw`
     .set LOCALID_FL_CITIZEN, 47
     .set LOCALID_FL_JANIA, 56
 
+    .set LOCALID_DR_TIDAL, 61
+    .set LOCALID_DR_CADMUS, 62
+
 `
 
 mapscripts PellucaCity_MapScripts{
@@ -21,7 +24,8 @@ mapscripts PellucaCity_MapScripts{
         goto(PellucaCity_SetLayout)
     }
     MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_PELLUCA_MAYOR_QUEST, 3: PellucaCityFlooded_MainEvent    
+        VAR_UNUSED_0x404E, 1: DR_PellucaCity_Arrival
+        VAR_PELLUCA_MAYOR_QUEST, 3: PellucaCityFlooded_MainEvent
     ]    
 }
 
@@ -1406,4 +1410,34 @@ script PellucaCity_Red_GymBlock{
 }
 
 
-
+// ============ DREAMSTONE RUINATION - Chapter 1 arrival ============
+// Osrid disembarks the Pale Veluza at the Pelluca dock; Cadmus greets and leads him to the lab.
+script DR_PellucaCity_Arrival{
+    lockall
+    setvar(VAR_UNUSED_0x404E, 2)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    waitmovement(0)
+    delay(20)
+    applymovement(LOCALID_DR_CADMUS, moves(walk_down * 5))
+    waitmovement(0)
+    delay(12)
+    speakername("Cadmus")
+    msgbox(format("10 years on and by the grace of Arceus... I am beyond elated to see you again, my Prince.\pSending you away as a child to an overseas military installation, forcing you to bear the alias of Nomad Alban all of this time... none of it was fair. But it was all necessary to ensure your survival.\pBut now, you are home at last... even if the circumstances that bring you home are grim. Dark forces are afoot, and they are gradually gaining leverage over our Empire in spite of my best efforts.\pBut come - one of my labs here in Pelluca Valley is just ahead, and we have much to discuss."))
+    release
+    delay(12)
+    applymovement(LOCALID_DR_CADMUS, moves(walk_up * 6 walk_right * 3 face_up))
+    waitmovement(0)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 7 walk_right * 2))
+    waitmovement(0)
+    delay(12)
+    playse(SE_EXIT)
+    removeobject(LOCALID_DR_CADMUS)
+    delay(16)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right face_up))
+    waitmovement(0)
+    delay(12)
+    setflag(FLAG_UNUSED_0x884)
+    warp(MAP_PELLUCA_UMBRA_LAB, 0)
+    waitstate
+    end
+}

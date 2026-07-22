@@ -6070,6 +6070,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/PellucaReflection/border.bin",
       "blockdata_filepath": "data/layouts/PellucaReflection/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_TEMPLAR_MONASTERY",
+      "name": "PellucaTemplarMonastery_Layout",
+      "width": 13,
+      "height": 14,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_TemplarMonastery",
+      "border_filepath": "data/layouts/PellucaTemplarMonastery/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaTemplarMonastery/map.bin"
     }
   ]
 }

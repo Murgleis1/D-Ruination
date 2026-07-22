@@ -665,6 +665,17 @@ const struct Tileset gTileset_EliteFour =
     .callback = InitTilesetAnim_EliteFour,
 };
 
+const struct Tileset gTileset_TemplarMonastery =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarMonastery,
+    .palettes = gTilesetPalettes_TemplarMonastery,
+    .metatiles = gMetatiles_TemplarMonastery,
+    .metatileAttributes = gMetatileAttributes_TemplarMonastery,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_BattleFrontier =
 {
     .isCompressed = TRUE,

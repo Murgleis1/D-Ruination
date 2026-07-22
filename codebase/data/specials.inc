@@ -540,6 +540,7 @@ gSpecials::
 	def_special DrSetPlayerOsridSprite
 	def_special DrDoPlayerNaming
 	def_special DrSetPrinceNameplate
+	def_special DrSetCadmusNameplate
 	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint

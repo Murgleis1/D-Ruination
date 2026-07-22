@@ -32,7 +32,8 @@ PellucaReflection_Cutscene::
 	hideportrait
 	delay 40
 	fadescreen FADE_TO_BLACK
-	warp MAP_CARABRUE_TOWN_HOME1F, 0
+	setvar VAR_UNUSED_0x404E, 1
+		warp MAP_PELLUCA_CITY, 44, 52
 	waitstate
 	releaseall
 	end
@@ -45,13 +46,13 @@ PellucaReflection_LetterIntro:
 	.string "You have received a letter.$"
 
 PellucaReflection_LetterA:
-	.string "My Prince....far too long\nhas passed since our last\pletter over a year ago. It\nwas before you were even\passigned to your formal\nunit, if I'm not mistaken.\pWord of your condition has\nreached me, along with the\ptruth of what happened\nduring the Sevii campaign.\pI hear you now wear a mask\nto cover your burns, and I\pwill not insult you by\ncalling this anything less\lthan a travesty.\pThere is no shortage of\nfolly and negligence around\pyou, my Prince. Your\nsuperior officer and\phandler Boran Surge's\nfoolish choice to strike\pKanto and Johto across two\nseparate fronts has\presulted in countless\nlosses.\pI have made my wrath known\nto your commanders, and I\phave been assured that he\nwill be dealt with. This\pdoes not reverse the harms\nthat were done to you, but\phe will wish he was dead by\nthe end of this process.$"
+	.string "My Prince... far too long\nhas passed since our last\pletter over a year ago. It\nfeels far longer than\pthat.\pWord of your scarred\ncondition has reached me,\palong with the truth of\nwhat happened during the\pSevii campaign. I hear you\nnow wear a mask to cover\pyour burns, and I will not\ninsult you by calling this\panything less than a\ntravesty.\pThere is no shortage of\nfolly and negligence\paround you. Your\ncommanding officer Boran\pSurge's foolish choice to\nstrike Kanto and Johto\pacross two separate fronts\nhas resulted in countless\plosses.\pI have made my...lets just\nsay “unhappiness” known to\pSurge's superiors, and I\nhave been assured that he\pwill be dealt with. This\ndoes not reverse the harms\pthat were done to you...\nbut he may wish he had\pdied in the Sevii campaign\nhe forced your unit into\pbefore\nhis...“punishment”...\pfully plays itself out.$"
 
 PellucaReflection_LetterB:
 	.string "However, I have not written\nto you merely out of\pfrustration and anger. As a\nresult of my demands, you\pare now formally reassigned\nto serve under my direct\pcommand as Vizier of\nEducation, and raised to\pthe rank of Rainhawk. You\nhave been discharged from\pthe front lines with the\nhighest of honors.\pFurthermore, you are now\nthe youngest to hold this\ptitle in all of Cormoria's\nhistory. Yes, younger even\pthan “him”. You know of\nwhom I speak. This comes\pwith numerous benefits,\nthough we will speak more\lon that later.$"
 
 PellucaReflection_LetterC:
-	.string "My request is this. Please\ncome to see me at my\plaboratory as soon as you\nare able. General Albrecht\pwill fill you in on\nadditional details of your\pdeparture aboard the Pale\nVeluza which will be\pdocking near you soon, so\nspeak with him as soon as\lyou can.\pSign your reply with the\nname only “you” know, so I\pmay be certain of your\n“true” identity. The\pTemplar who serves near\nyour barracks will deliver\lit to my hand directly.\pAlso...please burn this\nletter. We must leave no\ptrail. Matters in your\nhomeland of Cormoria have\pgrown more delicate than\nthey appear, and there are\peyes in places even I\ncannot see. Be vigilant.$"
+	.string "My request is this. Please\ncome to my laboratory as\psoon as you are able. I\nchartered a ship, the Pale\pVeluza, to bring you home.\nGeneral Albrecht will fill\pyou in on additional\ndetails about your\parrangements, so go speak\nwith him.\pLastly, please sign your\nreply with the name only\p“you” know, so I may be\ncertain of your “true”\pidentity. The Templar who\nserves near your barracks\pwill deliver it to my hand\ndirectly.\pP.S. Burn this letter.\nThere must be no trail.\pMatters in your homeland\nof Cormoria have grown\pmore delicate than they\nappear, and there are eyes\pand ears in places even I\ncannot know. Be vigilant.$"
 
 PellucaReflection_LetterD:
 	.string "Best regards,\nCadmus Umbra$"

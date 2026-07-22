@@ -390,6 +390,7 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     [TRAINER_CLASS_HARBINGER] = { _("Harbinger"), 25 },
     [TRAINER_CLASS_KIMARIS] = { _("Wraith Lord"), 25 },
     [TRAINER_CLASS_AMBROSE] = { _("Archbishop"), 30 },
+    [TRAINER_CLASS_TEMPLAR] = { _("Templar"), 20 },
 };
 
 static void (* const sTurnActionsFuncsTable[])(void) =

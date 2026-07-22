@@ -158,7 +158,8 @@
 #define TRAINER_PIC_BARADUS               132
 #define TRAINER_PIC_KIMARIS               133
 #define TRAINER_PIC_AMBROSE               134
-#define TRAINER_PIC_COUNT                 135
+#define TRAINER_PIC_TEMPLAR               135
+#define TRAINER_PIC_COUNT                 136
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -447,8 +448,9 @@
 #define TRAINER_CLASS_HARBINGER        0x68
 #define TRAINER_CLASS_KIMARIS          0x69
 #define TRAINER_CLASS_AMBROSE          0x6A
+#define TRAINER_CLASS_TEMPLAR          0x6B
 
-#define TRAINER_CLASS_COUNT          0x6B
+#define TRAINER_CLASS_COUNT          0x6C
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

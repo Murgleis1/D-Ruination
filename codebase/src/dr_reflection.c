@@ -41,3 +41,13 @@ void DrSetPrinceNameplate(void)
     StringAppend(sOsridNameplate, gSaveBlock2Ptr->playerName);
     SetSpeakerName(sOsridNameplate);
 }
+
+// Chapter 1 harbor arrival: Cadmus speaks under his own name, replacing the
+// "Prince <name>" plate that the cold open leaves set.
+static const u8 sText_Cadmus[] = _("Cadmus");
+static u8 sCadmusNameplate[24];
+void DrSetCadmusNameplate(void)
+{
+    StringCopy(sCadmusNameplate, sText_Cadmus);
+    SetSpeakerName(sCadmusNameplate);
+}

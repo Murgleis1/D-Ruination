@@ -490,6 +490,8 @@ const u32 gObjectEventPic_Kimaris[] = INCBIN_U32("graphics/object_events/pics/pe
 const u16 gObjectEventPal_Kimaris[] = INCBIN_U16("graphics/object_events/pics/people/kimaris.gbapal");
 const u32 gObjectEventPic_Ambrose[] = INCBIN_U32("graphics/object_events/pics/people/ambrose.4bpp");
 const u16 gObjectEventPal_Ambrose[] = INCBIN_U16("graphics/object_events/pics/people/ambrose.gbapal");
+const u32 gObjectEventPic_Templar[] = INCBIN_U32("graphics/object_events/pics/people/templar.4bpp");
+const u16 gObjectEventPal_Templar[] = INCBIN_U16("graphics/object_events/pics/people/templar.gbapal");
 
 //SHUBUBU
 const u32 gObjectEventPic_ShububuNormalRunning[] = INCBIN_U32("graphics/object_events/pics/custom/shububu/walking.4bpp", "graphics/object_events/pics/custom/shububu/running.4bpp");

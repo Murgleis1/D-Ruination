@@ -160,6 +160,8 @@ const u16 gMetatileAttributes_SecretBasePrimary[] = INCBIN_U16("data/tilesets/pr
 
 const u16 gMetatiles_EliteFour[] = INCBIN_U16("data/tilesets/secondary/elite_four/metatiles.bin");
 const u16 gMetatileAttributes_EliteFour[] = INCBIN_U16("data/tilesets/secondary/elite_four/metatile_attributes.bin");
+const u16 gMetatiles_TemplarMonastery[] = INCBIN_U16("data/tilesets/secondary/templar_monastery/metatiles.bin");
+const u16 gMetatileAttributes_TemplarMonastery[] = INCBIN_U16("data/tilesets/secondary/templar_monastery/metatile_attributes.bin");
 
 const u16 gMetatiles_BattleFrontier[] = INCBIN_U16("data/tilesets/secondary/battle_frontier/metatiles.bin");
 const u16 gMetatileAttributes_BattleFrontier[] = INCBIN_U16("data/tilesets/secondary/battle_frontier/metatile_attributes.bin");
