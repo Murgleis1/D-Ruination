@@ -62,10 +62,36 @@ The bible requires the Royal Secret Villa *near House Moray's estate, far from t
 - **Vilethorn Woods + Alban Estate** `[LOCKED v0.9.10]` — *(north-central, E of Silversun)* — a forest hosting **House Alban's estate/greenhouse**; **Trial 6 venue** (Indrid Alban, Grass, Verdant, cap 45), stage of the Wo-Chien vine-puppet horror sequence and the Alban massacre (Section 7). DM-fate: **Vilethorn Woods** (+ Mansion).
 - **Galecrest City** `[OPEN — trial]` — *(NE-central)* — a wealthy commercial city. **Candidate seat of House Sylphon / Trial 4** (Simone Sylphon, Normal, Nonpareil, cap 36) — assistant proposal, unconfirmed. DM-fate: **Galecrest City**.
 
+##### Pelluca hydrology (Ruination era) `[LOCKED — Ruination era hydrology]`
+
+In the Ruination era the **northern river is markedly smaller than its DM-era
+counterpart**. Rather than running past the settlement on the surface, it **goes
+underground a short distance north of Pelluca Valley** and feeds a **wellspring
+beneath the city**. From those same caverns the water **flows back out eastward,
+toward the Shadowmarshes**.
+
+Three consequences:
+
+1. **The north approach is dry land, not a river crossing.** The Ruination north
+   exit is a **gatehouse built against the back of the Templar Monastery**, not a
+   bridge or ford. The river is below ground by that point.
+2. **The wellspring is the city's water source** — the central plaza fountain and
+   the town well both draw from it. This is a visible, in-world reason for the
+   fountain being the centre of the settlement's layout.
+3. **The underground cavern system is the geographic home of the Umbra deep
+   cavern** — the sealed third-Jousteel-egg site (Section 7; Trial 4 sidequest).
+   Pelluca Valley is the Umbra family domain, the caverns lie directly beneath it,
+   and access is Umbra-sealed. This closes the `[OPEN]` item on the deep cavern's
+   exact location.
+4. **The Shadowmarshes and the northern Ivy-River marshlands are one hydrological
+   system**, linked underground through the Pelluca wellspring caverns. This
+   resolves the `[OPEN]` question on whether they are the same wetland system —
+   they are connected, though they remain distinct *regions* on the surface.
+
 #### The East arm — marsh → delta → desert → volcano
 Gated pacing: **Veddev is sealed** by a shadowy barrier until mid-game, forcing the early Trial 2 approach via a **northern Shadowmarsh side-route** → **Agustrei Heights** → north to **Mt. Ceram**.
 - **Hoya River Delta** `[LOCKED v0.9.10]` — *(E of Pelluca)* — the east arm out of the nexus. Hosts the **Hoya River altar** `[LOCKED]` — **Wo-Chien's Leyline incarnation point**, where Neven's **Tablets Cult incarnated Wo-Chien using hundreds of small Dreamstones (all reduced to dust)** `[LOCKED v0.9.15]` before **Baradus slaughtered them** and seized the Treasure; now a Sword Cult secret altar (Sections 8, 9). DM-fate: **Hoya River N/S**.
-- **Shadowmarshes** `[LOCKED v0.9.10]` — *(central/east lowland)* — a marsh region; its **northern side-route** is the forced early path to Agustrei/Ceram while Veddev is sealed. `[OPEN — same wetland system as the northern Ivy River marshlands, or distinct?]`
+- **Shadowmarshes** `[LOCKED v0.9.10]` — *(central/east lowland)* — a marsh region; its **northern side-route** is the forced early path to Agustrei/Ceram while Veddev is sealed. `[LOCKED — Ruination era hydrology]` **Resolved:** the Shadowmarshes and the northern Ivy-River marshlands are **one hydrological system**, joined underground via the Pelluca wellspring caverns — the eastward outflow feeds the marshes. Distinct surface regions, shared water.
 - **Veddev** `[LOCKED v0.9.10]` — *(central-east; sealed until mid-game by a shadowy barrier)* — a city hosting **Gloaming Manor**, House Nightfall's estate, and **Trial 7** (Bridget Nightfall, Dark, Gloaming, cap 50). **Name note:** "Veddev" is the personal name of **House Nightfall's founder** — the source of both this city's name and (given in love by Vandras, unknowingly) **Osrid's chosen final name** (Sections 4, 12). The Osrid↔founder link is **shown, not stated** — a reward for players who connect it; the "no political weight" framing of Osrid's name still holds (Veddev is a culturally-resonant *given* name, not a blessed surname or title). DM-fate: a **Ranger Institute**.
 - **Carabrue Keep** `[LOCKED v0.9.10]` — *(east-central, near Fennilahl)* — a small **military town + installation** where many soldiers live. DM-fate: **Carabrue Town** (home of Tenebris's Lab — DM's starter town).
 - **Fennilahl** `[LOCKED v0.9.10]` — *(east-central)* — a city; **Fennilahl Suburbs** adjacent. A service/story hub on the east corridor. DM-fate: **Fennilahl Town** (+ Underpass/Tunnel).
@@ -136,7 +162,7 @@ Corridor summary (empire-era): Pelluca ↔ Rivetshore (Route 10); Pelluca ↔ Mi
 - **Trial 4 (Sylphon)** seat — `[OPEN]` (Galecrest candidate).
 - **Trial 8 (Moray)** venue = Moray Estate — inferred from house-seat placement; confirm.
 - **The two duplicate route numbers** (a second Route 4 and a second Route 7) — `[OPEN]`, assign.
-- **Shadowmarshes vs. Ivy-River marshlands** — one wetland system or distinct? `[OPEN]`.
+- ~~**Shadowmarshes vs. Ivy-River marshlands** — one wetland system or distinct?~~ **RESOLVED** `[LOCKED — Ruination era hydrology]` — one system, joined underground through the Pelluca wellspring caverns (see the Pelluca hydrology note in 15.4).
 - ~~**The calamity** — Ting-Lu-caused/epicentered? Is Mt. Mirroh Peak (T9) the epicenter?~~ — **RESOLVED v0.9.15**: it is the three-stone macroresonance seal's energy backlash, epicentered at the **Mirroh Necropolis** (where the seal is enacted); not Ting-Lu-alone, not Mt. Mirroh Peak (15.3; Section 9).
 - **Nobility Concordance chamber** — Silversun Palace vs. a separate civic hall. `[OPEN]`.
 - **Not yet mapped** (per design partner): **indoor maps** and **Ancient Cormoria**.
