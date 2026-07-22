@@ -2663,8 +2663,33 @@ static void CreateMainMenuErrorWindow(const u8 *str)
     SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(113, DISPLAY_HEIGHT - 1));
 }
 
+// Dreamstone Ruination: a save that has never been named (uninitialised or
+// half-written flash) would otherwise print raw bytes as the player name on
+// the main menu. Validate the name before drawing any of the save summary.
+static bool32 MainMenu_SavegameTextIsValid(void)
+{
+    u32 i;
+    u8 c;
+
+    if (gSaveBlock2Ptr->playerName[0] == EOS)
+        return FALSE;                   // no name stored at all
+
+    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    {
+        c = gSaveBlock2Ptr->playerName[i];
+        if (c == EOS)
+            return TRUE;                // properly terminated printable name
+        if (c >= CHAR_DYNAMIC)
+            return FALSE;               // control byte inside the name = garbage
+    }
+    return FALSE;                       // never terminated
+}
+
 static void MainMenu_FormatSavegameText(void)
 {
+    if (!MainMenu_SavegameTextIsValid())
+        return;
+
     MainMenu_FormatSavegamePlayer();
     MainMenu_FormatSavegamePokedex();
     MainMenu_FormatSavegameTime();
