@@ -183,7 +183,13 @@ layout reference. Bible §18 documents this as a build task.
   existing tile pixels preserved verbatim. Render: `render_tileset.py`, noting
   that only `03/04.gbapal` exist pre-build, so generate the other `.gbapal` from
   the committed `.pal` into a temp dir or the render shows magenta placeholders.
-- **NOT yet rebuilt/tested in-game.** Next: `cd codebase && timeout 290 make modern`.
+- **BUILT AND VERIFIED IN THE ROM.** `make modern` EXIT=0 (see `BUILD_SETUP.md`;
+  no devkitPro needed). End-to-end proof: build-generated `03/04.gbapal` are
+  byte-equal to autumn pal2/pal3; built `tiles.4bpp` decodes back to `tiles.png`
+  with 0 differing pixels (304 tiles); the 189-metatile blob + attributes appear
+  verbatim in `pokeemerald.gba` (0xF3FD84 / 0xF3FC08). ROM 87.25% full.
+  **Still needs in-game eyes** — nothing has been painted with these metatiles yet,
+  so they are present but unused until the map repaint.
 
 **Then, in order:**
 1. Convert the 3 shared buildings into PRIMARY (each town has a monastery+tavern):
