@@ -153,15 +153,32 @@ layout reference. Bible §18 documents this as a build task.
 - Autotile roles were CORRECTED against the user's description (Grass_3 = base
   grass not anim; Calvera = clay-banked pools; white RMXP template slot dropped).
 
-**THE IMMEDIATE NEXT STEP — cliff/path merge (awaiting user OK):**
-- Selection committed at `assets/pelluca_dock_spec/autumn_cliff_path_selection.json`
-  — 108 cliff + 35 path metatiles from `gTileset_Autumn`, chosen by colour-distance
-  to the reference (autumn palettes 2+3 won: cliff 23.0, path 13.4).
-- The user was reviewing rendered sheets `autumn_cliffs.png` / `autumn_paths.png`
-  (regenerate with `render_tileset.py` if the sandbox reset). **Once they confirm,
-  run `python3 tools/evernahn_conversion/merge_cliffs_paths.py` then rebuild.**
-  It puts autumn pal2→Evernahn slot 3, pal3→slot 4 (no quantising) and appends the
-  metatiles. Then render + present_files to verify.
+**THE CLIFF/PATH MERGE — DONE (user approved the sheets, merged + verified):**
+- Selection at `assets/pelluca_dock_spec/autumn_cliff_path_selection.json` — 108
+  cliff + 35 path metatiles from `gTileset_Autumn`, chosen by colour-distance to
+  the reference (autumn palettes 2+3 won: cliff 23.0, path 13.4).
+- Merged by `tools/evernahn_conversion/merge_cliffs_paths.py`: Evernahn is now
+  **189 metatiles / 302 tiles** (budget 512 each). **0-45** original grass/water/
+  pool, **46-153** cliffs, **154-188** paths. Autumn pal2 -> Evernahn slot 3,
+  pal3 -> slot 4, verbatim (no quantising). Slot 5 still free.
+- **Three bugs were found by auditing the script BEFORE running it** — re-read
+  them before writing any similar merge:
+  1. Palette was applied per METATILE, but 66 of the 143 selected metatiles use
+     BOTH autumn pal2 and pal3 — they must be remapped per tile-ENTRY.
+  2. New tile ids were numbered from `len(tilemap)` (146) while existing grid
+     slots ran to 159 → new tiles overwrote existing slots, clobbering the
+     deduped blank tile at 159 and corrupting every transparent top-layer entry.
+     Freeze existing ids (first-occurrence dedup); append new tiles at ids >=
+     the existing grid size.
+  3. `tid==0` was emitted as a literal 0 entry, but **Evernahn's tile 0 is a
+     grass tile (50/64 opaque), NOT blank** — autumn metatiles 238/239 would
+     have painted grass where autumn draws nothing. Map every entry by CONTENT.
+- Verified: all 143 merged metatiles resolve pixel-identical to their autumn
+  source; metatiles 0-45 + attributes byte-identical to the prior commit;
+  existing tile pixels preserved verbatim. Render: `render_tileset.py`, noting
+  that only `03/04.gbapal` exist pre-build, so generate the other `.gbapal` from
+  the committed `.pal` into a temp dir or the render shows magenta placeholders.
+- **NOT yet rebuilt/tested in-game.** Next: `cd codebase && timeout 290 make modern`.
 
 **Then, in order:**
 1. Convert the 3 shared buildings into PRIMARY (each town has a monastery+tavern):

@@ -156,6 +156,7 @@
     "cliff": 108,
     "path": 35
   },
-  "awaiting": "user confirmation on the rendered sheets (autumn_cliffs.png / autumn_paths.png) before merge",
-  "next_step": "copy these metatiles' 8x8 tiles into evernahn/tiles.png, remap their palette indices to Evernahn slots 3+4, append metatile+attribute entries, rebuild"
+  "awaiting": "NOTHING - user approved the rendered sheets; merged into gTileset_Evernahn (commit 'Evernahn: merge autumn cliff/path metatiles')",
+  "merged_result": "evernahn metatiles 46-153 = cliffs, 154-188 = paths; 189 metatiles / 302 tiles total; autumn pal2 -> ev slot 3, pal3 -> ev slot 4, verbatim. Verified pixel-identical to source.",
+  "next_step": "rebuild (cd codebase && timeout 290 make modern) and check in-game; then the 3 shared buildings (monastery/tavern/house) into PRIMARY"
 }
