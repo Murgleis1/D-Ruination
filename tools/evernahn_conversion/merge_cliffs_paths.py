@@ -68,50 +68,63 @@ def main():
     L.write_gbapal(EV+'/palettes/04.gbapal', au_pal3); L.write_jasc(EV+'/palettes/04.pal', au_pal3)
     slot_map = {2:3, 3:4}   # autumn palette slot -> evernahn palette slot
 
-    # 2. rebuild evernahn tile sheet into a dedup map so we can append
+    # 2. index evernahn's EXISTING tiles by content. FIRST occurrence wins and the
+    #    id IS the grid slot, so existing metatiles 0-45 keep pointing at the right
+    #    pixels. New tiles are appended at ids >= n_ev_tiles, so a new tile can
+    #    NEVER land on an existing slot. (The old code numbered new tiles from
+    #    len(tilemap)=146 while existing slots ran to 159 - they collided, and the
+    #    deduped blank tile at 159 got overwritten, corrupting every "empty" entry.)
     ev_sheet = load_sheet(EV); TPR = ev_sheet.shape[1]//8
-    n_ev_tiles = 0
+    n_ev_tiles = (ev_sheet.shape[0]//8)*TPR
     tilemap = OrderedDict()
-    for tid in range((ev_sheet.shape[0]//8)*TPR):
-        t = tile_at(ev_sheet, tid)
-        tilemap[t.tobytes()] = tid
-        n_ev_tiles = max(n_ev_tiles, tid+1)
+    for tid in range(n_ev_tiles):
+        key = tile_at(ev_sheet, tid).tobytes()
+        if key not in tilemap:
+            tilemap[key] = tid
+    appended = []                       # new 8x8 tiles, in id order from n_ev_tiles
     ev_mt = bytearray(open(EV+'/metatiles.bin','rb').read())
     ev_at = bytearray(open(EV+'/metatile_attributes.bin','rb').read())
     n_ev_meta = len(ev_mt)//16
 
-    def append_autumn_metatile(au_id, ev_palette):
+    def append_autumn_metatile(au_id):
         e = struct.unpack_from('<8H', au_mt, au_id*16)
         new_entries = []
         for v in e:
             tid = v & 0x3FF
-            if tid == 0 and not (v & 0xFC00):
-                new_entries.append(0); continue
+            # NOTE: do NOT shortcut tid==0 to a literal 0 entry. Evernahn's tile 0
+            # is a grass tile (50/64 non-transparent px), while autumn's tile 0 is
+            # blank - emitting 0 would draw grass where autumn draws nothing.
+            # Everything is mapped by CONTENT, so autumn's blank resolves to
+            # evernahn's blank tile and renders identically in software and on HW.
             au_tile = tile_at(au_sheet, tid)          # pixels index autumn palette
             key = au_tile.tobytes()
             if key not in tilemap:
-                tilemap[key] = len(tilemap)
+                tilemap[key] = n_ev_tiles + len(appended)
+                appended.append(au_tile)
             new_tid = tilemap[key]
             xf = (v>>10)&1; yf = (v>>11)&1
-            new_entries.append((new_tid & 0x3FF) | (xf<<10) | (yf<<11) | ((ev_palette&15)<<12))
+            au_pal = (v>>12)&15
+            ev_pal = slot_map.get(au_pal, au_pal)     # per-ENTRY remap: pal2->3, pal3->4
+            new_entries.append((new_tid & 0x3FF) | (xf<<10) | (yf<<11) | ((ev_pal&15)<<12))
         for ne in new_entries: ev_mt.extend(struct.pack('<H', ne))
         ev_at.extend(L.metatile_attr(0x00, 1))        # MB_NORMAL, walkable terrain
 
     added = []
     for au_id in cliff_ids + path_ids:
-        # decide evernahn palette from which autumn palette this metatile uses
-        e = struct.unpack_from('<8H', au_mt, au_id*16)
-        aups = {(v>>12)&15 for v in e if v & 0x3FF}
-        ev_pal = slot_map.get(3 if 3 in aups else 2, 3)
-        append_autumn_metatile(au_id, ev_pal)
-        added.append((au_id, ev_pal))
+        # palette is remapped per tile-entry inside append_autumn_metatile
+        # (pal2->slot3, pal3->slot4), so mixed-palette metatiles stay correct
+        append_autumn_metatile(au_id)
+        added.append(au_id)
 
-    # 3. write the enlarged tile sheet
-    total = len(tilemap)
+    # 3. write the enlarged tile sheet: existing pixels copied VERBATIM (so every
+    #    existing grid slot keeps its exact content), new tiles appended after.
+    total = n_ev_tiles + len(appended)
     rows = (total + TPR - 1)//TPR
     sheet = np.zeros((rows*8, TPR*8), np.uint8)
-    for blob, i in tilemap.items():
-        sheet[(i//TPR)*8:(i//TPR)*8+8, (i%TPR)*8:(i%TPR)*8+8] = np.frombuffer(blob, np.uint8).reshape(8,8)
+    sheet[:ev_sheet.shape[0], :ev_sheet.shape[1]] = ev_sheet
+    for k, t in enumerate(appended):
+        i = n_ev_tiles + k
+        sheet[(i//TPR)*8:(i//TPR)*8+8, (i%TPR)*8:(i%TPR)*8+8] = t
     img = Image.fromarray(sheet, 'P')
     # keep the existing palette table in the PNG (cosmetic); runtime uses .gbapal
     img.putpalette(Image.open(EV+'/tiles.png').getpalette())
