@@ -7,6 +7,11 @@ sections. The prior session's full detail is in the conversation transcript.
 
 ---
 
+> **If the build appears impossible in your container** (no ARM toolchain,
+> devkitPro unreachable, host tools unbuilt, poryscript is a macOS binary) —
+> read **`handoff/BUILD_SETUP.md`**. devkitPro is NOT required; the apt
+> `arm-none-eabi` toolchain is what actually built every ROM in this project.
+
 ## 0. FIRST FIVE MINUTES (do these before any work)
 
 1. **Re-arm the GitHub token** (it lives only in the sandbox git config, resets
