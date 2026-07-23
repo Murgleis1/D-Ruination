@@ -141,10 +141,11 @@ script DR_Lab_Theft{
     lockall
     additem(ITEM_POTION, 1)
     setvar(VAR_UNUSED_0x40A1, 2)
+    setflag(FLAG_SYS_POKEMON_GET)
     delay(20)
     fadeoutbgm(4)
     fadescreen(FADE_TO_BLACK)
-    delay(90)
+    delay(45)
     setobjectxy(OBJ_EVENT_ID_PLAYER, 4, 10)
     turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
     clearflag(FLAG_UNUSED_0x886)
@@ -152,7 +153,7 @@ script DR_Lab_Theft{
     if (var(VAR_UNUSED_0x4083) == 1){ removeobject(LOCALID_DRL_BALL_TINK) }
     if (var(VAR_UNUSED_0x4083) == 2){ removeobject(LOCALID_DRL_BALL_FRIG) }
     if (var(VAR_UNUSED_0x4083) == 3){ removeobject(LOCALID_DRL_BALL_TEDD) }
-    delay(90)
+    delay(45)
     fadescreen(FADE_FROM_BLACK)
     playbgm(MUS_ENCOUNTER_AQUA, FALSE)
     delay(40)
