@@ -1,0 +1,35 @@
+{
+  "_comment": "Evernahn period ship used to replace the modern SS_TIDAL at the Pelluca dock.",
+  "source": {
+    "file": "assets/pelluca_tileset_source/Evernahn.png",
+    "cell_px": 32,
+    "rows": "180-183",
+    "cols": "c0-c6",
+    "component": "largest connected opaque region; the 32x128 strip at c7 is a SEPARATE object and excluded",
+    "bbox_px": "218x124",
+    "colours": 10
+  },
+  "recolour": {
+    "method": "the 7 greys (95.3% of the ship) mapped to an oak ramp at MATCHING luminance; red trim (4.1%) and mast highlight left alone",
+    "grey_to_wood": {
+      "40,40,48": "56,40,24",
+      "56,56,64": "80,48,32",
+      "56,64,72": "88,56,32",
+      "71,70,78": "96,64,40",
+      "88,88,96": "120,80,48",
+      "104,104,112": "144,96,56",
+      "120,118,124": "168,104,64"
+    },
+    "note": "wood tones snapped to multiples of 8 (GBA is 5-bit/channel); luminance preserved within ~1"
+  },
+  "sprite_build": {
+    "target": "codebase/graphics/object_events/pics/misc/ss_tidal.png (+ palettes/ss_tidal.pal)",
+    "why_96x40": "gObjectEventGraphicsInfo_SSTidal uses sOamTables_96x40; no 112x64 table exists, so 96x40 avoids a new subsprite table entirely",
+    "downscale": "MODE (most-common colour per block), block drawn only if >=40% opaque; NEVER averaging",
+    "result": "70x40 ship centred at x13 in a 96x40 canvas",
+    "planks": "applied AFTER downscale at final resolution, every 3 rows from 45% height, by stepping DOWN the same wood ramp so no palette slot is spent",
+    "palette": "index 0 = transparent (0,123,197, reused from the original), 10 opaque colours"
+  },
+  "blast_radius": "OBJ_EVENT_GFX_SS_TIDAL is used by 11 maps (incl. RivetshoreCity_Harbor, UnchartedIsland, Championship) - all now show the period ship. For Pelluca-only, add a separate OBJ_EVENT_GFX id instead.",
+  "future": "The metatile route (Option B) should reuse ship_wood_source.png; slice the 109x62 game-scale form into a 7x4 metatile block in the Pelluca SECONDARY tileset."
+}
