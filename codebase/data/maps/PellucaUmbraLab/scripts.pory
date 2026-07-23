@@ -74,7 +74,15 @@ script DR_Lab_Briefing{
     special(DrSetPrinceNameplate)
     msgbox(format("... are those starter Pokémon? I've heard that Cormorian noble children are given one and a Trainer certification by the Concordance every year.\pAre these the same kind?"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Not exactly. These three are exceptionally special. Go look at each one and see which one catches your fancy.\pI attached notes to each Ball for you to learn more about them before deciding."))
+    msgbox(format("Not exactly. These three are exceptionally special. Go look at each one and see which one catches your fancy.\pI attached notes to each Ball for you to learn more about them before deciding.\pBut before you choose - take this. You'll need somewhere to put what you learn."))
+    hideportrait
+    closemessage
+    playfanfare(MUS_OBTAIN_ITEM)
+    msgbox(format("{PLAYER} received the PokéLog!"))
+    waitfanfare
+    setflag(FLAG_SYS_POKEDEX_GET)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("A PokéLog. Paper and ink, nothing more. Every Pokémon you meet, you write down yourself - what it is, how it fights, what it becomes.\pSurge handed you reports on Pokémon. This one you fill in for yourself."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
     msgbox(format("... alright."))
@@ -206,7 +214,7 @@ script DR_Lab_Theft{
     special(DrSetPrinceNameplate)
     msgbox(format("Nomad Alban. Rainhawk. That was a good battle, huh?"))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
-    msgbox(format("Hah...it actually was! We'll need to do it again sometime. See you soon-"))
+    msgbox(format("Hah...it actually was! Tell you what, Rainhawk - I want a rematch.\pRight after I escape from wherever they're about to put me."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_ANGER)
     msgbox(format("You aren't going anywhere."))
     hideportrait
