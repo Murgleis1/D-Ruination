@@ -32,6 +32,14 @@ sections. The prior session's full detail is in the conversation transcript.
    ```
    git add -A && git reset -q HEAD codebase/tools/poryscript/poryscript
    ```
+6. **Install the headless play-test harness** (verified working; catches hangs,
+   crashes, softlocks, and reads real game state without eyes):
+   ```
+   pip install --break-system-packages stable-retro
+   ```
+   Read `tools/playtest/PLAYTEST.md` and `tools/playtest/FINDINGS.md` before using
+   it. FINDINGS.md has the save-state RAM offsets (player pos, map, script vars)
+   and a verified `checkpoints/dock_arrival.gz` so you can skip the ~12k-frame intro.
 
 ---
 
@@ -48,10 +56,16 @@ sections. The prior session's full detail is in the conversation transcript.
   (~33 MB, ROM is ~87% full — fine).
 - **Show the user a build:** `cp codebase/pokeemerald.gba /home/claude/Dreamstone_Ruination.gba`
   then `present_files`.
-- **THE IMAGE/`view` TOOL HAS BEEN BLIND THE ENTIRE PROJECT** (returns blank).
-  Verify ALL visual work two ways: (a) in code — decode the built `.4bpp`/`.bin`
-  and assert equality/colour-counts against the source; (b) render to a PNG and
-  `present_files` so the *user* sees it. Never assume the build did what you meant.
+- **THE IMAGE/`view` TOOL IS UNRELIABLE (treat as blind).** This session it
+  returned a legible screenshot exactly ONCE, then an opaque placeholder every
+  other time, and failed a controlled blind test (an image reading "8710 / LEMON /
+  red square" came back unreadable). So do NOT depend on it. Verify ALL visual work
+  two ways: (a) in code — decode the built `.4bpp`/`.bin` and assert equality/
+  colour-counts against the source; (b) render a PNG and `present_files` so the
+  *user* sees it. **Images the USER pastes into chat DO read reliably** — when
+  stuck on something visual, ask them to paste a screenshot rather than trusting
+  `view` on a file. (`.claude/skills` + `/loop` are Claude Code features, a
+  different environment from this chat — don't assume they exist here.)
 - **Poryscript:** maps with `scripts.pory` compile it to `scripts.inc` at build.
   EDIT THE `.pory`. Standalone check:
   `codebase/tools/poryscript/poryscript -i <f>.pory -o /tmp/t.inc -fc codebase/tools/poryscript/font_config.json -cc codebase/tools/poryscript/command_config.json`
@@ -191,13 +205,27 @@ layout reference. Bible §18 documents this as a build task.
   **Still needs in-game eyes** — nothing has been painted with these metatiles yet,
   so they are present but unused until the map repaint.
 
+**THE PERIOD SHIP — DONE this session (as a SPRITE, interim):**
+- The dock ship (`OBJ_EVENT_GFX_SS_TIDAL`, object event 60 at (44,52)) now uses a
+  wooden Evernahn ship. Art from `Evernahn.png` rows 180-183 cols c0-c6, recoloured
+  grey→oak at matching luminance + plank banding, downscaled to 70×40 in a 96×40
+  canvas (reuses `sOamTables_96x40`, so NO new subsprite table). Source + full
+  recipe: `assets/pelluca_ship/{ship_wood_source.png,ship_spec.json}`.
+- **Blast radius:** SS_TIDAL is shared by **11 maps** (incl. RivetshoreCity_Harbor,
+  UnchartedIsland, Championship) — all now show the period ship. Fine for an
+  empire-era setting; for Pelluca-only, add a separate `OBJ_EVENT_GFX` id instead.
+- The metatile route (rows 179-186 in the SECONDARY tileset) is the eventual
+  "correct" home and would supersede this sprite; reuse `ship_wood_source.png`.
+
 **Then, in order:**
 1. Convert the 3 shared buildings into PRIMARY (each town has a monastery+tavern):
    Templar Monastery `Evernahn.png` rows **18-23**, Pokémon Tavern rows **69-71**,
    generic house rows **100-104**. (Building rows located by template + colour-sig
-   matching, confirmed by the user.)
-2. Convert Pelluca SECONDARY: Cadmus's lab rows **173-178**, period ship rows
-   **179-186** (replaces the modern SS_TIDAL at the dock), dock, decoration.
+   matching, confirmed by the user.) NOTE: Evernahn slot 5 is the ONLY free palette
+   slot left — measure combined colour count across those rows BEFORE converting;
+   three building sets may not share one slot without quantising (which we avoid).
+2. Convert Pelluca SECONDARY: Cadmus's lab rows **173-178**, dock, decoration,
+   and the ship rows 179-186 (to replace the interim sprite above).
 3. Repaint the 80×60 map from scratch per the blueprint (below).
 
 ---
@@ -227,12 +255,67 @@ layout reference. Bible §18 documents this as a build task.
 
 ---
 
+## 5b. HEADLESS PLAY-TESTING (new this session — use it)
+
+`tools/playtest/` — a stable-retro (mGBA core) harness that boots the ROM, presses
+buttons, and captures frames. Full docs in `PLAYTEST.md`; hard-won specifics in
+`FINDINGS.md`. The high-value points:
+
+- **Emulation is ~1,975 fps** — a full intro replay costs seconds. One emulator
+  instance PER PROCESS (a 2nd `GBA(...)` in the same process throws).
+- **Read real state instead of guessing from pixels.** `get_state()` is the mGBA
+  save state and contains RAM. Pinned offsets (this ROM): IWRAM base `0x019000`,
+  EWRAM base `0x021000` in the blob; `gSaveBlock1Ptr` = `0x03006A08`; SaveBlock1
+  `pos` @+0x00, `location` (mapGroup/mapNum) @+0x04, **vars[] @ 0x15B8** (the
+  `/*0x139C*/` comment in global.h is STALE — don't use it). Resolve map ids via
+  `include/constants/map_groups.h`. This is how the intro hang was pinpointed.
+- **Detect player control DIFFERENTIALLY.** "Screen changed while holding a
+  direction" is WRONG (cutscenes animate on their own — it gave a false positive
+  for several runs). Correct: from an identical saved state, run N frames idle vs N
+  frames holding a direction and compare the results; or just read `pos` before/
+  after. Best signal of "in a cutscene" = `pos` doesn't change on input.
+- **Checkpoints** (`checkpoints/*.gz`, ~45 KB) restore byte-exactly in a fresh
+  process; `dock_arrival.gz` is verified at `map(2,5) pos(44,52)`. A checkpoint is
+  tied to the ROM it came from — re-drive after a rebuild that shifts layout.
+- **Division of labour:** you MEASURE (advanced? crashed? static? garbage sprites?
+  regression vs a stored baseline?) and hand the user contact sheets to eyeball.
+  Never claim a screen "looks right." Metrics have traps — `garbage_score()` calls
+  the title screen 85% "noisy" because it's legitimately detailed; use it
+  comparatively against a known-good baseline of the SAME scene, never absolutely.
+
+---
+
 ## 6. OTHER OPEN THREADS
 
-- **Chapter-1 lab scene** (`codebase/data/maps/PellucaUmbraLab/scripts.pory`) is
-  built and working: briefing → 3-starter select → Eden theft/fight → monastery
-  cell warp. Music beat added (silence on blackout → `MUS_ENCOUNTER_AQUA` on Eden
-  reveal). Starter shininess: Frigibax shiny, Teddiursa/Tinkatink normal.
+- **⚠ CHAPTER-1 INTRO HANG — TOP PRIORITY, see `tools/playtest/FINDINGS.md`.**
+  Headless play-testing this session found the intro never reaches player control:
+  it drives boot → PellucaReflection → Pelluca City dock (44,52) → PellucaUmbraLab
+  (5,11) and stops. At the hang, `VAR_UNUSED_0x40A1` (lab stage) == 1, so
+  `DR_Lab_Briefing` STARTED (sets 1 on its 2nd line) but never reached its closing
+  `releaseall` — the player stays `lockall`ed. Reproducible across 25,700 A presses
+  and both input pacings. **NOT caused by the PokeLog edit** — a build with the
+  pre-PokeLog lab script hangs identically. UNKNOWN whether it reproduces in the
+  user's own mGBA vs being specific to stable-retro's mGBA core — **ask the user to
+  confirm before assuming it's a real script bug.** If real, find the exact command
+  in `DR_Lab_Briefing` that never returns (the script pointer freezes near
+  `PellucaUmbraLab_EventScript_Umbra`, 0x0838DD30).
+- **Chapter-1 lab scene** (`codebase/data/maps/PellucaUmbraLab/scripts.pory`):
+  briefing → 3-starter select → Eden theft/fight → monastery cell warp. Music beat
+  (silence on blackout → `MUS_ENCOUNTER_AQUA` on Eden reveal). Starter shininess:
+  Frigibax shiny, Teddiursa/Tinkatink normal. **Fixes applied this session:**
+  (a) `setflag(FLAG_SYS_POKEMON_GET)` in `DR_Lab_Theft` so the party appears in the
+  start menu — it was missing (a SAVE from before this point won't have it);
+  (b) blackout after starter select shortened 180→90 frames;
+  (c) Cadmus now hands over the **PokéLog** (a paper-journal reskin of the Pokédex)
+  before the starter choice — `setflag(FLAG_SYS_POKEDEX_GET)` + fanfare; functionally
+  identical to a Pokédex, `src/pokedex.c` untouched; 10 player-facing strings renamed
+  POKéDEX→POKéLOG in `src/strings.c` (same length, no menu overflow); dex background
+  palettes (`bg_hoenn`/`bg_national`) re-tinted to parchment at matching luminance;
+  (d) Eden's post-defeat line rewritten (wants a rematch "after I escape").
+  Deliberately NOT renamed: the Hoenn/National dex mode strings (lore-wrong for
+  Cormoria regardless) — a later task with the Cormorian regional dex.
+- **Pelluca music:** `PellucaCity`, `PellucaCityHouses` → `MUS_LILYCOVE`.
+  `PellucaFishery` is still `MUS_SLATEPORT` (left deliberately; switch if it clashes).
 - **Osrid sprites:** front (`osrF64.png`) applied 1:1, mask intact. **Back sprite
   is still my conversion** (duller than the front). If the user sends a hand-fixed
   320×320 back sprite, apply it 1:1 the lossless way (their palette verbatim,
