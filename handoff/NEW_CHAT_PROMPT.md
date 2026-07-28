@@ -41,14 +41,55 @@ make. Don't dump code before the goal and constraints are clear.
   state (offsets in FINDINGS.md), and hand me contact sheets. Emulation is ~2000
   fps; there's a verified checkpoint at the dock so you can skip the long intro.
 
-**The most urgent open item** is a reproducible intro hang documented in
-FINDINGS.md — the game never reaches player control, stalling in
-`DR_Lab_Briefing` at PellucaUmbraLab (lab-stage var stuck at 1). It reproduces in
-the stable-retro mGBA core; **I need to confirm whether it also hangs in my own
-mGBA before you treat it as a real script bug** — ask me. After that, the tileset
-work continues per handoff §4 (shared buildings into the Evernahn PRIMARY tileset,
-then the Pelluca SECONDARY tileset, then the 80×60 map repaint).
+**Current Chapter-1 status — the full picture (details in handoff §6):**
+
+*Blocking / needs my input:*
+- **Intro hang (TOP PRIORITY).** The game never reaches player control — it drives
+  boot → PellucaReflection → Pelluca City dock (44,52) → PellucaUmbraLab (5,11) and
+  stops there, with the lab-stage var (`VAR_UNUSED_0x40A1`) stuck at 1, meaning
+  `DR_Lab_Briefing` started but never hit its closing `releaseall`. Full trace in
+  `tools/playtest/FINDINGS.md`. It reproduces in stable-retro's mGBA core; it is NOT
+  caused by the recent PokeLog edit (a pre-PokeLog build hangs identically).
+  **Ask me whether it also hangs in my own mGBA before treating it as a real script
+  bug** — that fork decides the whole diagnosis. If it's real, find the exact
+  command in `DR_Lab_Briefing` that never returns.
+- **PokéLog paper aesthetic — unresolved.** The dex background palettes were
+  re-tinted to parchment, but I could not tell what was going on from a
+  background-only composite. Capture a REAL dex screen with the harness and show me
+  before we call it done. (The PokéLog itself works: Cadmus grants it before the
+  starter choice; it's a functional Pokédex, `src/pokedex.c` untouched.)
+
+*Built this session but NOT yet confirmed in-game (the hang blocks reaching them):*
+- Party now appears in the start menu (`setflag(FLAG_SYS_POKEMON_GET)` added in
+  `DR_Lab_Theft` — it was missing). A save from before the lab won't have this.
+- Blackout after starter selection shortened 180→90 frames.
+- Eden's post-defeat line rewritten (wants a rematch "after I escape").
+- PokéLog handover + fanfare + `FLAG_SYS_POKEDEX_GET`; 10 strings renamed
+  POKéDEX→POKéLOG in `src/strings.c` (same length).
+- Pelluca Valley + Pelluca City Houses music → `MUS_LILYCOVE`.
+- Period ship at the dock: replaced the modern SS Tidal with a wooden Evernahn ship
+  — but as a SPRITE shared by 11 maps (interim; the metatile version supersedes it).
+
+*Deferred content (waiting on me or a later task):*
+- **Monastery cell dialogue** — the scene after Eden jails you; to be written.
+- **Cormorian regional dex** — a joint task for later; the Hoenn/National dex-mode
+  strings were deliberately left un-renamed because they belong to it.
+- **Osrid back sprite** — still the assistant's duller conversion; I'll send a
+  hand-fixed 320×320 to apply 1:1. (Front sprite is final. Wiring is all in place.)
+
+*Risks to flag before acting (don't just barrel in):*
+- **Eden trainer slots** — only 6 of 9 spare; Eden is fought 5×, and 3-way
+  branching would need 15. Flag before mass-creating Eden trainers.
+- **PellucaFishery** is still `MUS_SLATEPORT` (left deliberately; switch only if it
+  clashes with the valley theme).
+- **Bible amendment tags** (`[AMENDED …]` / `[LOCKED …]`) are un-versioned on
+  purpose — I stamp versions, so leave them alone.
+
+*After Chapter 1 polish, the tileset track (handoff §4):* the 3 shared buildings
+into the Evernahn PRIMARY tileset (slot 5 is the LAST free palette slot — measure
+combined colour count before converting), then the Pelluca SECONDARY tileset, then
+the 80×60 map repaint from the committed blueprint.
 
 Start by doing steps 1–4, then give me a short read-back of the current repo state
-and what you understand the next task to be. Don't start changing things until
+and what you understand the open Chapter-1 items to be. Don't change anything until
 we've agreed on the plan.
