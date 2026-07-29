@@ -96,27 +96,49 @@ def build_logo():
 
 
 def hard_text(text, pt):
-    """Render at SS x size then threshold, for hard edges at native resolution."""
+    """Render at SS x size then threshold, for hard edges at native resolution.
+
+    The supersampled canvas is rounded UP to an exact multiple of SS so the
+    downscale averages clean SS x SS blocks. Otherwise Image.resize rescales
+    the whole bitmap by a fractional amount, which softens stroke edges and
+    shifts glyphs off the pixel grid before the threshold is applied.
+    """
     f = ImageFont.truetype(str(SRC / "MAGIC.TTF"), pt * SS)
     b = f.getbbox(text)
-    im = Image.new("L", (b[2] - b[0] + SS * 4, b[3] - b[1] + SS * 4), 0)
+    w = b[2] - b[0] + SS * 4
+    h = b[3] - b[1] + SS * 4
+    w = -(-w // SS) * SS
+    h = -(-h // SS) * SS
+    im = Image.new("L", (w, h), 0)
     ImageDraw.Draw(im).text((SS * 2 - b[0], SS * 2 - b[1]), text, font=f, fill=255)
-    im = im.resize((im.size[0] // SS, im.size[1] // SS), Image.BOX)
+    im = im.resize((w // SS, h // SS), Image.BOX)
     m = np.array(im) > 110
     ys, xs = np.where(m)
     return m[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
 def stamp(canvas, mask, ox, oy):
-    """Draw mask in FILL with a 1px INK outline."""
-    d = np.zeros_like(mask)
+    """Draw mask in FILL with a 1px INK outline.
+
+    The mask arrives cropped tight to the glyphs, so it MUST be zero-padded
+    before dilating: np.roll is circular, and rolling a tight mask wraps ink
+    from the top row onto the bottom (and left onto right), which printed
+    stray dashes above "Dreamstone" and between the two lines. Padding also
+    gives the outline somewhere to live -- without it the 1px border is
+    clipped at every edge and the glyph extremes come out looking cut off.
+    """
+    p = np.pad(mask, 1)
+    d = np.zeros_like(p)
     for dy in (-1, 0, 1):
         for dx in (-1, 0, 1):
-            d |= np.roll(np.roll(mask, dy, 0), dx, 1)
-    h, w = mask.shape
+            d |= np.roll(np.roll(p, dy, 0), dx, 1)
+    h, w = p.shape
+    oy, ox = oy - 1, ox - 1                      # padding shifts the origin
+    assert oy >= 0 and ox >= 0 and oy + h <= canvas.shape[0] and ox + w <= canvas.shape[1], \
+        f"text at ({ox},{oy}) size {w}x{h} would fall outside the {canvas.shape[1]}x{canvas.shape[0]} screen"
     reg = canvas[oy:oy + h, ox:ox + w]
-    reg[d & ~mask] = INK
-    reg[mask] = FILL
+    reg[d & ~p] = INK
+    reg[p] = FILL
 
 
 def main():
