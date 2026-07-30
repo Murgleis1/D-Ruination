@@ -65,7 +65,11 @@ OUT = HERE.parents[1] / "codebase" / "graphics" / "title_screen" / "dr_title.png
 
 SCREEN = (240, 160)
 LOGO_W = 112
-LOGO_Y = 5
+LOGO_Y = 1          # chosen: raises the subtitle clear of Chien-Pao's head crown
+GAP = 1              # logo->subtitle gap; with LOGO_Y=1 the text lands at y42..82
+                     # (ear tips reach y~75-76, crown ~y86; 7px raised from the
+                     #  original y49..89, which cut into the ears. This is the
+                     #  maximum raise possible while the logo stays 112px wide.)
 FILL = (248, 248, 248)
 INK = (16, 16, 24)
 SS = 6                       # supersample factor for text rendering
@@ -148,16 +152,18 @@ def main():
     ap.add_argument("--byline", default=None,
                     help='optional bottom line, e.g. "A PREQUEL BY MURGLEIS"')
     ap.add_argument("--byline-pt", type=int, default=13)
+    ap.add_argument("--logo-y", type=int, default=LOGO_Y)
+    ap.add_argument("--gap", type=int, default=GAP)
     a = ap.parse_args()
 
     canvas = np.array(build_background(a.colors)).copy()
     logo, opaque = build_logo()
     lx = (SCREEN[0] - LOGO_W) // 2
-    reg = canvas[LOGO_Y:LOGO_Y + logo.shape[0], lx:lx + LOGO_W]
+    reg = canvas[a.logo_y:a.logo_y + logo.shape[0], lx:lx + LOGO_W]
     reg[opaque] = logo[opaque]
 
     l1, l2 = hard_text("Dreamstone", a.pt), hard_text("Ruination", a.pt)
-    y = LOGO_Y + logo.shape[0] + 4
+    y = a.logo_y + logo.shape[0] + a.gap
     stamp(canvas, l1, (SCREEN[0] - l1.shape[1]) // 2, y)
     y2 = y + l1.shape[0] + 2
     stamp(canvas, l2, (SCREEN[0] - l2.shape[1]) // 2, y2)
@@ -182,7 +188,8 @@ def main():
     print(f"wrote {OUT}")
     print(f"  mode={img.mode} size={img.size} palette entries={len(img.getpalette())//3}")
     print(f"  distinct colours used: {n}")
-    print(f"  logo {LOGO_W}x{logo.shape[0]} at y={LOGO_Y}; subtitle {a.pt}pt ends y={bottom}")
+    print(f"  logo {LOGO_W}x{logo.shape[0]} at y={a.logo_y}, gap {a.gap}; "
+          f"subtitle {a.pt}pt spans y={y-1}..{bottom}")
 
 
 if __name__ == "__main__":
