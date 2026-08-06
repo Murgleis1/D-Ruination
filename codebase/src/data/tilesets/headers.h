@@ -1104,3 +1104,14 @@ const struct Tileset gTileset_ZarudeSecondary =
     .metatileAttributes = gMetatileAttributes_ZarudeSecondary,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_Pelluca =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Pelluca,
+    .palettes = gTilesetPalettes_Pelluca,
+    .metatiles = gMetatiles_Pelluca,
+    .metatileAttributes = gMetatileAttributes_Pelluca,
+    .callback = NULL,
+};

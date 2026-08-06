@@ -279,3 +279,6 @@ const u16 gMetatileAttributes_ZarudeForest[] = INCBIN_U16("data/tilesets/primary
 
 const u16 gMetatiles_ZarudeSecondary[] = INCBIN_U16("data/tilesets/secondary/zarude_secondary/metatiles.bin");
 const u16 gMetatileAttributes_ZarudeSecondary[] = INCBIN_U16("data/tilesets/secondary/zarude_secondary/metatile_attributes.bin");
+
+const u16 gMetatiles_Pelluca[] = INCBIN_U16("data/tilesets/secondary/pelluca/metatiles.bin");
+const u16 gMetatileAttributes_Pelluca[] = INCBIN_U16("data/tilesets/secondary/pelluca/metatile_attributes.bin");

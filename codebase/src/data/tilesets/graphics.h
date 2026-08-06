@@ -2096,3 +2096,25 @@ const u16 gTilesetPalettes_ZarudeSecondary[][16] =
 };
 
 const u32 gTilesetTiles_ZarudeSecondary[] = INCBIN_U32("data/tilesets/secondary/zarude_secondary/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_Pelluca[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_Pelluca[] = INCBIN_U32("data/tilesets/secondary/pelluca/tiles.4bpp.lz");
