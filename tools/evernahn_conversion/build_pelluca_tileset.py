@@ -73,12 +73,27 @@ OUT = REPO / "codebase" / "data" / "tilesets" / "secondary" / "pelluca"
 # ship, which swept in the 32x128 object at c7 that ship_spec.json explicitly
 # excludes, plus unrelated art in rows 179 and 184-186 -- roughly half those
 # metatiles were junk. The ship is rows 180-183, cols c0-c6, and nothing else.
+# BOUNDS CONFIRMED VISUALLY BY THE USER, one building at a time.
+#
+# The originals came from the handoff, found by "template + colour-sig
+# matching" -- enough to LOCATE a building, never verified to BOUND one. The
+# sheet is packed edge to edge with no gutters, so those ranges sliced through
+# continuous art and the monastery stamped as a wall fragment with no roof
+# ridge or foundation. Opacity analysis could not settle it (every row outside
+# every crop still measures 0.6-0.9 opaque).
+#
+#   monastery  r17-26 c0-c6   was r18-23 c0-c7
+#   tavern     r69-72 c0-c7   was r69-71 c0-c7
+#   house      r99-104 c0-c7  was r100-104 c0-c7  (lower of two stacked houses)
 BUILD = [
-    ("monastery", 18, 23, 6, 0, 7),
-    ("tavern", 69, 71, 7, 0, 7),
-    ("house", 100, 104, 8, 0, 7),
+    ("monastery", 17, 26, 6, 0, 6),
+    ("tavern", 69, 72, 7, 0, 7),
+    ("house", 99, 104, 8, 0, 7),
     ("ship", 180, 183, 9, 0, 6),
 ]
+
+# GROUND METATILE drawn UNDER every building tile (Evernahn primary grass).
+GROUND_TILE_SRC = ("SHEET", 71, 5)
 
 # GREY -> OAK, verbatim from assets/pelluca_ship/ship_spec.json.
 # The greys are 95.3% of the ship; each maps to a wood tone at MATCHING
@@ -99,6 +114,8 @@ RECOLOUR = {"ship": SHIP_RECOLOUR}
 MAX_SECONDARY_TILES = 512
 MAX_SECONDARY_METATILES = 512
 MB_NORMAL, MB_IMPASSABLE = 0x00, 0x01
+METATILE_LAYER_TYPE_NORMAL = 0     # middle + top (include/global.fieldmap.h:24)
+GROUND_SLOT = 10                   # spare secondary slot for the ground colour
 
 
 def mode_downscale(idx, opaque):
@@ -129,6 +146,31 @@ def main():
     tilemap = OrderedDict()          # index-pattern -> tile id
     metatiles, attrs, palettes = [], [], {}
     manifest = []
+
+    # --- ground tile for the bottom layer of every building metatile ---
+    _, gr, gc = GROUND_TILE_SRC
+    gblk = sheet[gr * CELL:(gr + 1) * CELL, gc * CELL:(gc + 1) * CELL]
+    gop = gblk[:, :, 3] > 128
+    gpx = gblk[gop][:, :3].astype(int)
+    gbase = gpx[np.argmin(gpx @ np.array([0.299, 0.587, 0.114]))]
+    gfull = gblk.copy()
+    gfull[~gop, :3] = gbase                     # composite over its own shadow tone
+    gpal = [tuple(int(v) for v in c)
+            for c in np.unique(gfull[:, :, :3].reshape(-1, 3), axis=0)][:15]
+    gidx = np.zeros((CELL, CELL), np.uint8)
+    P = np.array(gpal)
+    flat = gfull[:, :, :3].reshape(-1, 3).astype(int)
+    gidx = (np.argmin(((flat[:, None] - P[None]) ** 2).sum(2), axis=1) + 1)
+    gidx = gidx.astype(np.uint8).reshape(CELL, CELL)
+    gsmall, _ = mode_downscale(gidx, np.ones_like(gidx, bool))
+    gsub = gsmall[:8, :8]
+    # Register the ground tile as secondary-relative index 0 BEFORE any
+    # building tiles, so dedupe() numbers buildings from 1 upward. Both get the
+    # +512 offset applied at metatile-write time.
+    tilemap[gsub.tobytes()] = 0
+    ground_tid = 0 + MAX_SECONDARY_TILES      # -> 512
+    palettes[GROUND_SLOT] = [(0, 0, 0)] + gpal
+    print(f"  ground tile from sheet r{gr}c{gc}: {len(gpal)} colours, slot {GROUND_SLOT}")
 
     for name, r0, r1, slot, c0, c1 in BUILD:
         blk = sheet[r0 * CELL:(r1 + 1) * CELL, c0 * CELL:(c1 + 1) * CELL].copy()
@@ -169,16 +211,36 @@ def main():
                     for qx in range(2):
                         sub = cell[qy * 8:(qy + 1) * 8, qx * 8:(qx + 1) * 8]
                         tid, xf, yf = dedupe(tilemap, sub)
-                        quad.append((tid, xf, yf))
+                        # +512: tile ids are a shared 0-1023 space, secondary
+                        # starts at NUM_TILES_IN_PRIMARY (src/fieldmap.c:912).
+                        quad.append((tid + MAX_SECONDARY_TILES, xf, yf))
+                # TWO-LAYER ENCODING -- this is what produced the black
+                # margins. A pokeemerald metatile has a bottom and a top layer.
+                # Colour index 0 in the BOTTOM layer renders as the BACKDROP
+                # colour (black), NOT transparent; only the TOP layer composites
+                # over what is beneath. Writing the building into the bottom
+                # layer and leaving the top empty turned every transparent pixel
+                # around a roof into a black block.
+                #
+                # Vanilla proves the pattern: 71% of Petalburg's and 81% of
+                # Lilycove's metatiles use the top layer. Attribute layer type
+                # must be 0 = METATILE_LAYER_TYPE_NORMAL (middle + top); the old
+                # code wrote 1 = COVERED (bottom + middle), which is for tiles
+                # the player walks BEHIND.
                 mt = b""
-                for tid, xf, yf in quad:          # bottom layer
+                for _ in range(4):                       # bottom: solid ground
+                    mt += struct.pack("<H", (ground_tid & 0x3FF) |
+                                      ((GROUND_SLOT & 15) << 12))
+                for tid, xf, yf in quad:                 # top: the building
+                    assert tid >= MAX_SECONDARY_TILES, \
+                        f"secondary tile id {tid} < 512 would read the PRIMARY tileset"
                     mt += struct.pack("<H", (tid & 0x3FF) | (xf << 10) |
                                       (yf << 11) | ((slot & 15) << 12))
-                mt += struct.pack("<H", 0) * 4    # top layer empty
                 metatiles.append(mt)
                 solid = cellop.mean() > 0.85
-                attrs.append(struct.pack("<H", (MB_IMPASSABLE if solid else MB_NORMAL)
-                                         | (1 << 12)))
+                attrs.append(struct.pack("<H",
+                             (MB_IMPASSABLE if solid else MB_NORMAL)
+                             | (METATILE_LAYER_TYPE_NORMAL << 12)))
                 made += 1
         manifest.append((name, slot, made))
         print(f"  {name:10s} slot {slot}  {made:3d} metatiles  "
