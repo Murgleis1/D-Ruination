@@ -52,6 +52,7 @@ fits and reports headroom.
 Usage: python3 tools/evernahn_conversion/build_pelluca_tileset.py [--dry-run]
 """
 import argparse
+import json
 import struct
 import sys
 from collections import OrderedDict
@@ -144,6 +145,7 @@ def main():
 
     sheet = np.array(Image.open(SHEET).convert("RGBA"))
     tilemap = OrderedDict()          # index-pattern -> tile id
+    grid, dims = [], {}   # (set,row,col,metatile) so buildings can be STAMPED
     metatiles, attrs, palettes = [], [], {}
     manifest = []
 
@@ -200,6 +202,7 @@ def main():
 
         rows, cols = (r1 - r0 + 1), (c1 - c0 + 1)
         made = 0
+        dims[name] = (rows, cols)
         for ry in range(rows):
             for cx in range(cols):
                 cell = idx16[ry * 16:(ry + 1) * 16, cx * 16:(cx + 1) * 16]
@@ -237,6 +240,7 @@ def main():
                     mt += struct.pack("<H", (tid & 0x3FF) | (xf << 10) |
                                       (yf << 11) | ((slot & 15) << 12))
                 metatiles.append(mt)
+                grid.append((name, ry, cx, len(metatiles) - 1))
                 solid = cellop.mean() > 0.85
                 attrs.append(struct.pack("<H",
                              (MB_IMPASSABLE if solid else MB_NORMAL)
@@ -265,7 +269,14 @@ def main():
         cols = (list(cols) + [(0, 0, 0)] * 16)[:16]
         write_gbapal(OUT / "palettes" / f"{s:02d}.gbapal", cols)
         write_jasc(OUT / "palettes" / f"{s:02d}.pal", cols)
-    print(f"wrote {OUT}")
+    # Buildings must be STAMPED as whole units, never used as fill. This
+    # manifest records each metatile's (row, col) position inside its source
+    # block so repaint can place a monastery/tavern/house intact.
+    man = {"dims": {k: list(v) for k, v in dims.items()}, "cells": {}}
+    for name, ry, cx, mid in grid:
+        man["cells"].setdefault(name, []).append([ry, cx, mid])
+    (OUT / "assembly_manifest.json").write_text(json.dumps(man, indent=1))
+    print(f"wrote {OUT} + assembly_manifest.json")
 
 
 def dedupe(tilemap, sub):

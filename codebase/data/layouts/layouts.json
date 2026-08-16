@@ -4996,8 +4996,8 @@
       "name": "PellucaCity_Layout",
       "width": 80,
       "height": 60,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Mauville",
+      "primary_tileset": "gTileset_Evernahn",
+      "secondary_tileset": "gTileset_Pelluca",
       "border_filepath": "data/layouts/PellucaCity/border.bin",
       "blockdata_filepath": "data/layouts/PellucaCity/map.bin"
     },
