@@ -96,6 +96,20 @@ BUILD = [
 # GROUND METATILE drawn UNDER every building tile (Evernahn primary grass).
 GROUND_TILE_SRC = ("SHEET", 71, 5)
 
+# TREES come from Calvera.png, a different source sheet. The Evernahn sheet has
+# no tree art, so tree zones were rendering as a cliff metatile placeholder --
+# 514 blueprint cells, ~10% of the map, on stand-in art.
+#
+# All 19 red conifers in Calvera rows 3-40 carry 77 colours between them = 6
+# palette slots, and only 11 and 12 are free. Measured every combination:
+# big_a (r14-16 c0-2, 7 colours) + small_a (r5-6 c4-5, 3 colours) = 10 colours,
+# fitting ONE slot with no reduction and no loss. A large 3x3 landmark tree and
+# a small 2x2 for scattered woodland.
+TREE_SHEET = SHEET.parent / "Calvera.png"
+TREES = [("tree_big", 14, 16, 0, 2), ("tree_small", 5, 6, 4, 5),
+         ("tree_single", 35, 35, 5, 5)]
+TREE_SLOT = 11
+
 # GREY -> OAK, verbatim from assets/pelluca_ship/ship_spec.json.
 # The greys are 95.3% of the ship; each maps to a wood tone at MATCHING
 # luminance (preserved within ~1), snapped to multiples of 8 because the GBA
@@ -249,6 +263,59 @@ def main():
         manifest.append((name, slot, made))
         print(f"  {name:10s} slot {slot}  {made:3d} metatiles  "
               f"(tiles so far {len(tilemap)})")
+
+    # --- trees from the Calvera sheet, top layer over the same ground tile ---
+    tsheet = (np.array(Image.open(TREE_SHEET).convert("RGBA"))
+              if TREE_SHEET.exists() else None)
+    if tsheet is not None:
+        tpal = []
+        for _, r0, r1, c0, c1 in TREES:
+            blk = tsheet[r0 * CELL:(r1 + 1) * CELL, c0 * CELL:(c1 + 1) * CELL]
+            opx = blk[blk[:, :, 3] > 128][:, :3]
+            for c in np.unique(opx, axis=0):
+                tt = tuple(int(v) for v in c)
+                if tt not in tpal:
+                    tpal.append(tt)
+        assert len(tpal) <= 15, f"trees need {len(tpal)} colours"
+        palettes[TREE_SLOT] = [(0, 0, 0)] + tpal
+        TP = np.array(tpal)
+        for name, r0, r1, c0, c1 in TREES:
+            blk = tsheet[r0 * CELL:(r1 + 1) * CELL, c0 * CELL:(c1 + 1) * CELL]
+            bop = blk[:, :, 3] > 128
+            flat = blk[:, :, :3].reshape(-1, 3).astype(int)
+            idx = (np.argmin(((flat[:, None] - TP[None]) ** 2).sum(2), axis=1) + 1)
+            idx = idx.astype(np.uint8).reshape(blk.shape[:2])
+            idx[~bop] = 0
+            small, sop = mode_downscale(idx, bop)
+            rows, cols = (r1 - r0 + 1), (c1 - c0 + 1)
+            dims[name] = (rows, cols)
+            made = 0
+            for ry in range(rows):
+                for cx in range(cols):
+                    cell = small[ry * 16:(ry + 1) * 16, cx * 16:(cx + 1) * 16]
+                    cellop = sop[ry * 16:(ry + 1) * 16, cx * 16:(cx + 1) * 16]
+                    if cellop.mean() < 0.02:
+                        continue
+                    quad = []
+                    for qy in range(2):
+                        for qx in range(2):
+                            sub = cell[qy * 8:(qy + 1) * 8, qx * 8:(qx + 1) * 8]
+                            tid, xf, yf = dedupe(tilemap, sub)
+                            quad.append((tid + MAX_SECONDARY_TILES, xf, yf))
+                    mtb = b""
+                    for _ in range(4):
+                        mtb += struct.pack("<H", (ground_tid & 0x3FF) |
+                                           ((GROUND_SLOT & 15) << 12))
+                    for tid, xf, yf in quad:
+                        mtb += struct.pack("<H", (tid & 0x3FF) | (xf << 10) |
+                                           (yf << 11) | ((TREE_SLOT & 15) << 12))
+                    metatiles.append(mtb)
+                    grid.append((name, ry, cx, len(metatiles) - 1))
+                    attrs.append(struct.pack("<H", MB_IMPASSABLE |
+                                             (METATILE_LAYER_TYPE_NORMAL << 12)))
+                    made += 1
+            print(f"  {name:10s} slot {TREE_SLOT}  {made:3d} metatiles  "
+                  f"(tiles so far {len(tilemap)})")
 
     n_t, n_m = len(tilemap), len(metatiles)
     print(f"\ntiles      {n_t}/{MAX_SECONDARY_TILES}   headroom {MAX_SECONDARY_TILES-n_t}")

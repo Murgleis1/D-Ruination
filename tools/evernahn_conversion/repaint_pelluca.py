@@ -77,7 +77,11 @@ NUM_METATILES_IN_PRIMARY = 512
 Z_WATER, Z_GRASS, Z_TREE, Z_PATH, Z_CLIFF, Z_STRUCT = range(6)
 GRASS, GRASS_ALT, WATER, WATER_ALT = 189, 190, 191, 192
 CLIFF_BASE, PATH_BASE = 46, 154
-TREE = CLIFF_BASE          # placeholder: no tree art located in the sheet yet
+# Trees are STAMPED as assemblies from the Calvera sheet (tree_big 3x3,
+# tree_small 2x2), not filled with a single metatile. Tree zones are 514
+# blueprint cells; a repeated fragment across them reads as noise, which is what
+# the earlier cliff-metatile placeholder produced.
+TREE_FALLBACK = CLIFF_BASE
 BLOCKED = {Z_WATER, Z_TREE, Z_CLIFF, Z_STRUCT}
 CAVERN = (63, 65, 40, 42)  # x0, x1, y0, y1
 
@@ -116,6 +120,40 @@ def stamp_buildings(bp, mt, coll, asm):
     return placed
 
 
+def stamp_trees(bp, mt, coll, asm):
+    """Tile tree assemblies across the blueprint's tree zones.
+
+    Large trees are placed first on a coarse grid, small trees fill the gaps.
+    Any tree cell not covered by an assembly falls back to grass rather than a
+    lone fragment -- a repeated interior metatile is what made the earlier
+    placeholder read as noise.
+    """
+    cells = {k: {(r, c): m for r, c, m in v} for k, v in asm["cells"].items()}
+    zone = (bp == Z_TREE)
+    taken = np.zeros(bp.shape, bool)
+    n = 0
+    for name in ("tree_big", "tree_small", "tree_single"):
+        if name not in asm["dims"]:
+            continue
+        rows, cols = asm["dims"][name]
+        for y in range(0, H - rows + 1):
+            for x in range(0, W - cols + 1):
+                win = zone[y:y + rows, x:x + cols]
+                if not win.all():
+                    continue
+                if taken[y:y + rows, x:x + cols].any():
+                    continue
+                for (r, c), mid in cells[name].items():
+                    mt[y + r, x + c] = NUM_METATILES_IN_PRIMARY + mid
+                    coll[y + r, x + c] = 1
+                taken[y:y + rows, x:x + cols] = True
+                n += 1
+    leftover = zone & ~taken
+    mt[leftover] = GRASS
+    coll[leftover] = 0
+    return n
+
+
 def build():
     bp = np.load(BLUEPRINT)
     assert bp.shape == (H, W)
@@ -139,7 +177,7 @@ def build():
             elif z == Z_CLIFF:
                 mt[y, x] = CLIFF_BASE
             elif z == Z_TREE:
-                mt[y, x] = TREE
+                mt[y, x] = TREE_FALLBACK
             else:
                 mt[y, x] = GRASS          # cleared; buildings stamped over
             coll[y, x] = 1 if z in BLOCKED else 0
@@ -147,6 +185,8 @@ def build():
 
     asm = json.loads(ASSEMBLY.read_text())
     placed = stamp_buildings(bp, mt, coll, asm)
+    ntrees = stamp_trees(bp, mt, coll, asm)
+    print(f"stamped {ntrees} trees")
 
     d = json.loads(DOCK.read_text())
     r = d["region"]
