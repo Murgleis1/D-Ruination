@@ -63,21 +63,42 @@ MAX_PRIMARY_TILES = 512
 MAX_PRIMARY_METATILES = 512
 
 # label -> (source, cell). source is a strip filename or ("SHEET", row, col).
+# GROUND GRASS comes from Calvera r170c4. TALL/ROUTE GRASS is the Evernahn
+# foliage cell that was previously (wrongly) used as ground.
+#
+# WHY THE SWAP. Evernahn r71c5 has a luminance range of 0-200: foliage art with
+# deep black shadow gaps, which read as depth between bushes. Tiled 150 times
+# across a screen as ground it measured stddev 41.9 against vanilla Emerald
+# grass at 10-18, and rendered in-game as an unreadable green-and-tan
+# checkerboard. Those same dark gaps are exactly right for TALL GRASS, so the
+# cell is kept -- just for the correct job.
+#
+# Calvera r170c4 measures stddev 9.4 tiled, RGB(129,169,145), 3 colours -- a
+# muted sage that sits in vanilla's band and suits Pelluca's dusk palette.
+#
+# The search that found it had a bug worth recording: the green test was
+# "G > R + 8" and never compared green to BLUE, so blue-grey WATER at
+# RGB(94,127,163) passed as grass. A colour test for green must beat both other
+# channels.
 TERRAIN = [
-    ("grass", ("SHEET", 71, 5), 0),
-    ("grass_alt", ("SHEET", 72, 5), 0),
+    ("grass", ("CALVERA", 170, 4), 0),
+    ("grass_alt", ("CALVERA", 170, 3), 0),
+    ("tall_grass", ("SHEET", 71, 5), 0),
     ("water", "Evernahn_Water.png", 0),
     ("water_alt", "Evernahn_Water.png", 1),
 ]
+CALVERA_PNG = "Calvera.png"
+MB_TALL_GRASS = 0x02
 MB_NORMAL, MB_IMPASSABLE = 0x00, 0x01
 METATILE_LAYER_TYPE_COVERED = 1     # ground: bottom + middle, nothing above
 
 
 def fetch(src, cell):
     """Return a 32x32 RGBA block from either an autotile strip or the main sheet."""
-    if isinstance(src, tuple) and src[0] == "SHEET":
-        _, r, c = src
-        a = np.array(Image.open(SRC / SHEET_PNG).convert("RGBA"))
+    if isinstance(src, tuple) and src[0] in ("SHEET", "CALVERA"):
+        kind, r, c = src
+        png = SHEET_PNG if kind == "SHEET" else CALVERA_PNG
+        a = np.array(Image.open(SRC / png).convert("RGBA"))
         return a[r * CELL:(r + 1) * CELL, c * CELL:(c + 1) * CELL]
     a = np.array(Image.open(SRC / src).convert("RGBA"))
     return a[0:CELL, cell * CELL:(cell + 1) * CELL]
@@ -158,7 +179,12 @@ def main():
             mt += struct.pack("<H", (tid & 0x3FF) | ((SLOT & 15) << 12))
         mt += struct.pack("<H", 0) * 4
         newmt.append(mt)
-        beh = MB_IMPASSABLE if label.startswith("water") else MB_NORMAL
+        if label.startswith("water"):
+            beh = MB_IMPASSABLE
+        elif label == "tall_grass":
+            beh = MB_TALL_GRASS
+        else:
+            beh = MB_NORMAL
         newat.append(struct.pack("<H", beh |
                                  (METATILE_LAYER_TYPE_COVERED << 12)))
         manifest.append((label, n_mt + len(newmt) - 1))

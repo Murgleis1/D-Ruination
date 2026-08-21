@@ -75,7 +75,14 @@ MAPBIN = REPO / "codebase" / "data" / "layouts" / "PellucaCity" / "map.bin"
 W, H = 80, 60
 NUM_METATILES_IN_PRIMARY = 512
 Z_WATER, Z_GRASS, Z_TREE, Z_PATH, Z_CLIFF, Z_STRUCT = range(6)
-GRASS, GRASS_ALT, WATER, WATER_ALT = 189, 190, 191, 192
+# Terrain metatile ids are READ FROM THE MANIFEST, never hardcoded. Adding
+# tall_grass shifted water from 191 to 192; hardcoded ids would have silently
+# painted 447 water cells as tall grass.
+_TM = json.loads((REPO / "assets" / "pelluca_tileset_source" /
+                  "evernahn_terrain_manifest.json").read_text())
+GRASS, GRASS_ALT = _TM["grass"], _TM["grass_alt"]
+WATER, WATER_ALT = _TM["water"], _TM["water_alt"]
+TALL_GRASS = _TM.get("tall_grass", _TM["grass"])
 CLIFF_BASE, PATH_BASE = 46, 154
 # Trees are STAMPED as assemblies from the Calvera sheet (tree_big 3x3,
 # tree_small 2x2), not filled with a single metatile. Tree zones are 514
