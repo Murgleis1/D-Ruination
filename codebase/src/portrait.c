@@ -1,68 +1,76 @@
 #include "global.h"
-#include "sprite.h"
+#include "bg.h"
+#include "window.h"
+#include "palette.h"
 #include "decompress.h"
+#include "malloc.h"
 #include "script.h"
 #include "field_message_box.h"
 #include "portrait.h"
 #include "constants/portraits.h"
 
-// Only one portrait is ever shown at a time, so it owns a single pair of VRAM tags.
-#define PORTRAIT_TILE_TAG   0x4B00
-#define PORTRAIT_PAL_TAG    0x4B00
+// ---------------------------------------------------------------------------
+// WHY THIS IS A BG WINDOW AND NOT AN OAM SPRITE
+//
+// Portraits used to be a 64x64 sprite drawn as a 2x2 grid of 32x32 subsprites,
+// with only a 48x48 bust visible inside it. The source art is 96x96, so it was
+// resampled DOWN by 1.5x -- a non-integer factor, where every output pixel is a
+// blend of a 1.5x1.5 source region. Measured on the committed files:
+//
+//     cadmus_neutral   mean identical-pixel run 5.44px -> 4.30px
+//     eden             mean identical-pixel run 5.30px -> 3.42px
+//
+// and bilinear resampling of a 46-colour source generates 1012 intermediate
+// colours which are then crushed back to 16. The pipeline manufactured blur and
+// then discarded the detail it blurred. That is the "blurry portraits" problem:
+// the colour reduction was never at fault, the RESIZE was.
+//
+// A GBA OAM sprite caps at 64x64, so 96x96 art cannot be shown 1:1 as a sprite.
+// Backgrounds have no such limit. As a BG0 window the 96x96 source displays
+// EXACTLY as authored -- no downscale, no invented colours, ~4x the visible
+// area of the old 48x48 bust.
+//
+// BUDGET (measured before writing this):
+//   BG0 is priority 0 and sits above the map (BG1/2/3 are priority 1/2/3).
+//   The field text box window starts at baseBlock 0x194 (tile 404) and Yes/No
+//   at 0x125 (tile 293), so tiles below 293 are free. A 96x96 portrait is
+//   12x12 = 144 tiles, placed at 0x080 (tile 128) and ending at 272 -- clear.
+//   BG palettes 0-12 belong to the map tilesets and 15 to the text box, so the
+//   portrait takes slot 13 and leaves 14 spare.
+//
+// The public API is unchanged, so no script or dialogue edits are needed.
+// ---------------------------------------------------------------------------
 
-#define PORTRAIT_WIDTH      64
-#define PORTRAIT_HEIGHT     64
-#define PORTRAIT_NUM_TILES  ((PORTRAIT_WIDTH / 8) * (PORTRAIT_HEIGHT / 8))   // 64
+#define PORTRAIT_WIDTH        96
+#define PORTRAIT_HEIGHT       96
+#define PORTRAIT_TILES_W      (PORTRAIT_WIDTH / 8)
+#define PORTRAIT_TILES_H      (PORTRAIT_HEIGHT / 8)
+#define PORTRAIT_NUM_TILES    (PORTRAIT_TILES_W * PORTRAIT_TILES_H)
 
-// On-screen anchor (the sprite's centre). Bottom-left, sitting above the text
-// box. The visible 48x48 bust is centred inside the 64x64 sprite, so this is
-// the centre of that art. Nudge these two if the bust needs repositioning.
-#define PORTRAIT_CENTER_X   36
-#define PORTRAIT_CENTER_Y   76
+#define PORTRAIT_BG           0
+#define PORTRAIT_PALETTE      13
+#define PORTRAIT_BASE_BLOCK   0x080
+
+// Tilemap position in 8px units. Bottom-left, above the text box (which starts
+// at tilemapTop 15). 12 tiles tall ending at row 15 means top row 3.
+#define PORTRAIT_TILEMAP_LEFT 1
+#define PORTRAIT_TILEMAP_TOP  3
 
 #include "data/portraits.h"
 
-// sPortraitActive tracks whether a bust is on screen. It is zero-initialised
-// (inactive at boot) so no initialised .data is emitted: pokeemerald's linker
-// script places only .text/.rodata/.bss from src objects, and a non-zero-init
-// global (e.g. = MAX_SPRITES) would fall through to /DISCARD/ at link time.
+// Zero-initialised so no .data is emitted: pokeemerald's linker script places
+// only .text/.rodata/.bss from src objects.
 static bool8 sPortraitActive;
-static u8 sPortraitSpriteId;
+static u8 sPortraitWindowId;
 
-// A 64x64 bust is drawn as a 2x2 grid of 32x32 OAM subsprites. gbagfx builds the
-// tiles with -mwidth 4 -mheight 4, i.e. four contiguous 32x32 cells in reading
-// order, so each cell is 16 tiles and the tileOffsets step by 16. .x/.y are the
-// cell's top-left offset from the sprite centre.
-static const struct Subsprite sPortraitSubsprites[] = {
-    { .x = -32, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset =  0, .priority = 0 },
-    { .x =   0, .y = -32, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 16, .priority = 0 },
-    { .x = -32, .y =   0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 32, .priority = 0 },
-    { .x =   0, .y =   0, .shape = SPRITE_SHAPE(32x32), .size = SPRITE_SIZE(32x32), .tileOffset = 48, .priority = 0 },
-};
-
-static const struct SubspriteTable sPortraitSubspriteTable[] = {
-    { ARRAY_COUNT(sPortraitSubsprites), sPortraitSubsprites },
-};
-
-// Base OAM is a template only; SUBSPRITES_ON makes the subsprite table drive
-// rendering (the base object itself is not drawn).
-static const struct OamData sPortraitOam = {
-    .affineMode = ST_OAM_AFFINE_OFF,
-    .objMode = ST_OAM_OBJ_NORMAL,
-    .bpp = ST_OAM_4BPP,
-    .shape = SPRITE_SHAPE(32x32),
-    .size = SPRITE_SIZE(32x32),
-    .priority = 0,
-};
-
-static const struct SpriteTemplate sPortraitSpriteTemplate = {
-    .tileTag = PORTRAIT_TILE_TAG,
-    .paletteTag = PORTRAIT_PAL_TAG,
-    .oam = &sPortraitOam,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
+static const struct WindowTemplate sPortraitWindowTemplate = {
+    .bg = PORTRAIT_BG,
+    .tilemapLeft = PORTRAIT_TILEMAP_LEFT,
+    .tilemapTop = PORTRAIT_TILEMAP_TOP,
+    .width = PORTRAIT_TILES_W,
+    .height = PORTRAIT_TILES_H,
+    .paletteNum = PORTRAIT_PALETTE,
+    .baseBlock = PORTRAIT_BASE_BLOCK,
 };
 
 static const struct PortraitExpr *GetPortraitExpression(const struct Portrait *portrait, u8 expression)
@@ -78,7 +86,7 @@ static const struct PortraitExpr *GetPortraitExpression(const struct Portrait *p
             return &portrait->expressions[i];
     }
 
-    return &portrait->expressions[0];   // fall back to the character's default expression
+    return &portrait->expressions[0];
 }
 
 bool8 IsMsgPortraitActive(void)
@@ -91,9 +99,9 @@ void FreeMsgPortrait(void)
     if (!sPortraitActive)
         return;
 
-    DestroySprite(&gSprites[sPortraitSpriteId]);
-    FreeSpriteTilesByTag(PORTRAIT_TILE_TAG);
-    FreeSpritePaletteByTag(PORTRAIT_PAL_TAG);
+    ClearWindowTilemap(sPortraitWindowId);
+    CopyWindowToVram(sPortraitWindowId, COPYWIN_MAP);
+    RemoveWindow(sPortraitWindowId);
     sPortraitActive = FALSE;
 }
 
@@ -101,9 +109,7 @@ void SetMsgPortrait(u8 portraitId, u8 expression)
 {
     const struct Portrait *portrait;
     const struct PortraitExpr *expr;
-    struct CompressedSpriteSheet sheet;
-    struct SpritePalette palette;
-    u32 spriteId;
+    u8 *buffer;
 
     if (portraitId == PORTRAIT_NONE || portraitId >= PORTRAIT_COUNT)
         return;
@@ -113,32 +119,33 @@ void SetMsgPortrait(u8 portraitId, u8 expression)
     if (expr == NULL)
         return;
 
-    // Clear any portrait already on screen (handles speaker / expression swaps).
     FreeMsgPortrait();
 
-    sheet.data = expr->tiles;
-    sheet.size = PORTRAIT_NUM_TILES * TILE_SIZE_4BPP;
-    sheet.tag = PORTRAIT_TILE_TAG;
-    palette.data = expr->palette;
-    palette.tag = PORTRAIT_PAL_TAG;
+    sPortraitWindowId = AddWindow(&sPortraitWindowTemplate);
+    if (sPortraitWindowId == WINDOW_NONE)
+        return;
 
-    LoadCompressedSpriteSheet(&sheet);
-    LoadSpritePalette(&palette);
-
-    spriteId = CreateSprite(&sPortraitSpriteTemplate, PORTRAIT_CENTER_X, PORTRAIT_CENTER_Y, 0);
-    if (spriteId == MAX_SPRITES)
+    // The art is LZ77-compressed 4bpp in gbagfx's -mwidth/-mheight tile order,
+    // which matches a window's pixel-buffer layout, so it decompresses straight
+    // into the window rather than needing a per-tile blit.
+    buffer = Alloc(PORTRAIT_NUM_TILES * TILE_SIZE_4BPP);
+    if (buffer == NULL)
     {
-        FreeSpriteTilesByTag(PORTRAIT_TILE_TAG);
-        FreeSpritePaletteByTag(PORTRAIT_PAL_TAG);
+        RemoveWindow(sPortraitWindowId);
         return;
     }
+    LZ77UnCompWram(expr->tiles, buffer);
+    CpuCopy16(buffer, (void *)GetWindowAttribute(sPortraitWindowId, WINDOW_TILE_DATA),
+              PORTRAIT_NUM_TILES * TILE_SIZE_4BPP);
+    Free(buffer);
 
-    SetSubspriteTables(&gSprites[spriteId], sPortraitSubspriteTable);
-    sPortraitSpriteId = spriteId;
+    LoadPalette(expr->palette, BG_PLTT_ID(PORTRAIT_PALETTE), PLTT_SIZE_4BPP);
+
+    PutWindowTilemap(sPortraitWindowId);
+    CopyWindowToVram(sPortraitWindowId, COPYWIN_FULL);
+
     sPortraitActive = TRUE;
 
-    // Default the nameplate from the registry. Portraits with no default name
-    // (e.g. Osrid) leave any script-set speaker name untouched.
     if (portrait->name != NULL)
         SetSpeakerName(portrait->name);
 }
