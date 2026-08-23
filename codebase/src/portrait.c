@@ -54,7 +54,7 @@
 // Tilemap position in 8px units. Bottom-left, above the text box (which starts
 // at tilemapTop 15). 12 tiles tall ending at row 15 means top row 3.
 #define PORTRAIT_TILEMAP_LEFT 1
-#define PORTRAIT_TILEMAP_TOP  3
+#define PORTRAIT_TILEMAP_TOP  1   // rows 1-12; row 13 is the nameplate
 
 #include "data/portraits.h"
 
