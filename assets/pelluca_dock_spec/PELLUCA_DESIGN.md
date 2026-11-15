@@ -57,3 +57,23 @@ The reference's dock area is NOT authoritative — `dock_geometry.json` is.
 - Four exits: N Ivy River, W Route 11, E Hoya Delta, S Surf-gated water (Route 10).
 - Every one of the current 62 objects / 48 triggers / 9 warps / 6 signs gets an
   explicit fate (move / keep / cut) approved before map data is edited.
+
+## Tile budget — measured 2026-11-15 (tools/monomyth/budget_pelluca.py)
+
+Unique 8x8 tiles after flattening MonoMyth's 3 layers to 2 (bottom+middle merged,
+top kept), flips deduped, ground fill (images placed >=40x map-wide) excluded:
+
+| building | tiles |
+|---|---|
+| Academy — WA hall | 142 |
+| Cadmus — WA turret house | 74 |
+| Lab — WA stone tower | 78 |
+| Residence — WA timber house | 51 |
+| Tavern — FE lodge G | 170 |
+| Guardhouse — FE keep gate | 38 |
+| Residence — FE red house | 100 |
+| Residence — FE steep house | 105 |
+| **all eight** | **718** (95 colours) |
+
+A secondary tileset holds 512 tiles; the Evernahn church + Osrid house + props
+are not yet counted. **Does not fit in one secondary.** Decision pending.
