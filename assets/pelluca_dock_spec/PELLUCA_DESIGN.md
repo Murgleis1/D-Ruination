@@ -23,7 +23,7 @@ The reference's dock area is NOT authoritative — `dock_geometry.json` is.
 |---|---|---|
 | 1 | Academy | 3 Wood Avens gambrel hall — roof recoloured to the reference blue (user, 2026-11-15) |
 | 2 | Arceus church | 9 Evernahn monastery — roof recoloured |
-| 3 | Osrid's cover house | 11 Evernahn house (building columns c0-c4 only) |
+| 3 | Osrid's cover house | **shared Wood Avens timber house, unique roof colour** (user 2026-11-15; was Evernahn house, -78 tiles). Lore: hiding in plain sight |
 | 4 | Cadmus's house | 2 Wood Avens turret-bay house |
 | 9 | Seaside Tavern | **Elderflower building G** = candidate 7, the large lodge (confirmed by the user; see monomyth_reference/elderflower_badged.png) — snow removed AND recoloured so it does not read as MonoMyth's tavern |
 | 10 | Umbra lab | 4 Wood Avens stone chapel tower — door on locked warp (47,44) |
@@ -184,3 +184,9 @@ Cuts, measured (budget_terrain.py + coverage analysis of Wood Avens terrain):
 - Church crop r17-26 c0-c6 includes 6 junk cells (r17c0-1 bushes, r17c5-6 stair
   fragment, r18c0 water swatch, r18c6 vine): real church ~178, not 202.
 Result: ~1,054 vs 1,024 before signs/door frames -> one more ~80-tile lever needed.
+
+## Budget CLOSED — 2026-11-15
+Osrid's house -> shared residence model (user approved). One map:
+~976 of 1,024 tiles, ~48 headroom for signs / door frames / small props.
+Next gate before building: PALETTE packing (13 slots x 15 colours) across all
+sources after the dusk regrade -- measured, not assumed.
