@@ -99,3 +99,18 @@ The Cormorian Empire is one unified culture with regional variation, so:
   the two Elderflower houses are dropped as residences (-205 tiles).
 - Regional variation beyond colour: "a few new building types here and there" go
   in each town's secondary.
+
+## Full budget — measured 2026-11-15 (tools/monomyth/budget_shared.py)
+
+| item | tiles | tileset |
+|---|---|---|
+| terrain: gTileset_Evernahn today / all Wood Avens terrain+props | 320 / 408 | shared |
+| Arceus church — Evernahn monastery r17-26 c0-c6 | 202 (43 colours) | shared |
+| Tavern — FE lodge G | 170 | shared |
+| Residence — WA timber house | 51 | shared |
+| Academy 142, Osrid house 78, Lab 78, Cadmus 74, Guardhouse 38 | 410 | Pelluca |
+
+Demand ~1,150 vs capacity 1,024 (props not yet counted). Pelluca secondary fits
+(410/512); the SHARED primary does not (743+ / 512). Levers under discussion:
+curated terrain, Osrid house as a residence variant, which shared building
+moves to the town secondary, and post-desnow re-measure of the tavern.
