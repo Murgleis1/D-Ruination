@@ -130,3 +130,17 @@ moves to the town secondary, and post-desnow re-measure of the tavern.
   lake matches, not Evernahn's clay banks.
 - **Colour:** the locked mauve/dusk palette stands; Wood Avens' mint is graded
   toward dusk rather than shipped as-is.
+
+## Water / dock / shore sources — approved 2026-11-15 (water_candidates*.png)
+
+| piece | use in Pelluca |
+|---|---|
+| G, H Port Ginseng stone quays | main dock (art only; dock geometry stays locked) |
+| F Cascade Boardwalk wooden pier | SW fishermen's jetty |
+| I Port Ginseng surf-foam beach | SW beach meeting the lake |
+| A Watercress cliff into water + rocks | lake edges below the terraces |
+| C Watercress fountain | central wellspring fountain |
+| J Old Bay Island river sandbank | river by Osrid's house / dive spot |
+| K Old Bay Island rock outcrop w/ steps | secret cavern entrance, far shore |
+B (grey stone pier) rejected as modern. Port Ginseng/Old Bay grass is olive:
+take stone/water/rock only, redraw grass edges in Wood Avens grass.
