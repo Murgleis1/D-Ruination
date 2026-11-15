@@ -17,6 +17,19 @@ The reference's dock area is NOT authoritative — `dock_geometry.json` is.
 | 5,6,7,8 | Residences | Assigned as Chapter 1 work needs them |
 | 11 | Boathouse / fishery | Fisherman's Dilemma — unconfirmed |
 
+## Art source per role — agreed 2026-11-15 (candidate numbers from building_candidates.png)
+
+| map badge | role | candidate |
+|---|---|---|
+| 1 | Academy | 7 Elderflower large lodge — snow repainted out |
+| 2 | Arceus church | 9 Evernahn monastery — roof recoloured |
+| 3 | Osrid's cover house | 11 Evernahn house (building columns c0-c4 only) |
+| 4 | Cadmus's house | 2 Wood Avens turret-bay house |
+| 9 | Seaside Tavern | **Elderflower's tavern** (which building: pending, see monomyth_reference/elderflower_badged.png) — snow removed AND recoloured so it does not read as MonoMyth's tavern |
+| 10 | Umbra lab | 4 Wood Avens stone chapel tower — door on locked warp (47,44) |
+| 18 | North guardhouse | 8 Elderflower keep gate — snow repainted out |
+| 5-8 | Residences | 1, 5, 6 with roofs recoloured to the reference |
+
 ## Terrain / route features — decided by the user
 
 - **North exit (badge 18):** a clear road north out of town that passes THROUGH a
