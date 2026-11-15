@@ -227,3 +227,20 @@ the heaviest buildings.
   (Academy, church, tavern, lab, Cadmus, guardhouse each get a designed roof);
   residences share one roof colour unless a palette is freed by trimming the
   heaviest colour user (Lab tower, 47 colours).
+
+## WHY MonoMyth fits and we don't — measured 2026-11-15
+Same hardware, same base (Emerald): 512+512 tiles, 13 BG palettes per map.
+- Wood Avens ALONE natively uses 8 palette slots (0-4, 7-9). Flattened to our
+  2-layer format the SAME map needs 16 palettes (palette_pack.py), and 639 tiles.
+  Fort Elderflower alone: 10 palettes, 641 tiles after flattening.
+- Cause: MonoMyth runs TRIPLE-LAYER metatiles (24 bytes; bottom/middle/top each
+  drawn on its own BG). Ground and the object over it are separate tiles, each
+  with its OWN palette. Our engine (NUM_TILES_PER_METATILE 8, field_camera.c
+  DrawMetatile) draws two layers, so a 3-layer metatile must bake two layers into
+  one tile -> that tile needs BOTH layers' colours in ONE palette, and every
+  object-over-ground combination becomes a new tile.
+- Second factor: MonoMyth builds each town from one art family designed together;
+  Pelluca mixes six source maps across four tilesets.
+- The field engine already owns all three map BGs (BG1/BG2/BG3); a SPLIT
+  metatile writes BG3 + BG1 and blanks BG2. Triple-layer support is a metatile
+  FORMAT + DrawMetatile change, not a VRAM change.
