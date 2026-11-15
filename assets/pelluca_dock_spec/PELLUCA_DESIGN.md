@@ -77,3 +77,25 @@ top kept), flips deduped, ground fill (images placed >=40x map-wide) excluded:
 
 A secondary tileset holds 512 tiles; the Evernahn church + Osrid house + props
 are not yet counted. **Does not fit in one secondary.** Decision pending.
+
+## Tileset architecture — decided by the user 2026-11-15 (applies to EVERY town)
+
+The Cormorian Empire is one unified culture with regional variation, so:
+
+- **Shared primary tileset** (one, used by every city/town): terrain + the building
+  types every town repeats (Tavern, Arceus church, the residence model) + common
+  props.
+- **Per-town secondary tileset**: that town's unique buildings (Pelluca: Academy,
+  Umbra lab, Cadmus's house, north guardhouse, Osrid's house) + its regional
+  palettes.
+- **Regional roof colours cost zero tiles.** A metatile entry picks the palette
+  slot, independent of which tileset owns the tile (engine: slots 0-5 load from
+  the primary, 6-12 from the secondary; fieldmap.c LoadTilesetPalette). So the
+  shared house TILES live in the primary, while each town's SECONDARY holds the
+  metatiles placing them with that town's roof palette (slot >= 6). Same tiles,
+  different roofs per town. Cross-origin palette entries are standard: 52 of 81
+  vanilla secondaries use them.
+- Residences: one shared model (Wood Avens timber house) in several roof colours;
+  the two Elderflower houses are dropped as residences (-205 tiles).
+- Regional variation beyond colour: "a few new building types here and there" go
+  in each town's secondary.
