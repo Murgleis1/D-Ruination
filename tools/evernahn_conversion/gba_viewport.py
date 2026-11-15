@@ -32,6 +32,19 @@ A renderer that gets this wrong will happily draw a broken tileset as if it
 were fine -- which is exactly how a build shipped with every building pointing
 at terrain tiles.
 
+KNOWN LIMITS -- measured against a real mGBA frame of the Pelluca dock
+--------------------------------------------------------------------
+- Palette slot, not tile origin, picks the palette. Slots 0-5 load from the
+  primary, 6-12 from the secondary (src/fieldmap.c LoadTilesetPalette). This
+  tool previously took the palette from whichever tileset owned the TILE, which
+  mis-renders any cross-origin entry -- present in 52 of 81 secondary tilesets.
+  Fixed; any Gate-3 sheet made before the fix for those tilesets is suspect.
+- Tileset ANIMATIONS (water, flowers, waterfalls) are not modelled. The engine
+  overwrites those tiles in VRAM at runtime, so water here shows the static
+  tiles.png frame, not what the player sees.
+- The in-game camera sits 8px lower than this tool's metatile-aligned view.
+For ground truth, boot the ROM: tools/playtest/boot_to_dock.py.
+
 Usage:
   python3 gba_viewport.py <map.bin> <primary_dir> <secondary_dir> <out.png>
                           [--at X,Y] [--zoom N] [--metrics] [--width W]
@@ -83,8 +96,13 @@ def main():
             tid, xf, yf, sl = e & 0x3FF, (e >> 10) & 1, (e >> 11) & 1, (e >> 12) & 15
             if q >= 4 and tid == 0:
                 continue
-            tiles, tw, pals, lt = ((st, stw, spal, tid - 512) if tid >= 512
-                                   else (pt, ptw, ppal, tid))
+            # Tile id picks the tile PAGE; palette slot picks the palette.
+            # They are independent: the engine loads slots 0-5 from the primary
+            # and 6-12 from the secondary (src/fieldmap.c LoadTilesetPalette),
+            # whichever tileset the tile itself lives in.
+            tiles, tw, lt = ((st, stw, tid - 512) if tid >= 512
+                             else (pt, ptw, tid))
+            pals = ppal if sl < 6 else spal
             y, x = (lt // tw) * 8, (lt % tw) * 8
             if y + 8 > tiles.shape[0]:
                 continue

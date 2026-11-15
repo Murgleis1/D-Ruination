@@ -133,3 +133,21 @@ make modern:     EXIT=0, pokeemerald.gba 33554432 bytes, ROM ~87% full
 `files.pythonhosted.org` (Python) · `registry.npmjs.org`, `crates.io`.
 
 devkitPro's own domain is **not** allowlisted — which is fine, because it isn't needed.
+
+## 7. Fresh clone fails on sprite sheets (found 2026-11-15)
+
+`spritesheet_rules.mk` asks for `-mwidth 12 -mheight 12` on 32px-tall sheets
+(brendan/acro_bike 864x32, mach_bike 288x32, every custom character). gbagfx
+cannot convert them, so this fork has ALWAYS built from the committed `.4bpp`.
+A fresh clone gives files arbitrary mtimes and make tries to regenerate them:
+`The height in tiles (4) isn't a multiple of the specified metatile height (12)`.
+
+Container-only fix, changes nothing in the repo: touch every tracked `.4bpp`
+whose `.png` has no later commit (on 2026-11-15 that was all 9,918; none stale):
+
+```bash
+cd codebase && git ls-files '*.4bpp' | while read f; do p="${f%.4bpp}.png";
+  [ -f "$p" ] && [ "$(git log -1 --format=%ct -- "$p")" -le "$(git log -1 --format=%ct -- "$f")" ] && echo "$f";
+done | xargs touch
+```
+Recheck the "png newer" case before touching if sprite art changed recently.

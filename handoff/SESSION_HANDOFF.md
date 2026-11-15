@@ -5,6 +5,14 @@
 **Read this whole file before touching anything.** Then skim the referenced bible
 sections. The prior session's full detail is in the conversation transcript.
 
+> **CORRECTION 2026-11-15 -- the "speckled lab" bug is not the lab.** The user's
+> screenshot carries Cadmus's line "10 years on and by the grace of Arceus...",
+> which is in `PellucaCity/scripts.pory`: it is the DOCK (map 2,5 at 44,52), with
+> the speckle where the water should be. The lab layout is intact (10x14, 48
+> distinct metatiles, standard border). HEAD 0e9f0a400 booted fresh shows the
+> dock correctly -- `tools/playtest/baselines/dock_44_52_head0e9f0a4.png`. So the
+> user's ROM predates HEAD or carries stale build output. Ask which commit it was.
+
 ---
 
 > **If the build appears impossible in your container** (no ARM toolchain,
