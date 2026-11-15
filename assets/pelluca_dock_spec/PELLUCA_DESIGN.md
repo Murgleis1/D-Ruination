@@ -190,3 +190,23 @@ Osrid's house -> shared residence model (user approved). One map:
 ~976 of 1,024 tiles, ~48 headroom for signs / door frames / small props.
 Next gate before building: PALETTE packing (13 slots x 15 colours) across all
 sources after the dusk regrade -- measured, not assumed.
+
+## Palette gate — measured 2026-11-15 (tools/monomyth/palette_pack.py)
+Approved set (budget-closed): 160 distinct colours -> 23 palettes needed vs 13.
+No tile exceeds 15 colours; it is a packing problem.
+
+| merge tolerance (max RGB step per channel) | colours | palettes (best of 400 packings) |
+|---|---|---|
+| 0 | 160 | 23 |
+| 8 | 111 | 17 |
+| 16 | 71 | **13** |
+| 24 | 43 | 8 |
+
+Visual check on a real Wood Avens screen (palette_tolerance_compare.png):
+tolerance 24 FLATTENS the grass into fill and kills roof highlights -- rejected.
+Tolerance 16 keeps texture (stddev 43.5 vs 44.6, edge 17.5 vs 17.8). It fits 13
+palettes exactly, leaving NO slot for regional roof-colour variants. Heaviest
+colour users: Lab tower 47 colours, Cadmus house 37, Academy 33.
+Next: hand-designed dusk master palettes with a fixed roof-ramp index convention
+so roof colours can ride in existing palettes, and targeted colour reduction on
+the heaviest buildings.
