@@ -38,3 +38,13 @@ Tileset animations (water etc.) are not modelled by render.py.
 | Cascade Boardwalk (mapsec 52) | 0x869B84 | 22% | wooden boardwalk pier (tent/shops modern: no) |
 | Camp Tarragon (mapsec 4) | 0x8695F0 | 27% | snow shore only -- not useful |
 Ranked by cells whose behaviour byte (attr u16 low byte) is 0x10-0x17.
+
+## Ports surveyed at the user's suggestion (2026-11-15)
+| map | header | finding |
+|---|---|---|
+| New Old Bay City 96x78 (mapsec 54) | 0x86D870 | modern metropolis, no dock; red-brick terraces noted for a later city |
+| New Old Bay City 26x22 | 0x86B880 | renders scrambled -- header does not decode like real outdoor maps |
+| Port Ginseng 48x48 (mapsec 95) | 0x86D88C | open sea + surf-foam beach shoreline |
+| Port Ginseng 64x64 | 0x86DB2C | stone quays, canals, bridges, moored piers; warehouses/market stalls; parking lot (modern) |
+| Old Bay Island, 22 maps (mapsec 91) | 0x86D8C4.. | wilderness: rivers w/ sandbanks + waterfalls (0x86DA14, 0x86DA30), no docks; 0x86DD24 scrambled |
+These use primaries 0x873132C / 0x87311DC, NOT Wood Avens' 0x8730D5C: style match judged by eye.
