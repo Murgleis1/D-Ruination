@@ -132,3 +132,26 @@ def pack_best(sets, cap=15, tries=400, seed=1):
                 if merged: break
         if best is None or len(pals) < len(best): best = pals
     return best
+
+def merge_map_safe(T_all, tol):
+    """Like merge_map, but NEVER merge two colours that co-occur in any tile.
+    Merging co-occurring shades is exactly what flattens texture (tol 24 turned
+    grass into fill); colours that never share a tile can merge without erasing
+    any tile's internal detail."""
+    from collections import Counter
+    use = Counter(); co = {}
+    for t in T_all:
+        cs = colours(t)
+        for c in cs:
+            use[c] += 1; co.setdefault(c, set()).update(cs)
+    reps, m, members = [], {}, {}
+    for c, _ in use.most_common():
+        v = np.array(c); hit = None
+        for r in reps:
+            if np.abs(v - np.array(r)).max() <= tol and not (co[c] & members[r]):
+                hit = r; break
+        if hit is None:
+            reps.append(c); m[c] = c; members[c] = {c}
+        else:
+            m[c] = hit; members[hit].add(c)
+    return m, len(reps)

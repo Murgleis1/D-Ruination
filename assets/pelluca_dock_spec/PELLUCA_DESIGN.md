@@ -210,3 +210,20 @@ colour users: Lab tower 47 colours, Cadmus house 37, Academy 33.
 Next: hand-designed dusk master palettes with a fixed roof-ramp index convention
 so roof colours can ride in existing palettes, and targeted colour reduction on
 the heaviest buildings.
+
+## Palette decision — 2026-11-15 (palette_merge_compare.png)
+- Roof-ramp convention MEASURED and rejected: the residence's slate ramp is in 53
+  of its 60 tiles (wall trim included), so a roof palette must pin 12 of 15
+  slots; every roof colour costs ~1 whole palette (14 -> 19 for six colours).
+- "Safe" merge (never merge colours that share a tile) reaches 13 palettes only
+  at tolerance 40 (12 at 48) and LOOKS WRONG: cobble turns purple/yellow speckle,
+  roofs streak yellow, red flowers go brown, beige patches in grass. Its stddev
+  and edge metrics went UP (45.2/45.7 vs 44.6) -- the metrics rewarded the
+  damage. Judge by eye on real screens, not by these numbers alone.
+- **Chosen: plain merge at tolerance 16 -> 71 colours, 13 palettes.**
+- **Roof colours:** regional (per-TOWN) variation is free -- the residence's
+  palette goes in a secondary slot (6-12), so every town's secondary defines its
+  own residence colours. Within Pelluca, variety comes from the unique buildings
+  (Academy, church, tavern, lab, Cadmus, guardhouse each get a designed roof);
+  residences share one roof colour unless a palette is freed by trimming the
+  heaviest colour user (Lab tower, 47 colours).
