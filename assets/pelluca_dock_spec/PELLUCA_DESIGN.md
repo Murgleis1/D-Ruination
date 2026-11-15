@@ -144,3 +144,25 @@ moves to the town secondary, and post-desnow re-measure of the tavern.
 | K Old Bay Island rock outcrop w/ steps | secret cavern entrance, far shore |
 B (grey stone pier) rejected as modern. Port Ginseng/Old Bay grass is olive:
 take stone/water/rock only, redraw grass edges in Wood Avens grass.
+
+## Budget re-measured with real flattening — 2026-11-15 (tools/monomyth/budget_terrain.py)
+
+Flattening now merges layers ONLY for metatiles using all 3 MonoMyth layers
+(<=2 layers map onto Ruination's two unchanged). Saves little (terrain 611->570):
+most of these metatiles genuinely use 3 layers.
+
+Exact approved crop windows (generous boxes swept in warehouses -> 1173, wrong):
+| piece | tiles (new after earlier rows) |
+|---|---|
+| Wood Avens terrain, no snow tier/buildings | 280 |
+| A cliff-into-water | 60 | C fountain | 44 | G quay | 42 | I surf beach | 45 |
+| F boardwalk | 28 | J river sandbank | 13 | K rock outcrop | 58 |
+| **terrain total** | **570** |
+| + Academy 127, Cadmus 61, Lab 64, Residence 46, Tavern 175, Guardhouse 43 | 1086 |
+| + Evernahn church ~202, Osrid house ~78 | **~1366 vs 1024 for one map** |
+
+## Engine fact for any map split (verified src/fieldmap.c FillConnection)
+A connected map's raw metatile ids are copied into the current map's buffer and
+drawn with the CURRENT map's tilesets. A seam between maps with different
+secondaries must therefore use only shared-primary metatiles (or identical ids)
+for the strip visible across the edge, or the far side draws as garbage.
