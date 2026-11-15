@@ -114,3 +114,19 @@ Demand ~1,150 vs capacity 1,024 (props not yet counted). Pelluca secondary fits
 (410/512); the SHARED primary does not (743+ / 512). Levers under discussion:
 curated terrain, Osrid house as a residence variant, which shared building
 moves to the town secondary, and post-desnow re-measure of the tavern.
+
+## Terrain style — decided 2026-11-15
+
+- **Base: Wood Avens (MonoMyth)** for Pelluca: cliffs + stairs, cobble road
+  (user: WA road beats Evernahn's), fences/flower hedges, forest. Reasons: matches
+  the reference's tiered layout, matches the MonoMyth buildings' native-16px style
+  (Evernahn is 32px art halved, which reads softer/busier), and Pelluca is a
+  forested seaside valley, not a marsh.
+- **Evernahn = accents** where they blend: the Arceus church, Osrid's house, and
+  any other piece judged to meld (user: "feel free").
+- **Evernahn's marsh look is reserved for the Shadowmarshes / Hoya Delta** (east
+  arm) -- regional variation.
+- **Water/shore:** Wood Avens has none; source from a MonoMyth coastal map so the
+  lake matches, not Evernahn's clay banks.
+- **Colour:** the locked mauve/dusk palette stands; Wood Avens' mint is graded
+  toward dusk rather than shipped as-is.
