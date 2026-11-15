@@ -29,3 +29,12 @@ palette slots 0-4,7-9. Elderflower 325 (282 secondary), 164 use all 3 layers,
 slots 0,1,4,6-11. Renders: `assets/monomyth_reference/`.
 
 Tileset animations (water etc.) are not modelled by render.py.
+
+## Water / shore sources on Wood Avens' primary (0x8730D5C) — 50 outdoor maps share it
+| map | header | water | useful for |
+|---|---|---|---|
+| Watercress Port (mapsec 3) | 0x869C10 | 32% | cliff-into-water edge, rocks, stone pier, plaza fountain (buildings are modern: no) |
+| Route 24 (mapsec 39) | 0x8698AC | 35% | sand beach, sand-to-water shore |
+| Cascade Boardwalk (mapsec 52) | 0x869B84 | 22% | wooden boardwalk pier (tent/shops modern: no) |
+| Camp Tarragon (mapsec 4) | 0x8695F0 | 27% | snow shore only -- not useful |
+Ranked by cells whose behaviour byte (attr u16 low byte) is 0x10-0x17.
