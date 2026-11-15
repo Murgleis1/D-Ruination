@@ -51,6 +51,11 @@ from rubymarshal.reader import loads
 REPO = Path(__file__).resolve().parents[2]
 SRC = REPO / "assets" / "pelluca_tileset_source"
 MAPS = ["Map588.rxdata", "Map005.rxdata"]
+# ONLY Map588 is built with the Evernahn tileset (Tilesets.rxdata id 30).
+# Map005 uses id 23 "Polaris", whose image is NOT in the repo. Pooling it and
+# reading its ids against Evernahn.png contributed 866 of 1453 role entries and
+# flipped 37 Evernahn roles (measured 2026-11-15). Roles come from id-30 maps only.
+EVERNAHN_TILESET_ID = 30
 
 # RPG Maker XP tile id layout: ids below 384 are autotiles (48 variants each,
 # starting at 48); 384+ index the tileset bitmap in reading order, 8 per row.
@@ -130,6 +135,10 @@ def main():
     ap.add_argument("--render")
     a = ap.parse_args()
     maps = [load_map(n) for n in MAPS]
+    for m in maps:
+        if m["tileset_id"] != EVERNAHN_TILESET_ID:
+            print(f'{m["name"]}: tileset {m["tileset_id"]} is not Evernahn -- excluded')
+    maps = [m for m in maps if m["tileset_id"] == EVERNAHN_TILESET_ID]
 
     if a.summary or not (a.roles or a.render):
         for m in maps:
@@ -157,6 +166,57 @@ def main():
             cell = tile_to_cell(tid)
             print(f"  tile {tid:5d}  {counts[tid]:6d} placements  "
                   f"sheet cell {cell}")
+
+
+    if a.render:
+        render(maps, a.render)
+
+
+def render(maps, out):
+    """Draw each Evernahn map at GAME scale (32px cells -> 16px by 2x MODE).
+
+    Layers 0,1,2 composited in order, exactly as RPG Maker draws them.
+    Autotiles (ids < 384) are drawn from the first 32x32 cell of their strip
+    when present -- an approximation, marked as such; they are 4-7% of cells.
+    """
+    from PIL import Image
+    sheet = Image.open(SRC / "Evernahn.png").convert("RGBA")
+    auto = {}
+    names = ["Evernahn_Grass_1", "Evernahn_Grass_2", "Evernahn_Grass_3",
+             "Evernahn_Water", "Evernahn_Water_2"]
+    for i, n in enumerate(names):
+        f = SRC / f"{n}.png"
+        if f.exists():
+            auto[i] = Image.open(f).convert("RGBA").crop((0, 0, 32, 32))
+    for m in maps:
+        d = m["data"]
+        img = Image.new("RGBA", (m["w"] * 32, m["h"] * 32), (0, 0, 0, 255))
+        for z in range(d.shape[0]):
+            for y in range(m["h"]):
+                for x in range(m["w"]):
+                    t = int(d[z, y, x])
+                    if t == 0:
+                        continue
+                    if t >= AUTOTILE_BASE:
+                        r, c = tile_to_cell(t)
+                        cell = sheet.crop((c * 32, r * 32, c * 32 + 32, r * 32 + 32))
+                    else:
+                        cell = auto.get(t // 48 - 1)
+                        if cell is None:
+                            continue
+                    img.alpha_composite(cell, (x * 32, y * 32))
+        a = np.array(img)
+        h, w = a.shape[0] // 2, a.shape[1] // 2
+        blocks = a.reshape(h, 2, w, 2, 4).transpose(0, 2, 1, 3, 4).reshape(h, w, 4, 4)
+        small = np.zeros((h, w, 4), np.uint8)
+        for yy in range(h):
+            for xx in range(w):
+                u, cnt = np.unique(blocks[yy, xx], axis=0, return_counts=True)
+                small[yy, xx] = u[cnt.argmax()]
+        p = Path(out)
+        dest = p.with_name(f"{p.stem}_{m['name'].split('.')[0]}{p.suffix}")
+        Image.fromarray(small).convert("RGB").save(dest)
+        print(f"wrote {dest} ({w}x{h}, game scale)")
 
 
 if __name__ == "__main__":
