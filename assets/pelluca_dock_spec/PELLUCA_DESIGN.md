@@ -166,3 +166,21 @@ A connected map's raw metatile ids are copied into the current map's buffer and
 drawn with the CURRENT map's tilesets. A seam between maps with different
 secondaries must therefore use only shared-primary metatiles (or identical ids)
 for the strip visible across the edge, or the far side draws as garbage.
+
+## Option 2 chosen — ONE map (user, 2026-11-15)
+"Dump the fountain and anything too elaborate that isn't the buildings themselves."
+A split felt wrong for a valley that doesn't have a ton of stuff.
+
+Cuts, measured (budget_terrain.py + coverage analysis of Wood Avens terrain):
+- Dropped: C fountain, K rock outcrop (cavern entrance -> Wood Avens cliff + cave
+  mouth), F boardwalk (jetty reuses quay art), I surf beach (beach from J sandbank).
+- Wood Avens terrain has a long tail: 67 of 128 terrain metatiles placed <=2x
+  cost 202 of 280 tiles (95% of cells need only 149). Dropped from it: grey
+  mountain/snow tier, grass texture variants (map to base grass), INN signboard,
+  carved stone face, the well.
+- Dropping A (Watercress cliff-into-water) and flower-hedge variants too
+  (lake edges = Wood Avens cliff base + J shoreline).
+- Palette-unifying all sources saves only 11 tiles (351 -> 340 by shape).
+- Church crop r17-26 c0-c6 includes 6 junk cells (r17c0-1 bushes, r17c5-6 stair
+  fragment, r18c0 water swatch, r18c6 vine): real church ~178, not 202.
+Result: ~1,054 vs 1,024 before signs/door frames -> one more ~80-tile lever needed.
