@@ -21,7 +21,7 @@ The reference's dock area is NOT authoritative — `dock_geometry.json` is.
 
 | map badge | role | candidate |
 |---|---|---|
-| 1 | Academy | **pending** — 7 (Elderflower lodge G) is taken by the Tavern |
+| 1 | Academy | 3 Wood Avens gambrel hall — roof recoloured to the reference blue (user, 2026-11-15) |
 | 2 | Arceus church | 9 Evernahn monastery — roof recoloured |
 | 3 | Osrid's cover house | 11 Evernahn house (building columns c0-c4 only) |
 | 4 | Cadmus's house | 2 Wood Avens turret-bay house |
