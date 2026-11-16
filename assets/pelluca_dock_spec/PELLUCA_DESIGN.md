@@ -298,3 +298,15 @@ the map is built. DEFERRED by the user until the Pelluca map is near completion.
 - ~25% of this roof exists ONLY as snow; no snow-free copy of the lodge exists
   anywhere in MonoMyth (tile-shape search over every secondary: only Elderflower's
   own tileset matches). Making it right means hand-drawing roof geometry.
+
+## Tavern snow removal — user's approach works (2026-11-15, tavern_desnow_options.png)
+User: "replace the snow with roof" / "or with leaves". tools/monomyth/desnow.py
+desnow_building(): two zones split at the balcony rail (row 88, found from the
+longest gold-trim run). Roof zone: snow inside the building's row extent ->
+shingles; caps above the roofline removed + outline redrawn; leftover gaps judged
+on the COMBINED mid+top layers and refilled. Facade zone: snow -> the material
+beside it in its row (or ivy, option 3). Snow ground below the facade -> removed
+(grass shows). Lamp-post column protected.
+Options: 2 roof fill, 3 roof fill + ivy on ledges, 4 tiled 8px roof patch
+(rejected by me: flat pink patches, gable outlines lost).
+Known residue in 2/3: vertical shingle bars on the right lower roof.
