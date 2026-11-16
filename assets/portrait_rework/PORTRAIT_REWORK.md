@@ -59,3 +59,17 @@
   antennae -> red-orange hair.
 - Next: Osrid OW draft 2 review; extra expressions (Eden wave, Kakugo set for Osrid); Baradus's
   round sunglasses if wanted; overworld sprites for the other principals from MonoMyth bases.
+
+## Correction (user 2026-11-16, 12:38): "the portraits and sprites in the game [must] BE what we had
+originally ... adapt my art into the MonoMyth system and rebuild them cleanly if necessary, not just
+recolor or tweak existing MonoMyth portraits and overworld sprites."
+- The MonoMyth-recolour portraits (v1) are withdrawn from the game (kept for reference only in
+  mm_recolour_v1/; tools/art/portraits_mm.py is NOT part of the pipeline). Osrid OW drafts 1-2
+  (MonoMyth #156/#136) are likewise reference only and were never wired in.
+- v2 in the game: the project's own portraits, adapted by tools/art/portrait_adapt.py -- 80x80
+  native-scale crop (no resampling), solid edges, index 0 reserved for transparency, accent-
+  preserving 15-colour palette. Fixes the lens/outline/eye/collar defects. Engine unchanged
+  (MonoMyth placement + inline names).
+- Open: our art is a face close-up filling its square, so in game it reads as a square panel, not
+  a MonoMyth bust (head + shoulders, transparent around). A true MonoMyth fit needs each portrait
+  rebuilt as a bust at MonoMyth's scale -- pending the user's direction.
