@@ -31,15 +31,12 @@ FOREST = [  # (x0, y0, x1, y1) inclusive; x0 even, width even
 # Draft-4 feedback: evenly spaced single trees read generic -> clusters of varied size,
 # backing buildings and cliffs, with singles/slim conifers/bushes as accents.
 GROVES = [
-    (8, 10, 11, 14),                          # behind the dorm, against the terrace edge
-    (32, 4, 35, 8), (42, 4, 45, 8),           # flanking the north road at the forest gap
-    (48, 4, 53, 8),                           # upper-east, beside house 5
-    (26, 17, 29, 21),                         # between the monastery and the fountain
-    (48, 14, 51, 18), (54, 14, 57, 18),       # under the east terrace, behind the cottages (lane at x58-59)
+    (8, 10, 9, 14),                           # a column against the west forest, behind the dorm
+    (48, 4, 53, 8),                           # the north forest steps down beside house 5 (ragged edge)
+    (48, 14, 57, 16), (60, 14, 71, 16),       # tree ROW along the foot of the east terrace (lane x58-59 open)
     (8, 31, 23, 33), (26, 31, 35, 33),        # tree ROW along the top of the lower cliff (stairs x24-25 open)
     (40, 31, 51, 33), (66, 31, 71, 33),
-    (66, 15, 69, 17),                         # a row of trees by the east forest
-]                                             # (the shore below the lower cliff is beach: palms, not woods)
+]                                             # (draft 12: no free-floating blobs -- every wood is a row or a forest edge)                                             # (the shore below the lower cliff is beach: palms, not woods)
 BANDS = [  # (y, x0, x1, [(stairs left column, width)]) -- width 3 = 45 46 46, lines up with a 3-wide road
     (15, 8, 45, [(16, 2), (37, 3)]),   # upper terrace -> town (west/centre); 3-wide under the road
     (12, 48, 71, [(58, 2)]),           # upper terrace -> town (east, one tier higher)
@@ -57,7 +54,7 @@ COBBLE = [
     (27, 44, 36, 45),            # beach lane -> the tavern door (user: paths to the tavern and lab)
     (26, 13, 36, 14),            # small 2-wide cobbled road: Academy door -> north road (user)
     # LANES (approved plan 2026-11-16): 2-wide cobble from each major door into the main roads
-    (13, 9, 14, 14), (13, 13, 17, 14), (16, 17, 17, 27), (13, 24, 17, 25),   # dorm -> (round the pool) west stairs -> Cadmus -> W road
+    (11, 9, 12, 14), (11, 13, 17, 14), (16, 17, 17, 27), (13, 24, 17, 25),   # dorm -> west stairs -> Cadmus -> W road
     (58, 9, 59, 11), (58, 14, 59, 23),                                     # house 5 -> east-terrace stairs -> E road
     (58, 27, 59, 30), (53, 31, 65, 32),                                    # E road -> cottages 8 / 8b
 ]
@@ -93,7 +90,7 @@ PIER = HARBOUR + [(43, 47, 45, 48), (40, 49, 48, 52),           # quay + stem + 
 PIER_LAMPS = [(41, 50), (47, 50)]
 BUILDINGS = {  # name: (x, y) of the grid's top-left; doors land where the warps go
     'academy': (24, 5),        # door (27,12)
-    'residence': (10, 4),      # student dormitory (Osrid has a room here), by the river; door (13,8)
+    'residence': (8, 4),       # student dormitory (Osrid's room); moved off the river (user); door (11,8)
     'cadmus_house': (9, 19),   # door (13,23)
     'church': (19, 18),        # Templar Monastery; door (22,27)
     'tavern_sand': (25, 37),   # on the beach; 7 wide (full lodge), moved left (user); door (28,43)
@@ -108,16 +105,20 @@ TRIM = {'lab_tower_stone': [(0, 2), (0, 3), (0, 4), (0, 5), (1, 5), (2, 5), (3, 
 
 # dressing (positions chosen by hand; every one keeps door fronts, stairs and roads clear)
 LAMPS = [  # lamp post: top (walkable) over base (blocked); left-of-road 76/88, right-of-road 80/89
-    (36, 5, 'L'), (40, 10, 'R'),
+    (36, 4, 'L'), (40, 4, 'R'),                            # the avenue's entrance
     (36, 17, 'L'), (40, 17, 'R'),
     (15, 26, 'L'), (29, 27, 'R'), (57, 27, 'L'), (69, 27, 'R'),
 ]
-TREES = [  # single round tree 2x3, top-left cell -- accents only now
-    (68, 9),
-]
-SLIM = [  # slim conifer 44/47/20 (1x3), top cell
-    (23, 4), (41, 10), (47, 18), (57, 20), (60, 21), (71, 19),
-    (9, 5), (17, 5), (18, 19), (55, 5), (63, 5), (50, 20), (66, 20), (50, 27), (66, 27),   # pairs framing buildings
+TREES = []                                    # single round trees: none (they read as random)
+SLIM = [  # slim conifer 44/47/20 (1x3), top cell -- every one is part of a pair, an avenue or a frame
+    (36, 7), (40, 7), (36, 10), (40, 10),                  # north road avenue (pairs)
+    (23, 4), (31, 4),                                      # Academy frame
+    (15, 5),                                               # dorm: between it and the river (forest on its west)
+    (18, 19), (26, 19),                                    # monastery frame
+    (55, 5), (63, 5),                                      # house 5 frame
+    (50, 20), (56, 20), (60, 20), (66, 20),                # cottages 6 / 7 frames (same row)
+    (50, 27), (66, 27),                                    # cottages 8 / 8b outer frame
+    (30, 20), (47, 20), (30, 28), (47, 28),                # the fountain plaza's four corners
 ]
 BUSHES = []                                                     # round bush 97
 HEDGES = [  # 2-wide flower hedge 42/43, left cell -- not every house (user: more variety)
@@ -129,7 +130,7 @@ FENCES = [  # rows of picket fence 98: (x0, x1, y)
 LAWNS = [  # framed lawn (x0, y0, x1, y1): 99 100 101 / 108 126 109 / 102 103 104
 ]
 STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
-FLOWERS = [(50, 23), (56, 22), (66, 23),
+FLOWERS = [(50, 23), (66, 23),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
 # beach dressing: palm groups along the cliff foot and framing the tavern, lab and pier (2x3, top-left)
 CAVE_MOUTH = (10, 34)                        # Umbra cavern, sealed (author 2026-11-16); slab cells (10,35),(11,35) = door

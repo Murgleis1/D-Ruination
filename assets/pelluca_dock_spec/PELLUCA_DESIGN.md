@@ -541,3 +541,11 @@ Checks: connectivity all doors/exits; ROM builds; frame-identical; verifier clea
   southern lake (~x63-65 y40-42), across the water, not reachable on foot. The harbour now
   occupies that shore (public, busy) -- conflicts with "Umbra-sealed, unknown to the public".
   Placement question put to the user.
+
+## Draft 12 (2026-11-16) -- purposeful trees; dorm off the river (user)
+Every tree now has a job: north-road AVENUE (lamps at the entrance, slim conifer pairs down both
+sides); tree ROWS along the foot of the east terrace and the top of the lower cliff; matching
+FRAME pairs at the Academy, dorm, monastery, house 5 and the cottages; a conifer at each corner
+of the fountain plaza; woods only as forest edges (a column behind the dorm, the north forest
+stepping down beside house 5). Removed: free-floating groves, the lone round tree, stray conifers.
+Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it and the river.
