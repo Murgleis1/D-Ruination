@@ -361,3 +361,18 @@ city's vibe. Its art is in the shared primary; its roof colour comes from the to
 secondary palette. TODO when the second city is built: give the tavern a dedicated
 palette slot (today it shares a building palette in Pelluca), so another city
 redefines one slot to recolour it.
+
+## Layout method — draft 1 (traced) REJECTED as a method, kept as reference (2026-11-15)
+tools/monomyth/layout_kit.py classifies every new metatile by how MonoMyth USES it
+(collision + behaviour from the source cells; pixel colour alone called bright
+conifers "grass"). tools/monomyth/autotile.py learns 3x3 class neighbourhoods ->
+metatile from the hand-made source maps and lays a class plan out.
+Draft 1 = the reference image traced to classes (layout_plan_traced.png) and
+autotiled (layout_draft1_traced.png): structure right (forest belts, roads, plaza),
+but only 31% of cells matched a full 3x3 source pattern; the lake speckled (the
+water class also held quay stone-over-water pieces); cliffs broke (the reference
+draws cliffs as 1-cell brown lines; Wood Avens cliffs are multi-cell tiers).
+NEXT METHOD: plan in ELEVATION (lake / shore / town / terraces), roads as paths,
+forests as regions, buildings as footprints; cliffs generated where elevation
+steps, using face/corner rules learned from Wood Avens' own elevation bits; open
+water separated from quay pieces.
