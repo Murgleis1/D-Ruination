@@ -20,12 +20,12 @@ script PellucaReflection_Cutscene {
     delay(40)
     msgbox(format("A letter has come for you. The seal is plain wax, pressed without a crest."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Rainhawk Alban,\pThe surgeon's report from Sevii reached my desk a week before your commander's did. A commander proud of his decisions does not take a week to report them.\pBurns to the face and neck, taken holding a beach that should have had twice the men on it. Commander Surge split his forces across two fronts, and you paid for his arithmetic."))
+    msgbox(format("Rainhawk Alban,\pThe surgeon's report from Sevii reached my desk a week before your commander's did. A commander proud of his decisions does not take a week to report them.\pBurns to the face and neck, taken holding a beach that should have had twice the men on it. Commander Surge split his forces across two fronts, and you paid the price for his witless folly."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("The Commander has since been invited to explain that arithmetic to people who outrank us both. He will be explaining it for some time."))
+    msgbox(format("The Commander has since been invited to explain his excruciatingly poor judgement to people who outrank us both. He will be explaining it for some time, at the bottom of a cell that has never seen the light of day."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("The army saw fit to give you a mending mask from Athanto while the burns heal. They are made to hasten healing and keep evil at bay, and in most lands they are worth more than a house, so expect to be stared at. Wear it as long as you need to.\pYour discharge is signed, with honors. You earned the rank of Rainhawk long before Sevii, and you keep it. From the day this reaches you, you serve under me, in the office of the Vizier of Education."))
-    msgbox(format("A ship called the Pale Veluza waits in the southern harbor. Her captain asks no questions, which is exactly why I hired her.\pGive your reply to the Templar chaplain at your barracks. It will reach me unopened.\pSign it with the name you were born with, not the one I gave you. I would know your hand anywhere."))
+    msgbox(format("I learned that the army gifted you a mending mask from Athanto while your burns heal. These masks hasten healing and ward off evil. In most lands, such a rare artifact is worth more than a nobleman's estate, so expect a few stares.\pI have a feeling it will help you in the long term, so wear it well.\pYour discharge has been signed, with honors. You earned the rank of Rainhawk partly as a result of what happened during the Sevii campaign, and to reach it at your age is an amazing achievement, whatever the surrounding circumstances.\pIn any case, effective the day you receive this letter, you will serve directly under me in the Office of the Vizier of Education."))
+    msgbox(format("With that said, here are your immediate orders.\pThere is a ship called the Pale Veluza that waits in the southern harbor, not far from your location. Her captain asks no questions, which is exactly why I hired them.\pGive your written reply and acknowledgement of this letter to the Templar chaplain at your barracks. It will reach me quickly.\pSign it with the name you were born with, not the one I gave you a decade ago, and I will know it is truly you."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
     msgbox(format("Then burn this. These days, too many people in Cormoria read letters that were never meant for them.\pC."))
     hideportrait
@@ -35,7 +35,7 @@ script PellucaReflection_Cutscene {
     waitstate
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Received. I will be aboard the Veluza when she sails.\pIt has been a long time since anyone asked me for that name."))
+    msgbox(format("Received and acknowledged. I will be aboard the Veluza when she sails.\pIt...will be good to be home again."))
     hideportrait
     closemessage
     msgbox(format("You hold the letter over the lamp until there is nothing left to read."))

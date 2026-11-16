@@ -32,30 +32,53 @@ static void DrIntro_PrintBlock(const u8 *text);
 
 // Narration text, pre-wrapped into lines (the printer does not auto-wrap).
 static const u8 sTenebrisHeader[] = _("From the notes of Professor\nTenebris - XX-XX-29");
+static const u8 sTenebrisGreeting[] = _(
+    "To my precious\n"
+    "lab assistant,");
+
 static const u8 sTenebrisP1[] = _(
     "Two thousand years before\n"
     "Red set out from Pallet Town,\n"
     "the world of Pokémon was\n"
-    "a very different place.");
+    "a very different place.\n"
+    "This region of Cormoria was\n"
+    "very different too...\n"
+    "almost unrecognizably so.");
 
 static const u8 sTenebrisP2[] = _(
     "It was an age of empires\n"
     "and of stranger faiths.\n"
-    "Those who wrote the histories\n"
-    "that came after it did their\n"
-    "best to bury every trace.");
+    "An age where all nations\n"
+    "were vying for supremacy\n"
+    "over one another...");
 
 static const u8 sTenebrisP3[] = _(
-    "What follows is what I have\n"
-    "pieced together of that time,\n"
-    "and of the people in it.\n"
-    "So much of our world began\n"
-    "with them.");
+    "...and those who wrote the\n"
+    "histories that came after it\n"
+    "did their best to bury every\n"
+    "trace of what happened\n"
+    "back then.");
+
+static const u8 sTenebrisP4[] = _(
+    "What follows is the story\n"
+    "of the people who laid the\n"
+    "foundation for the modern era,\n"
+    "or at least as much of it\n"
+    "as I have been able\n"
+    "to piece together.");
+
+static const u8 sTenebrisP5[] = _(
+    "So much time has passed\n"
+    "since then...\n"
+    "and yet what happened in\n"
+    "Cormoria back then echoes\n"
+    "so loudly, even now,\n"
+    "into the present day...");
 
 static const u8 sDefaultPlayerName[] = _("Osrid");
 
 static const u8 *const sIntroBlocks[] = {
-    sTenebrisHeader, sTenebrisP1, sTenebrisP2, sTenebrisP3,
+    sTenebrisHeader, sTenebrisGreeting, sTenebrisP1, sTenebrisP2, sTenebrisP3, sTenebrisP4, sTenebrisP5,
 };
 #define NUM_INTRO_BLOCKS ARRAY_COUNT(sIntroBlocks)
 

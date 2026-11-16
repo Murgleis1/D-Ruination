@@ -24,7 +24,9 @@ mapscripts PellucaUmbraLab_MapScripts{
         setflag(FLAG_UNUSED_0x886)
         setflag(FLAG_UNUSED_0x887)
         setflag(FLAG_UNUSED_0x88E)
-        if (var(VAR_UNUSED_0x40A1) == 1){
+        // the three balls are already on the table when Osrid walks in (user's briefing:
+        // "Those balls behind you...") and stay there until he has chosen
+        if (var(VAR_UNUSED_0x40A1) <= 1){
             clearflag(FLAG_UNUSED_0x885)
         } else {
             setflag(FLAG_UNUSED_0x885)
@@ -38,6 +40,7 @@ mapscripts PellucaUmbraLab_MapScripts{
 }
 
 script DR_Lab_Briefing{
+    // Dialogue by the user (2026-11-16), set as written apart from small typo fixes.
     lockall
     setvar(VAR_UNUSED_0x40A1, 1)
     delay(20)
@@ -47,31 +50,33 @@ script DR_Lab_Briefing{
     waitmovement(0)
     delay(20)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("Welcome home, my Prince. Forgive the dust. Nobody comes down here but me."))
+    msgbox(format("Welcome home, my Prince. Forgive the chaos.\pThis lab is my personal environment, and a place where we can communicate openly, without reservations."))
     hideportrait
     closemessage
     msgbox(format("Cadmus raises a hand toward your mask."))
     closemessage
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Let me see."))
+    msgbox(format("Will you let me see your face?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("No."))
+    msgbox(format("...No. I could not bear it. It is a complete ruin."))
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Of course.\pThe last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?"))
+    msgbox(format("...I understand. I will not press the matter.\pThe last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
     msgbox(format("I remember the tree."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("How I miss those days."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Then let us talk about who you are while you're here.\pTo the Empire, you are Nomad Alban, a Rainhawk lately discharged and now my personal assistant. The Academy has also named you its head of security, which mostly means no door in this valley is closed to you."))
-    msgbox(format("There is a small house down in the valley with your cover name on the lease. It isn't much, but the door locks."))
+    msgbox(format("But alas, let us speak about the present, and your immediate future.\pTo the Empire, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally conscripted under the Ministry of Education.\pThe Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you... along with most places in the Empire."))
+    msgbox(format("There is a dormitory northwest of here with your cover name on the door, the largest study on the first floor. It isn't much, but the door locks and the bed is comfy."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("And the real work?"))
+    msgbox(format("And the “real” reason I am here?"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("For now, the real work and the cover are the same. Earn the Trial Badges. All of them.\pA Rainhawk who holds every badge has the right to challenge the Champion."))
+    msgbox(format("It is as you probably guessed. Earn the Trial Badges. All of them.\pA Rainhawk who holds every badge has the right to challenge the Champion. She is someone you know quite well... someone who loves you even more than I do."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
     msgbox(format("My sister."))
@@ -81,47 +86,31 @@ script DR_Lab_Briefing{
     special(DrSetPrinceNameplate)
     msgbox(format("Does she know I'm here?"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("No."))
+    msgbox(format("No, though in time this could change."))
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Tell me something. What are Pokémon, to you?"))
+    msgbox(format("Let us move on, however. What are Pokémon, to you?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Assets. You keep them fed, you keep them sharp, and you spend them carefully."))
+    msgbox(format("...Assets. You keep them fed, you keep them sharp, and you use them carefully."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Surge's words."))
+    msgbox(format("Those sound like Surge's words."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
     msgbox(format("They kept me alive."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("They did. They also put you on that beach."))
-    hideportrait
-    closemessage
-    delay(30)
-    applymovement(LOCALID_DRL_CADMUS, moves(walk_left * 3 walk_up * 1 face_up))
-    waitmovement(0)
-    delay(20)
-    clearflag(FLAG_UNUSED_0x885)
-    addobject(LOCALID_DRL_BALL_FRIG)
-    playse(SE_BALL_TRAY_ENTER)
-    delay(14)
-    addobject(LOCALID_DRL_BALL_TEDD)
-    playse(SE_BALL_TRAY_ENTER)
-    delay(14)
-    addobject(LOCALID_DRL_BALL_TINK)
-    playse(SE_BALL_TRAY_ENTER)
-    delay(24)
-    applymovement(LOCALID_DRL_CADMUS, moves(walk_down * 1 walk_right * 3 face_down))
-    waitmovement(0)
-    delay(16)
+    msgbox(format("Certainly they did... but they also left you burned to ashes on that beach."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Starter Pokémon? I thought those were only given to noble children."))
+    msgbox(format("Enough.\pThose balls behind you... are those Starter Pokémon? I thought those were only given to noble children."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
     msgbox(format("Usually. These three are different.\pRead the note beside each one before you choose. I wrote them myself, so forgive the handwriting."))
-    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Before you choose, take this. You'll be meeting a great many Pokémon from here on, and you should keep a record of them."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("Choose? Me?"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Yes, you. Before you choose, however, you must take this.\pYou'll be meeting a great many Pokémon from here on, and you should keep a record of them. I will explain in greater detail later."))
     hideportrait
     closemessage
     playfanfare(MUS_OBTAIN_ITEM)
@@ -129,8 +118,8 @@ script DR_Lab_Briefing{
     waitfanfare
     setflag(FLAG_SYS_POKEDEX_GET)
     closemessage
-    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("Paper and ink. It isn't elaborate, but it will get the job done. Write down each one you meet, what it is and how it fights, in your own hand.\pIn the army, someone else wrote the reports and you read them. This time, you see each Pokémon for yourself."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("The Log is merely paper and ink. It isn't elaborate, but it will serve us well. Write down each one you meet, what it is and how it fights, in your own hand.\pIn the army, someone else wrote the reports and you read them. This time, you see each Pokémon for yourself."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
     msgbox(format("Understood."))
