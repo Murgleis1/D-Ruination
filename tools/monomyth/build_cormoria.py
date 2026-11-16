@@ -468,6 +468,67 @@ def main():
                 if (sub >= 0).all(-1).any(): Q[('p', key, 4 + q)] = sub.copy()
         pier_grid[0].append(key)
     regions['pier_kit'] = (None, (0, 0), pier_grid)
+    # ---- beach (user 2026-11-16: ALL land below the lower cliff is beach, around the dock + lab).
+    # Pieces whose ground is their own BOTTOM layer get an 'on sand' twin: same art layers, sand
+    # bottom -> no new tiles, no new colours. Shared (primary) so any beach town can use them.
+    sand_q = [Q.get((key_of[163][0], key_of[163][1], q)) for q in range(4)]
+    if any(v is None for v in sand_q):                          # sand drawn on a later layer
+        fl = flat(163); sand_q = [fl[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8] for q in range(4)]
+    def on_sand(src_kind_key, new_kind, new_key, attr):
+        meta_src[(new_kind, new_key)] = (None, attr)
+        for q in range(4): Q[(new_kind, new_key, q)] = sand_q[q].copy()
+        for i in range(4, 12):
+            im = Q.get((src_kind_key[0], src_kind_key[1], i))
+            if im is not None: Q[(new_kind, new_key, i)] = im.copy()
+    SAND_IDS = (63, 65, 77, 78, 79, 130, 131, 136, 124, 125, 133, 134, 76, 88, 80, 89, 11, 45, 46)
+    sand_row = []
+    for mid_ in SAND_IDS:
+        kk = key_of[mid_]
+        on_sand(kk, 'p', ('onsand', mid_), meta_src[kk][1] & 0xFF if meta_src[kk][1] else 0)
+        sand_row.append(('onsand', mid_))
+    regions['onsand'] = (None, (0, 0), [sand_row])
+    for name, kind in (('tavern', 'p'), ('lab_tower', 's')):
+        g_ = regions[name][2]; sg = []
+        for r, row in enumerate(g_):
+            sg.append([])
+            for c, key in enumerate(row):
+                if key is None: sg[-1].append(None); continue
+                src = ('s', key) if ('s', key) in meta_src else ('p', key)
+                nk = (name + '_sand', r, c)
+                on_sand(src, kind, nk, meta_src[src][1] & 0xFF if meta_src[src][1] else 0)
+                sg[-1].append(nk)
+        regions[name + '_sand'] = (None, (0, 0), sg)
+    # mirrored beach steps (the sandbank only steps one way): hflip every layer of 172/174/176
+    shore_row = []
+    for mid_ in (172, 174, 176):
+        kk = key_of[mid_]; nk = ('shoreflip', mid_)
+        meta_src[('p', nk)] = (None, meta_src[kk][1] & 0xFF if meta_src[kk][1] else 0)
+        for L in range(3):
+            cellimg = np.full((16, 16, 3), -1, int)
+            for q in range(4):
+                im = Q.get((kk[0], kk[1], L * 4 + q))
+                if im is not None: cellimg[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8] = im
+            cellimg = cellimg[:, ::-1]
+            for q in range(4):
+                sub = cellimg[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8]
+                if (sub >= 0).all(-1).any(): Q[('p', nk, L * 4 + q)] = sub.copy()
+        shore_row.append(nk)
+    regions['shore_flip'] = (None, (0, 0), [shore_row])
+    # beach palm (palm.py: Mandrake palm in Wood Avens' tree colours), Pelluca tileset
+    import palm as pl
+    ptop, pmid = pl.palm()
+    palm_grid = []
+    for r in range(3):
+        palm_grid.append([])
+        for c in range(2):
+            nk = ('palm', r, c); meta_src[('s', nk)] = (None, 0)
+            for q in range(4): Q[('s', nk, q)] = sand_q[q].copy()
+            for L, img in ((1, pmid), (2, ptop)):
+                for q in range(4):
+                    sub = img[r * 16 + (q // 2) * 8: r * 16 + (q // 2) * 8 + 8, c * 16 + (q % 2) * 8: c * 16 + (q % 2) * 8 + 8]
+                    if (sub >= 0).all(-1).any(): Q[('s', nk, L * 4 + q)] = sub.copy()
+            palm_grid[-1].append(nk)
+    regions['palm'] = (None, (0, 0), palm_grid)
     blank_q = [k for k in Q if (k[0], k[1]) in blank]   # popped AFTER both colour merges: pruning first
     print(f'pruning {len(blank)} metatiles ({len(blank_q)} layer quads)')   # shifted approved art (quay went lavender)
     # ---- palette room: snap the NEW art's colours (cottage, monument) to the nearest colour the
@@ -487,7 +548,7 @@ def main():
     # ---- colour merge (one map over everything)
     # The cottage stays OUT of the merge (its colours shifted the clusters of every other
     # building: buildings packed into 8 instead of 7); it snaps to the merged colours after.
-    allbytes = {im.tobytes() for k, im in Q.items() if k[1][0] not in ('cottage', 'monument')}
+    allbytes = {im.tobytes() for k, im in Q.items() if k[1][0] not in ('cottage', 'monument', 'palm')}
     # ANCHOR: the approved build's colour map is frozen in data/merge_anchor.json. Re-running the
     # clustering on new inputs shifts approved colours (measured: quay stone moved 16-24 when
     # the tavern grew a column), so known colours keep their mapping and new ones snap.
@@ -596,7 +657,7 @@ def main():
     # secondary past 7 palettes, keep the palettes that cover most of its quads and fit every
     # other cottage quad into the palette sharing most of its colours (missing colours snap to
     # that palette's nearest). Measured: without this the cottage costs 2 palettes.
-    is_cot = lambda k: k[1][0] in ('cottage', 'monument', 'pier')     # the NEW art fits around the approved art
+    is_cot = lambda k: k[1][0] in ('cottage', 'monument', 'pier', 'palm')     # the NEW art fits around the approved art
     b_left = [cs(v) for k, v in Q.items() if k[0] == 's' and not is_cot(k) and not any(cs(v) <= p for p in all_terr)]
     bp = pp.pack_best(b_left, tries=300) if b_left else []
     if os.environ.get('PACK_SWEEP'):

@@ -485,3 +485,21 @@ pairs flanking each building, ragged forest edges, clumps in corners; scattered 
 bushes and random flowers removed. SW beach under the west cliff with stairs down and a
 ragged waterline (diagonal surf pieces 172/174/176); cliff-foot-on-sand pieces composed
 like the pier kit. Rocky east shore + cavern reachable only by water.
+
+## Draft 7 (2026-11-16, layout_draft7.png) -- the approved composition, built
+- Road hierarchy as approved: main spine N exit -> monument -> beach -> pier; W/E main road
+  via the monument's arms. LANES (2-wide cobble): Academy; dorm -> round the pool -> west
+  stairs -> spur to Cadmus's door -> W road; house 5 -> east-terrace stairs -> E road ->
+  cottages 8/8b; on the beach (user): lanes to the tavern door and to the lab door, the east
+  one running straight onto the pier.
+- BEACH (user): ALL land below the lower cliff, around the dock and the lab. shore.py: per
+  column surf row + water row, steps of one row, Old Bay Island pieces + hflipped twins
+  (builder 'shore_flip'); 175 soft water edge. Sand twins ('onsand') of the cliff foot,
+  stairs, road, lamps, and of the tavern + lab (bottom layer swapped -> no new tiles).
+  Palms (palm.py: Mandrake palm in Wood Avens' tree colours) replace the shore's woods.
+- Trees: rows along the top of the lower cliff, slim conifer pairs framing houses, groves
+  behind; scattered singles/bushes/random flowers removed.
+- connectivity.py: from the arrival point every door front and every exit is reachable,
+  no cut-off pockets. ROM builds; deterministic run frame-identical; approved art unchanged.
+OPEN: secret cavern must be water-only -- the east beach strip is reachable on foot; needs a
+rock outcrop (Old Bay Island 'K') imported.
