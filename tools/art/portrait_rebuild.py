@@ -170,8 +170,8 @@ def baradus_facial_hair(rgb, mask):
     palette entries.  Drawn on the native 48px grid (masters are 2x).  Native jaw (identical in all
     three expressions): left edge (12,35)(13,36)(14,37)(15-16,38)(17-18,39), chin (19-22,40), right
     edge (23-24,39)(25-26,38)(27-28,37)(29-30,36)(31,35); mouth row 33."""
-    HAIR = (0, 0, 0)        # beard and moustache in his hair black (a mid-brown moustache, as on
-    # #351's pale skin, vanishes on bronze skin; a dark-brown one read as a thick lip)
+    HAIR = (0, 0, 0)        # the beard is his hair black.  User 2026-11-16: keep the chin beard, but
+    # his mouth and nose stay exactly as drawn (moustache rejected) -- nothing above row 35 is edited
     H, W = mask.shape
     skin = np.zeros((H, W), bool)
     for c in BRONZE_SKIN: skin |= mask & (rgb == c).all(-1)
@@ -185,16 +185,11 @@ def baradus_facial_hair(rgb, mask):
             38: (range(15, 27), (18, 23)),
             37: (range(14, 29), (16, 19, 21, 24, 26)),
             36: ((13, 15, 18, 22, 25, 27, 29, 30), ()),
-            35: ((12, 20, 31), ()),
+            35: ((12, 31), ()),
             34: ((32,), ())}
     for y, (xs, gaps) in rows.items():
         for x in xs:
             if x not in gaps: px(x, y, HAIR)
-    # moustache as #351 draws it: it COVERS the upper lip (sits on the mouth row, 2 rows thick in
-    # the middle, drooping wider at the bottom); only the lower-lip shadow (row 35) shows beneath.
-    # A bar drawn above the mouth line read as an open mouth.  Teeth (anger) are not skin and stay.
-    for x in range(18, 22): px(x, 32, HAIR)
-    for x in range(16, 23): px(x, 33, HAIR)
     return out
 
 
@@ -227,11 +222,22 @@ def complete_sides(rgba, pad):
 
 
 MASTER_EDITS = {'baradus': baradus_facial_hair}
+# User 2026-11-16: the collar flap rising beside Baradus's chin "runs into his neck too much" -- trim
+# it down; the outline step then borders the new top edge.  Native px cleared (collar only, never
+# skin): the flap's peak rows 36-37, row 38 from x9, row 39 from x13, row 40 from x16 -- the new top
+# edge steps down from the shoulder (row 38) to row 41 at the neck.
+MASTER_TRIM = {'baradus': [(x, y) for y, x0 in ((36, 0), (37, 0), (38, 9), (39, 13), (40, 16))
+                           for x in range(x0, 19)]}
+# what the trimmed flap uncovers: under the jaw it is the shadowed side of his neck (jaw-shadow
+# brown), outside his silhouette it is background
+TRIM_FILL = {'baradus': ((100, 58, 38), lambda x, y: y >= 39 and x >= 15)}
 CROWN_FLAT = ('cadmus',)          # a hat crown closes flat with rounded corners, not a dome
 
 
-def rebuild(path):
+def rebuild(path, edits=True, _inner=False):
     name = os.path.basename(path)
+    if edits and not _inner and any(name.startswith(n) for n in list(MASTER_EDITS) + list(MASTER_TRIM)):
+        return protect(path)
     PAD = 12
     raw = np.array(Image.open(path).convert('RGBA'))
     # lore recolour + drawn edits on the UNPADDED master (their coordinates are the master's own)
@@ -239,11 +245,26 @@ def rebuild(path):
     for n, table in RECOLOUR.items():
         if name.startswith(n):
             for a, b in table.items(): rrgb[(rrgb == a).all(-1)] = b
+    pre_edit = rrgb.copy()                               # after the lore recolour, before drawn edits
     for n, fn in MASTER_EDITS.items():
-        if name.startswith(n): rrgb = fn(rrgb, rmask)
+        if edits and name.startswith(n): rrgb = fn(rrgb, rmask)
     raw = raw.copy(); raw[..., :3] = np.clip(rrgb, 0, 255)
     edited = (rrgb != np.array(Image.open(path).convert('RGBA'))[..., :3]).any(-1)
     raw[edited, 3] = 255                                 # beard below the chin is opaque art
+    trimmed = np.zeros(rmask.shape, bool)
+    for n, pts in MASTER_TRIM.items():
+        if edits and name.startswith(n):
+            skin = np.zeros(rmask.shape, bool)
+            for c in BRONZE_SKIN: skin |= (pre_edit == c).all(-1)    # beard px are skin, not collar
+            for x, y in pts:
+                blk = (slice(2 * y, 2 * y + 2), slice(2 * x, 2 * x + 2))
+                if skin[blk].any(): continue
+                trimmed[blk] = True
+                col, inside = TRIM_FILL.get(n, (None, lambda x, y: False))
+                if inside(x, y): raw[blk + (slice(0, 3),)] = col; raw[blk + (3,)] = 255
+                else: raw[blk + (3,)] = 0
+    global LAST_FOOTPRINT
+    LAST_FOOTPRINT = ((rrgb != pre_edit).any(-1), trimmed, PAD)   # drawn edits only, not the recolour
     rgba = np.zeros((raw.shape[0], raw.shape[1] + 2 * PAD, 4), np.uint8); rgba[:, PAD:PAD + raw.shape[1]] = raw
     rgba = complete_sides(rgba, PAD)
     mask = rgba[..., 3] >= ALPHA; rgb = rgba[..., :3].astype(int)
@@ -258,6 +279,39 @@ def rebuild(path):
     canvas = np.where(big >= 0, big + 1, 0).astype(np.uint8)
     full = np.zeros((16, 3), int); full[0] = (255, 0, 255); full[1:1 + len(pal)] = pal
     return canvas, full.astype(np.uint8)
+
+
+def protect(path):
+    """Drawn edits may change ONLY their own pixels (+ the border the outline step puts on a trimmed
+    edge).  Rebuilding re-picks the palette and re-runs despeckle, which nudged untouched pixels next
+    to the beard (Baradus's lower lip, 2026-11-16).  Every pixel outside the footprint is restored
+    from the unedited build, mapped to the nearest colour of the edited build's palette."""
+    base_idx, base_pal = rebuild(path, edits=False)
+    idx, pal = rebuild(path, edits=True, _inner=True)
+    edited, trimmed, pad = LAST_FOOTPRINT
+    H, W = edited.shape
+    fp = np.zeros((H, W + 2 * pad), bool)
+    fp[:, pad:pad + W] = edited
+    tr = np.zeros_like(fp); tr[:, pad:pad + W] = trimmed
+    for _ in range(3):                                   # trimmed edge + its new border (master px)
+        g = tr.copy(); g[1:] |= tr[:-1]; g[:-1] |= tr[1:]; g[:, 1:] |= tr[:, :-1]; g[:, :-1] |= tr[:, 1:]; tr = g
+    fp |= tr
+    s = 2.0 if NATIVE else 1.5
+    h = int(H / s); w = int((W + 2 * pad) / s); y0 = OUT - h; x0 = (OUT - w) // 2
+    out = idx.copy()
+    for cy in range(OUT):
+        for cx in range(OUT):
+            sy, sx = cy - y0, cx - x0
+            if 0 <= sy < h and 0 <= sx < w:
+                a, b = int(np.floor(sy * s)), int(np.ceil((sy + 1) * s))
+                c, d = int(np.floor(sx * s)), int(np.ceil((sx + 1) * s))
+                if fp[a:b, c:d].any(): continue
+            v = base_idx[cy, cx]
+            if v == 0: out[cy, cx] = 0
+            else:
+                col = base_pal[v].astype(int)
+                out[cy, cx] = 1 + int(np.argmin(((pal[1:].astype(int) - col) ** 2).sum(1)))
+    return out, pal
 
 
 if __name__ == '__main__':

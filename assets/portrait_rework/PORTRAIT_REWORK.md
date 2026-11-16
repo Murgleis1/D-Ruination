@@ -137,3 +137,14 @@ the moustache covers the upper lip (mouth row + 1 above, drooping wider), lower 
 Beard and moustache use his hair black: no new palette entries. Jaw is identical in all three
 expressions, so one pattern fits; expression creases and the anger teeth are untouched.
 Images: baradus_beard_v8_cmp.png, baradus_beard_v8_chin.png. Sprites wait for portrait approval.
+
+## Baradus v10 -- APPROVED by user (2026-11-16)
+- Chin beard kept (v8 construction). Moustache REMOVED: user wants his mouth and nose exactly as
+  originally drawn. Verified pixel-exact: nothing above native row 36 differs from the unedited build
+  except two sideburn px at the ear (32,34),(31,35).
+- Collar flap beside the chin trimmed down (MASTER_TRIM), outline step borders the new top edge;
+  the uncovered area under the jaw is his neck in shadow (TRIM_FILL), outside the silhouette is bg.
+- Pipeline guarantee added: protect() restores every pixel outside a drawn edit's footprint from the
+  unedited build (palette re-pick + despeckle had nudged his lower lip). Footprint = drawn edits only
+  (not the lore recolour); trim judges collar-vs-skin on the pre-beard art.
+Images: baradus_beard_v10_cmp.png, baradus_beard_v10_collar.png.
