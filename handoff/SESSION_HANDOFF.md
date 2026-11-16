@@ -20,6 +20,20 @@ sections. The prior session's full detail is in the conversation transcript.
 > doubled palette cost (Wood Avens: 8 palettes native, 16 flattened).
 > Pelluca rebuild plan + every measured decision: assets/pelluca_dock_spec/PELLUCA_DESIGN.md
 
+> **STATE 2026-11-15 late evening (HEAD after 8ed7dfc2d) -- read PELLUCA_DESIGN.md + PELLUCA_EVENTS.md.**
+> - Engine is TRIPLE-LAYER (d18a04803). Porymap needs enable_triple_layer_metatiles=1 (BUILD_SETUP 8).
+> - New tilesets built + registered, NOT yet used by any map: gTileset_Cormoria (shared primary:
+>   terrain, residence, tavern) + gTileset_PellucaValley (Academy cobalt, church crimson, Cadmus rust,
+>   lab slate). 13/13 palettes, tiles 500+489. Rebuild: `FLATTEN=triple python3 -I
+>   tools/monomyth/build_cormoria.py codebase`; verify: `tools/monomyth/verify_cormoria.py`.
+>   Needs the MonoMyth ROM (user upload) + /home/claude/mono/{headers.pkl,woodavens.png,...}
+>   (regenerate with tools/monomyth/romlib.find_headers + render.render_map) + wa_rare.json.
+> - Tavern = Pokemon Center + Mart, same in every city, roof per city (dusk plum in Pelluca).
+> - DM content cut from the Pelluca map (8ed7dfc2d); arrival scene verified frame-identical.
+> - NEXT: lay out the new Pelluca Valley map (reference: pelluca_layout_reference_badged.png) on the
+>   new tilesets; move warps/townsfolk to it; water animation callback; Academy interior.
+> - Deferred by user: north gate/waystation (guardhouse art left out of the tileset).
+
 ---
 
 > **If the build appears impossible in your container** (no ARM toolchain,
