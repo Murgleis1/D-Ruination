@@ -343,3 +343,21 @@ def clean_roof_patch(layers, size=16):
                             p = np.tile(p, (16 // size, 16 // size, 1))
                         best = (k, p, (x, y))
     return best
+
+
+def patch_from_above(mid, top, src_mid, src_top, box, shift=16, protect=None):
+    """Hand-directed repair: inside box (x0, y0, x1, y1), replace pixels that were
+    SNOW in the source with the same roof face's real shingles `shift` rows above.
+    Used for the tavern's right lower roof, where row-copy fill left vertical bars."""
+    x0, y0, x1, y1 = box
+    was = snow_mask(src_mid, protect) | snow_mask(src_top, protect)
+    roof = np.zeros(mid.shape[:2], bool)
+    comp = np.where((top >= 0).all(-1)[..., None], top, mid)
+    for c in ROOF:
+        roof |= (comp == np.array(c)).all(-1)
+    mid = mid.copy()
+    for y in range(y0, y1):
+        for x in range(x0, x1):
+            if was[y, x] and roof[y - shift, x] and not (top[y, x] >= 0).all():
+                mid[y, x] = comp[y - shift, x]
+    return mid
