@@ -158,3 +158,6 @@ Images: baradus_beard_v10_cmp.png, baradus_beard_v10_collar.png.
   frames along the profile jaw). Back frames unchanged.
 - Verified: compiled .4bpp decodes pixel-identical to the PNGs.
 Images: baradus_battle_beard.png, baradus_ow_beard.png.
+
+- 2026-11-16 user: overworld beard "doesn't look good" -> REVERTED to the pre-beard sprite (fd50fadc9).
+  Battle sprite keeps its beard (user: it needs the beard).
