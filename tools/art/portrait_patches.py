@@ -33,6 +33,9 @@ KEY = {
     'N': (30, 31, 44),      # outline (navy)
     'E': (235, 200, 149),   # hair
     'Q': (217, 185, 138),   # hair shade
+    'J': (250, 206, 182),   # skin, lit side
+    'U': (223, 168, 144),   # skin shade / mouth line
+    'V': (194, 126, 114),   # mouth corner, shadow side
     # 'x' = transparent (index 0)
 }
 
@@ -116,6 +119,18 @@ PATCHES['eden'] = [
     # corners -- a small box. Corners off: the edge steps 64, 65, 66 ... 66, 65, 64.
     (66, 40, ["x"], 'right hair bulge: top corner'),
     (66, 47, ["x"], 'right hair bulge: bottom corner'),
+]
+
+# Eden positive (user 2026-11-16: "a copy of the current Eden portrait but upturn her mouth"):
+# identical to her portrait except the mouth. Neutral: a line on y63 (x37-43) dropping at the right
+# into a dark mark on y64 (x43-44) -- slightly down-turned. Smile, as the user's own smiles do it:
+# the centre stays on y63, both ends lift a row, the shadow-side corner ticks up one more, the
+# down-turned mark goes back to skin.
+PATCHES['eden_positive'] = PATCHES['eden'] + [
+    (44, 61, ["V"], 'smile: shadow-side corner tick'),
+    (37, 62, ["U.....U"], 'smile: both ends lift a row'),
+    (37, 63, ["J.....J"], 'smile: old ends -> skin'),
+    (43, 64, ["JU"], 'smile: down-turned mark -> skin'),
 ]
 
 # Cadmus's smile differs from neutral only at the mouth (rows 64-68): same fixes, same pixels.

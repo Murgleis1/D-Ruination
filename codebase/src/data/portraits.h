@@ -12,6 +12,8 @@ static const u16 sPortraitPal_CadmusSmile[]     = INCBIN_U16("graphics/portraits
 
 static const u32 sPortraitGfx_Eden[]            = INCBIN_U32("graphics/portraits/eden.4bpp.lz");
 static const u16 sPortraitPal_Eden[]            = INCBIN_U16("graphics/portraits/eden.gbapal");
+static const u32 sPortraitGfx_EdenPositive[]    = INCBIN_U32("graphics/portraits/eden_positive.4bpp.lz");
+static const u16 sPortraitPal_EdenPositive[]    = INCBIN_U16("graphics/portraits/eden_positive.gbapal");
 
 static const u32 sPortraitGfx_GlaiveNeutral[]   = INCBIN_U32("graphics/portraits/glaive_neutral.4bpp.lz");
 static const u16 sPortraitPal_GlaiveNeutral[]   = INCBIN_U16("graphics/portraits/glaive_neutral.gbapal");
@@ -65,6 +67,9 @@ static const struct PortraitExpr sPortraitExpr_Cadmus[] = {
 
 static const struct PortraitExpr sPortraitExpr_Eden[] = {
     { PORTRAIT_EXPR_NEUTRAL,  sPortraitGfx_Eden,           sPortraitPal_Eden           },
+    // Her smile (user 2026-11-16): one image serves both positive and smile lines.
+    { PORTRAIT_EXPR_POSITIVE, sPortraitGfx_EdenPositive,   sPortraitPal_EdenPositive   },
+    { PORTRAIT_EXPR_SMILE,    sPortraitGfx_EdenPositive,   sPortraitPal_EdenPositive   },
 };
 
 static const struct PortraitExpr sPortraitExpr_Glaive[] = {

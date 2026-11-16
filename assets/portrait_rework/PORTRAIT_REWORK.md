@@ -203,3 +203,11 @@ Image: baradus_battle_chin_beard_candidates.png (candidate 2).
 - 2026-11-16 INSTALLED (user: "I like the work"): Kimaris x4, Glaive x3, Eden (cleanup v1, 2/3).
   Compiled .4bpp == PNG for all 8. Note: Eden has ONE portrait (neutral); the PellucaUmbraLab script
   asks for POSITIVE/NEGATIVE, which fall back to neutral.
+- Eden POSITIVE/SMILE added (user: "a copy of the current Eden portrait but upturn her mouth"):
+  _src/eden_positive.png = copy of eden.png; PATCHES['eden_positive'] = Eden's cleanup + a 7-px smile
+  (centre of the mouth line stays, ends lift a row, shadow-side corner ticks up, the down-turned mark
+  -> skin), drawn the way the user's own smiles are. Registered as both PORTRAIT_EXPR_POSITIVE and
+  PORTRAIT_EXPR_SMILE. Verified in-game in the lab theft scene ("Sorry for the intrusion, boys!").
+  Images: eden_positive_v1.png, ingame_eden_positive.png. Playtest driver: tools/playtest/lab_eden_scene.py.
+- Found while testing (not portraits): Eden's first lab line overflows the text box ("But o|n" cut
+  off); Cadmus is asked for PORTRAIT_EXPR_ANGER, which he does not have (falls back to neutral).
