@@ -148,3 +148,13 @@ Images: baradus_beard_v8_cmp.png, baradus_beard_v8_chin.png. Sprites wait for po
   unedited build (palette re-pick + despeckle had nudged his lower lip). Footprint = drawn edits only
   (not the lore recolour); trim judges collar-vs-skin on the pre-beard art.
 Images: baradus_beard_v10_cmp.png, baradus_beard_v10_collar.png.
+
+## Baradus sprites: chin beard to match portrait v10 (2026-11-16)
+- Battle front pic: chin outline row 17 + row 16 (incl. jaw corners) solid hair-black (idx 13),
+  ragged top on row 15 (29,32,33). Mouth (31,14) and everything above untouched; no pixel directly
+  under the mouth (the rejected version read as a dangling tie).
+- Overworld: every frame showing his face (front 0,3,4; side 2,7,8), found by pattern: chin row
+  black + jaw-shadow px at each side of the lower face black (a U framing the lower face; side
+  frames along the profile jaw). Back frames unchanged.
+- Verified: compiled .4bpp decodes pixel-identical to the PNGs.
+Images: baradus_battle_beard.png, baradus_ow_beard.png.
