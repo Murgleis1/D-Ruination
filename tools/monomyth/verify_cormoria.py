@@ -49,11 +49,22 @@ def main():
         g = r['grid']; x0, y0 = r['origin']; H, W = len(g), len(g[0])
         orig = np.array(Image.open(os.path.join(R, src_png[r['source_map']])).convert('RGB')).astype(int)
         orig = orig[y0 * 16:(y0 + H) * 16, x0 * 16:(x0 + W) * 16]
+        tav_mask = None
+        if name == 'tavern':
+            # intended to differ from MonoMyth: compare to the finished art (snow-free,
+            # ivy, plum) where it is opaque; the ground there is grass by design
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import build_cormoria as bc
+            _, tm, tt = bc.tavern_finished()
+            orig = np.where((tt >= 0).all(-1)[..., None], tt, np.where((tm >= 0).all(-1)[..., None], tm, 0))
+            tav_mask = (tt >= 0).all(-1) | (tm >= 0).all(-1)
         new = np.zeros_like(orig); mask = np.zeros(orig.shape[:2], bool)
         for y in range(H):
             for x in range(W):
                 if g[y][x] is None: continue
                 new[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = draw(g[y][x]); mask[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = True
+        if tav_mask is not None:
+            mask &= tav_mask
         d = np.abs(new - orig).max(-1)[mask]
         report[name] = dict(cells=int(mask.sum() // 256), exact=round(100 * (d == 0).mean(), 1),
                             within_merge=round(100 * (d <= 16).mean(), 2), worst=int(d.max()))

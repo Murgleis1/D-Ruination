@@ -37,7 +37,7 @@ DROP_BADGES = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 31, 35, 36, 51, 52, 58, 49, 50, 4
 BUILDINGS = [  # name, source map, box (x0,y0,x1,y1) in source cells
     ('academy', WA, (18, 26, 24, 33)), ('cadmus_house', WA, (5, 28, 11, 32)),
     ('lab_tower', WA, (15, 10, 20, 14)), ('residence', WA, (5, 20, 11, 24)),
-    ('tavern', FE, (37, 40, 44, 47)), ('guardhouse', FE, (27, 12, 34, 18)),
+    ('tavern', FE, (38, 40, 43, 47)), ('guardhouse', FE, (27, 12, 34, 18)),   # tavern x37/x44 = town wall
 ]
 TERRAIN_EXTRA = [('quay', PG64, (35, 37, 44, 44)), ('sandbank', OB12, (18, 47, 28, 54))]
 CHURCH_ROWS, CHURCH_COLS = range(17, 27), range(0, 7)
@@ -142,6 +142,47 @@ def church_quads(grass_bottom):
     return cells
 
 
+# Tavern finish (user decisions 2026-11-15): snow removed with roof fill + ivy on the
+# ledges (option 3), right lower roof repaired from real shingles above, roof
+# recoloured DUSK PLUM. Reproducible from source: no hand-edited files.
+def _plum():
+    """The EXACT ramp the user approved (tavern_roof_colours.png panel 4), read from
+    the file it was rendered from -- never retyped (a retyped copy was wrong once)."""
+    import json
+    p = os.path.join(HERE, '../../assets/pelluca_dock_spec/tavern_roof_ramps.json')
+    return {tuple(k): tuple(v) for k, v in json.load(open(p))['C dusk plum']}
+PLUM = _plum()
+
+
+def tavern_finished():
+    import desnow as ds
+    a = FE; (x0, y0, x1, y1) = [bx for n, _, bx in BUILDINGS if n == 'tavern'][0]
+    W, H = x1 - x0 + 1, y1 - y0 + 1
+    lay = [np.full((H * 16, W * 16, 3), -1, int) for _ in range(3)]
+    for y in range(y0, y1 + 1):
+        for x in range(x0, x1 + 1):
+            e, _ = src_metatile(a, cell(a, x, y))
+            for L in range(3):
+                for q in range(4):
+                    im = quad_img(a, e[L * 4 + q])
+                    if im is None: continue
+                    oy, ox = (y - y0) * 16 + (q // 2) * 8, (x - x0) * 16 + (q % 2) * 8
+                    m = (im >= 0).all(-1); lay[L][oy:oy + 8, ox:ox + 8][m] = im[m]
+    protect = np.zeros(lay[1].shape[:2], bool); protect[6 * 16:8 * 16, 4 * 16:5 * 16] = True   # lamp post
+    wa = np.zeros((1, 1, 3))
+    from render import render_map  # noqa: F401  (render util lives beside this file)
+    import pickle
+    wa_png = os.environ.get('WA_RENDER', '/home/claude/mono/woodavens.png')
+    wa = np.array(Image.open(wa_png).convert('RGB')).astype(int)
+    leaves, _ = ds.leaf_patch(wa)
+    mid, top = ds.desnow_building(lay[1], lay[2], (56, 56, 88), protect, 88, 110, facade_leaves=leaves)
+    mid = ds.patch_from_above(mid, top, lay[1], lay[2], (62, 64, 96, 83), 16, protect)
+    for img in (mid, top):
+        for src, dst in PLUM.items():
+            img[(img == np.array(src)).all(-1)] = dst
+    return (x0, y0, W, H), mid, top
+
+
 def main():
     C = sys.argv[1]
     prim, sec, regions = select()
@@ -172,6 +213,25 @@ def main():
             gi = quad_img(base_grass[0], gq[q])
             if gi is not None: Q[('s', ('church', r, c), q)] = gi
             if (mids[q] >= 0).any(): Q[('s', ('church', r, c), 4 + q)] = mids[q]
+    # ---- tavern: replace its metatiles' layers with the finished (snow-free) art
+    (tx0, ty0, TW, TH), tmid, ttop = tavern_finished()
+    done_mt = set()
+    for yy in range(TH):
+        for xx in range(TW):
+            key = (FE, cell(FE, tx0 + xx, ty0 + yy))
+            if ('s', key) not in meta_src or key in done_mt:
+                continue
+            done_mt.add(key)
+            for i in range(12):
+                Q.pop(('s', key, i), None)
+            for L, img in ((1, tmid), (2, ttop)):
+                for q in range(4):
+                    sub = img[yy * 16 + (q // 2) * 8: yy * 16 + (q // 2) * 8 + 8, xx * 16 + (q % 2) * 8: xx * 16 + (q % 2) * 8 + 8]
+                    if (sub >= 0).all(-1).any():
+                        Q[('s', key, L * 4 + q)] = sub.copy()
+            for q in range(4):                                   # ground: Wood Avens grass
+                gi = quad_img(base_grass[0], gq[q])
+                if gi is not None: Q[('s', key, q)] = gi
     # ---- colour merge (one map over everything)
     allbytes = {im.tobytes() for im in Q.values()}
     cmap, ncol = pp.merge_map(allbytes, TOL)

@@ -312,3 +312,14 @@ Options: 2 roof fill, 3 roof fill + ivy on ledges, 4 tiled 8px roof patch
 Known residue in 2/3: vertical shingle bars on the right lower roof.
 
 Decision (user, 2026-11-15): tavern = option 3, roof fill + ivy on ledges.
+
+## Tavern finished + in gTileset_Cormoria (2026-11-15)
+Roof colour: DUSK PLUM (user), read by the builder from tavern_roof_ramps.json --
+the exact ramp shown in tavern_roof_colours.png panel 4. (A retyped copy was wrong
+once; the builder never retypes approved values.) build_cormoria.tavern_finished()
+reproduces snow removal + ivy + right-roof repair + plum from source.
+Rebuilt: shared 469/512 tiles (snow gone, was 497), Pelluca 446/512, palettes 12/13.
+Verify: tavern matches its finished art; every other region still 100% within the
+colour merge. Guardhouse exact-match fell 33% -> 2.4% (merge representatives moved
+once the snow whites left); visually checked: same art, stone slightly cooler.
+Game unchanged: deterministic run 0 frames different.
