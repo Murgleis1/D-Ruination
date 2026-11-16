@@ -200,3 +200,6 @@ Image: baradus_battle_chin_beard_candidates.png (candidate 2).
 - Eden v1 (10 px): 6-px nub on top (5-px jump each side) -> top row widened to 10 px; right-side
   completion bulge had square corners -> rounded (64,65,66..66,65,64).
   Images: cleanup_kimaris_glaive_eden_v1.png, glaive_eyes_v1.png. Awaiting review.
+- 2026-11-16 INSTALLED (user: "I like the work"): Kimaris x4, Glaive x3, Eden (cleanup v1, 2/3).
+  Compiled .4bpp == PNG for all 8. Note: Eden has ONE portrait (neutral); the PellucaUmbraLab script
+  asks for POSITIVE/NEGATIVE, which fall back to neutral.
