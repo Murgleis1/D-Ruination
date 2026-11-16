@@ -10,7 +10,11 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from romlib import *
 from render import tiles_of, pals_of
-H = {h['addr']: h for h in pickle.load(open(os.environ.get('MONO_HEADERS', '/home/claude/mono/headers.pkl'), 'rb'))}
+_HP = os.environ.get('MONO_HEADERS', '/home/claude/mono/headers.pkl')
+if not os.path.exists(_HP):                      # container wiped: rebuild the map-header index
+    os.makedirs(os.path.dirname(_HP), exist_ok=True)
+    pickle.dump(find_headers(), open(_HP, 'wb'))
+H = {h['addr']: h for h in pickle.load(open(_HP, 'rb'))}
 _ctx = {}
 MODE = os.environ.get('FLATTEN', 'triple')  # 'merge' = always merge bottom+middle (old count)
 def ctx(a):

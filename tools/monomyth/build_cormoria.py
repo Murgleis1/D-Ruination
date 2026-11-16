@@ -80,7 +80,7 @@ def is_snow_ground(a, mid):
 
 
 def select():
-    rare = {i: m for i, m, _ in json.load(open(os.environ.get('WA_RARE', '/home/claude/scratch/wa_rare.json')))}
+    rare = {i: m for i, m, _ in json.load(open(os.environ.get('WA_RARE', os.path.join(HERE, 'data/wa_rare.json'))))}
     drop = {rare[b] for b in DROP_BADGES}
     L = bt.ctx(WA)[0]
     prim, regions = [], {}
@@ -173,7 +173,7 @@ def tavern_finished():
     wa = np.zeros((1, 1, 3))
     from render import render_map  # noqa: F401  (render util lives beside this file)
     import pickle
-    wa_png = os.environ.get('WA_RENDER', '/home/claude/mono/woodavens.png')
+    wa_png = os.environ.get('WA_RENDER', os.path.join(HERE, '../../assets/monomyth_reference/woodavens.png'))
     wa = np.array(Image.open(wa_png).convert('RGB')).astype(int)
     leaves, _ = ds.leaf_patch(wa)
     mid, top = ds.desnow_building(lay[1], lay[2], (56, 56, 88), protect, 88, 110, facade_leaves=leaves)
