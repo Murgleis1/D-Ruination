@@ -310,3 +310,5 @@ beside it in its row (or ivy, option 3). Snow ground below the facade -> removed
 Options: 2 roof fill, 3 roof fill + ivy on ledges, 4 tiled 8px roof patch
 (rejected by me: flat pink patches, gable outlines lost).
 Known residue in 2/3: vertical shingle bars on the right lower roof.
+
+Decision (user, 2026-11-15): tavern = option 3, roof fill + ivy on ledges.
