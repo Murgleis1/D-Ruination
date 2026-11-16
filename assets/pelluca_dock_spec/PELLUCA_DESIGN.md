@@ -557,3 +557,11 @@ Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it 
   where the garden meets the road.
 - Dorm corner: the north forest steps down between the dorm and the river (gap removed);
   the dorm's top roof rows are now unreachable walk-behind cells (expected).
+
+## Draft 15 (2026-11-16) -- things, not just trees (user: academy grounds + dorm need more)
+- Prop kit in the tileset: picket fence (98, ends/corners 116 120 128 121, sides 123 111),
+  berry hedge 42/43, hydrangea 21/117, mushrooms 36, rope posts 114/115, low stone walls 48/49/105-107.
+- ACADEMY: fenced practice yard on its east side (x31-35 y6-11, Wood Avens fence construction,
+  gate onto the lane), training posts inside, hydrangeas; the forest steps down behind it.
+- DORM: berry hedges and hydrangeas either side of the door, the students' clothesline,
+  mushrooms toward the forest.

@@ -33,7 +33,7 @@ FOREST = [  # (x0, y0, x1, y1) inclusive; x0 even, width even
 GROVES = [
     (8, 10, 9, 14),                           # a column against the west forest, behind the dorm
     (16, 4, 17, 6),                           # the north forest steps down between the dorm and the river (user: gap)
-    (32, 4, 35, 8), (42, 4, 45, 8),           # ACADEMY GROUNDS: matching woods either side of the north entrance
+    (32, 4, 35, 5), (42, 4, 45, 8),           # ACADEMY GROUNDS: forest steps down behind the practice yard; wood across the road
     (26, 17, 29, 21),                         # MONASTERY GROUNDS: its orchard wood, fountain side
     (48, 4, 53, 8),                           # the north forest steps down beside house 5 (ragged edge)
     (48, 14, 57, 16), (60, 14, 71, 16),       # tree ROW along the foot of the east terrace (lane x58-59 open)
@@ -115,7 +115,7 @@ LAMPS = [  # lamp post: top (walkable) over base (blocked); left-of-road 76/88, 
 TREES = []                                    # single round trees: none (they read as random)
 SLIM = [  # slim conifer 44/47/20 (1x3), top cell -- every one is part of a pair, an avenue or a frame
     (36, 7), (40, 7), (36, 10), (40, 10),                  # north road avenue (pairs)
-    (23, 4), (31, 4),                                      # Academy frame
+    (23, 4),                                               # Academy frame (its practice yard is the other side)
     (15, 4),                                               # dorm: backed by the forest step to its right
     (18, 19),                                              # monastery (its wood frames the other side)
     (55, 5), (63, 5),                                      # house 5 frame
@@ -126,7 +126,8 @@ SLIM = [  # slim conifer 44/47/20 (1x3), top cell -- every one is part of a pair
 BUSHES = []                                                     # round bush 97
 HEDGES = [  # 2-wide flower hedge 42/43, left cell -- not every house (user: more variety)
     (9, 24), (66, 30),
-    (32, 10), (34, 10), (42, 10), (44, 10),               # at the foot of the academy-grounds woods
+    (42, 10), (44, 10),                                    # at the foot of the wood across the north road
+    (8, 9), (13, 9),                                       # DORM front: berry hedges either side of the door
     (26, 23), (28, 23),                                    # the monastery garden's edge along the road
 ]
 FENCES = [  # rows of picket fence 98: (x0, x1, y)
@@ -134,8 +135,14 @@ FENCES = [  # rows of picket fence 98: (x0, x1, y)
 ]
 LAWNS = [  # framed lawn (x0, y0, x1, y1): 99 100 101 / 108 126 109 / 102 103 104
 ]
-STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
-FLOWERS = [(50, 23), (66, 23), (23, 13), (24, 14), (25, 13), (33, 12), (34, 12), (43, 12), (44, 12),
+STUMPS = [(56, 29),               # 114 115: chopping stumps by cottage 8
+          (32, 8),                 # training posts in the Academy's practice yard
+          (13, 11)]                # the dorm's clothesline
+# FENCED YARDS (Wood Avens construction): 116 98.. 120 / 123 .. 111 / 128 98.. 121; a gate is a gap
+YARDS = [(31, 6, 35, 11, ('S', 33))]   # the Academy's practice yard, gate onto the lane
+HYDRANGEAS = [(34, 7), (34, 10), (32, 10), (10, 9), (15, 9)]     # blue hydrangea (21/117) by fences and the dorm door
+MUSHROOMS = [(10, 12), (9, 15 - 6)]                            # red mushrooms (36) near the forest edge
+FLOWERS = [(50, 23), (66, 23), (23, 13), (24, 14), (25, 13), (43, 12), (44, 12),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
 # beach dressing: palm groups along the cliff foot and framing the tavern, lab and pier (2x3, top-left)
 CAVE_MOUTH = (10, 34)                        # Umbra cavern, sealed (author 2026-11-16); slab cells (10,35),(11,35) = door
@@ -378,6 +385,17 @@ def build(C):
         if not (all(free(x, y) for x in range(x0, x1 + 1))):
             SKIP.append(('fence', x0, y)); continue
         grid[y, x0:x1 + 1] = 98; blocked[y, x0:x1 + 1] = True
+    for x0, y0, x1, y1, (side, gx) in YARDS:
+        cells = {}
+        for x in range(x0, x1 + 1):
+            cells[(x, y0)] = 116 if x == x0 else (120 if x == x1 else 98)
+            cells[(x, y1)] = 128 if x == x0 else (121 if x == x1 else 98)
+        for y in range(y0 + 1, y1):
+            cells[(x0, y)] = 123; cells[(x1, y)] = 111
+        if side == 'S': cells.pop((gx, y1))
+        if not all(free(x, y) for (x, y) in cells): SKIP.append(('yard', x0, y0)); continue
+        for (x, y), m in cells.items():
+            grid[y, x] = m; blocked[y, x] = True
     for x, y in STUMPS:
         if not (free(x, y) and free(x + 1, y)):
             SKIP.append(('stumps', x, y)); continue
@@ -398,6 +416,12 @@ def build(C):
     for x, y in BEACH_LAMPS:
         if not (sandy(x, y) and sandy(x, y + 1)): SKIP.append(('beachlamp', x, y)); continue
         grid[y, x], grid[y + 1, x] = ONSAND[80], ONSAND[89]; blocked[y + 1, x] = True
+    for x, y in HYDRANGEAS:
+        if not free(x, y): SKIP.append(('hydrangea', x, y)); continue
+        grid[y, x] = 21
+    for x, y in MUSHROOMS:
+        if not free(x, y): SKIP.append(('mushroom', x, y)); continue
+        grid[y, x] = 36
     for x, y in FLOWERS:
         if not (free(x, y)):
             SKIP.append(('flower', x, y)); continue
