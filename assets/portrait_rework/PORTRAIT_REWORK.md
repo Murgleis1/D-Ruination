@@ -189,3 +189,7 @@ Image: baradus_battle_chin_beard_candidates.png (candidate 2).
 - 2026-11-16 INSTALLED (user: hat "looks perfect"): Cadmus neutral/smile (option C v2) and Baradus
   positive/anger/negative (v10 beard + collar trim) at 2/3. In-game Cadmus == PNG (0 px diff).
   Other characters keep their current portraits until each is cleaned and approved.
+- Kimaris v1: faces/eyes/mouths survived the 2/3 resize (no patches needed). Crown lump fixed: the
+  reconstructed top widened in 4-px jumps (cap on the head); rows 15-20 rebuilt from a 10-px top,
+  widening 3,1,2,1-2,2 px per row, outline/shade/hair structure kept (45 px, all 4 expressions).
+  Image: kimaris_cleanup_v1.png. Awaiting review.

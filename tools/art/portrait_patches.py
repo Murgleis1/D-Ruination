@@ -22,6 +22,10 @@ KEY = {
     'M': (124, 101, 84),    # eye: mauve iris shadow
     'h': (32, 19, 49),      # hat: dark body
     'F': (96, 83, 70),      # stubble: dark brown
+    # Kimaris (2/3 palette)
+    'O': (148, 151, 159),   # hair outline
+    'C': (184, 187, 195),   # hair shade ring
+    'H': (202, 205, 213),   # hair
     # 'x' = transparent (index 0)
 }
 
@@ -66,6 +70,21 @@ PATCHES = {
                   "...MFFGFFMFG....."], 'chin stubble texture'),
     ],
 }
+
+# Kimaris: the reconstructed crown widened in 4-px jumps (left x32->28 at y20, right x50->54 at
+# y19), so the top 3-4 rows sat on the head like a cap -- the lump the user saw. Rows 15-20 rebuilt so
+# the outline widens 3,1,2,1-2,2 px per row from a 10-px top; outline / shade ring / hair as in the rest of his hair,
+# the existing strand shading inside the old outline kept. Identical in all four expressions (their
+# differences start at y25).
+PATCHES['kimaris_neutral'] = [
+    (28, 15, [".........OOOOOOOOOO..........",
+              "......OO.CCCCCCCCCCOOO.......",
+              ".....OCC...........CCCO......",
+              "...OOC................COO....",
+              "..OCC..................CC....",
+              "..CC........................."], 'crown: smooth outline, no cap'),
+]
+for _e in ('positive', 'negative', 'smile'): PATCHES['kimaris_' + _e] = PATCHES['kimaris_neutral']
 
 # Cadmus's smile differs from neutral only at the mouth (rows 64-68): same fixes, same pixels.
 PATCHES['cadmus_smile'] = PATCHES['cadmus_neutral']
