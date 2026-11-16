@@ -69,3 +69,8 @@ Placed with the map's events (object events, not tiles):
 - S.S. Tidal (OBJ_EVENT_GFX_SS_TIDAL) moves (44,55) -> (44,54): alongside the new pier head.
 - A second ship (OBJ_EVENT_GFX_SS_TIDAL) at (67,45), moored on the bay jetty's east side.
 - Mr. Briney's rowboats (easter egg, kept) at (60,43) and (60,45), on the jetty's west side.
+
+## Umbra cavern entrance (author 2026-11-16: west-beach cliff, sealed)
+- Cave mouth in the lower cliff at (10-11, 34-35); slab cells (10,35),(11,35) carry door
+  behaviour. Events pass: warp to the deep-cavern map (when it exists) on those cells, plus a
+  sign/script "sealed with the Umbra crest" that blocks entry until the Trial 4 sidequest flag.

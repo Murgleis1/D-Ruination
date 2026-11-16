@@ -132,7 +132,8 @@ STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
 FLOWERS = [(50, 23), (56, 22), (66, 23),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
 # beach dressing: palm groups along the cliff foot and framing the tavern, lab and pier (2x3, top-left)
-PALMS = [(9, 36), (12, 38), (16, 36), (19, 39), (22, 37), (32, 37), (32, 41),
+CAVE_MOUTH = (10, 34)                        # Umbra cavern, sealed (author 2026-11-16); slab cells (10,35),(11,35) = door
+PALMS = [(8, 40), (13, 38), (16, 36), (19, 39), (22, 37), (32, 37), (32, 41),
          (35, 36), (35, 40)]                 # two along the beach/harbour edge so it is not one long straight cut
 BEACH_LAMPS = []
 # ships + boats are OBJECT events (added with the map's events); drawn on previews only:
@@ -375,6 +376,11 @@ def build(C):
         if not (free(x, y) and free(x + 1, y)):
             SKIP.append(('stumps', x, y)); continue
         grid[y, x], grid[y, x + 1] = 114, 115
+    CM = man['regions']['cave_mouth']['grid']
+    cx_, cy_ = CAVE_MOUTH
+    for r in range(2):
+        for c in range(2):
+            grid[cy_ + r, cx_ + c] = CM[r][c]; blocked[cy_ + r, cx_ + c] = True
     PALM = man['regions']['palm']['grid']
     sandy = lambda x, y: grid[y, x] == 163
     for x, y in PALMS:

@@ -503,6 +503,28 @@ def main():
         Q[('p', nk, i)] = im
     sand_row.append(nk)
     regions['onsand'] = (None, (0, 0), [sand_row])
+    # the Umbra cavern's sealed mouth in the lower cliff at the west end of the beach (author 2026-11-16)
+    import cave_mouth as cmo
+    def flat_key(kind_key):
+        out = np.full((16, 16, 3), -1, int)
+        for i in range(12):
+            im = Q.get((kind_key[0], kind_key[1], i))
+            if im is None: continue
+            q = i % 4; oy, ox = (q // 2) * 8, (q % 2) * 8
+            m = (im >= 0).all(-1); out[oy:oy + 8, ox:ox + 8][m] = im[m]
+        return out
+    cave_img = cmo.cave_mouth(flat(10), flat_key(('p', ('onsand', 11))))
+    cave_grid = []
+    for r in range(2):
+        cave_grid.append([])
+        for c in range(2):
+            nk = ('cave_mouth', r, c)
+            meta_src[('s', nk)] = (None, 0x60 if r == 1 else 0)          # door behaviour on the slab
+            for q in range(4):
+                oy, ox = r * 16 + (q // 2) * 8, c * 16 + (q % 2) * 8
+                Q[('s', nk, q)] = cave_img[oy:oy + 8, ox:ox + 8].copy()
+            cave_grid[-1].append(nk)
+    regions['cave_mouth'] = (None, (0, 0), cave_grid)
     # harbour (user 2026-11-16: a full harbour at the lab; the beach is under the stone): 'on stone'
     # twins with the quay surface (157 flattened) as ground
     fl157 = flat(157); stone_q = [fl157[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8] for q in range(4)]
@@ -698,7 +720,7 @@ def main():
     # secondary past 7 palettes, keep the palettes that cover most of its quads and fit every
     # other cottage quad into the palette sharing most of its colours (missing colours snap to
     # that palette's nearest). Measured: without this the cottage costs 2 palettes.
-    is_cot = lambda k: k[1][0] in ('cottage', 'monument', 'pier', 'palm')     # the NEW art fits around the approved art
+    is_cot = lambda k: k[1][0] in ('cottage', 'monument', 'pier', 'palm', 'cave_mouth')     # the NEW art fits around the approved art
     b_left = [cs(v) for k, v in Q.items() if k[0] == 's' and not is_cot(k) and not any(cs(v) <= p for p in all_terr)]
     bp = pp.pack_best(b_left, tries=300) if b_left else []
     if os.environ.get('PACK_SWEEP'):
