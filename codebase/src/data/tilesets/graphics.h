@@ -2118,3 +2118,51 @@ const u16 gTilesetPalettes_Pelluca[][16] =
 };
 
 const u32 gTilesetTiles_Pelluca[] = INCBIN_U32("data/tilesets/secondary/pelluca/tiles.4bpp.lz");
+
+// Cormoria shared primary + Pelluca Valley secondary: MonoMyth (Wood Avens, Fort
+// Elderflower, Port Ginseng, Old Bay) + Evernahn church, triple-layer. Built by
+// tools/monomyth/build_cormoria.py; verified by verify_cormoria.py.
+
+const u16 gTilesetPalettes_Cormoria[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/cormoria/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_Cormoria[] = INCBIN_U32("data/tilesets/primary/cormoria/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_PellucaValley[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_valley/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_PellucaValley[] = INCBIN_U32("data/tilesets/secondary/pelluca_valley/tiles.4bpp.lz");

@@ -286,3 +286,8 @@ const u16 gMetatileAttributes_ZarudeSecondary[] = INCBIN_U16("data/tilesets/seco
 
 const u16 gMetatiles_Pelluca[] = INCBIN_U16("data/tilesets/secondary/pelluca/metatiles.bin");
 const u16 gMetatileAttributes_Pelluca[] = INCBIN_U16("data/tilesets/secondary/pelluca/metatile_attributes.bin");
+
+const u16 gMetatiles_Cormoria[] = INCBIN_U16("data/tilesets/primary/cormoria/metatiles.bin");
+const u16 gMetatileAttributes_Cormoria[] = INCBIN_U16("data/tilesets/primary/cormoria/metatile_attributes.bin");
+const u16 gMetatiles_PellucaValley[] = INCBIN_U16("data/tilesets/secondary/pelluca_valley/metatiles.bin");
+const u16 gMetatileAttributes_PellucaValley[] = INCBIN_U16("data/tilesets/secondary/pelluca_valley/metatile_attributes.bin");

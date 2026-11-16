@@ -257,3 +257,25 @@ budget tool's new default).
 Remaining pressure is from mixing six source maps, not from layering.
 Plan: tol-16 merge (the look approved on screen), 2 spare palettes for
 residence roof variants, ~80 tiles headroom for signs/doors.
+
+## BUILT — gTileset_Cormoria + gTileset_PellucaValley (2026-11-15)
+tools/monomyth/build_cormoria.py -> codebase/data/tilesets/primary/cormoria,
+secondary/pelluca_valley. Registered in headers/graphics/metatiles.h; NO map uses
+them yet (deterministic run still 0 frames different).
+- Palettes: WA terrain 4 + coastal 3 + buildings 5 = 12 of 13. Shared slots 0-5 =
+  WA terrain + 2 coastal; slot 6 = 3rd coastal (shore colours are regional: a
+  coastal town's secondary provides slot 6); slots 7-11 buildings; 12 spare.
+- Tiles: shared 497/512 (terrain + residence + TAVERN art -- every town has a
+  tavern), Pelluca 440/512 (Academy, Cadmus, lab, guardhouse, church).
+- Metatiles copied layer-for-layer (triple-layer, nothing baked). Behaviours
+  carried from MonoMyth (same vanilla numbering). Layer-type attr: NORMAL if the
+  top layer is used, else COVERED (gameplay meaning only).
+- verify_cormoria.py rebuilt every source region from the new tilesets alone:
+  2,078 cells, 100% of pixels within the colour merge (worst 16), no conversion
+  errors. Sheet: cormoria_rebuild_check.png.
+- Bugs caught by the check and fixed: frequency filter dropped Elderflower's
+  stone wall (guardhouse 22 -> 56 cells); church ground taken from an empty layer
+  (Wood Avens keeps grass on the MIDDLE layer).
+- Known, deliberate: tavern + guardhouse still carry painted snow (snow-removal
+  pass next); colour merge darkens guardhouse stone / quay cobble slightly violet;
+  no tileset animation callback yet (water is static until one is written).

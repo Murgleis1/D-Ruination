@@ -1115,3 +1115,27 @@ const struct Tileset gTileset_Pelluca =
     .metatileAttributes = gMetatileAttributes_Pelluca,
     .callback = NULL,
 };
+
+// Shared Cormorian town primary (terrain + residence + tavern art). Palette slot 6
+// carries coastal shore colours: a coastal town's secondary must provide it.
+const struct Tileset gTileset_Cormoria =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_Cormoria,
+    .palettes = gTilesetPalettes_Cormoria,
+    .metatiles = gMetatiles_Cormoria,
+    .metatileAttributes = gMetatileAttributes_Cormoria,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_PellucaValley =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PellucaValley,
+    .palettes = gTilesetPalettes_PellucaValley,
+    .metatiles = gMetatiles_PellucaValley,
+    .metatileAttributes = gMetatileAttributes_PellucaValley,
+    .callback = NULL,
+};
