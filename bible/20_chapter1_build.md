@@ -116,3 +116,13 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 - **Pelluca build decisions (§16.3):** layout size, which DM-Pelluca elements to keep vs. cut, the full interior list, the NPC roster, and the wild-encounter table.
 - **Cold-open optional flourishes** — reflection ripple, letter-burn, ending bookend: pick or drop.
 
+
+### 16.9 Chapter-1 dialogue pass `[v0.9.16 — 2026-11-16, user-directed]`
+The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy: `docs/chapter1_dialogue.md`). Canon fixed in that pass:
+- **The mask is a mending mask from Athanto** (a MonoMyth Easter egg): made to hasten healing and keep evil at bay, prized in many lands, and *not customary* in Cormoria. The letter, the dockhands and Eden all make the player understand from the outset that Osrid wears it over **burns from the Sevii beach**, a loss caused by **Commander Boran Surge** splitting his forces across two fronts. (Supersedes the generic "Noh-styled ceremonial Rainhawk mask" wording for in-game text; the Eye-of-Horus design is unchanged.)
+- **Timeline:** the opening narration now says **two thousand years before Red** (matches §1). **General Albrecht** removed from the letter.
+- **The letter never names the prince** (Cadmus writes as if it may be intercepted) and states that Osrid **earned** Rainhawk before Sevii; Cadmus only kept the rank attached to him.
+- **Beat 2 now includes the cover-identity briefing** (personal assistant + Academy head of security + a small house in the valley; public mission = all Trial Badges → challenge Rhydia → reveal) and Rhydia is introduced to the player as his sister and the five-year Champion.
+- **Eden does not name her cult** during the theft (she poses as a freelance thief). She fights as **"Brigand ???"** and first gives her name to the Templar in the **monastery holding cell**, which now has a short Osrid/Eden exchange before Cadmus and Osrid leave her to the Templar's questions.
+- **The Mega-Dreamstone shard briefing** happens back at the lab after the cell scene (as §6 requires: after the theft), at Cadmus's own level of knowledge; he does not name his source (Nemo).
+- Engine: inline speaker names are shown only when the speaker changes; long lines are re-wrapped with the name in place.

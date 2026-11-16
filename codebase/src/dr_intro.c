@@ -33,23 +33,25 @@ static void DrIntro_PrintBlock(const u8 *text);
 // Narration text, pre-wrapped into lines (the printer does not auto-wrap).
 static const u8 sTenebrisHeader[] = _("From the notes of Professor\nTenebris - XX-XX-29");
 static const u8 sTenebrisP1[] = _(
-    "3000 years before Red started\n"
-    "his journey from Pallet Town,\n"
+    "Two thousand years before\n"
+    "Red set out from Pallet Town,\n"
     "the world of Pokémon was\n"
     "a very different place.");
+
 static const u8 sTenebrisP2[] = _(
-    "It was a terrifying era of\n"
-    "imperial conflict and strange\n"
-    "cults, a setting so far removed\n"
-    "from what we know in the modern\n"
-    "Pokémon world that “they” who\n"
-    "decided history have done\n"
-    "everything they possibly could\n"
-    "to bury those records forever.");
+    "It was an age of empires\n"
+    "and of stranger faiths.\n"
+    "Those who wrote the histories\n"
+    "that came after it did their\n"
+    "best to bury every trace.");
+
 static const u8 sTenebrisP3[] = _(
-    "This is the story I know of\n"
-    "that place and time, the seed\n"
-    "of all which would come to be...");
+    "What follows is what I have\n"
+    "pieced together of that time,\n"
+    "and of the people in it.\n"
+    "So much of our world began\n"
+    "with them.");
+
 static const u8 sDefaultPlayerName[] = _("Osrid");
 
 static const u8 *const sIntroBlocks[] = {

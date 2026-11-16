@@ -55715,7 +55715,7 @@ F_TRAINER_FEMALE |
     [DIFFICULTY_EASY][TRAINER_DR_EDEN_LAB_1] =
     {
 #line 24125
-        .trainerName = _("Eden"),
+        .trainerName = _("???"),
 #line 24127
         .trainerClass = TRAINER_CLASS_BRIGAND,
 #line 24128
@@ -55775,7 +55775,7 @@ F_TRAINER_FEMALE |
     [DIFFICULTY_EASY][TRAINER_DR_EDEN_LAB_2] =
     {
 #line 24149
-        .trainerName = _("Eden"),
+        .trainerName = _("???"),
 #line 24151
         .trainerClass = TRAINER_CLASS_BRIGAND,
 #line 24152
@@ -55837,7 +55837,7 @@ F_TRAINER_FEMALE |
     [DIFFICULTY_EASY][TRAINER_DR_EDEN_LAB_3] =
     {
 #line 24174
-        .trainerName = _("Eden"),
+        .trainerName = _("???"),
 #line 24176
         .trainerClass = TRAINER_CLASS_BRIGAND,
 #line 24177
@@ -55897,7 +55897,7 @@ F_TRAINER_FEMALE |
     [DIFFICULTY_NORMAL][TRAINER_DR_EDEN_LAB_1] =
     {
 #line 24198
-        .trainerName = _("Eden"),
+        .trainerName = _("???"),
 #line 24200
         .trainerClass = TRAINER_CLASS_BRIGAND,
 #line 24201
@@ -55957,7 +55957,7 @@ F_TRAINER_FEMALE |
     [DIFFICULTY_NORMAL][TRAINER_DR_EDEN_LAB_2] =
     {
 #line 24222
-        .trainerName = _("Eden"),
+        .trainerName = _("???"),
 #line 24224
         .trainerClass = TRAINER_CLASS_BRIGAND,
 #line 24225
@@ -56019,7 +56019,7 @@ F_TRAINER_FEMALE |
     [DIFFICULTY_NORMAL][TRAINER_DR_EDEN_LAB_3] =
     {
 #line 24247
-        .trainerName = _("Eden"),
+        .trainerName = _("???"),
 #line 24249
         .trainerClass = TRAINER_CLASS_BRIGAND,
 #line 24250

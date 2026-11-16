@@ -1,65 +1,163 @@
 PellucaReflection_MapScripts::
-	map_script MAP_SCRIPT_ON_FRAME_TABLE, PellucaReflection_OnFrame
+# 9 "data/maps/PellucaReflection/scripts.pory"
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, PellucaReflection_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
-PellucaReflection_OnFrame:
+PellucaReflection_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE:
+# 10 "data/maps/PellucaReflection/scripts.pory"
 	map_script_2 VAR_TEMP_1, 0, PellucaReflection_Cutscene
 	.2byte 0
 
+
 PellucaReflection_Cutscene::
+# 15 "data/maps/PellucaReflection/scripts.pory"
 	lockall
+# 16 "data/maps/PellucaReflection/scripts.pory"
 	setvar VAR_TEMP_1, 1
+# 17 "data/maps/PellucaReflection/scripts.pory"
 	special DrSetPlayerOsridSprite
-	applymovement OBJ_EVENT_ID_PLAYER, PellucaReflection_FaceDown
+# 18 "data/maps/PellucaReflection/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, PellucaReflection_Cutscene_Movement_0
+# 19 "data/maps/PellucaReflection/scripts.pory"
 	waitmovement 0
+# 20 "data/maps/PellucaReflection/scripts.pory"
 	delay 40
-	msgbox PellucaReflection_LetterIntro, MSGBOX_DEFAULT
+# 21 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_0
+# 22 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-	msgbox PellucaReflection_LetterA, MSGBOX_DEFAULT
+# 23 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_1
+# 24 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
-	msgbox PellucaReflection_LetterB, MSGBOX_DEFAULT
+# 25 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_2
+# 26 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-	msgbox PellucaReflection_LetterC, MSGBOX_DEFAULT
+# 27 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_3
+# 28 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_4
+# 29 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
-	msgbox PellucaReflection_LetterD, MSGBOX_DEFAULT
+# 30 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_5
+# 31 "data/maps/PellucaReflection/scripts.pory"
 	hideportrait
-	msgbox PellucaReflection_SignPrompt, MSGBOX_DEFAULT
+# 32 "data/maps/PellucaReflection/scripts.pory"
+	closemessage
+# 33 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_6
+# 34 "data/maps/PellucaReflection/scripts.pory"
 	special DrDoPlayerNaming
+# 35 "data/maps/PellucaReflection/scripts.pory"
 	waitstate
+# 36 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 37 "data/maps/PellucaReflection/scripts.pory"
 	special DrSetPrinceNameplate
-	msgbox PellucaReflection_Reply, MSGBOX_DEFAULT
+# 38 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_7
+# 39 "data/maps/PellucaReflection/scripts.pory"
 	hideportrait
+# 40 "data/maps/PellucaReflection/scripts.pory"
+	closemessage
+# 41 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_8
+# 42 "data/maps/PellucaReflection/scripts.pory"
 	delay 40
+# 43 "data/maps/PellucaReflection/scripts.pory"
 	fadescreen FADE_TO_BLACK
+# 44 "data/maps/PellucaReflection/scripts.pory"
 	setvar VAR_UNUSED_0x404E, 1
-		warp MAP_PELLUCA_CITY, 44, 52
+# 45 "data/maps/PellucaReflection/scripts.pory"
+	warp MAP_PELLUCA_CITY, 44, 52
+# 46 "data/maps/PellucaReflection/scripts.pory"
 	waitstate
+# 47 "data/maps/PellucaReflection/scripts.pory"
 	releaseall
 	end
 
-PellucaReflection_FaceDown:
+
+# 18 "data/maps/PellucaReflection/scripts.pory"
+PellucaReflection_Cutscene_Movement_0:
+# 18 "data/maps/PellucaReflection/scripts.pory"
 	face_down
 	step_end
 
-PellucaReflection_LetterIntro:
-	.string "You have received a letter.$"
+PellucaReflection_Cutscene_Text_0:
+# 21 "data/maps/PellucaReflection/scripts.pory"
+	.string "A letter has come for you. The seal is\n"
+	.string "plain wax, pressed without a crest.$"
 
-PellucaReflection_LetterA:
-	.string "My Prince... far too long\nhas passed since our last\pletter over a year ago. It\nfeels far longer than\pthat.\pWord of your scarred\ncondition has reached me,\palong with the truth of\nwhat happened during the\pSevii campaign. I hear you\nnow wear a mask to cover\pyour burns, and I will not\ninsult you by calling this\panything less than a\ntravesty.\pThere is no shortage of\nfolly and negligence\paround you. Your\ncommanding officer Boran\pSurge's foolish choice to\nstrike Kanto and Johto\pacross two separate fronts\nhas resulted in countless\plosses.\pI have made my...lets just\nsay “unhappiness” known to\pSurge's superiors, and I\nhave been assured that he\pwill be dealt with. This\ndoes not reverse the harms\pthat were done to you...\nbut he may wish he had\pdied in the Sevii campaign\nhe forced your unit into\pbefore\nhis...“punishment”...\pfully plays itself out.$"
+PellucaReflection_Cutscene_Text_1:
+# 23 "data/maps/PellucaReflection/scripts.pory"
+	.string "Rainhawk Alban,\p"
+	.string "The surgeon's report from Sevii reached\n"
+	.string "my desk a week before your commander's\l"
+	.string "did. A commander proud of his decisions\l"
+	.string "does not take a week to report them.\p"
+	.string "Burns to the face and neck, taken\n"
+	.string "holding a beach that should have had\l"
+	.string "twice the men on it. Commander Surge\l"
+	.string "split his forces across two fronts, and\l"
+	.string "you paid for his arithmetic.$"
 
-PellucaReflection_LetterB:
-	.string "However, I have not written\nto you merely out of\pfrustration and anger. As a\nresult of my demands, you\pare now formally reassigned\nto serve under my direct\pcommand as Vizier of\nEducation, and raised to\pthe rank of Rainhawk. You\nhave been discharged from\pthe front lines with the\nhighest of honors.\pFurthermore, you are now\nthe youngest to hold this\ptitle in all of Cormoria's\nhistory. Yes, younger even\pthan “him”. You know of\nwhom I speak. This comes\pwith numerous benefits,\nthough we will speak more\lon that later.$"
+PellucaReflection_Cutscene_Text_2:
+# 25 "data/maps/PellucaReflection/scripts.pory"
+	.string "The Commander has since been invited\n"
+	.string "to explain that arithmetic to people\l"
+	.string "who outrank us both. He will be\l"
+	.string "explaining it for some time.$"
 
-PellucaReflection_LetterC:
-	.string "My request is this. Please\ncome to my laboratory as\psoon as you are able. I\nchartered a ship, the Pale\pVeluza, to bring you home.\nGeneral Albrecht will fill\pyou in on additional\ndetails about your\parrangements, so go speak\nwith him.\pLastly, please sign your\nreply with the name only\p“you” know, so I may be\ncertain of your “true”\pidentity. The Templar who\nserves near your barracks\pwill deliver it to my hand\ndirectly.\pP.S. Burn this letter.\nThere must be no trail.\pMatters in your homeland\nof Cormoria have grown\pmore delicate than they\nappear, and there are eyes\pand ears in places even I\ncannot know. Be vigilant.$"
+PellucaReflection_Cutscene_Text_3:
+# 27 "data/maps/PellucaReflection/scripts.pory"
+	.string "The army saw fit to give you a mending\n"
+	.string "mask from Athanto while the burns heal.\l"
+	.string "They are made to hasten healing and\l"
+	.string "keep evil at bay, and in most lands they\l"
+	.string "are worth more than a house, so expect\l"
+	.string "to be stared at. Wear it as long as you\l"
+	.string "need to.\p"
+	.string "Your discharge is signed, with honors.\n"
+	.string "You earned the rank of Rainhawk long\l"
+	.string "before Sevii, and you keep it. From the\l"
+	.string "day this reaches you, you serve under\l"
+	.string "me, in the office of the Vizier of\l"
+	.string "Education.$"
 
-PellucaReflection_LetterD:
-	.string "Best regards,\nCadmus Umbra$"
+PellucaReflection_Cutscene_Text_4:
+# 28 "data/maps/PellucaReflection/scripts.pory"
+	.string "A ship called the Pale Veluza waits in\n"
+	.string "the southern harbor. Her captain asks\l"
+	.string "no questions, which is exactly why I\l"
+	.string "hired her.\p"
+	.string "Give your reply to the Templar chaplain\n"
+	.string "at your barracks. It will reach me\l"
+	.string "unopened.\p"
+	.string "Sign it with the name you were born\n"
+	.string "with, not the one I gave you. I would\l"
+	.string "know your hand anywhere.$"
 
-PellucaReflection_SignPrompt:
-	.string "You take up your pen to\ndraft your reply.$"
+PellucaReflection_Cutscene_Text_5:
+# 30 "data/maps/PellucaReflection/scripts.pory"
+	.string "Then burn this. These days, too many\n"
+	.string "people in Cormoria read letters that\l"
+	.string "were never meant for them.\p"
+	.string "C.$"
 
-PellucaReflection_Reply:
-	.string "Request acknowledged and\naccepted. I will make\ppreparations to travel\nimmediately.$"
+PellucaReflection_Cutscene_Text_6:
+# 33 "data/maps/PellucaReflection/scripts.pory"
+	.string "You take up the pen.$"
 
+PellucaReflection_Cutscene_Text_7:
+# 38 "data/maps/PellucaReflection/scripts.pory"
+	.string "Received. I will be aboard the Veluza\n"
+	.string "when she sails.\p"
+	.string "It has been a long time since anyone\n"
+	.string "asked me for that name.$"
+
+PellucaReflection_Cutscene_Text_8:
+# 41 "data/maps/PellucaReflection/scripts.pory"
+	.string "You hold the letter over the lamp until\n"
+	.string "there is nothing left to read.$"

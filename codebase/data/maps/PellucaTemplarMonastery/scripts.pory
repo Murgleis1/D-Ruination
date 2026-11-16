@@ -1,0 +1,71 @@
+raw `
+    .set LOCALID_DRM_EDEN,    1
+    .set LOCALID_DRM_CADMUS,  2
+    .set LOCALID_DRM_TEMPLAR, 3
+`
+
+// ============ DREAMSTONE RUINATION - Chapter 1: Eden in the Templar holding cell ============
+// User 2026-11-16: a short exchange with Eden before Osrid and Cadmus leave her to the
+// Templar's questions. She gives her name here for the first time (she fought as "Brigand ???").
+// Then back to the lab for the shard briefing (VAR_UNUSED_0x40A1 = 3).
+
+mapscripts PellucaTemplarMonastery_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_UNUSED_0x40A1, 2: DR_Monastery_Cell
+    ]
+}
+
+script DR_Monastery_Cell {
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    waitmovement(0)
+    delay(30)
+    msgbox(format("Later, in a holding cell beneath the Templar monastery."))
+    closemessage
+    speakername("Templar")
+    msgbox(format("Name."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Thief")
+    msgbox(format("Eden."))
+    hideportrait
+    closemessage
+    speakername("Templar")
+    msgbox(format("Eden of where?"))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    msgbox(format("Of here, apparently."))
+    hideportrait
+    closemessage
+    speakername("Templar")
+    msgbox(format("The Pokémon you took will stay in the Order's keeping."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("For now."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Nomad Alban")
+    msgbox(format("Who sent you?"))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    msgbox(format("Nobody sends me anywhere. I go where the good things are."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Your little one did all the work back there, you know. And you never said a word to it. Just orders."))
+    hideportrait
+    closemessage
+    delay(40)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Just saying."))
+    hideportrait
+    closemessage
+    applymovement(LOCALID_DRM_TEMPLAR, moves(face_left))
+    waitmovement(0)
+    speakername("Templar")
+    msgbox(format("Vizier. Rainhawk. If you would leave her with me."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Of course. Rainhawk, with me."))
+    hideportrait
+    closemessage
+    delay(20)
+    fadescreen(FADE_TO_BLACK)
+    setvar(VAR_UNUSED_0x40A1, 3)
+    warp(MAP_PELLUCA_UMBRA_LAB, 5, 11)
+    waitstate
+    releaseall
+    end
+}

@@ -1416,11 +1416,31 @@ script DR_PellucaCity_Arrival{
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
     waitmovement(0)
     delay(20)
+    // Dialogue pass 2026-11-16: dockhands talk as he passes (the mask is not normal; Sevii
+    // burned him). Cadmus greets him in public under the cover name and keeps the rest for
+    // the lab.
+    speakername("Dockhand")
+    msgbox(format("A Rainhawk, in a mask? Like something out of the old stories."))
+    speakername("Sailor")
+    msgbox(format("Heard Sevii took his face. The whole beach went up, they say."))
+    closemessage
+    delay(30)
     applymovement(LOCALID_DR_CADMUS, moves(walk_down * 5))
     waitmovement(0)
     delay(12)
-    speakername("Cadmus")
-    msgbox(format("10 years on and by the grace of Arceus... I am beyond elated to see you again, my Prince.\pSending you away as a child to an overseas military installation, forcing you to bear the alias of Nomad Alban all of this time... none of it was fair. But it was all necessary to ensure your survival.\pBut now, you are home at last... even if the circumstances that bring you home are grim. Dark forces are afoot, and they are gradually gaining leverage over our Empire in spite of my best efforts.\pBut come - one of my labs here in Pelluca Valley is just ahead, and we have much to discuss."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Rainhawk Alban. Welcome to Pelluca Valley."))
+    closemessage
+    delay(40)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Does it still hurt?"))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Nomad Alban")
+    msgbox(format("Less than it did."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Good. Walk with me. We will talk somewhere quieter."))
+    hideportrait
+    closemessage
     release
     delay(12)
     applymovement(LOCALID_DR_CADMUS, moves(walk_up * 6 walk_right * 3 face_up))

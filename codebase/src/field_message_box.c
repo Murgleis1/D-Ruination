@@ -9,6 +9,7 @@
 #include "text_window.h"
 #include "script.h"
 #include "portrait.h"
+#include "line_break.h"
 
 // Speaker names: TRUE = inline "Name: text" (MonoMyth style, user 2026-11-16);
 // FALSE = the nameplate above the text box.
@@ -18,6 +19,8 @@ static const u8 sText_SpeakerSeparator[] = _(": ");
 static EWRAM_DATA u8 sFieldMessageBoxMode = 0;
 EWRAM_DATA u8 gWalkAwayFromSignpostTimer = 0;
 EWRAM_DATA const u8* gSpeakerName = NULL;
+// The speaker named by the last inline "Name:" (see ExpandStringAndStartDrawFieldMessage).
+static EWRAM_DATA u8 sLastInlineSpeaker[32] = {0};
 
 static void ExpandStringAndStartDrawFieldMessage(const u8 *, bool32);
 static void StartDrawFieldMessage(void);
@@ -143,9 +146,30 @@ static void ExpandStringAndStartDrawFieldMessage(const u8 *str, bool32 allowSkip
 {
     if (SPEAKER_NAME_INLINE && gSpeakerName != NULL && !FlagGet(FLAG_SUPPRESS_SPEAKER_NAME)) {
         // MonoMyth style: "Name: text" at the start of the message, no nameplate.
-        u8 *end = StringExpandPlaceholders(gStringVar4, gSpeakerName);
+        // User 2026-11-16: name a speaker only when they start talking. While the same person
+        // keeps speaking (portrait up), their following messages carry no "Name:". Closing the
+        // box (HideFieldMessageBox) forgets the speaker, so a scene resuming after a pause names
+        // them again.
+        u8 *end;
+        u8 name[32];
+        // a private buffer: gStringVar1 is what {STR_VAR_1} in the message expands from
+        StringCopyN(name, gSpeakerName, sizeof(name) - 1);
+        name[sizeof(name) - 1] = EOS;
+        if (sLastInlineSpeaker[0] != EOS && StringCompare(sLastInlineSpeaker, name) == 0) {
+            StringExpandPlaceholders(gStringVar4, str);
+            AddTextPrinterForMessage(allowSkippingDelayWithButtonPress);
+            CreateTask_DrawFieldMessage();
+            return;
+        }
+        StringCopy(sLastInlineSpeaker, name);
+        end = StringExpandPlaceholders(gStringVar4, gSpeakerName);
         end = StringCopy(end, sText_SpeakerSeparator);
         StringExpandPlaceholders(end, str);
+        // The script compiler wrapped this text at full width, not knowing a name would be
+        // added in front, so the first line ran past the box (2026-11-16: "But o|n"). Re-wrap
+        // the whole message with the name in place: same width, two lines per page.
+        StripLineBreaks(gStringVar4);
+        BreakStringAutomatic(gStringVar4, 208, 2, FONT_NORMAL);
         AddTextPrinterForMessage(allowSkippingDelayWithButtonPress);
         CreateTask_DrawFieldMessage();
         return;
@@ -185,6 +209,7 @@ void HideFieldMessageBox(void)
     sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
     FreeMsgPortrait();
     gSpeakerName = NULL;
+    sLastInlineSpeaker[0] = EOS;
 }
 
 u8 GetFieldMessageBoxMode(void)

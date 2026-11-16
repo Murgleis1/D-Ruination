@@ -1,0 +1,49 @@
+// ============ DREAMSTONE RUINATION - Chapter 1, Beat 1: the cold open ============
+// Osrid alone above dark water; Cadmus's letter; the signed reply (diegetic naming).
+// Dialogue pass 2026-11-16: the letter is written the way a careful man writes when he
+// expects it to be read by the wrong people. It never names the prince, and it tells the
+// player three things without stating them: the mask is not customary, it covers burns, and
+// the burns are Boran Surge's doing.
+
+mapscripts PellucaReflection_MapScripts {
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_TEMP_1, 0: PellucaReflection_Cutscene
+    ]
+}
+
+script PellucaReflection_Cutscene {
+    lockall
+    setvar(VAR_TEMP_1, 1)
+    special(DrSetPlayerOsridSprite)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)
+    delay(40)
+    msgbox(format("A letter has come for you. The seal is plain wax, pressed without a crest."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Rainhawk Alban,\pThe surgeon's report from Sevii reached my desk a week before your commander's did. A commander proud of his decisions does not take a week to report them.\pBurns to the face and neck, taken holding a beach that should have had twice the men on it. Commander Surge split his forces across two fronts, and you paid for his arithmetic."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("The Commander has since been invited to explain that arithmetic to people who outrank us both. He will be explaining it for some time."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("The army saw fit to give you a mending mask from Athanto while the burns heal. They are made to hasten healing and keep evil at bay, and in most lands they are worth more than a house, so expect to be stared at. Wear it as long as you need to.\pYour discharge is signed, with honors. You earned the rank of Rainhawk long before Sevii, and you keep it. From the day this reaches you, you serve under me, in the office of the Vizier of Education."))
+    msgbox(format("A ship called the Pale Veluza waits in the southern harbor. Her captain asks no questions, which is exactly why I hired her.\pGive your reply to the Templar chaplain at your barracks. It will reach me unopened.\pSign it with the name you were born with, not the one I gave you. I would know your hand anywhere."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Then burn this. These days, too many people in Cormoria read letters that were never meant for them.\pC."))
+    hideportrait
+    closemessage
+    msgbox(format("You take up the pen."))
+    special(DrDoPlayerNaming)
+    waitstate
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("Received. I will be aboard the Veluza when she sails.\pIt has been a long time since anyone asked me for that name."))
+    hideportrait
+    closemessage
+    msgbox(format("You hold the letter over the lamp until there is nothing left to read."))
+    delay(40)
+    fadescreen(FADE_TO_BLACK)
+    setvar(VAR_UNUSED_0x404E, 1)
+    warp(MAP_PELLUCA_CITY, 44, 52)
+    waitstate
+    releaseall
+    end
+}
