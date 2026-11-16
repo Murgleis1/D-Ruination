@@ -376,3 +376,19 @@ NEXT METHOD: plan in ELEVATION (lake / shore / town / terraces), roads as paths,
 forests as regions, buildings as footprints; cliffs generated where elevation
 steps, using face/corner rules learned from Wood Avens' own elevation bits; open
 water separated from quay pieces.
+
+## Layout drafts 2-3 — piece-rule generator (2026-11-15, layout_draft3_vs_reference.png)
+tools/monomyth/pelluca_layout.py lays the map out from a written plan (forest belts,
+cliff bands + stairs + one stepped corner, cobble roads, quay + pier, lake, buildings,
+lamps, trees, hedges, lawns, flowers). Every piece rule was checked on screen first
+(cliff_tests / decor_tests). Collision/elevation per piece come from how MonoMyth's own
+maps set them (tools/monomyth/data/source_collision.json); quay wall + pier are walkable
+at elevation 3 (dock lock). Arrival path (pier x44 y45-52, row y45 x44-47) is clear;
+lab door (47,44); lab footprint x44-48 y40-44 (the DM lock had x45-49 -- not on the path).
+Honest gap vs the reference: straight cobble roads, straight cliffs, stone-walled
+square lake, sparse dressing. Next art pass: winding lawn paths (Wood Avens 99-109),
+organic terraces (mirrored cliff metatiles, no new tiles), natural lake banks/beach
+(needs shore art -- tile budget 23 secondary / 12 primary free, palettes 13/13),
+fenced gardens, farm plot.
+Church door has no door behaviour yet (Evernahn import) -> set MB_NON_ANIMATED_DOOR in
+the builder. Tavern cells carry 0x5B (MB_UNUSED_5B, harmless); door 0x60.
