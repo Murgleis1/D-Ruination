@@ -107,3 +107,14 @@ recolor or tweak existing MonoMyth portraits and overworld sprites."
   coat/scarf -> Osrid's tunic greens; exact 15-colour palette (osrid_ow_draft5_*.png). Draft.
 - Osrid portrait: Kakugo is a REFERENCE (positioning, shading, colours) only; his portrait stays his
   design, restyled -- in progress (tools/art/osrid_portrait.py, cel posterisation).
+
+## v6 (user 2026-11-16, 14:28) -- in the game
+- Crowns: both dome versions read as lumps -- an ellipse leaves its base with vertical sides, so the
+  outline pinches where it meets the head's slope. crown() now continues each side at the head's
+  measured edge slope plus a gentle quadratic rounding: smooth outline, no pinch, no per-portrait
+  table (rebuilt_v6_busts.png).
+- Baradus (Yo'aki tribe, bible/09): bronze skin ramp on his portraits (master recolour, same ranks),
+  battle sprite (palette entry 1) and overworld sprite (entries 1-2) (baradus_bronze_sprites.png).
+- Osrid OW v6 installed: his head on Kakugo's body, his OLD outfit by zone (green collar/scarf, dark
+  torso, grey armoured arms, tan hands, dark legs; green cloak from behind), the old sheet's own
+  colours; original kept at legacy_96px/osrid_ow_original.png (ingame_osrid_ow_v6.png).

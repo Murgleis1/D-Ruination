@@ -83,56 +83,68 @@ def despeckle(img):
     return out
 
 
-def crown(img, top, mode='cut', k=0.5):
-    """The masters' hair runs off the top of their frame (measured: 16-56 opaque px on row 0 for
-    every portrait but Osrid's). v4 capped each cut SEGMENT with its own small dome -> lumps (user:
-    "every portrait looks like it has a lump on its head"). Now ONE dome over the full width of the
-    cut row, so the head's outline continues: half-width shrinks along an ellipse from the cut's
-    half-width to 0 over hh = 0.5 * half-width rows. Fill = the hair rows mirrored upward, hair
-    colours only."""
+def crown(img, top):
+    """The masters' hair runs off the top of their frame (16-56 opaque px on row 0, all but Osrid).
+    v4 capped each cut segment with its own dome, v5 one elliptical dome per head: both read as a
+    LUMP (user, twice) -- an ellipse leaves its base with VERTICAL sides, so where it meets the
+    head's sloping outline the silhouette pinches in. Now the cap CONTINUES the outline: each side
+    keeps the slope the head's edge has over the rows below the cut, plus a gentle quadratic
+    rounding that closes the top -- the outline is smooth (no pinch, no shoulder) by construction.
+    Fill: the hair rows mirrored upward, the cut's dominant hair colours only; existing art is never
+    overwritten."""
     out = img.copy()
-    if (img[top] >= 0).sum() < 3: return out
-    # base = the widest of the first rows (a cut through an already-tapering crown is narrow: the
-    # dome must sit on the head's width, not on the cut, or it pokes up as a nub -- Kimaris)
-    spans = []
-    for y in range(top, top + 5):
+    H, W = img.shape
+    def edges(y):
         xs = np.nonzero(img[y] >= 0)[0]
-        if len(xs): spans.append((int(xs.max() - xs.min()), y, int(xs.min()), int(xs.max())))
-    _, base, xa, xb = max(spans) if mode == 'wide' else spans[0]
-    hw0 = (xb - xa + 1) / 2.0; c0 = (xa + xb) / 2.0
-    hh = int(min(top, max(2, round(hw0 * k)))) + (base - top)
-    band = img[top:top + 4, xa:xb + 1].ravel(); band = band[band >= 0]
+        return (int(xs.min()), int(xs.max())) if len(xs) else None
+    e0 = edges(top)
+    if e0 is None or e0[1] - e0[0] < 2: return out
+    k = 4
+    ek = edges(top + k) or e0
+    dl = max(0.0, (e0[0] - ek[0]) / k)      # going up, the left edge moves right by dl per row
+    dr = max(0.0, (ek[1] - e0[1]) / k)      # ... and the right edge moves left by dr per row
+    w0 = e0[1] - e0[0] + 1
+    h = int(min(top, max(2, round(0.45 * w0 / 2))))
+    a = max(0.08, (w0 - (dl + dr) * h) / (2.0 * h * h))
+    band = img[top:top + 4, e0[0]:e0[1] + 1].ravel(); band = band[band >= 0]
     vals, cnt = np.unique(band, return_counts=True)
     hair = [int(v) for v, c in sorted(zip(vals, cnt), key=lambda t: -t[1]) if c >= 0.10 * cnt.sum()]
-    for r in range(1, hh + 1):                           # r = rows above the base row
-        y = base - r
-        if y < 0: break
-        half = hw0 * np.sqrt(max(0.0, 1 - (r / (hh + 0.6)) ** 2))
-        for x in range(int(np.ceil(c0 - half)), int(np.floor(c0 + half)) + 1):
-            if out[y, x] >= 0: continue                  # existing art is never overwritten
-            src = img[min(2 * base - y - 1, img.shape[0] - 1), x]   # mirror about the base row
+    for r in range(1, top + 1):
+        left = e0[0] + dl * r + a * r * r; right = e0[1] - dr * r - a * r * r
+        if right < left: break
+        y = top - r
+        for x in range(int(np.ceil(left - 0.25)), int(np.floor(right + 0.25)) + 1):
+            if out[y, x] >= 0: continue
+            src = img[min(top + r - 1, H - 1), x]
             if src < 0 or src not in hair:
                 src = img[top, x] if img[top, x] in hair else hair[0]
             out[y, x] = src
     return out
 
 
-# Per-portrait crown (checked one by one on screen, 2026-11-16): a dome on the cut row suits most;
-# Kimaris's cut runs through an already-tapering crown, so his dome sits on the head's width, low.
-CROWN = {'kimaris': ('wide', 0.28)}
+# Lore recolours applied to the master before anything else (user 2026-11-16): Baradus is of the
+# Yo'aki tribe -- bronzed, darker skin. His masters' 7-step skin ramp -> a bronze ramp, same ranks.
+RECOLOUR = {'baradus': {
+    (255, 214, 189): (196, 136, 92), (254, 213, 187): (196, 136, 92),
+    (223, 167, 126): (164, 106, 66), (222, 165, 123): (164, 106, 66),
+    (189, 113, 87): (134, 80, 52), (176, 108, 84): (124, 74, 48),
+    (144, 80, 56): (100, 58, 38), (123, 90, 70): (92, 62, 46), (112, 58, 37): (76, 42, 28),
+}}
 
 
 def rebuild(path):
     rgba = np.array(Image.open(path).convert('RGBA'))
     mask = rgba[..., 3] >= ALPHA; rgb = rgba[..., :3].astype(int)
+    for name, table in RECOLOUR.items():
+        if os.path.basename(path).startswith(name):
+            for a, b in table.items(): rgb[(rgb == a).all(-1)] = b
     pal = palette15(rgb, mask)
     idx = to_index(rgb, mask, pal)
     small = downscale_32(idx, pal)
     big = np.full((OUT, OUT), -1, np.int16)
     h, w = small.shape; y0 = OUT - h; x0 = (OUT - w) // 2
     big[y0:y0 + h, x0:x0 + w] = small
-    mode, k = next((v for n, v in CROWN.items() if os.path.basename(path).startswith(n)), ('cut', 0.5))
-    big = crown(big, y0, mode, k)
+    big = crown(big, y0)
     big = despeckle(outline(big, pal))
     canvas = np.where(big >= 0, big + 1, 0).astype(np.uint8)
     full = np.zeros((16, 3), int); full[0] = (255, 0, 255); full[1:1 + len(pal)] = pal

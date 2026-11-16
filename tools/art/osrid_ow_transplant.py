@@ -30,6 +30,29 @@ def rgba(path):
     return px, pal
 
 
+# ---- his OLD outfit, zone by zone (user 2026-11-16, 14:28: hands tan like the old sprite's, clothes
+# matching the old sprite): green collar/scarf at the shoulders; dark torso; grey armoured arms; tan
+# hands; dark legs; from behind, a green cloak over the back. Colours are the old sheet's own.
+DARK = [(36, 30, 40), (36, 30, 40), (71, 71, 71), (127, 127, 127)]      # tone 0..3
+ARMOUR = [(36, 30, 40), (71, 71, 71), (127, 127, 127), (127, 127, 127)]
+GREEN = [(35, 61, 43), (35, 61, 43), (46, 80, 56), (72, 106, 78)]
+TAN = {14: (255, 197, 148), 13: (222, 148, 115), 12: (222, 148, 115)}   # Kakugo's light glove px
+TONE = {9: 0, 11: 1, 10: 2, 12: 3, 13: 2, 14: 3, 7: 3, 1: 0, 2: 1, 3: 1, 4: 0, 6: 2, 8: 0}
+DIRN = {0: 'S', 3: 'S', 4: 'S', 1: 'N', 5: 'N', 6: 'N', 2: 'W', 7: 'W', 8: 'W'}
+
+
+def body_colour(v, r, x, d):
+    """r = rows below the neck line; x = column. None keeps the source colour (outline/black)."""
+    if v not in TONE: return None
+    t = TONE[v]
+    outer = x <= 3 or x >= 12
+    if v in TAN and 1 <= r <= 5 and (outer if d in 'SN' else True): return TAN[v]   # hands
+    if r <= 1: return GREEN[t]                                                     # collar/scarf
+    if d == 'N' and r <= 5 and not outer: return GREEN[t]                          # cloak (back)
+    if r <= 4 and (outer if d in 'SN' else x >= 7): return ARMOUR[t]               # arms
+    return DARK[t]                                                                  # torso, legs
+
+
 def neck(frame, body_idx):
     for y in range(32):
         if np.isin(frame[y], body_idx).sum() >= 2: return y
@@ -57,12 +80,8 @@ def build(kak_path, osr_path):
             for x in range(16):
                 v = int(kf[y, x])
                 if v == 0: continue
-                if v in KAK_COAT: c = OSR_GREENS[KAK_COAT[v]]
-                elif v in KAK_SCARF: c = OSR_GREENS[KAK_SCARF[v]]
-                elif v == KAK_GOLD: c = OSR_GREENS[3]
-                elif v in KAK_BROWN: c = OSR_GREENS[0]
-                else: c = tuple(int(t) for t in kpal[v])
-                out[y, x] = (*c, 255)
+                c = body_colour(v, y - kn, x, DIRN[fi])
+                out[y, x] = (*(c if c else (0, 0, 0)), 255)          # Kakugo's outline (0,0,16) = Osrid's black
         dy = kn - on
         for y in range(0, on):
             for x in range(16):

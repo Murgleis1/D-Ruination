@@ -35,3 +35,7 @@ Each will be encountered, defeated, or witnessed being absorbed/destroyed by the
 
 ---
 
+
+> **Baradus — appearance canon (author, 2026-11-16):** Baradus is of the **Yo'aki tribe**: his skin
+> is darker and bronzed, and every depiction (portraits, battle sprite, overworld sprite) carries it.
+> He wears facial hair — at least a five o'clock shadow.
