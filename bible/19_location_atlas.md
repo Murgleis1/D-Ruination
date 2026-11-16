@@ -88,14 +88,16 @@ Three consequences:
    resolves the `[OPEN]` question on whether they are the same wetland system —
    they are connected, though they remain distinct *regions* on the surface.
 
-**Secret cavern entrance — placement** `[LOCKED — Ruination era hydrology]` The surface entrance to the
-Umbra deep cavern sits on the **east shore of the southern lake**, across the water
-from the central peninsula that carries the dock. On the Pelluca Valley blueprint
-grid (80x60) it occupies roughly **x63-65, y40-42**. It is **not reachable on foot
-from the town centre** - the water lies between - which is consistent with it being
-Umbra-sealed and unknown to the public. It should be **present in the map from
-Chapter 1** so that when the Trial 4 sidequest opens it reads as *discovered*
-rather than newly appearing.
+**Secret cavern entrance — placement** `[LOCKED — revised 2026-11-16 by the author]` The surface
+entrance to the Umbra deep cavern is a **cave mouth in the cliff at the far west end of Pelluca's
+beach**, below the town terrace (on the Pelluca Valley grid, 80x60, roughly **x10-11, y34-35**).
+It **can be reached on foot** along the beach, but it is **Umbra-sealed** until the Trial 4
+sidequest opens it, so to the public it is just a sealed hollow in the rock below the town.
+It is **present in the map from Chapter 1**, so that when the sidequest opens it reads as
+*discovered* rather than newly appearing.
+*(Superseded: the earlier placement on the east shore of the southern lake, across the water,
+x63-65 y40-42. That shore became Pelluca's public harbour, which no longer fits a secret
+entrance.)*
 
 
 #### The East arm — marsh → delta → desert → volcano
