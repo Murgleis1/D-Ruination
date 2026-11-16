@@ -337,3 +337,19 @@ much darker than the others: its options are brightened (x1.6) or pink reads mar
 Academy 1B cobalt | Arceus church 2B crimson + patch the dark holes on its roof with
 red roof | Cadmus's house 3C rust | Umbra lab: unchanged slate grey | Residence
 second colour 5B blue.
+
+## Roofs BUILT into the tilesets (2026-11-15, pelluca_buildings_final.png)
+Academy cobalt (1B), church crimson (2B) with its enclosed dark roof patches filled
+from the same plank column, Cadmus rust (3C), lab slate (unchanged), residence blue
+(5B), tavern dusk plum. Ramps read from roof_ramps.json.
+- Recoloured buildings get PER-CELL metatiles: Cadmus and the residence share slate
+  roof pieces, so recolouring a shared piece would have repainted both.
+- Palette budget: guardhouse DEFERRED out of the tileset (north gate is deferred);
+  coastal sand/stone/foliage take an extra tol-24 merge with WATER PROTECTED
+  (0 of 38 water tiles changed; coastal_merge_check.png) -> coastal 3 -> 2 palettes.
+- Residence: ALL Pelluca residences blue. Keeping slate AND blue in one town was
+  built as a palette swap (wall-siding greys given duplicate palette entries so the
+  swap only touches roof slots) but needs 14 palettes vs 13 -- kept behind
+  RESIDENCE_PALETTE_SWAP=False for a town that can afford it.
+- Result: 13/13 palettes, tiles 500 + 489. Verify: every region within its merge
+  tolerance (coastal 40 = 16+24 by design). Game unchanged (0 frames differ).

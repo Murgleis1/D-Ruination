@@ -37,7 +37,8 @@ DROP_BADGES = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 31, 35, 36, 51, 52, 58, 49, 50, 4
 BUILDINGS = [  # name, source map, box (x0,y0,x1,y1) in source cells
     ('academy', WA, (18, 26, 24, 33)), ('cadmus_house', WA, (5, 28, 11, 32)),
     ('lab_tower', WA, (15, 10, 20, 14)), ('residence', WA, (5, 20, 11, 24)),
-    ('tavern', FE, (38, 40, 43, 47)), ('guardhouse', FE, (27, 12, 34, 18)),   # tavern x37/x44 = town wall
+    ('tavern', FE, (38, 40, 43, 47)),   # tavern x37/x44 = town wall
+    # guardhouse (FE keep gate 27,12-34,18) DEFERRED with the north gate (user); re-add then.
 ]
 TERRAIN_EXTRA = [('quay', PG64, (35, 37, 44, 44)), ('sandbank', OB12, (18, 47, 28, 54))]
 CHURCH_ROWS, CHURCH_COLS = range(17, 27), range(0, 7)
@@ -183,6 +184,68 @@ def tavern_finished():
     return (x0, y0, W, H), mid, top
 
 
+# Roof colours decided by the user 2026-11-15 (roof_colour_options.png); the exact
+# ramps are read from roof_ramps.json, never retyped.
+SLATE = [(72, 72, 80), (88, 88, 96), (120, 120, 128), (144, 144, 152), (168, 168, 176)]
+CHURCH_ROOF = [(64, 56, 80), (80, 72, 112), (112, 96, 152), (152, 128, 192), (192, 168, 224)]
+RECOLOUR = {'academy': '1B', 'cadmus_house': '3C', 'residence': '5B'}   # per-cell metatiles (de-shared)
+# Residence: ALL Pelluca residences blue (5B). Keeping slate AND blue in one town needs
+# one palette more than the GBA has (measured 14/13 even with packing reserved); the
+# palette-swap path below stays for a town that can afford it.
+RESIDENCE_PALETTE_SWAP = False
+CHURCH_RAMP, RESIDENCE_VARIANT = '2B', '5B'           # church + holes patched; residence = palette swap
+
+
+def _ramps():
+    import json
+    p = os.path.join(HERE, '../../assets/pelluca_dock_spec/roof_ramps.json')
+    return {k: {tuple(a): tuple(b) for a, b in v['map']} for k, v in json.load(open(p)).items()}
+
+
+def region_layers(a, box):
+    x0, y0, x1, y1 = box; W, H = x1 - x0 + 1, y1 - y0 + 1
+    lay = [np.full((H * 16, W * 16, 3), -1, int) for _ in range(3)]
+    for y in range(y0, y1 + 1):
+        for x in range(x0, x1 + 1):
+            e, _ = src_metatile(a, cell(a, x, y))
+            for L in range(3):
+                for q in range(4):
+                    im = quad_img(a, e[L * 4 + q])
+                    if im is None: continue
+                    oy, ox = (y - y0) * 16 + (q // 2) * 8, (x - x0) * 16 + (q % 2) * 8
+                    m = (im >= 0).all(-1); lay[L][oy:oy + 8, ox:ox + 8][m] = im[m]
+    comp = np.full_like(lay[0], -1)
+    for L in lay:
+        m = (L >= 0).all(-1); comp[m] = L[m]
+    return lay, comp
+
+
+def church_image(cells):
+    H, W = len(CHURCH_ROWS), len(CHURCH_COLS)
+    ch = np.full((H * 16, W * 16, 3), -1, int)
+    for (r, c), mids in cells.items():
+        y, x = (r - CHURCH_ROWS[0]) * 16, c * 16
+        for q, m in enumerate(mids):
+            oy, ox = y + (q // 2) * 8, x + (q % 2) * 8; k = (m >= 0).all(-1); ch[oy:oy + 8, ox:ox + 8][k] = m[k]
+    return ch
+
+
+def church_finished(cells):
+    """Crimson (2B) roof; dark patches enclosed by the roof filled as roof (user)."""
+    import roof_mask as rm, roof_recolour as rr
+    from scipy import ndimage
+    img = church_image(cells); H, W = img.shape[:2]
+    roof = rm.roof_mask(img, CHURCH_ROOF, int(H * 0.4))
+    lab, n = ndimage.label(~roof); holes = np.zeros_like(roof)
+    for i in range(1, n + 1):
+        comp = lab == i; ys, xs = np.nonzero(comp)
+        if ys.min() == 0 or xs.min() == 0 or ys.max() == H - 1 or xs.max() == W - 1: continue
+        ring = ndimage.binary_dilation(comp) & ~comp
+        if roof[ring].mean() > 0.85 and comp.sum() < 400: holes |= comp
+    out = rr.patch_roof_holes(img, roof, holes)
+    return rr.apply(out, roof | holes, _ramps()[CHURCH_RAMP])
+
+
 def main():
     C = sys.argv[1]
     prim, sec, regions = select()
@@ -207,7 +270,10 @@ def main():
     glayer = next(L for L in range(3) if any(ge[L * 4 + q] & 0x3FF for q in range(4)))
     gq = ge[glayer * 4:glayer * 4 + 4]
     church = church_quads(gq)
+    cf = church_finished(church)
     for (r, c), mids in church.items():
+        y, x = (r - CHURCH_ROWS[0]) * 16, c * 16
+        mids = [cf[y + qy:y + qy + 8, x + qx:x + qx + 8] for qy in (0, 8) for qx in (0, 8)]
         meta_src[('s', ('church', r, c))] = (None, 0)
         for q in range(4):
             gi = quad_img(base_grass[0], gq[q])
@@ -232,6 +298,28 @@ def main():
             for q in range(4):                                   # ground: Wood Avens grass
                 gi = quad_img(base_grass[0], gq[q])
                 if gi is not None: Q[('s', key, q)] = gi
+    # ---- roof recolours: per-cell metatiles so shared roof pieces elsewhere keep slate
+    import roof_mask as rm, roof_recolour as rr
+    ramps = _ramps()
+    for name, label in RECOLOUR.items():
+        a, box = [(aa, bx) for n, aa, bx in BUILDINGS if n == name][0]
+        lay, comp = region_layers(a, box)
+        roof = rm.roof_mask(comp, SLATE, int(comp.shape[0] * 0.4))
+        new = [rr.apply(L, roof, ramps[label]) for L in lay]
+        g = regions[name][2]; x0, y0 = box[0], box[1]
+        for cy in range(len(g)):
+            for cx in range(len(g[0])):
+                if not roof[cy * 16:cy * 16 + 16, cx * 16:cx * 16 + 16].any():
+                    continue
+                key = ('recol', name, cx, cy)
+                e, attr = src_metatile(a, cell(a, x0 + cx, y0 + cy))
+                meta_src[('s', key)] = (e, attr)
+                for L in range(3):
+                    for q in range(4):
+                        sub = new[L][cy * 16 + (q // 2) * 8: cy * 16 + (q // 2) * 8 + 8, cx * 16 + (q % 2) * 8: cx * 16 + (q % 2) * 8 + 8]
+                        if (sub >= 0).all(-1).any():
+                            Q[('s', key, L * 4 + q)] = sub.copy()
+                g[cy][cx] = key
     # ---- colour merge (one map over everything)
     allbytes = {im.tobytes() for im in Q.values()}
     cmap, ncol = pp.merge_map(allbytes, TOL)
@@ -241,15 +329,66 @@ def main():
             if c[0] >= 0: f[k] = cmap[c]
         return out
     Q = {k: remap(v) for k, v in Q.items()}
+    # Coastal pieces (quay, sandbank) took 3 whole palettes for two small features.
+    # A tolerance-24 merge on their sand/stone/foliage tones only (water PROTECTED:
+    # the same strength flattened grass before) packs them into 2 -- checked on screen
+    # (coastal_merge_check.png) and numerically (0 of 38 water tiles changed).
+    co = {k: v for k, v in Q.items() if k[0] == 'p' and k[1][0] in (PG64, OB12)}
+    cmap2, _ = pp.merge_map({v.tobytes() for v in co.values()}, 24)
+    is_water = lambda c: c[2] > c[0] + 40 and c[2] > c[1] + 8
+    for k, v in co.items():
+        f = v.copy().reshape(-1, 3)
+        for i, c in enumerate(map(tuple, f)):
+            if c[0] >= 0 and not is_water(c) and not is_water(cmap2[c]): f[i] = cmap2[c]
+        Q[k] = f.reshape(v.shape)
     cs = lambda im: frozenset(map(tuple, im.reshape(-1, 3)[(im.reshape(-1, 3) >= 0).all(1)]))
     # ---- palettes. Measured: Wood Avens terrain packs into 4; the coastal pieces
     # (quay, sandbank) need 3 more. Shared slots 0-5 = WA terrain + as many coastal
     # palettes as fit; remaining coastal palette(s) lead the secondary (6-12):
     # shore colours are regional, provided by each coastal town's secondary.
     def keyset(k): return cs(Q[k])
+    if not RESIDENCE_PALETTE_SWAP:
+        res_roof_keys, res_roof_mask, RES_PACK, SENT, wall_dups, MS = set(), {}, frozenset(), [], [], set()
+    # Residence roof quads must share ONE palette, so the blue residence (palette swap)
+    # needs one copy, not one per palette they happened to be packed into.
+    import roof_mask as rm
+    rbox = [bx for n, _, bx in BUILDINGS if n == 'residence'][0]
+    _, rcomp = region_layers(WA, rbox) if RESIDENCE_PALETTE_SWAP else (None, np.zeros((16, 16, 3)))
+    rroof = rm.roof_mask(rcomp, SLATE, int(rcomp.shape[0] * 0.4))
+    res_roof_keys = set(); res_roof_mask = {}
+    MS = {cmap[c] for c in SLATE if c in cmap}       # slate after the colour merge
+    rg = regions['residence'][2]
+    for cy in range(len(rg)):
+        for cx in range(len(rg[0])):
+            k = rg[cy][cx]
+            if k is None: continue
+            kind = 'p' if ('p', k) in meta_src else 's'
+            for L in range(3):
+                for q in range(4):
+                    oy, ox = cy * 16 + (q // 2) * 8, cx * 16 + (q % 2) * 8
+                    key3 = (kind, k, L * 4 + q)
+                    if key3 not in Q: continue
+                    # the QUAD ITSELF must carry slate inside the roof outline: matching by
+                    # position alone also caught the grass tiles beneath the eaves (18 colours)
+                    img = Q[key3]; mk = rroof[oy:oy + 8, ox:ox + 8]
+                    if any(tuple(img[yy, xx]) in MS for yy, xx in zip(*np.nonzero(mk))):
+                        res_roof_keys.add(key3); res_roof_mask[key3] = mk.copy()
+    RES_U = frozenset().union(*[keyset(k) for k in res_roof_keys])
+    wall_dups = []
+    for k3 in res_roof_keys:
+        img = Q[k3]; mk = res_roof_mask[k3]
+        for yy in range(8):
+            for xx in range(8):
+                c = tuple(img[yy, xx])
+                if c[0] >= 0 and c in MS and not mk[yy, xx] and c not in wall_dups:
+                    wall_dups.append(c)
+    SENT = [(-2, -2, -2 - i) for i in range(len(wall_dups))]   # placeholders: never real colours
+    RES_PACK = RES_U | frozenset(SENT)
+    print(f'residence roof: {len(res_roof_keys)} quads, {len(RES_U)} colours + {len(wall_dups)} reserved wall-siding slot(s)')
+    assert len(RES_PACK) <= 15
     wa_k = [k for k in Q if k[0] == 'p' and k[1][0] == WA]
     co_k = [k for k in Q if k[0] == 'p' and k[1][0] != WA]
-    pw = pp.pack_best([keyset(k) for k in wa_k], tries=300)
+    pw = pp.pack_best([keyset(k) for k in wa_k] + [RES_PACK], tries=300)
     co_left = [keyset(k) for k in co_k if not any(keyset(k) <= p for p in pw)]
     pc = pp.pack_best(co_left, tries=300) if co_left else []
     ppals = (pw + pc)[:6]
@@ -261,8 +400,20 @@ def main():
     assert len(ppals) <= 6 and len(spals) <= 7, f'palettes: primary {len(ppals)}/6, secondary {len(spals)}/7'
     print(f'palettes: WA terrain {len(pw)}, coastal {len(pc)}, buildings {len(bp)} -> primary {len(ppals)}, secondary {len(spals)}')
     slots = {i: sorted(p, key=lambda c: (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2])) for i, p in enumerate(ppals)}
+    assert sum(1 for p in ppals for c in p if c in SENT) == len(SENT), 'sentinels spread over palettes'
     slots.update({6 + i: sorted(p, key=lambda c: (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2])) for i, p in enumerate(spals)})
-    def slot_for(im, kind):
+    res_slot = next(i for i in sorted(slots) if RES_U <= set(slots[i]))
+    # Wall siding under the gables uses the SAME grey as the roof slate inside the same
+    # 8x8 tiles; a palette swap would turn it blue. Those wall pixels get their own
+    # palette entries (same RGB, later index; room reserved during packing) so the
+    # blue copy changes roof slots only.
+    slots[res_slot] = [c for c in slots[res_slot] if c not in SENT] + wall_dups
+    WALL_IDX = {c: len(slots[res_slot]) - len(wall_dups) + i + 1 for i, c in enumerate(wall_dups)}
+    assert len(slots[res_slot]) <= 15, f'residence palette {len(slots[res_slot])} > 15'
+    print(f'residence palette: {len(slots[res_slot])} colours incl. {len(wall_dups)} wall-siding duplicate(s)')
+    def slot_for(im, kind, key=None):
+        if key in res_roof_keys:
+            return res_slot
         s = cs(im)
         for i in sorted(slots):            # terrain may use a spilled coastal slot (>= 6)
             if s <= set(slots[i]): return i
@@ -270,13 +421,17 @@ def main():
     # ---- tiles (dedupe by index pattern incl. flips)
     ptiles = [np.zeros((8, 8), np.uint8)]; stiles = []
     pidx, sidx = {ptiles[0].tobytes(): (0, 0, 0)}, {}
-    def to_idx(im, sl):
-        lut = {c: i + 1 for i, c in enumerate(slots[sl])}
+    def to_idx(im, sl, key=None):
+        lut = {}
+        for i, c in enumerate(slots[sl]):
+            lut.setdefault(c, i + 1)              # first occurrence: duplicates are reserved
+        mk = res_roof_mask.get(key) if key in res_roof_keys else None
         out = np.zeros((8, 8), np.uint8)
         for y in range(8):
             for x in range(8):
                 c = tuple(im[y, x])
-                if c[0] >= 0: out[y, x] = lut[c]
+                if c[0] < 0: continue
+                out[y, x] = WALL_IDX[c] if (mk is not None and c in WALL_IDX and not mk[y, x]) else lut[c]
         return out
     def place(idx, kind):
         for hf in (0, 1):
@@ -298,9 +453,9 @@ def main():
     res_keys = {c for name in ('residence', 'tavern') for row in regions[name][2] for c in row if c}
     entries = {}
     for k, im in sorted(Q.items(), key=lambda kv: (kv[0][0] != 'p', kv[0][1] not in res_keys)):
-        sl = slot_for(im, k[0])
+        sl = slot_for(im, k[0], k)
         tile_kind = 'p' if (k[0] == 'p' or k[1] in res_keys) else 's'
-        tid, hf, vf = place(to_idx(im, sl), tile_kind)
+        tid, hf, vf = place(to_idx(im, sl, k), tile_kind)
         entries[k] = tid | (hf << 10) | (vf << 11) | (sl << 12)
     print(f'tiles: primary {len(ptiles)}/512, secondary {len(stiles)}/512')
     assert len(ptiles) <= 512, f'primary tiles {len(ptiles)} > 512'
@@ -319,6 +474,48 @@ def main():
             newid[key] = len(pmeta); pmeta.append((e, attr))
         else:
             newid[key] = 512 + len(smeta); smeta.append((e, attr))
+    if RESIDENCE_PALETTE_SWAP:
+        # ---- residence second colour (5B blue) by PALETTE SWAP: same tiles, roof quads point
+        # at a copy of their palette with the (merged) slate entries -> blue at the SAME
+        # indices. Costs one palette per distinct roof palette, no tiles.
+        blue = ramps[RESIDENCE_VARIANT]
+        merged_blue = {}
+        for sc in SLATE:
+            mc = cmap.get(sc)
+            if mc is not None and mc not in merged_blue: merged_blue[mc] = blue[sc]
+        rbox = [bx for n, _, bx in BUILDINGS if n == 'residence'][0]
+        _, rcomp = region_layers(WA, rbox)
+        rroof = rm.roof_mask(rcomp, SLATE, int(rcomp.shape[0] * 0.4))
+        variant, next_slot = {}, 6 + len(spals)
+        g = regions['residence'][2]; bg = []
+        for cy in range(len(g)):
+            bg.append([])
+            for cx in range(len(g[0])):
+                k = g[cy][cx]
+                if k is None: bg[-1].append(None); continue
+                kind = 'p' if ('p', k) in meta_src else 's'
+                e = [entries.get((kind, k, i), 0) for i in range(12)]
+                for L in range(3):
+                    for q in range(4):
+                        v = e[L * 4 + q]
+                        if not v: continue
+                        if (kind, k, L * 4 + q) not in res_roof_keys: continue   # same set the packer used
+                        sl = v >> 12
+                        if sl not in variant:
+                            variant[sl] = next_slot; next_slot += 1
+                            seen_c = set(); newp = []
+                            for c in slots[sl]:
+                                newp.append(merged_blue.get(c, c) if c not in seen_c else c)  # duplicates = wall: keep
+                                seen_c.add(c)
+                            slots[variant[sl]] = newp
+                        e[L * 4 + q] = (v & 0x0FFF) | (variant[sl] << 12)
+                key = ('resblue', cx, cy)
+                src_attr = meta_src[(kind, k)][1]
+                attr = (src_attr & 0xFF) | ((0 if any(e[8:12]) else 1) << 12)
+                newid[key] = 512 + len(smeta); smeta.append((e, attr)); bg[-1].append(key)
+        regions['residence_blue'] = (WA, (rbox[0], rbox[1]), bg)
+        print(f'residence blue: {len(variant)} variant palette(s) -> slots {sorted(variant.values())}; total secondary slots used {next_slot - 6}/7')
+        assert next_slot <= 13, f'palette slots exceeded: {next_slot}'
     assert len(pmeta) <= 512 and len(smeta) <= 512
     # ---- write
     def write_ts(d, tiles, metas, pal_slots, is_sec):

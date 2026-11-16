@@ -23,3 +23,20 @@ def apply(img, mask, mapping):
         sel = mask & (img == np.array(src)).all(-1)
         out[sel] = dst
     return out
+
+
+def patch_roof_holes(img, roof, holes):
+    """Fill pixels the user wants as roof (dark patches enclosed by roof) from the
+    nearest roof pixel in the SAME COLUMN at an even offset: the church's side roofs
+    are vertical plank columns, so a column copy keeps the planks continuous."""
+    out = img.copy(); H = img.shape[0]
+    for y, x in zip(*np.nonzero(holes)):
+        v = None
+        for d in range(2, H, 2):
+            for yy in (y - d, y + d):
+                if 0 <= yy < H and roof[yy, x] and not holes[yy, x]:
+                    v = img[yy, x]; break
+            if v is not None: break
+        if v is not None:
+            out[y, x] = v
+    return out

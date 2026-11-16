@@ -50,6 +50,13 @@ def main():
         orig = np.array(Image.open(os.path.join(R, src_png[r['source_map']])).convert('RGB')).astype(int)
         orig = orig[y0 * 16:(y0 + H) * 16, x0 * 16:(x0 + W) * 16]
         tav_mask = None
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import build_cormoria as bc, roof_mask as rmk, roof_recolour as rrc
+        if name in bc.RECOLOUR:
+            # intended to differ: expected = MonoMyth original with the approved roof ramp
+            label = bc.RECOLOUR[name]
+            roof = rmk.roof_mask(orig, bc.SLATE, int(orig.shape[0] * 0.4))
+            orig = rrc.apply(orig, roof, bc._ramps()[label])
         if name == 'tavern':
             # intended to differ from MonoMyth: compare to the finished art (snow-free,
             # ivy, plum) where it is opaque; the ground there is grass by design
@@ -66,8 +73,9 @@ def main():
         if tav_mask is not None:
             mask &= tav_mask
         d = np.abs(new - orig).max(-1)[mask]
+        tol = 40 if name in ('quay', 'sandbank') else 16   # coastal: tol-16 then coastal tol-24 merge
         report[name] = dict(cells=int(mask.sum() // 256), exact=round(100 * (d == 0).mean(), 1),
-                            within_merge=round(100 * (d <= 16).mean(), 2), worst=int(d.max()))
+                            within_merge=round(100 * (d <= tol).mean(), 2), worst=int(d.max()), allowed=tol)
         side = np.full((orig.shape[0], orig.shape[1] * 2 + 8, 3), 255, np.uint8)
         side[:, :orig.shape[1]] = orig; side[:, orig.shape[1] + 8:] = np.where(mask[..., None], new, 255)
         Image.fromarray(side).save(os.path.join(O, f'{name}.png'))
@@ -79,7 +87,7 @@ def main():
             if mid is not None: ch[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = draw(mid)
     Image.fromarray(ch).save(os.path.join(O, 'church.png'))
     for k, v in report.items(): print(f'{k:12s} {v}')
-    bad = [k for k, v in report.items() if v['worst'] > 16]
+    bad = [k for k, v in report.items() if v['worst'] > v['allowed']]
     print('REGIONS WITH ERRORS BEYOND THE COLOUR MERGE:', bad or 'none')
 
 if __name__ == '__main__':
