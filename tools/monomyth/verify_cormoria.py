@@ -45,7 +45,7 @@ def main():
     src_png = {'0x869580': 'woodavens.png', '0x86960c': 'elderflower.png', '0x86db2c': 'port_86db2c.png', '0x86da30': 'obi_86da30.png'}
     os.makedirs(O, exist_ok=True); report = {}
     for name, r in man['regions'].items():
-        if name in ('church', 'cottage', 'monument'): continue     # finished/composed art: checked on screen
+        if name in ('church', 'cottage', 'monument', 'pier_kit'): continue     # finished/composed art: checked on screen
         pruned = set(man.get('pruned', {}).get('primary', [])) | set(man.get('pruned', {}).get('secondary', []))
         g = r['grid']; x0, y0 = r['origin']; H, W = len(g), len(g[0])
         orig = np.array(Image.open(os.path.join(R, src_png[r['source_map']])).convert('RGB')).astype(int)
@@ -89,6 +89,10 @@ def main():
     Image.fromarray(ch).save(os.path.join(O, 'church.png'))
     for k, v in report.items(): print(f'{k:12s} {v}')
     bad = [k for k, v in report.items() if v['worst'] > v['allowed']]
+    # intended differences from MonoMyth (user-requested edits, checked on screen)
+    INTENDED = {'lab_tower': 'cliff rock, leaves and branch removed (stands alone in Pelluca; user 2026-11-16)'}
+    for n in [n for n in bad if n in INTENDED]: print(f'intended difference: {n} -- {INTENDED[n]}')
+    bad = [n for n in bad if n not in INTENDED]
     print('REGIONS WITH ERRORS BEYOND THE COLOUR MERGE:', bad or 'none')
 
 if __name__ == '__main__':

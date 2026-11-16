@@ -375,6 +375,99 @@ def main():
     skip = os.environ.get('SKIP_NEW', '')
     if skip:
         for k in [k for k in Q if k[1][0] in skip.split(',')]: Q.pop(k)
+    # ---- lab (user 2026-11-16: 'left side looks cut off'): in Wood Avens the chapel is built into
+    # a cliff, so its BOTTOM layer carries cliff rock beside the round tower and the crop caught
+    # tree leaves above the cone. Pelluca's lab stands alone: ground = grass, top-row greens gone.
+    lgrid = regions['lab_tower'][2]
+    for r, row in enumerate(lgrid):
+        for c, key in enumerate(row):
+            if key is None or c == 5 or (r == 0 and c >= 2) or ('s', key) not in meta_src: continue
+            for q in range(4):
+                gi = quad_img(base_grass[0], gq[q])
+                if gi is not None: Q[('s', key, q)] = gi
+            if r == 0:
+                for L in (1, 2):
+                    for q in range(4):
+                        k3 = ('s', key, L * 4 + q)
+                        if k3 not in Q: continue
+                        im = Q[k3].copy(); rgb = im.astype(int)
+                        green = (rgb[..., 1] > rgb[..., 0] + 15) & (rgb[..., 1] >= rgb[..., 2] - 16) & (im >= 0).all(-1)   # incl. teal leaves
+                        im[green] = -1
+                        if (im >= 0).all(-1).any(): Q[k3] = im
+                        else: Q.pop(k3)
+    # the round tower is symmetric about its cone tip (x=16 of the 2-cell tower): in the top-left
+    # cell keep only pixels whose mirror image in the top-right cell is also tower (cuts the branch)
+    k00, k01 = lgrid[0][0], lgrid[0][1]
+    def cell_img(key):
+        out = np.full((16, 16, 3), -1, int)
+        for L in (1, 2):
+            for q in range(4):
+                im = Q.get(('s', key, L * 4 + q))
+                if im is None: continue
+                oy, ox = (q // 2) * 8, (q % 2) * 8; m = (im >= 0).all(-1); out[oy:oy + 8, ox:ox + 8][m] = im[m]
+        return out
+    right = (cell_img(k01) >= 0).all(-1)
+    for L in (1, 2):
+        for q in range(4):
+            k3 = ('s', k00, L * 4 + q)
+            if k3 not in Q: continue
+            oy, ox = (q // 2) * 8, (q % 2) * 8
+            im = Q[k3].copy()
+            for y in range(8):
+                for x in range(8):
+                    if im[y, x, 0] >= 0 and not right[oy + y, 15 - (ox + x)]: im[y, x] = -1
+            if (im >= 0).all(-1).any(): Q[k3] = im
+            else: Q.pop(k3)
+    # ---- pier kit (user 2026-11-16: the pier 'just drops into the sea'): a pier HEAD needs north
+    # edges, corners and inside corners the Port Ginseng crop does not have. Composed from the
+    # pier's own pixels: surface 157, rims 160 (W) / 161 (E), south lip + wall face 155.
+    def flat(mid):
+        kk = key_of[mid]; out = np.full((16, 16, 3), -1, int)
+        for i in range(12):
+            im = Q.get((kk[0], kk[1], i))
+            if im is None: continue
+            q = i % 4; oy, ox = (q // 2) * 8, (q % 2) * 8
+            m = (im >= 0).all(-1); out[oy:oy + 8, ox:ox + 8][m] = im[m]
+        return out
+    def layers_of(mid, Ls):
+        kk = key_of[mid]; out = np.full((16, 16, 3), -1, int)
+        for L in Ls:
+            for q in range(4):
+                im = Q.get((kk[0], kk[1], L * 4 + q))
+                if im is None: continue
+                oy, ox = (q // 2) * 8, (q % 2) * 8
+                m = (im >= 0).all(-1); out[oy:oy + 8, ox:ox + 8][m] = im[m]
+        return out
+    surf, rimW, rimE, south = flat(157), flat(160), flat(161), flat(155)
+    hrim = np.transpose(rimW[:, :4], (1, 0, 2))                   # the W rim laid horizontally (4 rows)
+    def piece(name):
+        a = surf.copy()
+        if 'N' in name and 'i' not in name: a[:4] = hrim
+        if name.startswith('S'): a = south.copy()
+        if 'W' in name and 'i' not in name: a[:, :4] = rimW[:, :4] if not name.startswith('S') else np.concatenate([rimW[:13, :4], south[13:, :4]])
+        if 'E' in name and 'i' not in name: a[:, 12:] = rimE[:, 12:] if not name.startswith('S') else np.concatenate([rimE[:13, 12:], south[13:, 12:]])
+        if name == 'NW': a[:4, :4] = rimW[:4, :4]
+        if name == 'NE': a[:4, 12:] = rimE[:4, 12:]
+        if name == 'iNW': a[:4, :4] = hrim[:, :4]                     # concave: stem meets the head
+        if name == 'iNE': a[:4, 12:] = hrim[:, 12:]
+        return a
+    pier_grid = [[]]
+    lamp_mid = {76: layers_of(76, (1, 2)), 88: layers_of(88, (1, 2))}
+    for name in ('N', 'NW', 'NE', 'S', 'SW', 'SE', 'iNW', 'iNE', 'lampT', 'lampB'):
+        key = ('pier', name)
+        if name.startswith('lamp'):
+            bot, mid_img = surf, lamp_mid[76 if name == 'lampT' else 88]
+        else:
+            bot, mid_img = piece(name), None
+        meta_src[('p', key)] = (None, 0)
+        for q in range(4):
+            oy, ox = (q // 2) * 8, (q % 2) * 8
+            Q[('p', key, q)] = bot[oy:oy + 8, ox:ox + 8].copy()
+            if mid_img is not None:
+                sub = mid_img[oy:oy + 8, ox:ox + 8]
+                if (sub >= 0).all(-1).any(): Q[('p', key, 4 + q)] = sub.copy()
+        pier_grid[0].append(key)
+    regions['pier_kit'] = (None, (0, 0), pier_grid)
     blank_q = [k for k in Q if (k[0], k[1]) in blank]   # popped AFTER both colour merges: pruning first
     print(f'pruning {len(blank)} metatiles ({len(blank_q)} layer quads)')   # shifted approved art (quay went lavender)
     # ---- palette room: snap the NEW art's colours (cottage, monument) to the nearest colour the
@@ -503,7 +596,7 @@ def main():
     # secondary past 7 palettes, keep the palettes that cover most of its quads and fit every
     # other cottage quad into the palette sharing most of its colours (missing colours snap to
     # that palette's nearest). Measured: without this the cottage costs 2 palettes.
-    is_cot = lambda k: k[1][0] in ('cottage', 'monument')     # the NEW art fits around the approved art
+    is_cot = lambda k: k[1][0] in ('cottage', 'monument', 'pier')     # the NEW art fits around the approved art
     b_left = [cs(v) for k, v in Q.items() if k[0] == 's' and not is_cot(k) and not any(cs(v) <= p for p in all_terr)]
     bp = pp.pack_best(b_left, tries=300) if b_left else []
     if os.environ.get('PACK_SWEEP'):

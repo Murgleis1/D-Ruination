@@ -2,9 +2,9 @@
  "colours_after_merge": 73,
  "primary_palettes": 6,
  "secondary_palettes": 7,
- "primary_tiles": 497,
- "secondary_tiles": 462,
- "primary_metatiles": 177,
+ "primary_tiles": 509,
+ "secondary_tiles": 460,
+ "primary_metatiles": 187,
  "secondary_metatiles": 457,
  "regions": {
   "wa_terrain": {
@@ -2682,6 +2682,27 @@
      966,
      967,
      968
+    ]
+   ]
+  },
+  "pier_kit": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     177,
+     178,
+     179,
+     180,
+     181,
+     182,
+     183,
+     184,
+     185,
+     186
     ]
    ]
   },

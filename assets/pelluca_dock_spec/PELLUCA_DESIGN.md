@@ -444,3 +444,23 @@ Tileset mechanics (tools/monomyth/build_cormoria.py):
 - Pelluca metatile ids shift when a building grows: run tools/monomyth/source_collision.py
   after every rebuild (layout collision table is keyed by id).
 Game: builds; deterministic run frame-identical (no map uses these tilesets yet).
+
+## Draft 5 (2026-11-16, layout_draft5.png) -- user feedback on draft 4
+1. Cottages 6/7 now open straight onto the east road; yards vary (flowers / fenced lawn /
+   chopping stumps / hedge) instead of a hedge at every house. Trees: GROVES (forest rules,
+   two trees deep or one row) back the dorm, cottages, monastery, lab and the cliffs; singles,
+   slim conifers (44/47/20) and bushes (97) are accents.
+2. Lawn path (WA 99-104) from the Academy door to the north road.
+3. Lab "cut off": in Wood Avens the chapel is built into a cliff -- its bottom layer held cliff
+   rock beside the tower, the crop caught leaves + a branch. Builder now gives it grass ground,
+   strips top-row greens (incl. teal), and keeps only cone pixels with a mirror twin
+   (the tower is symmetric). A grove stands behind its flat roof.
+4. Tavern moved left (x25-31, door (28,43)); garden + grove between it and the road; SW BEACH
+   strip (sand 163 / surf 171 / wet sand 173, all walkable) with a bush fringe.
+5. Pier HEAD: composed pier kit (N edge, corners, inside corners, lamp-on-stone) from the
+   pier's own pixels; stem x43-45 y47-48, head x40-48 y49-52, lamps; south lip 155 over
+   shadowed water 159 -- a ship can come alongside. (Deviates from the DM dock lock by user
+   request; the arrival path x44 y45-52 stays walkable.)
+Pruned more shared art for room (WA sand/dirt banks 164-170) -- tiles 509/512 + 460/512.
+Open: east bay is still a plain rectangle; secret cavern (x63-65 y40-42) must be water-only;
+the S.S. Tidal sits at (44,55) -- check its sprite against the new pier head in-game.

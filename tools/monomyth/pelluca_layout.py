@@ -27,6 +27,20 @@ FOREST = [  # (x0, y0, x1, y1) inclusive; x0 even, width even
     (72, 0, 79, 23), (72, 28, 79, 59),        # east belt, gap y24-27 for Hoya Delta
     (8, 0, 17, 3), (22, 0, 35, 3), (42, 0, 71, 3),  # north belt, gaps: river x18-21, road x36-41
 ]
+# GROVES: small woods drawn with the forest rules (height 5 = two trees deep, 3 = one row).
+# Draft-4 feedback: evenly spaced single trees read generic -> clusters of varied size,
+# backing buildings and cliffs, with singles/slim conifers/bushes as accents.
+GROVES = [
+    (8, 10, 11, 14),                          # behind the dorm, against the terrace edge
+    (32, 4, 35, 8), (42, 4, 45, 8),           # flanking the north road at the forest gap
+    (48, 4, 53, 8),                           # upper-east, beside house 5
+    (26, 17, 29, 21),                         # between the monastery and the fountain
+    (48, 14, 51, 18), (56, 14, 59, 18),       # under the east terrace, behind the cottages
+    (66, 15, 69, 17),                         # a row of trees by the east forest
+    (8, 36, 13, 38), (32, 36, 35, 38),        # under the lakeshore cliff; beside the tavern
+    (44, 36, 49, 38),                         # behind the lab (its flat roof was built against rock)
+    (52, 36, 57, 38), (62, 36, 65, 40),       # east shore
+]
 BANDS = [  # (y, x0, x1, [(stairs left column, width)]) -- width 3 = 45 46 46, lines up with a 3-wide road
     (15, 8, 45, [(16, 2), (37, 3)]),   # upper terrace -> town (west/centre); 3-wide under the road
     (12, 48, 71, [(58, 2)]),           # upper terrace -> town (east, one tier higher)
@@ -43,48 +57,60 @@ COBBLE = [
     (37, 30, 39, 33),            # monument -> lakeshore stairs
     (37, 36, 39, 43),            # down to the quay
 ]
-QUAY_PAVEMENT = [(10, 44, 50, 45)]           # promenade rows above the quay wall
+LAWN_PATHS = [  # Wood Avens lawn path (lighter grass, 2 rows): 99 100 101 / 102 103 104
+    (26, 13, 36, 14),            # Academy door -> north road (user 2026-11-16)
+]
+QUAY_PAVEMENT = [(23, 44, 50, 45)]           # stone promenade: tavern, road, lab
+BEACH = (8, 43, 22, 47)                      # SW beach: sand, surf line (y46), wet sand (y47)
 WATER = [
-    (10, 47, 42, 59), (46, 47, 50, 59), (43, 53, 45, 59),   # lake around the pier (locked)
+    (9, 48, 22, 59), (23, 47, 42, 59), (46, 47, 50, 59), (43, 53, 45, 59), (40, 49, 48, 52),
     (51, 42, 70, 59),                                      # east bay (locked x51-52)
     (19, 0, 20, 10),                                       # river from the north (Ivy River)
     (17, 8, 22, 11),                                       # pool where it goes underground (dive spot)
 ]
-PIER = (43, 47, 45, 52)
+PIER = [(43, 47, 45, 48), (40, 49, 48, 52)]  # stem + HEAD (user: a real place for a ship to dock)
+PIER_LAMPS = [(41, 50), (47, 50)]
 BUILDINGS = {  # name: (x, y) of the grid's top-left; doors land where the warps go
     'academy': (24, 5),        # door (27,12)
     'residence': (10, 4),      # student dormitory (Osrid has a room here), by the river; door (13,8)
     'cadmus_house': (9, 19),   # door (13,23)
     'church': (19, 18),        # Templar Monastery; door (22,27)
-    'tavern': (30, 37),        # 7 wide (full lodge); door (33,43)
+    'tavern': (25, 37),        # 7 wide (full lodge), moved left (user); door (28,43)
     'lab_tower': (44, 40),     # door (47,44) LOCKED
 }
 EXTRA_RESIDENCES = [(56, 4)]                      # house 5
-COTTAGES = [(51, 19), (61, 19), (51, 29), (61, 29)]  # houses 6, 7, 8, 8b (user: gabled cottages); door (x+3, y+3)
+COTTAGES = [(51, 20), (61, 20), (51, 27), (61, 27)]  # houses 6, 7 (door onto the road), 8, 8b; door (x+3, y+3)
 MONUMENT = (31, 21)                                  # wellspring fountain ring, 16x9, fills the plaza
 TRIM = {'lab_tower': [(0, 2), (0, 3), (0, 4), (0, 5), (1, 5), (2, 5), (3, 5), (4, 5)]}  # (row, col) -> grass
 
 # dressing (positions chosen by hand; every one keeps door fronts, stairs and roads clear)
 LAMPS = [  # lamp post: top (walkable) over base (blocked); left-of-road 76/88, right-of-road 80/89
-    (36, 5, 'L'), (40, 5, 'R'), (36, 10, 'L'), (40, 10, 'R'),
+    (36, 5, 'L'), (40, 10, 'R'),
     (36, 17, 'L'), (40, 17, 'R'), (40, 38, 'R'),
-    (16, 26, 'L'), (29, 27, 'R'), (59, 27, 'L'), (68, 27, 'R'),
+    (16, 26, 'L'), (29, 27, 'R'), (59, 27, 'L'), (69, 27, 'R'),
 ]
-TREES = [  # single tree 2x3, top-left cell
-    (32, 5), (33, 9), (43, 5), (44, 9), (50, 5), (66, 9),
-    (17, 19), (27, 18), (29, 21), (57, 18), (68, 18), (57, 28), (68, 29),
-    (10, 37), (15, 39), (20, 37), (27, 37), (42, 36), (50, 36), (55, 37), (62, 36), (67, 38),
-    (8, 4), (8, 9),
+TREES = [  # single round tree 2x3, top-left cell -- accents only now
+    (17, 19), (68, 9), (20, 36),
 ]
-HEDGES = [  # 2-wide flower hedge 42/43, left cell
-    (51, 23), (61, 23), (51, 33), (61, 33),
-    (9, 24), (14, 24),
+SLIM = [  # slim conifer 44/47/20 (1x3), top cell
+    (23, 4), (41, 10), (47, 18), (57, 20), (60, 21), (71, 19), (9, 31), (22, 31),
+    (68, 31), (58, 31), (16, 36), (19, 37), (42, 36), (68, 37), (36, 39),
+]
+BUSHES = [(14, 42), (17, 42), (21, 41), (11, 42), (9, 41), (50, 37), (60, 38)]   # round bush 97
+HEDGES = [  # 2-wide flower hedge 42/43, left cell -- not every house (user: more variety)
+    (9, 24), (14, 24), (66, 30),
+]
+FENCES = [  # rows of picket fence 98: (x0, x1, y)
+    (64, 69, 8),                 # house 5's garden
+    (67, 70, 18),                # cottage 7's garden
 ]
 LAWNS = [  # framed lawn (x0, y0, x1, y1): 99 100 101 / 108 126 109 / 102 103 104
-    (9, 25, 13, 27), (64, 4, 69, 7),
+    (9, 25, 13, 27), (64, 4, 69, 7), (67, 19, 70, 22), (32, 39, 35, 42),
 ]
+STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
+FLOWERS = [(50, 23), (56, 22), (56, 31), (60, 31), (66, 23), (12, 31), (18, 33), (29, 33)]
 FLOWER_IDS = (21, 36, 21, 36, 51)
-FLOWER_DENSITY = 0.025
+FLOWER_DENSITY = 0.012
 
 
 def rects(lst):
@@ -99,7 +125,7 @@ def build(C):
     grid = np.full((H, W), GRASS, int)
     blocked = np.zeros((H, W), bool)
     water = rects(WATER)
-    forest = rects(FOREST)
+    forest = rects(FOREST) | rects(GROVES)
     cob = rects(COBBLE)
 
     # forest
@@ -161,18 +187,35 @@ def build(C):
     qp = rects(QUAY_PAVEMENT)
     grid[qp] = 147
 
-    # water + its stone edges
-    pier = rects([PIER])
+    # SW beach: sand, the surf line, a strip of wet sand (all walkable) meeting the lake
+    beach = rects([BEACH]); bx0, by0, bx1, by1 = BEACH
+    for y in range(by0, by1 + 1):
+        grid[y, bx0:bx1 + 1] = 163 if y < by1 - 1 else (171 if y == by1 - 1 else 173)
+
+    # pier (stem + head) from the composed pier kit; water + its stone edges
+    pier = rects(PIER)
+    water &= ~pier
+    K = dict(zip(('N', 'NW', 'NE', 'S', 'SW', 'SE', 'iNW', 'iNE', 'lampT', 'lampB'),
+                 man['regions']['pier_kit']['grid'][0]))
+    WALL_ROW = {155, 156, 158, K['S'], K['SW'], K['SE']}
     Wt = lambda y, x: False if not (0 <= y < H and 0 <= x < W) else water[y, x]
     for y in range(H):
         for x in range(W):
-            if water[y, x]:
-                grid[y, x] = 159 if (y > 0 and not water[y - 1, x] and not pier[y - 1, x] and grid[y - 1, x] == 155) else 162
-                continue
-            if forest[y, x]: continue
-            s, w_, e = Wt(y + 1, x), Wt(y, x - 1), Wt(y, x + 1)
+            if water[y, x] or forest[y, x] or beach[y, x]: continue
+            n, s, w_, e = Wt(y - 1, x), Wt(y + 1, x), Wt(y, x - 1), Wt(y, x + 1)
             if pier[y, x]:
-                grid[y, x] = 160 if x == PIER[0] else (161 if x == PIER[2] else 157)
+                if s and w_: m = K['SW']
+                elif s and e: m = K['SE']
+                elif s: m = K['S']
+                elif n and w_: m = K['NW']
+                elif n and e: m = K['NE']
+                elif n: m = K['N']
+                elif w_: m = 160
+                elif e: m = 161
+                elif Wt(y - 1, x - 1): m = K['iNW']
+                elif Wt(y - 1, x + 1): m = K['iNE']
+                else: m = 157
+                grid[y, x] = m
             elif s and not w_ and not e:
                 grid[y, x] = 155
             elif w_:
@@ -183,14 +226,16 @@ def build(C):
                 grid[y, x] = 156
             elif Wt(y + 1, x + 1) and not s:
                 grid[y, x] = 158
-    # pier joins the quay wall: 156 157 158 on the wall row
-    py = PIER[1] - 1
-    grid[py, PIER[0]], grid[py, PIER[0] + 1], grid[py, PIER[2]] = 156, 157, 158
-    # second pass: water directly under a wall row gets the wall shadow
-    for y in range(1, H):
+    # the pier stem joins the quay wall: 156 157 158 on the wall row
+    sx0, sy0, sx1, _ = PIER[0]
+    grid[sy0 - 1, sx0], grid[sy0 - 1, sx0 + 1], grid[sy0 - 1, sx1] = 156, 157, 158
+    for y in range(H):
         for x in range(W):
-            if water[y, x] and grid[y - 1, x] in (155, 156, 158) and not pier[y, x]:
-                grid[y, x] = 159
+            if water[y, x]:
+                grid[y, x] = 159 if y > 0 and grid[y - 1, x] in WALL_ROW else 162
+    for x, y in PIER_LAMPS:
+        grid[y, x], grid[y + 1, x] = K['lampT'], K['lampB']
+        blocked[y + 1, x] = True
     blocked[water] = False
 
     # buildings
@@ -215,8 +260,10 @@ def build(C):
     blocked[my:my + mb.shape[0], mx:mx + mb.shape[1]] = mb    # only the basin blocks; ring paving + lawn walk
 
     free = lambda x, y: grid[y, x] == GRASS
+    SKIP = []
     for x0, y0, x1, y1 in LAWNS:
-        assert all(free(x, y) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1)), ('lawn', x0, y0)
+        if not (all(free(x, y) for y in range(y0, y1 + 1) for x in range(x0, x1 + 1))):
+            SKIP.append(('lawn', x0, y0)); continue
         for y in range(y0, y1 + 1):
             for x in range(x0, x1 + 1):
                 l, r = x == x0, x == x1
@@ -224,19 +271,50 @@ def build(C):
                 elif y == y1: grid[y, x] = 102 if l else (104 if r else 103)
                 else: grid[y, x] = 108 if l else (109 if r else 126)
     for x, y, side in LAMPS:
-        assert free(x, y) and free(x, y + 1), ('lamp', x, y)
+        if not (free(x, y) and free(x, y + 1)):
+            SKIP.append(('lamp', x, y)); continue
         grid[y, x], grid[y + 1, x] = (76, 88) if side == 'L' else (80, 89)
         blocked[y + 1, x] = True
     for x, y in TREES:
-        assert all(free(x + i, y + j) for i in (0, 1) for j in (0, 1, 2)), ('tree', x, y)
+        if not (all(free(x + i, y + j) for i in (0, 1) for j in (0, 1, 2))):
+            SKIP.append(('tree', x, y)); continue
         grid[y, x], grid[y, x + 1] = 33, 34
         grid[y + 1, x], grid[y + 1, x + 1] = 22, 25
         grid[y + 2, x], grid[y + 2, x + 1] = 40, 41
         blocked[y + 1:y + 3, x:x + 2] = True
     for x, y in HEDGES:
-        assert free(x, y) and free(x + 1, y), ('hedge', x, y)
+        if not (free(x, y) and free(x + 1, y)):
+            SKIP.append(('hedge', x, y)); continue
         grid[y, x], grid[y, x + 1] = 42, 43
         blocked[y, x:x + 2] = True
+    for x0, y0, x1, y1 in LAWN_PATHS:          # 2-row lawn path: 99 100 101 / 102 103 104
+        if not (all(free(x, y) for y in (y0, y1) for x in range(x0, x1 + 1))):
+            SKIP.append(('path', x0, y0)); continue
+        for x in range(x0, x1 + 1):
+            l, r = x == x0, x == x1
+            grid[y0, x] = 99 if l else (101 if r else 100)
+            grid[y1, x] = 102 if l else (104 if r else 103)
+    for x, y in SLIM:                           # slim conifer: tip (walk-behind) / body / base
+        if not (all(free(x, y + j) for j in (0, 1, 2))):
+            SKIP.append(('slim', x, y)); continue
+        grid[y, x], grid[y + 1, x], grid[y + 2, x] = 44, 47, 20
+        blocked[y + 1:y + 3, x] = True
+    for x, y in BUSHES:
+        if not (free(x, y)):
+            SKIP.append(('bush', x, y)); continue
+        grid[y, x] = 97; blocked[y, x] = True
+    for x0, x1, y in FENCES:
+        if not (all(free(x, y) for x in range(x0, x1 + 1))):
+            SKIP.append(('fence', x0, y)); continue
+        grid[y, x0:x1 + 1] = 98; blocked[y, x0:x1 + 1] = True
+    for x, y in STUMPS:
+        if not (free(x, y) and free(x + 1, y)):
+            SKIP.append(('stumps', x, y)); continue
+        grid[y, x], grid[y, x + 1] = 114, 115
+    for x, y in FLOWERS:
+        if not (free(x, y)):
+            SKIP.append(('flower', x, y)); continue
+        grid[y, x] = (21, 36, 51)[(x + y) % 3]
 
     # flowers on open grass, never on a cell in front of a door or next to stairs/roads
     rnd = np.random.default_rng(11)
@@ -250,6 +328,7 @@ def build(C):
             if grid[y, x] == GRASS and not near[y, x] and rnd.random() < FLOWER_DENSITY:
                 grid[y, x] = FLOWER_IDS[rnd.integers(len(FLOWER_IDS))]
 
+    if SKIP: print('SKIPPED (clash):', SKIP)
     return grid, blocked, water, man
 
 
