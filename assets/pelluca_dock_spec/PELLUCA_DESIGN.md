@@ -464,3 +464,24 @@ Game: builds; deterministic run frame-identical (no map uses these tilesets yet)
 Pruned more shared art for room (WA sand/dirt banks 164-170) -- tiles 509/512 + 460/512.
 Open: east bay is still a plain rectangle; secret cavern (x63-65 y40-42) must be water-only;
 the S.S. Tidal sits at (44,55) -- check its sprite against the new pier head in-game.
+
+## Composition study (2026-11-16) -- user: "a sense of beauty, balance and cohesion"
+Studied MonoMyth Wood Avens, Wormwood Borough, Chamomile Town, Mandrake City (beach town)
+and Pisces #3/#5/#20. What they share:
+1. ROAD HIERARCHY: one main spine between the exits through a landmark centre; smaller lanes
+   branch to each building cluster; every major door connects to a road. Nothing floats.
+2. Buildings face their road, in rows/clusters with consistent setbacks; clusters share a lane.
+3. TREES ARE STRUCTURE: forest masses hug the town with ragged inner edges; tree PAIRS frame
+   buildings; tree ROWS give rhythm along roads and terrace tops; clumps fill leftover corners.
+   Open lawn is rare and deliberate.
+4. Terraces split districts; stairs line up with a road or lane.
+5. Balance: landmark on the main axis, density thinning toward the edges.
+6. BEACHES sit BELOW the town at the foot of a cliff, reached by stairs (Mandrake): sand runs
+   cliff-foot to a ragged waterline; props (pier, boats). Sand never meets lawn on a hard line.
+Plan (composition_plan.png): main spine N exit -> monument -> quay -> pier; W/E main road
+through the monument's arms. Lanes: Academy (built); dorm -> west stairs -> Cadmus -> W road;
+house 5 -> east-terrace stairs -> E road -> cottages 8/8b. Tree rows along both terrace tops,
+pairs flanking each building, ragged forest edges, clumps in corners; scattered singles,
+bushes and random flowers removed. SW beach under the west cliff with stairs down and a
+ragged waterline (diagonal surf pieces 172/174/176); cliff-foot-on-sand pieces composed
+like the pier kit. Rocky east shore + cavern reachable only by water.
