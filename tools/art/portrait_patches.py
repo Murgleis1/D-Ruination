@@ -53,6 +53,13 @@ PATCHES = {
         # grey flecks (G) about one in four, skin gaps along the top. The grid merged it into flat
         # runs (6 dark-brown in a row). Redrawn by hand in that mix; the jaw-shadow pixels around it
         # are left alone.
+        # Hat top (user 2026-11-16: "still looks partly cut off ... round it slightly"): the crown
+        # ended in one flat 25-px line (y14) with hard corners. Rounded: the centre rises 2 rows to a
+        # 13-px top, stepping 4, 3, 2 px out to the existing corners; filled with the hat's own dark.
+        (27, 12, [".........kkkkkkkkkkkkk.........",
+                  ".....kkkkhhhhhhhhhhhhhkkkk.....",
+                  "..kkkhhhhhhhhhhhhhhhhhhhhhkkk..",
+                  "kkhhhhhhhhhhhhhhhhhhhhhhhhhhhkk"], 'hat top: rounded'),
         (32, 71, ["....MGMF...GFMGFF",
                   ".MGFMGMFGFFGFMF..",
                   "...FGMFFGFMF.....",

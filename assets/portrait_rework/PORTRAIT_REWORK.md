@@ -184,3 +184,5 @@ Image: baradus_battle_chin_beard_candidates.png (candidate 2).
   texture redrawn (brown/dark brown with ~1-in-4 grey flecks). Verified in-game: 0 px diff.
   Open: ear top row doubled (y45-46); small stair-steps on the cheek light diagonal.
   Image: cadmus_cleanup_v1.png. Awaiting user review before install.
+- Cadmus v2: hat top rounded (user: "still looks partly cut off"): centre rises 2 rows to a 13-px
+  top, stepping 4/3/2 px out to the corners. Image: cadmus_hat_round_v2.png.
