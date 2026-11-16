@@ -503,3 +503,13 @@ like the pier kit. Rocky east shore + cavern reachable only by water.
   no cut-off pockets. ROM builds; deterministic run frame-identical; approved art unchanged.
 OPEN: secret cavern must be water-only -- the east beach strip is reachable on foot; needs a
 rock outcrop (Old Bay Island 'K') imported.
+
+## Draft 8 (2026-11-16) -- harbour fixed (user: dock stone clashed with the road; gap by the tavern)
+- The dock is ONE stone surface: a harbour apron (x40-48 y45-46) in the pier's stone at the lab
+  door, the stem and head out from it. The harbour road (small cobble) ends against the apron's
+  west rim (2 rows of contact) instead of running onto it. Pier rims now face sand/road/water
+  alike; the wall lip only where water is below.
+- The "gap" was a surf step pair half-hidden under the road. Rule: a step pair is never split by
+  a covering surface -- one beach depth from the tavern to the lab, steps only in open sand.
+- Road top edge piece 64 keeps grass in its art layer: its sand twin swaps those pixels.
+Checks: connectivity all doors/exits; ROM builds; frame-identical; verifier clean.

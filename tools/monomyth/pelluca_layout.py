@@ -54,9 +54,8 @@ COBBLE = [
     (0, 28, 28, 30), (26, 24, 28, 30), (26, 24, 30, 26),   # west road (Route 11), jogs north into the west arm
     (47, 24, 79, 26),            # east road (Hoya Delta), straight into the east arm
     (37, 30, 39, 33),            # monument -> lakeshore stairs
-    (37, 36, 39, 45),            # down across the beach to the waterline
+    (37, 36, 39, 46),            # down across the beach; meets the harbour apron's west rim
     (27, 44, 36, 45),            # beach lane -> the tavern door (user: paths to the tavern and lab)
-    (40, 45, 48, 46),            # beach lane -> the lab door and onto the pier
     (26, 13, 36, 14),            # small 2-wide cobbled road: Academy door -> north road (user)
     # LANES (approved plan 2026-11-16): 2-wide cobble from each major door into the main roads
     (13, 9, 14, 14), (13, 13, 17, 14), (16, 17, 17, 27), (13, 24, 17, 25),   # dorm -> (round the pool) west stairs -> Cadmus -> W road
@@ -74,9 +73,8 @@ def _profile():
     for x in range(8, 72):
         if x <= 12: s[x] = 44
         elif x <= 24: s[x] = 45
-        elif x <= 36: s[x] = 46            # sand in front of the tavern door (28,43)
-        elif x <= 50: s[x] = 45            # lab front y45 = surf (walkable); pier from y46
-        else: s[x] = max(40, 45 - (x - 50))   # rises to the east bay's shore at y40
+        elif x <= 50: s[x] = 46            # one depth from the tavern to the lab: no step at the dock
+        else: s[x] = max(40, 46 - (x - 50))   # rises to the east bay's shore at y40
         w[x] = s[x] + 2
     return s, w
 SHORE_S, SHORE_W = _profile()
@@ -84,7 +82,9 @@ WATER = [
     (19, 0, 20, 10),                                       # river from the north (Ivy River)
     (17, 8, 22, 11),                                       # pool where it goes underground (dive spot)
 ]
-PIER = [(43, 46, 45, 48), (40, 49, 48, 52)]  # stem from the sand + HEAD (a real place for a ship to dock)
+PIER = [(40, 45, 48, 46), (43, 47, 45, 48), (40, 49, 48, 52)]   # harbour APRON at the lab door, stem, HEAD
+# (user: the dock stone clashed with the road cobbles -> the dock is its own stone surface; the
+# harbour road ends at the apron's west rim instead of running onto it)
 PIER_LAMPS = [(41, 50), (47, 50)]
 BUILDINGS = {  # name: (x, y) of the grid's top-left; doors land where the warps go
     'academy': (24, 5),        # door (27,12)
@@ -238,6 +238,9 @@ def build(C):
             if beach[y, x] and not pier[y, x]: continue
             n, s_, w_, e = Wt(y - 1, x), Wt(y + 1, x), Wt(y, x - 1), Wt(y, x + 1)
             if pier[y, x]:
+                P = lambda yy, xx: 0 <= yy < H and 0 <= xx < W and pier[yy, xx]
+                n, w_, e = not P(y - 1, x), not P(y, x - 1), not P(y, x + 1)   # rims face sand, road and water alike
+                s_ = not P(y + 1, x) and Wt(y + 1, x)                      # the wall lip only over water
                 if s_ and w_: m = K['SW']
                 elif s_ and e: m = K['SE']
                 elif s_: m = K['S']
@@ -246,8 +249,8 @@ def build(C):
                 elif n: m = K['N']
                 elif w_: m = 160
                 elif e: m = 161
-                elif Wt(y - 1, x - 1): m = K['iNW']
-                elif Wt(y - 1, x + 1): m = K['iNE']
+                elif not P(y - 1, x - 1): m = K['iNW']
+                elif not P(y - 1, x + 1): m = K['iNE']
                 else: m = 157
                 grid[y, x] = m
             elif s_ and not w_ and not e:
@@ -271,7 +274,7 @@ def build(C):
         blocked[y + 1, x] = True
     blocked[water] = False
     # sand twins where the town meets the beach: the cliff foot, stairs and harbour road
-    ONSAND = dict(zip((63, 65, 77, 78, 79, 130, 131, 136, 124, 125, 133, 134, 76, 88, 80, 89, 11, 45, 46),
+    ONSAND = dict(zip((63, 65, 77, 78, 79, 130, 131, 136, 124, 125, 133, 134, 76, 88, 80, 89, 11, 45, 46, 64),
                       man['regions']['onsand']['grid'][0]))
     for y in range(SHORE_TOP - 1, H):
         for x in range(W):

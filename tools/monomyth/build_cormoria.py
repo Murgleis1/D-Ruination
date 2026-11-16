@@ -486,6 +486,22 @@ def main():
         kk = key_of[mid_]
         on_sand(kk, 'p', ('onsand', mid_), meta_src[kk][1] & 0xFF if meta_src[kk][1] else 0)
         sand_row.append(('onsand', mid_))
+    # 64 (road top edge) paints its grass INSIDE its art layer: swap those grass pixels for sand
+    # pixels at the same place (a few new tiles) instead of swapping a layer
+    gq_ = [quad_img(base_grass[0], gq[q]) for q in range(4)]
+    gcols = {tuple(v) for im in gq_ if im is not None for v in im.reshape(-1, 3)}
+    kk = key_of[64]; nk = ('onsand', 64)
+    meta_src[('p', nk)] = (None, meta_src[kk][1] & 0xFF if meta_src[kk][1] else 0)
+    for i in range(12):
+        im = Q.get((kk[0], kk[1], i))
+        if im is None: continue
+        im = im.copy(); q = i % 4
+        if i < 4:
+            for yy in range(8):
+                for xx in range(8):
+                    if tuple(im[yy, xx]) in gcols: im[yy, xx] = sand_q[q][yy, xx]
+        Q[('p', nk, i)] = im
+    sand_row.append(nk)
     regions['onsand'] = (None, (0, 0), [sand_row])
     for name, kind in (('tavern', 'p'), ('lab_tower', 's')):
         g_ = regions[name][2]; sg = []
