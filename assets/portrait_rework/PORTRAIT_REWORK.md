@@ -193,3 +193,10 @@ Image: baradus_battle_chin_beard_candidates.png (candidate 2).
   reconstructed top widened in 4-px jumps (cap on the head); rows 15-20 rebuilt from a 10-px top,
   widening 3,1,2,1-2,2 px per row, outline/shade/hair structure kept (45 px, all 4 expressions).
   Image: kimaris_cleanup_v1.png. Awaiting review.
+- Glaive v1 (all 3 expressions, 25 px): left eye -- the 4/3 grid doubled the highlight and dropped
+  the black pupil; pupil restored 2 px tall under the highlight (as his right eye), doubled lower
+  lid row back to skin; hair spike from the side completion (x71-74, y39-43) trimmed to a 1-px curve.
+  Crown measured fine (15-px top, widens 4,3,3).
+- Eden v1 (10 px): 6-px nub on top (5-px jump each side) -> top row widened to 10 px; right-side
+  completion bulge had square corners -> rounded (64,65,66..66,65,64).
+  Images: cleanup_kimaris_glaive_eden_v1.png, glaive_eyes_v1.png. Awaiting review.

@@ -26,6 +26,13 @@ KEY = {
     'O': (148, 151, 159),   # hair outline
     'C': (184, 187, 195),   # hair shade ring
     'H': (202, 205, 213),   # hair
+    # Glaive (2/3 palette)
+    'P': (29, 26, 29),      # pupil / hair outline
+    'K': (243, 197, 172),   # skin
+    # Eden (2/3 palette)
+    'N': (30, 31, 44),      # outline (navy)
+    'E': (235, 200, 149),   # hair
+    'Q': (217, 185, 138),   # hair shade
     # 'x' = transparent (index 0)
 }
 
@@ -85,6 +92,31 @@ PATCHES['kimaris_neutral'] = [
               "..CC........................."], 'crown: smooth outline, no cap'),
 ]
 for _e in ('positive', 'negative', 'smile'): PATCHES['kimaris_' + _e] = PATCHES['kimaris_neutral']
+
+# Glaive (same fixes in all three expressions: their differences are the brow/lid edges and mouth):
+PATCHES['glaive_neutral'] = [
+    # Left eye: the 4/3 grid doubled the light-green highlight (y45-46) and dropped the black pupil
+    # (native (26,23)). Pupil restored 2 px tall under the highlight, as his right eye has it; the
+    # lower lid row was doubled (y49-50): y50 back to skin.
+    (43, 46, ["P", "P"], 'left eye: pupil'),
+    (42, 50, ["KKKKKKK"], 'left eye: doubled lower lid -> skin'),
+    # Right side of the hair: the side completion pushed a 4-px spike out (x71-74, y39-43) between an
+    # edge at x70 above and below. Trimmed to a 1-px curve at x71 that joins the outline.
+    (70, 39, ["Pxxx", ".Pxx", ".Pxxx", ".Pxx", ".Pxx"], 'hair: spike trimmed'),
+]
+for _e in ('positive', 'negative'): PATCHES['glaive_' + _e] = PATCHES['glaive_neutral']
+
+# Eden: the reconstructed crown ended in a 6-px nub (y14, x35-40) on a 16-px row -- a 5-px jump each
+# side, a small point on top of her head. The top row is widened to 10 px (x33-42) so the dome steps
+# 3, 3, 2 px per side; the old outline pixels beneath become hair with a shade pixel at each end.
+PATCHES['eden'] = [
+    (33, 14, ["NN......NN"], 'crown: top row widened (no nub)'),
+    (33, 15, ["QE......EQ"], 'crown: old outline -> hair under the new top'),
+    # Right side: the side completion ends in an 8-row vertical run at x66 (y40-47) with square
+    # corners -- a small box. Corners off: the edge steps 64, 65, 66 ... 66, 65, 64.
+    (66, 40, ["x"], 'right hair bulge: top corner'),
+    (66, 47, ["x"], 'right hair bulge: bottom corner'),
+]
 
 # Cadmus's smile differs from neutral only at the mouth (rows 64-68): same fixes, same pixels.
 PATCHES['cadmus_smile'] = PATCHES['cadmus_neutral']
