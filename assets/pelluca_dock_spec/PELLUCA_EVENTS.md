@@ -74,3 +74,7 @@ Placed with the map's events (object events, not tiles):
 - Cave mouth in the lower cliff at (10-11, 34-35); slab cells (10,35),(11,35) carry door
   behaviour. Events pass: warp to the deep-cavern map (when it exists) on those cells, plus a
   sign/script "sealed with the Umbra crest" that blocks entry until the Trial 4 sidequest flag.
+
+## Overworld Pokemon (user 2026-11-16): birds enjoying the open lawn by the Academy
+- 2-3 wandering bird Pokemon objects on the open lawn east of the north road (x40-47, y4-11)
+  and around the Academy's grounds; species era-appropriate (chosen at the events pass).
