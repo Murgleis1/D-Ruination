@@ -533,3 +533,11 @@ Checks: connectivity all doors/exits; ROM builds; frame-identical; verifier clea
   B + D chosen over the rim and over a road strip).
 - Ships are object events; previews draw them (pelluca_layout.SHIPS): S.S. Tidal alongside the
   pier head, a second ship at the bay jetty, two rowboats (see PELLUCA_EVENTS.md).
+
+## Notes (user 2026-11-16 morning)
+- Beach/harbour edge: still not fully satisfying; idea for later -- a fence with a gap, or
+  something more natural. Parked, not dropped.
+- Cavern entrance: locked lore (19_location_atlas, hydrology) puts it on the EAST shore of the
+  southern lake (~x63-65 y40-42), across the water, not reachable on foot. The harbour now
+  occupies that shore (public, busy) -- conflicts with "Umbra-sealed, unknown to the public".
+  Placement question put to the user.
