@@ -615,6 +615,21 @@ def main():
                         if (sub >= 0).all(-1).any(): Q[('s', nk, L * 4 + q)] = sub.copy()
                 pg[-1].append(nk)
         regions[f'prop_{pname}_{gname}'] = (None, (0, 0), pg)
+    # 1-cell red flower bush (user 2026-11-16: flowers in a 1-wide strip by the yard fence): the berry
+    # hedge's two rounded ENDS joined -- 42's left half + 43's right half (which carries a red flower),
+    # and the mirror of that for variety. Every layer; existing tiles and their flips only.
+    ka, kb = key_of[42], key_of[43]; bush_row = []
+    for flip in (False, True):
+        nk = ('bush1', int(flip))
+        meta_src[('p', nk)] = (None, meta_src[ka][1] & 0xFF if meta_src[ka][1] else 0)
+        for L in range(3):
+            for r in range(2):
+                lq, rq = Q.get((ka[0], ka[1], L * 4 + r * 2)), Q.get((kb[0], kb[1], L * 4 + r * 2 + 1))
+                if flip: lq, rq = (None if rq is None else rq[:, ::-1]), (None if lq is None else lq[:, ::-1])
+                if lq is not None: Q[('p', nk, L * 4 + r * 2)] = lq.copy()
+                if rq is not None: Q[('p', nk, L * 4 + r * 2 + 1)] = rq.copy()
+        bush_row.append(nk)
+    regions['bush1'] = (None, (0, 0), [bush_row])
     blank_q = [k for k in Q if (k[0], k[1]) in blank]   # popped AFTER both colour merges: pruning first
     print(f'pruning {len(blank)} metatiles ({len(blank_q)} layer quads)')   # shifted approved art (quay went lavender)
     # ---- palette room: snap the NEW art's colours (cottage, monument) to the nearest colour the

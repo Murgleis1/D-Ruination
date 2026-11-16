@@ -592,3 +592,11 @@ Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it 
   art needs room first (e.g. prune 114/115 and other unused primary pieces).
 - Frame test: v17 run 1 differed at frame 20 (a wandering NPC mid-step); the re-run of the same
   ROM matched baseline (only the known frame 1), so frame 20 was harness noise.
+
+## Draft 18 (2026-11-16) -- yard flowers along the east fence (user: boxed the strip)
+- The red flowers moved from in front of the bench to the 1-wide strip (34,8)-(34,9) between the
+  two hydrangeas on the yard's east fence: a column of flowers along the fence, lawn open in
+  front of the bench.
+- New primary pieces 'bush1' (2 metatiles): the berry hedge's two rounded ends joined into one
+  cell (42 left half + 43 right half, which carries a red flower), and its mirror; alternated.
+  Existing tiles and flips only: tile counts unchanged (primary 506, secondary 512).

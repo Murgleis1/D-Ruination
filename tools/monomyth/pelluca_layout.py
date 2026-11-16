@@ -129,7 +129,7 @@ HEDGES = [  # 2-wide flower hedge 42/43, left cell -- not every house (user: mor
     (42, 10), (44, 10),                                    # at the foot of the wood across the north road
     (8, 9), (13, 9),                                       # DORM front: berry hedges either side of the door
     (26, 23), (28, 23),                                    # the monastery garden's edge along the road
-    (32, 8), (56, 29),                                     # where the half-sign stood: yard bed, cottage 8
+    (56, 29),                                              # where the half-sign stood by cottage 8
 ]
 FENCES = [  # rows of picket fence 98: (x0, x1, y)
     (64, 69, 8),                 # house 5's garden
@@ -140,6 +140,7 @@ STUMPS = []   # 114/115 are only the TOP row of the Wood Avens INN signboard (us
               # incomplete'); the whole sign is now a prop at the tavern, these spots got flowers
 # FENCED YARDS (Wood Avens construction): 116 98.. 120 / 123 .. 111 / 128 98.. 121; a gate is a gap
 YARDS = [(31, 6, 35, 11, ('S', 33))]   # the Academy's practice yard, gate onto the lane
+FLOWER_BUSHES = [(34, 8), (34, 9)]            # 1-cell red bush: the yard's flower strip along its east fence (user)
 HYDRANGEAS = [(34, 7), (34, 10), (32, 10), (10, 9), (15, 9), (13, 11), (14, 11)]     # blue hydrangea (21/117) by fences and the dorm door
 MUSHROOMS = [(10, 12), (9, 15 - 6)]                            # red mushrooms (36) near the forest edge
 FLOWERS = [(50, 23), (66, 23), (23, 13), (24, 14), (25, 13), (43, 12), (44, 12),
@@ -444,6 +445,9 @@ def build(C):
     for x, y in BEACH_LAMPS:
         if not (sandy(x, y) and sandy(x, y + 1)): SKIP.append(('beachlamp', x, y)); continue
         grid[y, x], grid[y + 1, x] = ONSAND[80], ONSAND[89]; blocked[y + 1, x] = True
+    for x, y in FLOWER_BUSHES:
+        if not free(x, y): SKIP.append(('bush1', x, y)); continue
+        grid[y, x] = man['regions']['bush1']['grid'][0][(x + y) % 2]; blocked[y, x] = True
     for x, y in HYDRANGEAS:
         if not free(x, y): SKIP.append(('hydrangea', x, y)); continue
         grid[y, x] = 21

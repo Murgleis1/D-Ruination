@@ -4,7 +4,7 @@
  "secondary_palettes": 7,
  "primary_tiles": 506,
  "secondary_tiles": 512,
- "primary_metatiles": 259,
+ "primary_metatiles": 261,
  "secondary_metatiles": 508,
  "regions": {
   "wa_terrain": {
@@ -3011,6 +3011,19 @@
     [
      1018,
      1019
+    ]
+   ]
+  },
+  "bush1": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     259,
+     260
     ]
    ]
   },
