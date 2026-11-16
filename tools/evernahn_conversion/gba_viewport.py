@@ -89,10 +89,10 @@ def main():
     def draw(mid):
         mt, m = (smt, mid - 512) if mid >= 512 else (pmt, mid)
         c = np.zeros((16, 16, 3), np.uint8)
-        if m * 16 + 16 > len(mt):
+        if m * 24 + 24 > len(mt):
             return c
-        for q in range(8):
-            e = struct.unpack_from("<H", mt, m * 16 + q * 2)[0]
+        for q in range(12):   # triple-layer: bottom 0-3, middle 4-7, top 8-11
+            e = struct.unpack_from("<H", mt, m * 24 + q * 2)[0]
             tid, xf, yf, sl = e & 0x3FF, (e >> 10) & 1, (e >> 11) & 1, (e >> 12) & 15
             if q >= 4 and tid == 0:
                 continue

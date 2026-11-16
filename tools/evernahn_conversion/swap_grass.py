@@ -55,6 +55,11 @@ outside the palette and softens edges.
 Usage:
   python3 swap_grass.py [--dry-run]
 """
+
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+from metatile_format import legacy_two_layer_guard as _guard
+_guard(__file__)   # 2-layer script; metatiles are triple-layer since d18a04803
 import argparse
 import struct
 from collections import Counter

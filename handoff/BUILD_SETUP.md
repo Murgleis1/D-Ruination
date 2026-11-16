@@ -151,3 +151,31 @@ cd codebase && git ls-files '*.4bpp' | while read f; do p="${f%.4bpp}.png";
 done | xargs touch
 ```
 Recheck the "png newer" case before touching if sprite art changed recently.
+
+## 8. TRIPLE-LAYER METATILES (since d18a04803, 2026-11-15) -- READ BEFORE PORYMAP
+
+Ruination now uses **triple-layer metatiles**: 12 entries (24 bytes) each --
+bottom -> BG3, middle -> BG2, top -> BG1 (over sprites), drawn regardless of
+layer type. Format reference: `tools/metatile_format.py`.
+
+**Porymap MUST be switched to triple-layer before opening the project.**
+`porymap.project.cfg` is gitignored (local only), so set it on each machine:
+`enable_triple_layer_metatiles=1` (Options -> Project Settings -> "Enable
+Triple Layer Metatiles"). Check: the Tileset Editor shows THREE layers per
+metatile. A 2-layer Porymap misreads every tileset, and SAVING a tileset in that
+state corrupts metatiles.bin.
+
+- Converted with `tools/triple_layer/convert_metatiles.py` (idempotent; asserts
+  each BG gets the same tile as before). 165/165 frames of a deterministic run
+  were pixel-identical old vs new ROM.
+- NORMAL metatiles keep tile 0x3014 in their bottom layer: the old engine always
+  drew it there and 1,575 metatiles show it through transparent pixels. Porymap
+  will now display it too -- that is what the game draws.
+- Layer type is still used by gameplay code (shop object occlusion, decoration
+  placement checks); it no longer chooses BG layers.
+- gTileset_DrBlackReflection has its own `metatiles_drblack.bin` (it overrides
+  metatile 161's layering for the reflection scene).
+- NOT verified on screen: the shop buy-menu map preview and secret-base
+  decorations (verified by code review only; the test run never opens them).
+- 2-layer scripts in tools/evernahn_conversion/ now refuse to run (hard stop),
+  except gba_viewport.py, which is ported to 24-byte metatiles.

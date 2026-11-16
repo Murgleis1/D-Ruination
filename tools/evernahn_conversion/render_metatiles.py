@@ -10,6 +10,11 @@ instead would still look fine even if the encoding were wrong.
 
 Usage: python3 render_metatiles.py <tileset_dir> <out.png> [cols]
 """
+
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+from metatile_format import legacy_two_layer_guard as _guard
+_guard(__file__)   # 2-layer script; metatiles are triple-layer since d18a04803
 import struct
 import sys
 from pathlib import Path

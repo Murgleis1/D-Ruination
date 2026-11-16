@@ -33,6 +33,11 @@ this. Verify afterwards by rendering (render_tileset below) + present_files.
 This script is deliberately conservative: it appends, never reorders existing
 Evernahn metatiles (0-45), so any map already painted keeps its ids.
 """
+
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+from metatile_format import legacy_two_layer_guard as _guard
+_guard(__file__)   # 2-layer script; metatiles are triple-layer since d18a04803
 import sys, os, json, struct
 sys.path.insert(0, os.path.dirname(__file__))
 import numpy as np

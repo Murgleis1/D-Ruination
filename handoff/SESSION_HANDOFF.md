@@ -13,6 +13,13 @@ sections. The prior session's full detail is in the conversation transcript.
 > dock correctly -- `tools/playtest/baselines/dock_44_52_head0e9f0a4.png`. So the
 > user's ROM predates HEAD or carries stale build output. Ask which commit it was.
 
+> **2026-11-15: ENGINE NOW TRIPLE-LAYER (d18a04803).** Metatiles are 12 entries /
+> 24 bytes. Porymap must have `enable_triple_layer_metatiles=1` BEFORE opening the
+> project, or saving a tileset corrupts it -- see BUILD_SETUP section 8. Why:
+> MonoMyth (same Emerald base) is triple-layer; flattening its art to 2 layers
+> doubled palette cost (Wood Avens: 8 palettes native, 16 flattened).
+> Pelluca rebuild plan + every measured decision: assets/pelluca_dock_spec/PELLUCA_DESIGN.md
+
 ---
 
 > **If the build appears impossible in your container** (no ARM toolchain,

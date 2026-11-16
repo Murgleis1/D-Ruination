@@ -10,6 +10,11 @@ Renders every metatile with palette/flip applied, numbered, to /home/claude/<nam
 Primary sub-palettes are 0-5; a secondary's own palettes occupy 6-12
 (NUM_PALS_IN_PRIMARY = 6). Pass both dirs to render a secondary correctly.
 """
+
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..'))
+from metatile_format import legacy_two_layer_guard as _guard
+_guard(__file__)   # 2-layer script; metatiles are triple-layer since d18a04803
 import sys, os, struct
 import numpy as np
 from PIL import Image, ImageDraw
