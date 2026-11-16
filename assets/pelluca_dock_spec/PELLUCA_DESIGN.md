@@ -549,3 +549,11 @@ FRAME pairs at the Academy, dorm, monastery, house 5 and the cottages; a conifer
 of the fountain plaza; woods only as forest edges (a column behind the dorm, the north forest
 stepping down beside house 5). Removed: free-floating groves, the lone round tree, stray conifers.
 Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it and the river.
+
+## Draft 14 (2026-11-16) -- grounds for the Academy and the monastery (user: too much empty lawn)
+- Academy grounds: two-deep woods either side of the north entrance (x32-35 and x42-45,
+  mirrored about the road), flower hedges at their foot, flower beds by the Academy's front.
+- Monastery grounds: its orchard wood on the fountain side (x26-29 y17-21), a hedge row
+  where the garden meets the road.
+- Dorm corner: the north forest steps down between the dorm and the river (gap removed);
+  the dorm's top roof rows are now unreachable walk-behind cells (expected).

@@ -33,6 +33,8 @@ FOREST = [  # (x0, y0, x1, y1) inclusive; x0 even, width even
 GROVES = [
     (8, 10, 9, 14),                           # a column against the west forest, behind the dorm
     (16, 4, 17, 6),                           # the north forest steps down between the dorm and the river (user: gap)
+    (32, 4, 35, 8), (42, 4, 45, 8),           # ACADEMY GROUNDS: matching woods either side of the north entrance
+    (26, 17, 29, 21),                         # MONASTERY GROUNDS: its orchard wood, fountain side
     (48, 4, 53, 8),                           # the north forest steps down beside house 5 (ragged edge)
     (48, 14, 57, 16), (60, 14, 71, 16),       # tree ROW along the foot of the east terrace (lane x58-59 open)
     (8, 31, 23, 33), (26, 31, 35, 33),        # tree ROW along the top of the lower cliff (stairs x24-25 open)
@@ -115,7 +117,7 @@ SLIM = [  # slim conifer 44/47/20 (1x3), top cell -- every one is part of a pair
     (36, 7), (40, 7), (36, 10), (40, 10),                  # north road avenue (pairs)
     (23, 4), (31, 4),                                      # Academy frame
     (15, 4),                                               # dorm: backed by the forest step to its right
-    (18, 19), (26, 19),                                    # monastery frame
+    (18, 19),                                              # monastery (its wood frames the other side)
     (55, 5), (63, 5),                                      # house 5 frame
     (50, 20), (56, 20), (60, 20), (66, 20),                # cottages 6 / 7 frames (same row)
     (50, 27), (66, 27),                                    # cottages 8 / 8b outer frame
@@ -124,6 +126,8 @@ SLIM = [  # slim conifer 44/47/20 (1x3), top cell -- every one is part of a pair
 BUSHES = []                                                     # round bush 97
 HEDGES = [  # 2-wide flower hedge 42/43, left cell -- not every house (user: more variety)
     (9, 24), (66, 30),
+    (32, 10), (34, 10), (42, 10), (44, 10),               # at the foot of the academy-grounds woods
+    (26, 23), (28, 23),                                    # the monastery garden's edge along the road
 ]
 FENCES = [  # rows of picket fence 98: (x0, x1, y)
     (64, 69, 8),                 # house 5's garden
@@ -131,7 +135,7 @@ FENCES = [  # rows of picket fence 98: (x0, x1, y)
 LAWNS = [  # framed lawn (x0, y0, x1, y1): 99 100 101 / 108 126 109 / 102 103 104
 ]
 STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
-FLOWERS = [(50, 23), (66, 23),
+FLOWERS = [(50, 23), (66, 23), (23, 13), (24, 14), (25, 13), (33, 12), (34, 12), (43, 12), (44, 12),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
 # beach dressing: palm groups along the cliff foot and framing the tavern, lab and pier (2x3, top-left)
 CAVE_MOUTH = (10, 34)                        # Umbra cavern, sealed (author 2026-11-16); slab cells (10,35),(11,35) = door
