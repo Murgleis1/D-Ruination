@@ -95,3 +95,15 @@ recolor or tweak existing MonoMyth portraits and overworld sprites."
 - KAKUGO found: Sunbleached Cliffs script `addobject 8` -> applymovement -> trainerbattle (no
   intro) 0x12F; object 8 = graphics id 0xCD. The graphics table really starts at 0x93BF90 (my
   first table base was 90 entries late). Sheet: assets/monomyth_ow/mm_ow_kakugo.png (10 frames).
+
+## v5 (user 2026-11-16, 14:12-14:16)
+- Portrait crowns: v4 capped each cut segment separately -> "a lump on its head". Now one dome on
+  the cut row (half-width -> 0 over half the half-width), mirrored hair fill, existing art never
+  overwritten; Kimaris (cut through an already tapering crown) gets a low dome on the head's width.
+  Per-portrait table CROWN in portrait_rebuild.py; checked one by one (rebuilt_v5_busts.png).
+- Osrid OW (user: "take Osrid's entire headsprite ... put it on Kakugo's body"):
+  tools/art/osrid_ow_transplant.py -- Osrid's head pixels exactly as drawn, seated on Kakugo's
+  neck per direction (standing frames), walk frames move the head by each sheet's own bob; Kakugo's
+  coat/scarf -> Osrid's tunic greens; exact 15-colour palette (osrid_ow_draft5_*.png). Draft.
+- Osrid portrait: Kakugo is a REFERENCE (positioning, shading, colours) only; his portrait stays his
+  design, restyled -- in progress (tools/art/osrid_portrait.py, cel posterisation).

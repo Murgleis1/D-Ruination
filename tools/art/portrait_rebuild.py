@@ -83,38 +83,43 @@ def despeckle(img):
     return out
 
 
-def crown(img, top):
+def crown(img, top, mode='cut', k=0.5):
     """The masters' hair runs off the top of their frame (measured: 16-56 opaque px on row 0 for
-    every portrait but Osrid's), which reads as a chopped head once the bust stands free. Close
-    each cut with a rounded crown: an elliptical cap over every cut segment, filled with the hair's
-    own rows mirrored upward (texture and shading continue), outlined later with the rest."""
+    every portrait but Osrid's). v4 capped each cut SEGMENT with its own small dome -> lumps (user:
+    "every portrait looks like it has a lump on its head"). Now ONE dome over the full width of the
+    cut row, so the head's outline continues: half-width shrinks along an ellipse from the cut's
+    half-width to 0 over hh = 0.5 * half-width rows. Fill = the hair rows mirrored upward, hair
+    colours only."""
     out = img.copy()
-    row = img[top]
-    segs, x = [], 0
-    while x < img.shape[1]:
-        if row[x] >= 0:
-            x1 = x
-            while x1 + 1 < img.shape[1] and row[x1 + 1] >= 0: x1 += 1
-            if x1 - x + 1 >= 3: segs.append((x, x1))
-            x = x1 + 1
-        else: x += 1
-    for xa, xb in segs:
-        hw = (xb - xa + 1) / 2.0; cx = (xa + xb) / 2.0
-        # the crown is HAIR: colours that make up the cut's top rows; a stray colour there (a skin
-        # parting, measured on Baradus) is replaced by the nearest hair colour
-        band = img[top:top + 3, xa:xb + 1].ravel(); band = band[band >= 0]
-        vals, cnt = np.unique(band, return_counts=True)
-        hair = [int(v) for v, c in zip(vals, cnt) if c >= 0.12 * cnt.sum()]
-        n = int(min(top, max(3, round(hw * 0.55))))      # crown height ~ half the cut's half-width
-        for r in range(1, n + 1):
-            half = hw * np.sqrt(max(0.0, 1 - (r / (n + 0.5)) ** 2))
-            for x in range(int(np.floor(cx - half + 0.5)), int(np.floor(cx + half + 0.5)) + 1):
-                if not (xa <= x <= xb): continue
-                src = img[min(top + r - 1, img.shape[0] - 1), x]
-                if src < 0: src = img[top, x]
-                if src not in hair: src = hair[0] if hair else src
-                out[top - r, x] = src
+    if (img[top] >= 0).sum() < 3: return out
+    # base = the widest of the first rows (a cut through an already-tapering crown is narrow: the
+    # dome must sit on the head's width, not on the cut, or it pokes up as a nub -- Kimaris)
+    spans = []
+    for y in range(top, top + 5):
+        xs = np.nonzero(img[y] >= 0)[0]
+        if len(xs): spans.append((int(xs.max() - xs.min()), y, int(xs.min()), int(xs.max())))
+    _, base, xa, xb = max(spans) if mode == 'wide' else spans[0]
+    hw0 = (xb - xa + 1) / 2.0; c0 = (xa + xb) / 2.0
+    hh = int(min(top, max(2, round(hw0 * k)))) + (base - top)
+    band = img[top:top + 4, xa:xb + 1].ravel(); band = band[band >= 0]
+    vals, cnt = np.unique(band, return_counts=True)
+    hair = [int(v) for v, c in sorted(zip(vals, cnt), key=lambda t: -t[1]) if c >= 0.10 * cnt.sum()]
+    for r in range(1, hh + 1):                           # r = rows above the base row
+        y = base - r
+        if y < 0: break
+        half = hw0 * np.sqrt(max(0.0, 1 - (r / (hh + 0.6)) ** 2))
+        for x in range(int(np.ceil(c0 - half)), int(np.floor(c0 + half)) + 1):
+            if out[y, x] >= 0: continue                  # existing art is never overwritten
+            src = img[min(2 * base - y - 1, img.shape[0] - 1), x]   # mirror about the base row
+            if src < 0 or src not in hair:
+                src = img[top, x] if img[top, x] in hair else hair[0]
+            out[y, x] = src
     return out
+
+
+# Per-portrait crown (checked one by one on screen, 2026-11-16): a dome on the cut row suits most;
+# Kimaris's cut runs through an already-tapering crown, so his dome sits on the head's width, low.
+CROWN = {'kimaris': ('wide', 0.28)}
 
 
 def rebuild(path):
@@ -126,7 +131,8 @@ def rebuild(path):
     big = np.full((OUT, OUT), -1, np.int16)
     h, w = small.shape; y0 = OUT - h; x0 = (OUT - w) // 2
     big[y0:y0 + h, x0:x0 + w] = small
-    big = crown(big, y0)
+    mode, k = next((v for n, v in CROWN.items() if os.path.basename(path).startswith(n)), ('cut', 0.5))
+    big = crown(big, y0, mode, k)
     big = despeckle(outline(big, pal))
     canvas = np.where(big >= 0, big + 1, 0).astype(np.uint8)
     full = np.zeros((16, 3), int); full[0] = (255, 0, 255); full[1:1 + len(pal)] = pal

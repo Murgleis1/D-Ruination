@@ -1,56 +1,71 @@
-"""Osrid's overworld sprite designed on KAKUGO's (MonoMyth, Sunbleached Cliffs; graphics id 0xCD,
-assets/monomyth_ow/mm_ow_kakugo.png) -- user 2026-11-16: "Kakugo's sprite is meant to be the new
-base for Osrid ... design a new overworld sprite for Osrid using Kakugo's as the base".
-(Drafts 1-2 on #156 / #136 were the wrong character and are superseded.)
+"""Osrid's overworld sprite = KAKUGO's sprite (MonoMyth gid 0xCD) wearing OSRID's own mask
+(user 2026-11-16, 14:12): "take Osrid's white mask with the horus pattern from the existing
+overworld sprite and place it on Kakugo's instead of Kakugo's current mask ..., then fix the back so
+it matches Osrid's auburn hair and the clothes to match his dark green tunic".
 
-Kakugo's shapes, proportions and animation; Osrid's identity:
-  * spiked helmet (brown ramp 1-4)       -> his spiky red-orange hair
-  * visor band + ruby goggles (the face) -> his cream mask; the ruby eyes -> the black eye glyph
-  * light scarf d/e                      -> his dark green scarf
-  * dark coat 9/a/b/c, gold trim 7       -> kept (dark armour, the gold buttons)
-Face region per frame: from 3 rows above the eye row to 1 below, inner columns (front) or the
-leading side (profile); back views have no face.
-Run: python3 -I osrid_ow.py KAKUGO_SHEET.png OUT.png
+  * mask: the white mask + black Horus glyph pixels of Osrid's existing frames (rows 15-20) are
+    pasted over Kakugo's visor (bottom of the mask on the row below Kakugo's eyes, so it bobs with
+    the walk); front frames take the front mask, profile frames the profile mask
+  * hair: Kakugo's helmet ramp -> Osrid's own auburn ramp (from his existing sheet)
+  * clothes: Kakugo's coat and scarf -> Osrid's own dark green tunic ramp
+Frame order is the standard 9 (S, N, W, walk S x2, walk N x2, walk W x2) in both sheets; Kakugo's
+10th frame is dropped. Run: python3 -I osrid_ow.py KAKUGO.png OSRID_OLD.png OUT.png
 """
 import sys
 import numpy as np
 from PIL import Image
 
+# Kakugo index -> colour (Osrid's own colours, sampled from his existing sheet)
 PAL = {
-    1: (124, 44, 22),     # hair mid-dark      (helmet 104,64,40)
-    2: (204, 92, 38),     # hair mid           (helmet 160,120,72)
-    3: (160, 62, 28),     # hair dark-mid      (helmet 120,80,48)
-    4: (92, 28, 16),      # hair darkest       (helmet 80,40,32)
-    6: (240, 228, 196),   # mask light         (was gold highlight)
-    8: (172, 146, 108),   # mask shadow        (was ruby eyes)
-    13: (46, 70, 52),     # scarf dark green   (was 176,160,168)
-    14: (72, 106, 76),    # scarf green        (was 216,216,216)
-    15: (222, 206, 168),  # mask
+    4: (60, 38, 24),     # helmet darkest  -> hair dark
+    1: (96, 58, 34),     # helmet mid-dark -> hair
+    3: (120, 72, 42),    # helmet mid      -> hair mid
+    2: (172, 110, 64),   # helmet light    -> hair light
+    6: (172, 110, 64),   # gold highlight  -> hair light
+    7: (72, 106, 78),    # gold buttons    -> tunic light
+    9: (24, 42, 30),     # coat darkest    -> tunic darkest
+    11: (35, 61, 43),    # coat dark       -> tunic dark
+    10: (46, 80, 56),    # coat mid        -> tunic
+    12: (72, 106, 78),   # coat light      -> tunic light
+    13: (46, 80, 56),    # scarf shade     -> tunic
+    14: (72, 106, 78),   # scarf           -> tunic light
+    15: (255, 255, 255), # (free slot)     -> mask white
 }
-FACE = {5: 15, 3: 8, 4: 8, 1: 8, 2: 15, 6: 6, 7: 6, 8: 5}     # ruby eyes -> black glyph (5)
-HAIR_OUTSIDE = {6: 2}                                         # gold highlight on the helmet -> hair
+OLD_WHITE, OLD_BLACK = 5, 1
+MASK_ROWS = range(15, 21)
 
 
-def build(src):
-    im = Image.open(src); px = np.array(im).copy()
-    pal = np.array(im.getpalette()[:48]).reshape(16, 3)
-    nf = px.shape[1] // 16
-    for fi in range(nf):
-        f = px[:, fi * 16:(fi + 1) * 16]
-        face = np.zeros_like(f, bool)
-        ye, xe = np.nonzero(f == 8)
-        if len(ye):
-            y = ye.min(); front = xe.min() >= 4 and xe.max() <= 11 and len(set(xe)) >= 3
-            x0, x1 = (4, 11) if front else ((1, 7) if xe.mean() < 8 else (8, 14))
-            face[max(y - 3, 0):y + 2, x0:x1 + 1] = True
-        out = f.copy()
-        for a, b in FACE.items(): out[face & (f == a)] = b
-        for a, b in HAIR_OUTSIDE.items(): out[~face & (f == a) & (np.arange(32)[:, None] < 22)] = b
-        px[:, fi * 16:(fi + 1) * 16] = out
+def mask_of(oframe):
+    """The mask pixels of one of Osrid's frames: white + the black glyph/outline enclosed by it."""
+    m = {}
+    for y in MASK_ROWS:
+        xs = [x for x in range(16) if oframe[y, x] == OLD_WHITE]
+        if not xs: continue
+        for x in range(min(xs), max(xs) + 1):
+            v = oframe[y, x]
+            if v == OLD_WHITE: m[(y, x)] = 15
+            elif v == OLD_BLACK: m[(y, x)] = 5
+    return m
+
+
+def build(kak_path, old_path):
+    k = Image.open(kak_path); kp = np.array(k).copy(); pal = np.array(k.getpalette()[:48]).reshape(16, 3)
+    op = np.array(Image.open(old_path))
+    out = []
+    for fi in range(9):
+        f = kp[:, fi * 16:(fi + 1) * 16].copy(); o = op[:, fi * 16:(fi + 1) * 16]
+        m = mask_of(o)
+        ye = np.nonzero(f == 8)[0]
+        if m and len(ye):
+            dy = (ye.max() + 1) - max(y for y, _ in m)        # mask bottom -> row under the eyes
+            for (y, x), v in m.items(): f[y + dy, x] = v
+        f[f == 8] = 5                                          # any ruby left -> dark
+        out.append(f)
+    px = np.concatenate(out, 1)
     for i, c in PAL.items(): pal[i] = c
     o = Image.fromarray(px, 'P'); o.putpalette([int(v) for c in pal for v in c] + [0] * (768 - 48))
     return o
 
 
 if __name__ == '__main__':
-    build(sys.argv[1]).save(sys.argv[2], transparency=0)
+    build(sys.argv[1], sys.argv[2]).save(sys.argv[3], transparency=0)
