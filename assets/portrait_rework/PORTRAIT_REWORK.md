@@ -27,3 +27,19 @@
   to the character; identity details (Osrid's mask, Baradus's glasses, Cadmus's hat) as edits on
   top. Expression sets come from the base's own set (neutral/smile/negative/anger/gestures).
 - Catalogue: catalogue_000..448.png (every MonoMyth portrait, numbered); candidates_round1.png.
+
+## Decisions (user 2026-11-16)
+- APPROVED: MonoMyth's portrait system (80x80 transparent bust, bottom-right on the text box,
+  inline speaker name) and rebuilding each principal from MonoMyth bases.
+- Bases (assistant's picks, approved): Glaive #97, Ambrose #274, Baradus #314, Kimaris #115,
+  Eden #113 (recoloured blonde), Cadmus #7 (hat recoloured purple).
+- OSRID: base = the masked man fought at Sunbeached Cliffs -- portrait #186-190, overworld
+  sprite #156 (assets/monomyth_ow/mm_ow156_masked_man.png, 9 frames) -- reworked into Osrid
+  (user: "make a better main character sprite for Osrid than the current overworld sprite").
+- BARADUS (lore): his tribe has darker, bronzed skin -- portrait AND overworld sprite carry it;
+  facial hair, at least a five o'clock shadow.
+
+## Tooling
+- tools/monomyth/mm_portraits.py: every MonoMyth portrait from the ROM (catalogue_*.png).
+- tools/monomyth/mm_overworld.py: every MonoMyth 16x32 overworld sprite, decoded by the game
+  itself under emulation (assets/monomyth_ow/catalogue_ow16x32.png), full 9-frame extraction.
