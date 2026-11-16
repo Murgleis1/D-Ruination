@@ -286,3 +286,15 @@ Route-gate model (as MonoMyth's North Edelweiss north exit): the stone arch
 cliff terraces leads into a separate WAYSTATION interior map (guard post), which
 exits onto the northern route. The size of the wall around it is decided when
 the map is built. DEFERRED by the user until the Pelluca map is near completion.
+
+## Tavern snow removal — automatic attempts FAILED (2026-11-15, tavern_desnow_attempts.png)
+- Snow colours picked from per-colour masks (white, pale/shade blues, blue cap
+  outlines); lamp-post glass protected; outer crop columns are Elderflower's
+  town wall (tavern box narrowed to x38-43).
+- v1 (peel from edges + fill from below): holes through the roof valleys, streaks.
+- v2 (row-wise shingle fill at the measured 4 px repeat, valley seams): central
+  gable recovered; still grass holes between gable and side towers and along the
+  cornice, stripe artefacts on the right tower.
+- ~25% of this roof exists ONLY as snow; no snow-free copy of the lodge exists
+  anywhere in MonoMyth (tile-shape search over every secondary: only Elderflower's
+  own tileset matches). Making it right means hand-drawing roof geometry.
