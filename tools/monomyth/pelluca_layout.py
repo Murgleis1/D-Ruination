@@ -56,14 +56,13 @@ COBBLE = [
     (47, 24, 79, 26),            # east road (Hoya Delta), straight into the east arm
     (37, 30, 39, 33),            # monument -> lakeshore stairs
     (37, 36, 39, 43),            # down to the quay
+    (26, 13, 36, 14),            # small 2-wide cobbled road: Academy door -> north road (user)
 ]
-LAWN_PATHS = [  # Wood Avens lawn path (lighter grass, 2 rows): 99 100 101 / 102 103 104
-    (26, 13, 36, 14),            # Academy door -> north road (user 2026-11-16)
-]
-QUAY_PAVEMENT = [(23, 44, 50, 45)]           # stone promenade: tavern, road, lab
-BEACH = (8, 43, 22, 47)                      # SW beach: sand, surf line (y46), wet sand (y47)
+LAWN_PATHS = []                  # lawn-frame/path pieces read as flat patches (user 2026-11-16): not used
+QUAY_PAVEMENT = [(10, 44, 50, 45)]           # stone promenade along the whole north shore
+BEACH = None                                 # removed (user: broken) -- needs the grass/sand edge pieces first
 WATER = [
-    (9, 48, 22, 59), (23, 47, 42, 59), (46, 47, 50, 59), (43, 53, 45, 59), (40, 49, 48, 52),
+    (10, 47, 42, 59), (46, 47, 50, 59), (43, 53, 45, 59), (40, 49, 48, 52),
     (51, 42, 70, 59),                                      # east bay (locked x51-52)
     (19, 0, 20, 10),                                       # river from the north (Ivy River)
     (17, 8, 22, 11),                                       # pool where it goes underground (dive spot)
@@ -81,7 +80,8 @@ BUILDINGS = {  # name: (x, y) of the grid's top-left; doors land where the warps
 EXTRA_RESIDENCES = [(56, 4)]                      # house 5
 COTTAGES = [(51, 20), (61, 20), (51, 27), (61, 27)]  # houses 6, 7 (door onto the road), 8, 8b; door (x+3, y+3)
 MONUMENT = (31, 21)                                  # wellspring fountain ring, 16x9, fills the plaza
-TRIM = {'lab_tower': [(0, 2), (0, 3), (0, 4), (0, 5), (1, 5), (2, 5), (3, 5), (4, 5)]}  # (row, col) -> grass
+TRIM = {'lab_tower': [(0, 2), (0, 3), (0, 4), (0, 5), (1, 5), (2, 5), (3, 5), (4, 5)],   # (row, col) -> grass
+        'academy': [(0, 0), (0, 6)]}       # Wood Avens lawn-frame pieces at the roof corners (read as patches)
 
 # dressing (positions chosen by hand; every one keeps door fronts, stairs and roads clear)
 LAMPS = [  # lamp post: top (walkable) over base (blocked); left-of-road 76/88, right-of-road 80/89
@@ -96,19 +96,18 @@ SLIM = [  # slim conifer 44/47/20 (1x3), top cell
     (23, 4), (41, 10), (47, 18), (57, 20), (60, 21), (71, 19), (9, 31), (22, 31),
     (68, 31), (58, 31), (16, 36), (19, 37), (42, 36), (68, 37), (36, 39),
 ]
-BUSHES = [(14, 42), (17, 42), (21, 41), (11, 42), (9, 41), (50, 37), (60, 38)]   # round bush 97
+BUSHES = [(14, 41), (21, 40), (11, 39), (50, 37), (60, 38)]   # round bush 97
 HEDGES = [  # 2-wide flower hedge 42/43, left cell -- not every house (user: more variety)
     (9, 24), (14, 24), (66, 30),
 ]
 FENCES = [  # rows of picket fence 98: (x0, x1, y)
     (64, 69, 8),                 # house 5's garden
-    (67, 70, 18),                # cottage 7's garden
 ]
 LAWNS = [  # framed lawn (x0, y0, x1, y1): 99 100 101 / 108 126 109 / 102 103 104
-    (9, 25, 13, 27), (64, 4, 69, 7), (67, 19, 70, 22), (32, 39, 35, 42),
 ]
 STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
-FLOWERS = [(50, 23), (56, 22), (56, 31), (60, 31), (66, 23), (12, 31), (18, 33), (29, 33)]
+FLOWERS = [(50, 23), (56, 22), (56, 31), (60, 31), (66, 23), (12, 31), (18, 33), (29, 33),
+           (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (33, 40), (35, 41), (10, 26), (12, 27)]
 FLOWER_IDS = (21, 36, 21, 36, 51)
 FLOWER_DENSITY = 0.012
 
@@ -188,9 +187,11 @@ def build(C):
     grid[qp] = 147
 
     # SW beach: sand, the surf line, a strip of wet sand (all walkable) meeting the lake
-    beach = rects([BEACH]); bx0, by0, bx1, by1 = BEACH
-    for y in range(by0, by1 + 1):
-        grid[y, bx0:bx1 + 1] = 163 if y < by1 - 1 else (171 if y == by1 - 1 else 173)
+    beach = rects([BEACH]) if BEACH else np.zeros((H, W), bool)
+    if BEACH:
+        bx0, by0, bx1, by1 = BEACH
+        for y in range(by0, by1 + 1):
+            grid[y, bx0:bx1 + 1] = 163 if y < by1 - 1 else (171 if y == by1 - 1 else 173)
 
     # pier (stem + head) from the composed pier kit; water + its stone edges
     pier = rects(PIER)
