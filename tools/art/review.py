@@ -81,6 +81,7 @@ def check(path, mode, prev=None, allow=()):
     if len(holes): notes.append('enclosed 1-px holes (x,y): %s' % [tuple(int(v) for v in p[::-1]) for p in holes[:12]])
     # outline: silhouette pixels must be dark (no light pixel bleeding to transparency)
     edge = op & (n4 < 4)
+    if cut_ok == 'bottom': edge[-1] = False         # the bust meets the frame bottom by design
     L = lum(rgb.astype(float))
     light_edge = np.argwhere(edge & (L > 90))
     if len(light_edge): notes.append('outline holes -- light px on the silhouette edge (x,y): %s' % [tuple(int(v) for v in p[::-1]) for p in light_edge[:12]])

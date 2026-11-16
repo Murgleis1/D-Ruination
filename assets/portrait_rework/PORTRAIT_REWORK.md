@@ -170,3 +170,17 @@ Approved construction (MonoMyth #105 study): row 14 (bottom of the face) beard-d
 bronze-shadow gap, row 13 bronze-shadow at the jaw corners + one dark px rising at the chin centre;
 neck untouched. New colour: free palette slot 14 = bronze skin shadow (118,74,46).
 Image: baradus_battle_chin_beard_candidates.png (candidate 2).
+
+## Option C (user 2026-11-16): 2/3 size, hand-cleaned per portrait
+- Measured: MonoMyth busts (495) top row ~10, height ~70, head ~46 px wide. Native 48: 49 tall,
+  head 39 (too small). 2/3: 66 tall, head 52 (right size) but a 4/3 enlargement doubles px on a
+  fixed grid (uneven eyes, 1-px lines). User picked C: 2/3 + hand cleanup.
+- Tried and rejected (my review): seam-insertion enlargement -- keeps details exact but distorts
+  proportions (hat balloons, eyes too small). Removed.
+- tools/art/portrait_patches.py: per-portrait text-grid pixel patches applied after the 2/3 resize
+  (portrait_rebuild main, PORTRAIT_SCALE=x). Colours matched to the portrait's own palette.
+- Cadmus v1 (48 px per expression): eyes (left: removed doubled bottom row; right: single red
+  pupil, lower row W M L, 1-px brown edge), right brim tip tapered like the left, chin stubble
+  texture redrawn (brown/dark brown with ~1-in-4 grey flecks). Verified in-game: 0 px diff.
+  Open: ear top row doubled (y45-46); small stair-steps on the cheek light diagonal.
+  Image: cadmus_cleanup_v1.png. Awaiting user review before install.

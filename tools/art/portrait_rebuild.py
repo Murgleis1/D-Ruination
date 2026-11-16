@@ -318,7 +318,11 @@ if __name__ == '__main__':
     src, od = sys.argv[1], sys.argv[2]; os.makedirs(od, exist_ok=True)
     res = []
     for f in sorted(glob.glob(os.path.join(src, '*.png'))):
-        idx, pal = rebuild(f); save(idx, pal, os.path.join(od, os.path.basename(f))); res.append((f, idx, pal))
+        idx, pal = rebuild(f)
+        if not NATIVE:                                   # option C: hand cleanup of the 2/3 resize
+            import portrait_patches
+            idx, _ = portrait_patches.apply(os.path.basename(f)[:-4], idx, pal)
+        save(idx, pal, os.path.join(od, os.path.basename(f))); res.append((f, idx, pal))
     if '--preview' in sys.argv:
         from PIL import ImageDraw
         S, cols = 3, 4; CW = 96 * S + 80 * S + 16; H = 96 * S + 16
