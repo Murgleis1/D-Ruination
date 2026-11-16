@@ -1,6 +1,6 @@
 # Chapter 1 dialogue: draft for everything after the briefing
 
-Status: **draft for the user's review, not in the game yet.** Written in the voice of the user's own revisions (2026-11-16): Cadmus warm, formal and in command; Osrid formal and guarded, with pauses when something touches a nerve; Eden quick and overconfident. Clarity first.
+Status: **draft for the user's review, not in the game yet.** Written in the voice of the user's own revisions (2026-11-16): Cadmus warm, formal and in command; Osrid formal and guarded, with pauses when something touches a nerve. Eden (user, 2026-11-16): mysterious and defiant, confident because she knows powerful people are behind her, but kept half-informed by them, so it shows she did not think this all the way through. She never names who sent her. Clarity first.
 
 Stage directions are in *italics*. Names are as the player sees them.
 
@@ -38,15 +38,17 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Cadmus:** Oh, do take your time. There is nowhere for you to go.
 
-**Thief:** Mmm... I think I'll manage. I came a very long way for this one.
+**Thief:** Mmm... I'd worry less about where I'm going, and more about who's expecting me when I get there.
 
 **Cadmus:** Neptune. Bar the door, and keep one eye on the window. If she runs, pin her. Gently.
 
 *Neptune, Cadmus's Jousteel, takes the doorway. The room suddenly feels much smaller.*
 
-**Thief:** ...So the stories about your Jousteel are true. He's even bigger than I was told.
+**Thief:** ...Nobody said anything about a Jousteel.
 
-**Cadmus:** And you brought a Nickit. You came to rob a Vizier of the Empire, in his own house, with a Nickit.
+**Thief:** Doesn't matter. Lay a hand on me and you'll have a lot of explaining to do, Vizier. Bigger people than you want this delivered.
+
+**Cadmus:** Bigger people than me? Very few, child. And not one of them would send a Nickit to do their stealing.
 
 **Thief:** Pilfer's tougher than he looks.
 
@@ -54,7 +56,7 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 *Osrid steps between the thief and the table.*
 
-**Thief:** Oh? And who might you be? ...Is that a mending mask? From Athanto? That's worth more than this whole cellar.
+**Thief:** ...And nobody mentioned you, either. Who might you be? Is that a mending mask? From Athanto? That's worth more than this whole cellar.
 
 **Nomad Alban:** Put it back.
 
@@ -72,7 +74,9 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Nomad Alban:** Good. Keep it that way.
 
-**Thief:** Hah! All right then, Nomad Alban. I want a rematch... the minute I get out of whatever hole they're about to throw me in.
+**Thief:** Hah. Enjoy it while it lasts, Nomad Alban. People like me don't stay in cells for long.
+
+**Thief:** And when I'm out, I want a rematch.
 
 **Cadmus:** The Templars keep their holes very deep, and very dark. I would get comfortable, if I were you. Neptune, our guest is leaving. Escort her.
 
@@ -96,9 +100,13 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Nomad Alban:** Who sent you?
 
-**Eden:** Nobody sends me anywhere, Rainhawk. I go where the good stuff is.
+**Eden:** Nobody you'd want to meet, Rainhawk. And nobody who'll leave me down here for long.
 
-**Eden:** ...You fight like a soldier, you know. Your little partner did all the work back there, and you never said one word to it. Just orders.
+*She glances at the bars, then away.*
+
+**Eden:** ...They told me it'd be the Vizier and an empty cellar. Nobody said a word about a Rainhawk.
+
+**Eden:** You fight like a soldier, you know. Your little partner did all the work back there, and you never said one word to it. Just orders.
 
 *A pause.*
 
