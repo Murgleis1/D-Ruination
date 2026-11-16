@@ -392,3 +392,21 @@ organic terraces (mirrored cliff metatiles, no new tiles), natural lake banks/be
 fenced gardens, farm plot.
 Church door has no door behaviour yet (Evernahn import) -> set MB_NON_ANIMATED_DOOR in
 the builder. Tavern cells carry 0x5B (MB_UNUSED_5B, harmless); door 0x60.
+
+## User feedback on draft 3 (2026-11-15)
+- Building PLACEMENT approved ("all in the right places").
+- Too empty, esp. approaching the centre -> a central MONUMENT. Lore (19_location_atlas,
+  Pelluca hydrology, LOCKED): the wellspring beneath the city is its water source and the
+  central plaza fountain draws from it -- the reason the fountain is the town's centre.
+- Residences 6, 7, 8, 8b -> SMALLER houses (Evernahn, or Fort Elderflower small houses
+  with ivy + roof-tile fixes instead of snow).
+Candidates: houses_and_monument_options.png. FE gabled cottage (D, 5x4) and steep-roof
+house (E, 5x6) de-snowed with the tavern pipeline (tools/monomyth/fe_houses_desnow.py):
+bottom-layer art merged for interior + bottom-rim cells; castle wall cut from E's top
+row; E's centre stripe filled with real shingles copied 16px sideways. ~62-68 tiles each.
+Room: ~35 tiles free, but 220 tiles belong only to metatiles the layout does not use
+(Port Ginseng warehouse fronts 137-154, the spare WA hall 56-96 inside the terrain
+crop, snow rocks...); pruning them in the builder fits both houses + a monument.
+Monument candidates: A Chamomile garden fountain, B Watercress statue fountain (the
+only one with a statue), C Pisces octagon fountain. No human/king statue found yet
+(MonoMyth Peak of Kings tileset = thrones/altars; DM tilesets checked: none).
