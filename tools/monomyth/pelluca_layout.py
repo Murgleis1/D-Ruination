@@ -32,6 +32,7 @@ FOREST = [  # (x0, y0, x1, y1) inclusive; x0 even, width even
 # backing buildings and cliffs, with singles/slim conifers/bushes as accents.
 GROVES = [
     (8, 10, 9, 14),                           # a column against the west forest, behind the dorm
+    (16, 4, 17, 6),                           # the north forest steps down between the dorm and the river (user: gap)
     (48, 4, 53, 8),                           # the north forest steps down beside house 5 (ragged edge)
     (48, 14, 57, 16), (60, 14, 71, 16),       # tree ROW along the foot of the east terrace (lane x58-59 open)
     (8, 31, 23, 33), (26, 31, 35, 33),        # tree ROW along the top of the lower cliff (stairs x24-25 open)
@@ -113,7 +114,7 @@ TREES = []                                    # single round trees: none (they r
 SLIM = [  # slim conifer 44/47/20 (1x3), top cell -- every one is part of a pair, an avenue or a frame
     (36, 7), (40, 7), (36, 10), (40, 10),                  # north road avenue (pairs)
     (23, 4), (31, 4),                                      # Academy frame
-    (15, 5),                                               # dorm: between it and the river (forest on its west)
+    (15, 4),                                               # dorm: backed by the forest step to its right
     (18, 19), (26, 19),                                    # monastery frame
     (55, 5), (63, 5),                                      # house 5 frame
     (50, 20), (56, 20), (60, 20), (66, 20),                # cottages 6 / 7 frames (same row)
