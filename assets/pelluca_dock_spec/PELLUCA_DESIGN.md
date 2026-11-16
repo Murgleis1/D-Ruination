@@ -332,3 +332,8 @@ same blue-greys, so its cone, main roof and porch gable are HAND-MARKED regions.
 Recolour (roof_recolour.py) keeps each pixel's brightness (the shading) and sets a
 new hue; slate is colourised, the church's lavender is re-hued. The lab slate is
 much darker than the others: its options are brightened (x1.6) or pink reads maroon.
+
+## Roof colours DECIDED (user, 2026-11-15)
+Academy 1B cobalt | Arceus church 2B crimson + patch the dark holes on its roof with
+red roof | Cadmus's house 3C rust | Umbra lab: unchanged slate grey | Residence
+second colour 5B blue.
