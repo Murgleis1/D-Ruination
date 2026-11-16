@@ -5077,13 +5077,14 @@ graphics/door_anims/battle_tower_multi_corridor.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 # --- Dreamstone Ruination: portrait dialogue busts (96x96, drawn as a BG0 window) ---
-# -mwidth 12 -mheight 12 = a 12x12 tile block in reading order, which is the
+# 80x80 MonoMyth-style busts (2026-11-16). -mwidth 10 -mheight 10 = a 10x10 tile block
+# in reading order. History: -mwidth 12 -mheight 12 = a 12x12 tile block in reading order, which is the
 # layout a window pixel buffer expects. Was -mwidth 4 -mheight 4 (64x64) while
 # the comment still claimed 96x96; the art was being downscaled 1.5x and blurred.
 PORTRAITGFXDIR := graphics/portraits
 
 $(PORTRAITGFXDIR)/%.4bpp: $(PORTRAITGFXDIR)/%.png
-	$(GFX) $< $@ -mwidth 12 -mheight 12
+	$(GFX) $< $@ -mwidth 10 -mheight 10
 
 $(PORTRAITGFXDIR)/%.gbapal: $(PORTRAITGFXDIR)/%.png
 	$(GFX) $< $@

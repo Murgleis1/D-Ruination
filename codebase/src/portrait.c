@@ -33,16 +33,20 @@
 // BUDGET (measured before writing this):
 //   BG0 is priority 0 and sits above the map (BG1/2/3 are priority 1/2/3).
 //   The field text box window starts at baseBlock 0x194 (tile 404) and Yes/No
-//   at 0x125 (tile 293), so tiles below 293 are free. A 96x96 portrait is
-//   12x12 = 144 tiles, placed at 0x080 (tile 128) and ending at 272 -- clear.
+//   at 0x125 (tile 293), so tiles below 293 are free. An 80x80 portrait is
+//   10x10 = 100 tiles, placed at 0x080 (tile 128) and ending at 228 -- clear.
 //   BG palettes 0-12 belong to the map tilesets and 15 to the text box, so the
 //   portrait takes slot 13 and leaves 14 spare.
 //
 // The public API is unchanged, so no script or dialogue edits are needed.
 // ---------------------------------------------------------------------------
 
-#define PORTRAIT_WIDTH        96
-#define PORTRAIT_HEIGHT       96
+// MonoMyth's portrait system (user 2026-11-16): an 80x80 bust with a transparent
+// background (index 0), no frame, standing on the text box's top edge at the
+// bottom right. The text box frame occupies tile rows 14-19 (window 0 is rows
+// 15-18), so the bust takes rows 4-13; columns 19-28 leave an 8px right margin.
+#define PORTRAIT_WIDTH        80
+#define PORTRAIT_HEIGHT       80
 #define PORTRAIT_TILES_W      (PORTRAIT_WIDTH / 8)
 #define PORTRAIT_TILES_H      (PORTRAIT_HEIGHT / 8)
 #define PORTRAIT_NUM_TILES    (PORTRAIT_TILES_W * PORTRAIT_TILES_H)
@@ -51,10 +55,9 @@
 #define PORTRAIT_PALETTE      13
 #define PORTRAIT_BASE_BLOCK   0x080
 
-// Tilemap position in 8px units. Bottom-left, above the text box (which starts
-// at tilemapTop 15). 12 tiles tall ending at row 15 means top row 3.
-#define PORTRAIT_TILEMAP_LEFT 1
-#define PORTRAIT_TILEMAP_TOP  1   // rows 1-12; row 13 is the nameplate
+// Tilemap position in 8px units: bottom right, bottom row 13 sits on the frame.
+#define PORTRAIT_TILEMAP_LEFT 19
+#define PORTRAIT_TILEMAP_TOP  4
 
 #include "data/portraits.h"
 

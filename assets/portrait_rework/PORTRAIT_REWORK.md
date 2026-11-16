@@ -33,8 +33,10 @@
   inline speaker name) and rebuilding each principal from MonoMyth bases.
 - Bases (assistant's picks, approved): Glaive #97, Ambrose #274, Baradus #314, Kimaris #115,
   Eden #113 (recoloured blonde), Cadmus #7 (hat recoloured purple).
-- OSRID: base = the masked man fought at Sunbeached Cliffs -- portrait #186-190, overworld
-  sprite #156 (assets/monomyth_ow/mm_ow156_masked_man.png, 9 frames) -- reworked into Osrid
+- OSRID: base = the masked man fought at Sunbeached Cliffs: the DARK GREEN BUG MASK (user
+  correction) -- overworld sprite #136 (assets/monomyth_ow/mm_ow136_bug_masked_man.png), portraits
+  #383-390 (same colours: the OW palette shares 7 exact colours with them). Draft 1 used the
+  spiked-helmet man #156 by mistake (kept for reference only). Reworked into Osrid
   (user: "make a better main character sprite for Osrid than the current overworld sprite").
 - BARADUS (lore): his tribe has darker, bronzed skin -- portrait AND overworld sprite carry it;
   facial hair, at least a five o'clock shadow.

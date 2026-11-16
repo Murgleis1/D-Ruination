@@ -10,6 +10,11 @@
 #include "script.h"
 #include "portrait.h"
 
+// Speaker names: TRUE = inline "Name: text" (MonoMyth style, user 2026-11-16);
+// FALSE = the nameplate above the text box.
+#define SPEAKER_NAME_INLINE TRUE
+static const u8 sText_SpeakerSeparator[] = _(": ");
+
 static EWRAM_DATA u8 sFieldMessageBoxMode = 0;
 EWRAM_DATA u8 gWalkAwayFromSignpostTimer = 0;
 EWRAM_DATA const u8* gSpeakerName = NULL;
@@ -42,7 +47,7 @@ static void Task_DrawFieldMessage(u8 taskId)
             task->tState++;
             break;
         case 1:
-            if (gSpeakerName != NULL && !FlagGet(FLAG_SUPPRESS_SPEAKER_NAME)) {
+            if (!SPEAKER_NAME_INLINE && gSpeakerName != NULL && !FlagGet(FLAG_SUPPRESS_SPEAKER_NAME)) {
                 DrawDialogueFrameWithNameplate(0, TRUE);
                 PutWindowTilemap(1);
                 CopyWindowToVram(1, COPYWIN_FULL);
@@ -136,6 +141,15 @@ extern int GetDialogFramePlateWidth();
 
 static void ExpandStringAndStartDrawFieldMessage(const u8 *str, bool32 allowSkippingDelayWithButtonPress)
 {
+    if (SPEAKER_NAME_INLINE && gSpeakerName != NULL && !FlagGet(FLAG_SUPPRESS_SPEAKER_NAME)) {
+        // MonoMyth style: "Name: text" at the start of the message, no nameplate.
+        u8 *end = StringExpandPlaceholders(gStringVar4, gSpeakerName);
+        end = StringCopy(end, sText_SpeakerSeparator);
+        StringExpandPlaceholders(end, str);
+        AddTextPrinterForMessage(allowSkippingDelayWithButtonPress);
+        CreateTask_DrawFieldMessage();
+        return;
+    }
     if (gSpeakerName != NULL && !FlagGet(FLAG_SUPPRESS_SPEAKER_NAME)) {
         int strLen = GetStringWidth(FONT_SMALL, gSpeakerName, -1);
         if (strLen > 0) {
