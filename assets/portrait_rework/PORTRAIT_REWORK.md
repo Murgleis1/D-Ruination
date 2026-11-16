@@ -161,3 +161,12 @@ Images: baradus_battle_beard.png, baradus_ow_beard.png.
 
 - 2026-11-16 user: overworld beard "doesn't look good" -> REVERTED to the pre-beard sprite (fd50fadc9).
   Battle sprite keeps its beard (user: it needs the beard).
+
+## Baradus battle sprite beard -- REDONE, candidate 2 APPROVED (2026-11-16)
+The previous battle beard (a962c0070) was on his NECK. Aligning his sprite to its source sprite
+(trainer094, the user's base) on the feature lines showed: source mouth row 12, chin underside row 14,
+rows 15-17 = neck between the collar flaps. Baradus's chin is rows 13-14; rows 15-16 (x30-32) are neck.
+Approved construction (MonoMyth #105 study): row 14 (bottom of the face) beard-dark (idx 11) with one
+bronze-shadow gap, row 13 bronze-shadow at the jaw corners + one dark px rising at the chin centre;
+neck untouched. New colour: free palette slot 14 = bronze skin shadow (118,74,46).
+Image: baradus_battle_chin_beard_candidates.png (candidate 2).
