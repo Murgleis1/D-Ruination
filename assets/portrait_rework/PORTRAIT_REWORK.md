@@ -186,3 +186,6 @@ Image: baradus_battle_chin_beard_candidates.png (candidate 2).
   Image: cadmus_cleanup_v1.png. Awaiting user review before install.
 - Cadmus v2: hat top rounded (user: "still looks partly cut off"): centre rises 2 rows to a 13-px
   top, stepping 4/3/2 px out to the corners. Image: cadmus_hat_round_v2.png.
+- 2026-11-16 INSTALLED (user: hat "looks perfect"): Cadmus neutral/smile (option C v2) and Baradus
+  positive/anger/negative (v10 beard + collar trim) at 2/3. In-game Cadmus == PNG (0 px diff).
+  Other characters keep their current portraits until each is cleaned and approved.
