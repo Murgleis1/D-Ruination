@@ -279,3 +279,10 @@ them yet (deterministic run still 0 frames different).
 - Known, deliberate: tavern + guardhouse still carry painted snow (snow-removal
   pass next); colour merge darkens guardhouse stone / quay cobble slightly violet;
   no tileset animation callback yet (water is static until one is written).
+
+## North entrance — decided 2026-11-15 (north_gate_options.png)
+Route-gate model (as MonoMyth's North Edelweiss north exit): the stone arch
+(4x5, already in gTileset_PellucaValley) set into the gap between the northern
+cliff terraces leads into a separate WAYSTATION interior map (guard post), which
+exits onto the northern route. The size of the wall around it is decided when
+the map is built. DEFERRED by the user until the Pelluca map is near completion.
