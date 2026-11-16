@@ -51,6 +51,26 @@ def downscale_32(idx, pal):
     return out
 
 
+NATIVE = os.environ.get('PORTRAIT_SCALE', 'native') == 'native'
+
+
+def downscale_2x(idx, pal):
+    """The masters are 2x enlargements of 48x48 pixel art (measured: Ambrose, Eden, Glaive, Kimaris
+    exact 2x2 blocks; Baradus/Cadmus all but ~40-80 single pixels from detail edits at 96px). Halving
+    by 2x2 block returns the artist's ORIGINAL pixels exactly -- no uneven 1.33x pixel widths.
+    Mixed blocks (the edits) take the block's darkest opaque colour so added details survive."""
+    H, W = idx.shape; lum = pal.sum(1)
+    out = np.full((H // 2, W // 2), -1, np.int16)
+    for y in range(H // 2):
+        for x in range(W // 2):
+            b = idx[2 * y:2 * y + 2, 2 * x:2 * x + 2].ravel()
+            op = b[b >= 0]
+            if len(op) < 2: continue
+            vals, cnt = np.unique(op, return_counts=True)
+            out[y, x] = vals[np.argmax(cnt)] if cnt.max() >= 3 else min(op, key=lambda v: lum[v])
+    return out
+
+
 def outline(img, pal):
     # darkest NEUTRAL colour (low saturation): a dark red scarf must not become everyone's outline
     sat = pal.max(1) - pal.min(1)
@@ -83,7 +103,7 @@ def despeckle(img):
     return out
 
 
-def crown(img, top):
+def crown(img, top, flat=False):
     """Close the hair cut by the masters' top edge (16-56 opaque px on row 0, all but Osrid) by
     CONTINUING THE HEAD'S OWN CURVE. History (all rejected on screen by the user): per-segment domes
     (lumps), one ellipse on the cut (pinch -> lump), slope continuation (peaks). Measured on the
@@ -103,6 +123,8 @@ def crown(img, top):
     A, B, C = np.polyfit(ys - top, hw2, 2)[::-1]
     if C >= -0.02:                                   # straight/diverging sides: close as a half-circle
         C = -A / max(1.0, hws[0]) ** 2
+    if flat:                                         # hats: a low, flat-topped close (3 rows)
+        A, B, C = hws[0] ** 2, 0.0, -(hws[0] ** 2) / 9.0
     cx = float(np.mean(cs[:4]))
     band = img[top:top + 4].ravel(); band = band[band >= 0]
     vals, cnt = np.unique(band, return_counts=True)
@@ -130,20 +152,108 @@ RECOLOUR = {'baradus': {
     (144, 80, 56): (100, 58, 38), (123, 90, 70): (92, 62, 46), (112, 58, 37): (76, 42, 28),
 }}
 
+# ---------------------------------------------------------------------------------------------
+# Master-level edits (96px, before scaling; the masters are 2x art, so edits use 2x2 blocks)
+
+BRONZE_SKIN = {(196, 136, 92), (164, 106, 66), (134, 80, 52), (124, 74, 48), (100, 58, 38),
+               (92, 62, 46), (76, 42, 28)}
+
+
+def baradus_facial_hair(rgb, mask):
+    """User 2026-11-16: Baradus "too clean shaven ... more dangerous"; reference MonoMyth #351.
+    Rejected before: filled areas, a painted wedge, black strands drawn up from the jaw (read as a
+    slash from mouth to jaw).  How #351 is actually built (pixel study): the beard is the JAW OUTLINE
+    itself grown thick -- a solid dark band along the bottom of the chin (2 rows), above it a row of
+    vertical strands (dark/skin alternating), above that a few staggered flecks; it thins to the
+    outline alone up the jaw sides; the moustache is a mid-shadow SKIN tone band above the mouth,
+    not black.  Colours: the beard is his hair black, the moustache his jaw-shadow brown -- no new
+    palette entries.  Drawn on the native 48px grid (masters are 2x).  Native jaw (identical in all
+    three expressions): left edge (12,35)(13,36)(14,37)(15-16,38)(17-18,39), chin (19-22,40), right
+    edge (23-24,39)(25-26,38)(27-28,37)(29-30,36)(31,35); mouth row 33."""
+    HAIR = (0, 0, 0)        # beard and moustache in his hair black (a mid-brown moustache, as on
+    # #351's pale skin, vanishes on bronze skin; a dark-brown one read as a thick lip)
+    H, W = mask.shape
+    skin = np.zeros((H, W), bool)
+    for c in BRONZE_SKIN: skin |= mask & (rgb == c).all(-1)
+    out = rgb.copy()
+    def px(x, y, c):
+        if skin[2 * y, 2 * x]: out[2 * y:2 * y + 2, 2 * x:2 * x + 2] = c
+    # #351's proportions, mouth-to-chin both 8 rows: 2 solid rows at the bottom, 2 rows mostly dark
+    # with skin gaps (strands), 1 row of flecks, filling the whole chin V across its width.
+    rows = {40: (range(19, 23), ()),
+            39: (range(17, 25), ()),
+            38: (range(15, 27), (18, 23)),
+            37: (range(14, 29), (16, 19, 21, 24, 26)),
+            36: ((13, 15, 18, 22, 25, 27, 29, 30), ()),
+            35: ((12, 20, 31), ()),
+            34: ((32,), ())}
+    for y, (xs, gaps) in rows.items():
+        for x in xs:
+            if x not in gaps: px(x, y, HAIR)
+    # moustache as #351 draws it: it COVERS the upper lip (sits on the mouth row, 2 rows thick in
+    # the middle, drooping wider at the bottom); only the lower-lip shadow (row 35) shows beneath.
+    # A bar drawn above the mouth line read as an open mouth.  Teeth (anger) are not skin and stay.
+    for x in range(18, 22): px(x, 32, HAIR)
+    for x in range(16, 23): px(x, 33, HAIR)
+    return out
+
+
+def complete_sides(rgba, pad):
+    """Art cut by the master's LEFT/RIGHT frame edge (Cadmus's hat brim; hair on Eden, Glaive)
+    continues outward: every run of rows touching an edge gets a rounded tip (elliptical profile,
+    up to 45% of the run's height), filled with the art's own columns mirrored at the edge."""
+    H, W = rgba.shape[:2]
+    op = rgba[..., 3] >= ALPHA
+    for side in ('L', 'R'):
+        ex = pad if side == 'L' else W - pad - 1           # the original frame edge column
+        rows = [y for y in range(H) if op[y, ex]]
+        runs, cur = [], []
+        for y in rows:
+            if cur and y != cur[-1] + 1: runs.append(cur); cur = []
+            cur.append(y)
+        if cur: runs.append(cur)
+        for run in runs:
+            if len(run) < 3: continue
+            y0, y1 = run[0], run[-1]; yc = (y0 + y1) / 2.0; hr = (y1 - y0 + 1) / 2.0
+            L = min(pad, 0.45 * (y1 - y0 + 1))
+            for y in run:
+                k = int(round(L * np.sqrt(max(0.0, 1 - ((y - yc) / (hr + 0.5)) ** 2))))
+                for i in range(1, k + 1):
+                    sx = ex + i if side == 'L' else ex - i     # mirror source inside the art
+                    tx = ex - i if side == 'L' else ex + i
+                    if 0 <= tx < W and 0 <= sx < W and op[y, sx]:
+                        rgba[y, tx] = rgba[y, sx]
+    return rgba
+
+
+MASTER_EDITS = {'baradus': baradus_facial_hair}
+CROWN_FLAT = ('cadmus',)          # a hat crown closes flat with rounded corners, not a dome
+
 
 def rebuild(path):
-    rgba = np.array(Image.open(path).convert('RGBA'))
+    name = os.path.basename(path)
+    PAD = 12
+    raw = np.array(Image.open(path).convert('RGBA'))
+    # lore recolour + drawn edits on the UNPADDED master (their coordinates are the master's own)
+    rrgb = raw[..., :3].astype(int); rmask = raw[..., 3] >= ALPHA
+    for n, table in RECOLOUR.items():
+        if name.startswith(n):
+            for a, b in table.items(): rrgb[(rrgb == a).all(-1)] = b
+    for n, fn in MASTER_EDITS.items():
+        if name.startswith(n): rrgb = fn(rrgb, rmask)
+    raw = raw.copy(); raw[..., :3] = np.clip(rrgb, 0, 255)
+    edited = (rrgb != np.array(Image.open(path).convert('RGBA'))[..., :3]).any(-1)
+    raw[edited, 3] = 255                                 # beard below the chin is opaque art
+    rgba = np.zeros((raw.shape[0], raw.shape[1] + 2 * PAD, 4), np.uint8); rgba[:, PAD:PAD + raw.shape[1]] = raw
+    rgba = complete_sides(rgba, PAD)
     mask = rgba[..., 3] >= ALPHA; rgb = rgba[..., :3].astype(int)
-    for name, table in RECOLOUR.items():
-        if os.path.basename(path).startswith(name):
-            for a, b in table.items(): rgb[(rgb == a).all(-1)] = b
     pal = palette15(rgb, mask)
     idx = to_index(rgb, mask, pal)
-    small = downscale_32(idx, pal)
+    small = downscale_2x(idx, pal) if NATIVE else downscale_32(idx, pal)
     big = np.full((OUT, OUT), -1, np.int16)
     h, w = small.shape; y0 = OUT - h; x0 = (OUT - w) // 2
     big[y0:y0 + h, x0:x0 + w] = small
-    big = crown(big, y0)
+    big = crown(big, y0, flat=name.startswith(CROWN_FLAT))
     big = despeckle(outline(big, pal))
     canvas = np.where(big >= 0, big + 1, 0).astype(np.uint8)
     full = np.zeros((16, 3), int); full[0] = (255, 0, 255); full[1:1 + len(pal)] = pal

@@ -128,3 +128,12 @@ recolor or tweak existing MonoMyth portraits and overworld sprites."
 - Baradus battle sprite: pixels were untouched, but his features (mouth, goatee, jaw shading) are
   palette entry 2 (71,60,57), which vanished against the bronze skin. Skin (166,110,72) and feature
   colour (42,24,18) now keep the original's contrast (baradus_front_face_fix.png).
+
+## Baradus beard v8 (2026-11-16)
+Rejected: strands drawn up from the jaw (read as a black slash; on the battle sprite a dangling tie).
+Rebuilt from a pixel study of MonoMyth #351: the beard is the jaw outline grown thick -- 2 solid rows
+at the chin bottom, 2 rows of strands (dark with skin gaps), a row of flecks, filling the whole chin V;
+the moustache covers the upper lip (mouth row + 1 above, drooping wider), lower lip still visible.
+Beard and moustache use his hair black: no new palette entries. Jaw is identical in all three
+expressions, so one pattern fits; expression creases and the anger teeth are untouched.
+Images: baradus_beard_v8_cmp.png, baradus_beard_v8_chin.png. Sprites wait for portrait approval.
