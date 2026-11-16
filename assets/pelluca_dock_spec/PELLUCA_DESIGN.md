@@ -579,3 +579,16 @@ Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it 
   signposts at the three entrances (Route 11 W, Hoya Delta E, north road); barrels and crates by
   the lab, at the bay jetty and at the second ship's berth.
 - Budget after: primary tiles 506/512, secondary 504/512, palettes 6+7 (full).
+
+## Draft 17 (2026-11-16) -- the "posts" were half a sign (user: "the posts look incomplete")
+- Evidence: primary metatiles 114/115 are the TOP row of the Wood Avens INN signboard (WA cells
+  16-17 y32-33): post caps + the board's top edge in the top layer. The board row (middle layer)
+  was never in the terrain crop, so every use showed floating post tops.
+- Fix (user-approved): the half-sign is gone from all three spots -- the practice yard and cottage 8
+  get the red flower hedge 42/43, the dorm garden two hydrangeas. The whole signboard is now a prop
+  (props.py 'inn', on sand) standing by the tavern's west corner at (23,43); caps walk-behind,
+  board row blocks.
+- Budget after: secondary tiles 512/512 (FULL), primary 506/512, palettes full. Any further new
+  art needs room first (e.g. prune 114/115 and other unused primary pieces).
+- Frame test: v17 run 1 differed at frame 20 (a wandering NPC mid-step); the re-run of the same
+  ROM matched baseline (only the known frame 1), so frame 20 was harness noise.

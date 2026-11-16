@@ -11,6 +11,9 @@ stone) by swapping the bottom layer -- the palm's technique.
   barrel   Mandrake barrel, cell 46,19 (1x1)                    -> harbour
   produce  Mandrake crate (greens -> its own dark wood: goods), cell 48,23 (1x1)           -> harbour
   crate    Mandrake tall crate, cells 46 y23-24 (1x2)           -> harbour
+  inn      Wood Avens INN signboard, cells 16-17 y32-33 (2x2)  -> the tavern (user 2026-11-16).
+           Its top row (post caps) was already in the terrain crop as 114/115 without the board
+           row -- the half-sign that read as 'incomplete posts'; now imported whole.
 
 prop_layers(name) -> (mid, top): RGB images (h*16, w*16, 3), -1 = transparent. Any opaque pixel of
 the source's ground (sand / grass) left in the mid/top layers is cut, so only the object remains.
@@ -21,7 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import build_cormoria as b
 
-CHAMOMILE, FARMSTEAD, MANDRAKE = 0x8694d8, 0x869a18, 0x869548
+CHAMOMILE, FARMSTEAD, MANDRAKE, WOOD_AVENS = 0x8694d8, 0x869a18, 0x869548, 0x869580
 PROPS = {
     'bench':   (CHAMOMILE, (29, 25, 30, 25)),
     'sign':    (FARMSTEAD, (19, 6, 19, 6)),
@@ -29,6 +32,7 @@ PROPS = {
     'barrel':  (MANDRAKE, (46, 19, 46, 19)),
     'produce': (MANDRAKE, (48, 23, 48, 23)),
     'crate':   (MANDRAKE, (46, 23, 46, 24)),
+    'inn':     (WOOD_AVENS, (16, 32, 17, 33)),
 }
 
 

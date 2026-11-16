@@ -3,9 +3,9 @@
  "primary_palettes": 6,
  "secondary_palettes": 7,
  "primary_tiles": 506,
- "secondary_tiles": 504,
+ "secondary_tiles": 512,
  "primary_metatiles": 259,
- "secondary_metatiles": 504,
+ "secondary_metatiles": 508,
  "regions": {
   "wa_terrain": {
    "source_map": "0x869580",
@@ -2994,6 +2994,23 @@
    "grid": [
     [
      1015
+    ]
+   ]
+  },
+  "prop_inn_sand": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     1016,
+     1017
+    ],
+    [
+     1018,
+     1019
     ]
    ]
   },

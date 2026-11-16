@@ -81,3 +81,4 @@ Placed with the map's events (object events, not tiles):
 
 ## Signposts (draft 16): bg_event signs on the post cells, text at the events pass
 - (9,27) west: Route 11 / Pelluca Valley. (71,23) east: Hoya Delta. (36,2) north road.
+- (23-24,44) the tavern's INN board (draft 17): bg_event sign with the inn's name at the events pass.

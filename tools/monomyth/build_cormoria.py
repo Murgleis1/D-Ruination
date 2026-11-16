@@ -595,8 +595,8 @@ def main():
     # town props (props.py: MonoMyth benches/signpost/well/barrel/crate), each on the Pelluca ground
     # it stands on -- the object rides the middle/top layers, the bottom layer is that ground's own.
     import props as pr
-    PROP_GROUND = {'grass': 6, 'stone': 157}
-    PROP_USES = [('bench', 'grass'), ('sign', 'grass'), ('well', 'grass'), ('barrel', 'stone'), ('produce', 'stone')]
+    PROP_GROUND = {'grass': 6, 'stone': 157, 'sand': 163}
+    PROP_USES = [('bench', 'grass'), ('sign', 'grass'), ('well', 'grass'), ('barrel', 'stone'), ('produce', 'stone'), ('inn', 'sand')]
     for pname, gname in PROP_USES:
         pm, pt = pr.prop_layers(pname)
         gk = key_of[PROP_GROUND[gname]]

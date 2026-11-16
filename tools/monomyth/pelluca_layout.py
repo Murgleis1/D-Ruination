@@ -129,18 +129,18 @@ HEDGES = [  # 2-wide flower hedge 42/43, left cell -- not every house (user: mor
     (42, 10), (44, 10),                                    # at the foot of the wood across the north road
     (8, 9), (13, 9),                                       # DORM front: berry hedges either side of the door
     (26, 23), (28, 23),                                    # the monastery garden's edge along the road
+    (32, 8), (56, 29),                                     # where the half-sign stood: yard bed, cottage 8
 ]
 FENCES = [  # rows of picket fence 98: (x0, x1, y)
     (64, 69, 8),                 # house 5's garden
 ]
 LAWNS = [  # framed lawn (x0, y0, x1, y1): 99 100 101 / 108 126 109 / 102 103 104
 ]
-STUMPS = [(56, 29),               # 114 115: chopping stumps by cottage 8
-          (32, 8),                 # training posts in the Academy's practice yard
-          (13, 11)]                # the dorm's clothesline
+STUMPS = []   # 114/115 are only the TOP row of the Wood Avens INN signboard (user: 'posts look
+              # incomplete'); the whole sign is now a prop at the tavern, these spots got flowers
 # FENCED YARDS (Wood Avens construction): 116 98.. 120 / 123 .. 111 / 128 98.. 121; a gate is a gap
 YARDS = [(31, 6, 35, 11, ('S', 33))]   # the Academy's practice yard, gate onto the lane
-HYDRANGEAS = [(34, 7), (34, 10), (32, 10), (10, 9), (15, 9)]     # blue hydrangea (21/117) by fences and the dorm door
+HYDRANGEAS = [(34, 7), (34, 10), (32, 10), (10, 9), (15, 9), (13, 11), (14, 11)]     # blue hydrangea (21/117) by fences and the dorm door
 MUSHROOMS = [(10, 12), (9, 15 - 6)]                            # red mushrooms (36) near the forest edge
 FLOWERS = [(50, 23), (66, 23), (23, 13), (24, 14), (25, 13), (43, 12), (44, 12),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
@@ -152,7 +152,8 @@ BEACH_LAMPS = []
 # TOWN PROPS (props.py; user 2026-11-16 "I'd like all that stuff"), top-left cell
 BENCHES = [(32, 7),                          # Academy practice yard: against the north fence, facing the posts
            (33, 19), (42, 19)]               # the plaza: either side of the north road, facing the fountain
-WELLS = [(15, 11)]                           # dorm garden, beside the clothesline (lid row walk-behind)
+WELLS = [(15, 11)]                           # dorm garden (lid row walk-behind)
+INN_SIGNS = [(23, 43)]                       # the tavern's INN board, by its west corner on the beach
 SIGNS = [(9, 27), (71, 23), (36, 2)]         # town entrances: Route 11 (W), Hoya Delta (E), north road
 CARGO = [('barrel', 38, 42), ('barrel', 38, 43), ('produce', 39, 43),          # by the lab
          ('produce', 58, 40), ('produce', 59, 40), ('barrel', 58, 39),       # bay jetty
@@ -419,6 +420,11 @@ def build(C):
     for x, y in SIGNS:
         if not free(x, y): SKIP.append(('sign', x, y)); continue
         grid[y, x] = PR('sign', 'grass')[0][0]; blocked[y, x] = True
+    for x, y in INN_SIGNS:
+        if not all(grid[y + j, x + i] == 163 for i in (0, 1) for j in (0, 1)): SKIP.append(('inn', x, y)); continue
+        for j in range(2):
+            for i in range(2): grid[y + j, x + i] = PR('inn', 'sand')[j][i]
+        blocked[y + 1, x:x + 2] = True                   # post caps walk-behind, the board blocks
     for n, x, y in CARGO:
         if grid[y, x] != 157: SKIP.append((n, x, y)); continue
         grid[y, x] = PR(n, 'stone')[0][0]; blocked[y, x] = True
