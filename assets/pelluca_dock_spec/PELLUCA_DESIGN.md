@@ -513,3 +513,15 @@ rock outcrop (Old Bay Island 'K') imported.
   a covering surface -- one beach depth from the tavern to the lab, steps only in open sand.
 - Road top edge piece 64 keeps grass in its art layer: its sand twin swaps those pixels.
 Checks: connectivity all doors/exits; ROM builds; frame-identical; verifier clean.
+
+## Draft 9 (2026-11-16) -- a full harbour (user: foam against the stone looked unnatural; the
+## beach should be "below" the stone near the lab)
+- HARBOUR: everything east of the harbour road below the lower cliff is one stone quay (pier
+  kit surface) -- x37-50 down to y46, x51-71 down to y41; the lab stands on it (lab_tower_stone:
+  ground swapped to quay stone), the stairs + cliff foot land on it ('onstone' twins), the pier
+  runs out from its wall, a short jetty in the bay moors the rowboats; lamps on stone.
+- The BEACH is west of the road (tavern, palms). Junction rule: the quay's wall row = the
+  beach's surf row (y46), so the waterline runs straight on into the quay wall, and the wet band
+  tapers off with a water step one column before the stone -- foam never touches stone.
+- Concave quay corners use the Port Ginseng corner pieces 156/158.
+Checks: connectivity all doors/exits; ROM builds; frame-identical; verifier clean.

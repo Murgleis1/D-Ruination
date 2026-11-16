@@ -503,7 +503,32 @@ def main():
         Q[('p', nk, i)] = im
     sand_row.append(nk)
     regions['onsand'] = (None, (0, 0), [sand_row])
-    for name, kind in (('tavern', 'p'), ('lab_tower', 's')):
+    # harbour (user 2026-11-16: a full harbour at the lab; the beach is under the stone): 'on stone'
+    # twins with the quay surface (157 flattened) as ground
+    fl157 = flat(157); stone_q = [fl157[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8] for q in range(4)]
+    def on_base(src_kind_key, new_kind, new_key, attr, base_q):
+        meta_src[(new_kind, new_key)] = (None, attr)
+        for q in range(4): Q[(new_kind, new_key, q)] = base_q[q].copy()
+        for i in range(4, 12):
+            im = Q.get((src_kind_key[0], src_kind_key[1], i))
+            if im is not None: Q[(new_kind, new_key, i)] = im.copy()
+    stone_row = []
+    for mid_ in (11, 45, 46):
+        kk = key_of[mid_]
+        on_base(kk, 'p', ('onstone', mid_), meta_src[kk][1] & 0xFF if meta_src[kk][1] else 0, stone_q)
+        stone_row.append(('onstone', mid_))
+    regions['onstone'] = (None, (0, 0), [stone_row])
+    g_ = regions['lab_tower'][2]; sg = []
+    for r, row in enumerate(g_):
+        sg.append([])
+        for c, key in enumerate(row):
+            if key is None: sg[-1].append(None); continue
+            src = ('s', key) if ('s', key) in meta_src else ('p', key)
+            nk = ('lab_tower_stone', r, c)
+            on_base(src, 's', nk, meta_src[src][1] & 0xFF if meta_src[src][1] else 0, stone_q)
+            sg[-1].append(nk)
+    regions['lab_tower_stone'] = (None, (0, 0), sg)
+    for name, kind in (('tavern', 'p'),):
         g_ = regions[name][2]; sg = []
         for r, row in enumerate(g_):
             sg.append([])

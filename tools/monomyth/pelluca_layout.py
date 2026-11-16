@@ -54,7 +54,6 @@ COBBLE = [
     (0, 28, 28, 30), (26, 24, 28, 30), (26, 24, 30, 26),   # west road (Route 11), jogs north into the west arm
     (47, 24, 79, 26),            # east road (Hoya Delta), straight into the east arm
     (37, 30, 39, 33),            # monument -> lakeshore stairs
-    (37, 36, 39, 46),            # down across the beach; meets the harbour apron's west rim
     (27, 44, 36, 45),            # beach lane -> the tavern door (user: paths to the tavern and lab)
     (26, 13, 36, 14),            # small 2-wide cobbled road: Academy door -> north road (user)
     # LANES (approved plan 2026-11-16): 2-wide cobble from each major door into the main roads
@@ -70,19 +69,25 @@ BEACH = None
 SHORE_TOP = 36
 def _profile():
     s, w = {}, {}
-    for x in range(8, 72):
+    for x in range(8, 37):                 # the beach is WEST of the harbour road
         if x <= 12: s[x] = 44
         elif x <= 24: s[x] = 45
-        elif x <= 50: s[x] = 46            # one depth from the tavern to the lab: no step at the dock
-        else: s[x] = max(40, 46 - (x - 50))   # rises to the east bay's shore at y40
+        else: s[x] = 46                    # surf row y46 = the harbour's wall row: the waterline runs on into the quay wall
         w[x] = s[x] + 2
+    w[36] = 47                             # the wet band tapers (water step) into the harbour corner
     return s, w
 SHORE_S, SHORE_W = _profile()
 WATER = [
     (19, 0, 20, 10),                                       # river from the north (Ivy River)
     (17, 8, 22, 11),                                       # pool where it goes underground (dive spot)
 ]
-PIER = [(40, 45, 48, 46), (43, 47, 45, 48), (40, 49, 48, 52)]   # harbour APRON at the lab door, stem, HEAD
+# HARBOUR (user 2026-11-16): everything east of the harbour road below the lower cliff is one stone
+# quay -- the beach is under the stone. Its seaward wall row is the beach's surf row (y46), so the
+# beach's waterline runs straight on into the quay wall; nowhere does foam meet stone.
+HARBOUR = [(37, 36, 50, 46), (51, 36, 71, 41)]
+HARBOUR_WATER = [(37, 47, 50, 59), (51, 42, 71, 59)]
+PIER = HARBOUR + [(43, 47, 45, 48), (40, 49, 48, 52),           # quay + stem + HEAD
+                  (62, 42, 64, 45)]                              # a short jetty in the bay: the rowboats' mooring
 # (user: the dock stone clashed with the road cobbles -> the dock is its own stone surface; the
 # harbour road ends at the apron's west rim instead of running onto it)
 PIER_LAMPS = [(41, 50), (47, 50)]
@@ -92,12 +97,12 @@ BUILDINGS = {  # name: (x, y) of the grid's top-left; doors land where the warps
     'cadmus_house': (9, 19),   # door (13,23)
     'church': (19, 18),        # Templar Monastery; door (22,27)
     'tavern_sand': (25, 37),   # on the beach; 7 wide (full lodge), moved left (user); door (28,43)
-    'lab_tower_sand': (44, 40),  # on the beach; door (47,44) LOCKED
+    'lab_tower_stone': (44, 40),  # on the harbour quay; door (47,44) LOCKED
 }
 EXTRA_RESIDENCES = [(56, 4)]                      # house 5
 COTTAGES = [(51, 20), (61, 20), (51, 27), (61, 27)]  # houses 6, 7 (door onto the road), 8, 8b; door (x+3, y+3)
 MONUMENT = (31, 21)                                  # wellspring fountain ring, 16x9, fills the plaza
-TRIM = {'lab_tower_sand': [(0, 2), (0, 3), (0, 4), (0, 5), (1, 5), (2, 5), (3, 5), (4, 5)],   # (row, col) -> grass
+TRIM = {'lab_tower_stone': [(0, 2), (0, 3), (0, 4), (0, 5), (1, 5), (2, 5), (3, 5), (4, 5)],   # (row, col) -> grass
         'academy': [(0, 0), (0, 6)],
         'tavern_sand': [(7, 5)]}         # its lamp post stood in the beach lane       # Wood Avens lawn-frame pieces at the roof corners (read as patches)
 
@@ -127,9 +132,10 @@ STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
 FLOWERS = [(50, 23), (56, 22), (66, 23),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
 # beach dressing: palm groups along the cliff foot and framing the tavern, lab and pier (2x3, top-left)
-PALMS = [(9, 36), (12, 38), (16, 36), (19, 39), (22, 37), (33, 37), (33, 41), (41, 40),
-         (44, 36), (47, 37), (50, 39), (54, 36), (57, 37), (63, 36), (66, 37)]
-BEACH_LAMPS = [(40, 38)]                     # lamp on sand by the harbour road (sand twins of 80/89)
+PALMS = [(9, 36), (12, 38), (16, 36), (19, 39), (22, 37), (33, 37), (33, 41)]
+BEACH_LAMPS = []
+HARBOUR_LAMPS = [(40, 36), (42, 40), (49, 42), (55, 38), (62, 38), (69, 38)]   # lamps on stone (pier kit)
+PIER_LAMPS = PIER_LAMPS + HARBOUR_LAMPS
 FLOWER_IDS = (21, 36, 21, 36, 51)
 FLOWER_DENSITY = 0.0
 
@@ -227,6 +233,7 @@ def build(C):
             water[y, x] = m in (162, 175)
             blocked[y, x] = False
     pier = rects(PIER)
+    water |= rects(HARBOUR_WATER)
     water &= ~pier
     K = dict(zip(('N', 'NW', 'NE', 'S', 'SW', 'SE', 'iNW', 'iNE', 'lampT', 'lampB'),
                  man['regions']['pier_kit']['grid'][0]))
@@ -251,6 +258,8 @@ def build(C):
                 elif e: m = 161
                 elif not P(y - 1, x - 1): m = K['iNW']
                 elif not P(y - 1, x + 1): m = K['iNE']
+                elif Wt(y + 1, x + 1): m = 158                       # wall turns: water at the SE diagonal
+                elif Wt(y + 1, x - 1): m = 156
                 else: m = 157
                 grid[y, x] = m
             elif s_ and not w_ and not e:
@@ -276,10 +285,14 @@ def build(C):
     # sand twins where the town meets the beach: the cliff foot, stairs and harbour road
     ONSAND = dict(zip((63, 65, 77, 78, 79, 130, 131, 136, 124, 125, 133, 134, 76, 88, 80, 89, 11, 45, 46, 64),
                       man['regions']['onsand']['grid'][0]))
+    ONSTONE = dict(zip((11, 45, 46), man['regions']['onstone']['grid'][0]))
     for y in range(SHORE_TOP - 1, H):
         for x in range(W):
-            if int(grid[y, x]) in ONSAND and (y == SHORE_TOP - 1 or beach[y, x]):
-                grid[y, x] = ONSAND[int(grid[y, x])]
+            m0 = int(grid[y, x])
+            if y == SHORE_TOP - 1 and pier[SHORE_TOP, x] and m0 in ONSTONE:
+                grid[y, x] = ONSTONE[m0]                          # cliff foot / stairs onto the quay
+            elif m0 in ONSAND and (y == SHORE_TOP - 1 or beach[y, x]):
+                grid[y, x] = ONSAND[m0]
 
     # buildings
     def stamp(name, ox, oy):
