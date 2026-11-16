@@ -78,3 +78,6 @@ Placed with the map's events (object events, not tiles):
 ## Overworld Pokemon (user 2026-11-16): birds enjoying the open lawn by the Academy
 - 2-3 wandering bird Pokemon objects on the open lawn east of the north road (x40-47, y4-11)
   and around the Academy's grounds; species era-appropriate (chosen at the events pass).
+
+## Signposts (draft 16): bg_event signs on the post cells, text at the events pass
+- (9,27) west: Route 11 / Pelluca Valley. (71,23) east: Hoya Delta. (36,2) north road.

@@ -3,9 +3,9 @@
  "primary_palettes": 6,
  "secondary_palettes": 7,
  "primary_tiles": 506,
- "secondary_tiles": 482,
+ "secondary_tiles": 504,
  "primary_metatiles": 259,
- "secondary_metatiles": 497,
+ "secondary_metatiles": 504,
  "regions": {
   "wa_terrain": {
    "source_map": "0x869580",
@@ -2930,6 +2930,70 @@
     [
      1007,
      1008
+    ]
+   ]
+  },
+  "prop_bench_grass": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     1009,
+     1010
+    ]
+   ]
+  },
+  "prop_sign_grass": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     1011
+    ]
+   ]
+  },
+  "prop_well_grass": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     1012
+    ],
+    [
+     1013
+    ]
+   ]
+  },
+  "prop_barrel_stone": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     1014
+    ]
+   ]
+  },
+  "prop_produce_stone": {
+   "source_map": null,
+   "origin": [
+    0,
+    0
+   ],
+   "grid": [
+    [
+     1015
     ]
    ]
   },

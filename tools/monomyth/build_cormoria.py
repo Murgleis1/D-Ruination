@@ -592,13 +592,36 @@ def main():
                     if (sub >= 0).all(-1).any(): Q[('s', nk, L * 4 + q)] = sub.copy()
             palm_grid[-1].append(nk)
     regions['palm'] = (None, (0, 0), palm_grid)
+    # town props (props.py: MonoMyth benches/signpost/well/barrel/crate), each on the Pelluca ground
+    # it stands on -- the object rides the middle/top layers, the bottom layer is that ground's own.
+    import props as pr
+    PROP_GROUND = {'grass': 6, 'stone': 157}
+    PROP_USES = [('bench', 'grass'), ('sign', 'grass'), ('well', 'grass'), ('barrel', 'stone'), ('produce', 'stone')]
+    for pname, gname in PROP_USES:
+        pm, pt = pr.prop_layers(pname)
+        gk = key_of[PROP_GROUND[gname]]
+        gq = [Q.get((gk[0], gk[1], q)) for q in range(4)]
+        if any(v is None for v in gq) or any((gk[0], gk[1], q) in Q for q in range(4, 12)):
+            fl = flat(PROP_GROUND[gname]); gq = [fl[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8] for q in range(4)]
+        pg = []
+        for r in range(pm.shape[0] // 16):
+            pg.append([])
+            for c in range(pm.shape[1] // 16):
+                nk = ('prop', pname, gname, r, c); meta_src[('s', nk)] = (None, 0)
+                for q in range(4): Q[('s', nk, q)] = gq[q].copy()
+                for L, img in ((1, pm), (2, pt)):
+                    for q in range(4):
+                        sub = img[r * 16 + (q // 2) * 8: r * 16 + (q // 2) * 8 + 8, c * 16 + (q % 2) * 8: c * 16 + (q % 2) * 8 + 8]
+                        if (sub >= 0).all(-1).any(): Q[('s', nk, L * 4 + q)] = sub.copy()
+                pg[-1].append(nk)
+        regions[f'prop_{pname}_{gname}'] = (None, (0, 0), pg)
     blank_q = [k for k in Q if (k[0], k[1]) in blank]   # popped AFTER both colour merges: pruning first
     print(f'pruning {len(blank)} metatiles ({len(blank_q)} layer quads)')   # shifted approved art (quay went lavender)
     # ---- palette room: snap the NEW art's colours (cottage, monument) to the nearest colour the
     # tilesets already use, within SNAP_TOL, so they share palettes instead of adding them.
     SNAP_TOL = float(os.environ.get('SNAP_TOL', '48'))
     newk = {k for k in Q if k[1][0] == 'cottage'}      # the monument keeps its own 15 colours
-    base_cols = np.array(sorted({tuple(v) for k, im in Q.items() if k not in newk
+    base_cols = np.array(sorted({tuple(v) for k, im in Q.items() if k not in newk and k[1][0] != 'prop'
                                  for v in im.reshape(-1, 3) if v[0] >= 0}), int)
     snapped = 0
     for k in newk:
@@ -611,7 +634,7 @@ def main():
     # ---- colour merge (one map over everything)
     # The cottage stays OUT of the merge (its colours shifted the clusters of every other
     # building: buildings packed into 8 instead of 7); it snaps to the merged colours after.
-    allbytes = {im.tobytes() for k, im in Q.items() if k[1][0] not in ('cottage', 'monument', 'palm')}
+    allbytes = {im.tobytes() for k, im in Q.items() if k[1][0] not in ('cottage', 'monument', 'palm', 'prop')}
     # ANCHOR: the approved build's colour map is frozen in data/merge_anchor.json. Re-running the
     # clustering on new inputs shifts approved colours (measured: quay stone moved 16-24 when
     # the tavern grew a column), so known colours keep their mapping and new ones snap.
@@ -721,7 +744,8 @@ def main():
     # other cottage quad into the palette sharing most of its colours (missing colours snap to
     # that palette's nearest). Measured: without this the cottage costs 2 palettes.
     is_cot = lambda k: k[1][0] in ('cottage', 'monument', 'pier', 'palm', 'cave_mouth')     # the NEW art fits around the approved art
-    b_left = [cs(v) for k, v in Q.items() if k[0] == 's' and not is_cot(k) and not any(cs(v) <= p for p in all_terr)]
+    is_prop = lambda k: k[1][0] == 'prop'          # props fit LAST, into the finished palettes (below)
+    b_left = [cs(v) for k, v in Q.items() if k[0] == 's' and not is_cot(k) and not is_prop(k) and not any(cs(v) <= p for p in all_terr)]
     bp = pp.pack_best(b_left, tries=300) if b_left else []
     if os.environ.get('PACK_SWEEP'):
         allp = [keyset(k) for k in wa_k] + [RES_PACK] + co_left
@@ -736,7 +760,7 @@ def main():
             alt = pp.pack_best(b_left, tries=1500, seed=seed)
             if len(alt) < best: best = len(alt); print(f'  seed {seed}: buildings pack into {best}')
         print(f'  sweep best {best} (default {len(bp)})')
-    cot_k = [k for k in Q if is_cot(k) and not any(cs(Q[k]) <= p for p in all_terr + bp)]
+    cot_k = [k for k in Q if is_cot(k) and not is_prop(k) and not any(cs(Q[k]) <= p for p in all_terr + bp)]
     print(f'before cottage: spill {len(spill)}, buildings {len(bp)}; cottage quads needing a palette: {len(cot_k)}')
     if cot_k:
         room = (7 - len(spill) - len(bp)) + (6 - len(ppals))
@@ -762,6 +786,30 @@ def main():
         ppals = ppals + cp_[:free_p]             # a free SHARED slot may hold Pelluca-only art: other
         bp = bp + cp_[free_p:]                   # towns just don't use it (revisit with the 2nd city)
     spals = spill + bp
+    # Props fit into the palettes as they stand: every approved piece (cottage included) keeps
+    # its palettes and so its exact colours. A prop quad joins the palette sharing most of its
+    # colours; that palette takes the missing colours while it has free entries (same RGB for
+    # everything already in it), the rest snap to its nearest colour.
+    prop_k = [k for k in Q if is_prop(k)]
+    PP = [set(P) for P in ppals] + [set(P) for P in spals]
+    locked = [i for i, P in enumerate(PP) if (RES_U and RES_U <= P) or any(c in SENT for c in P)]
+    added = snapped_p = 0
+    for k in sorted(prop_k, key=lambda k: -len(cs(Q[k]))):
+        im = Q[k]; s_ = cs(im)
+        if any(s_ <= P for P in PP): continue
+        px = np.array([v for v in im.reshape(-1, 3) if v[0] >= 0], int)
+        def err(i):                       # total colour error of this quad snapped into palette i
+            arr = np.array(sorted(PP[i]), int)
+            return np.sqrt(((px[:, None, :] - arr[None]) ** 2).sum(-1)).min(1).sum()
+        i = min((i for i in range(len(PP)) if i not in locked), key=err)
+        for c in sorted(s_ - PP[i], key=lambda c: -sum(1 for v in map(tuple, im.reshape(-1, 3)) if v == c)):
+            if len(PP[i]) < 15: PP[i].add(c); added += 1
+        arr = np.array(sorted(PP[i]), int); f = im.reshape(-1, 3)
+        for j, v in enumerate(f):
+            if v[0] >= 0 and tuple(v) not in PP[i]:
+                f[j] = arr[np.sqrt(((arr - v) ** 2).sum(1)).argmin()]; snapped_p += 1
+    ppals = [frozenset(P) for P in PP[:len(ppals)]]; spals = [frozenset(P) for P in PP[len(ppals):]]
+    print(f'props: {len(prop_k)} quads fitted; {added} colours added to free palette entries, {snapped_p} pixels snapped')
     assert len(ppals) <= 6 and len(spals) <= 7, f'palettes: primary {len(ppals)}/6, secondary {len(spals)}/7'
     print(f'palettes: WA terrain {len(pw)}, coastal {len(pc)}, buildings {len(bp)} -> primary {len(ppals)}, secondary {len(spals)}')
     slots = {i: sorted(p, key=lambda c: (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2])) for i, p in enumerate(ppals)}

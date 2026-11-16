@@ -565,3 +565,17 @@ Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it 
   gate onto the lane), training posts inside, hydrangeas; the forest steps down behind it.
 - DORM: berry hedges and hydrangeas either side of the door, the students' clothesline,
   mushrooms toward the forest.
+
+## Draft 16 (2026-11-16) -- town props (user: "I'd like all that stuff")
+- New art (tools/monomyth/props.py): Chamomile park bench (2x1), Farmstead signpost, Mandrake
+  covered well (1x2, lid row walk-behind), Mandrake barrel, Mandrake crate (its greens -> its own
+  dark wood: a crate of goods). Each sits on Pelluca's own ground by swapping the bottom layer:
+  bench/sign/well on grass (6), barrel/crate on harbour stone (157). 22 secondary tiles, 9 metatiles.
+- Palettes: props fit LAST, into the finished palettes (least colour error, free entries first),
+  so every approved piece -- cottage included -- stays pixel-identical (measured: 0 px outside
+  the 20 changed cells). Sign lettering and bevel take the sign's own outline/body colours.
+- Placed: bench in the Academy practice yard (north fence, facing the posts), two benches either
+  side of the north road facing the fountain; the well in the dorm garden by the clothesline;
+  signposts at the three entrances (Route 11 W, Hoya Delta E, north road); barrels and crates by
+  the lab, at the bay jetty and at the second ship's berth.
+- Budget after: primary tiles 506/512, secondary 504/512, palettes 6+7 (full).

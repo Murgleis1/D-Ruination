@@ -149,6 +149,14 @@ CAVE_MOUTH = (10, 34)                        # Umbra cavern, sealed (author 2026
 PALMS = [(8, 40), (13, 38), (16, 36), (19, 39), (22, 37), (32, 37), (32, 41),
          (35, 36), (35, 40)]                 # two along the beach/harbour edge so it is not one long straight cut
 BEACH_LAMPS = []
+# TOWN PROPS (props.py; user 2026-11-16 "I'd like all that stuff"), top-left cell
+BENCHES = [(32, 7),                          # Academy practice yard: against the north fence, facing the posts
+           (33, 19), (42, 19)]               # the plaza: either side of the north road, facing the fountain
+WELLS = [(15, 11)]                           # dorm garden, beside the clothesline (lid row walk-behind)
+SIGNS = [(9, 27), (71, 23), (36, 2)]         # town entrances: Route 11 (W), Hoya Delta (E), north road
+CARGO = [('barrel', 38, 42), ('barrel', 38, 43), ('produce', 39, 43),          # by the lab
+         ('produce', 58, 40), ('produce', 59, 40), ('barrel', 58, 39),       # bay jetty
+         ('barrel', 67, 40), ('barrel', 68, 40), ('produce', 68, 39)]       # second ship's berth
 # ships + boats are OBJECT events (added with the map's events); drawn on previews only:
 # (gfx, x, y) -- S.S. Tidal at the main pier (locked arrival), a second ship at the bay jetty
 # (user: the docks should look bustling), Mr. Briney's rowboats moored on the jetty's west side
@@ -400,6 +408,20 @@ def build(C):
         if not (free(x, y) and free(x + 1, y)):
             SKIP.append(('stumps', x, y)); continue
         grid[y, x], grid[y, x + 1] = 114, 115
+    PR = lambda n, g: man['regions'][f'prop_{n}_{g}']['grid']
+    for x, y in BENCHES:
+        if not (free(x, y) and free(x + 1, y)): SKIP.append(('bench', x, y)); continue
+        grid[y, x], grid[y, x + 1] = PR('bench', 'grass')[0]; blocked[y, x:x + 2] = True
+    for x, y in WELLS:
+        if not (free(x, y) and free(x, y + 1)): SKIP.append(('well', x, y)); continue
+        grid[y, x], grid[y + 1, x] = PR('well', 'grass')[0][0], PR('well', 'grass')[1][0]
+        blocked[y + 1, x] = True                         # the lid row is walk-behind
+    for x, y in SIGNS:
+        if not free(x, y): SKIP.append(('sign', x, y)); continue
+        grid[y, x] = PR('sign', 'grass')[0][0]; blocked[y, x] = True
+    for n, x, y in CARGO:
+        if grid[y, x] != 157: SKIP.append((n, x, y)); continue
+        grid[y, x] = PR(n, 'stone')[0][0]; blocked[y, x] = True
     CM = man['regions']['cave_mouth']['grid']
     cx_, cy_ = CAVE_MOUTH
     for r in range(2):
