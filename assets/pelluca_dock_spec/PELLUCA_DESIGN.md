@@ -323,3 +323,12 @@ Verify: tavern matches its finished art; every other region still 100% within th
 colour merge. Guardhouse exact-match fell 33% -> 2.4% (merge representatives moved
 once the snow whites left); visually checked: same art, stone slightly cooler.
 Game unchanged: deterministic run 0 frames different.
+
+## Roof colour options (2026-11-15, roof_colour_options.png; ramps in roof_ramps.json)
+Roofs selected by SHAPE + COLOUR (tools/monomyth/roof_mask.py): slate greys also
+appear in foundations/chimneys/frames, so only roof-colour pixels connected to the
+roof's top rows are recoloured. Lab tower exception: its walls and roofs share the
+same blue-greys, so its cone, main roof and porch gable are HAND-MARKED regions.
+Recolour (roof_recolour.py) keeps each pixel's brightness (the shading) and sets a
+new hue; slate is colourised, the church's lavender is re-hued. The lab slate is
+much darker than the others: its options are brightened (x1.6) or pink reads maroon.
