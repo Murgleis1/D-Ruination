@@ -45,7 +45,8 @@ def main():
     src_png = {'0x869580': 'woodavens.png', '0x86960c': 'elderflower.png', '0x86db2c': 'port_86db2c.png', '0x86da30': 'obi_86da30.png'}
     os.makedirs(O, exist_ok=True); report = {}
     for name, r in man['regions'].items():
-        if name == 'church': continue
+        if name in ('church', 'cottage', 'monument'): continue     # finished/composed art: checked on screen
+        pruned = set(man.get('pruned', {}).get('primary', [])) | set(man.get('pruned', {}).get('secondary', []))
         g = r['grid']; x0, y0 = r['origin']; H, W = len(g), len(g[0])
         orig = np.array(Image.open(os.path.join(R, src_png[r['source_map']])).convert('RGB')).astype(int)
         orig = orig[y0 * 16:(y0 + H) * 16, x0 * 16:(x0 + W) * 16]
@@ -68,7 +69,7 @@ def main():
         new = np.zeros_like(orig); mask = np.zeros(orig.shape[:2], bool)
         for y in range(H):
             for x in range(W):
-                if g[y][x] is None: continue
+                if g[y][x] is None or g[y][x] in pruned: continue          # blanked on purpose
                 new[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = draw(g[y][x]); mask[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = True
         if tav_mask is not None:
             mask &= tav_mask

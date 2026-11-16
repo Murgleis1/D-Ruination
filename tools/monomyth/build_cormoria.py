@@ -37,12 +37,13 @@ DROP_BADGES = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 31, 35, 36, 51, 52, 58, 49, 50, 4
 BUILDINGS = [  # name, source map, box (x0,y0,x1,y1) in source cells
     ('academy', WA, (18, 26, 24, 33)), ('cadmus_house', WA, (5, 28, 11, 32)),
     ('lab_tower', WA, (15, 10, 20, 14)), ('residence', WA, (5, 20, 11, 24)),
-    ('tavern', FE, (38, 40, 43, 47)),   # tavern x37/x44 = town wall
+    ('tavern', FE, (int(os.environ.get('TAVERN_X0', '37')), 40, 43, 47)),   # full lodge x37-43 (x38 start cut the left wing off -- user 2026-11-15); x44 = town wall
     # guardhouse (FE keep gate 27,12-34,18) DEFERRED with the north gate (user); re-add then.
 ]
 TERRAIN_EXTRA = [('quay', PG64, (35, 37, 44, 44)), ('sandbank', OB12, (18, 47, 28, 54))]
 CHURCH_ROWS, CHURCH_COLS = range(17, 27), range(0, 7)
 CHURCH_JUNK = {(17, 0), (17, 1), (17, 5), (17, 6), (18, 0), (18, 6)}
+CHURCH_DOOR = (26, 3)          # bottom-centre arch (Evernahn art has no door behaviour)
 TOL = 16
 
 
@@ -169,7 +170,8 @@ def tavern_finished():
                     if im is None: continue
                     oy, ox = (y - y0) * 16 + (q // 2) * 8, (x - x0) * 16 + (q % 2) * 8
                     m = (im >= 0).all(-1); lay[L][oy:oy + 8, ox:ox + 8][m] = im[m]
-    protect = np.zeros(lay[1].shape[:2], bool); protect[6 * 16:8 * 16, 4 * 16:5 * 16] = True   # lamp post
+    sh = 42 - x0                                                   # lamp post column (source x42)
+    protect = np.zeros(lay[1].shape[:2], bool); protect[6 * 16:8 * 16, sh * 16:(sh + 1) * 16] = True
     wa = np.zeros((1, 1, 3))
     from render import render_map  # noqa: F401  (render util lives beside this file)
     import pickle
@@ -177,7 +179,8 @@ def tavern_finished():
     wa = np.array(Image.open(wa_png).convert('RGB')).astype(int)
     leaves, _ = ds.leaf_patch(wa)
     mid, top = ds.desnow_building(lay[1], lay[2], (56, 56, 88), protect, 88, 110, facade_leaves=leaves)
-    mid = ds.patch_from_above(mid, top, lay[1], lay[2], (62, 64, 96, 83), 16, protect)
+    o = (x0 - 38) * -16                                            # boxes were measured with origin x38
+    mid = ds.patch_from_above(mid, top, lay[1], lay[2], (62 + o, 64, 96 + o, 83), 16, protect)
     for img in (mid, top):
         for src, dst in PLUM.items():
             img[(img == np.array(src)).all(-1)] = dst
@@ -274,7 +277,7 @@ def main():
     for (r, c), mids in church.items():
         y, x = (r - CHURCH_ROWS[0]) * 16, c * 16
         mids = [cf[y + qy:y + qy + 8, x + qx:x + qx + 8] for qy in (0, 8) for qx in (0, 8)]
-        meta_src[('s', ('church', r, c))] = (None, 0)
+        meta_src[('s', ('church', r, c))] = (None, 0x60 if (r, c) == CHURCH_DOOR else 0)   # MB_NON_ANIMATED_DOOR
         for q in range(4):
             gi = quad_img(base_grass[0], gq[q])
             if gi is not None: Q[('s', ('church', r, c), q)] = gi
@@ -320,13 +323,98 @@ def main():
                         if (sub >= 0).all(-1).any():
                             Q[('s', key, L * 4 + q)] = sub.copy()
                 g[cy][cx] = key
+    # ---- shared gabled cottage (user 2026-11-15): finished art, own keys, door behaviour from source
+    import cottage as cot, monument as mon
+    cw, chh, cmid, ctop = cot.cottage_finished()
+    cx0, cy0 = cot.BOX[:2]
+    cot_grid = []
+    for r in range(chh):
+        cot_grid.append([])
+        for c in range(cw):
+            key = ('cottage', r, c)
+            _, sattr = src_metatile(FE, cell(FE, cx0 + c, cy0 + r))
+            meta_src[('s', key)] = (None, sattr & 0xFF)
+            for q in range(4):
+                gi = quad_img(base_grass[0], gq[q])
+                if gi is not None: Q[('s', key, q)] = gi
+            for L, img in ((1, cmid), (2, ctop)):
+                for q in range(4):
+                    sub = img[r * 16 + (q // 2) * 8: r * 16 + (q // 2) * 8 + 8, c * 16 + (q % 2) * 8: c * 16 + (q % 2) * 8 + 8]
+                    if (sub >= 0).all(-1).any(): Q[('s', key, L * 4 + q)] = sub.copy()
+            cot_grid[-1].append(key)
+    regions['cottage'] = (FE, (cx0, cy0), cot_grid)
+    # ---- Pelluca's wellspring monument (Chamomile ring + recoloured Watercress fountain)
+    mimg, mblocked = mon.monument()
+    mon_grid = []
+    for r in range(mon.H_CELLS):
+        mon_grid.append([])
+        for c in range(mon.W_CELLS):
+            key = ('monument', r, c)
+            meta_src[('s', key)] = (None, 0)
+            for q in range(4):
+                gi = quad_img(base_grass[0], gq[q])
+                if gi is not None: Q[('s', key, q)] = gi
+            for q in range(4):
+                sub = mimg[r * 16 + (q // 2) * 8: r * 16 + (q // 2) * 8 + 8, c * 16 + (q % 2) * 8: c * 16 + (q % 2) * 8 + 8]
+                if (sub >= 0).all(-1).any(): Q[('s', key, 4 + q)] = sub.copy()
+            mon_grid[-1].append(key)
+    regions['monument'] = (None, (0, 0), mon_grid)
+    MON_BLOCKED = mblocked.tolist()
+    # ---- prune: blank the ART of metatiles no Pelluca map uses; their ids stay (insertion order)
+    prune = json.load(open(os.path.join(HERE, 'data/pelluca_prune.json')))
+    pid, sid, key_of = 1, 512, {}
+    for kind, key in meta_src:
+        if kind == 'p': key_of[pid] = ('p', key); pid += 1
+        else: key_of[sid] = ('s', key); sid += 1
+    in_use = {c for (_, _, g) in regions.values() for row in g for c in row if c}
+    blank = {key_of[i] for i in prune['primary'] if i in key_of}
+    blank |= {('s', key) for kind, key in meta_src if kind == 's' and key not in in_use
+              and not (isinstance(key, tuple) and key and key[0] == 'church')}   # church grid lives outside regions
+    prune = dict(prune, secondary=sorted(i for i, kk in key_of.items() if kk in blank and i >= 512))
+    nq = len(Q)
+    skip = os.environ.get('SKIP_NEW', '')
+    if skip:
+        for k in [k for k in Q if k[1][0] in skip.split(',')]: Q.pop(k)
+    blank_q = [k for k in Q if (k[0], k[1]) in blank]   # popped AFTER both colour merges: pruning first
+    print(f'pruning {len(blank)} metatiles ({len(blank_q)} layer quads)')   # shifted approved art (quay went lavender)
+    # ---- palette room: snap the NEW art's colours (cottage, monument) to the nearest colour the
+    # tilesets already use, within SNAP_TOL, so they share palettes instead of adding them.
+    SNAP_TOL = float(os.environ.get('SNAP_TOL', '48'))
+    newk = {k for k in Q if k[1][0] == 'cottage'}      # the monument keeps its own 15 colours
+    base_cols = np.array(sorted({tuple(v) for k, im in Q.items() if k not in newk
+                                 for v in im.reshape(-1, 3) if v[0] >= 0}), int)
+    snapped = 0
+    for k in newk:
+        im = Q[k]; f = im.reshape(-1, 3)
+        for i, v in enumerate(f):
+            if v[0] < 0: continue
+            d = np.sqrt(((base_cols - v) ** 2).sum(1)); j = d.argmin()
+            if d[j] <= SNAP_TOL and d[j] > 0: f[i] = base_cols[j]; snapped += 1
+    print(f'snapped {snapped} new-art pixels to existing colours (tol {SNAP_TOL})')
     # ---- colour merge (one map over everything)
-    allbytes = {im.tobytes() for im in Q.values()}
-    cmap, ncol = pp.merge_map(allbytes, TOL)
+    # The cottage stays OUT of the merge (its colours shifted the clusters of every other
+    # building: buildings packed into 8 instead of 7); it snaps to the merged colours after.
+    allbytes = {im.tobytes() for k, im in Q.items() if k[1][0] not in ('cottage', 'monument')}
+    # ANCHOR: the approved build's colour map is frozen in data/merge_anchor.json. Re-running the
+    # clustering on new inputs shifts approved colours (measured: quay stone moved 16-24 when
+    # the tavern grew a column), so known colours keep their mapping and new ones snap.
+    APATH = os.path.join(HERE, 'data/merge_anchor.json')
+    if os.path.exists(APATH) and not os.environ.get('DUMP_ANCHOR'):
+        cmap = {tuple(a): tuple(b) for a, b in json.load(open(APATH))}
+        ncol = len(set(cmap.values()))
+    else:
+        cmap, ncol = pp.merge_map(allbytes, TOL)
+        if os.environ.get('DUMP_ANCHOR'):
+            json.dump(sorted([list(map(int, a)), list(map(int, b))] for a, b in cmap.items()), open(APATH, 'w'))
+            print(f'anchor written: {len(cmap)} colours -> {ncol}')
+    merged = np.array(sorted(set(cmap.values())), int)
     def remap(im):
         out = im.copy(); f = out.reshape(-1, 3)
         for k, c in enumerate(map(tuple, f)):
-            if c[0] >= 0: f[k] = cmap[c]
+            if c[0] < 0: continue
+            if c in cmap: f[k] = cmap[c]
+            else:
+                cmap[c] = tuple(merged[np.sqrt(((merged - np.array(c)) ** 2).sum(1)).argmin()]); f[k] = cmap[c]
         return out
     Q = {k: remap(v) for k, v in Q.items()}
     # Coastal pieces (quay, sandbank) took 3 whole palettes for two small features.
@@ -334,13 +422,25 @@ def main():
     # the same strength flattened grass before) packs them into 2 -- checked on screen
     # (coastal_merge_check.png) and numerically (0 of 38 water tiles changed).
     co = {k: v for k, v in Q.items() if k[0] == 'p' and k[1][0] in (PG64, OB12)}
-    cmap2, _ = pp.merge_map({v.tobytes() for v in co.values()}, 24)
+    A2 = os.path.join(HERE, 'data/merge_anchor_coastal.json')
+    if os.path.exists(A2) and not os.environ.get('DUMP_ANCHOR'):
+        cmap2 = {tuple(a): tuple(b) for a, b in json.load(open(A2))}
+        tgt = np.array(sorted(set(cmap2.values())), int)
+        for v in co.values():
+            for c in map(tuple, v.reshape(-1, 3)):
+                if c[0] >= 0 and c not in cmap2: cmap2[c] = tuple(tgt[np.sqrt(((tgt - np.array(c)) ** 2).sum(1)).argmin()])
+    else:
+        cmap2, _ = pp.merge_map({v.tobytes() for v in co.values()}, 24)
+        if os.environ.get('DUMP_ANCHOR'):
+            json.dump(sorted([list(map(int, a)), list(map(int, b))] for a, b in cmap2.items()), open(A2, 'w'))
     is_water = lambda c: c[2] > c[0] + 40 and c[2] > c[1] + 8
     for k, v in co.items():
         f = v.copy().reshape(-1, 3)
         for i, c in enumerate(map(tuple, f)):
             if c[0] >= 0 and not is_water(c) and not is_water(cmap2[c]): f[i] = cmap2[c]
         Q[k] = f.reshape(v.shape)
+    for k in blank_q:
+        Q.pop(k)
     cs = lambda im: frozenset(map(tuple, im.reshape(-1, 3)[(im.reshape(-1, 3) >= 0).all(1)]))
     # ---- palettes. Measured: Wood Avens terrain packs into 4; the coastal pieces
     # (quay, sandbank) need 3 more. Shared slots 0-5 = WA terrain + as many coastal
@@ -388,14 +488,62 @@ def main():
     assert len(RES_PACK) <= 15
     wa_k = [k for k in Q if k[0] == 'p' and k[1][0] == WA]
     co_k = [k for k in Q if k[0] == 'p' and k[1][0] != WA]
+    # Terrain + coast packed JOINTLY (measured: 5 palettes, vs 4 + 2 packed separately) --
+    # same colours, so every approved tile renders identically; one shared slot frees up.
     pw = pp.pack_best([keyset(k) for k in wa_k] + [RES_PACK], tries=300)
     co_left = [keyset(k) for k in co_k if not any(keyset(k) <= p for p in pw)]
-    pc = pp.pack_best(co_left, tries=300) if co_left else []
+    joint = pp.pack_best([keyset(k) for k in wa_k] + [RES_PACK] + co_left, tries=1500, seed=1)
+    pc = []
+    if len(joint) < len(pw) + len(pp.pack_best(co_left, tries=300)): pw = joint
+    else: pc = pp.pack_best(co_left, tries=300) if co_left else []
     ppals = (pw + pc)[:6]
     spill = (pw + pc)[6:]
     all_terr = ppals + spill
-    b_left = [cs(v) for k, v in Q.items() if k[0] == 's' and not any(cs(v) <= p for p in all_terr)]
+    # Cottage (shared house model) packs LAST: if its leftover colour sets would push the
+    # secondary past 7 palettes, keep the palettes that cover most of its quads and fit every
+    # other cottage quad into the palette sharing most of its colours (missing colours snap to
+    # that palette's nearest). Measured: without this the cottage costs 2 palettes.
+    is_cot = lambda k: k[1][0] in ('cottage', 'monument')     # the NEW art fits around the approved art
+    b_left = [cs(v) for k, v in Q.items() if k[0] == 's' and not is_cot(k) and not any(cs(v) <= p for p in all_terr)]
     bp = pp.pack_best(b_left, tries=300) if b_left else []
+    if os.environ.get('PACK_SWEEP'):
+        allp = [keyset(k) for k in wa_k] + [RES_PACK] + co_left
+        bestp = len(pw) + len(pc)
+        for seed in range(1, 41):
+            alt = pp.pack_best(allp, tries=1500, seed=seed)
+            if len(alt) < bestp: bestp = len(alt); print(f'  seed {seed}: terrain+coast pack into {bestp}')
+        cl = pp.pack_best(co_left, tries=1500, seed=3)
+        print(f'  terrain+coast best {bestp} (default {len(pw)}+{len(pc)}); coast alone {len(cl)}')
+        best = len(bp)
+        for seed in range(1, 41):
+            alt = pp.pack_best(b_left, tries=1500, seed=seed)
+            if len(alt) < best: best = len(alt); print(f'  seed {seed}: buildings pack into {best}')
+        print(f'  sweep best {best} (default {len(bp)})')
+    cot_k = [k for k in Q if is_cot(k) and not any(cs(Q[k]) <= p for p in all_terr + bp)]
+    print(f'before cottage: spill {len(spill)}, buildings {len(bp)}; cottage quads needing a palette: {len(cot_k)}')
+    if cot_k:
+        room = (7 - len(spill) - len(bp)) + (6 - len(ppals))
+        cp_ = pp.pack_best([cs(Q[k]) for k in cot_k], tries=300)
+        for nm in ('cottage', 'monument'):
+            sub = [cs(Q[k]) for k in cot_k if k[1][0] == nm]
+            print(f'  {nm}: {len(sub)} quads need {len(pp.pack_best(sub, tries=200)) if sub else 0} palette(s) of their own')
+        print(f'  together: {len(cp_)}; room {room}')
+        if len(cp_) > room:
+            cp_ = sorted(cp_, key=lambda P: -sum(1 for k in cot_k if cs(Q[k]) <= P))[:max(room, 0)]
+            pals_all = all_terr + bp + cp_
+            moved = 0
+            for k in cot_k:
+                im = Q[k]; s_ = cs(im)
+                if any(s_ <= P for P in pals_all): continue
+                P = max(pals_all, key=lambda P: (len(s_ & P), -len(s_ - P)))
+                arr = np.array(sorted(P), int); f = im.reshape(-1, 3)
+                for i, v in enumerate(f):
+                    if v[0] >= 0 and tuple(v) not in P:
+                        f[i] = arr[np.sqrt(((arr - v) ** 2).sum(1)).argmin()]; moved += 1
+            print(f'new art (cottage, monument) fitted into palettes: {moved} pixels snapped')
+        free_p = 6 - len(ppals)
+        ppals = ppals + cp_[:free_p]             # a free SHARED slot may hold Pelluca-only art: other
+        bp = bp + cp_[free_p:]                   # towns just don't use it (revisit with the 2nd city)
     spals = spill + bp
     assert len(ppals) <= 6 and len(spals) <= 7, f'palettes: primary {len(ppals)}/6, secondary {len(spals)}/7'
     print(f'palettes: WA terrain {len(pw)}, coastal {len(pc)}, buildings {len(bp)} -> primary {len(ppals)}, secondary {len(spals)}')
@@ -450,7 +598,7 @@ def main():
     # (every town reuses it); its metatiles stay in each town's secondary so the
     # roof palette can differ per town.
     # Tavern too: every Cormorian town has one (bible), so its art is shared as well.
-    res_keys = {c for name in ('residence', 'tavern') for row in regions[name][2] for c in row if c}
+    res_keys = {c for name in ('residence', 'tavern', 'cottage') for row in regions[name][2] for c in row if c}
     entries = {}
     for k, im in sorted(Q.items(), key=lambda kv: (kv[0][0] != 'p', kv[0][1] not in res_keys)):
         sl = slot_for(im, k[0], k)
@@ -542,8 +690,10 @@ def main():
     man = {'colours_after_merge': ncol, 'primary_palettes': len(ppals), 'secondary_palettes': len(spals),
            'primary_tiles': len(ptiles), 'secondary_tiles': len(stiles),
            'primary_metatiles': len(pmeta), 'secondary_metatiles': len(smeta), 'regions': {}}
+    man['pruned'] = prune
+    man['monument_blocked'] = MON_BLOCKED
     for name, (a, (x0, y0), g) in regions.items():
-        man['regions'][name] = {'source_map': hex(a), 'origin': [x0, y0],
+        man['regions'][name] = {'source_map': hex(a) if a is not None else None, 'origin': [x0, y0],
                                 'grid': [[newid.get(c) if c else None for c in row] for row in g]}
     man['regions']['church'] = {'source': 'Evernahn r17-26 c0-c6', 'grid': [[newid.get(('church', r, c)) for c in CHURCH_COLS] for r in CHURCH_ROWS]}
     json.dump(man, open(os.path.join(S, 'assembly_manifest.json'), 'w'), indent=1)

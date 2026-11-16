@@ -27,21 +27,20 @@ FOREST = [  # (x0, y0, x1, y1) inclusive; x0 even, width even
     (72, 0, 79, 23), (72, 28, 79, 59),        # east belt, gap y24-27 for Hoya Delta
     (8, 0, 17, 3), (22, 0, 35, 3), (42, 0, 71, 3),  # north belt, gaps: river x18-21, road x36-41
 ]
-BANDS = [  # (y, x0, x1, stairs-left-columns)
-    (15, 8, 45, [16, 38]),       # upper terrace -> town (west/centre)
-    (12, 48, 71, [58]),          # upper terrace -> town (east, one tier higher)
-    (34, 8, 71, [24, 38]),       # town -> lakeshore
+BANDS = [  # (y, x0, x1, [(stairs left column, width)]) -- width 3 = 45 46 46, lines up with a 3-wide road
+    (15, 8, 45, [(16, 2), (37, 3)]),   # upper terrace -> town (west/centre); 3-wide under the road
+    (12, 48, 71, [(58, 2)]),           # upper terrace -> town (east, one tier higher)
+    (34, 8, 71, [(24, 2), (37, 3)]),   # town -> lakeshore
 ]
 STEPS = [  # vertical cliff joining two bands: (x, y_top, y_bottom); high ground WEST
     (46, 12, 16),                # 9/10 at the top (east band), 35/11 at the bottom (west band)
 ]
 COBBLE = [
     (37, 0, 39, 14),             # north road to the Ivy River exit
-    (37, 17, 39, 20),            # stairs -> plaza
-    (31, 21, 46, 30),            # plaza
-    (0, 28, 30, 30),             # west road (Route 11)
-    (47, 24, 79, 26),            # east road (Hoya Delta)
-    (37, 31, 39, 33),            # plaza -> lakeshore stairs
+    (37, 17, 39, 20),            # stairs -> the monument's north edge
+    (0, 28, 28, 30), (26, 24, 28, 30), (26, 24, 30, 26),   # west road (Route 11), jogs north into the west arm
+    (47, 24, 79, 26),            # east road (Hoya Delta), straight into the east arm
+    (37, 30, 39, 33),            # monument -> lakeshore stairs
     (37, 36, 39, 43),            # down to the quay
 ]
 QUAY_PAVEMENT = [(10, 44, 50, 45)]           # promenade rows above the quay wall
@@ -54,29 +53,31 @@ WATER = [
 PIER = (43, 47, 45, 52)
 BUILDINGS = {  # name: (x, y) of the grid's top-left; doors land where the warps go
     'academy': (24, 5),        # door (27,12)
-    'residence': (10, 4),      # Osrid's cover house, by the river; door (13,8)
+    'residence': (10, 4),      # student dormitory (Osrid has a room here), by the river; door (13,8)
     'cadmus_house': (9, 19),   # door (13,23)
     'church': (19, 18),        # Templar Monastery; door (22,27)
-    'tavern': (30, 37),        # door (32,43)
+    'tavern': (30, 37),        # 7 wide (full lodge); door (33,43)
     'lab_tower': (44, 40),     # door (47,44) LOCKED
 }
-EXTRA_RESIDENCES = [(50, 18), (60, 18), (50, 28), (60, 28), (56, 4)]
+EXTRA_RESIDENCES = [(56, 4)]                      # house 5
+COTTAGES = [(51, 19), (61, 19), (51, 29), (61, 29)]  # houses 6, 7, 8, 8b (user: gabled cottages); door (x+3, y+3)
+MONUMENT = (31, 21)                                  # wellspring fountain ring, 16x9, fills the plaza
 TRIM = {'lab_tower': [(0, 2), (0, 3), (0, 4), (0, 5), (1, 5), (2, 5), (3, 5), (4, 5)]}  # (row, col) -> grass
 
 # dressing (positions chosen by hand; every one keeps door fronts, stairs and roads clear)
 LAMPS = [  # lamp post: top (walkable) over base (blocked); left-of-road 76/88, right-of-road 80/89
     (36, 5, 'L'), (40, 5, 'R'), (36, 10, 'L'), (40, 10, 'R'),
-    (30, 21, 'L'), (47, 21, 'R'), (36, 38, 'L'), (40, 38, 'R'),
-    (16, 26, 'L'), (28, 26, 'R'), (59, 27, 'L'), (68, 27, 'R'),
+    (36, 17, 'L'), (40, 17, 'R'), (40, 38, 'R'),
+    (16, 26, 'L'), (29, 27, 'R'), (59, 27, 'L'), (68, 27, 'R'),
 ]
 TREES = [  # single tree 2x3, top-left cell
     (32, 5), (33, 9), (43, 5), (44, 9), (50, 5), (66, 9),
-    (17, 19), (27, 18), (28, 23), (57, 18), (68, 18), (57, 28), (68, 29),
+    (17, 19), (27, 18), (29, 21), (57, 18), (68, 18), (57, 28), (68, 29),
     (10, 37), (15, 39), (20, 37), (27, 37), (42, 36), (50, 36), (55, 37), (62, 36), (67, 38),
     (8, 4), (8, 9),
 ]
 HEDGES = [  # 2-wide flower hedge 42/43, left cell
-    (50, 23), (55, 23), (60, 23), (65, 23), (50, 33), (55, 33), (60, 33), (65, 33),
+    (51, 23), (61, 23), (51, 33), (61, 33),
     (9, 24), (14, 24),
 ]
 LAWNS = [  # framed lawn (x0, y0, x1, y1): 99 100 101 / 108 126 109 / 102 103 104
@@ -125,10 +126,10 @@ def build(C):
             if forest[y, x]: continue
             grid[y, x], grid[y + 1, x] = 10, 11
             blocked[y, x] = blocked[y + 1, x] = True
-        for sx in stairs:
-            grid[y, sx] = grid[y + 1, sx] = 45
-            grid[y, sx + 1] = grid[y + 1, sx + 1] = 46
-            blocked[y, sx:sx + 2] = blocked[y + 1, sx:sx + 2] = False
+        for sx, sw in stairs:
+            for i in range(sw):
+                grid[y, sx + i] = grid[y + 1, sx + i] = 45 if i == 0 else 46
+            blocked[y, sx:sx + sw] = blocked[y + 1, sx:sx + sw] = False
 
     for x, yt, yb in STEPS:
         grid[yt, x], grid[yt + 1, x], grid[yt + 1, x + 1] = 9, 7, 2
@@ -206,6 +207,12 @@ def build(C):
             grid[oy + r, ox + c] = GRASS; blocked[oy + r, ox + c] = False
     for ox, oy in EXTRA_RESIDENCES:
         stamp('residence', ox, oy)
+    for ox, oy in COTTAGES:
+        stamp('cottage', ox, oy)
+    stamp('monument', *MONUMENT)
+    mb = np.array(man['monument_blocked'], bool)
+    mx, my = MONUMENT
+    blocked[my:my + mb.shape[0], mx:mx + mb.shape[1]] = mb    # only the basin blocks; ring paving + lawn walk
 
     free = lambda x, y: grid[y, x] == GRASS
     for x0, y0, x1, y1 in LAWNS:

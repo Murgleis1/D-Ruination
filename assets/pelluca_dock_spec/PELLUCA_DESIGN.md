@@ -410,3 +410,37 @@ crop, snow rocks...); pruning them in the builder fits both houses + a monument.
 Monument candidates: A Chamomile garden fountain, B Watercress statue fountain (the
 only one with a statue), C Pisces octagon fountain. No human/king statue found yet
 (MonoMyth Peak of Kings tileset = thrones/altars; DM tilesets checked: none).
+
+## DECIDED (user, 2026-11-15 late)
+- Residences 6, 7, 8, 8b = FE **gabled cottage** (D, 5x4). Lore: Pelluca Valley is rural but
+  GROWING -- more people come to study to become trainers under Cadmus's programs.
+- Monument = the **Watercress statue fountain**, modified so it differs from MonoMyth's, set in
+  the centre of **Chamomile's paved garden ring enlarged to fill the plaza** (the wellspring fountain).
+- Building 3 is NOT Osrid's cover house: it is the **student dormitory**. Osrid has his own room
+  there so he can watch over and mingle with the students -- he is in charge of security and
+  Cadmus wants him available to students who need help. Keeps the 7-wide Wood Avens timber
+  building (a dorm needs the size). House 5 stays a WA residence (not asked to change).
+
+## Draft 4 (2026-11-15 late, layout_draft4.png)
+User feedback on draft 3 fixed: (1) the TAVERN's left wing was cut off -- the FE lodge is x37-43,
+the box started at x38; now the full 7-wide lodge (door (6,3) of its grid). (2) road + stairs
+misaligned -- roads are 3 wide, WA stairs 2: stairs under a road are now 3 wide (45 46 46),
+verified on screen (stairs_tests option A).
+Built: gabled COTTAGES for houses 6, 7, 8, 8b (plum roof = the tavern's dusk plum, shares its
+palettes); the WELLSPRING MONUMENT fills the plaza (16x9; roads run into its N edge, the
+east arm and -- via a jog beside the church -- the west arm; only the basin blocks).
+Monument recoloured from its own materials (sandstone statue in the ring's brick shades,
+basin in the ring's rim stone) and reduced to exactly 15 colours = one palette.
+Tileset mechanics (tools/monomyth/build_cormoria.py):
+- PRUNE: art of unused metatiles blanked, ids kept (data/pelluca_prune.json for the shared
+  tileset; Pelluca's own unused pieces are found by key). Frees tiles: 497/512 + 462/512.
+- ANCHOR: the approved build's colour merges are frozen (data/merge_anchor*.json). Re-clustering
+  on new inputs moved approved colours (quay stone drifted 16-24 toward lavender) -- now every
+  approved metatile/building is pixel-identical (checked: 73 terrain pieces, academy, Cadmus,
+  lab, residence, church: 0 px changed; tavern differs only where its cut edge was).
+- Terrain + coast palettes packed jointly (5 instead of 4+2); the freed shared slot holds
+  the monument's palette. Cottage fitted into existing palettes (226 px nudged).
+- Church door: MB_NON_ANIMATED_DOOR on its bottom-centre cell.
+- Pelluca metatile ids shift when a building grows: run tools/monomyth/source_collision.py
+  after every rebuild (layout collision table is keyed by id).
+Game: builds; deterministic run frame-identical (no map uses these tilesets yet).
