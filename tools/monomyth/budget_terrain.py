@@ -12,7 +12,7 @@ from romlib import *
 from render import tiles_of, pals_of
 H = {h['addr']: h for h in pickle.load(open(os.environ.get('MONO_HEADERS', '/home/claude/mono/headers.pkl'), 'rb'))}
 _ctx = {}
-MODE = os.environ.get('FLATTEN', 'smart')  # 'merge' = always merge bottom+middle (old count)
+MODE = os.environ.get('FLATTEN', 'triple')  # 'merge' = always merge bottom+middle (old count)
 def ctx(a):
     if a not in _ctx:
         L = H[a]['layout']; pp = pals_of(L['primary']); sp = pals_of(L['secondary'])
@@ -43,7 +43,10 @@ def region_tiles(a, x0, y0, x1, y1, exclude=()):
             e = [u16(base + i * 2) for i in range(12)]
             used = [any(e[k * 4 + j] & 0x3ff for j in range(4)) for k in range(3)]
             for q in range(4):
-                if MODE == 'merge' or all(used):
+                if MODE == 'triple':
+                    # Ruination is triple-layer now (d18a04803): every layer imports as-is.
+                    ims = tuple(quad([e[k * 4 + q]], c) for k in range(3) if used[k])
+                elif MODE == 'merge' or all(used):
                     # 3 layers in use: two must become one. Merge bottom+middle, keep top.
                     ims = (quad([e[q], e[4 + q]], c), quad([e[8 + q]], c))
                 else:

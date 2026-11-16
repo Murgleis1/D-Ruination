@@ -244,3 +244,16 @@ Same hardware, same base (Emerald): 512+512 tiles, 13 BG palettes per map.
 - The field engine already owns all three map BGs (BG1/BG2/BG3); a SPLIT
   metatile writes BG3 + BG1 and blanks BG2. Triple-layer support is a metatile
   FORMAT + DrawMetatile change, not a VRAM change.
+
+## Re-measured under TRIPLE-LAYER (engine d18a04803) — 2026-11-15
+Same approved set; every MonoMyth layer now imports as-is (FLATTEN=triple, the
+budget tool's new default).
+| | 2-layer (merged) | triple-layer |
+|---|---|---|
+| tiles | 985 | **942 / 1024** |
+| palettes, no colour merge | 21 | 16 |
+| palettes, merge tol 8 | 18 | 14 |
+| palettes, merge tol 16 | 13 (0 spare) | **11 (2 spare -> roof colours)** |
+Remaining pressure is from mixing six source maps, not from layering.
+Plan: tol-16 merge (the look approved on screen), 2 spare palettes for
+residence roof variants, ~80 tiles headroom for signs/doors.
