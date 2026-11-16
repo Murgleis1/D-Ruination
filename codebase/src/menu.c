@@ -464,8 +464,11 @@ static void WindowFunc_DrawStandardFrame(u8 bg, u8 tilemapLeft, u8 tilemapTop, u
 
 static void WindowFunc_DrawDialogueFrame(u8 bg, u8 L, u8 T, u8 w, u8 h, u8 paletteNum)
  {
-     FillBgTilemapBufferRect(bg,                                            0,  L - 2,     T - 2, w,     1, DLG_WINDOW_PALETTE_NUM);
-     
+     // Erase a name plate left by WindowFunc_DrawDialogueFrameWithPlate: it occupies row T-2 at
+     // columns L-1 .. L+PW only. Clearing the whole row (width w) wiped the bottom tile row of the
+     // message portrait, which stands on this row at columns 19-28 (2026-11-16: faces cut off).
+     FillBgTilemapBufferRect(bg,                                            0,  L - 1,     T - 2, DLW_WIN_PLATE_SIZE + 2, 1, DLG_WINDOW_PALETTE_NUM);
+
      FillBgTilemapBufferRect(bg,                DLG_WINDOW_BASE_TILE_NUM +  0,  L - 2,     T - 1, 1,     1, DLG_WINDOW_PALETTE_NUM);
      FillBgTilemapBufferRect(bg,                DLG_WINDOW_BASE_TILE_NUM +  1,  L - 1,     T - 1, 1,     1, DLG_WINDOW_PALETTE_NUM);
      FillBgTilemapBufferRect(bg,                DLG_WINDOW_BASE_TILE_NUM +  2,  L,         T - 1, w - 1, 1, DLG_WINDOW_PALETTE_NUM);
