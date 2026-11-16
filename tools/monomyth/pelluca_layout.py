@@ -142,7 +142,7 @@ STUMPS = []   # 114/115 are only the TOP row of the Wood Avens INN signboard (us
 YARDS = [(31, 6, 35, 11, ('S', 33))]   # the Academy's practice yard, gate onto the lane
 FLOWER_BUSHES = [(34, 8), (34, 9)]            # 1-cell red bush: the yard's flower strip along its east fence (user)
 HYDRANGEAS = [(34, 7), (34, 10), (32, 10), (10, 9), (15, 9), (13, 11), (14, 11)]     # blue hydrangea (21/117) by fences and the dorm door
-MUSHROOMS = [(10, 12), (9, 15 - 6)]                            # red mushrooms (36) near the forest edge
+MUSHROOMS = [(10, 12)]                      # red mushrooms (36) near the forest edge ((9,9) dropped: under the dorm hedge)
 FLOWERS = [(50, 23), (66, 23), (23, 13), (24, 14), (25, 13), (43, 12), (44, 12),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
 # beach dressing: palm groups along the cliff foot and framing the tavern, lab and pier (2x3, top-left)
@@ -166,7 +166,7 @@ SHIPS = [('ss_tidal', 44, 54), ('ss_tidal', 67, 45), ('mr_brineys_boat', 60, 43)
 # (the S.S. Tidal moves (44,55)->(44,54) so it lies alongside the pier head; cosmetic, not on the arrival path)
 HARBOUR_LAMPS = [(40, 36), (42, 40), (49, 42), (55, 38), (62, 38), (69, 38)]   # lamps on stone (pier kit)
 PIER_LAMPS = PIER_LAMPS + HARBOUR_LAMPS
-FLOWER_IDS = (21, 36, 21, 36, 51)
+FLOWER_IDS = (21, 36, 21, 36)
 FLOWER_DENSITY = 0.0
 
 
@@ -457,7 +457,9 @@ def build(C):
     for x, y in FLOWERS:
         if not (free(x, y)):
             SKIP.append(('flower', x, y)); continue
-        grid[y, x] = (21, 36, 51)[(x + y) % 3]
+        k = (x + y) % 3                         # 51 was a mushroom on a brick scrap: debris on grass
+        if k < 2: grid[y, x] = (21, 36)[k]
+        else: grid[y, x] = man['regions']['bush1']['grid'][0][(x // 2) % 2]; blocked[y, x] = True
 
     # flowers on open grass, never on a cell in front of a door or next to stairs/roads
     rnd = np.random.default_rng(11)

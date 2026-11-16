@@ -600,3 +600,10 @@ Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it 
 - New primary pieces 'bush1' (2 metatiles): the berry hedge's two rounded ends joined into one
   cell (42 left half + 43 right half, which carries a red flower), and its mirror; alternated.
   Existing tiles and flips only: tile counts unchanged (primary 506, secondary 512).
+
+## Draft 19 (2026-11-16) -- cleanup pass
+- Metatile 51 (a mushroom on a brick scrap) read as debris on grass in five flower spots
+  ((65,6) (44,12) (25,13) (24,14) (66,23)); those take the 1-cell red flower bush instead.
+- The dead mushroom at (9,9) (under the dorm hedge, skipped every build) is removed: the layout
+  now builds with no clash skips. Walk test: every door/exit reached; the only sealed walkable
+  strips are the dorm roof row and the monastery garden strip (both expected).
