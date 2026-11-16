@@ -13,19 +13,17 @@ raw`
     .set LOCALID_FL_CITIZEN, 47
     .set LOCALID_FL_JANIA, 56
 
-    .set LOCALID_DR_TIDAL, 61
-    .set LOCALID_DR_CADMUS, 62
+    .set LOCALID_DR_TIDAL, 21
+    .set LOCALID_DR_CADMUS, 22
 
 `
 
 mapscripts PellucaCity_MapScripts{
     MAP_SCRIPT_ON_TRANSITION {
         setflag(FLAG_VISITED_PELLUCA_CITY)
-        goto(PellucaCity_SetLayout)
     }
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_UNUSED_0x404E, 1: DR_PellucaCity_Arrival
-        VAR_PELLUCA_MAYOR_QUEST, 3: PellucaCityFlooded_MainEvent
     ]    
 }
 
