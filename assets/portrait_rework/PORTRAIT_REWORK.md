@@ -118,3 +118,13 @@ recolor or tweak existing MonoMyth portraits and overworld sprites."
 - Osrid OW v6 installed: his head on Kakugo's body, his OLD outfit by zone (green collar/scarf, dark
   torso, grey armoured arms, tan hands, dark legs; green cloak from behind), the old sheet's own
   colours; original kept at legacy_96px/osrid_ow_original.png (ingame_osrid_ow_v6.png).
+
+## v7 (user 2026-11-16, 14:34)
+- "A weird slight pointiness on many heads": the slope-continued crown met the steep, already
+  CURVING outline at the cut (measured: Eden narrows ~1.3 px/row/side) and closed as a peak.
+  crown() now FITS the head's own curvature -- half-width^2 as a quadratic in y (an ellipse) over the
+  9 rows under the cut -- and extends it until it closes: round, the head's own curve
+  (crowns_v7_vs_originals.png: originals above, rebuilds below; rebuilt_v7_busts.png).
+- Baradus battle sprite: pixels were untouched, but his features (mouth, goatee, jaw shading) are
+  palette entry 2 (71,60,57), which vanished against the bronze skin. Skin (166,110,72) and feature
+  colour (42,24,18) now keep the original's contrast (baradus_front_face_fix.png).

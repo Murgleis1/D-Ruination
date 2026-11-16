@@ -84,40 +84,39 @@ def despeckle(img):
 
 
 def crown(img, top):
-    """The masters' hair runs off the top of their frame (16-56 opaque px on row 0, all but Osrid).
-    v4 capped each cut segment with its own dome, v5 one elliptical dome per head: both read as a
-    LUMP (user, twice) -- an ellipse leaves its base with VERTICAL sides, so where it meets the
-    head's sloping outline the silhouette pinches in. Now the cap CONTINUES the outline: each side
-    keeps the slope the head's edge has over the rows below the cut, plus a gentle quadratic
-    rounding that closes the top -- the outline is smooth (no pinch, no shoulder) by construction.
-    Fill: the hair rows mirrored upward, the cut's dominant hair colours only; existing art is never
-    overwritten."""
-    out = img.copy()
-    H, W = img.shape
-    def edges(y):
+    """Close the hair cut by the masters' top edge (16-56 opaque px on row 0, all but Osrid) by
+    CONTINUING THE HEAD'S OWN CURVE. History (all rejected on screen by the user): per-segment domes
+    (lumps), one ellipse on the cut (pinch -> lump), slope continuation (peaks). Measured on the
+    masters: the outline is already curving at the cut (Eden narrows ~1.3 px/row/side). So the
+    half-width below the cut is fitted as an ellipse -- hw^2 = A + B*y + C*y^2 (C < 0) over the 9
+    rows under the cut, centre from the same rows -- and extended upward until it closes: the
+    crown has the head's own curvature, round, no pinch, no peak. Fill: the hair rows mirrored
+    upward, the cut's dominant hair colours only; existing art is never overwritten."""
+    out = img.copy(); H, W = img.shape
+    ys, hws, cs = [], [], []
+    for y in range(top, min(top + 9, H)):
         xs = np.nonzero(img[y] >= 0)[0]
-        return (int(xs.min()), int(xs.max())) if len(xs) else None
-    e0 = edges(top)
-    if e0 is None or e0[1] - e0[0] < 2: return out
-    k = 4
-    ek = edges(top + k) or e0
-    dl = max(0.0, (e0[0] - ek[0]) / k)      # going up, the left edge moves right by dl per row
-    dr = max(0.0, (ek[1] - e0[1]) / k)      # ... and the right edge moves left by dr per row
-    w0 = e0[1] - e0[0] + 1
-    h = int(min(top, max(2, round(0.45 * w0 / 2))))
-    a = max(0.08, (w0 - (dl + dr) * h) / (2.0 * h * h))
-    band = img[top:top + 4, e0[0]:e0[1] + 1].ravel(); band = band[band >= 0]
+        if len(xs) < 2: continue
+        ys.append(y); hws.append((xs.max() - xs.min() + 1) / 2.0); cs.append((xs.max() + xs.min()) / 2.0)
+    if len(ys) < 4: return out
+    ys = np.array(ys, float); hw2 = np.array(hws) ** 2
+    A, B, C = np.polyfit(ys - top, hw2, 2)[::-1]
+    if C >= -0.02:                                   # straight/diverging sides: close as a half-circle
+        C = -A / max(1.0, hws[0]) ** 2
+    cx = float(np.mean(cs[:4]))
+    band = img[top:top + 4].ravel(); band = band[band >= 0]
     vals, cnt = np.unique(band, return_counts=True)
     hair = [int(v) for v, c in sorted(zip(vals, cnt), key=lambda t: -t[1]) if c >= 0.10 * cnt.sum()]
     for r in range(1, top + 1):
-        left = e0[0] + dl * r + a * r * r; right = e0[1] - dr * r - a * r * r
-        if right < left: break
-        y = top - r
-        for x in range(int(np.ceil(left - 0.25)), int(np.floor(right + 0.25)) + 1):
-            if out[y, x] >= 0: continue
+        t = -r
+        h2 = A + B * t + C * t * t
+        if h2 <= 0.25: break
+        half = np.sqrt(h2); y = top - r
+        for x in range(int(np.ceil(cx - half - 0.25)), int(np.floor(cx + half + 0.25)) + 1):
+            if not (0 <= x < W) or out[y, x] >= 0: continue
             src = img[min(top + r - 1, H - 1), x]
             if src < 0 or src not in hair:
-                src = img[top, x] if img[top, x] in hair else hair[0]
+                src = img[top, x] if 0 <= x < W and img[top, x] in hair else hair[0]
             out[y, x] = src
     return out
 
