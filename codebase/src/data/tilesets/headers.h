@@ -8,7 +8,7 @@ const struct Tileset gTileset_DrBlackReflection =
     .isSecondary = FALSE,
     .tiles = gTilesetTiles_General,
     .palettes = sDrReflectionBlackPalettes,
-    .metatiles = gMetatiles_General,
+    .metatiles = gMetatiles_DrBlack,
     .metatileAttributes = gMetatileAttributes_DrBlack,
     .callback = NULL,
 };

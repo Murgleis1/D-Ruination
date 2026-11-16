@@ -1985,9 +1985,23 @@ static void SetDecorSelectionBoxTiles(struct PlaceDecorationGraphicsDataBuffer *
         CopyTile(&data->image[i * TILE_SIZE_4BPP], data->tiles[i]);
 }
 
-static u16 GetMetatile(u16 tile)
+// Metatiles are triple-layer (fieldmap.h). Decoration data indexes the OLD
+// 2-layer entry order (0-3 first layer, 4-7 second); the conversion moved those
+// entries by layer type: NORMAL +4 (bottom became the BG3 filler), COVERED
+// unchanged, SPLIT second half +4. Map old index -> converted index here.
+static u16 GetDecorMetatileEntry(u16 metatileId, u8 oldIndex)
 {
-    return gTilesetPointer_SecretBaseRedCave->metatiles[tile] & 0xFFF;
+    u8 layerType = (gTilesetPointer_SecretBaseRedCave->metatileAttributes[metatileId] & METATILE_ATTR_LAYER_MASK) >> METATILE_ATTR_LAYER_SHIFT;
+    u8 index = oldIndex;
+
+    if (layerType == METATILE_LAYER_TYPE_NORMAL || (layerType == METATILE_LAYER_TYPE_SPLIT && oldIndex >= 4))
+        index += 4;
+    return gTilesetPointer_SecretBaseRedCave->metatiles[metatileId * NUM_TILES_PER_METATILE + index];
+}
+
+static u16 GetMetatile(u16 metatileId, u8 oldIndex)
+{
+    return GetDecorMetatileEntry(metatileId, oldIndex) & 0xFFF;
 }
 
 static void SetDecorSelectionMetatiles(struct PlaceDecorationGraphicsDataBuffer *data)
@@ -1998,7 +2012,7 @@ static void SetDecorSelectionMetatiles(struct PlaceDecorationGraphicsDataBuffer 
     shape = data->decoration->shape;
     for (i = 0; i < sDecorTilemaps[shape].size; i++)
     {
-        data->tiles[sDecorTilemaps[shape].tiles[i]] = GetMetatile(data->decoration->tiles[sDecorTilemaps[shape].y[i]] * NUM_TILES_PER_METATILE + sDecorTilemaps[shape].x[i]);
+        data->tiles[sDecorTilemaps[shape].tiles[i]] = GetMetatile(data->decoration->tiles[sDecorTilemaps[shape].y[i]], sDecorTilemaps[shape].x[i]);
     }
 }
 
@@ -2058,7 +2072,7 @@ static u8 gpu_pal_decompress_alloc_tag_and_upload(struct PlaceDecorationGraphics
     SetDecorSelectionMetatiles(data);
     SetDecorSelectionBoxOamAttributes(data->decoration->shape);
     SetDecorSelectionBoxTiles(data);
-    CopyPalette(data->palette, gTilesetPointer_SecretBaseRedCave->metatiles[(data->decoration->tiles[0] * NUM_TILES_PER_METATILE) + 7] >> 12);
+    CopyPalette(data->palette, GetDecorMetatileEntry(data->decoration->tiles[0], 7) >> 12);
     LoadSpritePalette(&sSpritePal_PlaceDecoration);
     return CreateSprite(&sDecorationSelectorSpriteTemplate, 0, 0, 0);
 }
@@ -2114,7 +2128,7 @@ static u8 AddDecorationIconObjectFromObjectEvent(u16 tilesTag, u16 paletteTag, u
         SetDecorSelectionMetatiles(&sPlaceDecorationGraphicsDataBuffer);
         SetDecorSelectionBoxOamAttributes(sPlaceDecorationGraphicsDataBuffer.decoration->shape);
         SetDecorSelectionBoxTiles(&sPlaceDecorationGraphicsDataBuffer);
-        CopyPalette(sPlaceDecorationGraphicsDataBuffer.palette, gTilesetPointer_SecretBaseRedCave->metatiles[(sPlaceDecorationGraphicsDataBuffer.decoration->tiles[0] * NUM_TILES_PER_METATILE) + 7] >> 12);
+        CopyPalette(sPlaceDecorationGraphicsDataBuffer.palette, GetDecorMetatileEntry(sPlaceDecorationGraphicsDataBuffer.decoration->tiles[0], 7) >> 12);
         sheet.data = sPlaceDecorationGraphicsDataBuffer.image;
         sheet.size = sDecorShapeSizes[sPlaceDecorationGraphicsDataBuffer.decoration->shape] * TILE_SIZE_4BPP;
         sheet.tag = tilesTag;

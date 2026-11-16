@@ -9,7 +9,12 @@
 #define NUM_PALS_TOTAL 13
 #define MAX_MAP_DATA_SIZE 10240
 
-#define NUM_TILES_PER_METATILE 8
+// Triple-layer metatiles: entries 0-3 = bottom (BG3), 4-7 = middle (BG2),
+// 8-11 = top (BG1), drawn regardless of layer type. The layer type attribute is
+// still used by gameplay code (shop/decoration occlusion checks). Existing
+// 2-layer data was converted by tools/triple_layer/convert_metatiles.py so the
+// game draws exactly what it drew before. Porymap: enable_triple_layer_metatiles=1.
+#define NUM_TILES_PER_METATILE 12
 
 // Map coordinates are offset by 7 when using the map
 // buffer because it needs to load sufficient border

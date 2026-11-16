@@ -137,7 +137,7 @@ static void BuyMenuCollectObjectEventData(void);
 static void BuyMenuDrawObjectEvents(void);
 static void BuyMenuDrawMapBg(void);
 static bool8 BuyMenuCheckForOverlapWithMenuBg(int, int);
-static void BuyMenuDrawMapMetatile(s16, s16, const u16 *, u8);
+static void BuyMenuDrawMapMetatile(s16, s16, const u16 *, bool8);
 static void BuyMenuDrawMapMetatileLayer(u16 *dest, s16 offset1, s16 offset2, const u16 *src);
 static bool8 BuyMenuCheckIfObjectEventOverlapsMenuBg(s16 *);
 static void ExitBuyMenu(u8 taskId);
@@ -796,7 +796,7 @@ static void BuyMenuDrawMapBg(void)
     s16 x, y;
     const struct MapLayout *mapLayout;
     u16 metatile;
-    u8 metatileLayerType;
+    bool8 bg1Free;
 
     mapLayout = gMapHeader.mapLayout;
     GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
@@ -808,39 +808,30 @@ static void BuyMenuDrawMapBg(void)
         for (i = 0; i < 15; i++)
         {
             metatile = MapGridGetMetatileIdAt(x + i, y + j);
-            if (BuyMenuCheckForOverlapWithMenuBg(i, j) == TRUE)
-                metatileLayerType = MapGridGetMetatileLayerTypeAt(x + i, y + j);
-            else
-                metatileLayerType = METATILE_LAYER_TYPE_COVERED;
+            // "Overlap" is TRUE where the menu tilemap is EMPTY: only there may the
+            // map's top layer use BG1, which otherwise holds the menu frame.
+            bg1Free = BuyMenuCheckForOverlapWithMenuBg(i, j);
 
             if (metatile < NUM_METATILES_IN_PRIMARY)
-                BuyMenuDrawMapMetatile(i, j, mapLayout->primaryTileset->metatiles + metatile * NUM_TILES_PER_METATILE, metatileLayerType);
+                BuyMenuDrawMapMetatile(i, j, mapLayout->primaryTileset->metatiles + metatile * NUM_TILES_PER_METATILE, bg1Free);
             else
-                BuyMenuDrawMapMetatile(i, j, mapLayout->secondaryTileset->metatiles + ((metatile - NUM_METATILES_IN_PRIMARY) * NUM_TILES_PER_METATILE), metatileLayerType);
+                BuyMenuDrawMapMetatile(i, j, mapLayout->secondaryTileset->metatiles + ((metatile - NUM_METATILES_IN_PRIMARY) * NUM_TILES_PER_METATILE), bg1Free);
         }
     }
 }
 
-static void BuyMenuDrawMapMetatile(s16 x, s16 y, const u16 *src, u8 metatileLayerType)
+static void BuyMenuDrawMapMetatile(s16 x, s16 y, const u16 *src, bool8 bg1Free)
 {
     u16 offset1 = x * 2;
     u16 offset2 = y * 64;
 
-    switch (metatileLayerType)
-    {
-    case METATILE_LAYER_TYPE_NORMAL:
-        BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[3], offset1, offset2, src);
-        BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[1], offset1, offset2, src + 4);
-        break;
-    case METATILE_LAYER_TYPE_COVERED:
-        BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[2], offset1, offset2, src);
-        BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[3], offset1, offset2, src + 4);
-        break;
-    case METATILE_LAYER_TYPE_SPLIT:
-        BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[2], offset1, offset2, src);
-        BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[1], offset1, offset2, src + 4);
-        break;
-    }
+    // Triple-layer metatiles (see fieldmap.h). Buffer -> BG: [2]=BG3, [3]=BG2, [1]=BG1,
+    // matching the field: bottom -> BG3, middle -> BG2, top -> BG1 (only where the
+    // menu frame does not occupy BG1).
+    BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[2], offset1, offset2, src);
+    BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[3], offset1, offset2, src + 4);
+    if (bg1Free)
+        BuyMenuDrawMapMetatileLayer(sShopData->tilemapBuffers[1], offset1, offset2, src + 8);
 }
 
 static void BuyMenuDrawMapMetatileLayer(u16 *dest, s16 offset1, s16 offset2, const u16 *src)

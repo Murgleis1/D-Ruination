@@ -30,7 +30,8 @@ static void RedrawMapSliceWest(struct FieldCameraOffset *, const struct MapLayou
 static s32 MapPosToBgTilemapOffset(struct FieldCameraOffset *, s32, s32);
 static void DrawWholeMapViewInternal(int, int, const struct MapLayout *);
 static void DrawMetatileAt(const struct MapLayout *, u16, int, int);
-static void DrawMetatile(s32, const u16 *, u16);
+static void DrawMetatile(const u16 *, u16);
+static void DrawDoorMetatile(const u16 *, u16);
 static void CameraPanningCB_PanAhead(void);
 
 static struct FieldCameraOffset sFieldCameraOffset;
@@ -218,7 +219,7 @@ void DrawDoorMetatileAt(int x, int y, u16 *tiles)
 
     if (offset >= 0)
     {
-        DrawMetatile(METATILE_LAYER_TYPE_COVERED, tiles, offset);
+        DrawDoorMetatile(tiles, offset);
         sFieldCameraOffset.copyBGToVRAM = TRUE;
     }
 }
@@ -239,71 +240,52 @@ static void DrawMetatileAt(const struct MapLayout *mapLayout, u16 offset, int x,
         metatiles = mapLayout->secondaryTileset->metatiles;
         metatileId -= NUM_METATILES_IN_PRIMARY;
     }
-    DrawMetatile(MapGridGetMetatileLayerTypeAt(x, y), metatiles + metatileId * NUM_TILES_PER_METATILE, offset);
+    DrawMetatile(metatiles + metatileId * NUM_TILES_PER_METATILE, offset);
 }
 
-static void DrawMetatile(s32 metatileLayerType, const u16 *tiles, u16 offset)
+static void DrawMetatile(const u16 *tiles, u16 offset)
 {
-    switch (metatileLayerType)
-    {
-    case METATILE_LAYER_TYPE_SPLIT:
-        // Draw metatile's bottom layer to the bottom background layer.
-        gOverworldTilemapBuffer_Bg3[offset] = tiles[0];
-        gOverworldTilemapBuffer_Bg3[offset + 1] = tiles[1];
-        gOverworldTilemapBuffer_Bg3[offset + 0x20] = tiles[2];
-        gOverworldTilemapBuffer_Bg3[offset + 0x21] = tiles[3];
+    // Triple-layer metatile: bottom -> BG3, middle -> BG2, top -> BG1 (covers objects).
+    gOverworldTilemapBuffer_Bg3[offset] = tiles[0];
+    gOverworldTilemapBuffer_Bg3[offset + 1] = tiles[1];
+    gOverworldTilemapBuffer_Bg3[offset + 0x20] = tiles[2];
+    gOverworldTilemapBuffer_Bg3[offset + 0x21] = tiles[3];
 
-        // Draw transparent tiles to the middle background layer.
-        gOverworldTilemapBuffer_Bg2[offset] = 0;
-        gOverworldTilemapBuffer_Bg2[offset + 1] = 0;
-        gOverworldTilemapBuffer_Bg2[offset + 0x20] = 0;
-        gOverworldTilemapBuffer_Bg2[offset + 0x21] = 0;
+    gOverworldTilemapBuffer_Bg2[offset] = tiles[4];
+    gOverworldTilemapBuffer_Bg2[offset + 1] = tiles[5];
+    gOverworldTilemapBuffer_Bg2[offset + 0x20] = tiles[6];
+    gOverworldTilemapBuffer_Bg2[offset + 0x21] = tiles[7];
 
-        // Draw metatile's top layer to the top background layer.
-        gOverworldTilemapBuffer_Bg1[offset] = tiles[4];
-        gOverworldTilemapBuffer_Bg1[offset + 1] = tiles[5];
-        gOverworldTilemapBuffer_Bg1[offset + 0x20] = tiles[6];
-        gOverworldTilemapBuffer_Bg1[offset + 0x21] = tiles[7];
-        break;
-    case METATILE_LAYER_TYPE_COVERED:
-        // Draw metatile's bottom layer to the bottom background layer.
-        gOverworldTilemapBuffer_Bg3[offset] = tiles[0];
-        gOverworldTilemapBuffer_Bg3[offset + 1] = tiles[1];
-        gOverworldTilemapBuffer_Bg3[offset + 0x20] = tiles[2];
-        gOverworldTilemapBuffer_Bg3[offset + 0x21] = tiles[3];
+    gOverworldTilemapBuffer_Bg1[offset] = tiles[8];
+    gOverworldTilemapBuffer_Bg1[offset + 1] = tiles[9];
+    gOverworldTilemapBuffer_Bg1[offset + 0x20] = tiles[10];
+    gOverworldTilemapBuffer_Bg1[offset + 0x21] = tiles[11];
 
-        // Draw metatile's top layer to the middle background layer.
-        gOverworldTilemapBuffer_Bg2[offset] = tiles[4];
-        gOverworldTilemapBuffer_Bg2[offset + 1] = tiles[5];
-        gOverworldTilemapBuffer_Bg2[offset + 0x20] = tiles[6];
-        gOverworldTilemapBuffer_Bg2[offset + 0x21] = tiles[7];
+    ScheduleBgCopyTilemapToVram(1);
+    ScheduleBgCopyTilemapToVram(2);
+    ScheduleBgCopyTilemapToVram(3);
+}
 
-        // Draw transparent tiles to the top background layer.
-        gOverworldTilemapBuffer_Bg1[offset] = 0;
-        gOverworldTilemapBuffer_Bg1[offset + 1] = 0;
-        gOverworldTilemapBuffer_Bg1[offset + 0x20] = 0;
-        gOverworldTilemapBuffer_Bg1[offset + 0x21] = 0;
-        break;
-    case METATILE_LAYER_TYPE_NORMAL:
-        // Draw garbage to the bottom background layer.
-        gOverworldTilemapBuffer_Bg3[offset] = 0x3014;
-        gOverworldTilemapBuffer_Bg3[offset + 1] = 0x3014;
-        gOverworldTilemapBuffer_Bg3[offset + 0x20] = 0x3014;
-        gOverworldTilemapBuffer_Bg3[offset + 0x21] = 0x3014;
+// Door animation frames are 8-entry, 2-layer buffers built by field_door.c
+// (not metatiles from a tileset), drawn exactly as the old COVERED layer type:
+// bottom -> BG3, top -> BG2, BG1 cleared.
+static void DrawDoorMetatile(const u16 *tiles, u16 offset)
+{
+    gOverworldTilemapBuffer_Bg3[offset] = tiles[0];
+    gOverworldTilemapBuffer_Bg3[offset + 1] = tiles[1];
+    gOverworldTilemapBuffer_Bg3[offset + 0x20] = tiles[2];
+    gOverworldTilemapBuffer_Bg3[offset + 0x21] = tiles[3];
 
-        // Draw metatile's bottom layer to the middle background layer.
-        gOverworldTilemapBuffer_Bg2[offset] = tiles[0];
-        gOverworldTilemapBuffer_Bg2[offset + 1] = tiles[1];
-        gOverworldTilemapBuffer_Bg2[offset + 0x20] = tiles[2];
-        gOverworldTilemapBuffer_Bg2[offset + 0x21] = tiles[3];
+    gOverworldTilemapBuffer_Bg2[offset] = tiles[4];
+    gOverworldTilemapBuffer_Bg2[offset + 1] = tiles[5];
+    gOverworldTilemapBuffer_Bg2[offset + 0x20] = tiles[6];
+    gOverworldTilemapBuffer_Bg2[offset + 0x21] = tiles[7];
 
-        // Draw metatile's top layer to the top background layer, which covers object event sprites.
-        gOverworldTilemapBuffer_Bg1[offset] = tiles[4];
-        gOverworldTilemapBuffer_Bg1[offset + 1] = tiles[5];
-        gOverworldTilemapBuffer_Bg1[offset + 0x20] = tiles[6];
-        gOverworldTilemapBuffer_Bg1[offset + 0x21] = tiles[7];
-        break;
-    }
+    gOverworldTilemapBuffer_Bg1[offset] = 0;
+    gOverworldTilemapBuffer_Bg1[offset + 1] = 0;
+    gOverworldTilemapBuffer_Bg1[offset + 0x20] = 0;
+    gOverworldTilemapBuffer_Bg1[offset + 0x21] = 0;
+
     ScheduleBgCopyTilemapToVram(1);
     ScheduleBgCopyTilemapToVram(2);
     ScheduleBgCopyTilemapToVram(3);

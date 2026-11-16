@@ -2,6 +2,10 @@ const u16 gMetatiles_Evernahn[] = INCBIN_U16("data/tilesets/primary/evernahn/met
 const u16 gMetatileAttributes_Evernahn[] = INCBIN_U16("data/tilesets/primary/evernahn/metatile_attributes.bin");
 const u16 gMetatiles_General[] = INCBIN_U16("data/tilesets/primary/general/metatiles.bin");
 const u16 gMetatileAttributes_General[] = INCBIN_U16("data/tilesets/primary/general/metatile_attributes.bin");
+// Own metatiles copy: with triple-layer metatiles the layer type no longer picks
+// the BG layers, so the reflection scene's NORMAL override of metatile 161
+// (commit 12170c7cc) must live in the metatile data itself.
+const u16 gMetatiles_DrBlack[] = INCBIN_U16("data/tilesets/primary/general/metatiles_drblack.bin");
 const u16 gMetatileAttributes_DrBlack[] = INCBIN_U16("data/tilesets/primary/general/metatile_attributes_drblack.bin");
 
 const u16 gMetatiles_Petalburg[] = INCBIN_U16("data/tilesets/secondary/petalburg/metatiles.bin");
