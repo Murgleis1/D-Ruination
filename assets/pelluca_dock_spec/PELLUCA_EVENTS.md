@@ -51,3 +51,15 @@ story script here is `DR_PellucaCity_Arrival` (the dock scene).
 - Items x3 (two Poke Balls, one TM ball) — re-hidden on the new layout.
 - Mr. Briney's boats x4 — moored fishing boats at the jetty, or cut (open).
 - Signs: "Main" and "Fishery" — rewritten for Pelluca Valley.
+
+
+## DECISIONS (user, 2026-11-15)
+1. CUT everything Dreamstone Mysteries: "nothing in modern-day Pelluca exists in the empire era."
+2. The Arceus church IS Pelluca's local **Templar Monastery** -> its door goes to the existing
+   PELLUCA_TEMPLAR_MONASTERY interior. Lore: the back of the church holds criminals so they can
+   atone, be properly sentenced, then do community service under the Templars' direction. Eden's
+   jail scene (after she loses to you at the lab) is in a cell in the back of the church.
+3. NO gym and NO Trial fights in Pelluca Valley: it is the starter town, home to key quests, and
+   Cadmus's (and the player's) base of operations. The gym map is retired; the Academy gets its
+   own interior later (not a reused gym).
+4. Mr. Briney's rowboats STAY as an easter egg.
