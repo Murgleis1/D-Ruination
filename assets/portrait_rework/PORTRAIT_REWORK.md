@@ -45,3 +45,17 @@
 - tools/monomyth/mm_portraits.py: every MonoMyth portrait from the ROM (catalogue_*.png).
 - tools/monomyth/mm_overworld.py: every MonoMyth 16x32 overworld sprite, decoded by the game
   itself under emulation (assets/monomyth_ow/catalogue_ow16x32.png), full 9-frame extraction.
+
+## Status 2026-11-16 (v1 in the game)
+- Engine: 80x80 bust at tile rows 4-13 / cols 19-28 on BG0 (palette 13), transparent index 0,
+  standing on the text box frame; SPEAKER_NAME_INLINE prints "Name: " at the start of a message
+  (src/field_message_box.c). Verified on the cold open (ingame_cadmus_v1.png).
+- Art: all 17 registered portraits rebuilt by tools/art/portraits_mm.py from MonoMyth bases
+  (portraits_v1_before_after.png). The old 96x96 masters + build_portraits.py (median-cut
+  quantiser: the source of the transparent-lens / outline-hole / lost-colour bugs) are retired to
+  legacy_96px/.
+- Osrid's base is KAKUGO (user-named): MonoMyth's dark green bug-masked hero, ruby visor eyes,
+  scarf; OW #136, portraits #383-390. Portrait v1: hood -> dark green, visor plate -> cream mask,
+  antennae -> red-orange hair.
+- Next: Osrid OW draft 2 review; extra expressions (Eden wave, Kakugo set for Osrid); Baradus's
+  round sunglasses if wanted; overworld sprites for the other principals from MonoMyth bases.

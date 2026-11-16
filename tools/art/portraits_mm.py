@@ -28,6 +28,12 @@ def C(*v): return tuple(v)
 # ---------------------------------------------------------------------------------------------
 # Character specs: expressions -> MonoMyth index, recolour {base colour: new colour}
 SPECS = {
+    'osrid': dict(exprs={'neutral': 383}, recolour={
+        # bug hood teal -> his dark green; eye glints stay; reds handled by edit_osrid
+        C(40, 144, 144): C(40, 66, 46), C(72, 184, 184): C(70, 104, 74), C(48, 80, 88): C(26, 42, 30),
+        C(72, 104, 104): C(88, 80, 66), C(120, 152, 152): C(128, 116, 96), C(40, 56, 64): C(30, 30, 34),
+        C(144, 56, 56): C(110, 40, 20), C(232, 88, 88): C(210, 96, 40),      # reds kept = hair/studs
+    }, edit='osrid'),
     'glaive': dict(exprs={'neutral': 97, 'positive': 107, 'negative': 104}, recolour={
         # pink-crimson hair -> deep auburn red (his portrait/front pic red)
         C(200, 72, 104): C(160, 52, 40), C(120, 48, 64): C(96, 30, 24), C(248, 96, 88): C(208, 88, 56),
@@ -73,18 +79,46 @@ def edit_kimaris(px, pal):
     Bolt = the orange/yellow pixels (and their outline) above the hair's top edge -> transparent."""
     px = px.copy()
     warm = [i for i in range(1, 16) if pal[i][0] > 180 and pal[i][2] < 90]
-    hair_top = min(y for y in range(80) for x in range(80) if px[y, x] and px[y, x] not in warm and px[y, x] != 1
-                   and y > 0 and all(px[yy, x] not in warm for yy in range(max(0, y - 1), y + 1)))
-    bolt = np.isin(px, warm)
+    bolt = np.isin(px, warm); bolt[25:] = False            # the clip is on top; gold buttons below are kept
     ys, xs = np.nonzero(bolt)
     if len(ys):
-        y0, y1, x0, x1 = ys.min() - 1, ys.max() + 1, xs.min() - 1, xs.max() + 1
-        region = px[max(y0, 0):y1 + 1, max(x0, 0):x1 + 1]
-        region[np.isin(region, warm + [1])] = 0
+        # the clip sits above the hair: clear its whole box (bolt, outline, anti-alias) except
+        # cool hair colours that reach into it
+        y0, y1, x0, x1 = max(ys.min() - 2, 0), ys.max() + 2, max(xs.min() - 2, 0), xs.max() + 3
+        cool = [i for i in range(1, 16) if int(pal[i][2]) >= int(pal[i][0]) + 20]
+        region = px[y0:y1 + 1, x0:x1]
+        region[~np.isin(region, cool)] = 0
     return px
 
 
-EDITS = {'kimaris': edit_kimaris}
+def edit_osrid(px, pal):
+    """The bug's red face plate -> Osrid's cream mask (new entries 13-15); the red antennae above
+    the hood stay red = his hair; red studs on the shoulders stay (bronze-orange)."""
+    px = px.copy()
+    reds = [i for i in range(1, 16) if pal[i][0] > 120 and pal[i][1] < 100 and pal[i][2] < 100]
+    dark_red = min(reds, key=lambda i: int(pal[i].sum())); light_red = max(reds, key=lambda i: int(pal[i].sum()))
+    red = np.isin(px, reds)
+    # red rows fall into bands (measured on #383: antennae 12-29, face plate 37-55, studs 69-74);
+    # the plate is the largest band below the topmost one
+    rows = [y for y in range(80) if red[y].any()]
+    bands, cur = [], [rows[0]]
+    for y in rows[1:]:
+        if y == cur[-1] + 1: cur.append(y)
+        else: bands.append(cur); cur = [y]
+    bands.append(cur)
+    plate = max(bands[1:], key=lambda b: sum(int(red[y].sum()) for y in b))
+    region = np.zeros_like(red); region[plate[0]:plate[-1] + 1, :] = True
+    px[region & (px == dark_red)] = 13
+    px[region & (px == light_red)] = 14
+    return px
+
+
+def mask_palette(pal):
+    pal = pal.copy(); pal[13] = (172, 146, 108); pal[14] = (226, 210, 172); pal[15] = (244, 232, 200)
+    return pal
+
+
+EDITS = {'kimaris': edit_kimaris, 'osrid': edit_osrid}
 
 
 def build(rom):
@@ -94,6 +128,7 @@ def build(rom):
             _, px, pal = P[idx]
             pal2 = recolour(pal, spec['recolour'])
             if spec.get('edit'): px = EDITS[spec['edit']](px, pal)
+            if spec.get('edit') == 'osrid': pal2 = mask_palette(pal2)
             out[(name, expr)] = (px, pal2, idx)
     return out
 
