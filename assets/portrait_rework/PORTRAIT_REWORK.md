@@ -85,3 +85,13 @@ recolor or tweak existing MonoMyth portraits and overworld sprites."
   been located yet: not among the 211 16x32 / 137 32x32 entries of the main graphics table
   (0x93C0F8), not on the Sunbleached Cliffs map's object list (scripted VAR sprite); his dialogue
   text is compressed, so the script can't be traced from it.
+
+## v4 (user 2026-11-16: "you chopped off part of the top of heads")
+- Cause (measured): every master except Osrid's has hair running off its top edge (16-56 opaque px
+  on row 0); the rebuild kept the cut, which reads as a chopped head on a free-standing bust.
+- Fix: crown() closes each cut with an elliptical cap filled from the hair's own rows mirrored
+  upward, restricted to the cut's dominant hair colours (a skin parting on Baradus is excluded),
+  then outlined with the rest (rebuilt_v4_busts.png).
+- KAKUGO found: Sunbleached Cliffs script `addobject 8` -> applymovement -> trainerbattle (no
+  intro) 0x12F; object 8 = graphics id 0xCD. The graphics table really starts at 0x93BF90 (my
+  first table base was 90 entries late). Sheet: assets/monomyth_ow/mm_ow_kakugo.png (10 frames).

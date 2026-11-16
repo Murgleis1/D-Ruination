@@ -83,15 +83,52 @@ def despeckle(img):
     return out
 
 
+def crown(img, top):
+    """The masters' hair runs off the top of their frame (measured: 16-56 opaque px on row 0 for
+    every portrait but Osrid's), which reads as a chopped head once the bust stands free. Close
+    each cut with a rounded crown: an elliptical cap over every cut segment, filled with the hair's
+    own rows mirrored upward (texture and shading continue), outlined later with the rest."""
+    out = img.copy()
+    row = img[top]
+    segs, x = [], 0
+    while x < img.shape[1]:
+        if row[x] >= 0:
+            x1 = x
+            while x1 + 1 < img.shape[1] and row[x1 + 1] >= 0: x1 += 1
+            if x1 - x + 1 >= 3: segs.append((x, x1))
+            x = x1 + 1
+        else: x += 1
+    for xa, xb in segs:
+        hw = (xb - xa + 1) / 2.0; cx = (xa + xb) / 2.0
+        # the crown is HAIR: colours that make up the cut's top rows; a stray colour there (a skin
+        # parting, measured on Baradus) is replaced by the nearest hair colour
+        band = img[top:top + 3, xa:xb + 1].ravel(); band = band[band >= 0]
+        vals, cnt = np.unique(band, return_counts=True)
+        hair = [int(v) for v, c in zip(vals, cnt) if c >= 0.12 * cnt.sum()]
+        n = int(min(top, max(3, round(hw * 0.55))))      # crown height ~ half the cut's half-width
+        for r in range(1, n + 1):
+            half = hw * np.sqrt(max(0.0, 1 - (r / (n + 0.5)) ** 2))
+            for x in range(int(np.floor(cx - half + 0.5)), int(np.floor(cx + half + 0.5)) + 1):
+                if not (xa <= x <= xb): continue
+                src = img[min(top + r - 1, img.shape[0] - 1), x]
+                if src < 0: src = img[top, x]
+                if src not in hair: src = hair[0] if hair else src
+                out[top - r, x] = src
+    return out
+
+
 def rebuild(path):
     rgba = np.array(Image.open(path).convert('RGBA'))
     mask = rgba[..., 3] >= ALPHA; rgb = rgba[..., :3].astype(int)
     pal = palette15(rgb, mask)
     idx = to_index(rgb, mask, pal)
-    small = despeckle(outline(downscale_32(idx, pal), pal))
-    canvas = np.zeros((OUT, OUT), np.uint8)
+    small = downscale_32(idx, pal)
+    big = np.full((OUT, OUT), -1, np.int16)
     h, w = small.shape; y0 = OUT - h; x0 = (OUT - w) // 2
-    canvas[y0:y0 + h, x0:x0 + w] = np.where(small >= 0, small + 1, 0)
+    big[y0:y0 + h, x0:x0 + w] = small
+    big = crown(big, y0)
+    big = despeckle(outline(big, pal))
+    canvas = np.where(big >= 0, big + 1, 0).astype(np.uint8)
     full = np.zeros((16, 3), int); full[0] = (255, 0, 255); full[1:1 + len(pal)] = pal
     return canvas, full.astype(np.uint8)
 
