@@ -63,3 +63,9 @@ story script here is `DR_PellucaCity_Arrival` (the dock scene).
    Cadmus's (and the player's) base of operations. The gym map is retired; the Academy gets its
    own interior later (not a reused gym).
 4. Mr. Briney's rowboats STAY as an easter egg.
+
+## Harbour objects (user 2026-11-16: "put another ship there to show how the docks are bustling")
+Placed with the map's events (object events, not tiles):
+- S.S. Tidal (OBJ_EVENT_GFX_SS_TIDAL) moves (44,55) -> (44,54): alongside the new pier head.
+- A second ship (OBJ_EVENT_GFX_SS_TIDAL) at (67,45), moored on the bay jetty's east side.
+- Mr. Briney's rowboats (easter egg, kept) at (60,43) and (60,45), on the jetty's west side.

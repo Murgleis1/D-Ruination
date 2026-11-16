@@ -132,8 +132,14 @@ STUMPS = [(56, 29)]              # 114 115: chopping stumps by cottage 8
 FLOWERS = [(50, 23), (56, 22), (66, 23),
            (65, 6), (67, 5), (69, 7), (68, 20), (70, 21), (10, 26), (12, 27)]
 # beach dressing: palm groups along the cliff foot and framing the tavern, lab and pier (2x3, top-left)
-PALMS = [(9, 36), (12, 38), (16, 36), (19, 39), (22, 37), (33, 37), (33, 41)]
+PALMS = [(9, 36), (12, 38), (16, 36), (19, 39), (22, 37), (32, 37), (32, 41),
+         (35, 36), (35, 40)]                 # two along the beach/harbour edge so it is not one long straight cut
 BEACH_LAMPS = []
+# ships + boats are OBJECT events (added with the map's events); drawn on previews only:
+# (gfx, x, y) -- S.S. Tidal at the main pier (locked arrival), a second ship at the bay jetty
+# (user: the docks should look bustling), Mr. Briney's rowboats moored on the jetty's west side
+SHIPS = [('ss_tidal', 44, 54), ('ss_tidal', 67, 45), ('mr_brineys_boat', 60, 43), ('mr_brineys_boat', 60, 45)]
+# (the S.S. Tidal moves (44,55)->(44,54) so it lies alongside the pier head; cosmetic, not on the arrival path)
 HARBOUR_LAMPS = [(40, 36), (42, 40), (49, 42), (55, 38), (62, 38), (69, 38)]   # lamps on stone (pier kit)
 PIER_LAMPS = PIER_LAMPS + HARBOUR_LAMPS
 FLOWER_IDS = (21, 36, 21, 36, 51)
@@ -246,7 +252,9 @@ def build(C):
             n, s_, w_, e = Wt(y - 1, x), Wt(y + 1, x), Wt(y, x - 1), Wt(y, x + 1)
             if pier[y, x]:
                 P = lambda yy, xx: 0 <= yy < H and 0 <= xx < W and pier[yy, xx]
-                n, w_, e = not P(y - 1, x), not P(y, x - 1), not P(y, x + 1)   # rims face sand, road and water alike
+                # rims only where stone meets WATER; against sand the paving simply stops (user 2026-11-16:
+                # the rim line between the beach and the dock looked strange)
+                n, w_, e = Wt(y - 1, x), Wt(y, x - 1), Wt(y, x + 1)
                 s_ = not P(y + 1, x) and Wt(y + 1, x)                      # the wall lip only over water
                 if s_ and w_: m = K['SW']
                 elif s_ and e: m = K['SE']
@@ -256,8 +264,8 @@ def build(C):
                 elif n: m = K['N']
                 elif w_: m = 160
                 elif e: m = 161
-                elif not P(y - 1, x - 1): m = K['iNW']
-                elif not P(y - 1, x + 1): m = K['iNE']
+                elif Wt(y - 1, x - 1): m = K['iNW']
+                elif Wt(y - 1, x + 1): m = K['iNE']
                 elif Wt(y + 1, x + 1): m = 158                       # wall turns: water at the SE diagonal
                 elif Wt(y + 1, x - 1): m = 156
                 else: m = 157
@@ -419,6 +427,21 @@ def collision_elevation(grid, blocked, water):
     return coll, elev
 
 
+def paste_ships(img, C):
+    from PIL import Image
+    for gfx, x, y in SHIPS:
+        sp = Image.open(os.path.join(C, f'graphics/object_events/pics/misc/{gfx}.png'))
+        pal = sp.getpalette(); a = np.array(sp)
+        if gfx == 'mr_brineys_boat': a = a[:, :32]            # one frame of the 3-frame sheet
+        h, w = a.shape
+        x0, y0 = x * 16 + 8 - w // 2, (y + 1) * 16 - h
+        for yy in range(h):
+            for xx in range(w):
+                if a[yy, xx] and 0 <= y0 + yy < img.shape[0] and 0 <= x0 + xx < img.shape[1]:
+                    img[y0 + yy, x0 + xx] = pal[a[yy, xx] * 3:a[yy, xx] * 3 + 3]
+    return img
+
+
 def render(grid, C, path):
     from PIL import Image
     pm, sm, draw = lk.tilesets(C); cache = {}
@@ -428,6 +451,7 @@ def render(grid, C, path):
             m = int(grid[y, x])
             if m not in cache: cache[m] = draw(m).astype(np.uint8)
             img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cache[m]
+    img = paste_ships(img, C)
     Image.fromarray(img).save(path)
     return img
 

@@ -525,3 +525,11 @@ Checks: connectivity all doors/exits; ROM builds; frame-identical; verifier clea
   tapers off with a water step one column before the stone -- foam never touches stone.
 - Concave quay corners use the Port Ginseng corner pieces 156/158.
 Checks: connectivity all doors/exits; ROM builds; frame-identical; verifier clean.
+
+## Draft 10 (2026-11-16) -- beach/harbour edge + bustling docks
+- Edge (user: the line between beach and dock looked strange): the pier-kit rim is a WATER edge;
+  against sand it read as a seam. Rims now only where stone meets water; the paving simply stops
+  at the sand, with two palms along the edge so it is not one long straight cut (edge_options:
+  B + D chosen over the rim and over a road strip).
+- Ships are object events; previews draw them (pelluca_layout.SHIPS): S.S. Tidal alongside the
+  pier head, a second ship at the bay jetty, two rowboats (see PELLUCA_EVENTS.md).
