@@ -353,3 +353,11 @@ from the same plank column, Cadmus rust (3C), lab slate (unchanged), residence b
   RESIDENCE_PALETTE_SWAP=False for a town that can afford it.
 - Result: 13/13 palettes, tiles 500 + 489. Verify: every region within its merge
   tolerance (coastal 40 = 16+24 by design). Game unchanged (0 frames differ).
+
+## Tavern = Pokemon Center + Mart (user, 2026-11-15)
+The tavern is the heal point AND the shop, and the centre of most empire-era
+communities. EVERY major city uses the same tavern with a roof colour matching that
+city's vibe. Its art is in the shared primary; its roof colour comes from the town's
+secondary palette. TODO when the second city is built: give the tavern a dedicated
+palette slot (today it shares a building palette in Pelluca), so another city
+redefines one slot to recolour it.
