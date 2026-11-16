@@ -73,3 +73,15 @@ recolor or tweak existing MonoMyth portraits and overworld sprites."
 - Open: our art is a face close-up filling its square, so in game it reads as a square panel, not
   a MonoMyth bust (head + shoulders, transparent around). A true MonoMyth fit needs each portrait
   rebuilt as a bust at MonoMyth's scale -- pending the user's direction.
+
+## v3 (user 2026-11-16: "Rebuild the portraits please") -- in the game
+- tools/art/portrait_rebuild.py: each OWN portrait rebuilt as a MonoMyth-scale bust: the master's
+  own 15 colours only; 3:2 reduction by dominant-colour vote (no blended colours, ties to the
+  darker so lines survive); 1px outline in the darkest NEUTRAL colour; lone-pixel cleanup;
+  bottom-aligned, centred, transparent around (rebuilt_v3_before_after.png, ingame_rebuilt_v3.png).
+- Osrid (user 2026-11-16, 13:05): his overworld sprite is to be designed on KAKUGO's overworld
+  sprite, and his portrait redesigned in MonoMyth's style. Kakugo's portrait = MonoMyth #69/#70
+  (brown spiked helmet, ruby goggle eyes, white scarf, dark coat). His overworld sprite has NOT
+  been located yet: not among the 211 16x32 / 137 32x32 entries of the main graphics table
+  (0x93C0F8), not on the Sunbleached Cliffs map's object list (scripted VAR sprite); his dialogue
+  text is compressed, so the script can't be traced from it.
