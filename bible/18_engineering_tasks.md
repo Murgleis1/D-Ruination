@@ -1143,3 +1143,4 @@ The arrival cutscene depends on this geometry: Osrid warps in at (44,52) and wal
 the pier north, so the walkable elevation-3 column from y52 up to y45 must survive
 the repaint intact.
 
+- `[user 2026-11-16]` **PokéLog region-map page.** Cadmus says the PokéLog "features the latest map of the region, right before the index". The parchment PokéLog currently has per-species area maps but no region-map page ahead of the index. Build one, or adjust the line.

@@ -1,6 +1,6 @@
 # Dreamstone Ruination: Chapter 1, full script (opening to Eden's imprisonment)
 
-Review copy, generated 2026-11-16. **[IN GAME]** sections are exactly what the game shows now. **[DRAFT]** sections are the approved-so-far draft and are not in the game yet. Speaker names are shown on every line here for clarity; in game a name appears only when the speaker changes. Each paragraph is one text box (or a page of narration).
+Review copy, generated 2026-11-16. **[IN GAME]** sections are exactly what the game shows now. Speaker names are shown on every line here for clarity; in game a name appears only when the speaker changes. Each paragraph is one text box (or a page of narration).
 
 ## 1. Opening narration: Professor Tenebris  [IN GAME]
 
@@ -16,7 +16,7 @@ Review copy, generated 2026-11-16. **[IN GAME]** sections are exactly what the g
 
 > What follows is the story of the people who laid the foundation for the modern era, or at least as much of it as I have been able to piece together.
 
-> So much time has passed since then... and yet what happened in Cormoria back then echoes so loudly, even now, into the present day...
+> So much time has passed since then... and yet what happened to the Empire echoes so loudly, even now, into the present day...
 
 ## 2. The letter and Osrid's reply  [IN GAME]
 
@@ -84,43 +84,57 @@ This lab is my personal environment, and a place where we can communicate openly
 
 **Cadmus:** Will you let me see your face?
 
-**Prince Osrid:** ...No. I could not bear it. It is a complete ruin.
+**Prince Osrid:** ...No. I can't. It is a complete ruin.
 
-**Cadmus:** ...I understand. I will not press the matter.
+**Cadmus:** ...If that is how you feel now, I will not press the matter further.
+
+**Cadmus:** Being here together after all this time... it fills my heart with joy.
 
 The last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?
 
-**Prince Osrid:** I remember the tree.
+**Prince Osrid:** I remember the tree. Rhydia wouldn't stop laughing.
 
-**Cadmus:** How I miss those days.
+**Cadmus:** How I miss those days...
 
 **Cadmus:** But alas, let us speak about the present, and your immediate future.
 
-To the Empire, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally reassigned to the Ministry of Education.
+To the Empire right now, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally reassigned to the Ministry of Education.
 
-The Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you... along with most places in the Empire.
+The Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you. And under my authority, most places in the Empire are open to you as well.
 
 **Cadmus:** There is a dormitory northwest of here with your cover name on the door, the largest study on the first floor. It isn't much, but the door locks and the bed is comfy.
 
-**Prince Osrid:** And the “real” reason I am here?
+**Prince Osrid:** That's all well and good. But why, after ten years, did you finally bring me home? After Father's assassination, I thought-
 
-**Cadmus:** It is as you probably guessed. Earn the Trial Badges. All of them.
+**Cadmus:** Because there was too much back then I didn't know... only that you were the next target.
 
-A Rainhawk who holds every badge has the right to challenge the Champion. She is someone you know quite well... someone who loves you even more than I do.
+I barely had the political means to protect your sister and mother, and I needed to take drastic measures to hide you, which is why my agents and I established a false identity for you and sent you overseas.
 
-**Prince Osrid:** My sister.
+But now... I have a clearer idea of what is happening in Cormoria, and of who I believe killed your father.
 
-**Cadmus:** Your sister. Rhydia has held the title for five years now, and she rules the Empire in your mother's name besides.
+The time was right to bring you home, though I wish to Arceus it were under better circumstances.
 
-A man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him.
+**Cadmus:** So, you have two missions, and we will discuss the first now.
 
-**Prince Osrid:** Does she know I'm here?
+A Rainhawk who clears every Trial has the right to challenge the Champion. She is someone you know quite well... someone who loves you even more than I do.
 
-**Cadmus:** No, though in time this could change.
+**Prince Osrid:** My sister, huh. She got her starter right before you sent me away, if I recall.
 
-**Cadmus:** Let us move on, however. What are Pokémon, to you?
+**Cadmus:** Your sister. Rhydia has held the Champion title for five years now, and she rules the Empire in your mother's name besides.
 
-**Prince Osrid:** ...Assets. You keep them fed, you keep them sharp, and you use them carefully.
+She is one of the most talented Trainers we have seen in generations, but our enemies are closing in... I believe her power will not be enough to save Cormoria.
+
+A man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him at that point.
+
+**Prince Osrid:** Does Rhydia know I'm here? What about my mother?
+
+**Cadmus:** Neither of them does, though we will make sure they know when the time is right.
+
+**Cadmus:** Let us move on, however, to the most critical topic.
+
+My Prince... what are Pokémon to you?
+
+**Prince Osrid:** ...Tools. You keep them fed, you keep them sharp, and you use them carefully to control outcomes upon the battlefield.
 
 **Cadmus:** Those sound like Surge's words.
 
@@ -128,97 +142,133 @@ A man who beats the Champion in front of the whole Empire can tell everyone who 
 
 **Cadmus:** Certainly they did... but they also left you burned to ashes on that beach.
 
-**Prince Osrid:** Enough.
+**Prince Osrid:** Enough debate.
 
-Those balls behind you... are those Starter Pokémon? I thought those were only given to noble children.
+Those balls behind you... are those starter Pokémon? I thought those were only given to noble children.
 
-**Cadmus:** Usually. These three are different.
+**Cadmus:** Usually. These three are different, and all are one of a kind.
 
-Read the note beside each one before you choose. I wrote them myself, so forgive the handwriting.
+One of them shall be your first step toward becoming who you were always meant to be.
 
-**Prince Osrid:** Choose? Me?
+**Prince Osrid:** It feels surreal to be able to choose a partner of my own at twenty. If things had been different, I would have gotten my own before I was sent away...
 
-**Cadmus:** Yes, you. Before you choose, however, you must take this.
+**Cadmus:** We cannot change the past, my Prince, but perhaps there is a silver lining...
+
+In any case, read the note beside each one before you choose. I wrote them myself, so forgive the handwriting.
+
+**Prince Osrid:** I will.
+
+**Cadmus:** Also, before you choose, please take this.
 
 You'll be meeting a great many Pokémon from here on, and you should keep a record of them. I will explain in greater detail later.
 
 *Osrid received the PokéLog!*
 
-**Cadmus:** The Log is merely paper and ink. It isn't elaborate, but it will serve us well. Write down each one you meet, what it is and how it fights, in your own hand.
+**Cadmus:** The Log is standard for all new Trainers in the current era. It isn't elaborate, but it will serve us well.
 
-In the army, someone else wrote the reports and you read them. This time, you see each Pokémon for yourself.
+Write down each one you meet, what it is and how it fights, in your own hand. It also features the latest map of the region, right before the index.
 
-**Prince Osrid:** Understood.
+**Prince Osrid:** Thank you. I will choose now.
 
-## 5. The starter notes beside each ball  [DRAFT]
+**Cadmus:** Proceed, my Lord. This is an important choice.
 
-**Frigibax:** Heraldic Frigibax. I hatched this one from an egg I found on Mt. Mirroh. Note its coloring. In all my years I have never seen another like it. It favors Dragon and Ice moves, though it will learn a great deal more if you are patient with it. Its final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years. One old text claims it can grow stronger still with the help of a special stone. I have yet to find anything that confirms it.
+## 5. The starter notes beside each ball  [IN GAME]
 
-**Teddiursa:** Bloodmoon Teddiursa. Whispers of a Blood Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east. Much about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines.
+*Heraldic Frigibax.*
 
-**Tinkatink:** Dragonmaul Tinkatink. I came across this egg in the dunes north of Mt. Ceram a few months ago, and I still can scarcely believe my luck. The Tinkatink clans of Cormoria's deserts are said to share this coloring, and to learn moves suited to hunting dragons, and even other Fairy types. A colleague tells me a Cormorian Tinkaton can grow stronger still with some rare material worked into its gear. I have not been able to confirm it.
+*I hatched this one from an egg I found on Mt. Mirroh. Note its coloring. In all my years I have never seen another like it.*
 
-## 6. The theft  [DRAFT]
+*It favors Dragon and Ice moves, though it will learn a great deal more if you are patient with it.*
 
-*The lamps go out. When they come back, a young woman stands at the table with one of the balls in her hand.*
+*Its final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.*
 
-**Cadmus:** ...Someone has put out my lamps. How very rude.
+*One old text claims it can grow stronger still with the help of a special stone. I have yet to find any proof that confirms this, however.*
 
-**Thief:** Don't mind me, gentlemen. I'll only be a moment.
+*Take the Heraldic Frigibax as your partner?*
 
-**Cadmus:** Oh, do take your time. There is nowhere for you to go.
+*Bloodmoon Teddiursa.*
 
-**Thief:** Mmm... I'd worry less about where I'm going, and more about who's expecting me when I get there.
+*Whispers of a Blood Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.*
+
+*Much about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines.*
+
+*Take the Bloodmoon Teddiursa as your partner?*
+
+*Dragonmaul Tinkatink.*
+
+*I came across this egg in the dunes north of Mt. Ceram a few months ago, and I still can scarcely believe my luck.*
+
+*The Tinkatink clans of Cormoria's deserts are said to share this coloring, and to learn moves suited to hunting dragons, and even other Fairy types.*
+
+*A colleague tells me these clans can grow stronger still with some rare material worked into their gear. I have not been able to confirm it.*
+
+*Take the Dragonmaul Tinkatink as your partner?*
+
+## 6. The theft  [IN GAME]
+
+**Cadmus:** ...The lamps just went out. It seems we have an uninvited guest.
+
+**Thief:** Don't mind me, gentlemen. This won't take long.
+
+**Cadmus:** There is nowhere for you to go, little thief.
+
+**Thief:** Mmm... I have my ways. But I have what I need now, so I'll just-
 
 **Cadmus:** Neptune. Bar the door, and keep one eye on the window. If she runs, pin her. Gently.
 
 *Neptune, Cadmus's Jousteel, takes the doorway. The room suddenly feels much smaller.*
 
-**Thief:** ...Nobody said anything about a Jousteel.
+**Thief:** ...Nobody said anything about a Jousteel...
 
-**Thief:** Doesn't matter. Lay a hand on me and you'll have a lot of explaining to do, Vizier. Bigger people than you want this delivered.
+**Thief:** ...But it doesn't matter. Lay a hand on me and you'll have a lot of explaining to do, Vizier. Bigger people than you want this delivered.
 
 **Cadmus:** Bigger people, you say? No person stands above my authority except the Empress, child.
 
 **Cadmus:** Unless... hmm. Could this be...?
 
-**Cadmus:** How kind of them, to drop a lead right into my lap.
+**Cadmus:** How kind of THEM to drop a lead right into my lap.
 
 **Thief:** ......
 
-**Thief:** I work alone, Vizier.
+**Thief:** I... I work alone, Vizier.
 
-**Cadmus:** Of course you do. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
+**Cadmus:** Of course you do. I'm looking forward to hearing ALL about it.
 
-*Osrid steps between the thief and the table.*
+**Cadmus:** Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
 
-**Thief:** ...And nobody mentioned you, either. Who might you be? Is that a mending mask? From Athanto? That's worth more than this whole lab.
+*You step between the thief and the table.*
 
-**Nomad Alban:** Put it back.
+**Thief:** ...And nobody said anything about a soldier, either.
+
+**Thief:** Who might you be? Is that a mending mask? From Athanto? That's worth more than this whole lab.
+
+**Nomad Alban:** Put the ball back and surrender quietly.
 
 **Thief:** If you want it so badly, come and take it. Pilfer, up!
 
-*Battle: Brigand ???*
+*[Battle: Brigand ???. On defeat, in battle:]*
 
-**Thief (on defeat, in battle):** Wh-what? You've had that Pokémon for five minutes!
+**Thief:** Wh-what? You've had that Pokémon for less than two minutes!
 
 **Thief:** How did you crush me so easily? I even picked the starter that was strong against yours!
 
-**Thief:** Who are you? No... WHAT are you?
+Who are you? No... WHAT are you?
 
-**Nomad Alban:** Nomad Alban. Rainhawk.
+**Nomad Alban:** Nomad Alban. I'm the youngest Rainhawk in history.
 
-**Thief:** Never heard of you.
+**Thief:** Never heard of you!
 
-**Nomad Alban:** Good. Keep it that way.
+**Nomad Alban:** That's fine. I've never heard of you either.
 
-**Thief:** Hah. Enjoy it while it lasts, Nomad Alban. People like me don't stay in cells for long.
+**Thief:** Hah... you've got a sharp tongue on you, Nomad. Just know that people like me don't stay in cells for long.
 
-**Thief:** And when I'm out, I want a rematch.
+And when I'm out, I want a rematch... with relish.
 
-**Cadmus:** The Templars keep their holes very deep, and very dark. I would get comfortable, if I were you. Neptune, our guest is leaving. Escort her.
+**Cadmus:** A rematch that will never happen. The Templars keep their holes very deep, and very dark. And they are not known for their mercy.
 
-## 7. The Templar holding cell  [DRAFT]
+Neptune, our guest is leaving. Escort her.
+
+## 7. The Templar holding cell  [IN GAME]
 
 *Later, in a holding cell beneath the Templar monastery.*
 
@@ -234,45 +284,67 @@ In the army, someone else wrote the reports and you read them. This time, you se
 
 **Eden:** For now.
 
-**Nomad Alban:** Who sent you?
+**Cadmus:** Who sent you?
 
-**Eden:** Nobody you'd want to meet, Rainhawk. And nobody who'll leave me down here for long.
+**Eden:** Nobody you'd want to meet, Vizier Umbra. And nobody who'll leave me down here for long.
 
 *She glances at the bars, then away.*
 
 **Eden:** ...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk.
 
-**Eden:** You fight like a soldier, you know. Your little partner did all the work back there, and you never said one word to it. Just orders.
+**Eden:** You really did fight well, Nomad Alban. Your little partner there beat Pilfer to a pulp, and yet you never said one word to it. Just gestures.
 
 *A pause.*
 
-**Eden:** Just saying.
+**Eden:** Just saying... that's pretty amazing. I mean it.
 
-**Templar:** Vizier. Rainhawk. I must ask you to leave her with me now.
+**Templar:** Vizier. Rainhawk. I must ask you to leave her with me now. She is trying to buy time... though for what reason, I do not know.
 
 **Cadmus:** Of course. Come, Rainhawk. We have much to discuss.
 
-## 8. Back at the lab: the shard briefing  [DRAFT]
+**Eden:** I'll be seeing you again, Rainhawk. When I make a promise, I keep it.
 
-**Cadmus:** That girl knew exactly where to look, and exactly what to take. Someone told her both.
+**Nomad Alban:** If the fates allow it, I'll welcome it... Eden.
+
+## 8. Back at the lab: the shard briefing  [IN GAME]
+
+**Cadmus:** That girl knew exactly where to look, and exactly what to take. Someone knows more about this place than they should.
+
+But just how could that be...
 
 **Prince Osrid:** Someone who knew I was coming?
 
-**Cadmus:** Or someone who knew I was preparing for someone. Either way... I can no longer put off telling you about the other half of your work.
+**Cadmus:** Or someone who knew I was preparing for someone. Either way... I can no longer put off telling you about your... other mission. And this one is even more important than the Trials.
 
-**Cadmus:** Long ago, Cormoria possessed a treasure called the Mega-Dreamstone. The old tales call it the heart of the Empire. I confess I understand it less than I would like, but I am certain it matters a great deal.
+**Cadmus:** Long ago, Cormoria possessed three great treasures... the Mega Dreamstones. The old tales called them the Legacy of Cormor.
 
-**Cadmus:** It was shattered centuries ago. A friend of mine, whose name you are better off not knowing, has learned where nine of the pieces came to rest.
+I confess I understand the why of it less than I would like, but the significance is quite telling.
 
-**Cadmus:** There are cults in Cormoria, more of them with every passing year, and two of them want those pieces as badly as I do. If they reach them first... I fear neither of us will like what they awaken.
+**Cadmus:** In any case... one of these stones was shattered at some point in the past. A friend of mine, whose name you are better off not knowing, has learned where its nine pieces came to rest.
 
-**Prince Osrid:** And the badges?
+**Cadmus:** There are powerful cults in Cormoria. Two of them want those pieces for reasons I am unsure of, but based on what I have learned in the past decade... they are not planning anything good.
 
-**Cadmus:** The badges are the reason no one will question what a Rainhawk is doing on a mountaintop. A Trial challenger can go almost anywhere he pleases. Bring the pieces to me. I know someone who can make the stone whole again.
+If they reach the shards first... I fear neither of us will like what they awaken.
 
-**Cadmus:** That is also what the PokéLog is for. Every Pokémon you record tells me where you have been and what lives there. Anything strange near a shard, I want to read about it in your hand.
+**Prince Osrid:** And the Trials?
 
-**Prince Osrid:** Where do I begin?
+**Cadmus:** Besides serving as a path for you to reveal your identity, and a means to grow into your potential as a Trainer, the Trials are the reason no one will question what a Rainhawk is doing on a mountaintop, and my name never has to come up.
+
+A Trial challenger can go almost anywhere he pleases.
+
+**Cadmus:** Your second mission, therefore, is ultimately simple. Bring the pieces to me... and do it quietly, without attracting unneeded attention.
+
+**Cadmus:** Which means no more announcing yourself to thieves as the youngest Rainhawk in history.
+
+**Prince Osrid:** ...She asked.
+
+**Cadmus:** I know someone who can make the stone whole again, and keep the cults from taking control of it.
+
+**Cadmus:** That is also what the PokéLog is for. Every Pokémon you record tells me where you have been and what lives there.
+
+If a shard is nearby, the Pokémon there will be affected in various ways. I have quite a few potential leads as well, but you are not yet strong enough to pursue them.
+
+**Prince Osrid:** Where do I begin? Surely there must be something I can do, even if I'm currently a novice Trainer.
 
 **Cadmus:** West, past Route 11, toward Mirroh. Kimaris Langerin oversees the first Trial there, and there are rumors of a piece on the mountain above it.
 

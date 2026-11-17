@@ -129,3 +129,12 @@ The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy
 - Eden at the lab (user 2026-11-16): first real mission, green trainer, terrified underneath, sent as a sacrificial pawn to make Cadmus overreact and draw his eye from the Beads Cult's plot against the Empress (Section 08). Cadmus's "How kind of them, to drop a lead right into my lap" is dramatic irony: the lead is the bait.
 - Pelluca dormitory (user 2026-11-16): the large building in the far upper-left by the river; Osrid lives there as resident security for the students and the town.
 - Wording (user 2026-11-16): "Ministry of Education" everywhere; Osrid is "reassigned", not "conscripted".
+- Chapter 1 dialogue installed (user's revision, 2026-11-16), opening narration through the shard briefing. Canon set by it:
+  - Osrid is 20 and still hot-blooded under the soldier's reserve: he tells Eden he is "the youngest Rainhawk in history" before Cadmus has told him to work quietly. Cadmus chides him for it in the shard briefing ("...She asked.").
+  - Cadmus brought Osrid home because he now has "a clearer idea" of what is happening and of who he *believes* killed Eldred. He suspects; he names no one (the Baradus truth stays a late reveal).
+  - Cadmus lays out "two missions": the Trials (public path to the Champion fight) and the shards (secret). The story prefers "Trials" to "badges" in dialogue.
+  - Rhydia received her starter (Puff) just before Osrid was sent away; Osrid never had one until now, at twenty.
+  - The old tales call the three Mega Dreamstones "the Legacy of Cormor".
+  - The Templar notes Eden "is trying to buy time... though for what reason, I do not know": the first quiet hint she is a decoy.
+  - Eden's cell lines are deliberate: angry to be caught, but the fight has stirred a faint, subliminal pull toward Osrid's potential. "If the fates allow it, I'll welcome it... Eden."
+  - Eden's repeated "nobody said anything about..." is deliberate understated comedy: a decoy in over her head without knowing it.

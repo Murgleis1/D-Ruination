@@ -14,9 +14,10 @@ raw`
 // VAR_UNUSED_0x40A1 = lab stage: 0 fresh, 1 briefed/choosing, 2 theft done (cell scene next),
 //                     3 back from the cell (shard briefing), 4 done
 // VAR_UNUSED_0x4083 = starter picked (1 Frigibax, 2 Teddiursa, 3 Tinkatink)
-// Dialogue pass 2026-11-16 (user-approved direction): Cadmus measured and dry, never states his
-// feelings; Osrid a soldier's economy of words; Eden quick and performing carelessness. Show, don't
-// tell. Osrid's nameplate: "Prince <name>" in private with Cadmus, "Nomad Alban" when anyone else
+// Dialogue: the user's own revision (2026-11-16), with agreed typo and lore fixes.
+// Cadmus warm, formal and in command. Osrid is 20: guarded, but hot-blooded when pushed.
+// Eden is 17, a decoy sent in over her head: defiant on the surface, skittish underneath.
+// Osrid's nameplate: "Prince <name>" in private with Cadmus, "Nomad Alban" when anyone else
 // is present. Eden is "Brigand ???" / "Thief" until she gives her name in the cell.
 
 mapscripts PellucaUmbraLab_MapScripts{
@@ -24,8 +25,8 @@ mapscripts PellucaUmbraLab_MapScripts{
         setflag(FLAG_UNUSED_0x886)
         setflag(FLAG_UNUSED_0x887)
         setflag(FLAG_UNUSED_0x88E)
-        // the three balls are already on the table when Osrid walks in (user's briefing:
-        // "Those balls behind you...") and stay there until he has chosen
+        // the three balls are already on the table when Osrid walks in ("Those balls behind
+        // you...") and stay there until he has chosen
         if (var(VAR_UNUSED_0x40A1) <= 1){
             clearflag(FLAG_UNUSED_0x885)
         } else {
@@ -40,7 +41,6 @@ mapscripts PellucaUmbraLab_MapScripts{
 }
 
 script DR_Lab_Briefing{
-    // Dialogue by the user (2026-11-16), set as written apart from small typo fixes.
     lockall
     setvar(VAR_UNUSED_0x40A1, 1)
     delay(20)
@@ -59,41 +59,44 @@ script DR_Lab_Briefing{
     msgbox(format("Will you let me see your face?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("...No. I could not bear it. It is a complete ruin."))
+    msgbox(format("...No. I can't. It is a complete ruin."))
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("...I understand. I will not press the matter.\pThe last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?"))
+    msgbox(format("...If that is how you feel now, I will not press the matter further."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Being here together after all this time... it fills my heart with joy.\pThe last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("I remember the tree."))
+    msgbox(format("I remember the tree. Rhydia wouldn't stop laughing."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("How I miss those days."))
+    msgbox(format("How I miss those days..."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("But alas, let us speak about the present, and your immediate future.\pTo the Empire, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally reassigned to the Ministry of Education.\pThe Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you... along with most places in the Empire."))
+    msgbox(format("But alas, let us speak about the present, and your immediate future.\pTo the Empire right now, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally reassigned to the Ministry of Education.\pThe Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you. And under my authority, most places in the Empire are open to you as well."))
     msgbox(format("There is a dormitory northwest of here with your cover name on the door, the largest study on the first floor. It isn't much, but the door locks and the bed is comfy."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("And the “real” reason I am here?"))
-    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("It is as you probably guessed. Earn the Trial Badges. All of them.\pA Rainhawk who holds every badge has the right to challenge the Champion. She is someone you know quite well... someone who loves you even more than I do."))
+    msgbox(format("That's all well and good. But why, after ten years, did you finally bring me home? After Father's assassination, I thought-"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Because there was too much back then I didn't know... only that you were the next target.\pI barely had the political means to protect your sister and mother, and I needed to take drastic measures to hide you, which is why my agents and I established a false identity for you and sent you overseas.\pBut now... I have a clearer idea of what is happening in Cormoria, and of who I believe killed your father.\pThe time was right to bring you home, though I wish to Arceus it were under better circumstances."))
+    msgbox(format("So, you have two missions, and we will discuss the first now.\pA Rainhawk who clears every Trial has the right to challenge the Champion. She is someone you know quite well... someone who loves you even more than I do."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("My sister."))
+    msgbox(format("My sister, huh. She got her starter right before you sent me away, if I recall."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Your sister. Rhydia has held the title for five years now, and she rules the Empire in your mother's name besides.\pA man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him."))
+    msgbox(format("Your sister. Rhydia has held the Champion title for five years now, and she rules the Empire in your mother's name besides.\pShe is one of the most talented Trainers we have seen in generations, but our enemies are closing in... I believe her power will not be enough to save Cormoria.\pA man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him at that point."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Does she know I'm here?"))
+    msgbox(format("Does Rhydia know I'm here? What about my mother?"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("No, though in time this could change."))
+    msgbox(format("Neither of them does, though we will make sure they know when the time is right."))
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Let us move on, however. What are Pokémon, to you?"))
+    msgbox(format("Let us move on, however, to the most critical topic.\pMy Prince... what are Pokémon to you?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("...Assets. You keep them fed, you keep them sharp, and you use them carefully."))
+    msgbox(format("...Tools. You keep them fed, you keep them sharp, and you use them carefully to control outcomes upon the battlefield."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Those sound like Surge's words."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
@@ -103,14 +106,19 @@ script DR_Lab_Briefing{
     msgbox(format("Certainly they did... but they also left you burned to ashes on that beach."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Enough.\pThose balls behind you... are those Starter Pokémon? I thought those were only given to noble children."))
+    msgbox(format("Enough debate.\pThose balls behind you... are those starter Pokémon? I thought those were only given to noble children."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("Usually. These three are different.\pRead the note beside each one before you choose. I wrote them myself, so forgive the handwriting."))
+    msgbox(format("Usually. These three are different, and all are one of a kind.\pOne of them shall be your first step toward becoming who you were always meant to be."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Choose? Me?"))
+    msgbox(format("It feels surreal to be able to choose a partner of my own at twenty. If things had been different, I would have gotten my own before I was sent away..."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("We cannot change the past, my Prince, but perhaps there is a silver lining...\pIn any case, read the note beside each one before you choose. I wrote them myself, so forgive the handwriting."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("I will."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("Yes, you. Before you choose, however, you must take this.\pYou'll be meeting a great many Pokémon from here on, and you should keep a record of them. I will explain in greater detail later."))
+    msgbox(format("Also, before you choose, please take this.\pYou'll be meeting a great many Pokémon from here on, and you should keep a record of them. I will explain in greater detail later."))
     hideportrait
     closemessage
     playfanfare(MUS_OBTAIN_ITEM)
@@ -119,10 +127,12 @@ script DR_Lab_Briefing{
     setflag(FLAG_SYS_POKEDEX_GET)
     closemessage
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("The Log is merely paper and ink. It isn't elaborate, but it will serve us well. Write down each one you meet, what it is and how it fights, in your own hand.\pIn the army, someone else wrote the reports and you read them. This time, you see each Pokémon for yourself."))
+    msgbox(format("The Log is standard for all new Trainers in the current era. It isn't elaborate, but it will serve us well.\pWrite down each one you meet, what it is and how it fights, in your own hand. It also features the latest map of the region, right before the index."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Understood."))
+    msgbox(format("Thank you. I will choose now."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Proceed, my Lord. This is an important choice."))
     hideportrait
     closemessage
     releaseall
@@ -133,7 +143,7 @@ script DR_Lab_BallFrigibax{
     lock
     faceplayer
     showmonpicshiny(SPECIES_FRIGIBAX, 10, 3)
-    msgbox(format("Heraldic Frigibax.\pHatched from an egg I found on Mt. Mirroh. Note the coloring. I have never seen another like it.\pIt favors Dragon and Ice moves, though it learns a good deal more if you are patient with it.\pIts final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.\pOne old text claims it can grow stronger still with the help of a special stone. I have found nothing to confirm it."))
+    msgbox(format("Heraldic Frigibax.\pI hatched this one from an egg I found on Mt. Mirroh. Note its coloring. In all my years I have never seen another like it.\pIt favors Dragon and Ice moves, though it will learn a great deal more if you are patient with it.\pIts final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.\pOne old text claims it can grow stronger still with the help of a special stone. I have yet to find any proof that confirms this, however."))
     hidemonpic
     msgbox(format("Take the Heraldic Frigibax as your partner?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == 1){
@@ -151,7 +161,7 @@ script DR_Lab_BallTeddiursa{
     lock
     faceplayer
     showmonpic(SPECIES_TEDDIURSA, 10, 3)
-    msgbox(format("Bloodmoon Teddiursa.\pThe Blood Moon line has been rumored for over a century. I found this cub by chance a year ago, on a small wooded island far to the east.\pMuch about it is still a mystery. What I have seen suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines."))
+    msgbox(format("Bloodmoon Teddiursa.\pWhispers of a Blood Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.\pMuch about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines."))
     hidemonpic
     msgbox(format("Take the Bloodmoon Teddiursa as your partner?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == 1){
@@ -169,7 +179,7 @@ script DR_Lab_BallTinkatink{
     lock
     faceplayer
     showmonpic(SPECIES_TINKATINK, 10, 3)
-    msgbox(format("Dragonmaul Tinkatink.\pI came across this egg in the dunes north of Mt. Ceram a few months ago, and I still can't quite believe my luck.\pThe Tinkatink clans of Cormoria's deserts are said to share this coloring, and to learn moves suited to hunting dragons, and even other Fairy types.\pA colleague tells me a Cormorian Tinkaton can grow stronger still with some rare material worked into its gear. I have not been able to confirm it."))
+    msgbox(format("Dragonmaul Tinkatink.\pI came across this egg in the dunes north of Mt. Ceram a few months ago, and I still can scarcely believe my luck.\pThe Tinkatink clans of Cormoria's deserts are said to share this coloring, and to learn moves suited to hunting dragons, and even other Fairy types.\pA colleague tells me these clans can grow stronger still with some rare material worked into their gear. I have not been able to confirm it."))
     hidemonpic
     msgbox(format("Take the Dragonmaul Tinkatink as your partner?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == 1){
@@ -204,17 +214,17 @@ script DR_Lab_Theft{
     playbgm(MUS_ENCOUNTER_AQUA, FALSE)
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Who put out the lamps?"))
+    msgbox(format("...The lamps just went out. It seems we have an uninvited guest."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
     speakername("Thief")
-    msgbox(format("Don't mind me, gentlemen. I'll only be a moment."))
+    msgbox(format("Don't mind me, gentlemen. This won't take long."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Put that down."))
+    msgbox(format("There is nowhere for you to go, little thief."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
     speakername("Thief")
-    msgbox(format("Mm, no. I came a long way for this one."))
+    msgbox(format("Mmm... I have my ways. But I have what I need now, so I'll just-"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Neptune."))
+    msgbox(format("Neptune. Bar the door, and keep one eye on the window. If she runs, pin her. Gently."))
     hideportrait
     closemessage
     clearflag(FLAG_UNUSED_0x887)
@@ -225,24 +235,47 @@ script DR_Lab_Theft{
     applymovement(LOCALID_DRL_NEPTUNE, moves(walk_down * 2 walk_left * 1 face_up))
     waitmovement(0)
     delay(20)
+    msgbox(format("Neptune, Cadmus's Jousteel, takes the doorway. The room suddenly feels much smaller."))
+    closemessage
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
-    msgbox(format("So the stories about your Jousteel are true. He's bigger than I was told.\pFine. I'll find another way out."))
+    msgbox(format("...Nobody said anything about a Jousteel..."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    speakername("Thief")
+    msgbox(format("...But it doesn't matter. Lay a hand on me and you'll have a lot of explaining to do, Vizier. Bigger people than you want this delivered."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Bigger people, you say? No person stands above my authority except the Empress, child."))
+    msgbox(format("Unless... hmm. Could this be...?"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("How kind of THEM to drop a lead right into my lap."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Thief")
+    msgbox(format("......"))
+    msgbox(format("I... I work alone, Vizier."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Of course you do. I'm looking forward to hearing ALL about it."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door."))
     hideportrait
     closemessage
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_fast_left * 1 walk_fast_up * 1 face_left))
     applymovement(LOCALID_DRL_EDEN, moves(face_right))
     waitmovement(0)
     delay(12)
-    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
-    speakername("Thief")
-    msgbox(format("Is that a mending mask? From Athanto? That's worth more than this whole cellar. Who are you supposed to be?"))
-    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
-    speakername("Nomad Alban")
-    msgbox(format("Put it back."))
+    msgbox(format("You step between the thief and the table."))
+    closemessage
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
-    msgbox(format("You'll have to take it off me. Pilfer, up!"))
+    msgbox(format("...And nobody said anything about a soldier, either."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    speakername("Thief")
+    msgbox(format("Who might you be? Is that a mending mask? From Athanto? That's worth more than this whole lab."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Nomad Alban")
+    msgbox(format("Put the ball back and surrender quietly."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    speakername("Thief")
+    msgbox(format("If you want it so badly, come and take it. Pilfer, up!"))
     hideportrait
     closemessage
     clearflag(FLAG_UNUSED_0x88E)
@@ -259,21 +292,21 @@ script DR_Lab_Theft{
     delay(20)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
-    msgbox(format("Who are you?"))
+    msgbox(format("How did you crush me so easily? I even picked the starter that was strong against yours!\pWho are you? No... WHAT are you?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     speakername("Nomad Alban")
-    msgbox(format("Nomad Alban."))
+    msgbox(format("Nomad Alban. I'm the youngest Rainhawk in history."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
-    msgbox(format("Never heard of you."))
+    msgbox(format("Never heard of you!"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     speakername("Nomad Alban")
-    msgbox(format("Good."))
+    msgbox(format("That's fine. I've never heard of you either."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
     speakername("Thief")
-    msgbox(format("Ha! All right, Nomad Alban. I want a rematch, the minute I get out of whatever hole they're about to put me in."))
+    msgbox(format("Hah... you've got a sharp tongue on you, Nomad. Just know that people like me don't stay in cells for long.\pAnd when I'm out, I want a rematch... with relish."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("You'll find it a very deep hole."))
+    msgbox(format("A rematch that will never happen. The Templars keep their holes very deep, and very dark. And they are not known for their mercy.\pNeptune, our guest is leaving. Escort her."))
     hideportrait
     closemessage
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
@@ -291,12 +324,12 @@ script DR_Lab_Theft{
 }
 
 text DR_Lab_Text_EdenDefeat{
-    format("Five minutes with that Pokémon and you fight like you've had it for years. Who taught you that?")
+    format("Wh-what? You've had that Pokémon for less than two minutes!")
 }
 
-// Back from the monastery cell (stage 3): Umbra's shard briefing. Per the bible (Sec. 6) it
-// waits for the theft: someone sent her, which raises the stakes. Cadmus speaks at his own
-// level of knowledge (the operational plan, not the deep cosmology) and does not name his source.
+// Back from the monastery cell (stage 3): Umbra's shard briefing, his "other mission".
+// Cadmus speaks at his own level of knowledge (the fairy-tale history, the operational plan)
+// and does not name his source (Nemo) or the stone-mender (Roma).
 script DR_Lab_ShardBriefing{
     lockall
     setvar(VAR_UNUSED_0x40A1, 4)
@@ -305,24 +338,36 @@ script DR_Lab_ShardBriefing{
     waitmovement(0)
     delay(20)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("She knew where to look, and she knew exactly what to take. Someone told her both."))
+    msgbox(format("That girl knew exactly where to look, and exactly what to take. Someone knows more about this place than they should.\pBut just how could that be..."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Someone who knew I was coming."))
+    msgbox(format("Someone who knew I was coming?"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Or someone who knew I was preparing for someone. Either way, I can't put off telling you about the other half of your work."))
-    msgbox(format("Cormoria once had a Mega-Dreamstone. The old tales call it the heart of the Empire. I understand it less than I would like, but I am certain it matters.\pIt was shattered long ago. A friend of mine, whose name you don't need, has found where nine of the pieces came to rest."))
-    msgbox(format("There are cults in Cormoria, more of them every year, and two of them want those pieces as badly as I do. If they reach them first, I don't think either of us will like what they wake up."))
+    msgbox(format("Or someone who knew I was preparing for someone. Either way... I can no longer put off telling you about your... other mission. And this one is even more important than the Trials."))
+    msgbox(format("Long ago, Cormoria possessed three great treasures... the Mega Dreamstones. The old tales called them the Legacy of Cormor.\pI confess I understand the why of it less than I would like, but the significance is quite telling."))
+    msgbox(format("In any case... one of these stones was shattered at some point in the past. A friend of mine, whose name you are better off not knowing, has learned where its nine pieces came to rest."))
+    msgbox(format("There are powerful cults in Cormoria. Two of them want those pieces for reasons I am unsure of, but based on what I have learned in the past decade... they are not planning anything good.\pIf they reach the shards first... I fear neither of us will like what they awaken."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("And the badges?"))
+    msgbox(format("And the Trials?"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Besides serving as a path for you to reveal your identity, and a means to grow into your potential as a Trainer, the Trials are the reason no one will question what a Rainhawk is doing on a mountaintop, and my name never has to come up.\pA Trial challenger can go almost anywhere he pleases."))
+    msgbox(format("Your second mission, therefore, is ultimately simple. Bring the pieces to me... and do it quietly, without attracting unneeded attention."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
-    msgbox(format("The badges are why no one will ask what you are doing on a mountain. A Rainhawk chasing Trials can go anywhere he likes.\pBring the pieces to me. I know someone who can make the stone whole again."))
+    msgbox(format("Which means no more announcing yourself to thieves as the youngest Rainhawk in history."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
-    msgbox(format("Where do I start?"))
+    msgbox(format("...She asked."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("West, past Route 11, toward Mirroh. Kimaris Langerin oversees the first Trial there, and there are rumors of a piece on the mountain above it.\pBut take a day in the valley first. Learn your partner's habits before someone tests them for you."))
+    msgbox(format("I know someone who can make the stone whole again, and keep the cults from taking control of it."))
+    msgbox(format("That is also what the PokéLog is for. Every Pokémon you record tells me where you have been and what lives there.\pIf a shard is nearby, the Pokémon there will be affected in various ways. I have quite a few potential leads as well, but you are not yet strong enough to pursue them."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("Where do I begin? Surely there must be something I can do, even if I'm currently a novice Trainer."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("West, past Route 11, toward Mirroh. Kimaris Langerin oversees the first Trial there, and there are rumors of a piece on the mountain above it."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("But first, take a day to settle in. See the valley, and get to know your new partner. Learn its habits before someone else tests them for you."))
     hideportrait
     closemessage
     releaseall
@@ -334,9 +379,9 @@ script PellucaUmbraLab_EventScript_Umbra{
     faceplayer
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     if (var(VAR_UNUSED_0x40A1) >= 4){
-        msgbox(format("The valley first, then Mirroh. And sleep, if you can manage it."))
+        msgbox(format("The valley first, then Mirroh. And do try to get some sleep."))
     } else {
-        msgbox(format("Take your time. They have waited this long."))
+        msgbox(format("Take your time. This is an important choice."))
     }
     hideportrait
     closemessage

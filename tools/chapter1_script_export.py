@@ -62,7 +62,7 @@ def draft_section(letter):
 parts = [
  '# Dreamstone Ruination: Chapter 1, full script (opening to Eden\'s imprisonment)',
  'Review copy, generated 2026-11-16. **[IN GAME]** sections are exactly what the game shows now. '
- '**[DRAFT]** sections are the approved-so-far draft and are not in the game yet. '
+ 
  'Speaker names are shown on every line here for clarity; in game a name appears only when the speaker changes. '
  'Each paragraph is one text box (or a page of narration).',
  '## 1. Opening narration: Professor Tenebris  [IN GAME]', intro(),
@@ -72,9 +72,18 @@ parts = [
  render(script_body(C + 'data/maps/PellucaCity/scripts.pory', 'DR_PellucaCity_Arrival')),
  '## 4. Cadmus\'s lab: the briefing  [IN GAME]',
  render(script_body(C + 'data/maps/PellucaUmbraLab/scripts.pory', 'DR_Lab_Briefing')),
- '## 5. The starter notes beside each ball  [DRAFT]', draft_section('B'),
- '## 6. The theft  [DRAFT]', draft_section('C'),
- '## 7. The Templar holding cell  [DRAFT]', draft_section('D'),
- '## 8. Back at the lab: the shard briefing  [DRAFT]', draft_section('E'),
+ '## 5. The starter notes beside each ball  [IN GAME]',
+ '\n\n'.join(render(script_body(C + 'data/maps/PellucaUmbraLab/scripts.pory', b)) for b in
+    ('DR_Lab_BallFrigibax', 'DR_Lab_BallTeddiursa', 'DR_Lab_BallTinkatink')),
+ '## 6. The theft  [IN GAME]',
+ render(script_body(C + 'data/maps/PellucaUmbraLab/scripts.pory', 'DR_Lab_Theft')).replace(
+   '**Thief:** How did you crush', '*[Battle: Brigand ???. On defeat, in battle:]*\n\n**Thief:** ' +
+   re.search(r'text DR_Lab_Text_EdenDefeat\{\s*format\("(.*)"\)', open(C + 'data/maps/PellucaUmbraLab/scripts.pory', encoding='utf-8').read()).group(1) +
+   '\n\n**Thief:** How did you crush'),
+ '## 7. The Templar holding cell  [IN GAME]',
+ render(script_body(C + 'data/maps/PellucaTemplarMonastery/scripts.pory', 'DR_Monastery_Cell')),
+ '## 8. Back at the lab: the shard briefing  [IN GAME]',
+ render(script_body(C + 'data/maps/PellucaUmbraLab/scripts.pory', 'DR_Lab_ShardBriefing')),
+ '*Talking to Cadmus afterwards:*\n\n**Cadmus:** The valley first, then Mirroh. And do try to get some sleep.',
 ]
 open(sys.argv[1], 'w', encoding='utf-8').write('\n\n'.join(parts) + '\n')

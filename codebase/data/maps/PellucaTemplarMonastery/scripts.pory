@@ -5,8 +5,11 @@ raw `
 `
 
 // ============ DREAMSTONE RUINATION - Chapter 1: Eden in the Templar holding cell ============
-// User 2026-11-16: a short exchange with Eden before Osrid and Cadmus leave her to the
-// Templar's questions. She gives her name here for the first time (she fought as "Brigand ???").
+// A short exchange with Eden before Osrid and Cadmus leave her to the Templar's questions.
+// She gives her name here for the first time (she fought as "Brigand ???").
+// Dialogue: the user's revision (2026-11-16). Eden is angry to be caught, but the fight has
+// stirred something in her: she senses Osrid's potential and is drawn to it, very faintly.
+// The Templar's "trying to buy time" hints that she is a decoy without anyone working it out.
 // Then back to the lab for the shard briefing (VAR_UNUSED_0x40A1 = 3).
 
 mapscripts PellucaTemplarMonastery_MapScripts {
@@ -23,45 +26,71 @@ script DR_Monastery_Cell {
     msgbox(format("Later, in a holding cell beneath the Templar monastery."))
     closemessage
     speakername("Templar")
-    msgbox(format("Name."))
+    msgbox(format("State your name."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
-    msgbox(format("Eden."))
+    msgbox(format("...Eden."))
     hideportrait
     closemessage
     speakername("Templar")
     msgbox(format("Eden of where?"))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
-    msgbox(format("Of here, apparently."))
+    msgbox(format("Of here, apparently. Lovely view."))
     hideportrait
     closemessage
     speakername("Templar")
-    msgbox(format("The Pokémon you took will stay in the Order's keeping."))
+    msgbox(format("The Pokémon you stole will remain in the Order's keeping."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("For now."))
-    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
-    speakername("Nomad Alban")
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Who sent you?"))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
-    msgbox(format("Nobody sends me anywhere. I go where the good things are."))
-    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Your little one did all the work back there, you know. And you never said a word to it. Just orders."))
+    msgbox(format("Nobody you'd want to meet, Vizier Umbra. And nobody who'll leave me down here for long."))
     hideportrait
     closemessage
-    delay(40)
+    msgbox(format("She glances at the bars, then away."))
+    closemessage
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Just saying."))
+    msgbox(format("...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    msgbox(format("You really did fight well, Nomad Alban. Your little partner there beat Pilfer to a pulp, and yet you never said one word to it. Just gestures."))
+    hideportrait
+    closemessage
+    msgbox(format("A pause."))
+    closemessage
+    delay(20)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    msgbox(format("Just saying... that's pretty amazing. I mean it."))
     hideportrait
     closemessage
     applymovement(LOCALID_DRM_TEMPLAR, moves(face_left))
     waitmovement(0)
     speakername("Templar")
-    msgbox(format("Vizier. Rainhawk. If you would leave her with me."))
+    msgbox(format("Vizier. Rainhawk. I must ask you to leave her with me now. She is trying to buy time... though for what reason, I do not know."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Of course. Rainhawk, with me."))
+    msgbox(format("Of course. Come, Rainhawk. We have much to discuss."))
     hideportrait
     closemessage
-    delay(20)
+    applymovement(LOCALID_DRM_CADMUS, moves(face_down))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
+    waitmovement(0)
+    delay(16)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    speakername("Eden")
+    msgbox(format("I'll be seeing you again, Rainhawk. When I make a promise, I keep it."))
+    hideportrait
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    waitmovement(0)
+    delay(16)
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Nomad Alban")
+    msgbox(format("If the fates allow it, I'll welcome it... Eden."))
+    hideportrait
+    closemessage
+    applymovement(LOCALID_DRM_CADMUS, moves(walk_down * 2))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down walk_down * 2))
+    waitmovement(0)
     fadescreen(FADE_TO_BLACK)
     setvar(VAR_UNUSED_0x40A1, 3)
     warp(MAP_PELLUCA_UMBRA_LAB, 5, 11)

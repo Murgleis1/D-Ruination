@@ -1250,3 +1250,6 @@ Substantial engineering work — see Section 14 for full task specifications. Ke
 
 ---
 
+**`[user 2026-11-16]` Name and a design hook from the Chapter 1 shard briefing:**
+- In Cormoria's old tales the three Mega Dreamstones are called **"the Legacy of Cormor"**.
+- **Shard proximity affects Pokémon** `[OPEN, to design]`: Cadmus tells Osrid that "if a shard is nearby, the Pokémon there will be affected in various ways", which is why the PokéLog matters to the shard hunt. Needs a concrete mechanic (e.g. out-of-place species, altered colouring or behaviour, odd PokéLog entries near a shard).

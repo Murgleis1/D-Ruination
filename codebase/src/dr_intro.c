@@ -70,9 +70,9 @@ static const u8 sTenebrisP4[] = _(
 static const u8 sTenebrisP5[] = _(
     "So much time has passed\n"
     "since then...\n"
-    "and yet what happened in\n"
-    "Cormoria back then echoes\n"
-    "so loudly, even now,\n"
+    "and yet what happened to\n"
+    "the Empire echoes so loudly,\n"
+    "even now,\n"
     "into the present day...");
 
 static const u8 sDefaultPlayerName[] = _("Osrid");
