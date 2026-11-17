@@ -88,6 +88,19 @@ In our era, **Taverns** are the empire-era equivalent of modern Pokémon Centers
 
 **Design implication:** Taverns make cities feel *bigger and more lived-in* than modern Pokémon Centers do in DM. A Tavern is a *place to be* (drink, eat, gather information, sleep, meet NPCs) as well as a place to heal Pokémon. Each Tavern is a worldbuilding opportunity.
 
+**Tavern staff and regulars `[LOCKED user 2026-11-16]`.** Every Tavern has the same core staff, so a player always knows where to find each service:
+1. **The healer** restores the party with food and drink (the full heal; HealPass stamping still applies).
+2. **The merchant** sells supplies (the empire-era Mart).
+3. **The Sage** (working title) offers quality-of-life services:
+   - change a Pokémon's **nickname** (free);
+   - **relearn moves** (free). The summary-screen relearner also stays on, as a convenience;
+   - **change a nature** (paid);
+   - **Apex Fruits**, on sale **after the player has cleared 4 Trials**. Fed to a Pokémon, an Apex Fruit switches its ability to any other ability its species can have, the hidden ability included.
+4. **The Caretaker** runs Pokémon storage (the PC; see Section 6, the Unboxable Starter).
+5. **Regulars:** random NPCs worth talking to. Some trade gossip; now and then one offers an interesting **Pokémon trade** or a small **quest**.
+`[OPEN]` Whether the healer is the Tavern's Templar (who also runs the Braviary flights later), or the Templar is a separate presence.
+`[OPEN]` Prices: nature change and Apex Fruit (first pass: 2,000 and 5,000).
+
 ### The political crisis the cults have created `[LOCKED]`
 
 The 9 Trial Houses are **divided in their loyalties**. Some remain loyal to the royal family. Others have been **infiltrated, corrupted, or actively recruited** by the Sword Cult (the dominant active cult; see Section 8). Silas Moray, as Vizier of Commerce and secret cult 2IC, has facilitated much of the corruption through psychic manipulation and intelligence-network co-option.
