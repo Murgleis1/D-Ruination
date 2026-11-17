@@ -308,3 +308,21 @@ Method (tools/art/trace_transplant.py + osrid_trainer_back.py HEAD_TRACED):
    wider than the true sliver so the glyph reads at 1x.
 Also fixed: the floating-outline pass deleted a black pixel enclosed in a 3x3 black block (now
 it only drops outline that touches transparency).
+
+## Osrid round 6: the back as a MonoMyth profile (user 2026-11-17 16:48-16:56) -- NOT installed
+User: "you aren't really imagining what the back of Osrid's head looks like on his portrait sprite as
+well as the front sprite" / "studying the front versus backsprites of Trainers in MonoMyth".
+- MonoMyth front/back pairs found: back 2 <-> #80, back 3 <-> #78, back 6 <-> #116, back 8 <-> #88,
+  back 0 <-> #70 (osrid_round6/monomyth_front_back_pairs.png). Finding: MonoMyth back pics are NOT
+  views from behind. The head is a near-profile facing right, seen slightly from behind: face about
+  40% of the head width with eye, nose and mouth shown, ear just behind it, the front hairstyle seen
+  from the side; only the torso turns away. Every earlier Osrid back hid the face behind hair:
+  that was the root error.
+- Head: the approved portrait's hair (dominant-vote downscale at natural proportions; spikes swept
+  up and back) caps the crown and the back. The face becomes the mask in profile (forehead under
+  the fringe, brow ridge, eye socket, nose, lips, chin, jaw) carrying the Eye of Horus side-on (brow
+  bar, a foreshortened eye with its tail back toward the ear, drip, spiral). The ear sits behind
+  it; strap and buckle above the ear.
+- Body: #4's own three coat tones recoloured (flat cel shapes, no lattice) into his dark green
+  jacket; the cape down the near side with long folds; the scarf wrap with two big folds; layered
+  pauldron plates on the near shoulder (his left, per the sheet), the far one peeking.

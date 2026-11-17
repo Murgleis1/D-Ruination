@@ -33,7 +33,7 @@ PAL = {                     # same scheme as the front: dark green jacket, iron,
     0xF: (58, 58, 58),      # iron dark (pauldrons, gloves)
     0x6: (26, 34, 28),      # green-black (jacket shadow)
     0x2: (56, 64, 54),      # jacket dark green (sheet swatch 58,63,55)
-    0x3: (108, 104, 96),    # iron light / quilt light / buckle
+    0x3: (88, 98, 84),      # jacket light / iron highlight / buckle (grey-green light)
     0x8: (92, 64, 44),      # leather strap
     0xB: (22, 44, 30),      # cape / scarf dark
     0xA: (38, 60, 42),      # cape / scarf green
@@ -71,8 +71,9 @@ SCARF = {29: (24, 40), 30: (16, 42), 31: (14, 43), 32: (13, 44), 33: (13, 45), 3
          35: (13, 46), 36: (13, 46), 37: (14, 45), 38: (15, 44), 39: (17, 42), 40: (20, 38)}
 CAPE_TOP = 41
 # iron pauldrons on both shoulders, frame-0 rows: (left, right); they follow the frame offset
-PAULDRONS = [{36: (11, 14), 37: (9, 15), 38: (8, 16), 39: (8, 16), 40: (9, 15)},
-             {36: (43, 46), 37: (42, 47), 38: (41, 48), 39: (41, 48), 40: (42, 47)}]
+PAULDRONS = [{34: (9, 15), 35: (7, 17), 36: (5, 18), 37: (4, 18), 38: (4, 18), 39: (4, 17), 40: (5, 16), 41: (6, 14)},
+             {36: (44, 47), 37: (43, 48), 38: (43, 48), 39: (44, 47)}]          # near (his left) | far, peeking
+CREASES = [128, 62]                            # two big scarf folds hanging from the neck (deg, y down)
 
 
 def components(mask):
@@ -96,40 +97,48 @@ def nb4(m):
     return out
 
 
-# Osrid's head from behind, TRACED from his character sheet's back view (tools/art/trace_transplant
-# method, 2026-11-17): silhouette, lock structure and tone map from the user's art at 32 px, then
-# re-rendered with MonoMyth's rules (3-tone hair ramp, black only as connected strand lines, no
-# isolated pixels, black silhouette outline). Strap with both buckles, ear and the mask profile
-# (with the glyph's brow end, eye, drip and spiral start) placed as on the reference.
+# Osrid's head in a MonoMyth back-pic PROFILE (round 6). Studied from MonoMyth's front/back pairs
+# (back 2 <-> #80, back 3 <-> #78, back 6 <-> #116, back 8 <-> #88): their back pics are near-profile
+# heads facing right, seen slightly from behind (face about 40% of the head's width, ear just
+# behind it, hair keeping the front design seen from the side); only the torso turns away.
+# Built from the approved portrait: its hair (dominant-vote downscale at natural proportions) keeps
+# the crown and the back, with spikes swept up and back; the face becomes the mask in profile
+# (forehead under the fringe, brow ridge, eye socket, nose, lips, chin, jaw), carrying the Eye of
+# Horus side-on (brow bar, foreshortened eye with its tail back toward the ear, drip, spiral); the
+# ear sits behind it; the strap and buckle sit above the ear (his character sheet).
 HEAD_TRACED = [
-    "..............KK................",
-    "..........K..KllKKK.K...........",
-    ".........KlKKlllmllKmKK.........",
-    "........KKlmmmddmmdmmmmKK.......",
-    "......KKmmmmmmddmmdmmddmmK......",
-    ".....KmmmmmdmmlmmmmmdKKddKK.....",
-    "....KmmmmllddmlmmmmmdKmmdmmK....",
-    "....KmmmmmmdmmlmmllmdmmmddmmK...",
-    "....KmmdmmmdlllmlmmddllmmssolK..",
-    "...KmmdmmmmllllllmmllllmsswolK..",
-    "..KdddmmmdmmmmmmdddllllmssowKK..",
-    ".KddddmmduuuudddddlldddssooomK..",
-    "..KmdddttuTTuttttttdddKssKKomK..",
-    "..KmtttTTuuuuTTTTTTdduussooollK.",
-    "...KKTTKKKTdddTTTTKttuusooKKlK..",
-    "..KKKKdKKmmdmmmmmKssTuusooKolK..",
-    ".KdddddKmmmllmmmmKsssdssoKoooKK.",
-    "KdddddKKmmmmmdddmKsssmssoKooowKK",
-    ".KKdddKddKdddmddmKsssmssoKooooKK",
-    "..KdddKKKKdddmddmKsssmsKoKoooKK.",
-    "...KmKKKKddddmdmmKssKmsKKoooKK..",
-    "..KmmKdKKdKKKmdmllKKlmssoooooKK.",
-    "...KmdddKdKKKKddlllllmssooooKK..",
-    "...KdKKddKKKKKdlllmllmKssoooKK..",
+    "..............KKKKKKK............",
+    "...........KKKKKKKKKKKK..........",
+    "..........KKKKmllKdllKKKK........",
+    ".........KKlmmmmmlmmmlmlKK.......",
+    ".........KKKmmmmmmmmmmmmmKK......",
+    "......KKKKdlmmmmmmmmmmmmmdKK.....",
+    "....KKKKllmmmmmmmmmmmmmmmmlKK....",
+    "...KKKlllmmmmmmmmmmddmlmdmddK....",
+    "..KKllmmmmmmmmmmddddKsdoooKK.....",
+    "..KKdmuuummmmmmdddKsKoooowooK....",
+    "...KKtuTutttttttttssoooooowooK...",
+    "....KluuummmmKssKKssoooKKKKwoK...",
+    "...KKlmmmmmmdKssKKssooooooooooK..",
+    ".KKllmmmmmmddKsoKssoooooKKKooK...",
+    "KKKmlmmmmmmmdKssKssoooKKoKoKoK...",
+    "KllmmmmmmmmmmKssKssoooooKKKowoK..",
+    "KKKdmmmmddddmdKsKssooooKoKooowoK.",
+    ".KKKmmmddddKdddKKssoooKooKooooK..",
+    ".KKmmmddddddKdddKssooKoooKoooK...",
+    "KKKmmddddddmddddKssooKoooKoooK...",
+    "KKlmdddmddmmddddKssoooKooKoooK...",
+    "KKKddddddddKdddddKssoooooooooK...",
+    "..KKdddddddddKdddKssssssssssK....",
+    "..KddddddddKdddddKKsssssssssK....",
+    ".KKdddddddddmddddKddKsssssKK.....",
+    "..KKKKmdddKKddKKKKKKKKKKKK.......",
+    "....KldKKKKKdddK.................",
+    "...KKddKKKKKdddK.................",
 ]
 HEAD_TRACED_CODE = {'K': 0x5, 'd': 0x4, 'm': 0x1, 'l': 0xD, 'o': 0x9, 'w': 0xE, 's': 0x7, 'T': 0x6,
                     'u': 0x3, 't': 0x8}
-HEAD_TRACED_OX, HEAD_TRACED_OY = 13, 7          # trace (0,0) in frame-0 coordinates
+HEAD_TRACED_OX, HEAD_TRACED_OY = 15, 6          # head grid (0,0) in frame-0 coordinates
 
 
 def make_head(f0):
@@ -300,21 +309,22 @@ def frame(f, H0):
         sl = (slice(max(0, y - 1), y + 2), slice(max(0, x - 1), x + 2))
         grow[sl] |= (f[sl] == OUT)
     a[grow & ~hand] = 0
-    # --- jacket: #4's coat -> quilted charcoal; the lapel band stays the brown strap
-    for y in range(64):
-        for x in range(64):
-            if a[y, x] in (0x2, 0x3) and not hand[y, x] and ((x + y) % 6 == 0 or (x - y) % 6 == 0):
-                a[y, x] = 0x6 if a[y, x] == 0x2 else 0x2
-    # --- the cape over the left ~40% of the back (ragged right edge), over the jacket only
+    # --- jacket: #4's own three coat tones, recoloured to his dark green (flat cel shapes; the
+    #     palette does it: 6 green-black, 2 dark green, 3 light). The lapel band stays the strap.
+    # --- the cape down the near (left) side of the back: #4's coat shading in cape greens, with a
+    #     few long vertical folds; ragged right edge
     for y in range(max(0, CAPE_TOP + dy), 64):
         cols = [x for x in range(64) if a[y, x] in JACKET or a[y, x] == OUT]
         if not cols: continue
         left, rgt = min(cols), max(cols)
-        right = left + int((rgt - left) * 0.34) + (1 if (y // 3) % 2 else -1)
+        right = left + int((rgt - left) * 0.36) + (1 if (y // 3) % 2 else -1)
         for x in range(left, right + 1):
             if a[y, x] in JACKET and not hand[y, x]:
-                fold = (x + 2 * y) % 9 == 0
-                a[y, x] = 0xB if (fold or x <= left + 2) else 0xA
+                base = {0x6: 0xB, 0x2: 0xA, 0x3: 0xC, 0x8: 0xA}[int(a[y, x])]
+                k = x - left
+                if k in (4, 9) and y % 7 != 0: base = 0xB                      # long folds
+                elif k in (5, 10) and base == 0xA: base = 0xC                  # lit edge of each fold
+                a[y, x] = base
         if 0 <= right + 1 < 64 and a[y, right + 1] in JACKET:
             a[y, right + 1] = OUT
     # --- scarf bunched round the neck and left shoulder
@@ -327,9 +337,17 @@ def frame(f, H0):
             x, y = rx_ + dx, ry_ + dy
             if not (0 <= x < 64 and 0 <= y < 64) or hand[y, x]:
                 continue
-            top = ry_ == min(rows[rx_]); bot = ry_ >= max(rows[rx_]) - 1
-            fold = (rx_ - ry_) % 9 == 0
-            a[y, x] = 0xC if top else 0xB if (bot or fold) else 0xA
+            # bunched folds hanging from the neck (portrait): creases at irregular angles, lit
+            # ridges beside them, a light rim along the top
+            ang_ = (np.degrees(np.arctan2(ry_ - 27, rx_ - 31)) + 360) % 360
+            v = 0xA
+            for c in CREASES:
+                dd = (ang_ - c + 180) % 360 - 180
+                if abs(dd) < 6: v = 0xB
+                elif 6 <= dd < 14: v = 0xC if v == 0xA else v
+            if ry_ == min(rows[rx_]): v = 0xC
+            if ry_ >= max(rows[rx_]) - 1: v = 0xB
+            a[y, x] = v
     # --- iron pauldrons (dark iron, lit top edge, outlined)
     for P in PAULDRONS:
         pm = np.zeros((64, 64), bool)
@@ -338,10 +356,14 @@ def frame(f, H0):
                 x, y = rx_ + dx, ry_ + dy
                 if 0 <= x < 64 and 0 <= y < 64 and not hand[y, x]: pm[y, x] = True
         top, bot = min(P), max(P)
+        cxp = (P[top][0] + P[top][1]) / 2
         for y, x in zip(*np.nonzero(pm)):
             ry_, rx_ = y - dy, x - dx
-            lit = ry_ == top or (ry_ == top + 1 and rx_ <= P[top][0])
-            a[y, x] = 0x3 if lit else (0x6 if ry_ == bot else 0xF)   # dome: lit top, dark lower rim
+            k = (ry_ - top) % 3                       # overlapping plates (lames), as in the portrait
+            v = 0x3 if k == 0 else (0xF if k == 1 else 0x6)
+            if ry_ == bot: v = 0x6
+            if (rx_, ry_) == (round(cxp), top + 1): v = 0x3              # rivet
+            a[y, x] = v
         a[nb4(pm) & ~pm & ~hand] = OUT
     # --- Osrid's head over the scarf and body (never over the gloves)
     L = head_layer(H0, dx, dy)
