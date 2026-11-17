@@ -326,3 +326,18 @@ well as the front sprite" / "studying the front versus backsprites of Trainers i
 - Body: #4's own three coat tones recoloured (flat cel shapes, no lattice) into his dark green
   jacket; the cape down the near side with long folds; the scarf wrap with two big folds; layered
   pauldron plates on the near shoulder (his left, per the sheet), the far one peeking.
+
+## Osrid round 7 (user 2026-11-17 17:00) -- NOT installed
+User: "you wouldn't be able to see the whole mask eye ... only the left half" / "the whole
+backsprite looks artificial versus actual monomyth backsprites".
+- The artificial look came from generated patterns (straight cape folds, radial scarf creases, a
+  striped pauldron, a polygon scarf). The body is now MonoMyth #4's OWN coat pixels, recoloured:
+  coat to his jacket greens; #4's thick collar (which wraps the neck exactly where his scarf is) to
+  the scarf, keeping #4's folds and dither; #4's tie to the scarf end; coat behind #4's own fold line
+  (x ~22) to the cape; #4's near shoulder pixels to iron (pauldron) with its curved shading; one
+  strap. The head sits on the collar as #4's does.
+- Glyph: only the LEFT half of the Eye of Horus (brow's inner end, half the eye, the spiral), 2 px in
+  from the profile edge so it reads as paint, not as notches in the outline.
+- Hair: the portrait-derived hair cleaned (doubled outline trimmed, black specks -> dark hair,
+  single specks smoothed), then the spike tips regrown at the portrait's own measured tip
+  positions and lengths (not a regular comb: a hand-drawn regular comb looked artificial).

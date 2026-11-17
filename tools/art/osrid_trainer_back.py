@@ -70,6 +70,9 @@ COLLAR_Y = 30                                   # hair at/below this row tucks u
 SCARF = {29: (24, 40), 30: (16, 42), 31: (14, 43), 32: (13, 44), 33: (13, 45), 34: (13, 46),
          35: (13, 46), 36: (13, 46), 37: (14, 45), 38: (15, 44), 39: (17, 42), 40: (20, 38)}
 CAPE_TOP = 41
+CAPE_FOLD_X = 22                                # #4's own coat fold that becomes the cape's edge
+SHOULDER = {38: (13, 19), 39: (11, 20), 40: (10, 21), 41: (10, 21), 42: (10, 20), 43: (10, 19)}
+STRAP_PATH = [(44 - i, 41 + i // 2) for i in range(0, 34)]
 # iron pauldrons on both shoulders, frame-0 rows: (left, right); they follow the frame offset
 PAULDRONS = [{34: (9, 15), 35: (7, 17), 36: (5, 18), 37: (4, 18), 38: (4, 18), 39: (4, 17), 40: (5, 16), 41: (6, 14)},
              {36: (44, 47), 37: (43, 48), 38: (43, 48), 39: (44, 47)}]          # near (his left) | far, peeking
@@ -107,38 +110,38 @@ def nb4(m):
 # Horus side-on (brow bar, foreshortened eye with its tail back toward the ear, drip, spiral); the
 # ear sits behind it; the strap and buckle sit above the ear (his character sheet).
 HEAD_TRACED = [
-    "..............KKKKKKK............",
-    "...........KKKKKKKKKKKK..........",
-    "..........KKKKmllKdllKKKK........",
-    ".........KKlmmmmmlmmmlmlKK.......",
-    ".........KKKmmmmmmmmmmmmmKK......",
-    "......KKKKdlmmmmmmmmmmmmmdKK.....",
-    "....KKKKllmmmmmmmmmmmmmmmmlKK....",
-    "...KKKlllmmmmmmmmmmddmlmdmddK....",
-    "..KKllmmmmmmmmmmddddKsdoooKK.....",
+    "..........KmK.K...KlK............",
+    "..........KlKKlKKKKmKK...........",
+    "..........KKmmmllKdllKKKK........",
+    "..........KlmmmmmmmmmmmlKK.......",
+    "...K....KKKKmmmmmmmmmmmmmKK......",
+    "..KlK.KKlKdmmmmmmmmmmmmmmdKK.....",
+    ".K.KmKlKllmmmmmmmmmmmmmmmmlKK....",
+    "KlKKmKlllmmmmmmmmmmddmmmmmddK....",
+    ".KmmllmmmmmmmmmmddddKsdoooKK.....",
     "..KKdmuuummmmmmdddKsKoooowooK....",
     "...KKtuTutttttttttssoooooowooK...",
-    "....KluuummmmKssKKssoooKKKKwoK...",
-    "...KKlmmmmmmdKssKKssooooooooooK..",
-    ".KKllmmmmmmddKsoKssoooooKKKooK...",
-    "KKKmlmmmmmmmdKssKssoooKKoKoKoK...",
-    "KllmmmmmmmmmmKssKssoooooKKKowoK..",
-    "KKKdmmmmddddmdKsKssooooKoKooowoK.",
-    ".KKKmmmddddKdddKKssoooKooKooooK..",
-    ".KKmmmddddddKdddKssooKoooKoooK...",
-    "KKKmmddddddmddddKssooKoooKoooK...",
-    "KKlmdddmddmmddddKssoooKooKoooK...",
-    "KKKddddddddKdddddKssoooooooooK...",
-    "..KKdddddddddKdddKssssssssssK....",
-    "..KddddddddKdddddKKsssssssssK....",
-    ".KKdddddddddmddddKddKsssssKK.....",
-    "..KKKKmdddKKddKKKKKKKKKKKK.......",
+    "...KlluuummmmKssKKssoooKKKowoK...",
+    "K..KKlmmmmmmdKssKKssooooooooooK..",
+    "lKKllmmmmmmddKsoKssoooooKKKooK...",
+    "KmmmlmmmmmmmdKssKssoooooooKooK...",
+    "KllmmmmmmmmmmKssKssooooooooowoK..",
+    "KKKdmmmmddddmdKsKssooooooKooowoK.",
+    "K.KlmmmddddddddKKssoooooKoooooK..",
+    "lKKmmmddddddddddKssoooooKooooK...",
+    "KmmmmddddddmddddKssooooooKKooK...",
+    ".KlmddddddmmddddKssooooooooooK...",
+    ".KKddddddddddddddKssoooooooooK...",
+    "K.KKdddddddddddddKssssssssssK....",
+    "lKKddddddddddddddKKsssssssssK....",
+    "KmmddddddddddddddKddKsssssKK.....",
+    ".KKKKKddddKKddKKKKKKKKKKKK.......",
     "....KldKKKKKdddK.................",
-    "...KKddKKKKKdddK.................",
+    "....KddK...KdddK.................",
 ]
 HEAD_TRACED_CODE = {'K': 0x5, 'd': 0x4, 'm': 0x1, 'l': 0xD, 'o': 0x9, 'w': 0xE, 's': 0x7, 'T': 0x6,
                     'u': 0x3, 't': 0x8}
-HEAD_TRACED_OX, HEAD_TRACED_OY = 15, 6          # head grid (0,0) in frame-0 coordinates
+HEAD_TRACED_OX, HEAD_TRACED_OY = 15, 9          # head grid (0,0) in frame-0 coordinates
 
 
 def make_head(f0):
@@ -309,62 +312,47 @@ def frame(f, H0):
         sl = (slice(max(0, y - 1), y + 2), slice(max(0, x - 1), x + 2))
         grow[sl] |= (f[sl] == OUT)
     a[grow & ~hand] = 0
-    # --- jacket: #4's own three coat tones, recoloured to his dark green (flat cel shapes; the
-    #     palette does it: 6 green-black, 2 dark green, 3 light). The lapel band stays the strap.
-    # --- the cape down the near (left) side of the back: #4's coat shading in cape greens, with a
-    #     few long vertical folds; ragged right edge
-    for y in range(max(0, CAPE_TOP + dy), 64):
-        cols = [x for x in range(64) if a[y, x] in JACKET or a[y, x] == OUT]
-        if not cols: continue
-        left, rgt = min(cols), max(cols)
-        right = left + int((rgt - left) * 0.36) + (1 if (y // 3) % 2 else -1)
-        for x in range(left, right + 1):
-            if a[y, x] in JACKET and not hand[y, x]:
-                base = {0x6: 0xB, 0x2: 0xA, 0x3: 0xC, 0x8: 0xA}[int(a[y, x])]
-                k = x - left
-                if k in (4, 9) and y % 7 != 0: base = 0xB                      # long folds
-                elif k in (5, 10) and base == 0xA: base = 0xC                  # lit edge of each fold
-                a[y, x] = base
-        if 0 <= right + 1 < 64 and a[y, right + 1] in JACKET:
-            a[y, right + 1] = OUT
-    # --- scarf bunched round the neck and left shoulder
-    rows = {}
-    for ry_, (x0, x1) in SCARF.items():
-        for rx_ in range(x0, x1 + 1):
-            rows.setdefault(rx_, []).append(ry_)
-    for ry_, (x0, x1) in SCARF.items():
+    # --- body = MonoMyth #4's own coat pixels, RECOLOURED (no drawn patterns; round 7, user: "the whole
+    #     backsprite looks artificial versus actual monomyth backsprites"):
+    #     coat 6/2/3 -> his jacket greens (palette); #4's thick collar (8, and the coat shading
+    #     inside its band) -> his wrapped scarf; #4's tie A/B -> the hanging scarf end (palette);
+    #     coat behind #4's own fold line -> the cape; #4's near shoulder -> the iron pauldron.
+    coat = np.isin(f, [0x2, 0x3, 0x6]) & ~hand
+    col8 = (f == 0x8) & ~hand
+    ys8 = np.nonzero(col8)[0]
+    if len(ys8):
+        top8 = ys8.min()
+        for y in range(top8, min(64, top8 + 6)):
+            xs = np.nonzero(col8[y])[0]
+            if len(xs) >= 2:
+                for x in range(xs.min(), xs.max() + 1):
+                    if coat[y, x]: a[y, x] = {0x3: 0xA, 0x2: 0xB, 0x6: 0xB}[int(f[y, x])]
+        a[col8] = 0xC
+    # cape: coat pixels behind #4's own fold line (the dark 6 nearest x = CAPE_FOLD_X in each row)
+    for y in range(CAPE_TOP + dy, 64):
+        xs6 = [x for x in range(64) if f[y, x] == 0x6 and abs(x - (CAPE_FOLD_X + dx)) <= 4]
+        if not xs6: continue
+        xf = min(xs6, key=lambda x: abs(x - (CAPE_FOLD_X + dx)))
+        for x in range(0, xf):
+            if coat[y, x]: a[y, x] = {0x2: 0xA, 0x3: 0xC, 0x6: 0xB}[int(f[y, x])]
+        a[y, xf] = OUT
+    # pauldron: #4's near shoulder cap recoloured to iron, keeping its curved shading
+    sh = np.zeros((64, 64), bool)
+    for ry_, (x0, x1) in SHOULDER.items():
         for rx_ in range(x0, x1 + 1):
             x, y = rx_ + dx, ry_ + dy
-            if not (0 <= x < 64 and 0 <= y < 64) or hand[y, x]:
-                continue
-            # bunched folds hanging from the neck (portrait): creases at irregular angles, lit
-            # ridges beside them, a light rim along the top
-            ang_ = (np.degrees(np.arctan2(ry_ - 27, rx_ - 31)) + 360) % 360
-            v = 0xA
-            for c in CREASES:
-                dd = (ang_ - c + 180) % 360 - 180
-                if abs(dd) < 6: v = 0xB
-                elif 6 <= dd < 14: v = 0xC if v == 0xA else v
-            if ry_ == min(rows[rx_]): v = 0xC
-            if ry_ >= max(rows[rx_]) - 1: v = 0xB
-            a[y, x] = v
-    # --- iron pauldrons (dark iron, lit top edge, outlined)
-    for P in PAULDRONS:
-        pm = np.zeros((64, 64), bool)
-        for ry_, (x0, x1) in P.items():
-            for rx_ in range(x0, x1 + 1):
-                x, y = rx_ + dx, ry_ + dy
-                if 0 <= x < 64 and 0 <= y < 64 and not hand[y, x]: pm[y, x] = True
-        top, bot = min(P), max(P)
-        cxp = (P[top][0] + P[top][1]) / 2
-        for y, x in zip(*np.nonzero(pm)):
-            ry_, rx_ = y - dy, x - dx
-            k = (ry_ - top) % 3                       # overlapping plates (lames), as in the portrait
-            v = 0x3 if k == 0 else (0xF if k == 1 else 0x6)
-            if ry_ == bot: v = 0x6
-            if (rx_, ry_) == (round(cxp), top + 1): v = 0x3              # rivet
-            a[y, x] = v
-        a[nb4(pm) & ~pm & ~hand] = OUT
+            if 0 <= x < 64 and 0 <= y < 64 and coat[y, x] and a[y, x] not in (0xA, 0xB, 0xC): sh[y, x] = True
+    for y, x in zip(*np.nonzero(sh)):
+        a[y, x] = {0x2: 0xF, 0x3: 0x3, 0x6: 0x6}[int(f[y, x])]
+    for y, x in zip(*np.nonzero(sh)):
+        if y > 0 and not sh[y - 1, x] and a[y - 1, x] != 0: a[y, x] = 0x3          # lit upper rim
+        if y + 1 < 64 and not sh[y + 1, x]: a[y, x] = OUT                            # lower edge of the plate
+    # one leather strap across the back, from the far shoulder toward the near hip (2:1 steps)
+    for i, (sx_, sy_) in enumerate(STRAP_PATH):
+        x, y = sx_ + dx, sy_ + dy
+        for k, v in ((0, 0x8), (1, 0x8), (2, 0x6)):
+            if 0 <= y + k < 64 and 0 <= x < 64 and coat[y + k, x] and a[y + k, x] in (0x2, 0x3, 0x6):
+                a[y + k, x] = v
     # --- Osrid's head over the scarf and body (never over the gloves)
     L = head_layer(H0, dx, dy)
     head = L > 0
