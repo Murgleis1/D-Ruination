@@ -710,6 +710,8 @@ The player learns about Phancero only through:
 - **Intervention authority constraint:** Keerin acts only when crises *exceed the scope of free will of created beings* (the free-will principle is Arceus's foundational ethical framework). Phancero qualified; ordinary mortal conflicts do not.
 - **Pact with Cormor** is the first authorized intervention. **Cosmologically extraordinary** — the firstborn of creation extending herself across the divine-mortal gap to a single chosen mortal.
 
+**Full name: Valkeerin**, called **Keerin** for short `[LOCKED user 2026-11-16]`.
+
 **Keerin is female** (she/her).
 
 **Keerin's relational hierarchy:**
