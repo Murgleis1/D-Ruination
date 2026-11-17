@@ -22,11 +22,11 @@ from PIL import Image
 PAL = {                     # colours: his character sheet (assets/osrid_reference) + the approved portrait
     0x0: (255, 0, 255),
     0xD: (10, 10, 12),      # outline
-    0x2: (26, 34, 28),      # green-black (jacket, scarf and cloak shadows)
-    0xF: (56, 64, 54),      # jacket dark green (sheet swatch 58,63,55)
-    0xC: (38, 60, 42),      # scarf / cloak green
-    0x4: (64, 90, 62),      # scarf / cloak light
-    0xE: (58, 58, 58),      # iron dark (pauldron, gloves)
+    0x2: (26, 30, 32),      # slightly cool shadow (jacket, scarf, cloak): MonoMyth shadows shift toward blue
+    0xF: (50, 58, 56),      # jacket darker grey-green (matches the back pic)
+    0xC: (34, 66, 46),      # scarf / cloak dark green
+    0x4: (70, 104, 60),     # scarf / cloak light: yellow-green
+    0xE: (58, 60, 72),      # iron dark (pauldron, gloves): cool grey
     0x9: (108, 104, 96),    # iron light (pauldron, buckle)
     0x5: (52, 38, 28),      # brown dark (trousers, boots)
     0xB: (92, 64, 44),      # brown mid (straps, belt, bracers, boots, lit trousers)

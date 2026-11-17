@@ -30,14 +30,14 @@ PAL = {                     # same scheme as the front: dark green jacket, iron,
     0x9: (226, 210, 170),   # mask           (portrait)
     0xE: (246, 238, 210),   # mask highlight
     0x7: (178, 152, 112),   # mask shadow / skin (ear, fingers)
-    0xF: (58, 58, 58),      # iron dark (pauldrons, gloves)
-    0x6: (26, 34, 28),      # green-black (jacket shadow)
-    0x2: (56, 64, 54),      # jacket dark green (sheet swatch 58,63,55)
-    0x3: (88, 98, 84),      # jacket light / iron highlight / buckle (grey-green light)
+    0xF: (58, 60, 72),      # iron dark (pauldrons, gloves): cool grey (MonoMyth greys lean blue)
+    0x6: (26, 30, 32),      # jacket shadow: slightly cool (MonoMyth shadows shift toward blue)
+    0x2: (50, 58, 56),      # jacket darker grey-green (mid)
+    0x3: (84, 96, 74),      # jacket light: warmer, greener (MonoMyth lights shift toward yellow)
     0x8: (92, 64, 44),      # leather strap
-    0xB: (22, 44, 30),      # cape / scarf dark
-    0xA: (38, 60, 42),      # cape / scarf green
-    0xC: (64, 90, 62),      # cape / scarf light
+    0xB: (18, 40, 36),      # cape / scarf shadow: teal-dark
+    0xA: (34, 66, 46),      # cape / scarf dark green
+    0xC: (70, 104, 60),     # cape / scarf light: yellow-green
 }
 HAIR = {0x1, 0x4, 0xD}
 SKIN = {0x9, 0xE, 0x7, 0xC, 0xF}          # #4's skin indices (C = its red face paint)
@@ -66,6 +66,7 @@ GLYPH = [(39, 23), (40, 23),                    # brow bar (foreshortened at the
          (39, 29), (38, 29), (38, 28)]          # start of the spiral
 STRAP_Y, STRAP_X = 22, (15, 33)                 # strap rows 22 (light) and 23 (dark), above the ear
 BUCKLE = (19, 21, 22, 24)                       # x0, y0, x1, y1
+HEAD_MODE = 'lost'                              # 'lost' (round 10) | 'grid' (round 9 HEAD_TRACED)
 COLLAR_Y = 33                                   # hair at/below this row tucks under the scarf
 SCARF = {29: (24, 40), 30: (16, 42), 31: (14, 43), 32: (13, 44), 33: (13, 45), 34: (13, 46),
          35: (13, 46), 36: (13, 46), 37: (14, 45), 38: (15, 44), 39: (17, 42), 40: (20, 38)}
@@ -265,6 +266,108 @@ def make_head_from_4(f0):
     return L
 
 
+# Round 10 head: MonoMyth #4's OWN head, converted per frame, so the head always sits at the angle its
+# body and throwing arm were drawn for (user: "orient his body and head to be in alignment ... a small
+# edge of white mask will help you get the angle right so the arm when you throw doesn't look weird").
+# The head is turned a little further away than #4's: #4's face becomes hair except a smooth crescent
+# at its front edge, which is the white mask (no glyph). #4's hair keeps its own simple MonoMyth shading
+# (lit top, shadowed lower half, a few crown strands, part of the outline in the dark hair tone); the
+# palette makes it Osrid's auburn. The mask strap runs from a buckle on the back of the skull to the
+# mask's edge, above a small ear.
+# (x, y, ux, uy, length, tone) in frame-0 coords: three on the crown, four flaring back from the skull
+# (angle deg from the hair's centre, 0 = right, 90 = up; length; tone): crown and back of the skull
+SPIKES = [(115, 3, 0x1), (88, 3, 0xD), (150, 3, 0x1), (185, 3, 0x4), (215, 2, 0x4)]
+MASK_W = 3                                      # crescent width (px) at its widest
+def head_lost(f, hand, dx_, dy):
+    hair = np.isin(f, list(HAIR))
+    face = np.isin(f, list(SKIN)) & ~hand
+    eye_y = EYE0[1] + dy
+    ys8 = [y for y in np.nonzero((f == 0x8) & ~hand)[0] if y > eye_y]   # collar (not the raised cuff)
+    ytop8 = min(ys8) if ys8 else 64              # #4's collar top: the head ends here
+    face[ytop8:] = False
+    L = np.zeros((64, 64), int)
+    L[hair] = f[hair]
+    rows = [y for y in range(64) if face[y].any()]
+    if not rows:
+        return L
+    re = {y: int(np.nonzero(face[y])[0].max()) for y in rows}
+    # smooth front edge: drop #4's nose / lips (median over 7 rows), then keep it convex-ish
+    sm = {y: int(np.median([re[q] for q in rows if abs(q - y) <= 3])) for y in rows}
+    y0, y1 = rows[0], rows[-1]
+    for y in rows:
+        edge = sm[y]
+        w = MASK_W if y0 + 2 <= y <= y1 - 3 else MASK_W - 1
+        for x in np.nonzero(face[y])[0]:
+            if x > edge:
+                continue                         # nose / lips trimmed away
+            if x > edge - w:
+                L[y, x] = 0x9                    # mask
+            else:
+                L[y, x] = 0x1 if y < eye_y + 1 else 0x4      # turned-away side of the head = hair
+        # where the mask meets the hair: the mask's shaded rim
+        xs = [x for x in range(64) if L[y, x] == 0x9]
+        if xs:
+            L[y, min(xs)] = 0x7
+    # strap: buckle on the back of the skull, band to the mask edge (2 rows: leather, shadow)
+    sy = eye_y - 2
+    hx = np.nonzero(hair[sy])[0]
+    mx = [x for x in range(64) if L[sy, x] in (0x9, 0x7)]
+    if len(hx) and mx:
+        xl, xr = int(hx.min()) + 1, min(mx)
+        for x in range(xl, xr):
+            k = (x - xl) * 2 // max(1, xr - xl)          # drops 1 px toward the back (band round a skull)
+            yy = sy + 1 - k
+            for r, v in ((0, 0x8), (1, 0x6)):
+                if L[yy + r, x] in (0x1, 0x4, 0xD): L[yy + r, x] = v
+        bx = xl + 4
+        for y in range(sy - 1, sy + 3):
+            for x in range(bx, bx + 3):
+                if L[y, x] in (0x1, 0x4, 0xD, 0x8, 0x6):
+                    L[y, x] = 0x3 if (x in (bx, bx + 2) or y in (sy - 1, sy + 2)) else 0x6
+    # #4's inner face lines (eye, brow, ear) inside what is now hair: anything not connected to the
+    # outside of the head is a hole -> dark hair tone (MonoMyth draws inner hair lines in that tone)
+    outside = np.zeros((64, 64), bool)
+    q = deque([(y, x) for y in range(64) for x in (0, 63)] + [(y, x) for x in range(64) for y in (0, 63)])
+    while q:
+        y, x = q.popleft()
+        if outside[y, x] or L[y, x] > 0: continue
+        outside[y, x] = True
+        for dy2, dx2 in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            if 0 <= y + dy2 < 64 and 0 <= x + dx2 < 64: q.append((y + dy2, x + dx2))
+    hole = (L == 0) & ~outside
+    hole[ytop8:] = False
+    L[hole] = 0x4
+    # Osrid's spiky locks flaring back and up: from the hair's centre, march along each angle to the
+    # silhouette and grow a tapering lock there (2 px base, pointed tip)
+    hy2, hx2 = np.nonzero(np.isin(L, [0x1, 0x4, 0xD]))
+    cy, cx = hy2.mean(), hx2.mean()
+    for ang, n, v in SPIKES:
+        ux, uy = np.cos(np.radians(ang)), -np.sin(np.radians(ang))
+        r = 0.0
+        while True:
+            px, py = int(round(cx + ux * (r + 1))), int(round(cy + uy * (r + 1)))
+            if not (0 <= px < 64 and 0 <= py < 64) or L[py, px] == 0: break
+            r += 1
+        bx, by = cx + ux * r, cy + uy * r
+        for i in range(0, n + 1):
+            half = (n - i) / 2.0                                  # triangle: wide at the base, 1 px tip
+            pts = [(bx + ux * i + (-uy) * t, by + uy * i + ux * t) for t in np.arange(-half, half + 0.01, 0.5)]
+            for fx_, fy_ in pts:
+                px, py = int(round(fx_)), int(round(fy_))
+                if 0 <= px < 64 and 0 <= py < 64 and L[py, px] == 0 and f[py, px] in (0, OUT):
+                    L[py, px] = v
+    # outline ring where the head meets empty space; the mask's edge gets black, not #4's brown line
+    solid = L > 0
+    ring = np.zeros_like(solid)
+    ring[1:] |= solid[:-1]; ring[:-1] |= solid[1:]; ring[:, 1:] |= solid[:, :-1]; ring[:, :-1] |= solid[:, 1:]
+    near_mask = np.zeros_like(solid)
+    m = np.isin(L, [0x9, 0x7])
+    near_mask[:, :-1] |= m[:, 1:]; near_mask[:, 1:] |= m[:, :-1]; near_mask[1:] |= m[:-1]; near_mask[:-1] |= m[1:]
+    body = np.isin(f, [0x2, 0x3, 0x6, 0x8, 0xA, 0xB]) & ~(near_mask & (f == 0x2))   # #4's coat stays
+    L[ring & ~solid & ~(body & ~np.isin(f, list(SKIN)))] = OUT
+    return L
+
+
 def head_layer(H0, dx, dy):
     L = np.zeros((64, 64), int)
     ys, xs = np.nonzero(H0)
@@ -350,7 +453,7 @@ def frame(f, H0):
             if 0 <= y + k < 64 and 0 <= x < 64 and coat[y + k, x] and a[y + k, x] in (0x2, 0x3, 0x6):
                 a[y + k, x] = v
     # --- Osrid's head over the scarf and body (never over the gloves)
-    L = head_layer(H0, dx, dy)
+    L = head_lost(f, hand, dx, dy) if HEAD_MODE == 'lost' else head_layer(H0, dx, dy)
     head = L > 0
     yy = np.arange(64)[:, None]
     under = (L > 0) & ~np.isin(L, list(SCARFC)) & (yy >= COLLAR_Y + dy) & np.isin(a, list(SCARFC))   # hair/nape tuck in

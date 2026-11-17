@@ -365,3 +365,38 @@ MonoMyth's simple ones. Also: the overworld hair was browner than the auburn of 
     - Small floating leftovers of #4's old head (<20 px components) are dropped.
   - `mm_back04_frames.pkl` holds the builder input, rebuilt from the indexed back_04.png.
   - review.py --mode back: pass. The flagged nubs are the intended black spike tips.
+
+## Osrid round 10 — head turned with the body; MonoMyth cloth colours
+
+User feedback (round 9):
+- The head and body should line up, still facing away.
+- A small edge of white mask is fine, and it helps the throwing arm look right. No Eye of Horus should show.
+- Keep simplifying the shading.
+- Study MonoMyth's dark greens, browns, blacks and greys to get the clothes colours right.
+
+Findings, measured on all 11 MonoMyth back pics and 136 fronts:
+- Every back pic turns its head WITH the body: back and side of the head, then the ear, then a sliver of cheek or jaw on the right. Round 9 had a straight-on head on a three-quarter body, which is why it read as unnatural.
+- Back #4's hair uses two tones (lit top, shadowed lower half), a few light crown strands, and part of its outline in the dark hair tone.
+- Cloth uses three tones per material plus one near-black. Shadows shift cool and lights shift warm or yellow. Examples:
+  - #72 greens: (16,40,24) → (40,88,40) → (152,184,80)
+  - #7 red hair: (120,56,64) → (208,88,48) → (232,136,96)
+  - Greys lean blue: (64,64,80), (112,120,152)
+  - Closest analogue: #96 (grey-green cloak over brown leathers)
+
+Back candidate P6 (`osrid_trainer_back.py`, HEAD_MODE='lost', `head_lost()`):
+- #4's own head is converted in every frame, so it stays at the angle the body and throwing arm were drawn for.
+- #4's hair is kept with its own shading, in Osrid's auburn.
+- #4's face becomes hair, except a smoothed crescent (3 px) at its front edge: the white mask with a shaded rim and a black outline, no glyph. The nose and lips are trimmed off by a 7-row median.
+- Holes left by #4's face lines are filled with the dark hair tone.
+- Five triangular spiky locks are ray-cast from the hair centre to the silhouette.
+- The strap runs from the buckle on the back of the skull to the mask's edge.
+
+Cloth palette, shared with the front so the two match:
+- Shadow (26,30,32)
+- Jacket mid (50,58,56), jacket light (84,96,74)
+- Scarf/cape (18,40,36) / (34,66,46) / (70,104,60)
+- Iron (58,60,72)
+
+Front candidate G4 has G3's pixels exactly; only those palette slots changed.
+
+Both sprites have 16 distinct 15-bit colours. review.py --mode back: pass.
