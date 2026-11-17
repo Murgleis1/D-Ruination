@@ -489,169 +489,169 @@ DR_Lab_Theft_7:
 	waitmovement 0
 # 266 "data/maps/PellucaUmbraLab/scripts.pory"
 	waitmoncry
-# 267 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_EDEN, DR_Lab_Theft_Movement_3
 # 268 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_DRL_EDEN, DR_Lab_Theft_Movement_3
 # 269 "data/maps/PellucaUmbraLab/scripts.pory"
-	delay 16
+	waitmovement 0
 # 270 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_EDEN, DR_Lab_Theft_Movement_4
+	delay 16
 # 271 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_DRL_EDEN, DR_Lab_Theft_Movement_4
 # 272 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
+	waitmovement 0
 # 273 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
 # 274 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_7
+	speakername DR_Lab_Theft_Text_1
 # 275 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+	msgbox DR_Lab_Theft_Text_7
 # 276 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
 # 277 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_8
+	speakername DR_Lab_Theft_Text_1
 # 278 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+	msgbox DR_Lab_Theft_Text_8
 # 279 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_9
-# 280 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_10
-# 281 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
-# 282 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_11
-# 283 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
-# 284 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
-# 285 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Briefing_Text_19
-# 286 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_12
-# 287 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
-# 288 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_13
-# 289 "data/maps/PellucaUmbraLab/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-# 290 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_14
-# 291 "data/maps/PellucaUmbraLab/scripts.pory"
-	hideportrait
-# 292 "data/maps/PellucaUmbraLab/scripts.pory"
-	closemessage
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, DR_Lab_Theft_Movement_5
-# 295 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_EDEN, DR_Lab_Briefing_Movement_1
-# 296 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmovement 0
-# 297 "data/maps/PellucaUmbraLab/scripts.pory"
-	delay 12
-# 298 "data/maps/PellucaUmbraLab/scripts.pory"
+# 280 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_9
+# 281 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_10
+# 282 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
+# 283 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_11
+# 284 "data/maps/PellucaUmbraLab/scripts.pory"
 	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
-# 299 "data/maps/PellucaUmbraLab/scripts.pory"
+# 285 "data/maps/PellucaUmbraLab/scripts.pory"
 	speakername DR_Lab_Theft_Text_1
-# 300 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_15
-# 301 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
-# 302 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
-# 303 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_16
-# 304 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 305 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_17
-# 306 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_18
-# 307 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
-# 308 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
-# 309 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_19
-# 310 "data/maps/PellucaUmbraLab/scripts.pory"
+# 286 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Briefing_Text_19
+# 287 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_12
+# 288 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
+# 289 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_13
+# 290 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+# 291 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_14
+# 292 "data/maps/PellucaUmbraLab/scripts.pory"
 	hideportrait
-# 311 "data/maps/PellucaUmbraLab/scripts.pory"
+# 293 "data/maps/PellucaUmbraLab/scripts.pory"
 	closemessage
-# 312 "data/maps/PellucaUmbraLab/scripts.pory"
-	clearflag FLAG_UNUSED_0x88E
-# 313 "data/maps/PellucaUmbraLab/scripts.pory"
-	addobject LOCALID_DRL_PILFER
-# 314 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_PILFER, DR_Lab_Briefing_Movement_1
-# 315 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, DR_Lab_Theft_Movement_5
+# 296 "data/maps/PellucaUmbraLab/scripts.pory"
+	applymovement LOCALID_DRL_EDEN, DR_Lab_Briefing_Movement_1
+# 297 "data/maps/PellucaUmbraLab/scripts.pory"
 	waitmovement 0
+# 298 "data/maps/PellucaUmbraLab/scripts.pory"
+	delay 12
+# 299 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
+# 300 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_1
+# 301 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_15
+# 302 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+# 303 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_1
+# 304 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_16
+# 305 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 306 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_17
+# 307 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_18
+# 308 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+# 309 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_1
+# 310 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_19
+# 311 "data/maps/PellucaUmbraLab/scripts.pory"
+	hideportrait
+# 312 "data/maps/PellucaUmbraLab/scripts.pory"
+	closemessage
+# 313 "data/maps/PellucaUmbraLab/scripts.pory"
+	clearflag FLAG_UNUSED_0x88E
+# 314 "data/maps/PellucaUmbraLab/scripts.pory"
+	addobject LOCALID_DRL_PILFER
+# 315 "data/maps/PellucaUmbraLab/scripts.pory"
+	applymovement LOCALID_DRL_PILFER, DR_Lab_Briefing_Movement_1
 # 316 "data/maps/PellucaUmbraLab/scripts.pory"
-	playmoncry SPECIES_NICKIT, CRY_MODE_NORMAL
+	waitmovement 0
 # 317 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmoncry
+	playmoncry SPECIES_NICKIT, CRY_MODE_NORMAL
 # 318 "data/maps/PellucaUmbraLab/scripts.pory"
+	waitmoncry
+# 319 "data/maps/PellucaUmbraLab/scripts.pory"
 	delay 20
-# 320 "data/maps/PellucaUmbraLab/scripts.pory"
-	setflag FLAG_DR_STORY_BATTLE
 # 321 "data/maps/PellucaUmbraLab/scripts.pory"
+	setflag FLAG_DR_STORY_BATTLE
+# 322 "data/maps/PellucaUmbraLab/scripts.pory"
 	compare VAR_UNUSED_0x4083, 1
 	goto_if_eq DR_Lab_Theft_11
 DR_Lab_Theft_10:
-# 322 "data/maps/PellucaUmbraLab/scripts.pory"
+# 323 "data/maps/PellucaUmbraLab/scripts.pory"
 	compare VAR_UNUSED_0x4083, 2
 	goto_if_eq DR_Lab_Theft_14
 DR_Lab_Theft_13:
-# 323 "data/maps/PellucaUmbraLab/scripts.pory"
+# 324 "data/maps/PellucaUmbraLab/scripts.pory"
 	compare VAR_UNUSED_0x4083, 3
 	goto_if_eq DR_Lab_Theft_17
 DR_Lab_Theft_16:
-# 324 "data/maps/PellucaUmbraLab/scripts.pory"
-	clearflag FLAG_DR_STORY_BATTLE
 # 325 "data/maps/PellucaUmbraLab/scripts.pory"
-	lockall
+	clearflag FLAG_DR_STORY_BATTLE
 # 326 "data/maps/PellucaUmbraLab/scripts.pory"
-	delay 20
+	lockall
 # 327 "data/maps/PellucaUmbraLab/scripts.pory"
-	specialvar VAR_RESULT, GetBattleOutcome
+	delay 20
 # 328 "data/maps/PellucaUmbraLab/scripts.pory"
+	specialvar VAR_RESULT, GetBattleOutcome
+# 329 "data/maps/PellucaUmbraLab/scripts.pory"
 	compare VAR_RESULT, B_OUTCOME_LOST
 	goto_if_eq DR_Lab_Theft_20
 DR_Lab_Theft_19:
-# 331 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
 # 332 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
-# 333 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_20
-# 334 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 335 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_17
-# 336 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_21
-# 337 "data/maps/PellucaUmbraLab/scripts.pory"
 	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
-# 338 "data/maps/PellucaUmbraLab/scripts.pory"
+# 333 "data/maps/PellucaUmbraLab/scripts.pory"
 	speakername DR_Lab_Theft_Text_1
-# 339 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_22
-# 340 "data/maps/PellucaUmbraLab/scripts.pory"
+# 334 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_20
+# 335 "data/maps/PellucaUmbraLab/scripts.pory"
 	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 341 "data/maps/PellucaUmbraLab/scripts.pory"
+# 336 "data/maps/PellucaUmbraLab/scripts.pory"
 	speakername DR_Lab_Theft_Text_17
-# 342 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_23
-# 343 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
-# 344 "data/maps/PellucaUmbraLab/scripts.pory"
+# 337 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_21
+# 338 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
+# 339 "data/maps/PellucaUmbraLab/scripts.pory"
 	speakername DR_Lab_Theft_Text_1
+# 340 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_22
+# 341 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 342 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_17
+# 343 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_23
+# 344 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
 # 345 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_24
+	speakername DR_Lab_Theft_Text_1
 # 346 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+	msgbox DR_Lab_Theft_Text_24
 # 347 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_Theft_Text_25
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 348 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_Theft_Text_25
+# 349 "data/maps/PellucaUmbraLab/scripts.pory"
 	goto DR_Lab_TheftEnd
 	return
 
@@ -671,237 +671,237 @@ DR_Lab_Theft_8:
 	goto DR_Lab_Theft_7
 
 DR_Lab_Theft_11:
-# 321 "data/maps/PellucaUmbraLab/scripts.pory"
+# 322 "data/maps/PellucaUmbraLab/scripts.pory"
 	trainerbattle_no_intro TRAINER_DR_EDEN_LAB_1, DR_Lab_Text_EdenDefeat
 	goto DR_Lab_Theft_10
 
 DR_Lab_Theft_14:
-# 322 "data/maps/PellucaUmbraLab/scripts.pory"
+# 323 "data/maps/PellucaUmbraLab/scripts.pory"
 	trainerbattle_no_intro TRAINER_DR_EDEN_LAB_2, DR_Lab_Text_EdenDefeat
 	goto DR_Lab_Theft_13
 
 DR_Lab_Theft_17:
-# 323 "data/maps/PellucaUmbraLab/scripts.pory"
+# 324 "data/maps/PellucaUmbraLab/scripts.pory"
 	trainerbattle_no_intro TRAINER_DR_EDEN_LAB_3, DR_Lab_Text_EdenDefeat
 	goto DR_Lab_Theft_16
 
 DR_Lab_Theft_20:
-# 329 "data/maps/PellucaUmbraLab/scripts.pory"
+# 330 "data/maps/PellucaUmbraLab/scripts.pory"
 	goto DR_Lab_EdenWins
 	goto DR_Lab_Theft_19
 
 
 DR_Lab_EdenWins::
-# 353 "data/maps/PellucaUmbraLab/scripts.pory"
-	setflag FLAG_DR_LOST_TO_EDEN_LAB
 # 354 "data/maps/PellucaUmbraLab/scripts.pory"
-	special HealPlayerParty
+	setflag FLAG_DR_LOST_TO_EDEN_LAB
 # 355 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+	special HealPlayerParty
 # 356 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
-# 357 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_0
-# 358 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_1
-# 359 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 360 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_17
-# 361 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_2
-# 362 "data/maps/PellucaUmbraLab/scripts.pory"
 	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+# 357 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_1
+# 358 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_0
+# 359 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_1
+# 360 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 361 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_17
+# 362 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_2
 # 363 "data/maps/PellucaUmbraLab/scripts.pory"
-	speakername DR_Lab_Theft_Text_1
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
 # 364 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_3
-# 365 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_4
-# 366 "data/maps/PellucaUmbraLab/scripts.pory"
-	hideportrait
-# 367 "data/maps/PellucaUmbraLab/scripts.pory"
-	closemessage
-# 368 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_EDEN, DR_Lab_EdenWins_Movement_0
-# 369 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmovement 0
-# 370 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-# 371 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_5
-# 372 "data/maps/PellucaUmbraLab/scripts.pory"
-	hideportrait
-# 373 "data/maps/PellucaUmbraLab/scripts.pory"
-	closemessage
-# 374 "data/maps/PellucaUmbraLab/scripts.pory"
-	playmoncry SPECIES_JOUSTEEL, CRY_MODE_NORMAL
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_NEPTUNE, DR_Lab_EdenWins_Movement_1
-# 376 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmovement 0
-# 377 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmoncry
-# 378 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_EDEN, DR_Lab_EdenWins_Movement_2
-# 379 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmovement 0
-# 380 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
-# 381 "data/maps/PellucaUmbraLab/scripts.pory"
 	speakername DR_Lab_Theft_Text_1
-# 382 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_6
-# 383 "data/maps/PellucaUmbraLab/scripts.pory"
+# 365 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_3
+# 366 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_4
+# 367 "data/maps/PellucaUmbraLab/scripts.pory"
+	hideportrait
+# 368 "data/maps/PellucaUmbraLab/scripts.pory"
+	closemessage
+# 369 "data/maps/PellucaUmbraLab/scripts.pory"
+	applymovement LOCALID_DRL_EDEN, DR_Lab_EdenWins_Movement_0
+# 370 "data/maps/PellucaUmbraLab/scripts.pory"
+	waitmovement 0
+# 371 "data/maps/PellucaUmbraLab/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+# 372 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_5
+# 373 "data/maps/PellucaUmbraLab/scripts.pory"
+	hideportrait
+# 374 "data/maps/PellucaUmbraLab/scripts.pory"
+	closemessage
+# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+	playmoncry SPECIES_JOUSTEEL, CRY_MODE_NORMAL
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
+	applymovement LOCALID_DRL_NEPTUNE, DR_Lab_EdenWins_Movement_1
+# 377 "data/maps/PellucaUmbraLab/scripts.pory"
+	waitmovement 0
+# 378 "data/maps/PellucaUmbraLab/scripts.pory"
+	waitmoncry
+# 379 "data/maps/PellucaUmbraLab/scripts.pory"
+	applymovement LOCALID_DRL_EDEN, DR_Lab_Theft_Movement_3
+# 380 "data/maps/PellucaUmbraLab/scripts.pory"
+	waitmovement 0
+# 381 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
+# 382 "data/maps/PellucaUmbraLab/scripts.pory"
+	speakername DR_Lab_Theft_Text_1
+# 383 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_6
 # 384 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_7
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 385 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_EdenWins_Text_8
+	msgbox DR_Lab_EdenWins_Text_7
 # 386 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_EdenWins_Text_8
+# 387 "data/maps/PellucaUmbraLab/scripts.pory"
 	goto DR_Lab_TheftEnd
 	return
 
 
 DR_Lab_TheftEnd::
-# 390 "data/maps/PellucaUmbraLab/scripts.pory"
-	hideportrait
 # 391 "data/maps/PellucaUmbraLab/scripts.pory"
-	closemessage
+	hideportrait
 # 392 "data/maps/PellucaUmbraLab/scripts.pory"
-	playmoncry SPECIES_JOUSTEEL, CRY_MODE_NORMAL
+	closemessage
 # 393 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmoncry
+	playmoncry SPECIES_JOUSTEEL, CRY_MODE_NORMAL
 # 394 "data/maps/PellucaUmbraLab/scripts.pory"
-	delay 30
+	waitmoncry
 # 395 "data/maps/PellucaUmbraLab/scripts.pory"
-	fadescreen FADE_TO_BLACK
+	delay 30
 # 396 "data/maps/PellucaUmbraLab/scripts.pory"
-	setflag FLAG_UNUSED_0x885
+	fadescreen FADE_TO_BLACK
 # 397 "data/maps/PellucaUmbraLab/scripts.pory"
-	setflag FLAG_UNUSED_0x886
+	setflag FLAG_UNUSED_0x885
 # 398 "data/maps/PellucaUmbraLab/scripts.pory"
-	setflag FLAG_UNUSED_0x887
+	setflag FLAG_UNUSED_0x886
 # 399 "data/maps/PellucaUmbraLab/scripts.pory"
-	setflag FLAG_UNUSED_0x88E
+	setflag FLAG_UNUSED_0x887
 # 400 "data/maps/PellucaUmbraLab/scripts.pory"
-	warp MAP_PELLUCA_TEMPLAR_MONASTERY, 6, 6
+	setflag FLAG_UNUSED_0x88E
 # 401 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitstate
+	warp MAP_PELLUCA_TEMPLAR_MONASTERY, 6, 6
 # 402 "data/maps/PellucaUmbraLab/scripts.pory"
+	waitstate
+# 403 "data/maps/PellucaUmbraLab/scripts.pory"
 	releaseall
 	end
 
 
 DR_Lab_ShardBriefing::
-# 414 "data/maps/PellucaUmbraLab/scripts.pory"
-	lockall
 # 415 "data/maps/PellucaUmbraLab/scripts.pory"
-	setvar VAR_UNUSED_0x40A1, 4
+	lockall
 # 416 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, DR_Lab_ShardBriefing_Movement_0
+	setvar VAR_UNUSED_0x40A1, 4
 # 417 "data/maps/PellucaUmbraLab/scripts.pory"
-	applymovement LOCALID_DRL_CADMUS, DR_Lab_Briefing_Movement_1
+	applymovement OBJ_EVENT_ID_PLAYER, DR_Lab_ShardBriefing_Movement_0
 # 418 "data/maps/PellucaUmbraLab/scripts.pory"
-	waitmovement 0
+	applymovement LOCALID_DRL_CADMUS, DR_Lab_Briefing_Movement_1
 # 419 "data/maps/PellucaUmbraLab/scripts.pory"
-	delay 20
+	waitmovement 0
 # 420 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+	delay 20
 # 421 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_0
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 422 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+	msgbox DR_Lab_ShardBriefing_Text_0
 # 423 "data/maps/PellucaUmbraLab/scripts.pory"
-	special DrSetPrinceNameplate
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
 # 424 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_1
+	special DrSetPrinceNameplate
 # 425 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+	msgbox DR_Lab_ShardBriefing_Text_1
 # 426 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_2
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 427 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_3
+	msgbox DR_Lab_ShardBriefing_Text_2
 # 428 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_4
+	msgbox DR_Lab_ShardBriefing_Text_3
 # 429 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_5
+	msgbox DR_Lab_ShardBriefing_Text_4
 # 430 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+	msgbox DR_Lab_ShardBriefing_Text_5
 # 431 "data/maps/PellucaUmbraLab/scripts.pory"
-	special DrSetPrinceNameplate
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
 # 432 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_6
+	special DrSetPrinceNameplate
 # 433 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+	msgbox DR_Lab_ShardBriefing_Text_6
 # 434 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_7
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 435 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_8
+	msgbox DR_Lab_ShardBriefing_Text_7
 # 436 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_9
+	msgbox DR_Lab_ShardBriefing_Text_8
 # 437 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
+	msgbox DR_Lab_ShardBriefing_Text_9
 # 438 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_10
-# 439 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 440 "data/maps/PellucaUmbraLab/scripts.pory"
-	special DrSetPrinceNameplate
-# 441 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_11
-# 442 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-# 443 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_12
-# 444 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_13
-# 445 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 446 "data/maps/PellucaUmbraLab/scripts.pory"
-	special DrSetPrinceNameplate
-# 447 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_14
-# 448 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-# 449 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_15
-# 450 "data/maps/PellucaUmbraLab/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
+# 439 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_ShardBriefing_Text_10
+# 440 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 441 "data/maps/PellucaUmbraLab/scripts.pory"
+	special DrSetPrinceNameplate
+# 442 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_ShardBriefing_Text_11
+# 443 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+# 444 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_ShardBriefing_Text_12
+# 445 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_ShardBriefing_Text_13
+# 446 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 447 "data/maps/PellucaUmbraLab/scripts.pory"
+	special DrSetPrinceNameplate
+# 448 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_ShardBriefing_Text_14
+# 449 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+# 450 "data/maps/PellucaUmbraLab/scripts.pory"
+	msgbox DR_Lab_ShardBriefing_Text_15
 # 451 "data/maps/PellucaUmbraLab/scripts.pory"
-	msgbox DR_Lab_ShardBriefing_Text_16
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
 # 452 "data/maps/PellucaUmbraLab/scripts.pory"
-	hideportrait
+	msgbox DR_Lab_ShardBriefing_Text_16
 # 453 "data/maps/PellucaUmbraLab/scripts.pory"
-	closemessage
+	hideportrait
 # 454 "data/maps/PellucaUmbraLab/scripts.pory"
+	closemessage
+# 455 "data/maps/PellucaUmbraLab/scripts.pory"
 	releaseall
 	end
 
 
 PellucaUmbraLab_EventScript_Umbra::
-# 459 "data/maps/PellucaUmbraLab/scripts.pory"
-	lock
 # 460 "data/maps/PellucaUmbraLab/scripts.pory"
-	faceplayer
+	lock
 # 461 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+	faceplayer
 # 462 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+# 463 "data/maps/PellucaUmbraLab/scripts.pory"
 	compare VAR_UNUSED_0x40A1, 4
 	goto_if_ge PellucaUmbraLab_EventScript_Umbra_2
-# 465 "data/maps/PellucaUmbraLab/scripts.pory"
+# 466 "data/maps/PellucaUmbraLab/scripts.pory"
 	msgbox PellucaUmbraLab_EventScript_Umbra_Text_1
 PellucaUmbraLab_EventScript_Umbra_1:
-# 467 "data/maps/PellucaUmbraLab/scripts.pory"
-	hideportrait
 # 468 "data/maps/PellucaUmbraLab/scripts.pory"
-	closemessage
+	hideportrait
 # 469 "data/maps/PellucaUmbraLab/scripts.pory"
+	closemessage
+# 470 "data/maps/PellucaUmbraLab/scripts.pory"
 	release
 	end
 
 PellucaUmbraLab_EventScript_Umbra_2:
-# 463 "data/maps/PellucaUmbraLab/scripts.pory"
+# 464 "data/maps/PellucaUmbraLab/scripts.pory"
 	msgbox PellucaUmbraLab_EventScript_Umbra_Text_0
 	goto PellucaUmbraLab_EventScript_Umbra_1
 
@@ -986,83 +986,83 @@ DR_Lab_Theft_Movement_2:
 	face_up
 	step_end
 
-# 267 "data/maps/PellucaUmbraLab/scripts.pory"
+# 268 "data/maps/PellucaUmbraLab/scripts.pory"
 DR_Lab_Theft_Movement_3:
-# 267 "data/maps/PellucaUmbraLab/scripts.pory"
+# 268 "data/maps/PellucaUmbraLab/scripts.pory"
+	face_left
+# 268 "data/maps/PellucaUmbraLab/scripts.pory"
 	emote_exclamation_mark
-# 267 "data/maps/PellucaUmbraLab/scripts.pory"
-	face_down
 	step_end
 
-# 270 "data/maps/PellucaUmbraLab/scripts.pory"
+# 271 "data/maps/PellucaUmbraLab/scripts.pory"
 DR_Lab_Theft_Movement_4:
-# 270 "data/maps/PellucaUmbraLab/scripts.pory"
+# 271 "data/maps/PellucaUmbraLab/scripts.pory"
+	lock_facing_direction
+# 271 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_up
-# 270 "data/maps/PellucaUmbraLab/scripts.pory"
-	face_down
+# 271 "data/maps/PellucaUmbraLab/scripts.pory"
+	unlock_facing_direction
 	step_end
 
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 DR_Lab_Theft_Movement_5:
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_left
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_left
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_left
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_left
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 294 "data/maps/PellucaUmbraLab/scripts.pory"
+# 295 "data/maps/PellucaUmbraLab/scripts.pory"
 	face_up
 	step_end
 
-# 368 "data/maps/PellucaUmbraLab/scripts.pory"
+# 369 "data/maps/PellucaUmbraLab/scripts.pory"
 DR_Lab_EdenWins_Movement_0:
-# 368 "data/maps/PellucaUmbraLab/scripts.pory"
-	face_up
-# 368 "data/maps/PellucaUmbraLab/scripts.pory"
+# 369 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
+# 369 "data/maps/PellucaUmbraLab/scripts.pory"
+	walk_fast_left
+# 369 "data/maps/PellucaUmbraLab/scripts.pory"
+	walk_fast_left
+# 369 "data/maps/PellucaUmbraLab/scripts.pory"
+	walk_fast_left
 	step_end
 
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 DR_Lab_EdenWins_Movement_1:
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_left
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
+	walk_fast_left
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
+	walk_fast_left
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_fast_up
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
-	walk_fast_right
-# 375 "data/maps/PellucaUmbraLab/scripts.pory"
+# 376 "data/maps/PellucaUmbraLab/scripts.pory"
 	face_right
 	step_end
 
-# 378 "data/maps/PellucaUmbraLab/scripts.pory"
-DR_Lab_EdenWins_Movement_2:
-# 378 "data/maps/PellucaUmbraLab/scripts.pory"
-	emote_exclamation_mark
-# 378 "data/maps/PellucaUmbraLab/scripts.pory"
-	face_left
-	step_end
-
-# 416 "data/maps/PellucaUmbraLab/scripts.pory"
+# 417 "data/maps/PellucaUmbraLab/scripts.pory"
 DR_Lab_ShardBriefing_Movement_0:
-# 416 "data/maps/PellucaUmbraLab/scripts.pory"
+# 417 "data/maps/PellucaUmbraLab/scripts.pory"
 	walk_up
-# 416 "data/maps/PellucaUmbraLab/scripts.pory"
+# 417 "data/maps/PellucaUmbraLab/scripts.pory"
 	face_up
 	step_end
 
@@ -1410,43 +1410,43 @@ DR_Lab_Theft_Text_6:
 	.string "Gently.$"
 
 DR_Lab_Theft_Text_7:
-# 274 "data/maps/PellucaUmbraLab/scripts.pory"
+# 275 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "...Nobody said anything about a\n"
 	.string "Jousteel...$"
 
 DR_Lab_Theft_Text_8:
-# 277 "data/maps/PellucaUmbraLab/scripts.pory"
+# 278 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "...But it doesn't matter. Lay a hand on\n"
 	.string "me and you'll have a lot of explaining to\l"
 	.string "do, Vizier. Bigger people than you want\l"
 	.string "this delivered.$"
 
 DR_Lab_Theft_Text_9:
-# 279 "data/maps/PellucaUmbraLab/scripts.pory"
+# 280 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Bigger people, you say? No person\n"
 	.string "stands above my authority except the\l"
 	.string "Empress, child.$"
 
 DR_Lab_Theft_Text_10:
-# 280 "data/maps/PellucaUmbraLab/scripts.pory"
+# 281 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Unless... hmm. Could this be...?$"
 
 DR_Lab_Theft_Text_11:
-# 282 "data/maps/PellucaUmbraLab/scripts.pory"
+# 283 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "How kind of THEM to drop a lead right\n"
 	.string "into my lap.$"
 
 DR_Lab_Theft_Text_12:
-# 286 "data/maps/PellucaUmbraLab/scripts.pory"
+# 287 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "I... I work alone, Vizier.$"
 
 DR_Lab_Theft_Text_13:
-# 288 "data/maps/PellucaUmbraLab/scripts.pory"
+# 289 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Of course you do. I'm looking forward to\n"
 	.string "hearing ALL about it.$"
 
 DR_Lab_Theft_Text_14:
-# 290 "data/maps/PellucaUmbraLab/scripts.pory"
+# 291 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Rainhawk, our guest seems eager to\n"
 	.string "test herself. Would you oblige her?\l"
 	.string "Consider it your first lesson with your\l"
@@ -1454,52 +1454,52 @@ DR_Lab_Theft_Text_14:
 	.string "door.$"
 
 DR_Lab_Theft_Text_15:
-# 300 "data/maps/PellucaUmbraLab/scripts.pory"
+# 301 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "...And nobody said anything about a\n"
 	.string "soldier, either.$"
 
 DR_Lab_Theft_Text_16:
-# 303 "data/maps/PellucaUmbraLab/scripts.pory"
+# 304 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Who might you be? Is that a mending\n"
 	.string "mask? From Athanto? That's worth more\l"
 	.string "than this whole lab.$"
 
 DR_Lab_Theft_Text_17:
-# 305 "data/maps/PellucaUmbraLab/scripts.pory"
+# 306 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Nomad Alban$"
 
 DR_Lab_Theft_Text_18:
-# 306 "data/maps/PellucaUmbraLab/scripts.pory"
+# 307 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Put the ball back and surrender quietly.$"
 
 DR_Lab_Theft_Text_19:
-# 309 "data/maps/PellucaUmbraLab/scripts.pory"
+# 310 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "If you want it so badly, come and take\n"
 	.string "it. Pilfer, up!$"
 
 DR_Lab_Theft_Text_20:
-# 333 "data/maps/PellucaUmbraLab/scripts.pory"
+# 334 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "How did you crush me so easily? I even\n"
 	.string "picked the starter that was strong\l"
 	.string "against yours!\p"
 	.string "Who are you? No... WHAT are you?$"
 
 DR_Lab_Theft_Text_21:
-# 336 "data/maps/PellucaUmbraLab/scripts.pory"
+# 337 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Nomad Alban. I'm the youngest Rainhawk\n"
 	.string "in history.$"
 
 DR_Lab_Theft_Text_22:
-# 339 "data/maps/PellucaUmbraLab/scripts.pory"
+# 340 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Never heard of you!$"
 
 DR_Lab_Theft_Text_23:
-# 342 "data/maps/PellucaUmbraLab/scripts.pory"
+# 343 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "That's fine. I've never heard of you\n"
 	.string "either.$"
 
 DR_Lab_Theft_Text_24:
-# 345 "data/maps/PellucaUmbraLab/scripts.pory"
+# 346 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Hah... you've got a sharp tongue on you,\n"
 	.string "Nomad. Just know that people like me\l"
 	.string "don't stay in cells for long.\p"
@@ -1507,7 +1507,7 @@ DR_Lab_Theft_Text_24:
 	.string "with relish.$"
 
 DR_Lab_Theft_Text_25:
-# 347 "data/maps/PellucaUmbraLab/scripts.pory"
+# 348 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "A rematch that will never happen. The\n"
 	.string "Templars keep their holes very deep,\l"
 	.string "and very dark. And they are not known\l"
@@ -1516,46 +1516,46 @@ DR_Lab_Theft_Text_25:
 	.string "her.$"
 
 DR_Lab_EdenWins_Text_0:
-# 357 "data/maps/PellucaUmbraLab/scripts.pory"
+# 358 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Hah! That's it? Some soldier you are.$"
 
 DR_Lab_EdenWins_Text_1:
-# 358 "data/maps/PellucaUmbraLab/scripts.pory"
+# 359 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Who are you, anyway?$"
 
 DR_Lab_EdenWins_Text_2:
-# 361 "data/maps/PellucaUmbraLab/scripts.pory"
+# 362 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "...Nomad Alban. I'm the youngest\n"
 	.string "Rainhawk in history.$"
 
 DR_Lab_EdenWins_Text_3:
-# 364 "data/maps/PellucaUmbraLab/scripts.pory"
+# 365 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "The youngest Rainhawk in history, and\n"
 	.string "you lost to me? Wait until the others\l"
 	.string "hear about this.$"
 
 DR_Lab_EdenWins_Text_4:
-# 365 "data/maps/PellucaUmbraLab/scripts.pory"
+# 366 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Well, it's been fun, gentlemen, but I\n"
 	.string "really must be going.$"
 
 DR_Lab_EdenWins_Text_5:
-# 371 "data/maps/PellucaUmbraLab/scripts.pory"
+# 372 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Neptune. Pin her. Gently.$"
 
 DR_Lab_EdenWins_Text_6:
-# 382 "data/maps/PellucaUmbraLab/scripts.pory"
+# 383 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Ow! Hey! Get this walking suit of armor\n"
 	.string "off me!$"
 
 DR_Lab_EdenWins_Text_7:
-# 384 "data/maps/PellucaUmbraLab/scripts.pory"
+# 385 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Do not look so grim, Rainhawk. Every\n"
 	.string "Trainer loses a first real battle. The\l"
 	.string "good ones remember why.$"
 
 DR_Lab_EdenWins_Text_8:
-# 385 "data/maps/PellucaUmbraLab/scripts.pory"
+# 386 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "As for you, child... the Templars keep\n"
 	.string "their holes very deep, and very dark.\l"
 	.string "And they are not known for their mercy.\p"
@@ -1563,7 +1563,7 @@ DR_Lab_EdenWins_Text_8:
 	.string "her.$"
 
 DR_Lab_ShardBriefing_Text_0:
-# 421 "data/maps/PellucaUmbraLab/scripts.pory"
+# 422 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "That girl knew exactly where to look,\n"
 	.string "and exactly what to take. Someone\l"
 	.string "knows more about this place than they\l"
@@ -1571,11 +1571,11 @@ DR_Lab_ShardBriefing_Text_0:
 	.string "But just how could that be...$"
 
 DR_Lab_ShardBriefing_Text_1:
-# 424 "data/maps/PellucaUmbraLab/scripts.pory"
+# 425 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Someone who knew I was coming?$"
 
 DR_Lab_ShardBriefing_Text_2:
-# 426 "data/maps/PellucaUmbraLab/scripts.pory"
+# 427 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Or someone who knew I was preparing for\n"
 	.string "someone. Either way... I can no longer\l"
 	.string "put off telling you about your... other\l"
@@ -1583,7 +1583,7 @@ DR_Lab_ShardBriefing_Text_2:
 	.string "important than the Trials.$"
 
 DR_Lab_ShardBriefing_Text_3:
-# 427 "data/maps/PellucaUmbraLab/scripts.pory"
+# 428 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Long ago, Cormoria possessed three\n"
 	.string "great treasures... the Mega\l"
 	.string "Dreamstones. The old tales called them\l"
@@ -1593,7 +1593,7 @@ DR_Lab_ShardBriefing_Text_3:
 	.string "significance is quite telling.$"
 
 DR_Lab_ShardBriefing_Text_4:
-# 428 "data/maps/PellucaUmbraLab/scripts.pory"
+# 429 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "In any case... one of these stones was\n"
 	.string "shattered at some point in the past. A\l"
 	.string "friend of mine, whose name you are\l"
@@ -1601,7 +1601,7 @@ DR_Lab_ShardBriefing_Text_4:
 	.string "where its nine pieces came to rest.$"
 
 DR_Lab_ShardBriefing_Text_5:
-# 429 "data/maps/PellucaUmbraLab/scripts.pory"
+# 430 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "There are powerful cults in Cormoria.\n"
 	.string "Two of them want those pieces for\l"
 	.string "reasons I am unsure of, but based on\l"
@@ -1613,11 +1613,11 @@ DR_Lab_ShardBriefing_Text_5:
 	.string "awaken.$"
 
 DR_Lab_ShardBriefing_Text_6:
-# 432 "data/maps/PellucaUmbraLab/scripts.pory"
+# 433 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "And the Trials?$"
 
 DR_Lab_ShardBriefing_Text_7:
-# 434 "data/maps/PellucaUmbraLab/scripts.pory"
+# 435 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Besides serving as a path for you to\n"
 	.string "reveal your identity, and a means to\l"
 	.string "grow into your potential as a Trainer,\l"
@@ -1629,36 +1629,36 @@ DR_Lab_ShardBriefing_Text_7:
 	.string "anywhere he pleases.$"
 
 DR_Lab_ShardBriefing_Text_8:
-# 435 "data/maps/PellucaUmbraLab/scripts.pory"
+# 436 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Your second mission, therefore, is\n"
 	.string "ultimately simple. Bring the pieces to\l"
 	.string "me... and do it quietly, without\l"
 	.string "attracting unneeded attention.$"
 
 DR_Lab_ShardBriefing_Text_9:
-# 436 "data/maps/PellucaUmbraLab/scripts.pory"
+# 437 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "The Trials will make you Champion. The\n"
 	.string "shards will make sure there is still an\l"
 	.string "Empire left for you to rule.$"
 
 DR_Lab_ShardBriefing_Text_10:
-# 438 "data/maps/PellucaUmbraLab/scripts.pory"
+# 439 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Which means no more announcing\n"
 	.string "yourself to thieves as the youngest\l"
 	.string "Rainhawk in history.$"
 
 DR_Lab_ShardBriefing_Text_11:
-# 441 "data/maps/PellucaUmbraLab/scripts.pory"
+# 442 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "...She asked.$"
 
 DR_Lab_ShardBriefing_Text_12:
-# 443 "data/maps/PellucaUmbraLab/scripts.pory"
+# 444 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "I know someone who can make the stone\n"
 	.string "whole again, and keep the cults from\l"
 	.string "taking control of it.$"
 
 DR_Lab_ShardBriefing_Text_13:
-# 444 "data/maps/PellucaUmbraLab/scripts.pory"
+# 445 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "That is also what the PokéLog is for.\n"
 	.string "Every Pokémon you record tells me where\l"
 	.string "you have been and what lives there.\p"
@@ -1669,37 +1669,37 @@ DR_Lab_ShardBriefing_Text_13:
 	.string "pursue them.$"
 
 DR_Lab_ShardBriefing_Text_14:
-# 447 "data/maps/PellucaUmbraLab/scripts.pory"
+# 448 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Where do I begin? Surely there must be\n"
 	.string "something I can do, even if I'm\l"
 	.string "currently a novice Trainer.$"
 
 DR_Lab_ShardBriefing_Text_15:
-# 449 "data/maps/PellucaUmbraLab/scripts.pory"
+# 450 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "West, past Route 11, toward Mirroh.\n"
 	.string "Kimaris Langerin oversees the first\l"
 	.string "Trial there, and there are rumors of a\l"
 	.string "piece on the mountain above it.$"
 
 DR_Lab_ShardBriefing_Text_16:
-# 451 "data/maps/PellucaUmbraLab/scripts.pory"
+# 452 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "But first, take a day to settle in. See\n"
 	.string "the valley, and get to know your new\l"
 	.string "partner. Learn its habits before\l"
 	.string "someone else tests them for you.$"
 
 PellucaUmbraLab_EventScript_Umbra_Text_0:
-# 463 "data/maps/PellucaUmbraLab/scripts.pory"
+# 464 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Trials for the crown, shards for the\n"
 	.string "Empire. But the valley first, then\l"
 	.string "Mirroh. And do try to get some sleep.$"
 
 PellucaUmbraLab_EventScript_Umbra_Text_1:
-# 465 "data/maps/PellucaUmbraLab/scripts.pory"
+# 466 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Take your time. This is an important\n"
 	.string "choice.$"
 
 DR_Lab_Text_EdenDefeat::
-# 406 "data/maps/PellucaUmbraLab/scripts.pory"
+# 407 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Wh-what? You've had that Pokémon for\n"
 	.string "less than two minutes!$"

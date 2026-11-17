@@ -264,10 +264,11 @@ script DR_Lab_Theft{
     applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_down walk_fast_right face_up))
     waitmovement(0)
     waitmoncry
-    applymovement(LOCALID_DRL_EDEN, moves(emote_exclamation_mark face_down))
+    // cut off from the door, she looks to her right, toward the window on the west wall (user)
+    applymovement(LOCALID_DRL_EDEN, moves(face_left emote_exclamation_mark))
     waitmovement(0)
     delay(16)
-    applymovement(LOCALID_DRL_EDEN, moves(walk_up face_down))
+    applymovement(LOCALID_DRL_EDEN, moves(lock_facing_direction walk_up unlock_facing_direction))
     waitmovement(0)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
@@ -365,17 +366,17 @@ script DR_Lab_EdenWins{
     msgbox(format("Well, it's been fun, gentlemen, but I really must be going."))
     hideportrait
     closemessage
-    applymovement(LOCALID_DRL_EDEN, moves(face_up walk_fast_up))
+    applymovement(LOCALID_DRL_EDEN, moves(walk_fast_up walk_fast_left * 3))
     waitmovement(0)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Neptune. Pin her. Gently."))
     hideportrait
     closemessage
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
-    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_left walk_fast_up * 6 walk_fast_right face_right))
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_left walk_fast_up * 5 walk_fast_left * 2 walk_fast_up face_right))
     waitmovement(0)
     waitmoncry
-    applymovement(LOCALID_DRL_EDEN, moves(emote_exclamation_mark face_left))
+    applymovement(LOCALID_DRL_EDEN, moves(face_left emote_exclamation_mark))
     waitmovement(0)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
