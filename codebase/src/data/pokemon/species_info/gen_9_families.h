@@ -3611,7 +3611,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
-        .abilities = { ABILITY_MOLD_BREAKER, ABILITY_OWN_TEMPO, ABILITY_PICKPOCKET },
+        // Ruination starter-line abilities (bible 05, LOCKED v0.9.2): two normal + hidden.
+        .abilities = { ABILITY_CUTE_CHARM, ABILITY_BATTLE_ARMOR, ABILITY_PIXILATE },
         .bodyColor = BODY_COLOR_PINK,
         .speciesName = _("Tinkatink"),
         .cryId = CRY_TINKATINK,
@@ -3680,7 +3681,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
-        .abilities = { ABILITY_MOLD_BREAKER, ABILITY_OWN_TEMPO, ABILITY_PICKPOCKET },
+        // Ruination starter-line abilities (bible 05, LOCKED v0.9.2): two normal + hidden.
+        .abilities = { ABILITY_CUTE_CHARM, ABILITY_BATTLE_ARMOR, ABILITY_PIXILATE },
         .bodyColor = BODY_COLOR_PINK,
         .speciesName = _("Tinkatuff"),
         .cryId = CRY_TINKATUFF,
@@ -3755,7 +3757,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
-        .abilities = { ABILITY_MOLD_BREAKER, ABILITY_OWN_TEMPO, ABILITY_PICKPOCKET },
+        // Ruination starter-line abilities (bible 05, LOCKED v0.9.2): two normal + hidden.
+        .abilities = { ABILITY_CUTE_CHARM, ABILITY_BATTLE_ARMOR, ABILITY_PIXILATE },
         .bodyColor = BODY_COLOR_PINK,
         .speciesName = _("Tinkaton"),
         .cryId = CRY_TINKATON,
@@ -6036,7 +6039,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
-        .abilities = { ABILITY_THERMAL_EXCHANGE, ABILITY_NONE, ABILITY_ICE_BODY },
+        // Ruination starter-line abilities (bible 05, LOCKED v0.9.2): two normal + hidden.
+        .abilities = { ABILITY_ICE_SCALES, ABILITY_SLUSH_RUSH, ABILITY_ARMOR_TAIL },
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Frigibax"),
         .cryId = CRY_FRIGIBAX,
@@ -6104,7 +6108,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
-        .abilities = { ABILITY_THERMAL_EXCHANGE, ABILITY_NONE, ABILITY_ICE_BODY },
+        // Ruination starter-line abilities (bible 05, LOCKED v0.9.2): two normal + hidden.
+        .abilities = { ABILITY_ICE_SCALES, ABILITY_SLUSH_RUSH, ABILITY_ARMOR_TAIL },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Arctibax"),
         .cryId = CRY_ARCTIBAX,
@@ -6176,7 +6181,8 @@ const struct SpeciesInfo gSpeciesInfoGen9[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_DRAGON, EGG_GROUP_MINERAL),
-        .abilities = { ABILITY_THERMAL_EXCHANGE, ABILITY_NONE, ABILITY_ICE_BODY },
+        // Ruination starter-line abilities (bible 05, LOCKED v0.9.2): two normal + hidden.
+        .abilities = { ABILITY_ICE_SCALES, ABILITY_SLUSH_RUSH, ABILITY_ARMOR_TAIL },
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Baxcalibur"),
         .cryId = CRY_BAXCALIBUR,
