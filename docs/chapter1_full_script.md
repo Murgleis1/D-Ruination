@@ -20,7 +20,7 @@ Review copy, generated 2026-11-16. **[IN GAME]** sections are exactly what the g
 
 ## 2. The letter and Osrid's reply  [IN GAME]
 
-*A letter has come for you. The seal is plain wax, pressed without a crest.*
+*A sealed letter. Plain wax, no crest.*
 
 **Cadmus:** Rainhawk Alban,
 
@@ -50,15 +50,11 @@ Sign it with the name you were born with, not the one I gave you a decade ago, a
 
 C.
 
-*You take up the pen.*
-
 *[Naming screen: you sign your name.]*
 
 **Prince Osrid:** Received and acknowledged. I will be aboard the Veluza when she sails.
 
 It...will be good to be home again.
-
-*You hold the letter over the lamp until there is nothing left to read.*
 
 ## 3. Arrival at the Pelluca dock  [IN GAME]
 
@@ -74,23 +70,15 @@ It...will be good to be home again.
 
 **Cadmus:** Good. Walk with me. We will talk somewhere quieter.
 
-*Cadmus walks on ahead. You stop.*
-
-*A small shrine stands beside the path, crowded with candles. The plaque reads:*
-
 *For Prince Osrid, Keerin's Chosen. Wherever you are, come home.*
 
 **Cadmus:** Rainhawk.
-
-*You follow him.*
 
 ## 4. Cadmus's lab: the briefing  [IN GAME]
 
 **Cadmus:** Welcome home, my Prince. Forgive the chaos.
 
 This lab is my personal environment, and a place where we can communicate openly, without reservations.
-
-*Cadmus raises a hand toward your mask.*
 
 **Cadmus:** Will you let me see your face?
 
@@ -234,11 +222,11 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 
 **Cadmus:** There is nowhere for you to go, little thief.
 
-**Thief:** Mmm... I have my ways. But I have what I need now, so I'll just-
+**Thief:** Mmm... I have my ways.
+
+**Thief:** But I have what I need now, so I'll just-
 
 **Cadmus:** Neptune. Bar the door, and keep one eye on the window. If she runs, pin her. Gently.
-
-*Neptune, Cadmus's Jousteel, takes the doorway. The room suddenly feels much smaller.*
 
 **Thief:** ...Nobody said anything about a Jousteel...
 
@@ -257,8 +245,6 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 **Cadmus:** Of course you do. I'm looking forward to hearing ALL about it.
 
 **Cadmus:** Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
-
-*You step into the thief's path.*
 
 **Thief:** ...And nobody said anything about a soldier, either.
 
@@ -302,8 +288,6 @@ Neptune, our guest is leaving. Escort her.
 
 **Thief:** Well, it's been fun, gentlemen, but I really must be going.
 
-*She makes for the window. Neptune is faster.*
-
 **Cadmus:** Neptune. Pin her. Gently.
 
 **Thief:** Ow! Hey! Get this walking suit of armor off me!
@@ -315,8 +299,6 @@ Neptune, our guest is leaving. Escort her.
 Neptune, our guest is leaving. Escort her.
 
 ## 7. The Templar holding cell  [IN GAME]
-
-*Later, in a holding cell beneath the Templar monastery.*
 
 **Templar:** State your name.
 
@@ -334,19 +316,13 @@ Neptune, our guest is leaving. Escort her.
 
 **Eden:** Nobody you'd want to meet, Vizier Umbra. And nobody who'll leave me down here for long.
 
-*She glances at the bars, then away.*
-
 **Eden:** ...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk.
 
 **Eden:** You fought like a soldier, Nomad Alban. All orders, not one word to that little partner of yours. It tried its best anyway.
 
-*A pause.*
-
 **Eden:** Just saying... it'll be something to see, the day the two of you actually fight together. I mean it.
 
 **Eden:** You really did fight well, Nomad Alban. Your little partner there beat Pilfer to a pulp, and yet you never said one word to it. Just gestures.
-
-*A pause.*
 
 **Eden:** Just saying... that's pretty amazing. I mean it.
 

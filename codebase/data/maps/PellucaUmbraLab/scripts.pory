@@ -33,7 +33,7 @@ mapscripts PellucaUmbraLab_MapScripts{
             setflag(FLAG_UNUSED_0x885)
         }
         if (var(VAR_UNUSED_0x40A1) == 1){
-            setobjectxyperm(LOCALID_DRL_CADMUS, 7, 7)
+            setobjectxyperm(LOCALID_DRL_CADMUS, 6, 7)
             setobjectmovementtype(LOCALID_DRL_CADMUS, MOVEMENT_TYPE_FACE_RIGHT)
         }
         return
@@ -57,10 +57,6 @@ script DR_Lab_Briefing{
     delay(20)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
     msgbox(format("Welcome home, my Prince. Forgive the chaos.\pThis lab is my personal environment, and a place where we can communicate openly, without reservations."))
-    hideportrait
-    closemessage
-    msgbox(format("Cadmus raises a hand toward your mask."))
-    closemessage
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Will you let me see your face?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
@@ -152,8 +148,9 @@ script DR_Lab_Briefing{
     msgbox(format("Proceed, my Lord. This is an important choice."))
     hideportrait
     closemessage
-    // he steps aside so all three balls can be reached from the front of the table
-    applymovement(LOCALID_DRL_CADMUS, moves(walk_left * 2 face_right))
+    // he steps aside onto the rug (the table's left leg at (7,7) would hide him) so all three
+    // balls can be reached from the front of the table
+    applymovement(LOCALID_DRL_CADMUS, moves(walk_left * 3 face_right))
     waitmovement(0)
     releaseall
     end
@@ -224,7 +221,7 @@ script DR_Lab_Theft{
     delay(45)
     setobjectxy(OBJ_EVENT_ID_PLAYER, 9, 8)
     turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
-    setobjectxy(LOCALID_DRL_CADMUS, 7, 7)
+    setobjectxy(LOCALID_DRL_CADMUS, 6, 7)
     turnobject(LOCALID_DRL_CADMUS, DIR_EAST)
     clearflag(FLAG_UNUSED_0x886)
     addobject(LOCALID_DRL_EDEN)
@@ -244,21 +241,35 @@ script DR_Lab_Theft{
     msgbox(format("There is nowhere for you to go, little thief."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
     speakername("Thief")
-    msgbox(format("Mmm... I have my ways. But I have what I need now, so I'll just-"))
+    msgbox(format("Mmm... I have my ways."))
+    hideportrait
+    closemessage
+    // she glances at the way out, then goes for it
+    applymovement(LOCALID_DRL_EDEN, moves(face_left delay_16 face_down delay_16 face_left))
+    waitmovement(0)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    speakername("Thief")
+    msgbox(format("But I have what I need now, so I'll just-"))
+    hideportrait
+    closemessage
+    applymovement(LOCALID_DRL_EDEN, moves(walk_fast_left * 2))
+    waitmovement(0)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Neptune. Bar the door, and keep one eye on the window. If she runs, pin her. Gently."))
     hideportrait
     closemessage
+    // Neptune comes out beside Cadmus and plants himself on the doorway before she can reach it
     clearflag(FLAG_UNUSED_0x887)
     addobject(LOCALID_DRL_NEPTUNE)
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
-    waitmoncry
-    delay(16)
-    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_down walk_left * 2 face_up))
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_down walk_fast_left * 2 face_up))
     waitmovement(0)
-    delay(20)
-    msgbox(format("Neptune, Cadmus's Jousteel, takes the doorway. The room suddenly feels much smaller."))
-    closemessage
+    waitmoncry
+    applymovement(LOCALID_DRL_EDEN, moves(emote_exclamation_mark face_down))
+    waitmovement(0)
+    delay(16)
+    applymovement(LOCALID_DRL_EDEN, moves(walk_right * 2 face_down))
+    waitmovement(0)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
     msgbox(format("...Nobody said anything about a Jousteel..."))
@@ -284,8 +295,6 @@ script DR_Lab_Theft{
     applymovement(LOCALID_DRL_EDEN, moves(face_down))
     waitmovement(0)
     delay(12)
-    msgbox(format("You step into the thief's path."))
-    closemessage
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
     msgbox(format("...And nobody said anything about a soldier, either."))
@@ -356,17 +365,17 @@ script DR_Lab_EdenWins{
     msgbox(format("Well, it's been fun, gentlemen, but I really must be going."))
     hideportrait
     closemessage
-    applymovement(LOCALID_DRL_EDEN, moves(face_up))
+    applymovement(LOCALID_DRL_EDEN, moves(face_up walk_fast_up))
     waitmovement(0)
-    msgbox(format("She makes for the window. Neptune is faster."))
-    closemessage
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Neptune. Pin her. Gently."))
     hideportrait
     closemessage
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_up * 5 walk_fast_right * 6 face_right))
+    waitmovement(0)
     waitmoncry
-    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_up * 5 walk_fast_right * 7 face_down))
+    applymovement(LOCALID_DRL_EDEN, moves(emote_exclamation_mark face_left))
     waitmovement(0)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")

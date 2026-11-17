@@ -1452,16 +1452,12 @@ script DR_PellucaCity_Arrival{
     waitmovement(0)
     waitmovement(LOCALID_DR_CADMUS)
     delay(30)
-    msgbox(format("Cadmus walks on ahead. You stop."))
-    msgbox(format("A small shrine stands beside the path, crowded with candles. The plaque reads:"))
-    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."))
+    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."), MSGBOX_SIGN)
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Rainhawk."))
     hideportrait
-    closemessage
-    msgbox(format("You follow him."))
     closemessage
     applymovement(LOCALID_DR_CADMUS, moves(face_up))
     waitmovement(0)
@@ -1482,8 +1478,7 @@ script DR_PellucaCity_Arrival{
 // ================= Pelluca Valley, empire era (events pass 2026-11-16) =================
 script DR_PellucaCity_Shrine{
     lock
-    msgbox(format("A small shrine, crowded with candles. The plaque reads:"))
-    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."))
+    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."), MSGBOX_SIGN)
     release
     end
 }

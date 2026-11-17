@@ -18,7 +18,7 @@ script PellucaReflection_Cutscene {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_down))
     waitmovement(0)
     delay(40)
-    msgbox(format("A letter has come for you. The seal is plain wax, pressed without a crest."))
+    msgbox(format("A sealed letter. Plain wax, no crest."), MSGBOX_SIGN)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Rainhawk Alban,\pThe surgeon's report from Sevii reached my desk a week before your commander's did. A commander proud of his decisions does not take a week to report them.\pBurns to the face and neck, taken holding a beach that should have had twice the men on it. Commander Surge split his forces across two fronts, and you paid the price for his witless folly."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
@@ -30,7 +30,6 @@ script PellucaReflection_Cutscene {
     msgbox(format("Then burn this. These days, too many people in Cormoria read letters that were never meant for them.\pC."))
     hideportrait
     closemessage
-    msgbox(format("You take up the pen."))
     special(DrDoPlayerNaming)
     waitstate
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
@@ -38,7 +37,10 @@ script PellucaReflection_Cutscene {
     msgbox(format("Received and acknowledged. I will be aboard the Veluza when she sails.\pIt...will be good to be home again."))
     hideportrait
     closemessage
-    msgbox(format("You hold the letter over the lamp until there is nothing left to read."))
+    // "Then burn this.": the letter goes into the lamp (sound, no narration)
+    delay(30)
+    playse(SE_M_EMBER)
+    waitse
     delay(40)
     fadescreen(FADE_TO_BLACK)
     setvar(VAR_UNUSED_0x404E, 1)

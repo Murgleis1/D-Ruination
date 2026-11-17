@@ -23,7 +23,7 @@ PellucaReflection_Cutscene::
 # 20 "data/maps/PellucaReflection/scripts.pory"
 	delay 40
 # 21 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_0
+	msgbox PellucaReflection_Cutscene_Text_0, MSGBOX_SIGN
 # 22 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 23 "data/maps/PellucaReflection/scripts.pory"
@@ -47,34 +47,36 @@ PellucaReflection_Cutscene::
 # 32 "data/maps/PellucaReflection/scripts.pory"
 	closemessage
 # 33 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_6
-# 34 "data/maps/PellucaReflection/scripts.pory"
 	special DrDoPlayerNaming
-# 35 "data/maps/PellucaReflection/scripts.pory"
+# 34 "data/maps/PellucaReflection/scripts.pory"
 	waitstate
-# 36 "data/maps/PellucaReflection/scripts.pory"
+# 35 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 37 "data/maps/PellucaReflection/scripts.pory"
+# 36 "data/maps/PellucaReflection/scripts.pory"
 	special DrSetPrinceNameplate
+# 37 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_6
 # 38 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_7
-# 39 "data/maps/PellucaReflection/scripts.pory"
 	hideportrait
-# 40 "data/maps/PellucaReflection/scripts.pory"
+# 39 "data/maps/PellucaReflection/scripts.pory"
 	closemessage
 # 41 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_8
+	delay 30
 # 42 "data/maps/PellucaReflection/scripts.pory"
-	delay 40
+	playse SE_M_EMBER
 # 43 "data/maps/PellucaReflection/scripts.pory"
-	fadescreen FADE_TO_BLACK
+	waitse
 # 44 "data/maps/PellucaReflection/scripts.pory"
-	setvar VAR_UNUSED_0x404E, 1
+	delay 40
 # 45 "data/maps/PellucaReflection/scripts.pory"
-	warp MAP_PELLUCA_CITY, 44, 52
+	fadescreen FADE_TO_BLACK
 # 46 "data/maps/PellucaReflection/scripts.pory"
-	waitstate
+	setvar VAR_UNUSED_0x404E, 1
 # 47 "data/maps/PellucaReflection/scripts.pory"
+	warp MAP_PELLUCA_CITY, 44, 52
+# 48 "data/maps/PellucaReflection/scripts.pory"
+	waitstate
+# 49 "data/maps/PellucaReflection/scripts.pory"
 	releaseall
 	end
 
@@ -87,8 +89,7 @@ PellucaReflection_Cutscene_Movement_0:
 
 PellucaReflection_Cutscene_Text_0:
 # 21 "data/maps/PellucaReflection/scripts.pory"
-	.string "A letter has come for you. The seal is\n"
-	.string "plain wax, pressed without a crest.$"
+	.string "A sealed letter. Plain wax, no crest.$"
 
 PellucaReflection_Cutscene_Text_1:
 # 23 "data/maps/PellucaReflection/scripts.pory"
@@ -160,16 +161,7 @@ PellucaReflection_Cutscene_Text_5:
 	.string "C.$"
 
 PellucaReflection_Cutscene_Text_6:
-# 33 "data/maps/PellucaReflection/scripts.pory"
-	.string "You take up the pen.$"
-
-PellucaReflection_Cutscene_Text_7:
-# 38 "data/maps/PellucaReflection/scripts.pory"
+# 37 "data/maps/PellucaReflection/scripts.pory"
 	.string "Received and acknowledged. I will be\n"
 	.string "aboard the Veluza when she sails.\p"
 	.string "It...will be good to be home again.$"
-
-PellucaReflection_Cutscene_Text_8:
-# 41 "data/maps/PellucaReflection/scripts.pory"
-	.string "You hold the letter over the lamp until\n"
-	.string "there is nothing left to read.$"

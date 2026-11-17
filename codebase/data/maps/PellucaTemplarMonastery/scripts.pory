@@ -23,8 +23,6 @@ script DR_Monastery_Cell {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
     waitmovement(0)
     delay(30)
-    msgbox(format("Later, in a holding cell beneath the Templar monastery."))
-    closemessage
     speakername("Templar")
     msgbox(format("State your name."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
@@ -48,8 +46,8 @@ script DR_Monastery_Cell {
     msgbox(format("Nobody you'd want to meet, Vizier Umbra. And nobody who'll leave me down here for long."))
     hideportrait
     closemessage
-    msgbox(format("She glances at the bars, then away."))
-    closemessage
+    applymovement(LOCALID_DRM_EDEN, moves(face_up delay_16 delay_16 face_down))
+    waitmovement(0)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk."))
     if (flag(FLAG_DR_LOST_TO_EDEN_LAB)) {
@@ -58,9 +56,7 @@ script DR_Monastery_Cell {
         msgbox(format("You fought like a soldier, Nomad Alban. All orders, not one word to that little partner of yours. It tried its best anyway."))
         hideportrait
         closemessage
-        msgbox(format("A pause."))
-        closemessage
-        delay(20)
+        delay(50)
         showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
         msgbox(format("Just saying... it'll be something to see, the day the two of you actually fight together. I mean it."))
     } else {
@@ -68,9 +64,7 @@ script DR_Monastery_Cell {
         msgbox(format("You really did fight well, Nomad Alban. Your little partner there beat Pilfer to a pulp, and yet you never said one word to it. Just gestures."))
         hideportrait
         closemessage
-        msgbox(format("A pause."))
-        closemessage
-        delay(20)
+        delay(50)
         showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
         msgbox(format("Just saying... that's pretty amazing. I mean it."))
     }
