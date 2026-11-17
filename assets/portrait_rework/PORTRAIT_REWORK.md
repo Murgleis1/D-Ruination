@@ -341,3 +341,27 @@ backsprite looks artificial versus actual monomyth backsprites".
 - Hair: the portrait-derived hair cleaned (doubled outline trimmed, black specks -> dark hair,
   single specks smoothed), then the spike tips regrown at the portrait's own measured tip
   positions and lengths (not a regular comb: a hand-drawn regular comb looked artificial).
+
+## Osrid round 9 — back of the head (no mask); overworld hair matched
+
+User feedback (round 8): show no mask, only the back of his hair and the connecting strap; the hair was
+too thick compared with the front and portrait; the shading and colour mixes were busier than
+MonoMyth's simple ones. Also: the overworld hair was browner than the auburn of the other three sprites.
+
+- Overworld (`graphics/object_events/pics/people/osrid.png`, own palette, OBJ_EVENT_PAL_TAG_OSRID): a
+  palette-only change. Hair indices 3/6/8/A now use the portrait's ramp (74,26,12)/(114,42,18)/
+  (160,64,28)/(206,104,52). All four indices are hair only in all 9 frames.
+- Back candidate N3 (`tools/art/osrid_trainer_back.py`, HEAD_TRACED): a hand-drawn back-of-head grid,
+  pasted at (14,12).
+  - Short spiky locks: chunky pointed tufts, like the front sprite, not 1-px fuzz.
+  - Three hair tones plus black: flat mid base, shadow on the left and at the nape, one lit cluster at
+    the upper right, two lock partings.
+  - The mask strap crosses the skull from ear to ear, with the buckle off-centre.
+  - Small ears at strap height. The skull tapers to the nape.
+  - A sliver of nape between the lowest locks, then the scarf wrapped high (C/A/B).
+  - The body is MonoMyth #4's recolour, unchanged from round 7.
+  - Code changes:
+    - The head's hair and skin now tuck under #4's scarf from COLLAR_Y=33.
+    - Small floating leftovers of #4's old head (<20 px components) are dropped.
+  - `mm_back04_frames.pkl` holds the builder input, rebuilt from the indexed back_04.png.
+  - review.py --mode back: pass. The flagged nubs are the intended black spike tips.

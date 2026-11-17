@@ -66,7 +66,7 @@ GLYPH = [(39, 23), (40, 23),                    # brow bar (foreshortened at the
          (39, 29), (38, 29), (38, 28)]          # start of the spiral
 STRAP_Y, STRAP_X = 22, (15, 33)                 # strap rows 22 (light) and 23 (dark), above the ear
 BUCKLE = (19, 21, 22, 24)                       # x0, y0, x1, y1
-COLLAR_Y = 30                                   # hair at/below this row tucks under the scarf
+COLLAR_Y = 33                                   # hair at/below this row tucks under the scarf
 SCARF = {29: (24, 40), 30: (16, 42), 31: (14, 43), 32: (13, 44), 33: (13, 45), 34: (13, 46),
          35: (13, 46), 36: (13, 46), 37: (14, 45), 38: (15, 44), 39: (17, 42), 40: (20, 38)}
 CAPE_TOP = 41
@@ -100,48 +100,44 @@ def nb4(m):
     return out
 
 
-# Osrid's head in a MonoMyth back-pic PROFILE (round 6). Studied from MonoMyth's front/back pairs
-# (back 2 <-> #80, back 3 <-> #78, back 6 <-> #116, back 8 <-> #88): their back pics are near-profile
-# heads facing right, seen slightly from behind (face about 40% of the head's width, ear just
-# behind it, hair keeping the front design seen from the side); only the torso turns away.
-# Built from the approved portrait: its hair (dominant-vote downscale at natural proportions) keeps
-# the crown and the back, with spikes swept up and back; the face becomes the mask in profile
-# (forehead under the fringe, brow ridge, eye socket, nose, lips, chin, jaw), carrying the Eye of
-# Horus side-on (brow bar, foreshortened eye with its tail back toward the ear, drip, spiral); the
-# ear sits behind it; the strap and buckle sit above the ear (his character sheet).
+# Osrid's head seen FROM BEHIND (round 9; user: "the better angle would be where you don't see the mask
+# at all, just the back of his hair with the connecting strap"; "hair too thick ... shading and colour
+# mixes out of alignment with the simpler MonoMyth mixes"). Hand-drawn pixel by pixel, not generated:
+# his short spiky auburn hair (portrait / front: thin pointed locks flaring back) as a jagged cap, three
+# hair tones + black outline only (flat mid base, shadow rim on the left and at the nape, one lit
+# cluster upper right, two lock partings); the mask strap runs across the back of the skull from ear to
+# ear with its buckle off-centre; ears (skin = the glove-finger tan) at strap height; the nape shows
+# between the lowest locks and tucks under the scarf.
 HEAD_TRACED = [
-    "..........KmK.K...KlK............",
-    "..........KlKKlKKKKmKK...........",
-    "..........KKmmmllKdllKKKK........",
-    "..........KlmmmmmmmmmmmlKK.......",
-    "...K....KKKKmmmmmmmmmmmmmKK......",
-    "..KlK.KKlKdmmmmmmmmmmmmmmdKK.....",
-    ".K.KmKlKllmmmmmmmmmmmmmmmmlKK....",
-    "KlKKmKlllmmmmmmmmmmddmmmmmddK....",
-    ".KmmllmmmmmmmmmmddddKsdoooKK.....",
-    "..KKdmuuummmmmmdddKsKoooowooK....",
-    "...KKtuTutttttttttssoooooowooK...",
-    "...KlluuummmmKssKKssoooKKKowoK...",
-    "K..KKlmmmmmmdKssKKssooooooooooK..",
-    "lKKllmmmmmmddKsoKssoooooKKKooK...",
-    "KmmmlmmmmmmmdKssKssoooooooKooK...",
-    "KllmmmmmmmmmmKssKssooooooooowoK..",
-    "KKKdmmmmddddmdKsKssooooooKooowoK.",
-    "K.KlmmmddddddddKKssoooooKoooooK..",
-    "lKKmmmddddddddddKssoooooKooooK...",
-    "KmmmmddddddmddddKssooooooKKooK...",
-    ".KlmddddddmmddddKssooooooooooK...",
-    ".KKddddddddddddddKssoooooooooK...",
-    "K.KKdddddddddddddKssssssssssK....",
-    "lKKddddddddddddddKKsssssssssK....",
-    "KmmddddddddddddddKddKsssssKK.....",
-    ".KKKKKddddKKddKKKKKKKKKKKK.......",
-    "....KldKKKKKdddK.................",
-    "....KddK...KdddK.................",
+    "........K....K....K.......",
+    ".......KlK..KlK..KlK......",
+    "......KmlK.KmlKKKmlK.K....",
+    ".....KmmlKKmmlmmmmllKlK...",
+    "..K.KdmmmmmmmmmmmmmlllK...",
+    ".KlKKdmmmmmmmmmmmmmmlllKK.",
+    "..KddmmmmmmmmmmmmmmmmlllK.",
+    ".KdddmmmmmmdmmmmmmmdmmllK.",
+    "KlddmmmmmmdmmmmmmmmmdmmmKK",
+    ".KKddmmmmmdmmmmmmmmmdmmmlK",
+    "..KddmmmmdmmmmmmmmmmmdmmK.",
+    "..KddmmmmuuummmmmmmmmdmmK.",
+    "..KttttttuTutttttttttttKK.",
+    ".K9KTTTTTuTuTTTTTTTTTTK9K.",
+    ".K7KdmmmmuuummmmllllmmK7K.",
+    "..KKddmmmmdmmmmmmmlmmdKK..",
+    "...KddmmmdmmmmmmmmmmdmK...",
+    "...KdddmmdmmmmmmmmmdmdK...",
+    "....KddmmmmmdmmmmmdmdK....",
+    ".....KddmmmmdmmmmmdddK....",
+    ".....KdKddmKdmmKdmKdK.....",
+    "......K7KdK7KdK7KdK7K.....",
+    ".....KCCCCCCCCCCCCCCCK....",
+    "....KCCAAACCCCCCAAAACCK...",
+    "...KAAABBBAAAAAAABBBAAAK..",
 ]
-HEAD_TRACED_CODE = {'K': 0x5, 'd': 0x4, 'm': 0x1, 'l': 0xD, 'o': 0x9, 'w': 0xE, 's': 0x7, 'T': 0x6,
-                    'u': 0x3, 't': 0x8}
-HEAD_TRACED_OX, HEAD_TRACED_OY = 15, 9          # head grid (0,0) in frame-0 coordinates
+HEAD_TRACED_CODE = {'K': 0x5, 'd': 0x4, 'm': 0x1, 'l': 0xD, 't': 0x8, 'T': 0x6, 'u': 0x3,
+                    '7': 0x7, '9': 0x9, '8': 0x8, 'C': 0xC, 'A': 0xA, 'B': 0xB}
+HEAD_TRACED_OX, HEAD_TRACED_OY = 14, 12         # head grid (0,0) in frame-0 coordinates
 
 
 def make_head(f0):
@@ -357,9 +353,13 @@ def frame(f, H0):
     L = head_layer(H0, dx, dy)
     head = L > 0
     yy = np.arange(64)[:, None]
-    under = np.isin(L, list(HAIR)) & (yy >= COLLAR_Y + dy) & np.isin(a, list(SCARFC))   # tucked in
+    under = (L > 0) & ~np.isin(L, list(SCARFC)) & (yy >= COLLAR_Y + dy) & np.isin(a, list(SCARFC))   # hair/nape tuck in
     paste = head & ~hand & ~under
     a[paste] = L[paste]
+    lab, n = components(a > 0)
+    for k in range(1, n + 1):
+        if (lab == k).sum() < 20:
+            a[lab == k] = 0
     # --- outline round the scarf and the cape; fill enclosed holes; drop floating outline
     for y in range(64):
         for x in range(64):
