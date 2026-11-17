@@ -426,3 +426,15 @@ Method:
 - `tools/art/osrid_back_head_compose.py`: that hair plus the round-12 mask, ear, cheek, strap, buckle, nape locks and scarf. The upper hair is one flat mid tone with a lit rim, like the portrait. There are no drawn strand lines, since they read as stitches.
 
 review.py --mode back: pass.
+
+## Osrid round 14 — hair slicked back, close to the skull (candidate Q6)
+
+User: "the hair is too poofy and not slicked back enough". The target style is the concept sheet's back view.
+
+`tools/art/osrid_back_head_compose.py`:
+- The hair is clipped to the skull's ellipse (centre (28, 31.5), radii 11.2 × 14.2).
+- Small tufts appear only on the back edge, attached to it.
+- Shading is flat: mid above the strap, dark below, with a lit rim along the top and back. Two short lock lines run back and down from the hairline. Earlier long arcs read as a striped helmet and were dropped.
+- Leftover inner black lines are removed, and there is a single outline ring.
+
+review.py --mode back: pass.
