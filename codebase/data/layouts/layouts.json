@@ -6090,6 +6090,16 @@
       "secondary_tileset": "gTileset_ElderflowerStudy",
       "border_filepath": "data/layouts/PellucaUmbraLab/border.bin",
       "blockdata_filepath": "data/layouts/PellucaUmbraLab/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_TAVERN",
+      "name": "PellucaTavern_Layout",
+      "width": 14,
+      "height": 11,
+      "primary_tileset": "gTileset_ElderflowerInterior",
+      "secondary_tileset": "gTileset_ElderflowerTavern",
+      "border_filepath": "data/layouts/PellucaTavern/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaTavern/map.bin"
     }
   ]
 }

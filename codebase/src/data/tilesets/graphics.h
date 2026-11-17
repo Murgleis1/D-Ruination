@@ -2214,3 +2214,24 @@ const u16 gTilesetPalettes_ElderflowerStudy[][16] =
 
 const u32 gTilesetTiles_ElderflowerStudy[] = INCBIN_U32("data/tilesets/secondary/elderflower_study/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_ElderflowerTavern[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/elderflower_tavern/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_ElderflowerTavern[] = INCBIN_U32("data/tilesets/secondary/elderflower_tavern/tiles.4bpp.lz");

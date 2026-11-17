@@ -16,7 +16,8 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 from render import tileset, tiles_of, pals_of, map_cells, off, u16, ROM
 
 PRIMARY = 0x8731254          # Fort Elderflower interiors (192 metatiles, 288 tiles)
-SECONDARIES = {'elderflower_study': 0x8730C3C}   # the study / small rooms; the tavern uses 0x8730E4C
+SECONDARIES = {'elderflower_study': 0x8730C3C,    # the study / small rooms (Cadmus's lab)
+               'elderflower_tavern': 0x8730E4C}   # the tavern (bar, stools, tables)
 
 # Primary palette 2: the mauve wood -> warm oak. Index: (old) -> new. Greys (rug, sofa) untouched.
 WOOD = {

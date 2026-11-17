@@ -74,3 +74,10 @@ Renders: assets/monomyth_reference/interiors/.
 except primary palette 2, warmed from mauve to medieval brown (user). LAYOUT_PELLUCA_UMBRA_LAB is
 the 12x11 crop of 0x86B2D0 (x6-17, y4-14), with the stool in front of the long table removed.
 Exit mat (4,9); balls on the long table (8..10,6); Cadmus (9,7), steps to (7,7) after the briefing.
+
+## The Seaside Tavern = the Elderflower tavern (installed 2026-11-16)
+Secondary 0x8730E4C imported as gTileset_ElderflowerTavern (same warm wood primary).
+LAYOUT_PELLUCA_TAVERN = 14x11 crop of 0x86B244 (x4-17, y0-10). It is used by the reused map id
+MAP_PELLUCA_CITY_POKEMON_CENTER (keeps Pelluca warp 2 and the respawn). Exit mat (6..7,9).
+Innkeeper (4,2) heals; barkeep (9,2) sells; both talk across the counter (row 3, MB_COUNTER).
+Pelluca respawn moved to the tavern door (28,44).

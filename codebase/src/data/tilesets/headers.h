@@ -1161,3 +1161,14 @@ const struct Tileset gTileset_ElderflowerStudy =
     .metatileAttributes = gMetatileAttributes_ElderflowerStudy,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_ElderflowerTavern =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_ElderflowerTavern,
+    .palettes = gTilesetPalettes_ElderflowerTavern,
+    .metatiles = gMetatiles_ElderflowerTavern,
+    .metatileAttributes = gMetatileAttributes_ElderflowerTavern,
+    .callback = NULL,
+};

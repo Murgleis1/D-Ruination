@@ -296,3 +296,5 @@ const u16 gMetatiles_ElderflowerInterior[] = INCBIN_U16("data/tilesets/primary/e
 const u16 gMetatileAttributes_ElderflowerInterior[] = INCBIN_U16("data/tilesets/primary/elderflower_interior/metatile_attributes.bin");
 const u16 gMetatiles_ElderflowerStudy[] = INCBIN_U16("data/tilesets/secondary/elderflower_study/metatiles.bin");
 const u16 gMetatileAttributes_ElderflowerStudy[] = INCBIN_U16("data/tilesets/secondary/elderflower_study/metatile_attributes.bin");
+const u16 gMetatiles_ElderflowerTavern[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/metatiles.bin");
+const u16 gMetatileAttributes_ElderflowerTavern[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/metatile_attributes.bin");
