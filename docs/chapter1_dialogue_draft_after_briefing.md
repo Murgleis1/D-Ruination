@@ -54,9 +54,11 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Cadmus:** How kind of them, to drop a lead right into my lap.
 
-**Thief:** *(reaction under revision)* ...Them? Couldn't tell you who you mean. Are we doing this, or not?
+**Thief:** ......
 
-**Cadmus:** Of course you couldn't. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
+**Thief:** I work alone, Vizier.
+
+**Cadmus:** Of course you do. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
 
 *Osrid steps between the thief and the table.*
 
@@ -68,9 +70,11 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 *Battle: Brigand ???*
 
-**Thief (on defeat, in battle):** Wh-what? You've had that Pokémon for five minutes, and you fight like you've trained together for years!
+**Thief (on defeat, in battle):** Wh-what? You've had that Pokémon for five minutes!
 
-**Thief:** ...Who are you?
+**Thief:** How did you crush me so easily? I even picked the starter that was strong against yours!
+
+**Thief:** Who are you?
 
 **Nomad Alban:** Nomad Alban. Rainhawk.
 
