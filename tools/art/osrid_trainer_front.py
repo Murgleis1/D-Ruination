@@ -19,23 +19,23 @@ from PIL import Image
 
 # Kakugo index -> role. 0 bg, D outline, E/F coat, 5 trousers, 2/C/4/9 scarf ramp (also gloves),
 # 3/B/8/A/1 helmet, 6/7 eyes (7 = coat lining too).
-PAL = {
+PAL = {                     # colours: his character sheet (assets/osrid_reference) + the approved portrait
     0x0: (255, 0, 255),
-    0xD: (8, 8, 10),        # outline
-    0xE: (44, 40, 42),      # armour/coat dark
-    0xF: (108, 96, 82),     # armour/coat mid
-    0x5: (74, 56, 44),      # leather trousers
-    0x2: (24, 38, 28),      # scarf darkest
-    0xC: (40, 64, 44),      # scarf dark
-    0x4: (62, 94, 62),      # scarf mid
-    0x9: (96, 130, 84),     # scarf light
-    0x3: (90, 34, 18),      # hair dark / leather shadow
-    0x7: (156, 62, 26),     # hair mid / lining
-    0x6: (210, 104, 50),    # hair light
-    0xB: (126, 84, 52),     # leather (gloves, belts, boots)
-    0x8: (184, 158, 118),   # mask shadow / glove light
-    0xA: (230, 214, 172),   # mask
-    0x1: (248, 240, 212),   # mask highlight
+    0xD: (10, 10, 12),      # outline
+    0xE: (34, 34, 36),      # charcoal dark (jacket, gloves)
+    0xF: (58, 57, 56),      # charcoal mid
+    0x9: (100, 98, 92),     # iron / charcoal light (pauldron, buckle, quilt light)
+    0x5: (52, 38, 28),      # brown dark (trousers, boots)
+    0xB: (92, 64, 44),      # brown mid (straps, belt, bracers, boots, lit trousers)
+    0x2: (24, 34, 28),      # green dark (scarf, cloak)
+    0xC: (40, 58, 44),      # green mid
+    0x4: (66, 84, 62),      # green light
+    0x3: (114, 42, 18),     # hair dark
+    0x7: (160, 64, 28),     # hair mid
+    0x6: (206, 104, 52),    # hair light
+    0x8: (178, 152, 112),   # mask shadow / skin (fingers)
+    0xA: (226, 210, 170),   # mask
+    0x1: (246, 238, 210),   # mask highlight
 }
 HELMET = {0x3, 0xB, 0x8, 0xA, 0x1, 0x6, 0x7}
 SCARF = [0x2, 0xC, 0x4, 0x9]
@@ -53,14 +53,14 @@ HEAD = [
     "..KmKmlKKmlmKmlK..",
     ".KmmmmlmmlmllmllK.",
     "KdmmmmmmmdsooowK..",
-    ".KddmmmmdsooooowK.",
+    ".KddmmmmdsoogggoK.",
     ".KddmmmdsoooooowK.",
-    "KddmmmmdsoooooooK.",
-    ".KddmssdsoggggooK.",
-    "..KdmsodsgoggogoK.",
-    "KdddmmddsooggoooK.",
-    ".KdddmmdsogoooooK.",
-    "..KdddmdsogoooooK.",
+    "KddmmmmdsooogggoK.",
+    ".KddmssdsgoggggoK.",
+    "..KdmsodsooogoooK.",
+    "KdddmmddsooogoooK.",
+    ".KdddmmdsooogoooK.",
+    "..KdddmdsooggoooK.",
     "...KddddKsgooooK..",
     "....KKKKKssoooK...",
     ".........KssoK....",
@@ -79,45 +79,145 @@ def head_layer():
     return out, out > 0
 
 
+def line_px(x0, y0, x1, y1):
+    n = max(abs(x1 - x0), abs(y1 - y0))
+    return [(round(x0 + (x1 - x0) * i / n), round(y0 + (y1 - y0) * i / n)) for i in range(n + 1)]
+
+
+PAULDRON = {16: (41, 45), 17: (39, 46), 18: (38, 47), 19: (38, 47), 20: (39, 47), 21: (40, 46), 22: (41, 45)}
+HANDS = [(18, 29, 53, 64), (21, 28, 35, 43)]           # (y0, y1, x0, x1): pointing hand, chest hand
+BRACERS = [(18, 27, 47, 53), (21, 28, 30, 35)]
+SCARF_SET = {0x2, 0xC, 0x4}
+
+
+def body(k):
+    """Osrid's outfit on Kakugo's mirrored body, from Kakugo's own indices (k)."""
+    a = np.zeros_like(k)
+    H, W = k.shape
+    in_hand = np.zeros_like(k, bool)
+    for y0, y1, x0, x1 in HANDS:
+        in_hand[y0:y1, x0:x1] = True
+    for y in range(H):
+        for x in range(W):
+            v = k[y, x]
+            if v == 0: continue
+            if v == D: a[y, x] = D; continue
+            if in_hand[y, x] and v in (0x9, 0x4, 0xC, 0x2):          # fingerless dark gloves
+                a[y, x] = {0x9: 0x8, 0x4: 0xF, 0xC: 0xE, 0x2: D}[v]; continue
+            if v in (0x9, 0x4, 0xC, 0x2):                             # scarf: his dark green
+                a[y, x] = {0x9: 0x4, 0x4: 0xC, 0xC: 0xC, 0x2: 0x2}[v]; continue
+            if v in (0xE, 0xF):
+                if y <= 34 or (x >= 44 and y <= 28) or (y <= 40 and x >= 23):   # quilted jacket, to mid-thigh
+                    a[y, x] = v
+                    if v == 0xF and ((x + y) % 6 == 0 or (x - y) % 6 == 0):
+                        a[y, x] = 0xE
+                elif x <= 22 and y <= 50:                             # the cloak behind
+                    a[y, x] = 0xC if v == 0xF else 0x2
+                else:                                                 # trousers
+                    a[y, x] = 0xB if v == 0xF else 0x5
+                continue
+            if v == 0x5:
+                a[y, x] = 0x5; continue
+            if v in (0x6, 0x7, 0x3) and y >= 35:                      # coat lining -> cloak inside
+                a[y, x] = 0x2; continue
+            if y >= 50:                                               # boots
+                a[y, x] = 0xB if v in (0xB, 0x1, 0x4, 0x8, 0xA) else 0x5; continue
+            a[y, x] = 0xB if v in (0xB, 0x3) else 0x9 if v in (0x1, 0xA, 0x8) else 0xE
+    # light rim on the cloak's upper edges
+    for y in range(35, 51):
+        for x in range(0, 25):
+            if a[y, x] == 0xC and a[y - 1, x] in (0, D):
+                a[y, x] = 0x4
+    jacket = lambda v: v in (0xE, 0xF, 0x9)
+    # straps crossing the chest (under the scarf)
+    for (x0, y0, x1, y1) in ((41, 18, 22, 30), (24, 18, 40, 30)):
+        for x, y in line_px(x0, y0, x1, y1):
+            if jacket(a[y, x]): a[y, x] = 0xB
+            if y + 1 < H and jacket(a[y + 1, x]): a[y + 1, x] = 0x5
+    # belt, square buckle, pouch
+    for x in range(18, 45):
+        if jacket(a[30, x]) or a[30, x] == 0xB: a[30, x] = 0xB
+        if jacket(a[31, x]) or a[31, x] in (0xB, 0x5): a[31, x] = 0x5
+    for x in range(30, 34):
+        for y in range(29, 33):
+            a[y, x] = 0x9 if (x in (30, 33) or y in (29, 32)) else 0xE
+    for x in range(29, 35):
+        for y in (28, 33):
+            if a[y, x] != 0: a[y, x] = D
+    for y in range(32, 37):
+        for x in range(37, 41):
+            a[y, x] = D if (x in (37, 40) or y in (32, 36)) else 0xB
+    a[34, 38] = 0x9
+    # pauldron on his left shoulder (viewer's right); the scarf stays on top
+    pm = np.zeros_like(a, bool)
+    for y, (x0, x1) in PAULDRON.items():
+        for x in range(x0, x1 + 1):
+            if a[y, x] not in SCARF_SET:
+                pm[y, x] = True
+    for y, x in zip(*np.nonzero(pm)):
+        a[y, x] = 0xF if y <= 18 else 0xE
+    for (x, y) in ((42, 17), (43, 17), (41, 18), (40, 19)):
+        if pm[y, x]: a[y, x] = 0x9
+    ring = np.zeros_like(pm)
+    ring[1:] |= pm[:-1]; ring[:-1] |= pm[1:]; ring[:, 1:] |= pm[:, :-1]; ring[:, :-1] |= pm[:, 1:]
+    for y, x in zip(*np.nonzero(ring & ~pm)):
+        if a[y, x] not in SCARF_SET: a[y, x] = D
+    for y in range(17, 23):                                           # lower rim line
+        x = PAULDRON[y][1]
+        if pm[y, x]: a[y, x] = D
+    # leather bracers (wrapped: darker band every third column)
+    for y0, y1, x0, x1 in BRACERS:
+        for y in range(y0, y1):
+            for x in range(x0, x1):
+                if jacket(a[y, x]): a[y, x] = 0x5 if x % 3 == 0 else 0xB
+    # trousers: flatten Kakugo's coat-panel noise into two clean tones
+    tr = np.isin(a, [0x5, 0xB]) & (np.arange(H)[:, None] >= 41) & (np.arange(H)[:, None] < 50)
+    for _ in range(2):
+        src = a.copy()
+        for y, x in zip(*np.nonzero(tr)):
+            win = src[y - 1:y + 2, x - 1:x + 2]; win = win[np.isin(win, [0x5, 0xB])]
+            if len(win) >= 5: a[y, x] = 0xB if np.count_nonzero(win == 0xB) > len(win) // 2 else 0x5
+    # shin wraps: single diagonal leather bands into the boots
+    for y in range(47, 56):
+        for x in range(14, 45):
+            if a[y, x] in (0x5, 0xB):
+                a[y, x] = 0xB if (x + y) % 3 == 0 else 0x5
+    # jacket hem: a dark line where the jacket meets the trousers
+    for x in range(23, 44):
+        if a[41, x] in (0x5, 0xB) and a[40, x] in (0xE, 0xF, 0x9): a[41, x] = D
+    return a
+
+
 def build(F):
-    a, _ = F[10]
-    a = a.copy()[:, ::-1]      # mirrored: points right, scarf blows left, faces right
-    # gloves and boots: white ramp -> leather (left glove, chest hand, boots)
-    for (y0, y1, x0, x1) in ((18, 28, 53, 64), (22, 27, 35, 43), (55, 64, 14, 44)):
-        sub = a[y0:y1, x0:x1]
-        for k, v in LEATHER.items():
-            sub[a[y0:y1, x0:x1] == k] = v
-    # belt buckle keeps its own metal colours (the white ramp there would turn green)
-    bk = a[28:35, 30:38]; bk[bk == 0x9] = 0x1; bk[bk == 0x4] = 0x8
-    # remove the helmet: every helmet-coloured pixel in the head box, then orphan outline there
+    k, _ = F[10]
+    k = k.copy()[:, ::-1]      # mirrored: points right, scarf blows left, faces right
+    a = body(k)
+    # remove the helmet: every helmet-coloured pixel in Kakugo's head box (by Kakugo's indices)
     y0, y1, x0, x1 = 1, 19, 22, 44
-    box = a[y0:y1, x0:x1]
-    box[np.isin(box, list(HELMET))] = 0
-    keep = {0x2, 0xC, 0x4, 0x9, 0xE, 0xF, 0x5}
+    hb = np.isin(k[y0:y1, x0:x1], list(HELMET))
+    a[y0:y1, x0:x1][hb] = 0
+    keep = {0x2, 0xC, 0x4, 0xE, 0xF, 0x5}
     for y in range(y0, y1):
         for x in range(x0, x1):
             if a[y, x] == D:
                 nb = a[max(0, y - 1):y + 2, max(0, x - 1):x + 2]
                 if not np.any(np.isin(nb, list(keep))):
                     a[y, x] = 0
-    # chin gap above the neck scarf -> scarf
-    for y in range(15, 19):
+    for y in range(15, 19):                      # chin gap above the neck scarf -> scarf
         for x in range(27, 37):
             x = 63 - x
-            if a[y, x] == 0 and a[y + 1, x] in SCARF + [D]:
+            if a[y, x] == 0 and a[y + 1, x] in SCARF_SET | {D}:
                 a[y, x] = 0xC
     head, hm = head_layer()
     hy, hx = 1, 22
     region = a[hy:hy + head.shape[0], hx:hx + head.shape[1]]
     region[hm] = head[hm]
-    # orphan outline: D in the head box with no coloured 8-neighbour
     for y in range(y0, y1):
         for x in range(x0, x1):
             if a[y, x] == D:
                 nb = a[max(0, y - 1):y + 2, max(0, x - 1):x + 2]
                 if not np.any((nb != 0) & (nb != D)):
                     a[y, x] = 0
-    # enclosed transparent pixels left by the helmet removal -> outline
     for y in range(1, 63):
         for x in range(1, 63):
             if a[y, x] == 0 and all(a[y + dy, x + dx] != 0 for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))):

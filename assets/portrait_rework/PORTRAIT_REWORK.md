@@ -251,3 +251,23 @@ in terms of element balance"; (3) back: "more accurate to the actual design of O
   outer corner and the drip at its edge; ear; strand lines); his thick green scarf wraps the
   neck and shoulders. #4 is kept only for body, arm and the 4-frame throw.
 - All three pass review.py; sheet: osrid_round2/review_round2.png.
+
+## Osrid round 3 (user 2026-11-17, 12:27-12:41) -- candidates, NOT installed
+- Portrait P5: APPROVED by the user ("Portrait looks good now").
+- New canonical design reference: assets/osrid_reference/osrid_character_sheet.png (user's sheet).
+  Swatches sampled: cream 193,184,171; grey-green 58,63,55; charcoal 49,48,46; dark brown 67,50,39;
+  rust 90,56,41; iron 104,100,91. Outfit: thick dark green scarf; quilted charcoal jacket to the
+  mid-thigh; two brown straps crossing the chest; iron pauldron on his LEFT shoulder; belt with a
+  square buckle and pouch; leather bracers; dark fingerless gloves; dark brown trousers;
+  criss-cross shin wraps into heavy boots; long tattered dark green cloak. Hair: tousled, wavy
+  auburn (not spikes). The mask is held by a leather strap with a buckle round the back of the head.
+- Front F3: the outfit rebuilt part by part on Kakugo's body (jacket / cloak / trousers by region;
+  straps, belt and buckle, pouch, pauldron, bracers, gloves and wraps drawn over it). Glyph per the
+  sheet: brow bar, almond eye, drip, spiral, plus the plain eye hole on the other side.
+- Back E7: round 2's procedural spiky head was wrong at the root (the user: "giant blobby swollen
+  monstrosity"). #4's own head drawing is identical in every frame (98%, measured), so Osrid's head
+  is built once on it: hair recoloured; the mask is an explicit area with an organic profile (brow,
+  nose, mouth recess, chin), the hair in front of the face removed, the glyph at the front edge;
+  strap and square buckle above the ear; nape tucked into the scarf; lit strands and tufts. Body:
+  quilted charcoal jacket, cape over the left third of the back, strap kept, fingerless gloves.
+- Sheet: osrid_round3/review_round3.png (with the user's sheet alongside).
