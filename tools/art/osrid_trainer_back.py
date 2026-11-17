@@ -21,7 +21,7 @@ import numpy as np
 from PIL import Image
 from collections import deque
 
-PAL = {
+PAL = {                     # same scheme as the front: dark green jacket, iron, sheet browns
     0x0: (255, 0, 255),
     0x5: (10, 10, 12),      # outline / glyph
     0x4: (114, 42, 18),     # hair dark      (portrait)
@@ -29,27 +29,28 @@ PAL = {
     0xD: (206, 104, 52),    # hair light
     0x9: (226, 210, 170),   # mask           (portrait)
     0xE: (246, 238, 210),   # mask highlight
-    0x7: (178, 152, 112),   # mask shadow / skin
-    0xF: (176, 112, 78),    # ear
-    0x6: (30, 30, 32),      # charcoal dark  (sheet swatch 49,48,46 as the mid)
-    0x2: (50, 49, 48),      # charcoal mid
-    0x3: (82, 80, 76),      # charcoal light / buckle metal
-    0x8: (92, 64, 44),      # leather strap  (sheet browns)
-    0xB: (24, 34, 28),      # green dark     (portrait / sheet)
-    0xA: (40, 58, 44),      # green mid
-    0xC: (66, 84, 62),      # green light
+    0x7: (178, 152, 112),   # mask shadow / skin (ear, fingers)
+    0xF: (58, 58, 58),      # iron dark (pauldrons, gloves)
+    0x6: (26, 34, 28),      # green-black (jacket shadow)
+    0x2: (56, 64, 54),      # jacket dark green (sheet swatch 58,63,55)
+    0x3: (108, 104, 96),    # iron light / quilt light / buckle
+    0x8: (92, 64, 44),      # leather strap
+    0xB: (22, 44, 30),      # cape / scarf dark
+    0xA: (38, 60, 42),      # cape / scarf green
+    0xC: (64, 90, 62),      # cape / scarf light
 }
 HAIR = {0x1, 0x4, 0xD}
 SKIN = {0x9, 0xE, 0x7, 0xC, 0xF}          # #4's skin indices (C = its red face paint)
 SCARFC = {0xA, 0xB, 0xC}
 JACKET = {0x2, 0x3, 0x6, 0x8}
 OUT = 0x5
-GLOVE = {0x9: 0x7, 0xE: 0x7, 0xF: 0x7, 0x7: 0x2, 0xC: 0x6, 0x8: 0x2}   # fingerless dark gloves
+GLOVE = {0x9: 0x7, 0xE: 0x7, 0xF: 0x7, 0x7: 0xF, 0xC: 0x6, 0x8: 0xF}   # fingerless dark gloves, tan fingers
 EYE0 = (39, 24)                           # #4's eye glint in frame 0 (x, y): the anchor
 
 # Osrid's head = MonoMyth #4's frame-0 head (the same drawing in every frame, only moved: 98%
 # identical, measured), edited at measured frame-0 coordinates:
 HEAD_BOX = (7, 37, 13, 48)                      # y0, y1, x0, x1 of #4's head in frame 0
+FACE_BOX = (18, 37, 27, 47)                     # #4's face (with ear) in frame 0
 EAR_BOX = (24, 28, 28, 31)                      # #4's ear: y0, y1, x0, x1 -> skin
 SIDE_X = 34                                     # mask pixels at or left of this: the side plane
 # the mask's area in frame 0 (rows: (back edge, profile edge)); profile from #4's own (nose 27-28)
@@ -57,10 +58,7 @@ MASK_SPANS = {21: (36, 40), 22: (35, 41), 23: (34, 41), 24: (33, 42), 25: (33, 4
               27: (33, 44), 28: (34, 44), 29: (34, 42), 30: (35, 42), 31: (36, 41), 32: (38, 40)}
 NECK = [(x, y) for y in (29, 30, 31) for x in range(32, 36)]     # nape under the ear: shadowed hair
 # tousled strands (lit side = upper right), each a light line with a dark crevice under it
-STRANDS = [[(34, 10), (31, 12), (28, 14), (25, 17)], [(38, 11), (36, 13), (34, 16), (32, 19)],
-           [(42, 14), (41, 16), (40, 18)], [(29, 10), (25, 12), (22, 14), (19, 17)],
-           [(24, 18), (21, 19), (18, 20)]]
-TUFTS = [(27, 9), (28, 8), (33, 8), (34, 7)]
+TUFT_ANGLES = [62, 80, 98, 116, 134, 152, 170, 188, 206, 224]   # top and back of the head
 MASK_HI = [(39, 22), (40, 22), (43, 27), (42, 26)]
 GLYPH = [(39, 23), (40, 23),                    # brow bar (foreshortened at the front edge)
          (40, 24), (41, 24), (41, 25),          # eye
@@ -72,6 +70,9 @@ COLLAR_Y = 30                                   # hair at/below this row tucks u
 SCARF = {29: (24, 40), 30: (16, 42), 31: (14, 43), 32: (13, 44), 33: (13, 45), 34: (13, 46),
          35: (13, 46), 36: (13, 46), 37: (14, 45), 38: (15, 44), 39: (17, 42), 40: (20, 38)}
 CAPE_TOP = 41
+# iron pauldrons on both shoulders, frame-0 rows: (left, right); they follow the frame offset
+PAULDRONS = [{36: (11, 14), 37: (9, 15), 38: (8, 16), 39: (8, 16), 40: (9, 15)},
+             {36: (43, 46), 37: (42, 47), 38: (41, 48), 39: (41, 48), 40: (42, 47)}]
 
 
 def components(mask):
@@ -112,7 +113,7 @@ def make_head(f0):
             elif skinm[y, x]:
                 ey0, ey1, ex0, ex1 = EAR_BOX
                 if ey0 <= y <= ey1 and ex0 <= x <= ex1:
-                    L[y, x] = 0xF if v != 0x7 else 0x7          # ear skin, its shadow kept
+                    L[y, x] = 0x7                                # ear (skin tan)
                 elif x <= SIDE_X:
                     L[y, x] = 0x7                                # mask side plane
                 else:
@@ -145,26 +146,52 @@ def make_head(f0):
             if L[y, x] in (0x9, 0xE, 0x7) and src[y, x] in SKIN: L[y, x] = 0x4
     for (x, y) in MASK_HI:
         L[y, x] = 0xE
-    # strands and tufts
-    def seg(p, q):
-        n = max(abs(q[0] - p[0]), abs(q[1] - p[1]), 1)
-        return [(round(p[0] + (q[0] - p[0]) * i / n), round(p[1] + (q[1] - p[1]) * i / n)) for i in range(n + 1)]
-    for st in STRANDS:
-        for p, q in zip(st, st[1:]):
-            for (x, y) in seg(p, q):
-                if L[y, x] in HAIR:
-                    L[y, x] = 0xD
-                    if L[y + 1, x] in HAIR and (x, y + 1) not in seg(p, q): L[y + 1, x] = 0x4
-    for (x, y) in TUFTS:
-        if L[y, x] == 0 or L[y, x] == OUT:
-            L[y, x] = 0x1
-    for (x, y) in TUFTS:
-        for a, b in ((0, -1), (-1, 0), (1, 0)):
-            if L[y + b, x + a] == 0: L[y + b, x + a] = OUT
-    # the fringe edge over the mask's brow: a dark line under the hair
-    y = min(MASK_SPANS)
-    for x in range(MASK_SPANS[y][0], MASK_SPANS[y][1] + 1):
-        if L[y - 1, x] in HAIR: L[y - 1, x] = 0x4
+    # hair, the way the portrait and the front draw it: clumps with lit tips, dark separations,
+    # small swept tufts breaking the outline (2-3 px, not spikes)
+    hm = np.isin(L, list(HAIR))
+    hy, hx = np.nonzero(hm)
+    cy, cx = hy.mean(), hx.mean() + 2
+    def ang(x, y): return (np.degrees(np.arctan2(cy - y, x - cx)) + 360) % 360
+    def outward(th, r):
+        return cx + r * np.cos(np.radians(th)), cy - r * np.sin(np.radians(th))
+    rmax = {}
+    for y, x in zip(hy, hx):
+        k = int(ang(x, y)) // 4
+        rmax[k] = max(rmax.get(k, 0), np.hypot(x - cx, y - cy))
+    tuft_px = []
+    for th in TUFT_ANGLES:
+        r0 = rmax.get(int(th) // 4)
+        if r0 is None: continue
+        for i, (w, ext) in enumerate(((1.0, 1), (0.6, 2), (0.0, 3))):
+            ta = th + 9 * (i + 1)                      # swept back (counter-clockwise = toward the nape)
+            px, py = outward(ta, r0 + ext - 0.5)
+            pts = [(round(px), round(py))]
+            if w >= 1.0:
+                qx, qy = outward(ta - 8, r0 + ext - 0.5); pts.append((round(qx), round(qy)))
+            for (x, y) in pts:
+                if 0 <= x < 64 and 0 <= y < 64 and L[y, x] in (0, OUT):
+                    L[y, x] = 0x1; tuft_px.append((x, y, i))
+    hm = np.isin(L, list(HAIR))
+    for y, x in zip(*np.nonzero(hm)):
+        th = ang(x, y); r = np.hypot(x - cx, y - cy); rm = rmax.get(int(th) // 4, r)
+        v = 0x1
+        if 160 <= th <= 300 and r > rm - 3: v = 0x4                    # shadowed back and nape
+        if y >= STRAP_Y + 2 and y <= STRAP_Y + 3: v = 0x4               # shadow under the strap
+        up = L[y - 1, x] in (0, OUT)
+        if up and (20 <= th <= 160): v = 0xD                          # rim light on top edges
+        L[y, x] = v
+    for (x, y, i) in tuft_px:
+        L[y, x] = 0xD if i >= 1 else 0x1                               # lit tuft tips
+    for th in TUFT_ANGLES:                                             # dark clump separators
+        r0 = rmax.get(int(th) // 4)
+        if r0 is None: continue
+        for d in (2.0, 3.0, 4.0):
+            x, y = outward(th - 4, r0 - d)
+            x, y = round(x), round(y)
+            if 0 <= x < 64 and 0 <= y < 64 and L[y, x] in HAIR: L[y, x] = 0x4
+    hm2 = np.isin(L, list(HAIR))
+    ring = nb4(hm2) & (L == 0)
+    L[ring] = OUT
     # strap round the back of the head, above the ear, to the mask edge; square buckle
     sx0, sx1 = STRAP_X
     for x in range(sx0, sx1 + 1):
@@ -198,16 +225,21 @@ def frame(f, H0):
     a = f.copy()
     hair = np.isin(f, list(HAIR))
     skin = np.isin(f, list(SKIN))
-    # --- hands: skin components away from the hair -> gloves (grown into #4's index-8 hand light)
+    # --- anchor: #4's eye glint (index F) nearest where the face sits relative to the hair
+    hy_, hx_ = np.nonzero(hair)
+    gy, gx = np.nonzero(f == 0xF)
+    ty, tx = hy_.mean() + 3, hx_.mean() + 9
+    k0 = np.argmin((gy - ty) ** 2 + (gx - tx) ** 2)
+    dx, dy = int(gx[k0]) - EYE0[0], int(gy[k0]) - EYE0[1]
+    # --- hands: skin regions mostly outside the face box (frame-0 face, shifted) -> gloves
     lab, n = components(skin)
-    near_hair = np.zeros_like(hair)
-    for y, x in zip(*np.nonzero(hair)):
-        near_hair[max(0, y - 2):y + 3, max(0, x - 2):x + 3] = True
+    fy0, fy1, fx0, fx1 = FACE_BOX
     hand = np.zeros_like(skin)
     for k in range(1, n + 1):
-        comp = lab == k
-        if not np.any(comp & near_hair):
-            hand |= comp
+        cy_, cx_ = np.nonzero(lab == k)
+        inside = ((cy_ >= fy0 + dy) & (cy_ <= fy1 + dy) & (cx_ >= fx0 + dx) & (cx_ <= fx1 + dx)).mean()
+        if inside < 0.5:
+            hand |= lab == k
     for _ in range(3):
         g2 = hand.copy()
         for y, x in zip(*np.nonzero(hand)):
@@ -216,10 +248,6 @@ def frame(f, H0):
         hand = g2
     for k, v in GLOVE.items():
         a[hand & (f == k)] = v
-    # --- this frame's offset from frame 0 (#4's eye glint)
-    ey, ex = np.nonzero((f == 0xF) & ~hand)
-    k0 = np.argmin(ey * 64 + ex)
-    dx, dy = int(ex[k0]) - EYE0[0], int(ey[k0]) - EYE0[1]
     # --- clear #4's head: hair, face skin, and the outline that belonged to them
     old = hair | (skin & ~hand)
     grow = old.copy()
@@ -257,6 +285,19 @@ def frame(f, H0):
             top = ry_ == min(rows[rx_]); bot = ry_ >= max(rows[rx_]) - 1
             fold = (rx_ - ry_) % 9 == 0
             a[y, x] = 0xC if top else 0xB if (bot or fold) else 0xA
+    # --- iron pauldrons (dark iron, lit top edge, outlined)
+    for P in PAULDRONS:
+        pm = np.zeros((64, 64), bool)
+        for ry_, (x0, x1) in P.items():
+            for rx_ in range(x0, x1 + 1):
+                x, y = rx_ + dx, ry_ + dy
+                if 0 <= x < 64 and 0 <= y < 64 and not hand[y, x]: pm[y, x] = True
+        top, bot = min(P), max(P)
+        for y, x in zip(*np.nonzero(pm)):
+            ry_, rx_ = y - dy, x - dx
+            lit = ry_ == top or (ry_ == top + 1 and rx_ <= P[top][0])
+            a[y, x] = 0x3 if lit else (0x6 if ry_ == bot else 0xF)   # dome: lit top, dark lower rim
+        a[nb4(pm) & ~pm & ~hand] = OUT
     # --- Osrid's head over the scarf and body (never over the gloves)
     L = head_layer(H0, dx, dy)
     head = L > 0

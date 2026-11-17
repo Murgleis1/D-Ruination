@@ -271,3 +271,21 @@ in terms of element balance"; (3) back: "more accurate to the actual design of O
   strap and square buckle above the ear; nape tucked into the scarf; lit strands and tufts. Body:
   quilted charcoal jacket, cape over the left third of the back, strap kept, fingerless gloves.
 - Sheet: osrid_round3/review_round3.png (with the user's sheet alongside).
+
+## Osrid round 4 (user 2026-11-17, 13:05-13:12) -- candidates, NOT installed
+- User edit of the front mask (osrid_round4/user_front_tweak.png, recovered to 64x64 indices): 12 px
+  in the mask. User: "the eye of horus needs to take up more space on the mask like in the
+  portrait" / "you need to study the eye of horus carefully".
+- Eye of Horus, as on his sheet's mask and in the portrait: an arched brow with dropping ends; an
+  almond with thick lids, a large pupil, an inner line and a long outer tail; a straight vertical
+  line from under the eye to the jaw; a spiral going down, then curling left and up. Mapped from
+  the portrait's proportions onto the 8 px sprite mask. User APPROVED ("the mask looks correct here
+  now", osrid_round4/user_mask_approved.png). The front head is that exact render (verified: 0 mask
+  pixels differ). A larger-mask head was tried and dropped.
+- Clothes (user: "from grey to the dark green, darker grey and the pauldrons on his shoulders"):
+  dark green quilted jacket (sheet 58,63,55), green-black shadows, richer green scarf and cloak,
+  iron pauldrons on BOTH shoulders, iron buckle, dark gloves. The back uses the same scheme.
+- Back hair (user: "doesn't look correct at all"): the combed strands are replaced by the
+  portrait's way of drawing hair: clumps with lit tips, dark separations, small swept tufts
+  (2-3 px). Hand detection is now geometric (skin outside the face box), which fixes the lapel
+  turning into glove/iron; domed iron pauldrons on both shoulders.
