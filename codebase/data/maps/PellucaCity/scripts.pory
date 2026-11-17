@@ -13,8 +13,10 @@ raw`
     .set LOCALID_FL_CITIZEN, 47
     .set LOCALID_FL_JANIA, 56
 
-    .set LOCALID_DR_TIDAL, 21
-    .set LOCALID_DR_CADMUS, 22
+    .set LOCALID_DR_TIDAL, 1
+    .set LOCALID_DR_CADMUS, 2
+    .set LOCALID_DR_SHRINE, 3
+    .set LOCALID_DR_SHRINE_KEEPER, 4
 
 `
 
@@ -1443,19 +1445,99 @@ script DR_PellucaCity_Arrival{
     closemessage
     release
     delay(12)
-    applymovement(LOCALID_DR_CADMUS, moves(walk_up * 6 walk_right * 3 face_up))
+    // The walk to the lab passes the shrine to the lost prince (user-approved 2026-11-16).
+    // Cadmus walks on to the lab door; Osrid stops in front of the shrine. Nobody speaks to it.
+    applymovement(LOCALID_DR_CADMUS, moves(walk_up * 6 walk_right * 3 face_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 6 walk_left walk_up face_up))
     waitmovement(0)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 7 walk_right * 2))
+    waitmovement(LOCALID_DR_CADMUS)
+    delay(30)
+    msgbox(format("Cadmus walks on ahead. You stop."))
+    msgbox(format("A small shrine stands beside the path, crowded with candles. The plaque reads:"))
+    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."))
+    closemessage
+    delay(40)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Rainhawk."))
+    hideportrait
+    closemessage
+    msgbox(format("You follow him."))
+    closemessage
+    applymovement(LOCALID_DR_CADMUS, moves(face_up))
     waitmovement(0)
     delay(12)
     playse(SE_EXIT)
     removeobject(LOCALID_DR_CADMUS)
     delay(16)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_right face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_right walk_right * 4 face_up))
     waitmovement(0)
     delay(12)
     setflag(FLAG_UNUSED_0x884)
     warp(MAP_PELLUCA_UMBRA_LAB, 0)
     waitstate
+    end
+}
+
+
+// ================= Pelluca Valley, empire era (events pass 2026-11-16) =================
+script DR_PellucaCity_Shrine{
+    lock
+    msgbox(format("A small shrine, crowded with candles. The plaque reads:"))
+    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."))
+    release
+    end
+}
+
+script DR_PellucaCity_ShrineKeeper{
+    lock
+    faceplayer
+    speakername("Old woman")
+    msgbox(format("The night the twins were born, Keerin was seen over Silversun Palace. She chose the boy, they said. First time in generations."))
+    msgbox(format("Ten years now, and not one word of him. Most folk have stopped coming."))
+    msgbox(format("Not the Regent-Queen, though. Her candles arrive every spring, right on time."))
+    closemessage
+    applymovement(LOCALID_DR_SHRINE_KEEPER, moves(face_right))
+    waitmovement(0)
+    release
+    end
+}
+
+script DR_PellucaCity_SignWest{
+    msgbox(format("West: Route 11, on the road to Mirroh."), MSGBOX_SIGN)
+    end
+}
+
+script DR_PellucaCity_SignEast{
+    msgbox(format("East: Hoya Delta."), MSGBOX_SIGN)
+    end
+}
+
+script DR_PellucaCity_SignNorth{
+    msgbox(format("North: Ivy River."), MSGBOX_SIGN)
+    end
+}
+
+script DR_PellucaCity_SignInn{
+    msgbox(format("The Seaside Tavern. Hot meals, warm beds, and rest for weary Pokémon."), MSGBOX_SIGN)
+    end
+}
+
+script DR_PellucaCity_DoorAcademy{
+    msgbox(format("The Academy doors are locked."), MSGBOX_SIGN)
+    end
+}
+
+script DR_PellucaCity_DoorCadmus{
+    msgbox(format("Vizier Umbra's residence. The door is locked."), MSGBOX_SIGN)
+    end
+}
+
+script DR_PellucaCity_DoorLocked{
+    msgbox(format("The door is locked."), MSGBOX_SIGN)
+    end
+}
+
+script DR_PellucaCity_CaveSealed{
+    msgbox(format("A heavy stone slab seals the cave mouth. It bears the crest of House Umbra."), MSGBOX_SIGN)
     end
 }

@@ -291,6 +291,7 @@
 #define OBJ_EVENT_GFX_KIMARIS                      281
 #define OBJ_EVENT_GFX_AMBROSE                      282
 #define OBJ_EVENT_GFX_TEMPLAR                      283
+#define OBJ_EVENT_GFX_DR_SHRINE                    284   // memorial shrine to Prince Osrid (Pelluca harbour)
 
 // Dreamstone Ruination: named Pokemon used as overworld objects
 #define OBJ_EVENT_GFX_NEPTUNE                      OBJ_EVENT_GFX_SPECIES(JOUSTEEL)
@@ -299,7 +300,7 @@
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                          284
+#define NUM_OBJ_EVENT_GFX                          285
 
 
 // These are dynamic object gfx ids.
@@ -445,6 +446,7 @@
 #define OBJ_EVENT_PAL_TAG_KIMARIS               0x112D
 #define OBJ_EVENT_PAL_TAG_AMBROSE               0x112E
 #define OBJ_EVENT_PAL_TAG_TEMPLAR               0x112F
+#define OBJ_EVENT_PAL_TAG_DR_SHRINE             0x1130
 #define OBJ_EVENT_PAL_TAG_SHUBUBU                 0x1125
 #define OBJ_EVENT_PAL_TAG_GUBUKING                0x1126
 #define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1127

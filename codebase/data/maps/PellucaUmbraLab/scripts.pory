@@ -84,12 +84,23 @@ script DR_Lab_Briefing{
     special(DrSetPrinceNameplate)
     msgbox(format("My sister, huh. She got her starter right before you sent me away, if I recall."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Your sister. Rhydia has held the Champion title for five years now, and she rules the Empire in your mother's name besides.\pShe is one of the most talented Trainers we have seen in generations, but our enemies are closing in... I believe her power will not be enough to save Cormoria.\pA man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him at that point."))
+    msgbox(format("Your sister. Rhydia has held the Champion title for five years now, and she rules the Empire in your mother's name besides.\pShe is one of the most talented Trainers we have seen in generations, but our enemies are closing in... I believe her power will not be enough to save Cormoria.\pKeerin never chose her, my Prince.\pA man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him at that point."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
     msgbox(format("Does Rhydia know I'm here? What about my mother?"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Neither of them does, though we will make sure they know when the time is right."))
+    msgbox(format("No. Neither of them has heard a word of you in ten years. I could not risk even that much."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("...So it's true. They think I'm dead."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Your sister refuses to believe it. She still sends candles to your shrine every spring, on the birthday you share."))
+    msgbox(format("Your mother... stopped sending hers some time ago."))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("......"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("When the time is right, they will know. You have my word."))
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
@@ -353,6 +364,7 @@ script DR_Lab_ShardBriefing{
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Besides serving as a path for you to reveal your identity, and a means to grow into your potential as a Trainer, the Trials are the reason no one will question what a Rainhawk is doing on a mountaintop, and my name never has to come up.\pA Trial challenger can go almost anywhere he pleases."))
     msgbox(format("Your second mission, therefore, is ultimately simple. Bring the pieces to me... and do it quietly, without attracting unneeded attention."))
+    msgbox(format("The Trials will make you Champion. The shards will make sure there is still an Empire left for you to rule."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
     msgbox(format("Which means no more announcing yourself to thieves as the youngest Rainhawk in history."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
@@ -379,7 +391,7 @@ script PellucaUmbraLab_EventScript_Umbra{
     faceplayer
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     if (var(VAR_UNUSED_0x40A1) >= 4){
-        msgbox(format("The valley first, then Mirroh. And do try to get some sleep."))
+        msgbox(format("Trials for the crown, shards for the Empire. But the valley first, then Mirroh. And do try to get some sleep."))
     } else {
         msgbox(format("Take your time. This is an important choice."))
     }

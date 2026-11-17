@@ -479,6 +479,11 @@ def build(C):
 
 QUAY_WALKABLE = {155, 156, 157, 158, 160, 161}   # Pelluca's quay/pier is walkable at ground level (dock lock)
 
+# Doors that carry a warp in the game (events pass, 2026-11-16): monastery, lab, tavern, dorm.
+# Other doors stay blocked and read as locked via a sign event until their interiors exist.
+WARP_DOORS = {(22, 27), (47, 44), (28, 43), (11, 8)}
+
+
 def collision_elevation(grid, blocked, water):
     """Per cell (collision, elevation). Terrain/building pieces use how MonoMyth's own maps set
     them (data/source_collision.json); stairs keep elevation 0 (level change). Overrides:
@@ -490,6 +495,7 @@ def collision_elevation(grid, blocked, water):
         for x in range(W):
             m = int(grid[y, x])
             if water[y, x]: c, e = 0, 1
+            elif (x, y) in WARP_DOORS: c, e = 0, 3      # doors with a warp must be steppable
             elif m in QUAY_WALKABLE: c, e = 0, 3
             elif str(m) in src: c, e = src[str(m)]
             else: c, e = (1, 0) if blocked[y, x] else (0, 3)
