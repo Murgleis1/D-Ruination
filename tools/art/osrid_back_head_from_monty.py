@@ -12,6 +12,34 @@ for y in range(14, 46):
         if v == 0x5: G[y, x] = 'K'
         elif v in HAIRI: G[y, x] = HAIRI[v]
         elif v in SKINI: G[y, x] = SKINI[v]
+# 0. SLICKED BACK (user: "it's slicked back in the front", as on his portrait and front sprite): Monty's hair
+#    flows forward over his face, so his hair is mirrored about the head's centre -- his forward locks
+#    now sweep back and flare off the back of the skull; ear, face/mask area stay where they are
+HC = 31                                          # mirror axis (centre of Monty's hair, x 18..44)
+H = np.full((64, 64), '.', dtype='<U1')
+MIRROR_TO = 33                                   # crown only; the nape hair below already sits at the back
+for y in range(14, MIRROR_TO):
+    for x in range(14, 50):
+        if G[y, x] in 'lmd' or (G[y, x] == 'K' and A[y, x] == 0x5):
+            xm = 2 * HC - x
+            if 0 <= xm < 64: H[y, xm] = G[y, x]
+for y in range(14, MIRROR_TO):
+    for x in range(14, 50):
+        if G[y, x] in 'lmd' or G[y, x] == 'K': G[y, x] = '.'
+for y in range(14, MIRROR_TO):
+    for x in range(14, 50):
+        if H[y, x] != '.' and G[y, x] == '.': G[y, x] = H[y, x]
+# join the mirrored crown to the nape hair: the back of the skull continues smoothly (no notch)
+for y in range(26, MIRROR_TO + 1):
+    xs = [x for x in range(14, 50) if G[y, x] in 'lmd']
+    if not xs: continue
+    target = 17 + max(0, (MIRROR_TO - y) // 3)      # the nape's back edge, curving up into the crown
+    for x in range(target, min(xs)):
+        G[y, x] = 'd' if x <= target + 1 else 'm'
+for y in range(14, MIRROR_TO + 1):               # stray face pixels carried into the crown
+    for x in range(14, 34):
+        if G[y, x] in 'sh8': G[y, x] = 'm'
+        if G[y, x] == 'K' and all(G[y + q, x + p] in 'lmd' for q, p in ((1, 0), (-1, 0), (0, 1), (0, -1))): G[y, x] = 'd'
 # 1. hair a little longer at the back of the nape: rows 37-38 repeated below themselves (x <= 28)
 for x in range(14, 29):
     col = G[:, x].copy()
@@ -47,7 +75,7 @@ for y, xf in HAIR_FRONT.items():
 for y in range(16, 24):                       # the cap's front edge above the mask: hair, not mask
     for x in range(30, 40):
         if G[y, x] in 'MN.' and x <= HAIR_FRONT.get(y, 0) and G[y, x - 1] in 'lmd': G[y, x] = 'd'
-for (x, y, c) in [(34, 24, 'd'), (34, 25, 'd'), (36, 25, 'd')]:     # two pointed locks over the mask's top
+for (x, y, c) in [(34, 24, 'd'), (34, 25, 'd')]:     # two pointed locks over the mask's top
     G[y, x] = c
 # mask volume (still blank): one soft shade along its back edge, its chin, and under the lock tips
 for y in FRONT:
@@ -56,16 +84,17 @@ for y in FRONT:
     G[y, min(xs)] = 'N'
     if y >= 44:
         for x in xs[:-1]: G[y, x] = 'N'
-for (x, y) in ((34, 26), (36, 26)):            # the lock tips' soft shadow on the mask
+for (x, y) in ((34, 26),):            # the lock tips' soft shadow on the mask
     if G[y, x] == 'M': G[y, x] = 'N'
 # 3. the glasses arm -> the mask strap: from the mask's back edge over the top of the ear, across the back
 #    of the head to the buckle (two rows: leather, shadow)
-for x in range(21, BACK[34]):
+# (user: "the strap is way too obvious and ugly") one thin leather line, hair falling over it in two places,
+# small buckle -- as in the concept, where the hair half hides it
+for x in range(20, BACK[34]):
+    if x in (27, 31): continue                   # locks over the strap
     if G[34, x] != '.': G[34, x] = 't'
-    if G[35, x] != '.': G[35, x] = 'T'
-for y in range(33, 37):
-    for x in range(23, 26):
-        G[y, x] = 'u' if (x in (23, 25) or y in (33, 36)) else 'T'
+for (x, y, c) in [(23, 33, 'u'), (24, 33, 'u'), (23, 34, 'T'), (24, 34, 'u'), (23, 35, 'u'), (24, 35, 'u')]:
+    G[y, x] = c
 # 4. neck under the ear -> the scarf, wrapped high
 for y in range(42, 52):
     for x in range(14, 34):

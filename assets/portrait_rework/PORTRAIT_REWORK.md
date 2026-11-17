@@ -400,3 +400,15 @@ Cloth palette, shared with the front so the two match:
 Front candidate G4 has G3's pixels exactly; only those palette slots changed.
 
 Both sprites have 16 distinct 15-bit colours. review.py --mode back: pass.
+
+## Osrid round 12 — slicked-back hair, subtle strap (candidate Q4)
+
+User feedback:
+- "the hair is still wrong ... it's slicked back in the front", as on the portrait and front sprite.
+- "the strap around the mask is way too obvious looking and ugly".
+
+Changes (`tools/art/osrid_back_head_from_monty.py`):
+- **Hair:** Monty's crown (rows < 33) is mirrored about his hair's centre, so his forward locks now sweep back and flare off the back of the skull. His nape hair, which already sits at the back, is kept. The join is filled smoothly, and stray face pixels in the crown become hair.
+- **Strap:** reduced to one 1-px leather line with locks over it in two places, and a small 2×3 buckle. It was two full rows plus a 3×4 buckle.
+
+review.py --mode back: pass.
