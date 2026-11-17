@@ -78,6 +78,12 @@
 - **Umbra has been simultaneously preparing both royal children for their respective roles** — clandestine contact with Osrid overseas + daily tutorship of Rhydia at home. The empire's continued survival traces almost entirely to Umbra's two-decade architecture of royal preservation.
 - *Rhydia trusts Umbra more deeply than she trusts anyone else in her life.* When Umbra eventually reveals that he kept Osrid's return secret from her until ~50%, this creates a *real* tension between them — Rhydia may forgive him; she may have complicated feelings about it; either way, *Umbra weighed his loyalty to the empire's strategic safety against his love for Rhydia and chose the strategic calculus.* That is the kind of decision that haunts strategic geniuses — they make right decisions that injure the people they love.
 
+**Keerin's blessing on Osrid `[LOCKED user 2026-11-16]`:**
+- At the twins' birth, **Keerin (Valkeerin) blessed Osrid and not Rhydia**, marking him as the chosen heir of Cormoria. He is the first of the royal line blessed by Keerin in several generations. This, not royal blood alone (which his twin shares), is why he is special.
+- **The blessing was public.** The realm knew the prince had been chosen.
+- **Why the cults killed Eldred first:** the fastest way to destabilise the region was to remove Eldred, the empire's most prominent and capable figure, whose brilliance Baradus genuinely feared (a man who normally does not acknowledge other people at all). The blessed prince was the obvious next target, which is why Umbra hid Osrid rather than Rhydia.
+- **What the family believes now:** Rhydia believes he is alive somewhere; Pierra no longer does (see Section 7, Umbra). `[OPEN]` Whether Silas's memory-influence on Pierra has deepened that despair.
+
 **The 10-year regency:**
 - **At age 10, Rhydia's world collapsed.** Her father was assassinated. Her elder twin was sent away by Umbra "for his protection." Her mother retreated into grief and seclusion at the royal Secret Villa near House Moray's estate (Section 2 — Royal Secret Villa).
 - **From approximately age 10 onward, Rhydia gradually took over her mother's rule.** No formal abdication ever occurred — Pierra is still technically the Empress — but Rhydia has been doing the actual work of governance for the past decade.

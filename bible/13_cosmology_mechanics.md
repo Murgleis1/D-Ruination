@@ -718,6 +718,8 @@ The player learns about Phancero only through:
 
 Keerin only truly loves two beings in existence: **Arceus** (her creator, the being she was created for) and **Cormor** (the human she chose to make a pact with). **That is the entirety of her direct love across cosmic history.**
 
+**`[user 2026-11-16]` Keerin blessed Osrid at birth** (publicly; not his twin Rhydia), the first royal she has blessed in several generations. Her favour is therefore a personal choice, not bloodline alone; consistent with her intervention rule, her return after generations is itself an omen of a crisis beyond mortal scope. See Section 6, Keerin's blessing.
+
 She loves **Osrid to a lesser extent because of his heritage** — Osrid is Cormor's direct male-line descendant, the closest thing to Cormor still walking in the world. **Keerin's love for Cormor extends through bloodline as a distant echo** that reaches Osrid as a recognized-favor.
 
 **Pokemon data — full specification `[LOCKED v0.9.4]`:**
