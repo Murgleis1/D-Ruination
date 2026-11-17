@@ -1025,8 +1025,9 @@
 #define ITEM_RANGER_CREST 853
 #define ITEM_HISTORIAN_MEDAL 854
 #define ITEM_ARCHAEOLENS_2 855
+#define ITEM_APEX_FRUIT 856   // Dreamstone Ruination: Tavern Sage, changes a Pokemon's ability
 
-#define ITEMS_COUNT 856
+#define ITEMS_COUNT 857
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 

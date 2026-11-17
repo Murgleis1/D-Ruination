@@ -1,0 +1,236 @@
+// ============ DREAMSTONE RUINATION - shared Tavern scripts ============
+// Every Tavern has the same core staff (user, 2026-11-16; bible Section 3, Taverns):
+//   healer (food and drink: full heal), merchant (per-town stock, in the map's own script),
+//   Sage (nickname, relearn moves, nature change, Apex Fruits after 4 Trials), Caretaker (storage).
+// Prices are a first pass (bible [OPEN]): nature change 2,000; Apex Fruit 5,000 (item price).
+
+const DR_SAGE_NATURE_PRICE = 2000
+
+script DR_Tavern_Healer {
+    lock
+    faceplayer
+    speakername("Innkeeper")
+    msgbox(format("Welcome! A hot meal and a cool drink, and your Pokémon will be good as new. Shall I bring something out for them?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        msgbox(format("Coming right up."))
+        closemessage
+        fadescreen(FADE_TO_BLACK)
+        playfanfare(MUS_HEAL)
+        waitfanfare
+        special(HealPlayerParty)
+        fadescreen(FADE_FROM_BLACK)
+        speakername("Innkeeper")
+        msgbox(format("Fed, watered and rested. Come back anytime."))
+    } else {
+        msgbox(format("Suit yourself. The kitchen is always open."))
+    }
+    closemessage
+    release
+    end
+}
+
+script DR_Tavern_Caretaker {
+    lock
+    faceplayer
+    speakername("Caretaker")
+    msgbox(format("I look after the Pokémon you can't carry with you. Want to see them?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == YES) {
+        closemessage
+        special(ShowPokemonStorageSystemPC)
+        waitstate
+    } else {
+        msgbox(format("They're in good hands either way."))
+        closemessage
+    }
+    release
+    end
+}
+
+script DR_Tavern_Sage {
+    lock
+    faceplayer
+    speakername("Sage")
+    message(format("A new name, a forgotten move, a change of temper... What can I do for you?"))
+    waitmessage
+    dynmultipush("A new name", 0)
+    dynmultipush("Relearn a move", 1)
+    dynmultipush("Change a nature", 2)
+    if (flag(FLAG_BADGE04_GET)) {
+        dynmultipush("Apex Fruit", 3)
+    }
+    dynmultipush("Nothing", 4)
+    dynmultistack(0, 0, FALSE, 5, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    switch (var(VAR_RESULT)) {
+        case 0: goto(DR_Tavern_Sage_Rename)
+        case 1: goto(DR_Tavern_Sage_Relearn)
+        case 2: goto(DR_Tavern_Sage_Nature)
+        case 3: goto(DR_Tavern_Sage_ApexFruit)
+    }
+    goto(DR_Tavern_Sage_Bye)
+}
+
+script DR_Tavern_Sage_Bye {
+    speakername("Sage")
+    msgbox(format("Come back whenever you like."))
+    closemessage
+    release
+    end
+}
+
+script DR_Tavern_Sage_Rename {
+    msgbox(format("Whose name shall we change?"))
+    special(ChoosePartyMon)
+    waitstate
+    if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN) {
+        goto(DR_Tavern_Sage_Bye)
+    }
+    specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
+    if (var(VAR_RESULT) == SPECIES_EGG) {
+        speakername("Sage")
+        msgbox(format("That's an Egg. Let it hatch first, then we'll talk names."))
+        goto(DR_Tavern_Sage_Bye)
+    }
+    special(BufferMonNickname)
+    specialvar(VAR_RESULT, MonOTNameNotPlayer)
+    special(BufferMonNickname)
+    if (var(VAR_RESULT) == TRUE) {
+        speakername("Sage")
+        msgbox(format("{STR_VAR_1} was named by the one who raised it. That name isn't mine to change."))
+        goto(DR_Tavern_Sage_Bye)
+    }
+    call(Common_EventScript_NameReceivedPartyMon)
+    special(BufferMonNickname)
+    speakername("Sage")
+    msgbox(format("{STR_VAR_1}. A good name."))
+    goto(DR_Tavern_Sage_Bye)
+}
+
+script DR_Tavern_Sage_Relearn {
+    msgbox(format("Which Pokémon wants to remember?"))
+    special(ChooseMonForMoveRelearner)
+    waitstate
+    if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN) {
+        goto(DR_Tavern_Sage_Bye)
+    }
+    special(IsSelectedMonEgg)
+    if (var(VAR_RESULT) == TRUE) {
+        speakername("Sage")
+        msgbox(format("An Egg has nothing to remember yet."))
+        goto(DR_Tavern_Sage_Bye)
+    }
+    if (var(VAR_0x8005) == 0) {
+        speakername("Sage")
+        msgbox(format("There's nothing that one has forgotten."))
+        goto(DR_Tavern_Sage_Bye)
+    }
+    special(TeachMoveRelearnerMove)
+    waitstate
+    goto(DR_Tavern_Sage_Bye)
+}
+
+script DR_Tavern_Sage_Nature {
+    showmoneybox(18, 0)
+    msgbox(format("Changing a Pokémon's temper takes time and a good deal of patience. It costs ¥2,000. Shall we?"), MSGBOX_YESNO)
+    if (var(VAR_RESULT) == NO) {
+        hidemoneybox
+        goto(DR_Tavern_Sage_Bye)
+    }
+    checkmoney(DR_SAGE_NATURE_PRICE)
+    if (var(VAR_RESULT) == FALSE) {
+        hidemoneybox
+        speakername("Sage")
+        msgbox(format("You'll need ¥2,000 for that."))
+        goto(DR_Tavern_Sage_Bye)
+    }
+    hidemoneybox
+    msgbox(format("Whose nature shall we change?"))
+    special(ChoosePartyMon)
+    waitstate
+    if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN) {
+        goto(DR_Tavern_Sage_Bye)
+    }
+    specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
+    if (var(VAR_RESULT) == SPECIES_EGG) {
+        speakername("Sage")
+        msgbox(format("Let the Egg hatch first."))
+        goto(DR_Tavern_Sage_Bye)
+    }
+    speakername("Sage")
+    message(format("Which side of it should grow stronger?"))
+    waitmessage
+    dynmultichoice(0, 0, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
+    copyvar(VAR_0x8005, VAR_RESULT)
+    message(format("And which should give a little? Choose the same one for a balanced temper."))
+    waitmessage
+    dynmultichoice(0, 0, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
+    copyvar(VAR_0x8006, VAR_RESULT)
+    special(DrTavernSetNature)
+    if (var(VAR_RESULT) == FALSE) {
+        msgbox(format("It already has a {STR_VAR_2} nature. Keep your money."))
+        goto(DR_Tavern_Sage_Bye)
+    }
+    removemoney(DR_SAGE_NATURE_PRICE)
+    playse(SE_SHOP)
+    msgbox(format("There. Its nature is {STR_VAR_2} now."))
+    goto(DR_Tavern_Sage_Bye)
+}
+
+script DR_Tavern_Sage_ApexFruit {
+    msgbox(format("Apex Fruit. Feed one to a Pokémon and it draws out a different ability. Rare, and priced like it."))
+    pokemart(DR_Tavern_ApexStock)
+    goto(DR_Tavern_Sage_Bye)
+}
+
+mart DR_Tavern_ApexStock {
+    ITEM_APEX_FRUIT
+}
+
+// Used from the Bag (item_use.c: ItemUseOutOfBattle_ApexFruit).
+script EventScript_DrUseApexFruit {
+    lockall
+    msgbox(format("Which Pokémon will eat the Apex Fruit?"))
+    special(ChoosePartyMon)
+    waitstate
+    if (var(VAR_0x8004) == PARTY_NOTHING_CHOSEN) {
+        releaseall
+        end
+    }
+    specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
+    if (var(VAR_RESULT) == SPECIES_EGG) {
+        msgbox(format("An Egg can't eat."))
+        releaseall
+        end
+    }
+    special(DrTavernBufferAbilityChoices)
+    if (var(VAR_0x8005) == 0) {
+        msgbox(format("It has no other ability to draw out."))
+        releaseall
+        end
+    }
+    message(format("Which ability should it draw out?"))
+    waitmessage
+    dynmultipush("{STR_VAR_1}", 0)
+    if (var(VAR_0x8005) >= 2) {
+        dynmultipush("{STR_VAR_2}", 1)
+    }
+    if (var(VAR_0x8005) >= 3) {
+        dynmultipush("{STR_VAR_3}", 2)
+    }
+    dynmultipush("Cancel", 3)
+    dynmultistack(0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE)
+    switch (var(VAR_RESULT)) {
+        case 0: copyvar(VAR_0x8006, VAR_0x8007)
+        case 1: copyvar(VAR_0x8006, VAR_0x8008)
+        case 2: copyvar(VAR_0x8006, VAR_0x8009)
+        default:
+            releaseall
+            end
+    }
+    special(DrTavernSetAbilitySlot)
+    removeitem(ITEM_APEX_FRUIT)
+    special(BufferMonNickname)
+    playse(SE_USE_ITEM)
+    msgbox(format("{STR_VAR_1}'s ability is now {STR_VAR_2}!"))
+    releaseall
+    end
+}

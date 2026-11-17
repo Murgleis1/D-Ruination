@@ -540,6 +540,9 @@ gSpecials::
 	def_special DrSetPlayerOsridSprite
 	def_special DrDoPlayerNaming
 	def_special DrSetPrinceNameplate
+	def_special DrTavernSetNature
+	def_special DrTavernBufferAbilityChoices
+	def_special DrTavernSetAbilitySlot
 	def_special DrSetCadmusNameplate
 	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance

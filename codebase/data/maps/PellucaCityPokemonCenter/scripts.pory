@@ -1,36 +1,14 @@
 // ============ DREAMSTONE RUINATION - Pelluca Valley: the Seaside Tavern ============
 // This map id (MAP_PELLUCA_CITY_POKEMON_CENTER) is reused for the tavern so the town's warp 2
 // and the Pelluca respawn keep working. Layout: MonoMyth's Fort Elderflower tavern
-// (LAYOUT_PELLUCA_TAVERN), warm wood palette. The tavern heals (innkeeper) and sells (barkeep):
-// the empire era has no Pokemon Centers or Marts (user, 2026-11-15).
+// (LAYOUT_PELLUCA_TAVERN), warm wood palette. Staff (shared scripts in data/scripts/dr_tavern.pory):
+// innkeeper heals with food and drink, barkeep sells (stock below), the Sage offers names, moves,
+// natures and later Apex Fruits, the Caretaker keeps stored Pokemon. Regulars: the sailor and fisherman.
 
 mapscripts PellucaCityPokemonCenter_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
         setrespawn(HEAL_LOCATION_PELLUCA_CITY)
     }
-}
-
-script DR_Tavern_Innkeeper {
-    lock
-    faceplayer
-    speakername("Innkeeper")
-    msgbox(format("Welcome to the Seaside Tavern. Your Pokémon look like they could use a rest. Shall I see to them?"), MSGBOX_YESNO)
-    if (var(VAR_RESULT) == YES) {
-        msgbox(format("Leave them with me a moment."))
-        closemessage
-        fadescreen(FADE_TO_BLACK)
-        playfanfare(MUS_HEAL)
-        waitfanfare
-        special(HealPlayerParty)
-        fadescreen(FADE_FROM_BLACK)
-        speakername("Innkeeper")
-        msgbox(format("Fed, rested and ready. Come back anytime."))
-    } else {
-        msgbox(format("Suit yourself. The door is always open."))
-    }
-    closemessage
-    release
-    end
 }
 
 script DR_Tavern_Barkeep {

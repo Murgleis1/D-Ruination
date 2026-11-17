@@ -716,6 +716,20 @@ static void Task_AccessPokemonBoxLink(u8 taskId)
     DestroyTask(taskId);
 }
 
+// Dreamstone Ruination: the Apex Fruit closes the bag and runs a script (choose a Pokemon,
+// then one of its species' other abilities).
+static void Task_UseApexFruit(u8 taskId)
+{
+    ScriptContext_SetupScript(EventScript_DrUseApexFruit);
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_ApexFruit(u8 taskId)
+{
+    sItemUseOnFieldCB = Task_UseApexFruit;
+    SetUpItemUseOnFieldCallback(taskId);
+}
+
 void ItemUseOutOfBattle_CoinCase(u8 taskId)
 {
     ConvertIntToDecimalStringN(gStringVar1, GetCoins(), STR_CONV_MODE_LEFT_ALIGN, 4);

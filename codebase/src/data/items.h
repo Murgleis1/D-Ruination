@@ -14606,7 +14606,23 @@ const struct Item gItemsInfo[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .iconPic = gItemIcon_SilphScope,
         .iconPalette = gItemIconPalette_SilphScope,
-    },        
+    },
+
+    // Dreamstone Ruination (user, 2026-11-16): sold by the Tavern Sage after 4 Trials.
+    [ITEM_APEX_FRUIT] =
+    {
+        .name = _("Apex Fruit"),
+        .price = 5000,
+        .description = COMPOUND_STRING(
+            "A rare fruit. Fed to\n"
+            "a Pokémon, it draws\n"
+            "out another ability."),
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_ApexFruit,
+        .iconPic = gItemIcon_StarfBerry,
+        .iconPalette = gItemIconPalette_StarfBerry,
+    },
 };
 
 
