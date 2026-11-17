@@ -16,8 +16,11 @@ def lz77(o):
             else: out.append(ROM[o]); o+=1
     return bytes(out)
 def tiles_of(ts):
-    raw=lz77(off(ts['tiles'])) if ts['compressed'] else None
-    if raw is None: raise ValueError('uncompressed tiles: size unknown')
+    if ts['compressed']: raw=lz77(off(ts['tiles']))
+    else:  # uncompressed: size is not stored; take up to 512 tiles, stopping at the palettes if they follow
+        o=off(ts['tiles']); n=512*32
+        if ts['pals']>ts['tiles']: n=min(n,ts['pals']-ts['tiles'])
+        raw=ROM[o:o+n]
     n=len(raw)//32; a=np.frombuffer(raw,np.uint8).reshape(n,32)
     t=np.zeros((n,8,8),np.uint8); t[:,:,0::2]=(a&15).reshape(n,8,4); t[:,:,1::2]=(a>>4).reshape(n,8,4)
     return t
@@ -52,12 +55,20 @@ class TS:
                 for x in range(8):
                     if t[y,x] or q<4: img[oy+y,ox+x]=s.pal[sl][t[y,x]] if t[y,x] else (0,0,0)
         s.cache[mid]=img; return img
+def map_cells(L):
+    """Block data as a list of u16. MonoMyth LZ77-compresses some layouts (all the Wood Avens /
+    Fort Elderflower interiors measured 2026-11-16): marker 0x10 + 24-bit size == w*h*2.
+    Reading those raw was why interiors rendered as scrambled pieces."""
+    W,Hh=L['w'],L['h']; mo=off(L['map'])
+    if ROM[mo]==0x10 and (ROM[mo+1]|ROM[mo+2]<<8|ROM[mo+3]<<16)==W*Hh*2:
+        raw=lz77(mo); return list(struct.unpack('<%dH'%(W*Hh),raw))
+    return [u16(mo+i*2) for i in range(W*Hh)]
 def render_map(h,out):
-    L=h['layout']; ts=TS(L); W,Hh=L['w'],L['h']; mo=off(L['map'])
+    L=h['layout']; ts=TS(L); W,Hh=L['w'],L['h']; cells=map_cells(L)
     img=np.zeros((Hh*16,W*16,3),np.uint8); ids=[]
     for y in range(Hh):
         for x in range(W):
-            mid=u16(mo+(y*W+x)*2)&0x3ff; ids.append(mid)
+            mid=cells[y*W+x]&0x3ff; ids.append(mid)
             img[y*16:y*16+16,x*16:x*16+16]=ts.meta(mid)
     Image.fromarray(img).save(out)
     return ids,ts

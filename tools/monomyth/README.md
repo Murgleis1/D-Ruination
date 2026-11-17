@@ -48,3 +48,22 @@ Ranked by cells whose behaviour byte (attr u16 low byte) is 0x10-0x17.
 | Port Ginseng 64x64 | 0x86DB2C | stone quays, canals, bridges, moored piers; warehouses/market stalls; parking lot (modern) |
 | Old Bay Island, 22 maps (mapsec 91) | 0x86D8C4.. | wilderness: rivers w/ sandbanks + waterfalls (0x86DA14, 0x86DA30), no docks; 0x86DD24 scrambled |
 These use primaries 0x873132C / 0x87311DC, NOT Wood Avens' 0x8730D5C: style match judged by eye.
+
+## Interiors (2026-11-16): LZ77-compressed block data
+Wood Avens (mapsec 6) and Fort Elderflower (mapsec 9) interiors (maptype 8) store their
+block data LZ77-compressed (0x10 + 24-bit size == w*h*2). Reading it raw scrambled every
+interior; `render.map_cells()` now decompresses. One Wood Avens secondary (0x8730AE4) has
+uncompressed tiles; render.py reads up to 512 tiles for it.
+| map | header | size | what it is |
+|---|---|---|---|
+| Elderflower study | 0x86B2D0 | 12x10 used | bookshelves, desk, armchair, round + long table |
+| Elderflower library hall | 0x86B298 | 15x18 | balcony, stairs, six bookcases, centre table |
+| Elderflower L-room | 0x86B27C | 17x11 | stair down, desk, sofa, round table |
+| Elderflower tavern | 0x86B244 | 14x10 | bar counter + stools, two tables |
+| Elderflower long hall | 0x86B260 | 7x17 | long dining table |
+| Elderflower rooms | 0x86B1F0.. | 11x11 | small manor rooms (several copies) |
+| Elderflower cave | 0x86B340 | 30x30 | cave chamber (maptype 4) |
+| Wood Avens houses | 0x86AC08.. | 14x10.. | modern fittings (fridges, TVs): not era-appropriate |
+| Wood Avens hut | 0x86AC94 | 7x8 used | round hut with a cauldron |
+Elderflower interiors use primary 0x8731254 (192 metatiles) + secondaries 0x8730C3C / 0x8730E4C / 0x87315FC.
+Renders: assets/monomyth_reference/interiors/.
