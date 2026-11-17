@@ -412,3 +412,17 @@ Changes (`tools/art/osrid_back_head_from_monty.py`):
 - **Strap:** reduced to one 1-px leather line with locks over it in two places, and a small 2×3 buckle. It was two full rows plus a 3×4 buckle.
 
 review.py --mode back: pass.
+
+## Osrid round 13 — back hair from the approved portrait (candidate Q5)
+
+User: "Your hair is wrong on the backsprite. How many times do I have to say it." "Look at Osrid's hair on his portrait. Look at Osrid's hair on the front sprite."
+
+Diagnosis, from a side-by-side zoom:
+- The portrait and front hair is swept straight back off the mask. Its back edge is jagged with groups of pointed locks flaring backward, with a lit rim along the top and back over one flat mid tone, darker toward the ear and nape.
+- Monty's hair, even mirrored, was a rounded mass with one big peak and straight strands. That's the wrong shape.
+
+Method:
+- `tools/art/osrid_back_hair_from_portrait.py`: the portrait's hair box goes through a dominant-vote downscale to 26×26, the same method as the approved front head. The portrait's face area, glyph lines included, becomes the back of the skull: mid above the strap, dark below.
+- `tools/art/osrid_back_head_compose.py`: that hair plus the round-12 mask, ear, cheek, strap, buckle, nape locks and scarf. The upper hair is one flat mid tone with a lit rim, like the portrait. There are no drawn strand lines, since they read as stitches.
+
+review.py --mode back: pass.
