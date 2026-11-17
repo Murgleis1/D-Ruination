@@ -1,6 +1,6 @@
 # Chapter 1 dialogue: draft for everything after the briefing
 
-Status: **draft for the user's review, not in the game yet.** Written in the voice of the user's own revisions (2026-11-16): Cadmus warm, formal and in command; Osrid formal and guarded, with pauses when something touches a nerve. Eden (user, 2026-11-16): mysterious and defiant, confident because she knows powerful people are behind her, but kept half-informed by them, so it shows she did not think this all the way through. She never names who sent her. Clarity first.
+Status: **draft for the user's review, not in the game yet.** Written in the voice of the user's own revisions (2026-11-16): Cadmus warm, formal and in command; Osrid formal and guarded, with pauses when something touches a nerve. Eden (user, 2026-11-16): mysterious and defiant, confident because she knows powerful people are behind her, but kept half-informed by them, so it shows she did not think this all the way through. She never names who sent her. Underneath (user, 2026-11-16): this is her first real mission, she is green as a trainer and terrified the whole time, and the Beads Cult sent her as a sacrificial pawn to make Cadmus overreact while they move against the Empress. She hides the fear; it leaks only in small tells. Clarity first.
 
 Stage directions are in *italics*. Names are as the player sees them.
 

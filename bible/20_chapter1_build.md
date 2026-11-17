@@ -126,3 +126,6 @@ The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy
 - **Eden does not name her cult** during the theft (she poses as a freelance thief). She fights as **"Brigand ???"** and first gives her name to the Templar in the **monastery holding cell**, which now has a short Osrid/Eden exchange before Cadmus and Osrid leave her to the Templar's questions.
 - **The Mega-Dreamstone shard briefing** happens back at the lab after the cell scene (as §6 requires: after the theft), at Cadmus's own level of knowledge; he does not name his source (Nemo).
 - Engine: inline speaker names are shown only when the speaker changes; long lines are re-wrapped with the name in place.
+- Eden at the lab (user 2026-11-16): first real mission, green trainer, terrified underneath, sent as a sacrificial pawn to make Cadmus overreact and draw his eye from the Beads Cult's plot against the Empress (Section 08). Cadmus's "How kind of them, to drop a lead right into my lap" is dramatic irony: the lead is the bait.
+- Pelluca dormitory (user 2026-11-16): the large building in the far upper-left by the river; Osrid lives there as resident security for the students and the town.
+- Wording (user 2026-11-16): "Ministry of Education" everywhere; Osrid is "reassigned", not "conscripted".
