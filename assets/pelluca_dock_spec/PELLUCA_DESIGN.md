@@ -607,3 +607,18 @@ Dorm moved 2 west onto the forest edge (x8-14, door (11,8)); conifer between it 
 - The dead mushroom at (9,9) (under the dorm hedge, skipped every build) is removed: the layout
   now builds with no clash skips. Walk test: every door/exit reached; the only sealed walkable
   strips are the dorm roof row and the monastery garden strip (both expected).
+
+## INSTALLED in game (2026-11-16)
+Draft 19 is now the live LAYOUT_PELLUCA_CITY (map.bin from pelluca_layout.py; tilesets
+gTileset_Cormoria + gTileset_PellucaValley; border = forest body 31/30/24/23). Until this date the
+drafts were previews only and the game still loaded the old Mauville map.
+- Warps: 0 monastery (22,27), 1 lab (47,44), 2 tavern (28,43) -> Poke Center interior (placeholder),
+  3 dorm (11,8) -> Houses room A (placeholder). WARP_DOORS in the layout tool keeps these steppable.
+- Locked doors (sign events): Academy, Cadmus's house, house 5, cottages x4. Sealed Umbra cave slab.
+- Signposts W/E/N and the INN board have text. Shrine to the lost prince at (43,44) with its keeper at (42,44).
+- Connections to Route 7/8, Hoya River South and Ivy River REMOVED: those maps still use the old
+  tilesets and would render as garbage at the seams. Re-add when the empire-era routes exist.
+- Door animations: none of the new door metatiles has a door-animation entry, so doors open without
+  animating (no garbage; field_door.c returns early).
+- Water is static (no tileset animation callback yet).
+- Build gotcha: make does not notice an edited map.bin; `touch data/maps.s` after editing one.

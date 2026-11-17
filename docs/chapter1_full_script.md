@@ -74,6 +74,16 @@ It...will be good to be home again.
 
 **Cadmus:** Good. Walk with me. We will talk somewhere quieter.
 
+*Cadmus walks on ahead. You stop.*
+
+*A small shrine stands beside the path, crowded with candles. The plaque reads:*
+
+*For Prince Osrid, Keerin's Chosen. Wherever you are, come home.*
+
+**Cadmus:** Rainhawk.
+
+*You follow him.*
+
 ## 4. Cadmus's lab: the briefing  [IN GAME]
 
 **Cadmus:** Welcome home, my Prince. Forgive the chaos.
@@ -124,11 +134,23 @@ A Rainhawk who clears every Trial has the right to challenge the Champion. She i
 
 She is one of the most talented Trainers we have seen in generations, but our enemies are closing in... I believe her power will not be enough to save Cormoria.
 
+Keerin never chose her, my Prince.
+
 A man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him at that point.
 
 **Prince Osrid:** Does Rhydia know I'm here? What about my mother?
 
-**Cadmus:** Neither of them does, though we will make sure they know when the time is right.
+**Cadmus:** No. Neither of them has heard a word of you in ten years. I could not risk even that much.
+
+**Prince Osrid:** ...So it's true. They think I'm dead.
+
+**Cadmus:** Your sister refuses to believe it. She still sends candles to your shrine every spring, on the birthday you share.
+
+**Cadmus:** Your mother... stopped sending hers some time ago.
+
+**Prince Osrid:** ......
+
+**Cadmus:** When the time is right, they will know. You have my word.
 
 **Cadmus:** Let us move on, however, to the most critical topic.
 
@@ -333,6 +355,8 @@ If they reach the shards first... I fear neither of us will like what they awake
 A Trial challenger can go almost anywhere he pleases.
 
 **Cadmus:** Your second mission, therefore, is ultimately simple. Bring the pieces to me... and do it quietly, without attracting unneeded attention.
+
+**Cadmus:** The Trials will make you Champion. The shards will make sure there is still an Empire left for you to rule.
 
 **Cadmus:** Which means no more announcing yourself to thieves as the youngest Rainhawk in history.
 
