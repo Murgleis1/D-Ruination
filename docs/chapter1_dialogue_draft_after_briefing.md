@@ -10,8 +10,8 @@ Stage directions are in *italics*. Names are as the player sees them.
 
 These are only suggestions. Your text is in the game exactly as you wrote it.
 
-1. **One name for Cadmus's office.** The letter says "the Office of the Vizier of Education"; the briefing says "the Ministry of Education". Pick one, or say both on purpose (the Ministry is the department, the Office is Cadmus).
-2. **"formally conscripted"** means drafted against his will. If the sense is "reassigned", maybe "formally reassigned to the Ministry of Education".
+1. ~~One name for Cadmus's office~~ Resolved (user): "Ministry of Education" everywhere. The letter now says "serve directly under me in the Ministry of Education." In the game.
+2. ~~"conscripted"~~ Resolved (user): "now formally reassigned to the Ministry of Education." In the game.
 3. ~~Her/them mismatch~~ Withdrawn: "her" is the ship and "them" is the captain, which is correct as written.
 4. ~~No dormitory~~ Withdrawn (user, 2026-11-16): the dormitory is the large building in the far upper-left of Pelluca Valley by the river (layout plan: `residence` at 8,4, door 11,8). Osrid lives there as resident security for the students and the town. The line stands. Its door has no warp or interior yet; that goes with the interiors work.
 5. **"I will explain in greater detail later."** Nothing later explains the PokéLog yet. I've added a short line to the shard briefing (section E) so the promise is kept.
@@ -54,9 +54,7 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Cadmus:** How kind of them, to drop a lead right into my lap.
 
-*At her feet, Pilfer's ears go flat.*
-
-**Thief:** ...Them? Couldn't tell you who you mean. Are we doing this, or not?
+**Thief:** *(reaction under revision)* ...Them? Couldn't tell you who you mean. Are we doing this, or not?
 
 **Cadmus:** Of course you couldn't. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
 

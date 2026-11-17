@@ -132,8 +132,8 @@ PellucaReflection_Cutscene_Text_3:
 	.string "circumstances.\p"
 	.string "In any case, effective the day you\n"
 	.string "receive this letter, you will serve\l"
-	.string "directly under me in the Office of the\l"
-	.string "Vizier of Education.$"
+	.string "directly under me in the Ministry of\l"
+	.string "Education.$"
 
 PellucaReflection_Cutscene_Text_4:
 # 28 "data/maps/PellucaReflection/scripts.pory"

@@ -70,7 +70,7 @@ script DR_Lab_Briefing{
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
     msgbox(format("How I miss those days."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("But alas, let us speak about the present, and your immediate future.\pTo the Empire, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally conscripted under the Ministry of Education.\pThe Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you... along with most places in the Empire."))
+    msgbox(format("But alas, let us speak about the present, and your immediate future.\pTo the Empire, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally reassigned to the Ministry of Education.\pThe Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you... along with most places in the Empire."))
     msgbox(format("There is a dormitory northwest of here with your cover name on the door, the largest study on the first floor. It isn't much, but the door locks and the bed is comfy."))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     special(DrSetPrinceNameplate)
