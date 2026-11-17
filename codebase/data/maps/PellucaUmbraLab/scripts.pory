@@ -33,8 +33,8 @@ mapscripts PellucaUmbraLab_MapScripts{
             setflag(FLAG_UNUSED_0x885)
         }
         if (var(VAR_UNUSED_0x40A1) == 1){
-            setobjectxyperm(LOCALID_DRL_CADMUS, 6, 7)
-            setobjectmovementtype(LOCALID_DRL_CADMUS, MOVEMENT_TYPE_FACE_RIGHT)
+            setobjectxyperm(LOCALID_DRL_CADMUS, 5, 8)
+            setobjectmovementtype(LOCALID_DRL_CADMUS, MOVEMENT_TYPE_FACE_UP)
         }
         return
     }
@@ -148,9 +148,8 @@ script DR_Lab_Briefing{
     msgbox(format("Proceed, my Lord. This is an important choice."))
     hideportrait
     closemessage
-    // he steps aside onto the rug (the table's left leg at (7,7) would hide him) so all three
-    // balls can be reached from the front of the table
-    applymovement(LOCALID_DRL_CADMUS, moves(walk_left * 3 face_right))
+    // he steps aside to stand by the door, leaving the table and the rug clear
+    applymovement(LOCALID_DRL_CADMUS, moves(walk_left * 4 walk_down face_up))
     waitmovement(0)
     releaseall
     end
@@ -221,8 +220,8 @@ script DR_Lab_Theft{
     delay(45)
     setobjectxy(OBJ_EVENT_ID_PLAYER, 9, 8)
     turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
-    setobjectxy(LOCALID_DRL_CADMUS, 6, 7)
-    turnobject(LOCALID_DRL_CADMUS, DIR_EAST)
+    setobjectxy(LOCALID_DRL_CADMUS, 5, 8)
+    turnobject(LOCALID_DRL_CADMUS, DIR_NORTH)
     clearflag(FLAG_UNUSED_0x886)
     addobject(LOCALID_DRL_EDEN)
     if (var(VAR_UNUSED_0x4083) == 1){ removeobject(LOCALID_DRL_BALL_TINK) }
@@ -252,23 +251,23 @@ script DR_Lab_Theft{
     msgbox(format("But I have what I need now, so I'll just-"))
     hideportrait
     closemessage
-    applymovement(LOCALID_DRL_EDEN, moves(walk_fast_left * 2))
+    applymovement(LOCALID_DRL_EDEN, moves(walk_fast_left * 6))
     waitmovement(0)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Neptune. Bar the door, and keep one eye on the window. If she runs, pin her. Gently."))
     hideportrait
     closemessage
-    // Neptune comes out beside Cadmus and plants himself on the doorway before she can reach it
+    // Neptune comes out beside Cadmus and plants himself on the doorway (4,9) before she can reach it
     clearflag(FLAG_UNUSED_0x887)
     addobject(LOCALID_DRL_NEPTUNE)
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
-    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_down walk_fast_left * 2 face_up))
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_down walk_fast_right face_up))
     waitmovement(0)
     waitmoncry
     applymovement(LOCALID_DRL_EDEN, moves(emote_exclamation_mark face_down))
     waitmovement(0)
     delay(16)
-    applymovement(LOCALID_DRL_EDEN, moves(walk_right * 2 face_down))
+    applymovement(LOCALID_DRL_EDEN, moves(walk_up face_down))
     waitmovement(0)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
@@ -291,7 +290,8 @@ script DR_Lab_Theft{
     msgbox(format("Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door."))
     hideportrait
     closemessage
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_fast_right walk_fast_up walk_fast_right walk_fast_up face_up))
+    // the face-off happens on the rug in the middle of the room
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_fast_left * 3 walk_fast_up walk_fast_left walk_fast_up face_up))
     applymovement(LOCALID_DRL_EDEN, moves(face_down))
     waitmovement(0)
     delay(12)
@@ -372,7 +372,7 @@ script DR_Lab_EdenWins{
     hideportrait
     closemessage
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
-    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_up * 5 walk_fast_right * 6 face_right))
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_left walk_fast_up * 6 walk_fast_right face_right))
     waitmovement(0)
     waitmoncry
     applymovement(LOCALID_DRL_EDEN, moves(emote_exclamation_mark face_left))
