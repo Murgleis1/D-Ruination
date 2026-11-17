@@ -86,94 +86,118 @@ DR_Monastery_Cell::
 # 54 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	msgbox DR_Monastery_Cell_Text_12
 # 55 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	goto_if_set FLAG_DR_LOST_TO_EDEN_LAB, DR_Monastery_Cell_2
+# 67 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
-# 56 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	msgbox DR_Monastery_Cell_Text_13
-# 57 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 68 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_16
+# 69 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	hideportrait
-# 58 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 70 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	closemessage
-# 59 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 71 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	msgbox DR_Monastery_Cell_Text_14
+# 72 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	closemessage
+# 73 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	delay 20
+# 74 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+# 75 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_17
+DR_Monastery_Cell_1:
+# 77 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	hideportrait
+# 78 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	closemessage
+# 79 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	applymovement LOCALID_DRM_TEMPLAR, DR_Monastery_Cell_Movement_1
+# 80 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	waitmovement 0
+# 81 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	speakername DR_Monastery_Cell_Text_1
+# 82 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_18
+# 83 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+# 84 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_19
+# 85 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	hideportrait
+# 86 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	closemessage
+# 87 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	applymovement LOCALID_DRM_CADMUS, DR_Monastery_Cell_Movement_2
+# 88 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, DR_Monastery_Cell_Movement_2
+# 89 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	waitmovement 0
+# 90 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	delay 16
+# 91 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+# 92 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	speakername DR_Monastery_Cell_Text_20
+# 93 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_21
+# 94 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	hideportrait
+# 95 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	closemessage
+# 96 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, DR_Monastery_Cell_Movement_0
+# 97 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	waitmovement 0
+# 98 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	delay 16
+# 99 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 100 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	speakername DR_Monastery_Cell_Text_22
+# 101 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_23
+# 102 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	hideportrait
+# 103 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	closemessage
+# 104 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	applymovement LOCALID_DRM_CADMUS, DR_Monastery_Cell_Movement_3
+# 105 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, DR_Monastery_Cell_Movement_4
+# 106 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	waitmovement 0
+# 107 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	fadescreen FADE_TO_BLACK
+# 108 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	setvar VAR_UNUSED_0x40A1, 3
+# 109 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	warp MAP_PELLUCA_UMBRA_LAB, 9, 9
+# 110 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	waitstate
+# 111 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	releaseall
+	end
+
+DR_Monastery_Cell_2:
+# 57 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL
+# 58 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_13
+# 59 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	hideportrait
 # 60 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	closemessage
 # 61 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	delay 20
+	msgbox DR_Monastery_Cell_Text_14
 # 62 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
+	closemessage
 # 63 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	msgbox DR_Monastery_Cell_Text_15
+	delay 20
 # 64 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	hideportrait
-# 65 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	closemessage
-# 66 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	applymovement LOCALID_DRM_TEMPLAR, DR_Monastery_Cell_Movement_1
-# 67 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	waitmovement 0
-# 68 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	speakername DR_Monastery_Cell_Text_1
-# 69 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	msgbox DR_Monastery_Cell_Text_16
-# 70 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-# 71 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	msgbox DR_Monastery_Cell_Text_17
-# 72 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	hideportrait
-# 73 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	closemessage
-# 74 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	applymovement LOCALID_DRM_CADMUS, DR_Monastery_Cell_Movement_2
-# 75 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, DR_Monastery_Cell_Movement_2
-# 76 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	waitmovement 0
-# 77 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	delay 16
-# 78 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	showportrait PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE
-# 79 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	speakername DR_Monastery_Cell_Text_18
-# 80 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	msgbox DR_Monastery_Cell_Text_19
-# 81 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	hideportrait
-# 82 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	closemessage
-# 83 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, DR_Monastery_Cell_Movement_0
-# 84 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	waitmovement 0
-# 85 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	delay 16
-# 86 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 87 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	speakername DR_Monastery_Cell_Text_20
-# 88 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	msgbox DR_Monastery_Cell_Text_21
-# 89 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	hideportrait
-# 90 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	closemessage
-# 91 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	applymovement LOCALID_DRM_CADMUS, DR_Monastery_Cell_Movement_3
-# 92 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, DR_Monastery_Cell_Movement_4
-# 93 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	waitmovement 0
-# 94 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	fadescreen FADE_TO_BLACK
-# 95 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	setvar VAR_UNUSED_0x40A1, 3
-# 96 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	warp MAP_PELLUCA_UMBRA_LAB, 9, 9
-# 97 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	waitstate
-# 98 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	releaseall
-	end
+# 65 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	msgbox DR_Monastery_Cell_Text_15
+	goto DR_Monastery_Cell_1
 
 
 # 23 "data/maps/PellucaTemplarMonastery/scripts.pory"
@@ -182,33 +206,33 @@ DR_Monastery_Cell_Movement_0:
 	face_up
 	step_end
 
-# 66 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 79 "data/maps/PellucaTemplarMonastery/scripts.pory"
 DR_Monastery_Cell_Movement_1:
-# 66 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 79 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	face_left
 	step_end
 
-# 74 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 87 "data/maps/PellucaTemplarMonastery/scripts.pory"
 DR_Monastery_Cell_Movement_2:
-# 74 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 87 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	face_down
 	step_end
 
-# 91 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 104 "data/maps/PellucaTemplarMonastery/scripts.pory"
 DR_Monastery_Cell_Movement_3:
-# 91 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 104 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	walk_down
-# 91 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 104 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	walk_down
 	step_end
 
-# 92 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 105 "data/maps/PellucaTemplarMonastery/scripts.pory"
 DR_Monastery_Cell_Movement_4:
-# 92 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 105 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	face_down
-# 92 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 105 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	walk_down
-# 92 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 105 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	walk_down
 	step_end
 
@@ -271,47 +295,60 @@ DR_Monastery_Cell_Text_12:
 	.string "Rainhawk.$"
 
 DR_Monastery_Cell_Text_13:
-# 56 "data/maps/PellucaTemplarMonastery/scripts.pory"
+# 58 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	.string "You fought like a soldier, Nomad Alban.\n"
+	.string "All orders, not one word to that little\l"
+	.string "partner of yours. It tried its best\l"
+	.string "anyway.$"
+
+DR_Monastery_Cell_Text_14:
+# 61 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	.string "A pause.$"
+
+DR_Monastery_Cell_Text_15:
+# 65 "data/maps/PellucaTemplarMonastery/scripts.pory"
+	.string "Just saying... it'll be something to see,\n"
+	.string "the day the two of you actually fight\l"
+	.string "together. I mean it.$"
+
+DR_Monastery_Cell_Text_16:
+# 68 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "You really did fight well, Nomad Alban.\n"
 	.string "Your little partner there beat Pilfer to\l"
 	.string "a pulp, and yet you never said one word\l"
 	.string "to it. Just gestures.$"
 
-DR_Monastery_Cell_Text_14:
-# 59 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	.string "A pause.$"
-
-DR_Monastery_Cell_Text_15:
-# 63 "data/maps/PellucaTemplarMonastery/scripts.pory"
+DR_Monastery_Cell_Text_17:
+# 75 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "Just saying... that's pretty amazing. I\n"
 	.string "mean it.$"
 
-DR_Monastery_Cell_Text_16:
-# 69 "data/maps/PellucaTemplarMonastery/scripts.pory"
+DR_Monastery_Cell_Text_18:
+# 82 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "Vizier. Rainhawk. I must ask you to\n"
 	.string "leave her with me now. She is trying to\l"
 	.string "buy time... though for what reason, I do\l"
 	.string "not know.$"
 
-DR_Monastery_Cell_Text_17:
-# 71 "data/maps/PellucaTemplarMonastery/scripts.pory"
+DR_Monastery_Cell_Text_19:
+# 84 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "Of course. Come, Rainhawk. We have much\n"
 	.string "to discuss.$"
 
-DR_Monastery_Cell_Text_18:
-# 79 "data/maps/PellucaTemplarMonastery/scripts.pory"
+DR_Monastery_Cell_Text_20:
+# 92 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "Eden$"
 
-DR_Monastery_Cell_Text_19:
-# 80 "data/maps/PellucaTemplarMonastery/scripts.pory"
+DR_Monastery_Cell_Text_21:
+# 93 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "I'll be seeing you again, Rainhawk. When\n"
 	.string "I make a promise, I keep it.$"
 
-DR_Monastery_Cell_Text_20:
-# 87 "data/maps/PellucaTemplarMonastery/scripts.pory"
+DR_Monastery_Cell_Text_22:
+# 100 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "Nomad Alban$"
 
-DR_Monastery_Cell_Text_21:
-# 88 "data/maps/PellucaTemplarMonastery/scripts.pory"
+DR_Monastery_Cell_Text_23:
+# 101 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "If the fates allow it, I'll welcome it...\n"
 	.string "Eden.$"

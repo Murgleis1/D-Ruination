@@ -1496,6 +1496,10 @@
 
 #define FLAG_UNUSED_0x88E                           (SYSTEM_FLAGS + 0x2E) // Unused Flag
 #define FLAG_UNUSED_0x88F                           (SYSTEM_FLAGS + 0x2F) // Unused Flag
+// Dreamstone Ruination: set around a story battle the player may lose without whiting out
+// (battle_setup.c CB2_EndTrainerBattle, BS_DrJumpIfStoryBattle). The script reads GetBattleOutcome.
+#define FLAG_DR_STORY_BATTLE                        FLAG_UNUSED_0x88F
+#define FLAG_DR_LOST_TO_EDEN_LAB                    FLAG_UNUSED_0x8E3   // remembered for the cell scene
 
 #define FLAG_SYS_TV_HOME                            (SYSTEM_FLAGS + 0x30)
 #define FLAG_SYS_TV_WATCH                           (SYSTEM_FLAGS + 0x31)

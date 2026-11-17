@@ -16843,6 +16843,17 @@ void BS_CalcMetalBurstDmg(void)
     }
 }
 
+// Dreamstone Ruination: during a story battle (FLAG_DR_STORY_BATTLE) a loss costs no money.
+void BS_DrJumpIfStoryBattle(void)
+{
+    NATIVE_ARGS(const u8 *jumpInstr);
+
+    if (FlagGet(FLAG_DR_STORY_BATTLE))
+        gBattlescriptCurrInstr = cmd->jumpInstr;
+    else
+        gBattlescriptCurrInstr = cmd->nextInstr;
+}
+
 void BS_JumpIfCantFling(void)
 {
     NATIVE_ARGS(u8 battler, const u8 *jumpInstr);

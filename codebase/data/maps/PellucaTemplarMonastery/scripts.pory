@@ -52,15 +52,28 @@ script DR_Monastery_Cell {
     closemessage
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk."))
-    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
-    msgbox(format("You really did fight well, Nomad Alban. Your little partner there beat Pilfer to a pulp, and yet you never said one word to it. Just gestures."))
-    hideportrait
-    closemessage
-    msgbox(format("A pause."))
-    closemessage
-    delay(20)
-    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
-    msgbox(format("Just saying... that's pretty amazing. I mean it."))
+    if (flag(FLAG_DR_LOST_TO_EDEN_LAB)) {
+        // Osrid lost the lab fight: same beat, turned around. She still sees something in him.
+        showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+        msgbox(format("You fought like a soldier, Nomad Alban. All orders, not one word to that little partner of yours. It tried its best anyway."))
+        hideportrait
+        closemessage
+        msgbox(format("A pause."))
+        closemessage
+        delay(20)
+        showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+        msgbox(format("Just saying... it'll be something to see, the day the two of you actually fight together. I mean it."))
+    } else {
+        showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+        msgbox(format("You really did fight well, Nomad Alban. Your little partner there beat Pilfer to a pulp, and yet you never said one word to it. Just gestures."))
+        hideportrait
+        closemessage
+        msgbox(format("A pause."))
+        closemessage
+        delay(20)
+        showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+        msgbox(format("Just saying... that's pretty amazing. I mean it."))
+    }
     hideportrait
     closemessage
     applymovement(LOCALID_DRM_TEMPLAR, moves(face_left))

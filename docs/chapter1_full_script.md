@@ -290,6 +290,30 @@ And when I'm out, I want a rematch... with relish.
 
 Neptune, our guest is leaving. Escort her.
 
+### 6b. If Osrid loses to Eden  [IN GAME]
+
+**Thief:** Hah! That's it? Some soldier you are.
+
+**Thief:** Who are you, anyway?
+
+**Nomad Alban:** ...Nomad Alban. I'm the youngest Rainhawk in history.
+
+**Thief:** The youngest Rainhawk in history, and you lost to me? Wait until the others hear about this.
+
+**Thief:** Well, it's been fun, gentlemen, but I really must be going.
+
+*She makes for the window. Neptune is faster.*
+
+**Cadmus:** Neptune. Pin her. Gently.
+
+**Thief:** Ow! Hey! Get this walking suit of armor off me!
+
+**Cadmus:** Do not look so grim, Rainhawk. Every Trainer loses a first real battle. The good ones remember why.
+
+**Cadmus:** As for you, child... the Templars keep their holes very deep, and very dark. And they are not known for their mercy.
+
+Neptune, our guest is leaving. Escort her.
+
 ## 7. The Templar holding cell  [IN GAME]
 
 *Later, in a holding cell beneath the Templar monastery.*
@@ -313,6 +337,12 @@ Neptune, our guest is leaving. Escort her.
 *She glances at the bars, then away.*
 
 **Eden:** ...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk.
+
+**Eden:** You fought like a soldier, Nomad Alban. All orders, not one word to that little partner of yours. It tried its best anyway.
+
+*A pause.*
+
+**Eden:** Just saying... it'll be something to see, the day the two of you actually fight together. I mean it.
 
 **Eden:** You really did fight well, Nomad Alban. Your little partner there beat Pilfer to a pulp, and yet you never said one word to it. Just gestures.
 

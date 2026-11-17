@@ -307,11 +307,18 @@ script DR_Lab_Theft{
     playmoncry(SPECIES_NICKIT, CRY_MODE_NORMAL)
     waitmoncry
     delay(20)
+    // A story battle: losing does not white out; the scene carries on with its own lines.
+    setflag(FLAG_DR_STORY_BATTLE)
     if (var(VAR_UNUSED_0x4083) == 1){ trainerbattle_no_intro(TRAINER_DR_EDEN_LAB_1, DR_Lab_Text_EdenDefeat) }
     if (var(VAR_UNUSED_0x4083) == 2){ trainerbattle_no_intro(TRAINER_DR_EDEN_LAB_2, DR_Lab_Text_EdenDefeat) }
     if (var(VAR_UNUSED_0x4083) == 3){ trainerbattle_no_intro(TRAINER_DR_EDEN_LAB_3, DR_Lab_Text_EdenDefeat) }
+    clearflag(FLAG_DR_STORY_BATTLE)
     lockall
     delay(20)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    if (var(VAR_RESULT) == B_OUTCOME_LOST) {
+        goto(DR_Lab_EdenWins)
+    }
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
     msgbox(format("How did you crush me so easily? I even picked the starter that was strong against yours!\pWho are you? No... WHAT are you?"))
@@ -329,6 +336,48 @@ script DR_Lab_Theft{
     msgbox(format("Hah... you've got a sharp tongue on you, Nomad. Just know that people like me don't stay in cells for long.\pAnd when I'm out, I want a rematch... with relish."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("A rematch that will never happen. The Templars keep their holes very deep, and very dark. And they are not known for their mercy.\pNeptune, our guest is leaving. Escort her."))
+    goto(DR_Lab_TheftEnd)
+}
+
+// If Osrid loses (user, 2026-11-17): Eden gloats, runs for the window, and Neptune pins her.
+script DR_Lab_EdenWins{
+    setflag(FLAG_DR_LOST_TO_EDEN_LAB)
+    special(HealPlayerParty)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    speakername("Thief")
+    msgbox(format("Hah! That's it? Some soldier you are."))
+    msgbox(format("Who are you, anyway?"))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Nomad Alban")
+    msgbox(format("...Nomad Alban. I'm the youngest Rainhawk in history."))
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
+    speakername("Thief")
+    msgbox(format("The youngest Rainhawk in history, and you lost to me? Wait until the others hear about this."))
+    msgbox(format("Well, it's been fun, gentlemen, but I really must be going."))
+    hideportrait
+    closemessage
+    applymovement(LOCALID_DRL_EDEN, moves(face_up))
+    waitmovement(0)
+    msgbox(format("She makes for the window. Neptune is faster."))
+    closemessage
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Neptune. Pin her. Gently."))
+    hideportrait
+    closemessage
+    playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
+    waitmoncry
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_fast_up * 5 walk_fast_right * 7 face_down))
+    waitmovement(0)
+    showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
+    speakername("Thief")
+    msgbox(format("Ow! Hey! Get this walking suit of armor off me!"))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Do not look so grim, Rainhawk. Every Trainer loses a first real battle. The good ones remember why."))
+    msgbox(format("As for you, child... the Templars keep their holes very deep, and very dark. And they are not known for their mercy.\pNeptune, our guest is leaving. Escort her."))
+    goto(DR_Lab_TheftEnd)
+}
+
+script DR_Lab_TheftEnd{
     hideportrait
     closemessage
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)

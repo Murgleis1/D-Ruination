@@ -1376,6 +1376,11 @@
 	.4byte \failInstr
 	.endm
 
+	.macro drjumpifstorybattle jumpInstr:req
+	callnative BS_DrJumpIfStoryBattle
+	.4byte \jumpInstr
+	.endm
+
 	.macro jumpifcantfling battler:req, jumpInstr:req
 	callnative BS_JumpIfCantFling
 	.byte \battler

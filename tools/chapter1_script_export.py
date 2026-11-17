@@ -80,6 +80,8 @@ parts = [
    '**Thief:** How did you crush', '*[Battle: Brigand ???. On defeat, in battle:]*\n\n**Thief:** ' +
    re.search(r'text DR_Lab_Text_EdenDefeat\{\s*format\("(.*)"\)', open(C + 'data/maps/PellucaUmbraLab/scripts.pory', encoding='utf-8').read()).group(1) +
    '\n\n**Thief:** How did you crush'),
+ '### 6b. If Osrid loses to Eden  [IN GAME]',
+ render(script_body(C + 'data/maps/PellucaUmbraLab/scripts.pory', 'DR_Lab_EdenWins')),
  '## 7. The Templar holding cell  [IN GAME]',
  render(script_body(C + 'data/maps/PellucaTemplarMonastery/scripts.pory', 'DR_Monastery_Cell')),
  '## 8. Back at the lab: the shard briefing  [IN GAME]',
