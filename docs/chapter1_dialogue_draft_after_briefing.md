@@ -54,9 +54,11 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Cadmus:** How kind of them, to drop a lead right into my lap.
 
-**Thief:** ...Forget I said anything.
+*At her feet, Pilfer's ears go flat.*
 
-**Cadmus:** Oh, I will remember every word. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
+**Thief:** ...Them? Couldn't tell you who you mean. Are we doing this, or not?
+
+**Cadmus:** Of course you couldn't. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
 
 *Osrid steps between the thief and the table.*
 
