@@ -289,3 +289,22 @@ in terms of element balance"; (3) back: "more accurate to the actual design of O
   portrait's way of drawing hair: clumps with lit tips, dark separations, small swept tufts
   (2-3 px). Hand detection is now geometric (skin outside the face box), which fixes the lapel
   turning into glove/iron; domed iron pauldrons on both shoulders.
+
+## Osrid round 5: back hair TRACED (user 2026-11-17 16:38-16:39) -- candidate, NOT installed
+User: "Why can't you make the hair look more like the portrait and this?" / "once you trace
+something over, ... go back to the monomyth aesthetic with those exact pixels and shading and
+transplant them". Honest cause: the hair kept coming from #4's bob plus rule-made tufts; the
+reference's silhouette (big irregular locks flaring at the back and nape) was never in it.
+Method (tools/art/trace_transplant.py + osrid_trainer_back.py HEAD_TRACED):
+1. Trace: the sheet's back-view head at full resolution; material masks (hair by warm-brown hue
+   and background distance, mask by warmth on the right, strap); coverage downscale to 32 px
+   (partial strands kept at >= 45-50% coverage); hair tone from the reference's own light/dark
+   (percentiles inside the hair: deepest 12% = crevices).
+2. Re-render the MonoMyth way: 3-tone hair ramp (portrait colours), black ONLY where crevices form
+   connected strand lines (lone ones -> dark), no isolated pixels, black silhouette outline.
+   (A literal texture transplant of #4's hair pixels was tried first: #4 is a smooth bob, so it
+   flattened the user's locks, and was dropped in favour of the traced tone structure.)
+3. Strap with both buckles, ear and the mask profile placed as on the reference. The mask is 1-3 px
+   wider than the true sliver so the glyph reads at 1x.
+Also fixed: the floating-outline pass deleted a black pixel enclosed in a 3x3 black block (now
+it only drops outline that touches transparency).

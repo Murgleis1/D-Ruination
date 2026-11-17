@@ -96,7 +96,52 @@ def nb4(m):
     return out
 
 
+# Osrid's head from behind, TRACED from his character sheet's back view (tools/art/trace_transplant
+# method, 2026-11-17): silhouette, lock structure and tone map from the user's art at 32 px, then
+# re-rendered with MonoMyth's rules (3-tone hair ramp, black only as connected strand lines, no
+# isolated pixels, black silhouette outline). Strap with both buckles, ear and the mask profile
+# (with the glyph's brow end, eye, drip and spiral start) placed as on the reference.
+HEAD_TRACED = [
+    "..............KK................",
+    "..........K..KllKKK.K...........",
+    ".........KlKKlllmllKmKK.........",
+    "........KKlmmmddmmdmmmmKK.......",
+    "......KKmmmmmmddmmdmmddmmK......",
+    ".....KmmmmmdmmlmmmmmdKKddKK.....",
+    "....KmmmmllddmlmmmmmdKmmdmmK....",
+    "....KmmmmmmdmmlmmllmdmmmddmmK...",
+    "....KmmdmmmdlllmlmmddllmmssolK..",
+    "...KmmdmmmmllllllmmllllmsswolK..",
+    "..KdddmmmdmmmmmmdddllllmssowKK..",
+    ".KddddmmduuuudddddlldddssooomK..",
+    "..KmdddttuTTuttttttdddKssKKomK..",
+    "..KmtttTTuuuuTTTTTTdduussooollK.",
+    "...KKTTKKKTdddTTTTKttuusooKKlK..",
+    "..KKKKdKKmmdmmmmmKssTuusooKolK..",
+    ".KdddddKmmmllmmmmKsssdssoKoooKK.",
+    "KdddddKKmmmmmdddmKsssmssoKooowKK",
+    ".KKdddKddKdddmddmKsssmssoKooooKK",
+    "..KdddKKKKdddmddmKsssmsKoKoooKK.",
+    "...KmKKKKddddmdmmKssKmsKKoooKK..",
+    "..KmmKdKKdKKKmdmllKKlmssoooooKK.",
+    "...KmdddKdKKKKddlllllmssooooKK..",
+    "...KdKKddKKKKKdlllmllmKssoooKK..",
+]
+HEAD_TRACED_CODE = {'K': 0x5, 'd': 0x4, 'm': 0x1, 'l': 0xD, 'o': 0x9, 'w': 0xE, 's': 0x7, 'T': 0x6,
+                    'u': 0x3, 't': 0x8}
+HEAD_TRACED_OX, HEAD_TRACED_OY = 13, 7          # trace (0,0) in frame-0 coordinates
+
+
 def make_head(f0):
+    L = np.zeros((64, 64), int)
+    for y, row in enumerate(HEAD_TRACED):
+        for x, ch in enumerate(row):
+            if ch in HEAD_TRACED_CODE:
+                L[y + HEAD_TRACED_OY, x + HEAD_TRACED_OX] = HEAD_TRACED_CODE[ch]
+    return L
+
+
+def make_head_from_4(f0):
     """Osrid's head as a frame-0 layer (index array, 0 = empty) built on #4's own head."""
     y0, y1, x0, x1 = HEAD_BOX
     L = np.zeros((64, 64), int)
@@ -324,7 +369,7 @@ def frame(f, H0):
         for x in range(64):
             if a[y, x] == OUT:
                 nbh = a[max(0, y - 1):y + 2, max(0, x - 1):x + 2]
-                if not np.any((nbh != 0) & (nbh != OUT)):
+                if not np.any((nbh != 0) & (nbh != OUT)) and np.any(nbh == 0):   # floating, in the open
                     a[y, x] = 0
     return a
 
