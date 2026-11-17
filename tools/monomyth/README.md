@@ -67,3 +67,10 @@ uncompressed tiles; render.py reads up to 512 tiles for it.
 | Wood Avens hut | 0x86AC94 | 7x8 used | round hut with a cauldron |
 Elderflower interiors use primary 0x8731254 (192 metatiles) + secondaries 0x8730C3C / 0x8730E4C / 0x87315FC.
 Renders: assets/monomyth_reference/interiors/.
+
+## Cadmus's lab = the Elderflower study (installed 2026-11-16)
+`import_interior.py` copies the Elderflower interior primary (0x8731254) and the study secondary
+(0x8730C3C) into Ruination unchanged (gTileset_ElderflowerInterior / gTileset_ElderflowerStudy),
+except primary palette 2, warmed from mauve to medieval brown (user). LAYOUT_PELLUCA_UMBRA_LAB is
+the 12x11 crop of 0x86B2D0 (x6-17, y4-14), with the stool in front of the long table removed.
+Exit mat (4,9); balls on the long table (8..10,6); Cadmus (9,7), steps to (7,7) after the briefing.

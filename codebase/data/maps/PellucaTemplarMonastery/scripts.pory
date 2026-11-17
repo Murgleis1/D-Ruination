@@ -93,7 +93,7 @@ script DR_Monastery_Cell {
     waitmovement(0)
     fadescreen(FADE_TO_BLACK)
     setvar(VAR_UNUSED_0x40A1, 3)
-    warp(MAP_PELLUCA_UMBRA_LAB, 5, 11)
+    warp(MAP_PELLUCA_UMBRA_LAB, 9, 9)
     waitstate
     releaseall
     end

@@ -32,6 +32,10 @@ mapscripts PellucaUmbraLab_MapScripts{
         } else {
             setflag(FLAG_UNUSED_0x885)
         }
+        if (var(VAR_UNUSED_0x40A1) == 1){
+            setobjectxyperm(LOCALID_DRL_CADMUS, 7, 7)
+            setobjectmovementtype(LOCALID_DRL_CADMUS, MOVEMENT_TYPE_FACE_RIGHT)
+        }
         return
     }
     MAP_SCRIPT_ON_FRAME_TABLE [
@@ -44,7 +48,9 @@ script DR_Lab_Briefing{
     lockall
     setvar(VAR_UNUSED_0x40A1, 1)
     delay(20)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 2))
+    // Elderflower study (2026-11-16): enter at the mat (4,9); Cadmus waits in front of the long
+    // table with the three balls behind him.
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up walk_right * 5 face_up))
     waitmovement(0)
     applymovement(LOCALID_DRL_CADMUS, moves(face_down))
     waitmovement(0)
@@ -146,6 +152,9 @@ script DR_Lab_Briefing{
     msgbox(format("Proceed, my Lord. This is an important choice."))
     hideportrait
     closemessage
+    // he steps aside so all three balls can be reached from the front of the table
+    applymovement(LOCALID_DRL_CADMUS, moves(walk_left * 2 face_right))
+    waitmovement(0)
     releaseall
     end
 }
@@ -213,8 +222,10 @@ script DR_Lab_Theft{
     fadeoutbgm(4)
     fadescreen(FADE_TO_BLACK)
     delay(45)
-    setobjectxy(OBJ_EVENT_ID_PLAYER, 4, 10)
+    setobjectxy(OBJ_EVENT_ID_PLAYER, 9, 8)
     turnobject(OBJ_EVENT_ID_PLAYER, DIR_NORTH)
+    setobjectxy(LOCALID_DRL_CADMUS, 7, 7)
+    turnobject(LOCALID_DRL_CADMUS, DIR_EAST)
     clearflag(FLAG_UNUSED_0x886)
     addobject(LOCALID_DRL_EDEN)
     if (var(VAR_UNUSED_0x4083) == 1){ removeobject(LOCALID_DRL_BALL_TINK) }
@@ -243,7 +254,7 @@ script DR_Lab_Theft{
     playmoncry(SPECIES_JOUSTEEL, CRY_MODE_NORMAL)
     waitmoncry
     delay(16)
-    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_down * 2 walk_left * 1 face_up))
+    applymovement(LOCALID_DRL_NEPTUNE, moves(walk_down walk_left * 2 face_up))
     waitmovement(0)
     delay(20)
     msgbox(format("Neptune, Cadmus's Jousteel, takes the doorway. The room suddenly feels much smaller."))
@@ -269,11 +280,11 @@ script DR_Lab_Theft{
     msgbox(format("Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door."))
     hideportrait
     closemessage
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_fast_left * 1 walk_fast_up * 1 face_left))
-    applymovement(LOCALID_DRL_EDEN, moves(face_right))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_fast_right walk_fast_up walk_fast_right walk_fast_up face_up))
+    applymovement(LOCALID_DRL_EDEN, moves(face_down))
     waitmovement(0)
     delay(12)
-    msgbox(format("You step between the thief and the table."))
+    msgbox(format("You step into the thief's path."))
     closemessage
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
     speakername("Thief")
@@ -291,7 +302,7 @@ script DR_Lab_Theft{
     closemessage
     clearflag(FLAG_UNUSED_0x88E)
     addobject(LOCALID_DRL_PILFER)
-    applymovement(LOCALID_DRL_PILFER, moves(face_right))
+    applymovement(LOCALID_DRL_PILFER, moves(face_down))
     waitmovement(0)
     playmoncry(SPECIES_NICKIT, CRY_MODE_NORMAL)
     waitmoncry
@@ -344,7 +355,7 @@ text DR_Lab_Text_EdenDefeat{
 script DR_Lab_ShardBriefing{
     lockall
     setvar(VAR_UNUSED_0x40A1, 4)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up face_up))
     applymovement(LOCALID_DRL_CADMUS, moves(face_down))
     waitmovement(0)
     delay(20)

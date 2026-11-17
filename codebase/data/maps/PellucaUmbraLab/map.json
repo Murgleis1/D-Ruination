@@ -1,7 +1,7 @@
 {
   "id": "MAP_PELLUCA_UMBRA_LAB",
   "name": "PellucaUmbraLab",
-  "layout": "LAYOUT_CARABRUE_TOWN_TENEBRIS_LAB",
+  "layout": "LAYOUT_PELLUCA_UMBRA_LAB",
   "music": "MUS_LILYCOVE_MUSEUM",
   "region_map_section": "MAPSEC_PELLUCA_CITY",
   "requires_flash": false,
@@ -16,8 +16,8 @@
   "object_events": [
     {
       "graphics_id": "OBJ_EVENT_GFX_CADMUS",
-      "x": 5,
-      "y": 10,
+      "x": 9,
+      "y": 7,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -29,8 +29,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_POKE_BALL",
-      "x": 1,
-      "y": 8,
+      "x": 8,
+      "y": 6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -42,8 +42,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_POKE_BALL",
-      "x": 2,
-      "y": 8,
+      "x": 9,
+      "y": 6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -55,8 +55,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_POKE_BALL",
-      "x": 3,
-      "y": 8,
+      "x": 10,
+      "y": 6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -68,8 +68,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_EDEN",
-      "x": 2,
-      "y": 9,
+      "x": 11,
+      "y": 5,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -82,7 +82,7 @@
     {
       "graphics_id": "OBJ_EVENT_GFX_NEPTUNE",
       "x": 6,
-      "y": 10,
+      "y": 8,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -94,8 +94,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_PILFER",
-      "x": 1,
-      "y": 9,
+      "x": 10,
+      "y": 5,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -108,8 +108,8 @@
   ],
   "warp_events": [
     {
-      "x": 5,
-      "y": 13,
+      "x": 4,
+      "y": 9,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_CITY",
       "dest_warp_id": "1"

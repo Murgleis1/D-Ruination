@@ -258,7 +258,7 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 
 **Cadmus:** Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
 
-*You step between the thief and the table.*
+*You step into the thief's path.*
 
 **Thief:** ...And nobody said anything about a soldier, either.
 

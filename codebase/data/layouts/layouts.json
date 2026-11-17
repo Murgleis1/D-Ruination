@@ -6080,6 +6080,16 @@
       "secondary_tileset": "gTileset_TemplarMonastery",
       "border_filepath": "data/layouts/PellucaTemplarMonastery/border.bin",
       "blockdata_filepath": "data/layouts/PellucaTemplarMonastery/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_UMBRA_LAB",
+      "name": "PellucaUmbraLab_Layout",
+      "width": 12,
+      "height": 11,
+      "primary_tileset": "gTileset_ElderflowerInterior",
+      "secondary_tileset": "gTileset_ElderflowerStudy",
+      "border_filepath": "data/layouts/PellucaUmbraLab/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaUmbraLab/map.bin"
     }
   ]
 }

@@ -168,7 +168,7 @@ DR_Monastery_Cell::
 # 95 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	setvar VAR_UNUSED_0x40A1, 3
 # 96 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	warp MAP_PELLUCA_UMBRA_LAB, 5, 11
+	warp MAP_PELLUCA_UMBRA_LAB, 9, 9
 # 97 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	waitstate
 # 98 "data/maps/PellucaTemplarMonastery/scripts.pory"
