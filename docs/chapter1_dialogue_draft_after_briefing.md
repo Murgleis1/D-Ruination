@@ -12,8 +12,8 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 1. **One name for Cadmus's office.** The letter says "the Office of the Vizier of Education"; the briefing says "the Ministry of Education". Pick one, or say both on purpose (the Ministry is the department, the Office is Cadmus).
 2. **"formally conscripted"** means drafted against his will. If the sense is "reassigned", maybe "formally reassigned to the Ministry of Education".
-3. **"Her captain asks no questions, which is exactly why I hired them."** Her/them don't match. Either "hired her" or "Their captain".
-4. **The dormitory "northwest of here".** Pelluca has no dormitory building yet. Northwest of the lab there is only the top edge of the map. Either we build one (the Academy grounds are the natural place) or the line points somewhere that exists.
+3. ~~Her/them mismatch~~ Withdrawn: "her" is the ship and "them" is the captain, which is correct as written.
+4. ~~No dormitory~~ Withdrawn (user, 2026-11-16): the dormitory is the large building in the far upper-left of Pelluca Valley by the river (layout plan: `residence` at 8,4, door 11,8). Osrid lives there as resident security for the students and the town. The line stands. Its door has no warp or interior yet; that goes with the interiors work.
 5. **"I will explain in greater detail later."** Nothing later explains the PokéLog yet. I've added a short line to the shard briefing (section E) so the promise is kept.
 
 ---
@@ -48,15 +48,19 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Thief:** Doesn't matter. Lay a hand on me and you'll have a lot of explaining to do, Vizier. Bigger people than you want this delivered.
 
-**Cadmus:** Bigger people than me? Very few, child. And not one of them would send a Nickit to do their stealing.
+**Cadmus:** Bigger people, you say? No person stands above my authority except the Empress, child.
 
-**Thief:** Pilfer's tougher than he looks.
+**Cadmus:** Unless... hmm. Could this be...?
 
-**Cadmus:** I am sure he is. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
+**Cadmus:** How kind of them, to drop a lead right into my lap.
+
+**Thief:** ...Forget I said anything.
+
+**Cadmus:** Oh, I will remember every word. Rainhawk, our guest seems eager to test herself. Would you oblige her? Consider it your first lesson with your new partner. Neptune and I will mind the door.
 
 *Osrid steps between the thief and the table.*
 
-**Thief:** ...And nobody mentioned you, either. Who might you be? Is that a mending mask? From Athanto? That's worth more than this whole cellar.
+**Thief:** ...And nobody mentioned you, either. Who might you be? Is that a mending mask? From Athanto? That's worth more than this whole lab.
 
 **Nomad Alban:** Put it back.
 
@@ -104,7 +108,7 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 *She glances at the bars, then away.*
 
-**Eden:** ...They told me it'd be the Vizier and an empty cellar. Nobody said a word about a Rainhawk.
+**Eden:** ...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk.
 
 **Eden:** You fight like a soldier, you know. Your little partner did all the work back there, and you never said one word to it. Just orders.
 
