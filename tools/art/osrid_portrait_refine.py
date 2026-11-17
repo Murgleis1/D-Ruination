@@ -67,19 +67,15 @@ def refine(a):
         row = np.nonzero(cream[y])[0]
         if len(row): in_mask_box[y, row.min():row.max() + 1] = True
     body = np.zeros_like(cream); body[54:] = True
+    glyph = np.zeros_like(cream)
     for y in range(H):
         for x in range(W):
             v = a[y, x]
             if v == 0: continue
             if v == BLACK: out[y, x] = 1; continue
             if in_mask_box[y, x] and not cream[y, x] and v not in HAIR:
-                if v in (8, 15, 1):
-                    # glyph strokes keep their two weights: core black, soft edge very dark
-                    out[y, x] = 1 if v == 8 else 10
-                else:                                        # anti-aliasing: black only on a stroke
-                    nb = [a[y + dy, x + dx] for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))]
-                    n_dark = sum(n in (6, 8, 15, 1) for n in nb)
-                    out[y, x] = 1 if n_dark >= 2 else 10 if n_dark == 1 else 7
+                out[y, x] = 1          # glyph: every stroke pixel solid black (user 2026-11-17)
+                glyph[y, x] = True
                 continue
             if v in MASK:
                 t = MASK[v]
@@ -122,6 +118,8 @@ def refine(a):
                 vals, cnt = np.unique([n for n in nb if n not in (0, 1)], return_counts=True)
                 if len(vals) and cnt.max() >= 3:
                     out[y, x] = vals[np.argmax(cnt)]
+    # the glyph is line art: re-applied after every filter so nothing can thin or smear it
+    out[glyph] = 1
     # silhouette: every coloured pixel touching transparency becomes outline
     edge = np.zeros_like(cream)
     for y in range(H):

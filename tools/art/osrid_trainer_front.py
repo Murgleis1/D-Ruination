@@ -48,22 +48,23 @@ D, HD, HM, HL, MS, MK, MH = 0xD, 0x3, 0x7, 0x6, 0x8, 0xA, 0x1
 # from the upper right (the base is mirrored).
 # K outline, d/m/l hair dark/mid/light, s/o/w mask shadow/cream/highlight, g glyph (black).
 HEAD = [
-    ".........K..K........",
-    "........KlK.KlK.K....",
-    "......K.KmlKKlmKKlK..",
-    ".....KmKmlmmllmlllK..",
-    "..KKddmmlmmlmlllllK..",
-    "KdddddmmdmmlmllmlllK.",
-    ".KKddddmmdmmmlKKKKK..",
-    "...KddmmdmmmKsoooowK.",
-    ".KdddddmmdmmKsoooooK.",
-    "..KKdddmmdmdKsogggoK.",
-    ".KKKdddmmdsoKsgogogK.",
-    "KddddddmmdssKsogggoK.",
-    ".KKdddddmdddKssgooK..",
-    ".....KKddddKKssgoK...",
-    ".......KKKKKKKssK....",
-    ".............KKK.....",
+    ".....K...K..K.....",
+    "....KlK.KlKKmK....",
+    "..KmKmlKKmlmKmlK..",
+    ".KmmmmlmmlmllmllK.",
+    "KdmmmmmmmdsooowK..",
+    ".KddmmmmdsooooowK.",
+    ".KddmmmdsoooooowK.",
+    "KddmmmmdsoooooooK.",
+    ".KddmssdsoggggooK.",
+    "..KdmsodsgoggogoK.",
+    "KdddmmddsooggoooK.",
+    ".KdddmmdsogoooooK.",
+    "..KdddmdsogoooooK.",
+    "...KddddKsgooooK..",
+    "....KKKKKssoooK...",
+    ".........KssoK....",
+    "..........KKK.....",
 ]
 HEAD_CODE = {'K': 0xD, 'g': 0xD, 'd': 0x3, 'm': 0x7, 'l': 0x6, 's': 0x8, 'o': 0xA, 'w': 0x1}
 
@@ -106,7 +107,7 @@ def build(F):
             if a[y, x] == 0 and a[y + 1, x] in SCARF + [D]:
                 a[y, x] = 0xC
     head, hm = head_layer()
-    hy, hx = 1, 18
+    hy, hx = 1, 22
     region = a[hy:hy + head.shape[0], hx:hx + head.shape[1]]
     region[hm] = head[hm]
     # orphan outline: D in the head box with no coloured 8-neighbour

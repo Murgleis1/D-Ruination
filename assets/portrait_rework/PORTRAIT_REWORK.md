@@ -234,3 +234,20 @@ style of MonoMyth" / "study every trainer backsprite and frontsprite in MonoMyth
   into the real Eden battle frame at the measured position 48,48).
 - Open for the user: base choices (Kakugo pose / MonoMyth #4), coat colour (armour brown-grey, as the
   portrait, vs the green cloak of the current front and OW), portrait refinement depth.
+
+## Osrid round 2 (user 2026-11-17, 12:13) -- candidates, NOT installed
+User: (1) portrait: "smeared or accidentally deleted some of the black on his eye of horus";
+(2) front: "hair is way too huge and the mask is too small ... get it closer to his updated portrait
+in terms of element balance"; (3) back: "more accurate to the actual design of Osrid".
+- (1) Cause, measured: the drip's lower part and a brow stroke are drawn in the master's dark
+  brown (93,81,66), which round 1 treated as anti-aliasing and lightened; two spiral strokes were
+  removed by the isolated-pixel cleanup. Fix: every glyph pixel is solid black and re-applied after
+  all filters (osrid_portrait_refine.py). Verified: no glyph stroke lighter than the original.
+- (2) Head redrawn to the portrait's balance: mask 8x12 (was 6x8), about half the head width; hair
+  crown 4 rows plus the swept mass behind. Glyph at sprite scale: eye (lid, pupil) plus the tear
+  from its corner; the brow is dropped because at 8 px it fused with the drip into a "T".
+- (3) Back: #4's head removed entirely; Osrid's head from behind built from shapes (skull + swept
+  spikes of varied length + fringe over the mask; mask side-on as an oval with only the eye's
+  outer corner and the drip at its edge; ear; strand lines); his thick green scarf wraps the
+  neck and shoulders. #4 is kept only for body, arm and the 4-frame throw.
+- All three pass review.py; sheet: osrid_round2/review_round2.png.
