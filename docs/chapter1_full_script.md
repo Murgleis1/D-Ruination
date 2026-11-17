@@ -204,7 +204,7 @@ In the army, someone else wrote the reports and you read them. This time, you se
 
 **Thief:** How did you crush me so easily? I even picked the starter that was strong against yours!
 
-**Thief:** Who are you?
+**Thief:** Who are you? No... WHAT are you?
 
 **Nomad Alban:** Nomad Alban. Rainhawk.
 

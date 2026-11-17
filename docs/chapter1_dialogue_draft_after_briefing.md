@@ -74,7 +74,7 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Thief:** How did you crush me so easily? I even picked the starter that was strong against yours!
 
-**Thief:** Who are you?
+**Thief:** Who are you? No... WHAT are you?
 
 **Nomad Alban:** Nomad Alban. Rainhawk.
 
