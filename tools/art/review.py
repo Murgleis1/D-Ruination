@@ -18,6 +18,9 @@ from PIL import Image, ImageDraw
 
 MODES = {'portrait': ((80, 80), 'bottom'),      # 80x80 bust, may be cut by the BOTTOM edge only
          'battle': ((64, 64), 'bottom'),
+         # trainer BACK pics: 64x64 frames stacked; MonoMyth's rear busts are cut by the bottom,
+         # left and right edges by design (measured on all 11: tools/art/MONOMYTH_TRAINER_STYLE.md)
+         'back': ((64, 64), 'bottom,left,right'),
          'overworld': ((16, 32), 'bottom')}     # sheet of 16x32 frames; feet stand on the bottom edge
 
 
@@ -37,6 +40,7 @@ def load(path):
 def frames(shape, mode):
     (fw, fh), _ = MODES[mode]
     H, W = shape
+    if mode == 'back': return [(0, y, W, y + fh) for y in range(0, H, fh)]
     if (W, H) == (fw, fh) or mode != 'overworld': return [(0, 0, W, H)]
     return [(x, 0, x + fw, fh) for x in range(0, W, fw)]
 
@@ -49,7 +53,9 @@ def check(path, mode, prev=None, allow=()):
     H, W = op.shape
     hard, notes = [], []
     (fw, fh), cut_ok = MODES[mode]
-    if mode != 'overworld' and (W, H) != (fw, fh): hard.append('size %dx%d, expected %dx%d' % (W, H, fw, fh))
+    if mode == 'back':
+        if W != fw or H % fh or H // fh not in (1, 4): hard.append('size %dx%d, expected 64x64 or 64x256 (4 frames)' % (W, H))
+    elif mode != 'overworld' and (W, H) != (fw, fh): hard.append('size %dx%d, expected %dx%d' % (W, H, fw, fh))
     if mode == 'overworld' and (H != fh or W % fw): hard.append('sheet %dx%d is not N x 16x32 frames' % (W, H))
     # palette ---------------------------------------------------------------------------------
     cols = sorted({tuple(c) for c in rgb[op].tolist()})
@@ -69,9 +75,9 @@ def check(path, mode, prev=None, allow=()):
         def cut(m):
             f = m[y0:y1, x0:x1]
             e = {'top': f[0].any(), 'left': f[:, 0].any(), 'right': f[:, -1].any(), 'bottom': f[-1].any()}
-            return {k for k, v in e.items() if v and not (k == 'bottom' and cut_ok == 'bottom')}
+            return {k for k, v in e.items() if v and k not in cut_ok.split(',')}
         bad = cut(op); old = cut(pop_) if pop_ is not None and pop_.shape == op.shape else set()
-        if bad - old: hard.append('frame @x%d: art touches the %s edge (cut off)' % (x0, '/'.join(sorted(bad - old))))
+        if bad - old: hard.append('frame @x%d,y%d: art touches the %s edge (cut off)' % (x0, y0, '/'.join(sorted(bad - old))))
         if bad & old: notes.append('frame @x%d: touches the %s edge in the previous version too (pre-existing)' % (x0, '/'.join(sorted(bad & old))))
     P = np.pad(op, 1)
     n4 = P[:-2, 1:-1].astype(int) + P[2:, 1:-1] + P[1:-1, :-2] + P[1:-1, 2:]
@@ -81,7 +87,7 @@ def check(path, mode, prev=None, allow=()):
     if len(holes): notes.append('enclosed 1-px holes (x,y): %s' % [tuple(int(v) for v in p[::-1]) for p in holes[:12]])
     # outline: silhouette pixels must be dark (no light pixel bleeding to transparency)
     edge = op & (n4 < 4)
-    if cut_ok == 'bottom': edge[-1] = False         # the bust meets the frame bottom by design
+    if 'bottom' in cut_ok: edge[-1] = False         # the bust meets the frame bottom by design
     L = lum(rgb.astype(float))
     light_edge = np.argwhere(edge & (L > 90))
     if len(light_edge): notes.append('outline holes -- light px on the silhouette edge (x,y): %s' % [tuple(int(v) for v in p[::-1]) for p in light_edge[:12]])

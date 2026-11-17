@@ -211,3 +211,26 @@ Image: baradus_battle_chin_beard_candidates.png (candidate 2).
   Images: eden_positive_v1.png, ingame_eden_positive.png. Playtest driver: tools/playtest/lab_eden_scene.py.
 - Found while testing (not portraits): Eden's first lab line overflows the text box ("But o|n" cut
   off); Cadmus is asked for PORTRAIT_EXPR_ANGER, which he does not have (falls back to neutral).
+
+## Osrid trainer pics + portrait, round 1 (user 2026-11-17) -- candidates, NOT installed
+User: "make sure Osrid's portrait, front trainer sprite and back sprite are a lot better ... in the
+style of MonoMyth" / "study every trainer backsprite and frontsprite in MonoMyth".
+- Study: all 136 fronts + 11 backs extracted and measured (tools/art/MONOMYTH_TRAINER_STYLE.md).
+  Current Osrid front: 0% black silhouette edge (MonoMyth ~50%) and art cut by the top edge;
+  current back: full-body figure, 4 identical frames (MonoMyth: right-facing rear bust, real throw).
+- Front candidate A (tools/art/osrid_trainer_front.py): Kakugo's front (#10, identified against his
+  portraits #69/#70) MIRRORED for pose/anatomy -- the same "his head on Kakugo's body" approach the
+  user approved for the overworld sprite. Osrid's head hand-authored from his portrait (silhouette =
+  dominant-vote downscale), hair streaming with the scarf's wind; scarf -> his green, gloves -> tan
+  leather, coat -> his armour brown-grey, lining -> hair orange.
+- Back candidate B (tools/art/osrid_trainer_back.py): MonoMyth back #4 (adult rear bust, 4-frame
+  throw) for anatomy/animation; hair carved into his spikes by polar modulation of the outline, face
+  -> mask profile with eye mark + drip, hands -> gloves, coat/strap/scarf -> his colours.
+- Portrait P4 (tools/art/osrid_portrait_refine.py): the same drawing; hair 5 stacked tones -> 3 flat
+  + rim light; scarf/armour near-black interleaved greens -> mode-filtered cel shapes on a real ramp;
+  glyph kept stroke-for-stroke (two weights).
+- review.py: new `back` mode (64x64 or 64x256; cut allowed bottom/left/right, as all 11 MonoMyth
+  backs are). All three candidates pass; sheet: osrid_round1/review_round1.png (back shown composited
+  into the real Eden battle frame at the measured position 48,48).
+- Open for the user: base choices (Kakugo pose / MonoMyth #4), coat colour (armour brown-grey, as the
+  portrait, vs the green cloak of the current front and OW), portrait refinement depth.
