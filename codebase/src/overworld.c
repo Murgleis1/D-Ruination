@@ -1634,7 +1634,10 @@ static bool8 RunFieldCallback(void)
 void CB2_NewGame(void)
 {
     FieldClearVBlankHBlankCallbacks();
-    StopMapMusic();
+    // Dreamstone Ruination: the cold open's song plays on into the first map (PellucaReflection uses it as
+    // its map music); every other new-game path stops the music as before.
+    if (GetCurrentMapMusic() != MUS_DR_FAR_HORIZONS)
+        StopMapMusic();
     ResetSafariZoneFlag_();
     NewGameInitData();
     ResetInitialPlayerAvatarState();

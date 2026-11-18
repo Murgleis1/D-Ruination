@@ -566,6 +566,7 @@
 #define MUS_BW_ACCUMULA_TOWN        616
 #define MUS_OSRID_THEME             628
 #define MUS_DR_TITLE                629 // Dreamstone Ruination: title screen theme (looped) -- ethereal arrangement of 'Conquest' (tools/music/arrange_conquest_title.py)
+#define MUS_DR_FAR_HORIZONS         630 // Dreamstone Ruination: the former title theme ("Far Horizons", piano + harp; commit 0dcc231), cold open: Cadmus's letter until Osrid lands in Pelluca
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 

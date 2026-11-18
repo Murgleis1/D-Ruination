@@ -124,6 +124,15 @@ void PlayNewMapMusic(u16 songNum)
     sMapMusicState = 1;
 }
 
+// Dreamstone Ruination: adopt the BGM that is already playing as the current map music, without
+// restarting it (the cold open's song carries from the Tenebris notes into the first map).
+void ContinueCurrentBGMAsMapMusic(u16 songNum)
+{
+    sCurrentMapMusic = songNum;
+    sNextMapMusic = 0;
+    sMapMusicState = 2;
+}
+
 void StopMapMusic(void)
 {
     sCurrentMapMusic = 0;

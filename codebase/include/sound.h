@@ -9,6 +9,7 @@ void ResetMapMusic(void);
 u16 GetCurrentMapMusic(void);
 void PlayNewMapMusic(u16 songNum);
 void StopMapMusic(void);
+void ContinueCurrentBGMAsMapMusic(u16 songNum);
 void FadeOutMapMusic(u8 speed);
 void FadeOutAndPlayNewMapMusic(u16 songNum, u8 speed);
 void FadeOutAndFadeInNewMapMusic(u16 songNum, u8 fadeOutSpeed, u8 fadeInSpeed);

@@ -2,7 +2,7 @@
   "id": "MAP_PELLUCA_REFLECTION",
   "name": "PellucaReflection",
   "layout": "LAYOUT_PELLUCA_REFLECTION",
-  "music": "MUS_OSRID_THEME",
+  "music": "MUS_DR_FAR_HORIZONS",
   "region_map_section": "MAPSEC_NONE",
   "requires_flash": false,
   "weather": "WEATHER_NONE",

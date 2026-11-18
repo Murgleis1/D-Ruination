@@ -1,6 +1,6 @@
 // Dreamstone Ruination - Chapter 1 cold open, Stage 1: the Professor Tenebris
 // framing notes. White centered text revealed on a black screen over Osrid's
-// Theme, then hands to the new-game init (placeholder: Carabrue) until Stage 2
+// Theme (now the former title theme, MUS_DR_FAR_HORIZONS), then hands to the new-game init (placeholder: Carabrue) until Stage 2
 // adds the reflection scene + Umbra's letter + the diegetic naming.
 #include "global.h"
 #include "main.h"
@@ -145,8 +145,12 @@ void CB2_DrColdOpenIntro(void)
     DrIntro_InitBg();
     DrIntro_InitWindow();
 
+    // The former title theme ("Far Horizons") carries the whole cold open: these Tenebris notes, Cadmus's
+    // letter in PellucaReflection (same map music, so it is not restarted) and on until Osrid lands in
+    // Pelluca City, whose town music takes over (user, 2026-11-17).
     m4aMPlayAllStop();
-    m4aSongNumStart(MUS_OSRID_THEME);
+    m4aSongNumStart(MUS_DR_FAR_HORIZONS);
+    ContinueCurrentBGMAsMapMusic(MUS_DR_FAR_HORIZONS);
 
     BlendPalettes(PALETTES_ALL, 16, RGB_BLACK);
     BeginNormalPaletteFade(PALETTES_ALL, 0, 16, 0, RGB_BLACK);
