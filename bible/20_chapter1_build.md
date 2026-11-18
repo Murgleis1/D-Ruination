@@ -197,5 +197,6 @@ The cold-open letter was rewritten with the user (installed; text in `docs/chapt
 
 ### 16.13 Dreamstone terminology `[user 2026-11-18]`
 - "Mega Dreamstone" is retired. **The Dreamstones** are exactly three (Silversun, Mt. Mirroh, Necropolis); the nine pieces of the Mt. Mirroh stone are **Dreamstone Shards** (never "fragments"); every other natural stone is a **lesser dreamstone** (lowercase); lowercase **dreamstone** is the material. Full definitions: Section 9 (13_cosmology_mechanics.md, "Terminology").
-- Time travel works with a Shard or even a lesser dreamstone; the dreamstone in *Dreamstone Mysteries* is a mid-sized lesser dreamstone, not one of the three.
+- Time travel works with a Shard or even a lesser dreamstone; the dreamstone in *Dreamstone Mysteries* is a mid-sized lesser dreamstone, not one of the three. Cormor and Keerin reached his resting place in the distant past with **a particularly pure lesser dreamstone**.
+- **Mega Stones are not dreamstone** and do not come from the Shard hunt (the v0.9.8 lines saying so are corrected in Sections 4/7 and the open questions): they are rare, valuable catalysts for specific Pokémon, excavated over the centuries, often by people looking for something else.
 - The rename also reconciled two pre-v0.9.14 passages (Section 8 and Section 9, "catalyst failure") that still said both the Tablets and Vessels cults burned "Dreamstone fragments" to dust; they now match the locked v0.9.14 canon (Tablets: hundreds of lesser dreamstones to dust; Vessels: the Mt. Mirroh Dreamstone shattered into the nine Shards).

@@ -807,8 +807,8 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Mega Evolution combat hook:** modify the Mega Evolution availability check in battle code to require both (a) appropriate Mega Stone held by Pokémon AND (b) `FLAG_PLAYER_HAS_Z_BRACELET` set. Without (b), Mega Evolution is unavailable even with a Mega Stone.
     - **Scripted event at Trial 5 victory:** Falco hands the player the Z-Bracelet; the player gains the item; the flag is set; a brief celebratory/transformative animation may play (`[OPEN]` whether one is appropriate)
     - **Dialog:** Falco's post-victory dialog (per Section 7 — Falco lock)
-    - **Cross-references:** Section 4 — Dreamstone Shard hunt (parallel-main-quest for acquiring the Mega Stones themselves); Section 13 — Mega Evolution restriction system
-    - **Pre-Trial-5 Mega Stone behavior:** if the player holds Mega Stones before Trial 5 (acquired via the Shard hunt's earlier portions), Mega Evolution is *blocked* until Trial 5 victory. **Pre-Trial-5 informational dialog** when the player attempts Mega Evolution: a message indicating the bracelet is needed (specific wording `[OPEN]`).
+    - **Cross-references:** Mega Stones are found or excavated items, not Shard-hunt rewards (Section 2 — House Jalviss; user 2026-11-18); Section 13 — Mega Evolution restriction system
+    - **Pre-Trial-5 Mega Stone behavior:** if the player holds Mega Stones before Trial 5 (found or excavated before then), Mega Evolution is *blocked* until Trial 5 victory. **Pre-Trial-5 informational dialog** when the player attempts Mega Evolution: a message indicating the bracelet is needed (specific wording `[OPEN]`).
     - **Estimated scope:** ~6-10 hours (item + flag + combat hook + scripted event + dialog)
 
 63. **Bombard tutor scripted event** — `[SMALL — scripting]`

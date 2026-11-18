@@ -12,6 +12,7 @@ A source of resonance power — but per v0.9.4 cosmology, dreamstone is now prec
 - **the Dreamstones** (capitalized) — **exactly three**: the **Silversun Dreamstone** (palace), the **Mt. Mirroh Dreamstone** (shattered) and the **Necropolis Dreamstone** — the stones Cormor and Keerin used to seal Phancero; the old tales call them **the Legacy of Cormor**. Formerly "Mega Dreamstones": the "Mega" prefix is retired everywhere.
 - **Dreamstone Shards** — **only** the nine pieces of the shattered Mt. Mirroh Dreamstone (the parallel main quest). Never "fragments".
 - **lesser dreamstones** (lowercase) — every other natural stone, from small fossils to mid-sized formations: diluted, and of no story weight except as fuel (the Tablets Cult's brute-force ritual) and as doorways in time. **The dreamstone of *Dreamstone Mysteries* is a mid-sized lesser dreamstone**, not one of the three. Never called "shards" or "fragments".
+- **Mega Stones are not dreamstone.** They are separate catalysts for specific Pokémon: rare and very valuable in Cormoria, excavated over the centuries, often by people looking for something else (Section 2 — House Jalviss). They have no connection to the Dreamstones or the Shard hunt.
 
 **What dreamstone is `[LOCKED v0.9.4]`:**
 
@@ -33,7 +34,7 @@ A source of resonance power — but per v0.9.4 cosmology, dreamstone is now prec
 - **Resonance catalysis** — can resonate with the four inverted Treasures, enabling their material incarnation
 - **Time-displacement** — dreamstone can open paths through time; **a Dreamstone Shard or even a lesser dreamstone is enough** `[user 2026-11-18]` (the *Dreamstone Mysteries* time-travel runs on a mid-sized lesser dreamstone). **Confirmed in-project examples:**
   - The Slither Wing / Ancient Cormoria encounter (Section 9 — Ancient Cormoria flashback) — Reid + Sable + player are pulled into Ancient Cormoria via dreamstone resonance
-  - **Cormor's Avalon-rest** (Section 9 — Cormor's True Status) — Cormor and Keerin used a dreamstone to open a path to the distant past where Cormor sleeps in dreamless rest
+  - **Cormor's Avalon-rest** (Section 9 — Cormor's True Status) — Cormor and Keerin used **a particularly pure lesser dreamstone** `[user 2026-11-18]` to open a path to the distant past where Cormor sleeps in dreamless rest
   - **The Mt. Silver / Future-Red encounter** (Section 7 — Future-Red; Section 9 — Keerin) — Keerin's pact-power transports the player across temporal-cosmological space to face Future-Red
 - **Bloodmoon Ursaluna side quest** — used as a catalyst in the Teddiursa-pick post-Champion content
 - **The protagonist's sealing ritual** — Osrid (with Ting-Lu) eventually uses the reassembled Mt. Mirroh Dreamstone's power to seal the Treasures back; the backlash costs him his memory (restored later in Paldea — Section 5 — Protagonist)
@@ -1055,7 +1056,7 @@ The deepest character secret in Cormoria's cosmological history — known with c
 
 **The Dreamstone time-path resolution:**
 
-Cormor and Keerin found a dreamstone and used it to **open a path to the distant past.** This establishes dreamstone as a time-displacement tool (Section 9 — Dreamstone, updated above). Cormor found himself a place where he could **fall into a dreamless sleep** and rest his weary soul **until Keerin believes the time is ready to awaken him.**
+Cormor and Keerin found a particularly pure lesser dreamstone and used it to **open a path to the distant past.** This establishes dreamstone as a time-displacement tool (Section 9 — Dreamstone, updated above). Cormor found himself a place where he could **fall into a dreamless sleep** and rest his weary soul **until Keerin believes the time is ready to awaken him.**
 
 **Design elements:**
 - **Dreamless sleep** — not unconscious, not deathlike, but *true rest*. Cormor's consciousness is quieted entirely; he does not dream.

@@ -58,7 +58,7 @@ When the canonical PLA player encounters Cogita in her hidden grove, she is — 
 
 #### Cormor's later choice and Lethys's retreat `[LOCKED v0.9.4]`
 
-After Cormor founded Cormoria and ruled for *three centuries*, he became weary unto needing eternal sleep (Section 9 — Cormor's Avalon; the sleeping-founder mechanic). With Keerin, he found a Dreamstone, opened a path to the distant past, and chose dreamless sleep in a place where he could rest until Keerin judged the world's need sufficient to awaken him.
+After Cormor founded Cormoria and ruled for *three centuries*, he became weary unto needing eternal sleep (Section 9 — Cormor's Avalon; the sleeping-founder mechanic). With Keerin, he found a particularly pure lesser dreamstone, opened a path to the distant past, and chose dreamless sleep in a place where he could rest until Keerin judged the world's need sufficient to awaken him.
 
 **Lethys learned of Cormor's choice and was *broken* by it.** His brother-friend, the most amazing bond-holder in cosmic history, was no longer in the world. Lethys — having lost the central relationship of his life — **retreated from world-affairs**. He withdrew to lunar-mystic hermitage. He continued to preserve the oral tradition, to write the chapters that would become the Book of the Moon, to *wait*.
 
