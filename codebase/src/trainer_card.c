@@ -18,6 +18,7 @@
 #include "strings.h"
 #include "string_util.h"
 #include "trainer_card.h"
+#include "dr_trainer_card.h"
 #include "gpu_regs.h"
 #include "international_string_util.h"
 #include "pokedex.h"
@@ -1815,6 +1816,12 @@ static bool8 Task_EndCardFlip(struct Task *task)
 
 void ShowPlayerTrainerCard(void (*callback)(void))
 {
+    // Dreamstone Ruination: outside the Union Room the player's own card is the parchment card.
+    if (InUnionRoom() != TRUE)
+    {
+        DrShowPlayerTrainerCard(callback);
+        return;
+    }
     sData = AllocZeroed(sizeof(*sData));
     sData->callback2 = callback;
     if (callback == CB2_ReshowFrontierPass)
