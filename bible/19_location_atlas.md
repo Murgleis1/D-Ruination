@@ -4,7 +4,7 @@
 
 ### 15.1 Purpose and the DM relationship
 
-This section is the canonical geographic reference for empire-era Cormoria — the region layout, every major location, its story/trial role, its connections, and its **DM-fate** (what it becomes in Dreamstone Mysteries). It was established from the illustrated empire-era region map developed with the design partner, cross-referenced against DM's actual codebase map (`region_map_sections.json` + the outdoor connection graph) and against the rest of this bible.
+This section is the canonical geographic reference for empire-era Cormoria — the region layout, every major location, its story/trial role, its connections, and its **DM-fate** (what it becomes in Dreamstone Mysteries). It was established from the illustrated empire-era region map developed with the design partner (the current version is committed at `assets/region_map/cormorian_empire_illustrated.png`, re-supplied 2026-11-18; it replaces the second "Route 7" with **Route 9**, Graymoon Keep → Veddev), cross-referenced against DM's actual codebase map (`region_map_sections.json` + the outdoor connection graph) and against the rest of this bible.
 
 **The core relationship (locked — Sections 1, 12):** Dreamstone Ruination is the *prequel* — empire-era Cormoria, ~2,000–3,000 years before DM. **DM's Cormoria is the same land, aged and fallen.** An end-game region-wide tectonic **calamity** (15.3) reshapes the continent into DM's diminished modern layout. Consequences:
 - **Empires fall.** An imperial city in our era may be a base camp, ruin, graveyard, or wilderness in DM (rarely the reverse).
