@@ -159,7 +159,7 @@ script DR_Lab_BallFrigibax{
     lock
     faceplayer
     showmonpicshiny(SPECIES_FRIGIBAX, 10, 3)
-    msgbox(format("Heraldic Frigibax.\pI hatched this one from an egg I found on Mt. Mirroh. Note its coloring. In all my years I have never seen another like it.\pIt favors Dragon and Ice moves, though it will learn a great deal more if you are patient with it.\pIts final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.\pOne old text claims it can grow stronger still with the help of a special stone. I have yet to find any proof that confirms this, however."))
+    msgbox(format("Heraldic Frigibax.\pI hatched this one from an egg I found on Mt. Mirroh. Note its coloring. In all my years I have never seen another like it.\pIt favors Dragon and Ice moves, and it hits harder than anything else here, though it is slow to come into its own. Be patient with it.\pIts final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.\pOne old text claims it can grow stronger still with the help of a special stone. I have found nothing to confirm it."))
     hidemonpic
     msgbox(format("Take the Heraldic Frigibax as your partner?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == 1){
@@ -177,7 +177,7 @@ script DR_Lab_BallTeddiursa{
     lock
     faceplayer
     showmonpic(SPECIES_TEDDIURSA, 10, 3)
-    msgbox(format("Blue Moon Teddiursa.\pWhispers of a Blue Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.\pMuch about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines."))
+    msgbox(format("Blue Moon Teddiursa.\pTales of a Blue Moon line have circulated for over a century. I found this cub by pure chance a year ago, in the woods near the Blue Moon Monastery.\pMuch about it is still a mystery. It has a gift for special attacks, and it seems able to learn a wider range of moves than either of the others.\pAn old story claims the line can grow stronger still from something buried in ancient peat. I took it for folklore."))
     hidemonpic
     msgbox(format("Take the Blue Moon Teddiursa as your partner?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == 1){
@@ -195,7 +195,7 @@ script DR_Lab_BallTinkatink{
     lock
     faceplayer
     showmonpic(SPECIES_TINKATINK, 10, 3)
-    msgbox(format("Dragonmaul Tinkatink.\pI came across this egg in the dunes north of Mt. Ceram a few months ago, and I still can scarcely believe my luck.\pThe Tinkatink clans of Cormoria's deserts are said to share this coloring, and to learn moves suited to hunting dragons, and even other Fairy types.\pA colleague tells me these clans can grow stronger still with some rare material worked into their gear. I have not been able to confirm it."))
+    msgbox(format("Dragonmaul Tinkatink.\pI came across this egg in the Seregmorn Desert, north of Mt. Ceram, a few months ago, and I still can scarcely believe my luck.\pA clan of Tinkatink in that desert is said to share this coloring, and to hunt dragons.\pIt is small, but it takes a blow better than anything twice its size.\pA colleague tells me a Tinkaton of that clan can grow stronger still with some rare material worked into its gear. I have not been able to confirm it."))
     hidemonpic
     msgbox(format("Take the Dragonmaul Tinkatink as your partner?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == 1){

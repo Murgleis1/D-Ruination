@@ -102,19 +102,19 @@ In game, a name is shown only when a new speaker starts talking.
 
 ## Starter note: Frigibax
 
-*Heraldic Frigibax.  Hatched from an egg I found on Mt. Mirroh. Note the coloring. I have never seen another like it.  It favors Dragon and Ice moves, though it learns a good deal more if you are patient with it.  Its final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.  One old text claims it can grow stronger still with the help of a special stone. I have found nothing to confirm it.*
+*Heraldic Frigibax.  I hatched this one from an egg I found on Mt. Mirroh. Note its coloring. In all my years I have never seen another like it.  It favors Dragon and Ice moves, and it hits harder than anything else here, though it is slow to come into its own. Be patient with it.  Its final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.  One old text claims it can grow stronger still with the help of a special stone. I have found nothing to confirm it.*
 
 *Take the Heraldic Frigibax as your partner?*
 
 ## Starter note: Teddiursa
 
-*Bloodmoon Teddiursa.  The Blood Moon line has been rumored for over a century. I found this cub by chance a year ago, on a small wooded island far to the east.  Much about it is still a mystery. What I have seen suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines.*
+*Blue Moon Teddiursa.  Tales of a Blue Moon line have circulated for over a century. I found this cub by pure chance a year ago, in the woods near the Blue Moon Monastery.  Much about it is still a mystery. It has a gift for special attacks, and it seems able to learn a wider range of moves than either of the others.  An old story claims the line can grow stronger still from something buried in ancient peat. I took it for folklore.*
 
-*Take the Bloodmoon Teddiursa as your partner?*
+*Take the Blue Moon Teddiursa as your partner?*
 
 ## Starter note: Tinkatink
 
-*Dragonmaul Tinkatink.  I came across this egg in the dunes north of Mt. Ceram a few months ago, and I still can't quite believe my luck.  The Tinkatink clans of Cormoria's deserts are said to share this coloring, and to learn moves suited to hunting dragons, and even other Fairy types.  A colleague tells me a Cormorian Tinkaton can grow stronger still with some rare material worked into its gear. I have not been able to confirm it.*
+*Dragonmaul Tinkatink.  I came across this egg in the Seregmorn Desert, north of Mt. Ceram, a few months ago, and I still can scarcely believe my luck.  A clan of Tinkatink in that desert is said to share this coloring, and to hunt dragons.  It is small, but it takes a blow better than anything twice its size.  A colleague tells me a Tinkaton of that clan can grow stronger still with some rare material worked into its gear. I have not been able to confirm it.*
 
 *Take the Dragonmaul Tinkatink as your partner?*
 

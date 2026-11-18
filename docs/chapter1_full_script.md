@@ -190,29 +190,33 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 
 *I hatched this one from an egg I found on Mt. Mirroh. Note its coloring. In all my years I have never seen another like it.*
 
-*It favors Dragon and Ice moves, though it will learn a great deal more if you are patient with it.*
+*It favors Dragon and Ice moves, and it hits harder than anything else here, though it is slow to come into its own. Be patient with it.*
 
 *Its final form, Baxcalibur, is so rare that only one other has been recorded on this continent in two hundred years.*
 
-*One old text claims it can grow stronger still with the help of a special stone. I have yet to find any proof that confirms this, however.*
+*One old text claims it can grow stronger still with the help of a special stone. I have found nothing to confirm it.*
 
 *Take the Heraldic Frigibax as your partner?*
 
 *Blue Moon Teddiursa.*
 
-*Whispers of a Blue Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.*
+*Tales of a Blue Moon line have circulated for over a century. I found this cub by pure chance a year ago, in the woods near the Blue Moon Monastery.*
 
-*Much about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines.*
+*Much about it is still a mystery. It has a gift for special attacks, and it seems able to learn a wider range of moves than either of the others.*
+
+*An old story claims the line can grow stronger still from something buried in ancient peat. I took it for folklore.*
 
 *Take the Blue Moon Teddiursa as your partner?*
 
 *Dragonmaul Tinkatink.*
 
-*I came across this egg in the dunes north of Mt. Ceram a few months ago, and I still can scarcely believe my luck.*
+*I came across this egg in the Seregmorn Desert, north of Mt. Ceram, a few months ago, and I still can scarcely believe my luck.*
 
-*The Tinkatink clans of Cormoria's deserts are said to share this coloring, and to learn moves suited to hunting dragons, and even other Fairy types.*
+*A clan of Tinkatink in that desert is said to share this coloring, and to hunt dragons.*
 
-*A colleague tells me these clans can grow stronger still with some rare material worked into their gear. I have not been able to confirm it.*
+*It is small, but it takes a blow better than anything twice its size.*
+
+*A colleague tells me a Tinkaton of that clan can grow stronger still with some rare material worked into its gear. I have not been able to confirm it.*
 
 *Take the Dragonmaul Tinkatink as your partner?*
 
