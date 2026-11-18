@@ -438,3 +438,16 @@ User: "the hair is too poofy and not slicked back enough". The target style is t
 - Leftover inner black lines are removed, and there is a single outline ring.
 
 review.py --mode back: pass.
+
+## Osrid round 15 — mask covers the face; upper forehead meets the hairline (candidate Q7)
+
+User: "The mask needs to mostly cover the face, and you should be able to at least see the very top of his forehead where the mask meets his top hairline."
+
+`tools/art/osrid_back_head_forehead.py`, run after the round-14 compose:
+- The mask is one curved plate, from just in front of the ear (x 33) to the front edge (x 40). It covers the former bare cheek strip.
+- Its back edge curves: forward at the forehead, back to the ear at the cheek, forward again to the chin.
+- Its rounded top, the upper forehead, meets the hairline at row 24, ten rows above the strap, with one lock tip over it.
+- The hair cap keeps the crown. A soft shade runs along the back edge and the chin.
+- An alternative with a 1-px sliver of bare forehead under the hairline is ready if wanted.
+
+review.py --mode back: pass.
