@@ -1,8 +1,9 @@
-@ voicegroup194: Dreamstone Ruination ethereal title theme (MUS_DR_TITLE). Copy of voicegroup193 with
-@ soft-attack / long-release strings (48, 49), choir (52) and female voice (53).
+@ voicegroup194: Dreamstone Ruination ethereal title theme (MUS_DR_TITLE, solo atmospheric piano on program 0).
+@ Copy of voicegroup193; program 0 = soft piano (slow decay, long release). Programs 48/49/52/53 keep the softened
+@ strings / choir / female voice from the first (choir) version, unused by the current arrangement.
 	.align 2
 voicegroup194::
-	voice_keysplit voicegroup005, KeySplitTable1        @ piano
+	voice_directsound 60, 0, DirectSoundWaveData_steinway_b_piano, 255, 228, 90, 247   @ soft atmospheric piano: slow decay, long pedal-like release
     voice_keysplit voicegroup005, KeySplitTable1        @ piano
     voice_keysplit voicegroup005, KeySplitTable1        @ piano
     voice_keysplit voicegroup005, KeySplitTable1        @ piano
