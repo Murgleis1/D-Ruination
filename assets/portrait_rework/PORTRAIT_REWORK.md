@@ -490,3 +490,22 @@ Fix (`osrid_trainer_back.py` frame()): each hand component is handled on its own
 - The fingerless glove covers the hand from the wrist, with only the last 3 px of skin along the axis bare.
 
 review.py --mode back: pass.
+
+## Osrid — installed (2026-11-17)
+
+User approved the round-18 back ("Looks great. Let's proceed").
+
+Installed in `codebase/graphics`:
+- `portraits/osrid.png`: portrait P5 (approved round 3).
+- `trainers/front_pics/osrid.png`: front G4. These are G3's approved pixels with the round-10 cloth palette. Saved with a 16-entry palette, so the .gbapal is 32 bytes.
+- `trainers/back_pics/osrid.png`: back Q10 (round 18), 64×256, 4 frames, 16-entry palette.
+
+Verified in the emulator on a fresh playthrough from boot (`at_ball.state` regenerated with to_ball.py for this build; the old state is kept as `.bak`):
+- **Eden battle:** the back pic shows at rest (frame 3, sBackAnims_Hoenn) and during the send-out (frame 0 while the sprite slides off with the ball).
+  - With this animation table, frames 1-2 (raised arm) play during a full throw, such as throwing a ball at a wild Pokémon, not during the first send-out. Brendan and May behave the same.
+- **Dialogue:** the portrait matches P5 exactly (0 mismatched pixels) in 5 dialogue frames.
+- **Trainer Card:** shows the front pic G4.
+
+Sheet: `osrid_installed/ingame_verification.png`.
+
+Noticed, not changed: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluca dock scene). This looks like a script portrait swap, not art.
