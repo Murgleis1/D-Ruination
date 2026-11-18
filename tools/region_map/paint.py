@@ -63,11 +63,14 @@ def paint_terrain(cls):
     g = noise(H, W, 6, 2)
     m = land & (cls == GRASS); out[m] = np.where(g[m] > 0.62, 31, np.where(g[m] > 0.38, 27, 38))
     out[m & (B < 0.12) & (g > 0.5)] = 33
-    m = land & (cls == SAND); out[m] = np.where(B[m] < 0.3, 28, 29)
+    m = land & (cls == SAND); out[m] = np.where(B[m] < 0.15, 28, 29)
+    dn = noise(H, W, 6, 12); yy, xx = np.mgrid[0:H, 0:W]
+    ph = (yy * 0.55 + np.sin(xx * 0.35 + dn * 5) * 1.6 + dn * 4) % 4.0
+    out[m & (ph < 0.55)] = 28; out[m & (ph > 0.55) & (ph < 1.0)] = 44     # dune crest + lit face
     m = land & (cls == SNOW); out[m] = np.where(B[m] < 0.18, 5, 1)
     m = land & (cls == MARSH)
-    out[m] = np.where(B[m] < 0.35, 33, 38)
-    ch = noise(H, W, 4, 3); out[m & (np.abs(ch - 0.5) < 0.07)] = 2
+    out[m] = np.where(B[m] < 0.45, 22, 38)
+    ch = noise(H, W, 3, 3); out[m & (np.abs(ch - 0.5) < 0.09)] = 2
     out[m & (np.abs(ch - 0.5) < 0.07) & (B < 0.2)] = 22
     out[m & (B > 0.88)] = 9                                   # reed tufts
     m = land & (cls == ASH)
@@ -78,7 +81,7 @@ def paint_terrain(cls):
     # mountains: earth base; the peaks are stamped afterwards (stamp_peaks)
     m = land & (cls == MOUNTAIN)
     out[m] = np.where(B[m] < 0.25, 26, 30)
-    s_ = land & (cls == SNOW); out[s_] = np.where(B[s_] < 0.2, 5, 1)
+    s_ = land & (cls == SNOW); out[s_] = np.where(B[s_] < 0.08, 5, 1)
     # coast rim: a darker earth line where land meets water
     dw = dist_to(water, 2)
     rim = land & (dw == 1) & (cls != SNOW)
@@ -103,6 +106,7 @@ PEAK = ["...a...",
         "ddddddd"]
 PEAK_COL = {'a': 16, 'b': 32, 'd': 26}
 SNOWPEAK_ROWS = 2
+SMALL_PEAK = [".......","...a...","..aab..",".aaabb.","ddddddd"]
 
 def stamp_peaks(out, cls):
     H, W = cls.shape
@@ -113,7 +117,9 @@ def stamp_peaks(out, cls):
             if not (0 <= cx < W and 0 <= cy < H): continue
             if cls[cy, cx] not in (MOUNTAIN, SNOW): continue
             snowy = cls[cy, cx] == SNOW
-            for j, row in enumerate(PEAK):
+            if rng.random() < 0.12: continue                   # gaps break up the grid
+            art = PEAK if rng.random() < 0.7 else SMALL_PEAK
+            for j, row in enumerate(art):
                 for i, ch in enumerate(row):
                     yy, xx = y + j, x + i
                     if ch == '.' or not (0 <= yy < H and 0 <= xx < W) or cls[yy, xx] <= SHALLOW: continue
@@ -130,7 +136,6 @@ def stamp_trees(out, cls):
             if not (0 <= cx < W and 0 <= cy < H): continue
             kind = cls[cy, cx]
             if kind == FOREST: col = TREE_COL
-            elif kind == SNOW and rng.random() < 0.18: col = SNOWTREE
             elif kind == GRASS and rng.random() < 0.06: col = TREE_COL
             else: continue
             for j, row in enumerate(TREE):
@@ -171,28 +176,64 @@ def draw_marker(out, x, y, w, h, centre):
     out[y0 + 1:y1, x0 + 1:x1] = 20
     out[y0 + 2:y1 - 1, x0 + 2:x1 - 1] = centre
 
-CITY_ICONS = {  # 14 x 8 tiny painted cities: w=wall, r=roof, d=dark, g=gate, t=tower roof
- 'default': ["...t......t...",
-             "..rrr....rrr..",
-             ".rrrrrtrrrrrr.",
-             "wwwwwrrrwwwwww",
-             "wdwwwwwwwwwdww",
-             "wwwwwwggwwwwww",
-             "wwdwwwggwwwdww",
-             "dddddddddddddd"],
-}
-CITY_ROOF = {'Silversun City': 24, 'Pelluca Valley': 25, 'Mirroh': 14, 'Fennilahl': 24,
-             'Rivetshore City': 23, 'Galecrest City': 25, 'Victory Cape': 25}
+BIG_PEAK = [  # 17 x 10 landmark mountain, lit from the left; s/t = snow
+ "........s........",
+ ".......sst.......",
+ "......sssbt......",
+ ".....sssbbbt.....",
+ "....asssabbbt....",
+ "...aaasaabbbbt...",
+ "..aaaaaaabbbbbt..",
+ ".aaaaaaaabbbbbbt.",
+ "aaaaaaaaabbbbbbbb",
+ "ddddddddddddddddd"]
+PEAK_COLOURS = {'Mt. Mirroh Peak': {'s': 1, 't': 5, 'a': 16, 'b': 32, 'd': 26},
+                'Mt. Ceram':       {'s': 1, 't': 5, 'a': 41, 'b': 14, 'd': 3}}
+LANDMARK_PEAKS = {'Mt. Mirroh Peak': BIG_PEAK, 'Mt. Ceram': BIG_PEAK}
+def stamp_big_peak(out, name, x, y, w, h):
+    art = LANDMARK_PEAKS[name]; ih, iw = len(art), len(art[0])
+    cx = 8 + 8 * x + 4 * w; by = 16 + 8 * y + 8 * h - 1
+    ox, oy = cx - iw // 2, by - ih + 1
+    for j, row in enumerate(art):
+        for i, ch in enumerate(row):
+            if ch != '.' and 0 <= oy + j < out.shape[0] and 0 <= ox + i < out.shape[1]:
+                out[oy + j, ox + i] = PEAK_COLOURS[name][ch]
+
+def city_icon(name):
+    """16 x 14 painted city, transparent = 255. Walls along the bottom, corner towers, roofs and a keep."""
+    roof, dark = {'Silversun City': (24, 12), 'Pelluca Valley': (25, 26), 'Mirroh': (14, 12), 'Fennilahl': (24, 12),
+                  'Rivetshore City': (23, 26), 'Galecrest City': (25, 26), 'Victory Cape': (25, 26)}.get(name, (25, 26))
+    wall, shade, edge = (41, 14, 12) if name == 'Mirroh' else (21, 41, 26)
+    a = np.full((14, 16), 255, np.uint8)
+    a[9:13, 1:15] = wall; a[9:13, 10:15] = np.where(np.arange(5) >= 2, shade, wall)[None, :]
+    a[13, 1:15] = edge; a[9:13, 1] = edge; a[9:13, 14] = edge
+    a[8, 1:15:2] = wall                                           # crenellations
+    a[11:13, 7:9] = 12; a[10, 7:9] = edge                         # gate
+    for tx in (0, 13):                                            # corner towers with conical roofs
+        a[5:13, tx:tx + 3] = wall; a[5:13, tx + 2] = shade; a[13, tx:tx + 3] = edge
+        a[4, tx:tx + 3] = roof; a[3, tx:tx + 3] = roof; a[2, tx + 1] = roof; a[3:5, tx + 2] = dark
+    for hx in (3, 9):                                             # gabled house roofs over the wall
+        a[8, hx:hx + 5] = roof; a[7, hx + 1:hx + 4] = roof; a[6, hx + 2] = roof
+        a[8, hx + 3:hx + 5] = dark; a[7, hx + 3] = dark
+    if name in ('Silversun City', 'Mirroh', 'Fennilahl'):         # tall keep / cathedral spire
+        a[3:9, 6:10] = wall; a[3:9, 9] = shade; a[5, 7] = 12
+        a[2, 6:10] = roof; a[1, 7:9] = roof; a[0, 7] = roof; a[2, 9] = dark
+    if name == 'Silversun City':                                  # the palace rising to the right, white with blue spires
+        a[0:9, 10:13] = 20; a[0:9, 12] = 21; a[0, 11] = 24; a[1, 10:13] = 24; a[3, 11] = 12
+    if name == 'Victory Cape':                                    # the lighthouse
+        a[0:13, 12:15] = 1; a[0:13, 14] = 5; a[0, 12:15] = 25; a[1, 13] = 17; a[5, 12:15] = 25; a[9, 12:15] = 25
+    return a
+
 def draw_city(out, name, x, y, w, h):
     x0, y0 = 8 + 8 * x, 16 + 8 * y
-    out[y0:y0 + 8 * h, x0:x0 + 8 * w] = 18                     # frame
-    out[y0 + 1:y0 + 8 * h - 1, x0 + 1:x0 + 8 * w - 1] = 20
-    icon = CITY_ICONS['default']; roof = CITY_ROOF.get(name, 25)
-    cols = {'w': 21, 'r': roof, 'd': 26, 'g': 12, 't': roof}
-    ih, iw = len(icon), len(icon[0]); ox = x0 + (8 * w - iw) // 2; oy = y0 + (8 * h - ih) // 2
-    for j, row in enumerate(icon):
-        for i, ch in enumerate(row):
-            if ch != '.': out[oy + j, ox + i] = cols[ch]
+    # base plate: the 2-cell frame, MonoMyth's marker colours
+    out[y0 + 5:y0 + 8 * h, x0:x0 + 8 * w] = 18
+    out[y0 + 6:y0 + 8 * h - 1, x0 + 1:x0 + 8 * w - 1] = 20
+    icon = city_icon(name); ih, iw = icon.shape
+    oy = y0 + 8 * h - 1 - ih; ox = x0 + (8 * w - iw) // 2
+    for j in range(ih):
+        for i in range(iw):
+            if icon[j, i] != 255 and 0 <= oy + j < out.shape[0]: out[oy + j, ox + i] = icon[j, i]
 
 def paint(cls):
     global WATER_MASK
@@ -203,8 +244,11 @@ def paint(cls):
     stamp_trees(out, cls)
     draw_roads(out)
     for name, kind, x, y, w, h in LAYOUT:
+        if name in LANDMARK_PEAKS: stamp_big_peak(out, name, x, y, w, h)
+    for name, kind, x, y, w, h in LAYOUT:
+        if kind == 'town' and name != 'Silversun Palace' and name not in LANDMARK_PEAKS: draw_marker(out, x, y, 1, 1, 22)
+    for name, kind, x, y, w, h in LAYOUT:                          # cities last: their icons stand over the cell above
         if kind == 'city': draw_city(out, name, x, y, w, h)
-        elif kind == 'town': draw_marker(out, x, y, 1, 1, 22 if 'Route' not in name else 25)
     return out
 
 def to_rgb(idx):
