@@ -66,23 +66,19 @@ def paint_terrain(cls):
     m = land & (cls == SAND); out[m] = np.where(B[m] < 0.3, 28, 29)
     m = land & (cls == SNOW); out[m] = np.where(B[m] < 0.18, 5, 1)
     m = land & (cls == MARSH)
-    mn = noise(H, W, 2, 3); out[m] = np.where(mn[m] > 0.55, 2, np.where(mn[m] > 0.3, 22, 38))
+    out[m] = np.where(B[m] < 0.35, 33, 38)
+    ch = noise(H, W, 4, 3); out[m & (np.abs(ch - 0.5) < 0.07)] = 2
+    out[m & (np.abs(ch - 0.5) < 0.07) & (B < 0.2)] = 22
+    out[m & (B > 0.88)] = 9                                   # reed tufts
     m = land & (cls == ASH)
-    an = noise(H, W, 3, 4); out[m] = np.where(an[m] > 0.5, 15, 3)
-    crack = noise(H, W, 2, 5); out[m & (np.abs(crack - 0.5) < 0.035)] = 17
-    out[m & (np.abs(crack - 0.5) < 0.012)] = 25
-    # mountains: height from distance to the range edge + noise, lit from the upper left
-    mt = land & ((cls == MOUNTAIN) | (cls == SNOW))
-    if mt.any():
-        h = dist_to(~mt, 10).astype(float) + noise(H, W, 4, 6) * 5
-        gy, gx = np.gradient(h); shade = -(gx + gy)
-        m = land & (cls == MOUNTAIN)
-        out[m] = np.where(shade[m] > 0.6, 16, np.where(shade[m] > -0.2, 30, np.where(shade[m] > -0.9, 32, 26)))
-        ridge = m & (np.abs(shade) < 0.15) & (h > 3)
-        out[ridge & (B < 0.5)] = 13
-        s = land & (cls == SNOW)
-        out[s & (shade < -0.4)] = 5
-        out[s & (shade < -1.0)] = 2
+    an = noise(H, W, 4, 4); out[m] = np.where(an[m] > 0.58, 15, 3)
+    v1 = noise(H, W, 5, 5); v2 = noise(H, W, 7, 11)
+    vein = m & (np.abs(v1 - 0.5) < 0.022) & (v2 > 0.45)
+    out[vein] = 17; out[vein & (B < 0.3)] = 25
+    # mountains: earth base; the peaks are stamped afterwards (stamp_peaks)
+    m = land & (cls == MOUNTAIN)
+    out[m] = np.where(B[m] < 0.25, 26, 30)
+    s_ = land & (cls == SNOW); out[s_] = np.where(B[s_] < 0.2, 5, 1)
     # coast rim: a darker earth line where land meets water
     dw = dist_to(water, 2)
     rim = land & (dw == 1) & (cls != SNOW)
@@ -99,6 +95,31 @@ TREE = ["..a..",
         "..t.."]
 TREE_COL = {'a': 4, 'b': 9, 'c': 10, 't': 26}
 SNOWTREE = {'a': 4, 'b': 1, 'c': 5, 't': 26}
+
+PEAK = ["...a...",
+        "..aab..",
+        ".aaabb.",
+        "aaaabbb",
+        "ddddddd"]
+PEAK_COL = {'a': 16, 'b': 32, 'd': 26}
+SNOWPEAK_ROWS = 2
+
+def stamp_peaks(out, cls):
+    H, W = cls.shape
+    for y0 in range(-3, H, 4):
+        for x0 in range(-3, W, 6):
+            x = x0 + (3 if (y0 // 4) % 2 else 0) + rng.integers(-1, 2); y = y0 + rng.integers(-1, 1)
+            cx, cy = x + 3, y + 3
+            if not (0 <= cx < W and 0 <= cy < H): continue
+            if cls[cy, cx] not in (MOUNTAIN, SNOW): continue
+            snowy = cls[cy, cx] == SNOW
+            for j, row in enumerate(PEAK):
+                for i, ch in enumerate(row):
+                    yy, xx = y + j, x + i
+                    if ch == '.' or not (0 <= yy < H and 0 <= xx < W) or cls[yy, xx] <= SHALLOW: continue
+                    c = PEAK_COL[ch]
+                    if snowy and j < SNOWPEAK_ROWS + 1 and ch in 'ab': c = 1 if ch == 'a' else 5
+                    out[yy, xx] = c
 
 def stamp_trees(out, cls):
     H, W = cls.shape
@@ -131,6 +152,7 @@ ROADS = [  # waypoints in grid cells; drawn orthogonally between consecutive poi
  [(20,8),(20,10),(21,10),(21,13)],
  [(24,8),(24,0)],
 ]
+WATER_MASK = None
 def draw_roads(out):
     H, W = out.shape; fill = np.zeros((H, W), bool)
     for pts in ROADS:
@@ -139,7 +161,8 @@ def draw_roads(out):
             xs, xe = sorted((x0, x1)); ys, ye = sorted((y0, y1))
             fill[ys - 1:ye + 1, xs - 1:xe + 1] = True     # 2-px pale fill; the outline makes it 4 px
     p = np.pad(fill, 1); edge = (p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]) & ~fill
-    out[edge] = 18; out[fill] = 19
+    wet = WATER_MASK if WATER_MASK is not None else np.zeros_like(fill)
+    out[edge] = np.where(wet[edge], 26, 18); out[fill] = np.where(wet[fill], 16, 19)   # over water: a bridge
 
 def draw_marker(out, x, y, w, h, centre):
     """MonoMyth marker: dark-green outline, white ring, coloured centre; covers w x h cells."""
@@ -172,8 +195,11 @@ def draw_city(out, name, x, y, w, h):
             if ch != '.': out[oy + j, ox + i] = cols[ch]
 
 def paint(cls):
+    global WATER_MASK
+    WATER_MASK = cls <= SHALLOW
     cls = soften_snow(cls)
     out = paint_terrain(cls)
+    stamp_peaks(out, cls)
     stamp_trees(out, cls)
     draw_roads(out)
     for name, kind, x, y, w, h in LAYOUT:
