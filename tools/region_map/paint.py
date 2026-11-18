@@ -224,13 +224,17 @@ def city_icon(name):
         a[0:13, 12:15] = 1; a[0:13, 14] = 5; a[0, 12:15] = 25; a[1, 13] = 17; a[5, 12:15] = 25; a[9, 12:15] = 25
     return a
 
+CITY_MARKER_CENTRE = 25      # red centre: large cities; towns/landmarks use teal (22)
 def draw_city(out, name, x, y, w, h):
+    """MonoMyth-style rectangle marker across the city's cells, with the painted city standing on it."""
     x0, y0 = 8 + 8 * x, 16 + 8 * y
-    # base plate: the 2-cell frame, MonoMyth's marker colours
-    out[y0 + 5:y0 + 8 * h, x0:x0 + 8 * w] = 18
-    out[y0 + 6:y0 + 8 * h - 1, x0 + 1:x0 + 8 * w - 1] = 20
-    icon = city_icon(name); ih, iw = icon.shape
-    oy = y0 + 8 * h - 1 - ih; ox = x0 + (8 * w - iw) // 2
+    mx0, mx1, my0, my1 = x0 + 1, x0 + 8 * w - 2, y0 + 2, y0 + 8 * h - 1      # marker sits low in the cell
+    out[my0:my1 + 1, mx0:mx1 + 1] = 18
+    out[my0 + 1:my1, mx0 + 1:mx1] = 20
+    out[my0 + 2:my1 - 1, mx0 + 2:mx1 - 1] = CITY_MARKER_CENTRE
+    icon = city_icon(name)[:-1]                                   # the marker is the city's ground line
+    ih, iw = icon.shape
+    oy = my0 - ih; ox = x0 + (8 * w - iw) // 2
     for j in range(ih):
         for i in range(iw):
             if icon[j, i] != 255 and 0 <= oy + j < out.shape[0]: out[oy + j, ox + i] = icon[j, i]
