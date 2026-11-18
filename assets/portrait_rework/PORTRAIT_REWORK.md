@@ -451,3 +451,17 @@ User: "The mask needs to mostly cover the face, and you should be able to at lea
 - An alternative with a 1-px sliver of bare forehead under the hairline is ready if wanted.
 
 review.py --mode back: pass.
+
+## Osrid round 16 — face turned toward the opponent; no dome on top (candidate Q8)
+
+User feedback:
+- "You can see too much of the mask. More of Osrid's face needs to be turned towards the direction of his opponent."
+- "The top of his head is too round, too prominent and doesn't really match his hairstyle. The back of it is correct, but not the top."
+
+`tools/art/osrid_back_head_turn.py`, run on the round-14 head:
+- The front of the head moves back 2 px. The mask is a 4-px sliver tapering at its top and chin, with one lock tip over its top. A little shaded cheek with a jaw line and the ear sit behind it, and the strap runs to the mask's back edge.
+- The top of the head is clipped to a low, nearly level line: row 21 at x 24, rising 0.4 px per column toward the back and dropping 0.28 per column toward the front. It's about 4 rows lower than the round-14 dome.
+- The top has flat mid, a lit rim along the top line and back edge, two short lock lines swept back, and three small tufts swept back on the top line.
+- The back edge and nape are unchanged.
+
+review.py --mode back: pass.
