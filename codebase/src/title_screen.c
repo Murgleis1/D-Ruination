@@ -59,7 +59,7 @@ static void SpriteCB_VersionBannerRight(struct Sprite *sprite);
 static void SpriteCB_PressStartCopyrightBanner(struct Sprite *sprite);
 static void SpriteCB_PokemonLogoShine(struct Sprite *sprite);
 
-#define TITLE_SOUND_CHANNELS   8   // sampled voices while the title theme plays
+#define TITLE_SOUND_CHANNELS   10  // sampled voices while the title theme plays (the engine allows up to 12)
 #define DEFAULT_SOUND_CHANNELS 5   // the game's default (m4aSoundInit in m4a.c)
 
 // const rom data
@@ -648,8 +648,8 @@ void CB2_InitTitleScreen(void)
                                     | DISPCNT_OBJ_1D_MAP
                                     | DISPCNT_BG0_ON
                                     | DISPCNT_OBJ_ON);
-        // Dreamstone Ruination: the ethereal title theme layers choir, strings, harp and bells with long
-        // release tails; give it 8 sampled voices while the title screen is up (the game default is 5,
+        // Dreamstone Ruination: the title theme is a pedalled piano whose notes ring on in long
+        // release tails; give it 10 sampled voices while the title screen is up (the game default is 5,
         // m4aSoundInit). RestoreSoundChannels() puts it back on the way out, so other music is unchanged.
         m4aSoundMode(TITLE_SOUND_CHANNELS << SOUND_MODE_MAXCHN_SHIFT);
         m4aSongNumStart(MUS_DR_TITLE);
