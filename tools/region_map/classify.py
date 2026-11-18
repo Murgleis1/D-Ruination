@@ -42,6 +42,9 @@ BIOMES = [
 ]
 FORCE_SEA = [(540, 0, 995, 72), (15, 760, 200, 960),       # title cartouche, compass rose
              (330, 815, 560, 858)]                          # the strait under the Riptide Bridge: Windrunner is an island
+FORCE_LAND = [  # (polygon in painting coords) land the painting draws too thin for the grid
+ [(1135,700),(1275,700),(1290,800),(1240,830),(1160,830),(1120,800)],   # Victory Cape is a broad cape, not an island
+]
 RIVERS = [
  [(485,185),(445,240),(465,300),(450,345),(475,410),(460,470),(450,545)],          # Ivy River, west branch
  [(650,165),(640,180),(610,280),(580,330),(550,420),(520,480),(480,545)],          # Ivy River, east branch
@@ -122,6 +125,9 @@ def class_map(src_path, W=240, H=160, ss=4):
     for name, poly in BIOMES: d.polygon([to_screen(p) for p in poly], fill=CLASSES.index(name))
     for x0, y0, x1, y1 in FORCE_SEA: d.rectangle([to_screen((x0, y0)), to_screen((x1, y1))], fill=254)
     lay = np.asarray(lay)
+    fl = Image.new('L', (W, H), 0); df = ImageDraw.Draw(fl)
+    for poly in FORCE_LAND: df.polygon([to_screen(p) for p in poly], fill=1)
+    base = np.where((np.asarray(fl) == 1) & (base == DEEP), GRASS, base)
     water = (base == DEEP) | (lay == 254)
     water = _majority(water.astype(np.uint8), 3, [0, 1]).astype(bool)
     lab, sz = _components(water);  water[(sz[lab] < 5) & water] = False      # specks of water in land
