@@ -1,0 +1,185 @@
+"""Paint the empire-era region map (240x160, the full region-map screen) in MonoMyth's style.
+Palette: MonoMyth's 48 region-map colours (indices below are into that palette, see MM_PAL).
+Inputs: the terrain class map (classify.py) and the grid layout (layout.py).
+Output: an indexed image whose pixel values are palette indices 0..47."""
+import numpy as np
+from PIL import Image
+from layout import LAYOUT
+
+# MonoMyth region-map palette (RGB555 expanded), read from its ROM at 0xA124F0
+MM_PAL = [(0,0,0),(248,248,248),(88,136,136),(0,0,0),(80,96,48),(192,224,224),(48,64,24),(80,104,128),
+ (104,168,160),(56,96,64),(120,136,64),(144,192,176),(56,88,96),(136,128,80),(80,88,96),(0,0,0),
+ (192,176,152),(0,0,0),(16,112,48),(208,216,168),(224,232,216),(192,176,160),(64,136,120),(208,120,56),
+ (88,88,136),(248,88,56),(112,96,64),(128,168,120),(200,176,80),(216,216,136),(152,120,72),(168,168,48),
+ (152,112,40),(112,136,80),(192,184,128),(184,192,104),(152,160,120),(192,200,160),(120,160,104),(168,184,128),
+ (152,160,104),(152,152,136),(136,152,104),(184,168,112),(216,200,128),(208,216,152),(0,0,0),(0,0,0)]
+# colours MonoMyth's map does not need but ours does (slots that are empty in its palette)
+MM_PAL[3]  = (56, 40, 40)     # ash: dark basalt
+MM_PAL[15] = (104, 64, 48)    # ash: warm rock
+MM_PAL[17] = (248, 152, 40)   # lava glow
+DEEP, SHALLOW, GRASS, FOREST, MOUNTAIN, SNOW, SAND, ASH, MARSH = range(9)
+rng = np.random.default_rng(7)
+
+def bayer(h, w):
+    b = np.array([[0, 8, 2, 10], [12, 4, 14, 6], [3, 11, 1, 9], [15, 7, 13, 5]]) / 16.0
+    return np.tile(b, (h // 4 + 1, w // 4 + 1))[:h, :w]
+
+def dist_to(mask, maxd=6):
+    """Chebyshev distance (pixels) from each pixel to the nearest True in mask, capped."""
+    H, W = mask.shape; d = np.full((H, W), maxd, np.int32); cur = mask.copy()
+    d[cur] = 0
+    for k in range(1, maxd):
+        p = np.pad(cur, 1)
+        grow = p[1:-1, 1:-1] | p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:] | p[:-2, :-2] | p[:-2, 2:] | p[2:, :-2] | p[2:, 2:]
+        d[grow & ~cur] = k; cur = grow
+    return d
+
+def noise(h, w, scale, seed):
+    r = np.random.default_rng(seed); g = r.random((h // scale + 2, w // scale + 2))
+    img = Image.fromarray((g * 255).astype(np.uint8)).resize(((w // scale + 2) * scale, (h // scale + 2) * scale), Image.BICUBIC)
+    return np.asarray(img)[:h, :w] / 255.0
+
+# ---- terrain ----
+def soften_snow(cls):
+    cls = cls.copy(); sn = cls == SNOW
+    d = dist_to(~sn, 4); n = noise(*cls.shape, 3, 9)
+    cls[sn & (d <= 2) & (n < 0.5)] = MOUNTAIN
+    return cls
+
+def paint_terrain(cls):
+    H, W = cls.shape; out = np.zeros((H, W), np.uint8); B = bayer(H, W)
+    water = cls <= SHALLOW; land = ~water
+    dl = dist_to(land, 8)                                   # distance from water to land
+    # sea: teal near land, blue-grey offshore, dithered band between
+    t = np.clip((dl - 3) / 4.0, 0, 1)
+    out[water] = np.where(t[water] > B[water], 7, 2)
+    # foam: broken white line 2 px off the coast, light cyan wavelets just outside it
+    n = noise(H, W, 3, 1)
+    foam = water & (dl == 2) & (n > 0.35)
+    out[foam] = 1
+    out[water & (dl == 4) & (n > 0.72)] = 5
+    # inland water (rivers / lakes): teal with a light edge
+    # land base colours
+    g = noise(H, W, 6, 2)
+    m = land & (cls == GRASS); out[m] = np.where(g[m] > 0.62, 31, np.where(g[m] > 0.38, 27, 38))
+    out[m & (B < 0.12) & (g > 0.5)] = 33
+    m = land & (cls == SAND); out[m] = np.where(B[m] < 0.3, 28, 29)
+    m = land & (cls == SNOW); out[m] = np.where(B[m] < 0.18, 5, 1)
+    m = land & (cls == MARSH)
+    mn = noise(H, W, 2, 3); out[m] = np.where(mn[m] > 0.55, 2, np.where(mn[m] > 0.3, 22, 38))
+    m = land & (cls == ASH)
+    an = noise(H, W, 3, 4); out[m] = np.where(an[m] > 0.5, 15, 3)
+    crack = noise(H, W, 2, 5); out[m & (np.abs(crack - 0.5) < 0.035)] = 17
+    out[m & (np.abs(crack - 0.5) < 0.012)] = 25
+    # mountains: height from distance to the range edge + noise, lit from the upper left
+    mt = land & ((cls == MOUNTAIN) | (cls == SNOW))
+    if mt.any():
+        h = dist_to(~mt, 10).astype(float) + noise(H, W, 4, 6) * 5
+        gy, gx = np.gradient(h); shade = -(gx + gy)
+        m = land & (cls == MOUNTAIN)
+        out[m] = np.where(shade[m] > 0.6, 16, np.where(shade[m] > -0.2, 30, np.where(shade[m] > -0.9, 32, 26)))
+        ridge = m & (np.abs(shade) < 0.15) & (h > 3)
+        out[ridge & (B < 0.5)] = 13
+        s = land & (cls == SNOW)
+        out[s & (shade < -0.4)] = 5
+        out[s & (shade < -1.0)] = 2
+    # coast rim: a darker earth line where land meets water
+    dw = dist_to(water, 2)
+    rim = land & (dw == 1) & (cls != SNOW)
+    out[rim] = np.where(cls[rim] == SAND, 28, 13)
+    # forest floor then trees
+    f = land & (cls == FOREST); out[f] = 6
+    return out
+
+TREE = ["..a..",
+        ".aba.",
+        ".abc.",
+        "abbca",
+        "abbbc",
+        "..t.."]
+TREE_COL = {'a': 4, 'b': 9, 'c': 10, 't': 26}
+SNOWTREE = {'a': 4, 'b': 1, 'c': 5, 't': 26}
+
+def stamp_trees(out, cls):
+    H, W = cls.shape
+    for y0 in range(-2, H, 4):
+        for x0 in range(-2, W, 5):
+            x = x0 + (2 if (y0 // 4) % 2 else 0) + rng.integers(-1, 2); y = y0 + rng.integers(-1, 2)
+            cx, cy = x + 2, y + 3
+            if not (0 <= cx < W and 0 <= cy < H): continue
+            kind = cls[cy, cx]
+            if kind == FOREST: col = TREE_COL
+            elif kind == SNOW and rng.random() < 0.18: col = SNOWTREE
+            elif kind == GRASS and rng.random() < 0.06: col = TREE_COL
+            else: continue
+            for j, row in enumerate(TREE):
+                for i, ch in enumerate(row):
+                    if ch == '.': continue
+                    yy, xx = y + j, x + i
+                    if 0 <= yy < H and 0 <= xx < W and cls[yy, xx] > SHALLOW:
+                        out[yy, xx] = col[ch]
+
+# ---- roads and markers ----
+def cell_px(gx, gy): return 8 + 8 * gx + 4, 16 + 8 * gy + 4
+ROADS = [  # waypoints in grid cells; drawn orthogonally between consecutive points
+ [(4,0),(4,4)], [(4,4),(4,8)], [(4,8),(4,9)], [(3,8),(9,8)], [(6,7),(6,8)],
+ [(4,3),(7,3),(7,2)], [(7,3),(8,3)], [(4,4),(9,4),(9,5)],
+ [(8,8),(8,13)], [(9,8),(13,8)],
+ [(13,2),(13,3)], [(12,3),(20,3)], [(12,3),(12,8),(13,8)], [(14,7),(13,7),(13,8)],
+ [(14,7),(16,7),(16,8)], [(13,8),(16,8)], [(16,8),(20,8)],
+ [(20,3),(20,8)], [(22,7),(22,8)], [(20,8),(24,8)],
+ [(20,8),(20,10),(21,10),(21,13)],
+ [(24,8),(24,0)],
+]
+def draw_roads(out):
+    H, W = out.shape; fill = np.zeros((H, W), bool)
+    for pts in ROADS:
+        for (ax, ay), (bx, by) in zip(pts, pts[1:]):
+            (x0, y0), (x1, y1) = cell_px(ax, ay), cell_px(bx, by)
+            xs, xe = sorted((x0, x1)); ys, ye = sorted((y0, y1))
+            fill[ys - 1:ye + 1, xs - 1:xe + 1] = True     # 2-px pale fill; the outline makes it 4 px
+    p = np.pad(fill, 1); edge = (p[:-2, 1:-1] | p[2:, 1:-1] | p[1:-1, :-2] | p[1:-1, 2:]) & ~fill
+    out[edge] = 18; out[fill] = 19
+
+def draw_marker(out, x, y, w, h, centre):
+    """MonoMyth marker: dark-green outline, white ring, coloured centre; covers w x h cells."""
+    x0, y0 = 8 + 8 * x + 1, 16 + 8 * y + 1; x1, y1 = 8 + 8 * (x + w) - 2, 16 + 8 * (y + h) - 2
+    out[y0:y1 + 1, x0:x1 + 1] = 18
+    out[y0 + 1:y1, x0 + 1:x1] = 20
+    out[y0 + 2:y1 - 1, x0 + 2:x1 - 1] = centre
+
+CITY_ICONS = {  # 14 x 8 tiny painted cities: w=wall, r=roof, d=dark, g=gate, t=tower roof
+ 'default': ["...t......t...",
+             "..rrr....rrr..",
+             ".rrrrrtrrrrrr.",
+             "wwwwwrrrwwwwww",
+             "wdwwwwwwwwwdww",
+             "wwwwwwggwwwwww",
+             "wwdwwwggwwwdww",
+             "dddddddddddddd"],
+}
+CITY_ROOF = {'Silversun City': 24, 'Pelluca Valley': 25, 'Mirroh': 14, 'Fennilahl': 24,
+             'Rivetshore City': 23, 'Galecrest City': 25, 'Victory Cape': 25}
+def draw_city(out, name, x, y, w, h):
+    x0, y0 = 8 + 8 * x, 16 + 8 * y
+    out[y0:y0 + 8 * h, x0:x0 + 8 * w] = 18                     # frame
+    out[y0 + 1:y0 + 8 * h - 1, x0 + 1:x0 + 8 * w - 1] = 20
+    icon = CITY_ICONS['default']; roof = CITY_ROOF.get(name, 25)
+    cols = {'w': 21, 'r': roof, 'd': 26, 'g': 12, 't': roof}
+    ih, iw = len(icon), len(icon[0]); ox = x0 + (8 * w - iw) // 2; oy = y0 + (8 * h - ih) // 2
+    for j, row in enumerate(icon):
+        for i, ch in enumerate(row):
+            if ch != '.': out[oy + j, ox + i] = cols[ch]
+
+def paint(cls):
+    cls = soften_snow(cls)
+    out = paint_terrain(cls)
+    stamp_trees(out, cls)
+    draw_roads(out)
+    for name, kind, x, y, w, h in LAYOUT:
+        if kind == 'city': draw_city(out, name, x, y, w, h)
+        elif kind == 'town': draw_marker(out, x, y, 1, 1, 22 if 'Route' not in name else 25)
+    return out
+
+def to_rgb(idx):
+    return np.array(MM_PAL, np.uint8)[idx]
