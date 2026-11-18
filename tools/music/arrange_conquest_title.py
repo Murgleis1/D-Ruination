@@ -8,7 +8,8 @@ Instrument: voicegroup194 program 0 = the game's multi-sampled piano (sc88pro pi
 KeySplitTable1, as voicegroup005) with a pedal-like envelope (voicegroup195: slow decay, some sustain, long release).
 
   melody     part 5 (the tune), moved up an octave phrase by phrase where it sits low, so it floats high
-  echo       the melody again a dotted eighth later, soft, panned to the other side (shimmer)
+  echo       the melody again a dotted eighth later, faint and short, panned to the other side (user: the first
+             version had too much echo; now about half as loud)
   left hand  smooth eighth-note broken chords on each bar's chord -- root, 5th, octave, 10th, ... -- plus a soft
              low root on beat 1. Chords are read from the song: root = part 0's bass note for the bar; major or
              minor third = whichever the other parts actually play in that bar (else the C-minor key decides)
@@ -74,7 +75,7 @@ def build():
         while q > 93: q -= 12
         tracks['melody'].append((t, q, d, 70 + 3 * v))
         if t + 3 * TPQ // 4 < END:
-            tracks['echo'].append((t + 3 * TPQ // 4, q, min(d, TPQ), 38 + 2 * v))
+            tracks['echo'].append((t + 3 * TPQ // 4, q, min(d, TPQ // 2), 30 + 2 * v))   # faint (user: too much echo)
     # left hand: broken chords from the song's own harmony
     for b, c in CH.items():
         if c is None or b in BREAK: continue
@@ -96,7 +97,7 @@ def build():
     for (t, p, d, v) in parts[1][0]:
         if int(t // BAR) in BREAK and t < END:
             tracks['breakdown'].append((t, p if p >= 40 else p + 12, d, 52 + 3 * v))
-    SET = {'melody': (112, 70), 'echo': (82, 40), 'leftHand': (96, 56), 'inner': (76, 64), 'breakdown': (100, 60)}
+    SET = {'melody': (112, 70), 'echo': (48, 40), 'leftHand': (96, 56), 'inner': (76, 64), 'breakdown': (100, 60)}
     mid = mido.MidiFile(type=1, ticks_per_beat=TPQ)
     t0 = mido.MidiTrack(); mid.tracks.append(t0)
     t0.append(mido.MetaMessage('text', text='[', time=0))
