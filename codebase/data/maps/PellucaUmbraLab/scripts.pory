@@ -177,9 +177,9 @@ script DR_Lab_BallTeddiursa{
     lock
     faceplayer
     showmonpic(SPECIES_TEDDIURSA, 10, 3)
-    msgbox(format("Bloodmoon Teddiursa.\pWhispers of a Blood Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.\pMuch about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines."))
+    msgbox(format("Blue Moon Teddiursa.\pWhispers of a Blue Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.\pMuch about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines."))
     hidemonpic
-    msgbox(format("Take the Bloodmoon Teddiursa as your partner?"), MSGBOX_YESNO)
+    msgbox(format("Take the Blue Moon Teddiursa as your partner?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == 1){
         setvar(VAR_UNUSED_0x4083, 2)
         givemon(SPECIES_TEDDIURSA, 5, item=ITEM_SITRUS_BERRY)

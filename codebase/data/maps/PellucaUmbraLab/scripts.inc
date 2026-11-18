@@ -1350,8 +1350,8 @@ DR_Lab_BallFrigibax_Text_1:
 
 DR_Lab_BallTeddiursa_Text_0:
 # 180 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Bloodmoon Teddiursa.\p"
-	.string "Whispers of a Blood Moon line have\n"
+	.string "Blue Moon Teddiursa.\p"
+	.string "Whispers of a Blue Moon line have\n"
 	.string "circulated for over a century. I found\l"
 	.string "this cub by pure chance a year ago, on a\l"
 	.string "small wooded island far to the east.\p"
@@ -1363,7 +1363,7 @@ DR_Lab_BallTeddiursa_Text_0:
 
 DR_Lab_BallTeddiursa_Text_1:
 # 182 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Take the Bloodmoon Teddiursa as your\n"
+	.string "Take the Blue Moon Teddiursa as your\n"
 	.string "partner?$"
 
 DR_Lab_BallTinkatink_Text_0:

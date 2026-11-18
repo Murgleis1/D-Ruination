@@ -1009,7 +1009,7 @@ bool8 ScriptMenu_ShowPokemonPicShiny(u16 species, u8 x, u8 y)
 }
 
 // Dreamstone Ruination: showmonpicshiny - draws the SHINY palette, so the
-// Heraldic/Bloodmoon/Dragonmaul starters match the mon the player is given.
+// Heraldic/Blue Moon/Dragonmaul starters match the mon the player is given.
 void Script_ShowMonPicShiny(struct ScriptContext *ctx)
 {
     u16 species = ScriptReadHalfword(ctx);

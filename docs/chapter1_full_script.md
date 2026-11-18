@@ -198,13 +198,13 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 
 *Take the Heraldic Frigibax as your partner?*
 
-*Bloodmoon Teddiursa.*
+*Blue Moon Teddiursa.*
 
-*Whispers of a Blood Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.*
+*Whispers of a Blue Moon line have circulated for over a century. I found this cub by pure chance a year ago, on a small wooded island far to the east.*
 
 *Much about it is still a mystery. What I have seen so far suggests a gift for special attacks and a sturdy constitution, and its moves seem to grow along the same lines.*
 
-*Take the Bloodmoon Teddiursa as your partner?*
+*Take the Blue Moon Teddiursa as your partner?*
 
 *Dragonmaul Tinkatink.*
 
