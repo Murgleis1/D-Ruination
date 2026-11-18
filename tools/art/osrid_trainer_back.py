@@ -45,6 +45,8 @@ SCARFC = {0xA, 0xB, 0xC}
 JACKET = {0x2, 0x3, 0x6, 0x8}
 OUT = 0x5
 GLOVE = {0x9: 0xE, 0xE: 0xE, 0xF: 0xE, 0x7: 0xF, 0xC: 0x6, 0x8: 0xF}   # fingerless dark gloves, tan fingers
+DEBUG = False
+FINGER_LEN = 3                            # bare finger length beyond the fingerless glove
 BRACER_LEN = 6                            # px of sleeve behind the glove that is bracer
 BRACER_MAX_Y = 34                         # only on raised / extended forearms (not the body)
 EYE0 = (39, 24)                           # #4's eye glint in frame 0 (x, y): the anchor
@@ -459,15 +461,42 @@ def frame(f, H0):
         a[hand & (f == k)] = v
     # --- brown leather bracers on the forearms (front sprite / concept sheet "BRACER & GLOVE"): the sleeve
     #     just behind each glove becomes leather -- light (7), mid (8), dark (6) -- with dark wrap lines
-    if hand.any():
-        near = np.zeros_like(hand)
-        hy2, hx2 = np.nonzero(hand)
-        for y, x in zip(hy2, hx2):
+    labh, nh = components(hand)
+    for k in range(1, nh + 1):
+        hk = labh == k
+        if hk.sum() < 8:
+            continue
+        hy0, hx0 = np.nonzero(hk)
+        near = np.zeros_like(hk)
+        for y, x in zip(hy0, hx0):
             near[max(0, y - BRACER_LEN):y + BRACER_LEN + 1, max(0, x - BRACER_LEN):x + BRACER_LEN + 1] = True
         sleeve = near & ~hand & np.isin(f, [0x2, 0x3, 0x6]) & (np.arange(64)[:, None] < BRACER_MAX_Y)
-        for y, x in zip(*np.nonzero(sleeve)):
+        if not sleeve.any():
+            continue
+        # this hand's arm axis (forearm -> hand) and its wrist / fingertip halves
+        wy0, wx0 = np.nonzero(sleeve)
+        ay0, ax0 = hy0.mean() - wy0.mean(), hx0.mean() - wx0.mean()
+        pr = np.arange(64)[:, None] * ay0 + np.arange(64)[None, :] * ax0
+        mid = (pr[hk].min() + pr[hk].max()) / 2.0
+        a[sleeve & (pr >= mid)] = 0xF                 # #4's coat-coloured finger shading -> glove
+        sleeve &= pr < mid
+        for y, x in zip(*np.nonzero(sleeve)):         # bracer: light 7, mid 8, dark 6, diagonal wraps
             a[y, x] = {0x3: 0x7, 0x2: 0x8, 0x6: 0x6}[int(f[y, x])]
-            if (x + y) % 4 == 0 and f[y, x] != 0x6: a[y, x] = 0x6            # wraps
+            if (x + y) % 4 == 0 and f[y, x] != 0x6: a[y, x] = 0x6
+        for y, x in zip(*np.nonzero(hk & (f == 0x8) & (pr < mid))):   # #4's shirt cuff at the wrist
+            a[y, x] = 0x6 if (x + y) % 4 == 0 else 0x8
+        fing = hk & (a == 0xE)                        # glove-dark on the wrist side, away from fingers
+        for y, x in zip(*np.nonzero(hk & (a == 0xF) & (pr < mid))):
+            if not fing[max(0, y - 4):y + 5, max(0, x - 4):x + 5].any():
+                a[y, x] = 0x6 if (x + y) % 4 == 0 else 0x8
+        # fingerless glove on every frame: only the last FINGER_LEN px of skin along the axis stay bare
+        sk = list(zip(*np.nonzero(hk & (a == 0xE))))
+        if sk:
+            n = max(1e-6, (ay0 * ay0 + ax0 * ax0) ** 0.5)
+            proj = {p: (p[0] * ay0 + p[1] * ax0) / n for p in sk}
+            tip = max(proj.values())
+            for p, v in proj.items():
+                if v < tip - FINGER_LEN: a[p] = 0xF
     # --- clear #4's head: hair, face skin, and the outline that belonged to them
     old = hair | (skin & ~hand)
     grow = old.copy()

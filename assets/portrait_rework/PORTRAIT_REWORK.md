@@ -474,3 +474,19 @@ User: the round-16 head "works for the time being design-wise". However, the fro
 - The sleeve within BRACER_LEN=6 px of each glove, above BRACER_MAX_Y=34 (raised or extended forearms only), becomes leather.
 - Leather tones: light 7 (160,104,76), mid 8 (92,64,44), dark 6. Dark wrap lines run diagonally every 4 px.
 - This matches the front sprite's bracer and the concept sheet's "BRACER & GLOVE".
+
+## Osrid round 18 — bracer up to the glove; glove on every frame (candidate Q10)
+
+User feedback:
+- "The brown needs to go all the way up to but stopping at the gloved part of his hand."
+- "He has a glove on the first frame but no glove on the throwing frame."
+
+Cause: frames 1 and 2 hold two hands, the raised one and one low at the hip. The arm direction was averaged over both. #4 also reuses its shirt-cuff and coat colours inside the hand, for finger lights and outlines.
+
+Fix (`osrid_trainer_back.py` frame()): each hand component is handled on its own.
+- Its own forearm (sleeve within 6 px) and arm axis split the hand into a wrist half and a fingertip half.
+- Wrist half: sleeve, cuff and glove-dark become leather bracer, with wraps.
+- Fingertip half: #4's coat-coloured finger shading becomes glove.
+- The fingerless glove covers the hand from the wrist, with only the last 3 px of skin along the axis bare.
+
+review.py --mode back: pass.
