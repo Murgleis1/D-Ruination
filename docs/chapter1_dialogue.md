@@ -14,24 +14,25 @@ In game, a name is shown only when a new speaker starts talking.
 > What follows is what I have pieced together of that time, and of the people in it. So much of our world began with them.
 
 ## Cold open (letter and reply)
+*(Installed 2026-11-18, user-revised. Source of truth: data/maps/PellucaReflection/scripts.pory.)*
 
-*A letter has come for you. The seal is plain wax, pressed without a crest.*
+*A sealed letter. Plain wax, no crest.*
 
-**Cadmus:** Rainhawk Alban,  The surgeon's report from Sevii reached my desk a week before your commander's did. A commander proud of his decisions does not take a week to report them.  Burns to the face and neck, taken holding a beach that should have had twice the men on it. Commander Surge split his forces across two fronts, and you paid for his arithmetic.
+**Cadmus:** Nomad Alban,  The surgeon's report from Sevii reached my desk a week before your commander's did. A commander proud of his decisions does not take a week to report them.  Burns to the face and neck, taken holding a beach that needed twice the men. Commander Surge split his forces across two fronts, and you paid for his folly.
 
-**Cadmus:** The Commander has since been invited to explain that arithmetic to people who outrank us both. He will be explaining it for some time.
+**Cadmus** *(smile)***:** The Commander has since been invited to explain his judgement to people who outrank us both. He will be explaining it for some time, from a cell that has never seen daylight.
 
-**Cadmus:** The army saw fit to give you a mending mask from Athanto while the burns heal. They are made to hasten healing and keep evil at bay, and in most lands they are worth more than a house, so expect to be stared at. Wear it as long as you need to.  Your discharge is signed, with honors. You earned the rank of Rainhawk long before Sevii, and you keep it. From the day this reaches you, you serve under me, in the office of the Vizier of Education.
+**Cadmus:** I am told the army gave you a rare mending mask from the Athanto kingdom while your burns heal. Such masks hasten healing and ward off evil. They are not easily obtained in Cormoria, and one is worth more than most noble estates, so expect a few stares.  Wear it well. I suspect it will serve you longer than the burns require.  I am pleased to inform you that, for your actions on that beach and in light of your injuries, you have been granted an honorable discharge from further military service, with lifetime benefits.  You have also been raised to the rank of Rainhawk. At twenty, you are the youngest in Cormorian history to hold it. The rank carries the right to challenge the Trials, should you choose to, a right the Empire rarely extends beyond its noble houses. I suspect you will choose to.  As of the day this letter reaches you, you will serve under me in the Ministry of Education.
 
-**Cadmus:** A ship called the Pale Veluza waits in the southern harbor. Her captain asks no questions, which is exactly why I hired her.  Give your reply to the Templar chaplain at your barracks. It will reach me unopened.  Sign it with the name you were born with, not the one I gave you. I would know your hand anywhere.
+**Cadmus:** Your immediate orders are as follows. The Pale Veluza waits in the harbor south of your barracks. You are to board her and return home. She sails for Pelluca Valley, where I will meet you at the docks.  Write your reply and leave it with the Templar chaplain at your barracks. It will reach me quickly. Sign it with the name you were born with, not the one I gave you a decade ago, and I will know it is truly you.
 
-**Cadmus:** Then burn this. These days, too many people in Cormoria read letters that were never meant for them.  C.
+**Cadmus** *(smile)***:** Then burn this. These days, too many people in Cormoria read letters never meant for them.  C.
 
-*You take up the pen.*
+*[Signing screen: pre-filled "Osrid", editable.]*
 
-**Prince Osrid:** Received. I will be aboard the Veluza when she sails.  It has been a long time since anyone asked me for that name.
+**Prince Osrid:** Received and acknowledged. I will be aboard the Veluza when she sails.  It... will be good to be home again.
 
-*You hold the letter over the lamp until there is nothing left to read.*
+*[The letter burns in the lamp: flame sound, no narration.]*
 
 ## Arrival at the Pelluca dock
 

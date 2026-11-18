@@ -121,7 +121,7 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy: `docs/chapter1_dialogue.md`). Canon fixed in that pass:
 - **The mask is a mending mask from Athanto** (a MonoMyth Easter egg): made to hasten healing and keep evil at bay, prized in many lands, and *not customary* in Cormoria. The letter, the dockhands and Eden all make the player understand from the outset that Osrid wears it over **burns from the Sevii beach**, a loss caused by **Commander Boran Surge** splitting his forces across two fronts. (Supersedes the generic "Noh-styled ceremonial Rainhawk mask" wording for in-game text; the Eye-of-Horus design is unchanged.)
 - **Timeline:** the opening narration now says **two thousand years before Red** (matches §1). **General Albrecht** removed from the letter.
-- **The letter never names the prince** (Cadmus writes as if it may be intercepted) and states that Osrid **earned** Rainhawk before Sevii; Cadmus only kept the rank attached to him.
+- **The letter never names the prince** (Cadmus writes as if it may be intercepted). ~~States that Osrid earned Rainhawk before Sevii~~ **Superseded 2026-11-18 (user):** the rank is granted *after* Sevii, at 20, with the discharge — see §16.11.
 - **Beat 2 now includes the cover-identity briefing** (personal assistant + Academy head of security + a small house in the valley; public mission = all Trial Badges → challenge Rhydia → reveal) and Rhydia is introduced to the player as his sister and the five-year Champion.
 - **Eden does not name her cult** during the theft (she poses as a freelance thief). She fights as **"Brigand ???"** and first gives her name to the Templar in the **monastery holding cell**, which now has a short Osrid/Eden exchange before Cadmus and Osrid leave her to the Templar's questions.
 - **The Mega-Dreamstone shard briefing** happens back at the lab after the cell scene (as §6 requires: after the theft), at Cadmus's own level of knowledge; he does not name his source (Nemo).
@@ -166,3 +166,14 @@ Chapter 1 is the template: once its foundations (mechanics, maps, buildings, NPC
 - The lab battle uses the generic white indoor battle background.
 - Cadmus's "Forgive the chaos" opens on a tidy lab.
 - The signing screen is the stock bright naming UI inside the dark cold open (presentation; QoL phase).
+
+### 16.11 Letter revision `[2026-11-18, user-directed]`
+The cold-open letter was rewritten with the user (installed; text in `docs/chapter1_dialogue.md`). Canon and terminology fixed:
+- **Addressed to "Nomad Alban"** (the cover name; the letter never names the prince).
+- **Rainhawk is granted after Sevii**, at 20, with the honorable discharge: the **youngest in Cormorian history**. The rank carries **the right to challenge the Trials**, rarely extended beyond the noble houses — what lets a Nomad with nothing to his name enter them. The discharge is **granted/approved** (never "signed") and comes **with lifetime benefits**.
+- **"The Athanto kingdom"** on first mention (players need not know MonoMyth); mending masks are **not easily obtained in Cormoria**.
+- The letter is **written, not spoken**: no spoken asides ("Your orders, then"); letter register ("I am pleased to inform you", "Your immediate orders are as follows").
+- **The orders say it outright:** board the Pale Veluza and return home; she sails for **Pelluca Valley**, where Cadmus meets him at the docks.
+- New post: **"you will serve under me in the Ministry of Education."**
+- One subtle destiny hint: after the Trials right, "I suspect you will choose to."
+- Review method for every scene from here: first list what the scene must accomplish (bible beat + what later scenes rely on), then line-edit.

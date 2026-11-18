@@ -16,7 +16,7 @@
   - **Cadet → Lieutenant → Strategos → Windshear → Rainhawk → Tarasque → Dawnstar → Vizier**
   - First three ranks (Cadet, Lieutenant, Strategos) constitute ~90% of military personnel
   - **Rainhawk** is the watershed rank — empire promotes to Rainhawk only those they believe could eventually lead a Trial, head a guild, or be knighted into nobility
-- The protagonist earned his **Rainhawk** mask during the Kanto-Johto-Hoenn war. Mask is a distinctive Noh-styled ceremonial design with an eye-of-Horus pattern on the front, awarded to him after he was severely scarred during a Sevii Islands operation (see Section 5).
+- The protagonist was raised to **Rainhawk** after the Sevii beach, at 20, with his honorable discharge (youngest in history; user 2026-11-18). *(The "Rainhawk mask" below is superseded for in-game text by the Athanto mending mask, §16.9.)* Mask is a distinctive Noh-styled ceremonial design with an eye-of-Horus pattern on the front, awarded to him after he was severely scarred during a Sevii Islands operation (see Section 5).
 - Nemo Korolev rose through every tier from Cadet to **Dawnstar** by merit alone, faster than any officer in Cormorian history — including Eldred. He then voluntarily stepped down to the 9th Trial Baron seat (see Section 7 — Nemo profile).
 - **The Champion is usually a former Vizier, a Tarasque or Dawnstar, or a particularly prodigal royal.** New Champions emerge once in a few generations.
 

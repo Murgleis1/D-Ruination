@@ -177,7 +177,7 @@ The full Cormorian military rank structure, from lowest to highest:
 **Why Rainhawk is the watershed rank:** It is the rank at which the empire signals that a soldier may eventually be elevated into nobility. **Rainhawk is the grooming rank.** A Rainhawk is being watched as a future Trial Baron candidate, guild leader, or knighted nobleman. The exact criteria for Rainhawk promotion varies by generation and the political needs of the moment, but the underlying calculation is always: *"Is this person on a trajectory toward institutional leadership?"*
 
 **Notable holders of these ranks (canonical to our story):**
-- **Osrid (the protagonist)** — Rainhawk, earned during the Kanto-Johto-Hoenn war. The empire promoted him to Rainhawk *not knowing he was the missing prince*, on his merit alone. Darkly ironic: the meritocratic system independently confirmed what royal birthright already established.
+- **Osrid (the protagonist)** — Rainhawk, **granted after the Sevii beach, at age 20, together with his honorable discharge — the youngest Rainhawk in Cormorian history** `[user 2026-11-18]`. The empire promoted him to Rainhawk *not knowing he was the missing prince*, on his merit alone. Darkly ironic: the meritocratic system independently confirmed what royal birthright already established.
 - **Nemo Korolev** — Dawnstar (resigned). Arguably the single most talented military officer in Cormorian history; rose to Dawnstar even faster than Eldred did. See Section 7 — Nemo entry for the full implications of his rank achievement.
 - **Eldred Nightfall** — Dawnstar at peak (before becoming Prince-Consort).
 - **Boran Surge** — Windshear, Osrid's combat mentor during the overseas campaigns. Minor noble of House Surge. See Section 7 for full profile.
