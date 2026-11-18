@@ -1424,7 +1424,7 @@ script DR_PellucaCity_Arrival{
     speakername("Dockhand")
     msgbox(format("A Rainhawk, in a mask? Like something out of the old stories."))
     speakername("Sailor")
-    msgbox(format("Heard Sevii took his face. The whole beach went up, they say."))
+    msgbox(format("That's the one who held the beach at Sevii. Burned for it, they say."))
     closemessage
     delay(30)
     applymovement(LOCALID_DR_CADMUS, moves(walk_down * 5))
@@ -1435,10 +1435,10 @@ script DR_PellucaCity_Arrival{
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Does it still hurt?"))
+    msgbox(format("And the burns? Are they healing?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
     speakername("“Nomad”")
-    msgbox(format("Less than it did."))
+    msgbox(format("Slowly. The mask helps."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Good. Walk with me. We will talk somewhere quieter."))
     hideportrait
@@ -1452,7 +1452,7 @@ script DR_PellucaCity_Arrival{
     waitmovement(0)
     waitmovement(LOCALID_DR_CADMUS)
     delay(30)
-    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."), MSGBOX_SIGN)
+    msgbox(format("For Prince {PLAYER}, Keerin's Chosen. Wherever you are, come home."), MSGBOX_SIGN)
     closemessage
     delay(40)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
@@ -1478,7 +1478,7 @@ script DR_PellucaCity_Arrival{
 // ================= Pelluca Valley, empire era (events pass 2026-11-16) =================
 script DR_PellucaCity_Shrine{
     lock
-    msgbox(format("For Prince Osrid, Keerin's Chosen. Wherever you are, come home."), MSGBOX_SIGN)
+    msgbox(format("For Prince {PLAYER}, Keerin's Chosen. Wherever you are, come home."), MSGBOX_SIGN)
     release
     end
 }

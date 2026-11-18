@@ -50,7 +50,7 @@ C.
 
 *[Naming screen: you sign your name.]*
 
-**Prince Osrid:** Received and acknowledged. I will be aboard the Veluza when she sails.
+**Osrid:** Received and acknowledged. I will be aboard the Veluza when she sails.
 
 It... will be good to be home again.
 
@@ -58,13 +58,13 @@ It... will be good to be home again.
 
 **Dockhand:** A Rainhawk, in a mask? Like something out of the old stories.
 
-**Sailor:** Heard Sevii took his face. The whole beach went up, they say.
+**Sailor:** That's the one who held the beach at Sevii. Burned for it, they say.
 
 **Cadmus:** Rainhawk Alban. Welcome to Pelluca Valley.
 
-**Cadmus:** Does it still hurt?
+**Cadmus:** And the burns? Are they healing?
 
-**“Nomad”:** Less than it did.
+**“Nomad”:** Slowly. The mask helps.
 
 **Cadmus:** Good. Walk with me. We will talk somewhere quieter.
 
@@ -80,7 +80,7 @@ This lab is my personal environment, and a place where we can communicate openly
 
 **Cadmus:** Will you let me see your face?
 
-**Prince Osrid:** ...No. I can't. It is a complete ruin.
+**Osrid:** ...No. I can't. It is a complete ruin.
 
 **Cadmus:** ...If that is how you feel now, I will not press the matter further.
 
@@ -88,7 +88,7 @@ This lab is my personal environment, and a place where we can communicate openly
 
 The last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?
 
-**Prince Osrid:** I remember the tree. Rhydia wouldn't stop laughing.
+**Osrid:** I remember the tree. Rhydia wouldn't stop laughing.
 
 **Cadmus:** How I miss those days...
 
@@ -100,7 +100,7 @@ The Academy has also named you its head of security, which mostly means no door 
 
 **Cadmus:** There is a dormitory northwest of here with your cover name on the door, the largest study on the first floor. It isn't much, but the door locks and the bed is comfy.
 
-**Prince Osrid:** That's all well and good. But why, after ten years, did you finally bring me home? After Father's assassination, I thought-
+**Osrid:** That's all well and good. But why, after ten years, did you finally bring me home? After Father's assassination, I thought-
 
 **Cadmus:** Because there was too much back then I didn't know... only that you were the next target.
 
@@ -114,7 +114,7 @@ The time was right to bring you home, though I wish to Arceus it were under bett
 
 A Rainhawk who clears every Trial has the right to challenge the Champion. She is someone you know quite well... someone who loves you even more than I do.
 
-**Prince Osrid:** My sister, huh. She got her starter right before you sent me away, if I recall.
+**Osrid:** My sister, huh. She got her starter right before you sent me away, if I recall.
 
 **Cadmus:** Your sister. Rhydia has held the Champion title for five years now, and she rules the Empire in your mother's name besides.
 
@@ -124,17 +124,17 @@ Keerin never chose her, my Prince.
 
 A man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him at that point.
 
-**Prince Osrid:** Does Rhydia know I'm here? What about my mother?
+**Osrid:** Does Rhydia know I'm here? What about my mother?
 
 **Cadmus:** No. Neither of them has heard a word of you in ten years. I could not risk even that much.
 
-**Prince Osrid:** ...So it's true. They think I'm dead.
+**Osrid:** ...So it's true. They think I'm dead.
 
 **Cadmus:** Your sister refuses to believe it. She still sends candles to your shrine every spring, on the birthday you share.
 
 **Cadmus:** Your mother... stopped sending hers some time ago.
 
-**Prince Osrid:** ......
+**Osrid:** ......
 
 **Cadmus:** When the time is right, they will know. You have my word.
 
@@ -142,15 +142,15 @@ A man who beats the Champion in front of the whole Empire can tell everyone who 
 
 My Prince... what are Pokémon to you?
 
-**Prince Osrid:** ...Tools. You keep them fed, you keep them sharp, and you use them carefully to control outcomes upon the battlefield.
+**Osrid:** ...Tools. You keep them fed, you keep them sharp, and you use them carefully to control outcomes upon the battlefield.
 
 **Cadmus:** Those sound like Surge's words.
 
-**Prince Osrid:** They kept me alive.
+**Osrid:** They kept me alive.
 
 **Cadmus:** Certainly they did... but they also left you burned to ashes on that beach.
 
-**Prince Osrid:** Enough debate.
+**Osrid:** Enough debate.
 
 Those balls behind you... are those starter Pokémon? I thought those were only given to noble children.
 
@@ -158,13 +158,13 @@ Those balls behind you... are those starter Pokémon? I thought those were only 
 
 One of them shall be your first step toward becoming who you were always meant to be.
 
-**Prince Osrid:** It feels surreal to be able to choose a partner of my own at twenty. If things had been different, I would have gotten my own before I was sent away...
+**Osrid:** It feels surreal to be able to choose a partner of my own at twenty. If things had been different, I would have gotten my own before I was sent away...
 
 **Cadmus:** We cannot change the past, my Prince, but perhaps there is a silver lining...
 
 In any case, read the note beside each one before you choose. I wrote them myself, so forgive the handwriting.
 
-**Prince Osrid:** I will.
+**Osrid:** I will.
 
 **Cadmus:** Also, before you choose, please take this.
 
@@ -176,7 +176,7 @@ You'll be meeting a great many Pokémon from here on, and you should keep a reco
 
 Write down each one you meet, what it is and how it fights, in your own hand. It also features the latest map of the region, right before the index.
 
-**Prince Osrid:** Thank you. I will choose now.
+**Osrid:** Thank you. I will choose now.
 
 **Cadmus:** Proceed, my Lord. This is an important choice.
 
@@ -338,7 +338,7 @@ Neptune, our guest is leaving. Escort her.
 
 But just how could that be...
 
-**Prince Osrid:** Someone who knew I was coming?
+**Osrid:** Someone who knew I was coming?
 
 **Cadmus:** Or someone who knew I was preparing for someone. Either way... I can no longer put off telling you about your... other mission. And this one is even more important than the Trials.
 
@@ -352,7 +352,7 @@ I confess I understand the why of it less than I would like, but the significanc
 
 If they reach the shards first... I fear neither of us will like what they awaken.
 
-**Prince Osrid:** And the Trials?
+**Osrid:** And the Trials?
 
 **Cadmus:** Besides serving as a path for you to reveal your identity, and a means to grow into your potential as a Trainer, the Trials are the reason no one will question what a Rainhawk is doing on a mountaintop, and my name never has to come up.
 
@@ -364,7 +364,7 @@ A Trial challenger can go almost anywhere he pleases.
 
 **Cadmus:** Which means no more announcing yourself to thieves as the youngest Rainhawk in history.
 
-**Prince Osrid:** ...She asked.
+**Osrid:** ...She asked.
 
 **Cadmus:** I know someone who can make the stone whole again, and keep the cults from taking control of it.
 
@@ -372,7 +372,7 @@ A Trial challenger can go almost anywhere he pleases.
 
 If a shard is nearby, the Pokémon there will be affected in various ways. I have quite a few potential leads as well, but you are not yet strong enough to pursue them.
 
-**Prince Osrid:** Where do I begin? Surely there must be something I can do, even if I'm currently a novice Trainer.
+**Osrid:** Where do I begin? Surely there must be something I can do, even if I'm currently a novice Trainer.
 
 **Cadmus:** West, past Route 11, toward Mirroh. Kimaris Langerin oversees the first Trial there, and there are rumors of a piece on the mountain above it.
 

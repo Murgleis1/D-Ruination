@@ -29,7 +29,7 @@ def render(body):
         if m: speaker = NAMES.get(m.group(1), m.group(1)); continue
         m = re.match(r'speakername\("([^"]*)"\)', line)
         if m: speaker = m.group(1); continue
-        if line.startswith('special(DrSetPrinceNameplate)'): speaker = 'Prince Osrid'; continue
+        if line.startswith('special(DrSetPrinceNameplate)'): speaker = 'Osrid'; continue
         if line.startswith('closemessage'): speaker = None; continue
         if line.startswith('special(DrDoPlayerNaming)'):
             out.append('*[Naming screen: you sign your name.]*'); continue

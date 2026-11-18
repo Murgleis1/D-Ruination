@@ -3811,8 +3811,8 @@ DR_PellucaCity_Arrival_Text_2:
 
 DR_PellucaCity_Arrival_Text_3:
 # 1427 "data/maps/PellucaCity/scripts.pory"
-	.string "Heard Sevii took his face. The whole\n"
-	.string "beach went up, they say.$"
+	.string "That's the one who held the beach at\n"
+	.string "Sevii. Burned for it, they say.$"
 
 DR_PellucaCity_Arrival_Text_4:
 # 1434 "data/maps/PellucaCity/scripts.pory"
@@ -3821,7 +3821,7 @@ DR_PellucaCity_Arrival_Text_4:
 
 DR_PellucaCity_Arrival_Text_5:
 # 1438 "data/maps/PellucaCity/scripts.pory"
-	.string "Does it still hurt?$"
+	.string "And the burns? Are they healing?$"
 
 DR_PellucaCity_Arrival_Text_6:
 # 1440 "data/maps/PellucaCity/scripts.pory"
@@ -3829,7 +3829,7 @@ DR_PellucaCity_Arrival_Text_6:
 
 DR_PellucaCity_Arrival_Text_7:
 # 1441 "data/maps/PellucaCity/scripts.pory"
-	.string "Less than it did.$"
+	.string "Slowly. The mask helps.$"
 
 DR_PellucaCity_Arrival_Text_8:
 # 1443 "data/maps/PellucaCity/scripts.pory"
@@ -3838,7 +3838,7 @@ DR_PellucaCity_Arrival_Text_8:
 
 DR_PellucaCity_Arrival_Text_9:
 # 1455 "data/maps/PellucaCity/scripts.pory"
-	.string "For Prince Osrid, Keerin's Chosen.\n"
+	.string "For Prince {PLAYER}, Keerin's Chosen.\n"
 	.string "Wherever you are, come home.$"
 
 DR_PellucaCity_Arrival_Text_10:

@@ -30,7 +30,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 *[Signing screen: pre-filled "Osrid", editable.]*
 
-**Prince Osrid:** Received and acknowledged. I will be aboard the Veluza when she sails.  It... will be good to be home again.
+**Osrid:** Received and acknowledged. I will be aboard the Veluza when she sails.  It... will be good to be home again.
 
 *[The letter burns in the lamp: flame sound, no narration.]*
 
@@ -38,13 +38,13 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Dockhand:** A Rainhawk, in a mask? Like something out of the old stories.
 
-**Sailor:** Heard Sevii took his face. The whole beach went up, they say.
+**Sailor:** That's the one who held the beach at Sevii. Burned for it, they say.
 
 **Cadmus:** Rainhawk Alban. Welcome to Pelluca Valley.
 
-**Cadmus:** Does it still hurt?
+**Cadmus:** And the burns? Are they healing?
 
-**“Nomad”:** Less than it did.
+**“Nomad”:** Slowly. The mask helps.
 
 **Cadmus:** Good. Walk with me. We will talk somewhere quieter.
 
@@ -56,39 +56,39 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Cadmus:** Let me see.
 
-**Prince Osrid:** No.
+**Osrid:** No.
 
 **Cadmus:** Of course.  The last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?
 
-**Prince Osrid:** I remember the tree.
+**Osrid:** I remember the tree.
 
 **Cadmus:** Then let us talk about who you are while you're here.  To the Empire, you are Nomad Alban, a Rainhawk lately discharged and now my personal assistant. The Academy has also named you its head of security, which mostly means no door in this valley is closed to you.
 
 **Cadmus:** There is a small house down in the valley with your cover name on the lease. It isn't much, but the door locks.
 
-**Prince Osrid:** And the real work?
+**Osrid:** And the real work?
 
 **Cadmus:** For now, the real work and the cover are the same. Earn the Trial Badges. All of them.  A Rainhawk who holds every badge has the right to challenge the Champion.
 
-**Prince Osrid:** My sister.
+**Osrid:** My sister.
 
 **Cadmus:** Your sister. Rhydia has held the title for five years now, and she rules the Empire in your mother's name besides.  A man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him.
 
-**Prince Osrid:** Does she know I'm here?
+**Osrid:** Does she know I'm here?
 
 **Cadmus:** No.
 
 **Cadmus:** Tell me something. What are Pokémon, to you?
 
-**Prince Osrid:** Assets. You keep them fed, you keep them sharp, and you spend them carefully.
+**Osrid:** Assets. You keep them fed, you keep them sharp, and you spend them carefully.
 
 **Cadmus:** Surge's words.
 
-**Prince Osrid:** They kept me alive.
+**Osrid:** They kept me alive.
 
 **Cadmus:** They did. They also put you on that beach.
 
-**Prince Osrid:** Starter Pokémon? I thought those were only given to noble children.
+**Osrid:** Starter Pokémon? I thought those were only given to noble children.
 
 **Cadmus:** Usually. These three are different.  Read the note beside each one before you choose. I wrote them myself, so forgive the handwriting.
 
@@ -98,7 +98,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Cadmus:** Paper and ink. It isn't elaborate, but it will get the job done. Write down each one you meet, what it is and how it fights, in your own hand.  In the army, someone else wrote the reports and you read them. This time, you see each Pokémon for yourself.
 
-**Prince Osrid:** Understood.
+**Osrid:** Understood.
 
 ## Starter note: Frigibax
 
@@ -186,7 +186,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Cadmus:** She knew where to look, and she knew exactly what to take. Someone told her both.
 
-**Prince Osrid:** Someone who knew I was coming.
+**Osrid:** Someone who knew I was coming.
 
 **Cadmus:** Or someone who knew I was preparing for someone. Either way, I can't put off telling you about the other half of your work.
 
@@ -194,11 +194,11 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Cadmus:** There are cults in Cormoria, more of them every year, and two of them want those pieces as badly as I do. If they reach them first, I don't think either of us will like what they wake up.
 
-**Prince Osrid:** And the badges?
+**Osrid:** And the badges?
 
 **Cadmus:** The badges are why no one will ask what you are doing on a mountain. A Rainhawk chasing Trials can go anywhere he likes.  Bring the pieces to me. I know someone who can make the stone whole again.
 
-**Prince Osrid:** Where do I start?
+**Osrid:** Where do I start?
 
 **Cadmus:** West, past Route 11, toward Mirroh. Kimaris Langerin oversees the first Trial there, and there are rumors of a piece on the mountain above it.  But take a day in the valley first. Learn your partner's habits before someone tests them for you.
 

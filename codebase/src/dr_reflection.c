@@ -35,23 +35,23 @@ void DrDoPlayerNaming(void)
                    gSaveBlock2Ptr->playerGender, 0, 0, CB2_ReturnToFieldContinueScript);
 }
 
-static const u8 sText_Prince[] = _("Prince ");
 static u8 sOsridNameplate[24];
 
-// Cold-open cutscene: set the speaker nameplate to "Prince <chosen name>" for
-// Osrid's reply, resolving "Prince ???" into the name the player just entered.
+// Private scenes: set the speaker label to the name the player signed with (cold-open reply,
+// talks alone with Cadmus).
 // Later covers (e.g. Nomad Alban) set their own nameplate.
 void DrSetPrinceNameplate(void)
 {
     if (gSaveBlock2Ptr->playerName[0] == EOS)   // signed with nothing: he is still Osrid
         StringCopy(gSaveBlock2Ptr->playerName, sText_DefaultPrinceName);
-    StringCopy(sOsridNameplate, sText_Prince);
-    StringAppend(sOsridNameplate, gSaveBlock2Ptr->playerName);
+    // In private his label is simply the name the player signed with (user 2026-11-18);
+    // in public scenes the scripts use the cover label "Nomad" instead.
+    StringCopy(sOsridNameplate, gSaveBlock2Ptr->playerName);
     SetSpeakerName(sOsridNameplate);
 }
 
 // Chapter 1 harbor arrival: Cadmus speaks under his own name, replacing the
-// "Prince <name>" plate that the cold open leaves set.
+// private-name label that the cold open leaves set.
 static const u8 sText_Cadmus[] = _("Cadmus");
 static u8 sCadmusNameplate[24];
 void DrSetCadmusNameplate(void)
