@@ -7,7 +7,8 @@ that sounded "downtuned and ugly".)
 Instrument: voicegroup194 program 0 = the game's multi-sampled piano (sc88pro piano1 48/60/72/84 over
 KeySplitTable1, as voicegroup005) with a pedal-like envelope (voicegroup195: slow decay, some sustain, long release).
 
-  melody     part 5 (the tune), moved up an octave phrase by phrase where it sits low, so it floats high
+  melody     part 5 (the tune), moved up an octave phrase by phrase where it sits low, kept at or below A5 (MEL_TOP)
+             so the top piano sample and the engine reverb don't ring shrill (user)
   echo       the melody again a dotted eighth later, faint and short, panned to the other side (user: the first
              version had too much echo; now about half as loud)
   left hand  smooth eighth-note broken chords on each bar's chord -- root, 5th, octave, 10th, ... -- plus a soft
@@ -53,14 +54,18 @@ def chords(parts):
         out[b] = (r, minor)
     return out
 
+MEL_TOP = 81      # A5: above this the top piano sample + the engine's reverb ring shrill and bell-like (user)
 def melody_shift(tune):
-    """+12 for 4-bar phrases that sit low (max <= 79), -12 for any above 91 after folding."""
+    """Per 4-bar phrase (keeps the tune's contour): +12 only if the phrase still fits under MEL_TOP,
+    -12 (repeatedly) if it reaches above MEL_TOP."""
     sh = {}
     for ph in range(0, NBARS, 4):
         ns = sounding(tune, ph * BAR, (ph + 4) * BAR)
         if not ns: continue
         hi = max(p for _, p, _, _ in ns)
-        sh[ph] = 12 if hi <= 79 else (-12 if hi > 91 else 0)
+        k = 12 if hi + 12 <= MEL_TOP else 0
+        while hi + k > MEL_TOP: k -= 12
+        sh[ph] = k
     return sh
 
 def build():
@@ -72,9 +77,9 @@ def build():
     for (t, p, d, v) in parts[5][0]:
         if t >= END: continue
         q = p + sh.get(int(t // BAR) // 4 * 4, 0)
-        while q > 93: q -= 12
+        while q > MEL_TOP: q -= 12
         tracks['melody'].append((t, q, d, 70 + 3 * v))
-        if t + 3 * TPQ // 4 < END:
+        if t + 3 * TPQ // 4 < END and q <= 76:          # no echo on the high notes (bell-like repeats)
             tracks['echo'].append((t + 3 * TPQ // 4, q, min(d, TPQ // 2), 30 + 2 * v))   # faint (user: too much echo)
     # left hand: broken chords from the song's own harmony
     for b, c in CH.items():
