@@ -143,3 +143,26 @@ The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy
 - **No prose narration in scenes** (user 2026-11-17): a text-reading Pokémon game shows action through sprites. Movement, emotes (!), cries and sound effects carry what narration used to say (Eden tries the door and Neptune cuts her off; the letter burns with a flame sound). Text the player *reads* stays: the letter, the shrine plaque, Cadmus's notes, item and system messages.
 - Lab staging (Elderflower study, user 2026-11-17): after the briefing Cadmus steps aside to stand by the door (5,8), leaving the table and rug clear. Theft: Eden appears at the far end of the table (11,5), glances at the exit and runs for it across the room; on Cadmus's order Neptune comes out beside him and plants himself on the doorway (4,9); she stops on the rug, gets a "!" and backs up to (5,4). The face-off and battle happen on the rug in the middle of the room: Osrid (5,6), Eden (5,4), Pilfer beside her (4,4). Lose branch: she runs for the window (5,3); Neptune cuts up the left side to (4,3).
 - Templar holding cell: the high-contrast white striped floor was repainted as soft grey flagstone (user: eye strain), tiles 515/516/531/532 of the monastery tileset.
+
+### 16.10 Refinement process + playthrough pass `[2026-11-18, user-directed]`
+**Process (user, 2026-11-18) — applies to every chapter:**
+1. **Skeleton first:** every major event and sequence, and the core maps and routes, through the end of the chapter.
+2. **Then content:** all NPCs, dialogue and the actual fights throughout the chapter.
+3. **Then** sidequests, quality-of-life, and serious play-driving.
+Chapter 1 is the template: once its foundations (mechanics, maps, buildings, NPC/script workflows) are right, later chapters reuse them.
+
+**Playthrough 2026-11-18** (headless, New Game → end of the shard briefing; captures in the session scratch `pt1/`):
+- Plays start to finish with no hang. Cold open → Pelluca dock → lab → starter → Eden theft and battle → monastery cell → shard briefing → free control; Osrid walks out of the lab into Pelluca.
+- The lose branch of the Eden battle plays correctly and the party is healed afterwards (Tinkatink 25/25).
+- **Fixed:** the signing screen opened empty (an A-masher signs as "Aa"). The name now pre-fills **Osrid** (player naming template shows the existing name), and an empty signature falls back to Osrid.
+
+**Phase-1 gaps (skeleton) found by the pass:**
+- **Chapter 1 stops at Pelluca.** After the briefing Cadmus sends the player "west, past Route 11, toward Mirroh", but Pelluca has no connections and **Route 11 and Hollow Hill do not exist**. Mirroh-area maps exist only as the base game's era maps (MirrohBaseCamp, MtMirrohExterior, MirrohInterior_*, MirrohPeak, AncientMirroh_*) on old tilesets.
+- **Pelluca interiors on the story path are placeholders:** the dormitory (Osrid's room — Cadmus ends the briefing with "get some sleep") uses Houses room A; the Tavern (heal + shop) uses the old Pokémon Center.
+- Town basics still missing: water animation, door animations.
+
+**Logged for phase 2 (NPCs / dialogue / fights) — not skeleton work:**
+- Eden lab fight balance: an all-Pound Tinkatink (Pound/Growl) loses to Pilfer (Beat Up) + Teddiursa (Confuse Ray / Echoed Voice). It is a losable story battle by design; tune in the fights pass.
+- The lab battle uses the generic white indoor battle background.
+- Cadmus's "Forgive the chaos" opens on a tidy lab.
+- The signing screen is the stock bright naming UI inside the dark cold open (presentation; QoL phase).

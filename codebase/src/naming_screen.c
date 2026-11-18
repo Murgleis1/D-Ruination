@@ -2108,7 +2108,7 @@ static void UNUSED Debug_NamingScreenNickname(void)
 // Initial pages below are pointless, they're overwritten with KBPAGE_LETTERS_UPPER in MainState_FadeIn()
 static const struct NamingScreenTemplate sPlayerNamingScreenTemplate =
 {
-    .copyExistingString = FALSE,
+    .copyExistingString = TRUE,   // Dreamstone Ruination: show the current name (the cold open pre-fills "Osrid")
     .maxChars = PLAYER_NAME_LENGTH,
     .iconFunction = 1,
     .addGenderIcon = FALSE,

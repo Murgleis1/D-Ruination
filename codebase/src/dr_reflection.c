@@ -6,6 +6,7 @@
 #include "field_screen_effect.h"
 #include "constants/event_objects.h"
 #include "constants/rgb.h"
+#include "constants/characters.h"
 #include "string_util.h"
 #include "field_message_box.h"
 
@@ -23,8 +24,13 @@ void DrSetPlayerOsridSprite(void)
 }
 
 // Cold-open cutscene: open the player naming screen; the map script resumes after.
+// The prince's name defaults to Osrid (bible 16.2 Beat 1: diegetic signature, default Osrid, editable).
+static const u8 sText_DefaultPrinceName[] = _("Osrid");
+
 void DrDoPlayerNaming(void)
 {
+    if (gSaveBlock2Ptr->playerName[0] == EOS)
+        StringCopy(gSaveBlock2Ptr->playerName, sText_DefaultPrinceName);
     DoNamingScreen(NAMING_SCREEN_PLAYER, gSaveBlock2Ptr->playerName,
                    gSaveBlock2Ptr->playerGender, 0, 0, CB2_ReturnToFieldContinueScript);
 }
@@ -37,6 +43,8 @@ static u8 sOsridNameplate[24];
 // Later covers (e.g. Nomad Alban) set their own nameplate.
 void DrSetPrinceNameplate(void)
 {
+    if (gSaveBlock2Ptr->playerName[0] == EOS)   // signed with nothing: he is still Osrid
+        StringCopy(gSaveBlock2Ptr->playerName, sText_DefaultPrinceName);
     StringCopy(sOsridNameplate, sText_Prince);
     StringAppend(sOsridNameplate, gSaveBlock2Ptr->playerName);
     SetSpeakerName(sOsridNameplate);
