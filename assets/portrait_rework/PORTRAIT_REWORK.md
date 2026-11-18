@@ -465,3 +465,12 @@ User feedback:
 - The back edge and nape are unchanged.
 
 review.py --mode back: pass.
+
+## Osrid round 17 — forearm bracers on the back pic (candidate Q9)
+
+User: the round-16 head "works for the time being design-wise". However, the front sprite's arm has a brown leather bracer near the hand, while the back sprite's arm is all jacket.
+
+`osrid_trainer_back.py` frame():
+- The sleeve within BRACER_LEN=6 px of each glove, above BRACER_MAX_Y=34 (raised or extended forearms only), becomes leather.
+- Leather tones: light 7 (160,104,76), mid 8 (92,64,44), dark 6. Dark wrap lines run diagonally every 4 px.
+- This matches the front sprite's bracer and the concept sheet's "BRACER & GLOVE".

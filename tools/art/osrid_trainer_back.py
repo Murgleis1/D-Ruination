@@ -45,6 +45,8 @@ SCARFC = {0xA, 0xB, 0xC}
 JACKET = {0x2, 0x3, 0x6, 0x8}
 OUT = 0x5
 GLOVE = {0x9: 0xE, 0xE: 0xE, 0xF: 0xE, 0x7: 0xF, 0xC: 0x6, 0x8: 0xF}   # fingerless dark gloves, tan fingers
+BRACER_LEN = 6                            # px of sleeve behind the glove that is bracer
+BRACER_MAX_Y = 34                         # only on raised / extended forearms (not the body)
 EYE0 = (39, 24)                           # #4's eye glint in frame 0 (x, y): the anchor
 
 # Osrid's head = MonoMyth #4's frame-0 head (the same drawing in every frame, only moved: 98%
@@ -455,6 +457,17 @@ def frame(f, H0):
         hand = g2
     for k, v in GLOVE.items():
         a[hand & (f == k)] = v
+    # --- brown leather bracers on the forearms (front sprite / concept sheet "BRACER & GLOVE"): the sleeve
+    #     just behind each glove becomes leather -- light (7), mid (8), dark (6) -- with dark wrap lines
+    if hand.any():
+        near = np.zeros_like(hand)
+        hy2, hx2 = np.nonzero(hand)
+        for y, x in zip(hy2, hx2):
+            near[max(0, y - BRACER_LEN):y + BRACER_LEN + 1, max(0, x - BRACER_LEN):x + BRACER_LEN + 1] = True
+        sleeve = near & ~hand & np.isin(f, [0x2, 0x3, 0x6]) & (np.arange(64)[:, None] < BRACER_MAX_Y)
+        for y, x in zip(*np.nonzero(sleeve)):
+            a[y, x] = {0x3: 0x7, 0x2: 0x8, 0x6: 0x6}[int(f[y, x])]
+            if (x + y) % 4 == 0 and f[y, x] != 0x6: a[y, x] = 0x6            # wraps
     # --- clear #4's head: hair, face skin, and the outline that belonged to them
     old = hair | (skin & ~hand)
     grow = old.copy()
