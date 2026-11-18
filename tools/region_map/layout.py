@@ -1,0 +1,66 @@
+"""Empire-era region map layout: every map section's cells on the 28x15 region-map grid.
+Draft 1 (2026-11-18), read off assets/region_map/cormorian_empire_illustrated.png.
+kind: city = large city (2-cell rectangle on a painted city icon), town = town/landmark marker,
+route = road, area = named terrain (selectable, painted only)."""
+LAYOUT = [
+ # name,                    kind,   x,  y, w, h
+ # --- west: the Mirroh massif ---
+ ("Mt. Mirroh Peak",        "town",   4,  0, 1, 1),
+ ("Mt. Mirroh",             "area",   4,  1, 1, 3),
+ ("Templar Headquarters",   "town",   4,  4, 1, 1),
+ ("Route 13",               "route",  4,  5, 1, 3),
+ ("Mirroh",                 "city",   3,  8, 2, 1),
+ ("Hollow Hill",            "town",   4,  9, 1, 1),
+ ("Mirroh Necropolis",      "town",   6,  7, 1, 1),
+ ("Route 11",               "route",  5,  8, 3, 1),
+ # --- north-west: Moray country and the Ivy River ---
+ ("Route 14",               "route",  5,  3, 3, 1),
+ ("Moray Estate",           "town",   7,  2, 1, 1),
+ ("Pierra's Manor",         "town",   8,  3, 1, 1),
+ ("Route 15",               "route",  5,  4, 3, 1),
+ ("Ivy River",              "area",   8,  4, 1, 4),
+ ("Gleamdusk Prison",       "town",   9,  5, 1, 1),
+ # --- centre and south ---
+ ("Pelluca Valley",         "city",   8,  8, 2, 1),
+ ("Hoya River Delta",       "area",  10,  8, 1, 1),
+ ("Route 10",               "route",  8,  9, 1, 2),
+ ("Rivetshore City",        "city",   8, 11, 2, 1),
+ ("Riptide Bridge",         "route",  8, 12, 1, 1),
+ ("Windrunner Island",      "town",   8, 13, 2, 2),
+ ("Keerin Shrine",          "town",  15, 11, 1, 1),
+ # --- the capital and the north ---
+ ("Silversun Palace",       "town",  13,  2, 1, 1),
+ ("Silversun City",         "city",  12,  3, 2, 1),
+ ("Route 6",                "route", 14,  3, 2, 1),
+ ("Alban Estate",           "town",  16,  3, 1, 1),
+ ("Route 5",                "route", 17,  3, 2, 1),
+ ("Galecrest City",         "city",  19,  3, 2, 1),
+ ("Vilethorn Woods",        "area",  15,  4, 3, 2),
+ ("Route 7",                "route", 12,  4, 1, 1),
+ ("Graymoon Keep",          "town",  12,  5, 1, 1),
+ ("Route 9",                "route", 12,  6, 1, 2),
+ # --- the east arm ---
+ ("Shadowmarshes",          "area",  11,  8, 2, 2),
+ ("Veddev",                 "town",  13,  8, 1, 1),
+ ("Sunset Tower",           "town",  14,  7, 1, 1),
+ ("Route 1",                "route", 15,  7, 2, 1),
+ ("Carabrue Keep",          "town",  16,  8, 1, 1),
+ ("Route 2",                "route", 17,  8, 2, 1),
+ ("Fennilahl",              "city",  19,  8, 2, 1),
+ ("Route 4",                "route", 20,  4, 1, 1),
+ ("Blue Moon Monastery",    "town",  20,  5, 1, 1),
+ ("Route 3 (proposed)",     "route", 20,  6, 1, 2),
+ ("Northpoint Academy",     "town",  22,  7, 1, 1),
+ ("Route 0",                "route", 21,  8, 3, 1),
+ ("Agustrei Heights",       "town",  24,  8, 1, 1),
+ ("Fennilahl Suburbs",      "town",  20,  9, 1, 1),
+ ("Paragon Gate",           "town",  20, 10, 1, 1),
+ ("Paragon Road",           "route", 21, 10, 1, 3),
+ ("Victory Cape",           "city",  21, 13, 2, 1),
+ # --- the far east ---
+ ("Tinkaton Lair",          "town",  24,  0, 1, 1),
+ ("Seregmorn Desert",       "area",  23,  1, 3, 2),
+ ("Dune Path",              "route", 24,  3, 1, 1),
+ ("Mt. Ceram",              "town",  24,  4, 1, 2),
+ ("The Ashlands",           "area",  25,  5, 3, 4),
+]
