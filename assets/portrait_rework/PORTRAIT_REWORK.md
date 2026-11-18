@@ -508,4 +508,4 @@ Verified in the emulator on a fresh playthrough from boot (`at_ball.state` regen
 
 Sheet: `osrid_installed/ingame_verification.png`.
 
-Noticed, not changed: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluca dock scene). This looks like a script portrait swap, not art.
+Note: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluca dock scene). This is correct, because Nomad Alban is Osrid's alias (user, 2026-11-17).

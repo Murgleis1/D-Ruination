@@ -46,6 +46,7 @@ static void Task_TitleScreenPhase1(u8);
 static void Task_TitleScreenPhase2(u8);
 static void Task_TitleScreenPhase3(u8);
 static void CB2_GoToMainMenu(void);
+static void RestoreSoundChannels(void);
 static void CB2_GoToClearSaveDataScreen(void);
 static void CB2_GoToResetRtcScreen(void);
 static void CB2_GoToBerryFixScreen(void);
@@ -57,6 +58,9 @@ static void SpriteCB_VersionBannerLeft(struct Sprite *sprite);
 static void SpriteCB_VersionBannerRight(struct Sprite *sprite);
 static void SpriteCB_PressStartCopyrightBanner(struct Sprite *sprite);
 static void SpriteCB_PokemonLogoShine(struct Sprite *sprite);
+
+#define TITLE_SOUND_CHANNELS   8   // sampled voices while the title theme plays
+#define DEFAULT_SOUND_CHANNELS 5   // the game's default (m4aSoundInit in m4a.c)
 
 // const rom data
 static const u16 sUnusedUnknownPal[] = INCBIN_U16("graphics/title_screen/unused.gbapal");
@@ -644,6 +648,10 @@ void CB2_InitTitleScreen(void)
                                     | DISPCNT_OBJ_1D_MAP
                                     | DISPCNT_BG0_ON
                                     | DISPCNT_OBJ_ON);
+        // Dreamstone Ruination: the ethereal title theme layers choir, strings, harp and bells with long
+        // release tails; give it 8 sampled voices while the title screen is up (the game default is 5,
+        // m4aSoundInit). RestoreSoundChannels() puts it back on the way out, so other music is unchanged.
+        m4aSoundMode(TITLE_SOUND_CHANNELS << SOUND_MODE_MAXCHN_SHIFT);
         m4aSongNumStart(MUS_DR_TITLE);
         gMain.state = 5;
         break;
@@ -803,28 +811,48 @@ static void Task_TitleScreenPhase3(u8 taskId)
     }
 }
 
+static void RestoreSoundChannels(void)
+{
+    // Back to the game's default voice count. Set directly rather than through m4aSoundMode(), which
+    // would also silence every channel and cut the title theme's fade-out; the next m4aSoundMode()
+    // channel change (the title screen again) clears all channels anyway.
+    SOUND_INFO_PTR->maxChans = DEFAULT_SOUND_CHANNELS;
+}
+
 static void CB2_GoToMainMenu(void)
 {
     if (!UpdatePaletteFade())
+    {
+        RestoreSoundChannels();
         SetMainCallback2(CB2_InitMainMenu);
+    }
 }
 
 static void CB2_GoToCopyrightScreen(void)
 {
     if (!UpdatePaletteFade())
+    {
+        RestoreSoundChannels();
         SetMainCallback2(CB2_InitCopyrightScreenAfterTitleScreen);
+    }
 }
 
 static void CB2_GoToClearSaveDataScreen(void)
 {
     if (!UpdatePaletteFade())
+    {
+        RestoreSoundChannels();
         SetMainCallback2(CB2_InitClearSaveDataScreen);
+    }
 }
 
 static void CB2_GoToResetRtcScreen(void)
 {
     if (!UpdatePaletteFade())
+    {
+        RestoreSoundChannels();
         SetMainCallback2(CB2_InitResetRtcScreen);
+    }
 }
 
 static void CB2_GoToBerryFixScreen(void)
@@ -832,6 +860,7 @@ static void CB2_GoToBerryFixScreen(void)
     if (!UpdatePaletteFade())
     {
         m4aMPlayAllStop();
+        RestoreSoundChannels();
         SetMainCallback2(CB2_InitBerryFixProgram);
     }
 }
