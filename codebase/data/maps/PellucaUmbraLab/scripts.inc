@@ -1069,10 +1069,8 @@ DR_Lab_ShardBriefing_Movement_0:
 DR_Lab_Briefing_Text_0:
 # 59 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Welcome home, my Prince. Forgive the\n"
-	.string "chaos.\p"
-	.string "This lab is my personal environment, and\n"
-	.string "a place where we can communicate\l"
-	.string "openly, without reservations.$"
+	.string "clutter.\p"
+	.string "Here, at least, we can speak freely.$"
 
 DR_Lab_Briefing_Text_1:
 # 61 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1080,17 +1078,15 @@ DR_Lab_Briefing_Text_1:
 
 DR_Lab_Briefing_Text_2:
 # 64 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "...No. I can't. It is a complete ruin.$"
+	.string "...No. Not yet.$"
 
 DR_Lab_Briefing_Text_3:
 # 68 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "...If that is how you feel now, I will not\n"
-	.string "press the matter further.$"
+	.string "Then I will not ask again.$"
 
 DR_Lab_Briefing_Text_4:
 # 70 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Being here together after all this\n"
-	.string "time... it fills my heart with joy.\p"
+	.string "It is good to have you home.\p"
 	.string "The last time you were in Pelluca, you\n"
 	.string "and your sister were ten years old. You\l"
 	.string "fell out of the Academy's apple tree in\l"
@@ -1108,57 +1104,72 @@ DR_Lab_Briefing_Text_6:
 
 DR_Lab_Briefing_Text_7:
 # 77 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "But alas, let us speak about the\n"
-	.string "present, and your immediate future.\p"
-	.string "To the Empire right now, you are Nomad\n"
-	.string "Alban, a Rainhawk discharged honorably\l"
-	.string "due to injury and now formally\l"
-	.string "reassigned to the Ministry of\l"
-	.string "Education.\p"
-	.string "The Academy has also named you its\n"
-	.string "head of security, which mostly means no\l"
-	.string "door in Pelluca Valley will be closed to\l"
-	.string "you. And under my authority, most\l"
-	.string "places in the Empire are open to you as\l"
+	.string "But let us return to the present.\p"
+	.string "To the public, you are Nomad Alban: a\n"
+	.string "Rainhawk, a war hero of the Sevii\l"
+	.string "campaign, and now head of security for\l"
+	.string "the Ministry of Education.\p"
+	.string "The post will let you travel freely\n"
+	.string "throughout the Empire, and few will\l"
+	.string "interrogate you. If anyone questions\l"
+	.string "your authority, they are questioning MY\l"
+	.string "authority as Vizier of Education. Use it\l"
 	.string "well.$"
 
 DR_Lab_Briefing_Text_8:
 # 78 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "There is a dormitory northwest of here\n"
-	.string "with your cover name on the door, the\l"
-	.string "largest study on the first floor. It\l"
-	.string "isn't much, but the door locks and the\l"
-	.string "bed is comfy.$"
+	.string "Moving on. You will live among the\n"
+	.string "Academy's students, as your new post\l"
+	.string "requires. The dormitory northwest of\l"
+	.string "here has a room with your cover name on\l"
+	.string "the door, the largest on the first\l"
+	.string "floor. It isn't much, but the door locks\l"
+	.string "and the bed is soft.$"
 
 DR_Lab_Briefing_Text_9:
 # 81 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "That's all well and good. But why, after\n"
-	.string "ten years, did you finally bring me\l"
-	.string "home? After Father's assassination, I\l"
-	.string "thought-$"
+	.string "That's all well and good. But why did it\n"
+	.string "take ten years to bring me home? After\l"
+	.string "Father's assassination, I thought-$"
 
 DR_Lab_Briefing_Text_10:
 # 83 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Because there was too much back then I\n"
 	.string "didn't know... only that you were the\l"
 	.string "next target.\p"
-	.string "I barely had the political means to\n"
-	.string "protect your sister and mother, and I\l"
-	.string "needed to take drastic measures to\l"
-	.string "hide you, which is why my agents and I\l"
-	.string "established a false identity for you\l"
-	.string "and sent you overseas.\p"
-	.string "But now... I have a clearer idea of what\n"
-	.string "is happening in Cormoria, and of who I\l"
-	.string "believe killed your father.\p"
+	.string "Hiding you from your father's assassins\n"
+	.string "required drastic measures. A new\l"
+	.string "identity, a Nomad discarded by the\l"
+	.string "Albans... it was the perfect\l"
+	.string "smokescreen.\p"
+	.string "I meant for you to wait out the danger\n"
+	.string "at a military academy overseas, among\l"
+	.string "the children of minor nobles and\l"
+	.string "soldiers. From there, a quiet\l"
+	.string "commission, or better yet a place in the\l"
+	.string "reserves, where I could keep watch over\l"
+	.string "you and recall you formally when the\l"
+	.string "time was right.\p"
+	.string "Five years ago, our territorial dispute\n"
+	.string "with Kanto escalated, and you were sent\l"
+	.string "to the front lines. I lost track of you\l"
+	.string "completely until very recently, I am\l"
+	.string "ashamed to admit.\p"
+	.string "But now... I have a much clearer idea of\n"
+	.string "what is happening in Cormoria, and of\l"
+	.string "those I believe brought about Eldred's\l"
+	.string "demise.\p"
 	.string "The time was right to bring you home,\n"
 	.string "though I wish to Arceus it were under\l"
-	.string "better circumstances.$"
+	.string "better circumstances. But... you are\l"
+	.string "here now, and stronger than I could\l"
+	.string "have ever hoped. Your father would be\l"
+	.string "proud.$"
 
 DR_Lab_Briefing_Text_11:
 # 84 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "So, you have two missions, and we will\n"
-	.string "discuss the first now.\p"
+	.string "You have two missions. The first is the\n"
+	.string "one the whole Empire will see.\p"
 	.string "A Rainhawk who clears every Trial has\n"
 	.string "the right to challenge the Champion.\l"
 	.string "She is someone you know quite well...\l"
@@ -1186,7 +1197,7 @@ DR_Lab_Briefing_Text_13:
 	.string "A man who beats the Champion in front\n"
 	.string "of the whole Empire can tell everyone\l"
 	.string "who he really is, and no one will dare\l"
-	.string "touch him at that point.$"
+	.string "touch him.$"
 
 DR_Lab_Briefing_Text_14:
 # 92 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1225,8 +1236,8 @@ DR_Lab_Briefing_Text_20:
 
 DR_Lab_Briefing_Text_21:
 # 109 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Let us move on, however, to the most\n"
-	.string "critical topic.\p"
+	.string "One more thing, and it matters more\n"
+	.string "than the rest.\p"
 	.string "My Prince... what are Pokémon to you?$"
 
 DR_Lab_Briefing_Text_22:
@@ -1247,7 +1258,7 @@ DR_Lab_Briefing_Text_24:
 DR_Lab_Briefing_Text_25:
 # 119 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "Certainly they did... but they also left\n"
-	.string "you burned to ashes on that beach.$"
+	.string "you burning on that beach.$"
 
 DR_Lab_Briefing_Text_26:
 # 122 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1266,10 +1277,10 @@ DR_Lab_Briefing_Text_27:
 
 DR_Lab_Briefing_Text_28:
 # 127 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "It feels surreal to be able to choose a\n"
-	.string "partner of my own at twenty. If things\l"
-	.string "had been different, I would have gotten\l"
-	.string "my own before I was sent away...$"
+	.string "Strange, choosing a partner of my own\n"
+	.string "at twenty. If things had been\l"
+	.string "different, I'd have had one before I\l"
+	.string "was sent away...$"
 
 DR_Lab_Briefing_Text_29:
 # 129 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1298,13 +1309,12 @@ DR_Lab_Briefing_Text_32:
 
 DR_Lab_Briefing_Text_33:
 # 143 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "The Log is standard for all new Trainers\n"
-	.string "in the current era. It isn't elaborate,\l"
-	.string "but it will serve us well.\p"
+	.string "Every new Trainer is given one. It isn't\n"
+	.string "elaborate, but it will serve us well.\p"
 	.string "Write down each one you meet, what it is\n"
 	.string "and how it fights, in your own hand. It\l"
-	.string "also features the latest map of the\l"
-	.string "region, right before the index.$"
+	.string "also holds the latest map of the region,\l"
+	.string "just before the index.$"
 
 DR_Lab_Briefing_Text_34:
 # 146 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1312,7 +1322,7 @@ DR_Lab_Briefing_Text_34:
 
 DR_Lab_Briefing_Text_35:
 # 148 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Proceed, my Lord. This is an important\n"
+	.string "Proceed, my Prince. This is an important\n"
 	.string "choice.$"
 
 DR_Lab_BallFrigibax_Text_0:

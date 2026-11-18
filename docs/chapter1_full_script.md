@@ -74,17 +74,17 @@ It... will be good to be home again.
 
 ## 4. Cadmus's lab: the briefing  [IN GAME]
 
-**Cadmus:** Welcome home, my Prince. Forgive the chaos.
+**Cadmus:** Welcome home, my Prince. Forgive the clutter.
 
-This lab is my personal environment, and a place where we can communicate openly, without reservations.
+Here, at least, we can speak freely.
 
 **Cadmus:** Will you let me see your face?
 
-**Osrid:** ...No. I can't. It is a complete ruin.
+**Osrid:** ...No. Not yet.
 
-**Cadmus:** ...If that is how you feel now, I will not press the matter further.
+**Cadmus:** Then I will not ask again.
 
-**Cadmus:** Being here together after all this time... it fills my heart with joy.
+**Cadmus:** It is good to have you home.
 
 The last time you were in Pelluca, you and your sister were ten years old. You fell out of the Academy's apple tree in front of half the faculty. Do you remember?
 
@@ -92,25 +92,29 @@ The last time you were in Pelluca, you and your sister were ten years old. You f
 
 **Cadmus:** How I miss those days...
 
-**Cadmus:** But alas, let us speak about the present, and your immediate future.
+**Cadmus:** But let us return to the present.
 
-To the Empire right now, you are Nomad Alban, a Rainhawk discharged honorably due to injury and now formally reassigned to the Ministry of Education.
+To the public, you are Nomad Alban: a Rainhawk, a war hero of the Sevii campaign, and now head of security for the Ministry of Education.
 
-The Academy has also named you its head of security, which mostly means no door in Pelluca Valley will be closed to you. And under my authority, most places in the Empire are open to you as well.
+The post will let you travel freely throughout the Empire, and few will interrogate you. If anyone questions your authority, they are questioning MY authority as Vizier of Education. Use it well.
 
-**Cadmus:** There is a dormitory northwest of here with your cover name on the door, the largest study on the first floor. It isn't much, but the door locks and the bed is comfy.
+**Cadmus:** Moving on. You will live among the Academy's students, as your new post requires. The dormitory northwest of here has a room with your cover name on the door, the largest on the first floor. It isn't much, but the door locks and the bed is soft.
 
-**Osrid:** That's all well and good. But why, after ten years, did you finally bring me home? After Father's assassination, I thought-
+**Osrid:** That's all well and good. But why did it take ten years to bring me home? After Father's assassination, I thought-
 
 **Cadmus:** Because there was too much back then I didn't know... only that you were the next target.
 
-I barely had the political means to protect your sister and mother, and I needed to take drastic measures to hide you, which is why my agents and I established a false identity for you and sent you overseas.
+Hiding you from your father's assassins required drastic measures. A new identity, a Nomad discarded by the Albans... it was the perfect smokescreen.
 
-But now... I have a clearer idea of what is happening in Cormoria, and of who I believe killed your father.
+I meant for you to wait out the danger at a military academy overseas, among the children of minor nobles and soldiers. From there, a quiet commission, or better yet a place in the reserves, where I could keep watch over you and recall you formally when the time was right.
 
-The time was right to bring you home, though I wish to Arceus it were under better circumstances.
+Five years ago, our territorial dispute with Kanto escalated, and you were sent to the front lines. I lost track of you completely until very recently, I am ashamed to admit.
 
-**Cadmus:** So, you have two missions, and we will discuss the first now.
+But now... I have a much clearer idea of what is happening in Cormoria, and of those I believe brought about Eldred's demise.
+
+The time was right to bring you home, though I wish to Arceus it were under better circumstances. But... you are here now, and stronger than I could have ever hoped. Your father would be proud.
+
+**Cadmus:** You have two missions. The first is the one the whole Empire will see.
 
 A Rainhawk who clears every Trial has the right to challenge the Champion. She is someone you know quite well... someone who loves you even more than I do.
 
@@ -122,7 +126,7 @@ She is one of the most talented Trainers we have seen in generations, but our en
 
 Keerin never chose her, my Prince.
 
-A man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him at that point.
+A man who beats the Champion in front of the whole Empire can tell everyone who he really is, and no one will dare touch him.
 
 **Osrid:** Does Rhydia know I'm here? What about my mother?
 
@@ -138,7 +142,7 @@ A man who beats the Champion in front of the whole Empire can tell everyone who 
 
 **Cadmus:** When the time is right, they will know. You have my word.
 
-**Cadmus:** Let us move on, however, to the most critical topic.
+**Cadmus:** One more thing, and it matters more than the rest.
 
 My Prince... what are Pokémon to you?
 
@@ -148,7 +152,7 @@ My Prince... what are Pokémon to you?
 
 **Osrid:** They kept me alive.
 
-**Cadmus:** Certainly they did... but they also left you burned to ashes on that beach.
+**Cadmus:** Certainly they did... but they also left you burning on that beach.
 
 **Osrid:** Enough debate.
 
@@ -158,7 +162,7 @@ Those balls behind you... are those starter Pokémon? I thought those were only 
 
 One of them shall be your first step toward becoming who you were always meant to be.
 
-**Osrid:** It feels surreal to be able to choose a partner of my own at twenty. If things had been different, I would have gotten my own before I was sent away...
+**Osrid:** Strange, choosing a partner of my own at twenty. If things had been different, I'd have had one before I was sent away...
 
 **Cadmus:** We cannot change the past, my Prince, but perhaps there is a silver lining...
 
@@ -172,13 +176,13 @@ You'll be meeting a great many Pokémon from here on, and you should keep a reco
 
 *Osrid received the PokéLog!*
 
-**Cadmus:** The Log is standard for all new Trainers in the current era. It isn't elaborate, but it will serve us well.
+**Cadmus:** Every new Trainer is given one. It isn't elaborate, but it will serve us well.
 
-Write down each one you meet, what it is and how it fights, in your own hand. It also features the latest map of the region, right before the index.
+Write down each one you meet, what it is and how it fights, in your own hand. It also holds the latest map of the region, just before the index.
 
 **Osrid:** Thank you. I will choose now.
 
-**Cadmus:** Proceed, my Lord. This is an important choice.
+**Cadmus:** Proceed, my Prince. This is an important choice.
 
 ## 5. The starter notes beside each ball  [IN GAME]
 
