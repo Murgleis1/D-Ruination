@@ -52,7 +52,8 @@ static void CB2_GoToResetRtcScreen(void);
 static void CB2_GoToBerryFixScreen(void);
 static void CB2_GoToCopyrightScreen(void);
 static void UpdateLegendaryMarkingColor(u8);
-static void Task_TitleSkyShimmer(u8);
+static void Task_TitleAnim(u8);
+static void ResetTitleAnimGpu(void);
 
 static void SpriteCB_VersionBannerLeft(struct Sprite *sprite);
 static void SpriteCB_VersionBannerRight(struct Sprite *sprite);
@@ -70,10 +71,36 @@ static const u32 sTitleScreenRayquazaTilemap[] = INCBIN_U32("graphics/title_scre
 static const u32 sTitleScreenLogoShineGfx[] = INCBIN_U32("graphics/title_screen/logo_shine.4bpp.lz");
 static const u32 sTitleScreenCloudsGfx[] = INCBIN_U32("graphics/title_screen/clouds.4bpp.lz");
 
-// Dreamstone Ruination: single full-screen 8bpp title background (240x160 baked art)
-static const u32 sDrTitleGfx[] = INCBIN_U32("graphics/title_screen/dr_title.8bpp.lz");
-static const u32 sDrTitleTilemap[] = INCBIN_U32("graphics/title_screen/dr_title.bin.lz");
-static const u16 sDrTitlePal[] = INCBIN_U16("graphics/title_screen/dr_title.gbapal");
+// Dreamstone Ruination: animated title. Four 8bpp layers share one tile set at char base 0
+// (built by tools/art/title_anim/export_rom.py from the approved preview):
+//   BG3  Chien-Pao's tail (front); its 6x6-tile window is rewritten with one of 5 poses
+//   BG0  the static scene + logo; sky pixels transparent; logo fill = palette bands for the glint
+//   BG1/BG2  512x48 sky strip, scrolled one pixel apart and alpha-blended -> smooth sub-pixel drift
+static const u32 sDrTitleAnimTiles[] = INCBIN_U32("graphics/title_screen/dr_title_anim_tiles.8bpp.lz");
+static const u16 sDrTitleAnimPal[] = INCBIN_U16("graphics/title_screen/dr_title_anim_tiles.gbapal");
+static const u32 sDrTitleAnimFgMap[] = INCBIN_U32("graphics/title_screen/dr_title_anim_fg.bin.lz");
+static const u32 sDrTitleAnimSkyMap[] = INCBIN_U32("graphics/title_screen/dr_title_anim_sky.bin.lz");
+static const u32 sDrTitleAnimTailMap[] = INCBIN_U32("graphics/title_screen/dr_title_anim_tail.bin.lz");
+static const u32 sDrTitleTailPoses[] = INCBIN_U32("graphics/title_screen/dr_title_tail_poses.8bpp");
+
+#include "data/title_screen_anim.h"
+
+#define TITLE_FG_SCREENBASE    28
+#define TITLE_TAIL_SCREENBASE  29
+#define TITLE_SKY_SCREENBASE   30   // 512x256 map: screenblocks 30-31
+#define TITLE_SKY_FRAMES_PER_PX 8   // cloud drift speed (60 fps -> 7.5 px/s)
+#define TITLE_SKY_WIDTH        512
+#define TITLE_GLINT_PERIOD     480  // a glint sweep every 8 s
+#define TITLE_GLINT_SPEED      2    // px per frame along the diagonal
+
+// Values the animation task computes each frame; VBlankCB writes them to the hardware.
+static EWRAM_DATA u32 sTitleAnimFrame = 0;
+static EWRAM_DATA u16 sTitleSkyHofs = 0;
+static EWRAM_DATA u16 sTitleSkyBlend = 0;
+static EWRAM_DATA u8 sTitleTailSeqIdx = 0;
+static EWRAM_DATA u16 sTitleTailSeqTimer = 0;
+static EWRAM_DATA s8 sTitleTailPosePending = 0;    // pose to copy into VRAM at the next VBlank (-1 = none; set at init)
+static EWRAM_DATA bool8 sTitleGlintActive = FALSE;
 
 
 
@@ -420,11 +447,9 @@ static void SpriteCB_PressStartCopyrightBanner(struct Sprite *sprite)
 {
     if (sprite->sAnimate == TRUE)
     {
-        // Alternate between hidden and shown every 16th frame
-        if (++sprite->sTimer & 16)
-            sprite->invisible = FALSE;
-        else
-            sprite->invisible = TRUE;
+        // Dreamstone Ruination: calm blink -- shown 40 frames, hidden 24
+        sprite->invisible = (sprite->sTimer >= 40);
+        sprite->sTimer = (sprite->sTimer + 1) & 63;
     }
     else
     {
@@ -574,7 +599,17 @@ static void VBlankCB(void)
     LoadOam();
     ProcessSpriteCopyRequests();
     TransferPlttBuffer();
-    SetGpuReg(REG_OFFSET_BG1VOFS, gBattle_BG1_Y);
+    // Sky: BG1 at x, BG2 one pixel further, blended by how far we are toward the next pixel
+    SetGpuReg(REG_OFFSET_BG1HOFS, sTitleSkyHofs);
+    SetGpuReg(REG_OFFSET_BG2HOFS, (sTitleSkyHofs + 1) & (TITLE_SKY_WIDTH - 1));
+    SetGpuReg(REG_OFFSET_BLDALPHA, sTitleSkyBlend);
+    // Tail: swap in a new pose (36 8bpp tiles) when the idle sequence moves on
+    if (sTitleTailPosePending >= 0)
+    {
+        DmaCopy16(3, (const u8 *)sDrTitleTailPoses + sTitleTailPosePending * TITLE_TAIL_TILES * TILE_SIZE_8BPP,
+                  (void *)(BG_CHAR_ADDR(0) + TITLE_TAIL_TILE_BASE * TILE_SIZE_8BPP), TITLE_TAIL_TILES * TILE_SIZE_8BPP);
+        sTitleTailPosePending = -1;
+    }
 }
 
 void CB2_InitTitleScreen(void)
@@ -605,10 +640,21 @@ void CB2_InitTitleScreen(void)
         gMain.state = 1;
         break;
     case 1:
-        // Dreamstone Ruination: one full-screen 8bpp background (art baked in)
-        LZ77UnCompVram(sDrTitleGfx, (void *)(BG_CHAR_ADDR(0)));
-        LZ77UnCompVram(sDrTitleTilemap, (void *)(BG_SCREEN_ADDR(28)));
-        LoadPalette(sDrTitlePal, BG_PLTT_ID(0), 16 * PLTT_SIZE_4BPP);
+        // Dreamstone Ruination: shared 8bpp tile set + the four layer maps; tail starts at rest (pose 0)
+        LZ77UnCompVram(sDrTitleAnimTiles, (void *)(BG_CHAR_ADDR(0)));
+        LZ77UnCompVram(sDrTitleAnimFgMap, (void *)(BG_SCREEN_ADDR(TITLE_FG_SCREENBASE)));
+        LZ77UnCompVram(sDrTitleAnimTailMap, (void *)(BG_SCREEN_ADDR(TITLE_TAIL_SCREENBASE)));
+        LZ77UnCompVram(sDrTitleAnimSkyMap, (void *)(BG_SCREEN_ADDR(TITLE_SKY_SCREENBASE)));
+        DmaCopy16(3, sDrTitleTailPoses, (void *)(BG_CHAR_ADDR(0) + TITLE_TAIL_TILE_BASE * TILE_SIZE_8BPP),
+                  TITLE_TAIL_TILES * TILE_SIZE_8BPP);
+        LoadPalette(sDrTitleAnimPal, BG_PLTT_ID(0), 16 * PLTT_SIZE_4BPP);
+        sTitleAnimFrame = 0;
+        sTitleSkyHofs = 0;
+        sTitleSkyBlend = BLDALPHA_BLEND(16, 0);
+        sTitleTailSeqIdx = 0;
+        sTitleTailSeqTimer = 0;
+        sTitleTailPosePending = -1;
+        sTitleGlintActive = FALSE;
         ScanlineEffect_Stop();
         ResetTasks();
         ResetSpriteData();
@@ -638,15 +684,28 @@ void CB2_InitTitleScreen(void)
         gMain.state = 4;
         break;
     case 4:
-        SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(28) | BGCNT_256COLOR | BGCNT_TXT256x256);
-        SetGpuReg(REG_OFFSET_BG1CNT, 0);
-        SetGpuReg(REG_OFFSET_BG2CNT, 0);
+        SetGpuReg(REG_OFFSET_BG3CNT, BGCNT_PRIORITY(0) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(TITLE_TAIL_SCREENBASE) | BGCNT_256COLOR | BGCNT_TXT256x256);
+        SetGpuReg(REG_OFFSET_BG0CNT, BGCNT_PRIORITY(1) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(TITLE_FG_SCREENBASE) | BGCNT_256COLOR | BGCNT_TXT256x256);
+        SetGpuReg(REG_OFFSET_BG1CNT, BGCNT_PRIORITY(2) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(TITLE_SKY_SCREENBASE) | BGCNT_256COLOR | BGCNT_TXT512x256);
+        SetGpuReg(REG_OFFSET_BG2CNT, BGCNT_PRIORITY(3) | BGCNT_CHARBASE(0) | BGCNT_SCREENBASE(TITLE_SKY_SCREENBASE) | BGCNT_256COLOR | BGCNT_TXT512x256);
         SetGpuReg(REG_OFFSET_BG0HOFS, 0);
         SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+        SetGpuReg(REG_OFFSET_BG1HOFS, 0);
+        SetGpuReg(REG_OFFSET_BG1VOFS, 0);
+        SetGpuReg(REG_OFFSET_BG2HOFS, 1);
+        SetGpuReg(REG_OFFSET_BG2VOFS, 0);
+        SetGpuReg(REG_OFFSET_BG3HOFS, 0);
+        SetGpuReg(REG_OFFSET_BG3VOFS, 0);
+        // the sky is BG1 blended over BG2 (the same strip one pixel on); nothing else is blended
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG2);
+        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(16, 0));
         EnableInterrupts(INTR_FLAG_VBLANK);
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_MODE_0
                                     | DISPCNT_OBJ_1D_MAP
                                     | DISPCNT_BG0_ON
+                                    | DISPCNT_BG1_ON
+                                    | DISPCNT_BG2_ON
+                                    | DISPCNT_BG3_ON
                                     | DISPCNT_OBJ_ON);
         // Dreamstone Ruination: the title theme is a pedalled piano whose notes ring on in long
         // release tails; give it 10 sampled voices while the title screen is up (the game default is 5,
@@ -670,47 +729,65 @@ static void MainCB2(void)
     UpdatePaletteFade();
 }
 
-// Shine the Pokémon logo two more times, and fade in the version banner
-// Dreamstone Ruination: gentle brightness "breathing" on the twilight sky/cloud
-// palette entries (light-blue clouds + deep purple-blue gradient; the sun/logo
-// yellows are left alone). Runs only while no palette fade is active, so it never
-// fights the fade-in or the transition-out to another screen.
-static const u8 sTitleSkyPalIndices[] = { 50, 51, 53, 83, 126, 171, 182, 185, 187, 196 };
-
-static void Task_TitleSkyShimmer(u8 taskId)
+// Dreamstone Ruination: one task drives the whole title animation, one step per frame.
+//  - sky: drifts left 1 px every TITLE_SKY_FRAMES_PER_PX frames; in between, BG1 (at x) is blended
+//    toward BG2 (at x+1) in 16ths, so the clouds glide instead of stepping
+//  - tail: steps through the generated idle sequence (pose, frames); VBlankCB copies a new pose in
+//  - glint: every TITLE_GLINT_PERIOD frames a two-stripe glint crosses the logo; the logo's white fill
+//    is split into diagonal palette bands, recoloured from the generated colour table
+// Palette writes go to the faded buffer only while no fade runs, so fades in/out are untouched.
+static void Task_TitleAnim(u8 taskId)
 {
-    u32 i;
+    u32 t = sTitleAnimFrame++;
+    u32 step = t % TITLE_SKY_FRAMES_PER_PX;
+    u32 evb = step * 16 / TITLE_SKY_FRAMES_PER_PX;
+    s32 pos;
+    u32 b;
+
+    sTitleSkyHofs = (t / TITLE_SKY_FRAMES_PER_PX) & (TITLE_SKY_WIDTH - 1);
+    sTitleSkyBlend = BLDALPHA_BLEND(16 - evb, evb);
+
+    // frame t shows entry k for exactly its listed number of frames (check first, then count)
+    if (sTitleTailSeqTimer >= sTitleTailSeq[sTitleTailSeqIdx][1])
+    {
+        sTitleTailSeqTimer = 0;
+        if (++sTitleTailSeqIdx >= ARRAY_COUNT(sTitleTailSeq))
+            sTitleTailSeqIdx = 0;
+        if (sTitleTailSeq[sTitleTailSeqIdx][0] != sTitleTailSeq[(sTitleTailSeqIdx + ARRAY_COUNT(sTitleTailSeq) - 1) % ARRAY_COUNT(sTitleTailSeq)][0])
+            sTitleTailPosePending = sTitleTailSeq[sTitleTailSeqIdx][0];
+    }
+    sTitleTailSeqTimer++;
 
     if (gPaletteFade.active)
         return;
-
-    gTasks[taskId].data[0]++;
-    for (i = 0; i < ARRAY_COUNT(sTitleSkyPalIndices); i++)
+    pos = TITLE_GLINT_UMIN - 30 + (s32)(t % TITLE_GLINT_PERIOD) * TITLE_GLINT_SPEED;
+    if (pos < TITLE_GLINT_UMAX + 40)
     {
-        u32 idx = sTitleSkyPalIndices[i];
-        u16 base = gPlttBufferUnfaded[idx];
-        s32 r = base & 0x1F;
-        s32 g = (base >> 5) & 0x1F;
-        s32 b = (base >> 10) & 0x1F;
-        s32 d = Sin(((gTasks[taskId].data[0] >> 1) + i * 8) & 0xFF, 3);
-
-        r += d;
-        g += d;
-        b += d;
-        if (r < 0) r = 0; else if (r > 31) r = 31;
-        if (g < 0) g = 0; else if (g > 31) g = 31;
-        if (b < 0) b = 0; else if (b > 31) b = 31;
-        gPlttBufferFaded[idx] = r | (g << 5) | (b << 10);
+        for (b = 0; b < TITLE_GLINT_BANDS; b++)
+        {
+            s32 d = (s32)(TITLE_GLINT_UMIN + b * 3 + 1) - pos;
+            u16 color = RGB_WHITE;
+            if (d >= TITLE_GLINT_DMIN && d <= TITLE_GLINT_DMAX)
+                color = sTitleGlintColors[d - TITLE_GLINT_DMIN];
+            gPlttBufferFaded[TITLE_GLINT_PAL_BASE + b] = color;
+        }
+        sTitleGlintActive = TRUE;
+    }
+    else if (sTitleGlintActive)
+    {
+        for (b = 0; b < TITLE_GLINT_BANDS; b++)
+            gPlttBufferFaded[TITLE_GLINT_PAL_BASE + b] = gPlttBufferUnfaded[TITLE_GLINT_PAL_BASE + b];
+        sTitleGlintActive = FALSE;
     }
 }
 
 static void Task_TitleScreenPhase1(u8 taskId)
 {
     // Dreamstone Ruination: the full title art is already on screen, so skip the
-    // vanilla logo-shine + version-banner intro. Show Press Start + copyright and take input.
+    // vanilla logo-shine + version-banner intro. Show Press Start and take input.
     CreatePressStartBanner(START_BANNER_X, 108);
     // DSMYST credit banner removed (was the flashing bottom credit)
-    CreateTask(Task_TitleSkyShimmer, 2);
+    CreateTask(Task_TitleAnim, 2);
     gTasks[taskId].tCounter = 0;
     gTasks[taskId].func = Task_TitleScreenPhase3;
 }
@@ -794,15 +871,7 @@ static void Task_TitleScreenPhase3(u8 taskId)
     }
     else
     {
-        SetGpuReg(REG_OFFSET_BG2Y_L, 0);
-        SetGpuReg(REG_OFFSET_BG2Y_H, 0);
-        if (++gTasks[taskId].tCounter & 1)
-        {
-            gTasks[taskId].tBg1Y++;
-            gBattle_BG1_Y = gTasks[taskId].tBg1Y / 2;
-            gBattle_BG1_X = 0;
-        }
-//        UpdateLegendaryMarkingColor(gTasks[taskId].tCounter);
+        // (vanilla scrolled BG1 here for the Rayquaza clouds; BG1 is the drifting sky now -- Task_TitleAnim)
         if ((gMPlayInfo_BGM.status & 0xFFFF) == 0)
         {
             BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_WHITEALPHA);
@@ -817,6 +886,24 @@ static void RestoreSoundChannels(void)
     // would also silence every channel and cut the title theme's fade-out; the next m4aSoundMode()
     // channel change (the title screen again) clears all channels anyway.
     SOUND_INFO_PTR->maxChans = DEFAULT_SOUND_CHANNELS;
+    ResetTitleAnimGpu();
+}
+
+// Leave no title-screen display state behind for the next screen: our VBlank callback (sky scroll,
+// blend, tail copies), the blend registers and the three extra layers.
+static void ResetTitleAnimGpu(void)
+{
+    SetVBlankCallback(NULL);
+    sTitleTailPosePending = -1;
+    ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_BG1_ON | DISPCNT_BG2_ON | DISPCNT_BG3_ON);
+    SetGpuReg(REG_OFFSET_BLDCNT, 0);
+    SetGpuReg(REG_OFFSET_BLDALPHA, 0);
+    SetGpuReg(REG_OFFSET_BG1CNT, 0);
+    SetGpuReg(REG_OFFSET_BG2CNT, 0);
+    SetGpuReg(REG_OFFSET_BG3CNT, 0);
+    SetGpuReg(REG_OFFSET_BG1HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG2HOFS, 0);
+    SetGpuReg(REG_OFFSET_BG3HOFS, 0);
 }
 
 static void CB2_GoToMainMenu(void)

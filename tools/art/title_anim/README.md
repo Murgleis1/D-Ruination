@@ -13,4 +13,6 @@ Run from a folder containing `dr_title.png` (graphics/title_screen/dr_title.png)
 | idle timing | `tail_idle_seq.py` | `tail_poses_l10_idle.pkl` |
 | preview | `SKY=sky_strip512_light.npy SKYMASK=mask_sky2.npy BGF=bg_filled_tail.npy TAILP=tail_poses_l10_idle.pkl preview4.py 1800 out.mp4` | 60 fps mp4 |
 
+| ROM export | `export_rom.py <codebase>/graphics/title_screen <codebase>/src/data/title_screen_anim.h` | tile set + palette, 3 tilemaps, tail pose tiles, glint table, tail timing |
+
 `zoomcheck.py` renders poses at 16x with outline defects marked.  Approved preview: `assets/title_previews/`.
