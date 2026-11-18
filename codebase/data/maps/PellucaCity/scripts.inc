@@ -3825,7 +3825,7 @@ DR_PellucaCity_Arrival_Text_5:
 
 DR_PellucaCity_Arrival_Text_6:
 # 1440 "data/maps/PellucaCity/scripts.pory"
-	.string "Nomad Alban$"
+	.string "“Nomad”$"
 
 DR_PellucaCity_Arrival_Text_7:
 # 1441 "data/maps/PellucaCity/scripts.pory"

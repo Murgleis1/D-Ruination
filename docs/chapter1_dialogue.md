@@ -44,7 +44,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Cadmus:** Does it still hurt?
 
-**Nomad Alban:** Less than it did.
+**“Nomad”:** Less than it did.
 
 **Cadmus:** Good. Walk with me. We will talk somewhere quieter.
 
@@ -134,17 +134,17 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Thief:** Is that a mending mask? From Athanto? That's worth more than this whole cellar. Who are you supposed to be?
 
-**Nomad Alban:** Put it back.
+**“Nomad”:** Put it back.
 
 **Thief:** You'll have to take it off me. Pilfer, up!
 
 **Thief:** Who are you?
 
-**Nomad Alban:** Nomad Alban.
+**“Nomad”:** Nomad Alban.
 
 **Thief:** Never heard of you.
 
-**Nomad Alban:** Good.
+**“Nomad”:** Good.
 
 **Thief:** Ha! All right, Nomad Alban. I want a rematch, the minute I get out of whatever hole they're about to put me in.
 
@@ -170,7 +170,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Eden:** For now.
 
-**Nomad Alban:** Who sent you?
+**“Nomad”:** Who sent you?
 
 **Eden:** Nobody sends me anywhere. I go where the good things are.
 

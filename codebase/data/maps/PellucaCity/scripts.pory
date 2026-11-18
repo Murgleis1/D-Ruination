@@ -1437,7 +1437,7 @@ script DR_PellucaCity_Arrival{
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Does it still hurt?"))
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
-    speakername("Nomad Alban")
+    speakername("“Nomad”")
     msgbox(format("Less than it did."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Good. Walk with me. We will talk somewhere quieter."))

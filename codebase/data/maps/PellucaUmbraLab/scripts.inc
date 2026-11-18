@@ -1466,7 +1466,7 @@ DR_Lab_Theft_Text_16:
 
 DR_Lab_Theft_Text_17:
 # 306 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Nomad Alban$"
+	.string "“Nomad”$"
 
 DR_Lab_Theft_Text_18:
 # 307 "data/maps/PellucaUmbraLab/scripts.pory"

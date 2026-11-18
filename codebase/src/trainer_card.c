@@ -57,6 +57,7 @@ struct TrainerCardData
     bool8 hasBattleTowerWins;
     bool8 unused_E;
     bool8 unused_F;
+    bool8 isOwnCard;   // Dreamstone Ruination: the player's own card shows the cover name
     bool8 hasTrades;
     u8 badgeCount[NUM_BADGES];
     u8 easyChatProfile[TRAINER_CARD_PROFILE_LENGTH][13];
@@ -1006,12 +1007,23 @@ static void BufferTextsVarsForCardPage2(void)
     BufferBattleFacilityStats();
 }
 
+// Dreamstone Ruination: the Empire knows the player as Rainhawk Alban, so his own card says so.
+// (His true name lives only in the name-entry field. TODO: the true name after the Act V unmasking.)
+// A link partner's card keeps that player's own name.
+static const u8 sText_CoverCardName[] = _("Rainhawk Alban");
+static const u8 *GetCardDisplayName(void)
+{
+    if (sData->isOwnCard)
+        return sText_CoverCardName;
+    return sData->trainerCard.playerName;
+}
+
 static void PrintNameOnCardFront(void)
 {
     u8 buffer[32];
     u8 *txtPtr;
     txtPtr = StringCopy(buffer, gText_TrainerCardName);
-    StringCopy(txtPtr, sData->trainerCard.playerName);
+    StringCopy(txtPtr, GetCardDisplayName());
     ConvertInternationalString(txtPtr, sData->language);
     if (sData->cardType == CARD_TYPE_FRLG)
         AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_NORMAL, 20, 28, sTrainerCardTextColors, TEXT_SKIP_DRAW, buffer);
@@ -1169,7 +1181,7 @@ static void PrintProfilePhraseOnCard(void)
 
 static void BufferNameForCardBack(void)
 {
-    StringCopy(sData->textPlayersCard, sData->trainerCard.playerName);
+    StringCopy(sData->textPlayersCard, GetCardDisplayName());
     ConvertInternationalString(sData->textPlayersCard, sData->language);
     if (sData->cardType != CARD_TYPE_FRLG)
     {
@@ -1816,6 +1828,7 @@ void ShowPlayerTrainerCard(void (*callback)(void))
         sData->isLink = FALSE;
 
     sData->language = GAME_LANGUAGE;
+    sData->isOwnCard = TRUE;
     TrainerCard_GenerateCardForPlayer(&sData->trainerCard);
     SetMainCallback2(CB2_InitTrainerCard);
 }

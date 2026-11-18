@@ -91,7 +91,7 @@ script DR_Monastery_Cell {
     waitmovement(0)
     delay(16)
     showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
-    speakername("Nomad Alban")
+    speakername("“Nomad”")
     msgbox(format("If the fates allow it, I'll welcome it... Eden."))
     hideportrait
     closemessage

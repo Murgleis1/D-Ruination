@@ -64,7 +64,7 @@ It... will be good to be home again.
 
 **Cadmus:** Does it still hurt?
 
-**Nomad Alban:** Less than it did.
+**“Nomad”:** Less than it did.
 
 **Cadmus:** Good. Walk with me. We will talk somewhere quieter.
 
@@ -248,7 +248,7 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 
 **Thief:** Who might you be? Is that a mending mask? From Athanto? That's worth more than this whole lab.
 
-**Nomad Alban:** Put the ball back and surrender quietly.
+**“Nomad”:** Put the ball back and surrender quietly.
 
 **Thief:** If you want it so badly, come and take it. Pilfer, up!
 
@@ -260,11 +260,11 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 
 Who are you? No... WHAT are you?
 
-**Nomad Alban:** Nomad Alban. I'm the youngest Rainhawk in history.
+**“Nomad”:** Nomad Alban. I'm the youngest Rainhawk in history.
 
 **Thief:** Never heard of you!
 
-**Nomad Alban:** That's fine. I've never heard of you either.
+**“Nomad”:** That's fine. I've never heard of you either.
 
 **Thief:** Hah... you've got a sharp tongue on you, Nomad. Just know that people like me don't stay in cells for long.
 
@@ -280,7 +280,7 @@ Neptune, our guest is leaving. Escort her.
 
 **Thief:** Who are you, anyway?
 
-**Nomad Alban:** ...Nomad Alban. I'm the youngest Rainhawk in history.
+**“Nomad”:** ...Nomad Alban. I'm the youngest Rainhawk in history.
 
 **Thief:** The youngest Rainhawk in history, and you lost to me? Wait until the others hear about this.
 
@@ -330,7 +330,7 @@ Neptune, our guest is leaving. Escort her.
 
 **Eden:** I'll be seeing you again, Rainhawk. When I make a promise, I keep it.
 
-**Nomad Alban:** If the fates allow it, I'll welcome it... Eden.
+**“Nomad”:** If the fates allow it, I'll welcome it... Eden.
 
 ## 8. Back at the lab: the shard briefing  [IN GAME]
 

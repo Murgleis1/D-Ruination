@@ -333,7 +333,7 @@ DR_Monastery_Cell_Text_18:
 
 DR_Monastery_Cell_Text_19:
 # 94 "data/maps/PellucaTemplarMonastery/scripts.pory"
-	.string "Nomad Alban$"
+	.string "“Nomad”$"
 
 DR_Monastery_Cell_Text_20:
 # 95 "data/maps/PellucaTemplarMonastery/scripts.pory"

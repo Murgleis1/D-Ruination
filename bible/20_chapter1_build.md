@@ -177,3 +177,4 @@ The cold-open letter was rewritten with the user (installed; text in `docs/chapt
 - New post: **"you will serve under me in the Ministry of Education."**
 - One subtle destiny hint: after the Trials right, "I suspect you will choose to."
 - Review method for every scene from here: first list what the scene must accomplish (bible beat + what later scenes rely on), then line-edit.
+- **Osrid's names on screen (user 2026-11-18):** when he speaks in public his label is **“Nomad”** — in quotation marks, so the player reads it as a cover identity. Private scenes with Cadmus keep **Prince <name>**. The **Trainer Card** (front and back) reads **Rainhawk Alban**, no quotation marks; a link partner's card keeps that player's own name. The name-entry field (and the Start-menu entry that opens the card) keep the true name. *(The card returns to the true name after the Act-V unmasking: TODO when that flag exists.)*
