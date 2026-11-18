@@ -12,7 +12,7 @@ The Widening Eye name evokes surveillance, awakening, apocalyptic vision — eye
 
 **The triggering historical event `[LOCKED v0.9.8]`:** While the Treasures' competing alignments were the *underlying* cause of the split, the *triggering historical event* that accelerated the Widening Eye's fracture into open four-way competition — and that catalyzed the rise of the Swords of Ruin specifically — was **Baradus's assassination of Prince-Consort Eldred Nightfall** 10 years before the game (Section 6 — Eldred Nightfall; Section 8 — Baradus). Eldred was Cormoria's tactical anchor and one of its strongest trainers; his removal both crippled Cormoria's defensive capability *and* demonstrated to the Widening Eye's factions that decisive unilateral action against the empire's pillars was possible. Baradus's success in this single audacious strike emboldened his Sword Cult faction and shattered whatever fragile unity the Widening Eye still retained — each faction now racing to make its own decisive move. **The theological pull pulled the order apart slowly; Eldred's assassination broke it open all at once.**
 
-**The Dreamstone-scarcity driver `[LOCKED v0.9.14]`:** Beneath the theology and the assassination-trigger lies a hard strategic fact the Widening Eye eventually worked out. The founding legend showed the three Mega Dreamstones brought *together* to seal the calamity — so to *revive* a Treasure, a cult needs its **own** stone kept **apart** from the others (a single stone accelerates one incarnation; multiple stones converging disrupt or seal it — Section 9 — Dreamstone resonance). But there are only **three** Mega Dreamstones for **four** Treasures. That scarcity guarantees at least one cult ends up the loser with no stone at all — which is precisely what turned uneasy cooperation into open four-way competition, each cult racing to secure a stone and revive its Treasure while sabotaging the others and subverting Cormorian society toward that end.
+**The Dreamstone-scarcity driver `[LOCKED v0.9.14]`:** Beneath the theology and the assassination-trigger lies a hard strategic fact the Widening Eye eventually worked out. The founding legend showed the three Dreamstones brought *together* to seal the calamity — so to *revive* a Treasure, a cult needs its **own** stone kept **apart** from the others (a single stone accelerates one incarnation; multiple stones converging disrupt or seal it — Section 9 — Dreamstone resonance). But there are only **three** Dreamstones for **four** Treasures. That scarcity guarantees at least one cult ends up the loser with no stone at all — which is precisely what turned uneasy cooperation into open four-way competition, each cult racing to secure a stone and revive its Treasure while sabotaging the others and subverting Cormorian society toward that end.
 
 ### The nature of the Treasures' influence `[LOCKED]`
 
@@ -37,7 +37,7 @@ The Treasures do not *create* their followers' emotional substrates. They *find 
 **Harbinger** is the title used by each leader of the four cult denominations. The title evokes "one who announces what is coming" — each Harbinger is preparing the world for the awakening of their Treasure.
 
 - **Harbinger Baradus** — leader of the Sword Cult (Chien-Pao). Primary antagonist. Full profile below.
-- **Harbinger Alaric** (deceased) — leader of the Vessels Cult (Ting-Lu). Killed by Nemo Korolev ~2 years before the story begins, during the Vessels Cult's Ting-Lu incarnation ritual **in the Mt. Mirroh cave system**. Alaric had *luck-found the Mt. Mirroh Mega Dreamstone* (Section 9 — the three Mega Dreamstones) — his one success over Baradus and Goma — but, impatient, chose a **misaligned Leyline point**. The incarnation succeeded, yet the misalignment **shattered the Mega Dreamstone into the 9 scattered shards** and left Ting-Lu's body in an **unstable material state** — which is exactly what let Nemo swoop in, dismantle the cult, and seize Ting-Lu in the same operation. **Baradus arrived after the fact and found himself beaten to the site** — an outcome so far outside his calculations that it rattled him. `[OPEN]` Alaric's pre-death character details.
+- **Harbinger Alaric** (deceased) — leader of the Vessels Cult (Ting-Lu). Killed by Nemo Korolev ~2 years before the story begins, during the Vessels Cult's Ting-Lu incarnation ritual **in the Mt. Mirroh cave system**. Alaric had *luck-found the Mt. Mirroh Dreamstone* (Section 9 — the three Dreamstones) — his one success over Baradus and Goma — but, impatient, chose a **misaligned Leyline point**. The incarnation succeeded, yet the misalignment **shattered the Dreamstone into the 9 scattered shards** and left Ting-Lu's body in an **unstable material state** — which is exactly what let Nemo swoop in, dismantle the cult, and seize Ting-Lu in the same operation. **Baradus arrived after the fact and found himself beaten to the site** — an outcome so far outside his calculations that it rattled him. `[OPEN]` Alaric's pre-death character details.
   - **Spoiler-gate `[LOCKED v0.9.14]`:** **Cadmus Umbra knows Nemo stopped the Vessels Cult from claiming the Vessel (Ting-Lu)** — which reads, to Cadmus, as Nemo defending the empire. **What Cadmus does *not* know is that Nemo kept Ting-Lu and bonded with it.** That is one of the game's late reveals (Nemo's "the Usurper / holder of Ting-Lu" identity surfaces at the 9th Trial — Section 7 — Nemo Korolev), and the secret sits *inside* the Cadmus–Nemo Resistance-Triad trust: Nemo withholds it even from his closest ally.
 - **Harbinger Goma** — leader of the Beads Cult (Chi-Yu). **Female. The only woman who managed to become a Harbinger within the Widening Eye before its four-way split into the four denominational cults.** She is the **best Pokemon trainer in the cults besides Baradus himself** — her combat capability is what kept her alive through the cult-political infighting of the Widening Eye era. Profile detailed in Section 8 (Beads Cult subsection — expanded with Goma's full character).
 - **Harbinger of the Tablets Cult: Neven (deceased) `[name LOCKED v0.9.8]`**. Backstory `[partially OPEN]`. **Killed by Baradus** at the Hoya River altar when Baradus ambushed and slaughtered the Tablets Cult after they had successfully incarnated Wo-Chien. Wo-Chien was then seized by Baradus and the Sword Cult. **Neven's path to incarnation ran through House Alban** (Section 7 — Indrid Alban): the Tablets Cult infiltrated House Alban under the guise of a "partner" company to the family's agricultural projects (plus direct investment), and used that access to extract critical Wo-Chien information from the Alban family's deepest libraries — the knowledge that enabled the Hoya River incarnation.
@@ -49,7 +49,7 @@ The Treasures do not *create* their followers' emotional substrates. They *find 
 **Two cults destroyed in backstory:**
 
 1. **Tablets Cult: extinct (years before story start).**
-   - The Tablets Cult, led by Harbinger **Neven**, succeeded in incarnating Wo-Chien through ritual at an ancient altar in the **northern Hoya River area** — using an **unorthodox brute-force method**: rather than spend years hunting a Mega Dreamstone, they assembled **hundreds of small (fossil) Dreamstones** and forced the resonance. The ritual **turned every one of those small Dreamstones to dust**, and because the Tablets had **hoarded essentially every small Dreamstone on the continent** to attempt it, the method is **not reproducible by any other cult** (Section 9 — the three Mega Dreamstones)
+   - The Tablets Cult, led by Harbinger **Neven**, succeeded in incarnating Wo-Chien through ritual at an ancient altar in the **northern Hoya River area** — using an **unorthodox brute-force method**: rather than spend years hunting a Dreamstone, they assembled **hundreds of lesser dreamstones (small fossils)** and forced the resonance. The ritual **turned every one of those lesser dreamstones to dust**, and because the Tablets had **hoarded essentially every lesser dreamstone on the continent** to attempt it, the method is **not reproducible by any other cult** (Section 9 — the three Dreamstones)
    - **Baradus ambushed and slaughtered the Tablets Cult at the altar**, using their slaughter as a blood sacrifice that completed the Wo-Chien incarnation and let him seize the Treasure for the Sword Cult
    - **The Sword Cult has held Wo-Chien since before the game begins.** This is a backstory fact that the player learns mid-game.
    - **`[v0.9.8]` Where Baradus kept Wo-Chien — the Alban Greenhouse staging operation:** After seizing Wo-Chien at Hoya River, Baradus needed a containment site. He chose **the Alban family's Greenhouse** (Section 7 — Indrid Alban) — reasoning that a structure already built as a habitat for Grass-types could contain the Dark/Grass Treasure's power for a time, and that the Albans (already softened up by Neven's earlier infiltration) made a convenient host. The placement was *deliberately* destructive: over a few years, Wo-Chien's aura rotted the Alban estate, corrupted the prodigal heir Indrid (a potential future threat to Baradus), and drove Indrid to massacre his own family. **Baradus retrieves Wo-Chien from the Greenhouse during the Trial 6 chapter** — the operation having "done its job" — re-containing it in a special Pokéball-like device and fleeing to move it to the next location in his plans. *He never lost possession; the player witnesses the retrieval, not a capture.* This is the player's first in-the-flesh sight of a Treasure of Ruin (the devouring of Indrid).
@@ -75,14 +75,14 @@ This subsection consolidates the cosmological constraints that dictate cult stra
 
 #### What the Treasures of Ruin actually are `[LOCKED v0.9.4]`
 
-**The Treasures of Ruin are *not* naturally arising cosmic entities.** Per Section 2 — Cormorian founding myth: they are **inverted Dreamstones** that originated as ordinary tribal artifacts.
+**The Treasures of Ruin are *not* naturally arising cosmic entities.** Per Section 2 — Cormorian founding myth: they are **inverted dreamstones** that originated as ordinary tribal artifacts.
 
 The four objects (wooden tablets, sword, vessel, beads) were originally:
-1. **Tribal artifacts** of the pre-Cormorian nomadic peoples — utilitarian items made of a unique stone material that could store memories and emotional energy (i.e., natural Dreamstones in object form)
+1. **Tribal artifacts** of the pre-Cormorian nomadic peoples — utilitarian items made of a unique stone material that could store memories and emotional energy (i.e., natural dreamstones in object form)
 2. **Forged by Cormor (the original blacksmith) with Roma's miko-consecration help** for the channeling ritual that would erase Phancero
 3. **Charged with Cormor + Keerin's combined cosmic-tier resonance** during the erasing ritual
-4. **Inverted over centuries** by their long exposure to Phancero's residual contamination — where natural Dreamstones accumulate *positive* emotional/memory energy, the four objects began absorbing *negative* energy as their power source
-5. **Eventually manifested** as Dark-typed Pokemon (Wo-Chien, Chien-Pao, Ting-Lu, Chi-Yu) — *inverted Dreamstones in Pokemon form*
+4. **Inverted over centuries** by their long exposure to Phancero's residual contamination — where natural dreamstones accumulate *positive* emotional/memory energy, the four objects began absorbing *negative* energy as their power source
+5. **Eventually manifested** as Dark-typed Pokemon (Wo-Chien, Chien-Pao, Ting-Lu, Chi-Yu) — *inverted dreamstones in Pokemon form*
 
 **The Treasures of Ruin are *the same material* as Dreamstones**, just *flipped polarity*. **This is precisely why Dreamstones can resonate with Treasures and serve as incarnation catalysts** — same material; same resonance properties; opposite alignment.
 
@@ -96,7 +96,7 @@ The cults don't know this history. They believe they are pursuing naturally-aris
    - **Chi-Yu** → the deep lava pool room of the **Ashland Labyrinth at Mt. Ceram** — where the Beads Cult attempted their incarnation in Act III
    - **Chien-Pao** → the hidden **Distortion World gate within the Mirroh Necropolis** — where the Sword Cult attempts their incarnation in the climactic late-game Necropolis Assault. **Baradus does not learn this until late in the story** (see Baradus's discovery beat below).
 
-2. **Dreamstone Catalyst** — a sufficiently powerful Dreamstone to provide the resonance energy. **Now reframed:** Dreamstones are the *same material* as the Treasures of Ruin, just *positive polarity*. **Using a positive Dreamstone to incarnate an inverted Treasure is essentially *re-aligning the Treasure's resonance frequency with positive Dreamstone energy* — temporarily neutralizing the negative-polarity opposition that would otherwise prevent material incarnation.** This is *precisely* the resonance work needed to overcome Arceus's intervention barrier.
+2. **Dreamstone Catalyst** — a sufficiently powerful Dreamstone to provide the resonance energy. **Now reframed:** Dreamstones are the *same material* as the Treasures of Ruin, just *positive polarity*. **Using a positive dreamstone to incarnate an inverted Treasure is essentially *re-aligning the Treasure's resonance frequency with positive dreamstone energy* — temporarily neutralizing the negative-polarity opposition that would otherwise prevent material incarnation.** This is *precisely* the resonance work needed to overcome Arceus's intervention barrier.
 
 3. **Resonance Match** — the timing and ritual must be precisely calibrated to the Treasure's specific signature. Even with the right location and a suitable Dreamstone, an improperly executed ritual fails.
 
@@ -119,7 +119,7 @@ The cults don't know this history. They believe they are pursuing naturally-aris
 
 **Full incarnation of all four Treasures of Ruin would create a *new pathway* for Phancero to re-emerge:**
 
-1. **Resonance amplification** — four fully-incarnated inverted-Dreamstone vessels resonating in unison would create a cosmic-tier signal that **Phancero in its true form would detect across the void**
+1. **Resonance amplification** — four fully-incarnated inverted-dreamstone vessels resonating in unison would create a cosmic-tier signal that **Phancero in its true form would detect across the void**
 
 2. **Pathway opening** — the Treasures' combined resonance could provide Phancero with a *homing channel* to push more of itself back into material reality
 
@@ -141,7 +141,7 @@ The cults don't know this history. They believe they are pursuing naturally-aris
 This constraint structure dictates the cult timeline:
 - The cults cannot move fast and crude — they must move slow and precise
 - They must spend years surveying Leyline locations, identifying which point matches which Treasure
-- They must acquire intact, sufficiently powerful Dreamstones (not fragments)
+- They must acquire an intact Dreamstone — one of the three (not Shards, and not lesser dreamstones, which only the Tablets' one-off brute force could make work)
 - They must calibrate ritual timing precisely
 
 **The 10+ year cult timeline is dictated by Arceus-avoidance.** If Baradus and Goma were willing to risk Arceus's intervention, they could pursue faster incarnation methods. But Arceus's wrath would unmake whatever they built, so they accept the slow long-game. **Their efficiency is also their cage.**
@@ -158,13 +158,13 @@ For most of the cult timeline, **the Sword Cult does NOT know where Chien-Pao's 
 
 The cult's prior years of intelligence-gathering, infiltration, and political-economic positioning all serve the *single goal* of getting the cult to the Necropolis at the right moment with sufficient force to penetrate House Langerin's defense. **The Necropolis Assault is everything the Sword Cult has been building toward.**
 
-#### The Dreamstone-fragment failure that derailed Tablets and Vessels Cults `[LOCKED]`
+#### The catalyst failure that derailed Tablets and Vessels Cults `[LOCKED; reconciled with v0.9.14 on 2026-11-18]`
 
-A critical historical fact: **the Tablets Cult and the Vessels Cult both succeeded at incarnating their Treasures — but they used Dreamstone *fragments*, and those fragments turned to dust during the incarnation process.** The fragments were one-use catalysts; they were consumed in the ritual.
+A critical historical fact: **the Tablets Cult and the Vessels Cult both succeeded at incarnating their Treasures — but each ritual destroyed its catalyst.** The Tablets Cult's hundreds of lesser dreamstones turned to dust; Alaric's misaligned ritual shattered the Mt. Mirroh Dreamstone into the nine Dreamstone Shards.
 
 Baradus and Goma couldn't reuse what was left:
-- **Baradus seized Wo-Chien opportunistically** by slaughtering the Tablets Cult, but **got no usable Dreamstone catalyst from the operation.** He has been searching for a sufficiently powerful intact Dreamstone ever since.
-- **Goma got *nothing* from the Vessels Cult's success.** Nemo killed Alaric and took both Ting-Lu and whatever remained of the Dreamstone fragments (which had already turned to dust). Goma has been searching for *her* Dreamstone independently.
+- **Baradus seized Wo-Chien opportunistically** by slaughtering the Tablets Cult, but **got no usable dreamstone catalyst from the operation.** He has been searching for an intact Dreamstone ever since.
+- **Goma got *nothing* from the Vessels Cult's success.** Nemo killed Alaric and took Ting-Lu; the Dreamstone was already in pieces, scattered through the rifts. Goma has been searching for *her* Dreamstone independently.
 
 **This is why Goma is so desperate.** She has been the only one of the four original Harbingers who has *never* succeeded at incarnation. The Tablets Cult succeeded (then was destroyed). The Vessels Cult succeeded (then was destroyed). Baradus *opportunistically* gained Wo-Chien through slaughter. **Goma has accomplished the least.**
 

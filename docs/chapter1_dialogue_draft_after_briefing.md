@@ -134,7 +134,7 @@ These are only suggestions. Your text is in the game exactly as you wrote it.
 
 **Cadmus:** Or someone who knew I was preparing for someone. Either way... I can no longer put off telling you about the other half of your work.
 
-**Cadmus:** Long ago, Cormoria possessed a treasure called the Mega-Dreamstone. The old tales call it the heart of the Empire. I confess I understand it less than I would like, but I am certain it matters a great deal.
+**Cadmus:** Long ago, Cormoria possessed a treasure called the Dreamstone. The old tales call it the heart of the Empire. I confess I understand it less than I would like, but I am certain it matters a great deal.
 
 **Cadmus:** It was shattered centuries ago. A friend of mine, whose name you are better off not knowing, has learned where nine of the pieces came to rest.
 

@@ -18,7 +18,7 @@ Story design and engineering proceed in parallel from v0.5 onward. The validatio
 
 **v0.9.2 (preceding)** locked the Blue Moon Teddiursa line identity, the trio's offensive/defensive trinity, Frigibax/Tinkatink/Teddiursa ability suites, Blood Moon (Ground) custom move modification, Lunacy custom ability, Ancient Peat Block consumable, and the two-mechanic separation (Trial 6 Master Tutor evolution gates vs. post-Champion Ancient Cormoria side quests).
 
-**v0.9.1 (preceding)** locked the Nobility Concordance senate structure, Leyline Resonance phenomenon, Cult Cosmological Framework (three conditions + Arceus-avoidance + Dreamstone-fragment failure), Domdaniel (House Moray's generational ace), Brie Moray full entry, Silas's Domdaniel-rejection wound, Nemo's secret-savior recharacterization, Baradus's three-fears framework, Goma's envy framing, Sylphon & Stone full status + Silph Co / Devon Corp descendants, Marshadow's Necropolis-Assault late-game deployment, and the Cormoria-as-mother-region note.
+**v0.9.1 (preceding)** locked the Nobility Concordance senate structure, Leyline Resonance phenomenon, Cult Cosmological Framework (three conditions + Arceus-avoidance + catalyst failure), Domdaniel (House Moray's generational ace), Brie Moray full entry, Silas's Domdaniel-rejection wound, Nemo's secret-savior recharacterization, Baradus's three-fears framework, Goma's envy framing, Sylphon & Stone full status + Silph Co / Devon Corp descendants, Marshadow's Necropolis-Assault late-game deployment, and the Cormoria-as-mother-region note.
 
 **v0.9 (preceding) was the Rhydia culmination patch** locking the original-purpose Rhydia character work and substantial worldbuilding (Cormor Dream-Eater origin, Justice's Iron Valiant truth, Generational Aces tier-system, Cormorian institutions).
 
@@ -479,13 +479,13 @@ The v0.9.7 patch added a parallel main quest, three major character expansions, 
     - Learnset modification: remove from Zamazenta's learnset (Zamazenta does not appear in Ruination); add to Tinkatuff at Lv 30; add to Tinkaton's learnset persistence
     - ~30-40 lines across 4-5 files
 
-37. **Mega-Dreamstone Shard Quest engine support** — `[MEDIUM]`
-    - 9 new KEY_ITEM constants: MEGA_DREAMSTONE_SHARD_1 through MEGA_DREAMSTONE_SHARD_9
-    - Optional UI key-item display: "Mega-Dreamstone Shards Recovered: X / 9" — `[OPEN]` whether visible to player or tracked silently
-    - Reassembled MEGA_DREAMSTONE key-item that auto-triggers when all 9 shards are recovered (or when the player reaches the appropriate climactic moment with all 9)
+37. **Dreamstone Shard Quest engine support** — `[MEDIUM]`
+    - 9 new KEY_ITEM constants: DREAMSTONE_SHARD_1 through DREAMSTONE_SHARD_9
+    - Optional UI key-item display: "Dreamstone Shards Recovered: X / 9" — `[OPEN]` whether visible to player or tracked silently
+    - Reassembled MIRROH_DREAMSTONE key-item that auto-triggers when all 9 shards are recovered (or when the player reaches the appropriate climactic moment with all 9)
     - Cinematic / animation for the reassembly moment
     - 9 distinct scripted event sequences for individual shard recovery (each tied to its location-specific narrative beat)
-    - Integration with the Section 10 Act VI sealing-cataclysm cinematic — the Mega-Dreamstone is now the explicit catalyst for the sealing ritual
+    - Integration with the Section 10 Act VI sealing-cataclysm cinematic — the reassembled Mt. Mirroh Dreamstone is now the explicit catalyst for the sealing ritual
 
 38. **Domdaniel custom Pokemon data — Brie's Trial 8 ace** — `[MEDIUM]`
     - Custom species data for shiny Scream Tail (Past Paradox; Fairy/Psychic; Huge Power)
@@ -807,7 +807,7 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
     - **Mega Evolution combat hook:** modify the Mega Evolution availability check in battle code to require both (a) appropriate Mega Stone held by Pokémon AND (b) `FLAG_PLAYER_HAS_Z_BRACELET` set. Without (b), Mega Evolution is unavailable even with a Mega Stone.
     - **Scripted event at Trial 5 victory:** Falco hands the player the Z-Bracelet; the player gains the item; the flag is set; a brief celebratory/transformative animation may play (`[OPEN]` whether one is appropriate)
     - **Dialog:** Falco's post-victory dialog (per Section 7 — Falco lock)
-    - **Cross-references:** Section 4 — Mega-Dreamstone Shard hunt (parallel-main-quest for acquiring the Mega Stones themselves); Section 13 — Mega Evolution restriction system
+    - **Cross-references:** Section 4 — Dreamstone Shard hunt (parallel-main-quest for acquiring the Mega Stones themselves); Section 13 — Mega Evolution restriction system
     - **Pre-Trial-5 Mega Stone behavior:** if the player holds Mega Stones before Trial 5 (acquired via the Shard hunt's earlier portions), Mega Evolution is *blocked* until Trial 5 victory. **Pre-Trial-5 informational dialog** when the player attempts Mega Evolution: a message indicating the bracelet is needed (specific wording `[OPEN]`).
     - **Estimated scope:** ~6-10 hours (item + flag + combat hook + scripted event + dialog)
 
@@ -1002,7 +1002,7 @@ Session 2 shipped a 27-commit merged PR that completed the starter-line rebalanc
 The v0.9.4 production scope estimate of ~9-16 months of focused FTE development for a tier-one Pokemon ROM hack remains accurate as a baseline.
 
 **v0.9.7 expanded scope adds approximately 1.5-3 months additional FTE:**
-- The Mega-Dreamstone Shard Quest infrastructure and 9 individual shard recovery beats (parallel main quest implementation)
+- The Dreamstone Shard Quest infrastructure and 9 individual shard recovery beats (parallel main quest implementation)
 - Three new major NPC + combat data sets (Ambrose, Female Rock Vizier, Jordan, Wakahisa stub data)
 - Brie's promotion to Trial Baroness 8 with full Trial 8 battle implementation
 - Behemoth Bash custom move with Steel-effectiveness override (engine-level new code)
@@ -1033,7 +1033,7 @@ The project's narrative architecture is now substantially complete at the cosmol
 - **Wakahisa introduced** (Section 7) — foreign-born Bug-type ninja, Goma-hired, cross-purposes conversion arc with Jordan, recurring friend
 
 **Cosmology / Worldbuilding additions:**
-- **The Mega-Dreamstone Shard Quest** (Section 9) — parallel clandestine main quest, 9 scattered shards, 2 locations locked (Tinkaton Matriarch's cave + Ambrose's secret holding), 7 OPEN
+- **The Dreamstone Shard Quest** (Section 9) — parallel clandestine main quest, 9 scattered shards, 2 locations locked (Tinkaton Matriarch's cave + Ambrose's secret holding), 7 OPEN
 - **The Tinkatink Line — Cormorian Dragon-Slayer Bloodline** (Section 6) — full lore subsection explaining Cormoria's dragon scarcity through the Tinkaton clan's centuries of dragon-hunting
 - **The Tinkaton Matriarch** (Sections 6, 9) — ancient sleeping Pokemon-cosmological-tier longevity, parallel-but-distinct from Cormor's Avalon sleep
 - **The Solomonar title** (Section 2) — ancient honorific given twice in 2000 years (first in Cormor's third century with shiny Haxorus, identity forgotten; Glaive is the second)

@@ -4,80 +4,87 @@
 
 ### The Dreamstone `[LOCKED — substantially expanded v0.9.4]`
 
-A source of resonance power — but per v0.9.4 cosmology, Dreamstones are now precisely understood:
+A source of resonance power — but per v0.9.4 cosmology, dreamstone is now precisely understood:
 
-**What Dreamstones are `[LOCKED v0.9.4]`:**
+**Terminology `[LOCKED user 2026-11-18 — supersedes "Mega Dreamstone"]`:**
+
+- **dreamstone** (lowercase) — the *material*: stone that stores memories and emotional energy. The Treasures of Ruin are *inverted* dreamstone.
+- **the Dreamstones** (capitalized) — **exactly three**: the **Silversun Dreamstone** (palace), the **Mt. Mirroh Dreamstone** (shattered) and the **Necropolis Dreamstone** — the stones Cormor and Keerin used to seal Phancero; the old tales call them **the Legacy of Cormor**. Formerly "Mega Dreamstones": the "Mega" prefix is retired everywhere.
+- **Dreamstone Shards** — **only** the nine pieces of the shattered Mt. Mirroh Dreamstone (the parallel main quest). Never "fragments".
+- **lesser dreamstones** (lowercase) — every other natural stone, from small fossils to mid-sized formations: diluted, and of no story weight except as fuel (the Tablets Cult's brute-force ritual) and as doorways in time. **The dreamstone of *Dreamstone Mysteries* is a mid-sized lesser dreamstone**, not one of the three. Never called "shards" or "fragments".
+
+**What dreamstone is `[LOCKED v0.9.4]`:**
 
 - **A unique stone material** that can *store memories and emotional energy*. The same material the four original tribal artifacts that became the Treasures of Ruin were made from (Section 2 — Cormorian founding myth).
-- **Natural Dreamstones accumulate *positive* emotional and memory energy** across millennia
-- **Inverted Dreamstones (the Treasures of Ruin) accumulate *negative* emotional and memory energy** — same material, *opposite polarity*
+- **Natural dreamstone accumulates *positive* emotional and memory energy** across millennia
+- **Inverted dreamstone (the Treasures of Ruin) accumulates *negative* emotional and memory energy** — same material, *opposite polarity*
 
 **The polarity framework `[LOCKED v0.9.4]`:**
 
 | Polarity | Form | Energy Source | Examples |
 |---|---|---|---|
-| **Positive** | Natural Dreamstones | Accumulated positive memories/emotions across millennia | The Dreamstone the player encounters; the Royal Palace Dreamstone; Slither Wing encounter site; Mt. Silver encounter (with Keerin) |
-| **Negative** | Inverted Dreamstones | Accumulated negative memories/emotions / Phancero's residual contamination | The four Treasures of Ruin (Wo-Chien, Chien-Pao, Ting-Lu, Chi-Yu) — *same material*, *flipped polarity* |
+| **Positive** | Natural dreamstone | Accumulated positive memories/emotions across millennia | The three Dreamstones (incl. the reassembled Mt. Mirroh Dreamstone and the Silversun palace stone); the Dreamstone Shards; lesser dreamstones; Slither Wing encounter site; Mt. Silver encounter (with Keerin) |
+| **Negative** | Inverted dreamstone | Accumulated negative memories/emotions / Phancero's residual contamination | The four Treasures of Ruin (Wo-Chien, Chien-Pao, Ting-Lu, Chi-Yu) — *same material*, *flipped polarity* |
 
-**This explains why Dreamstones resonate with Treasures and serve as incarnation catalysts** — they are the same material at different polarities. The cults use positive Dreamstones to *re-align* the negative-polarity Treasures' resonance frequency, enabling material incarnation without drawing Arceus's intervention (Section 8 — Cult Cosmological Framework).
+**This explains why dreamstone resonates with the Treasures and serves as an incarnation catalyst** — they are the same material at different polarities. The cults use positive dreamstone to *re-align* the negative-polarity Treasures' resonance frequency, enabling material incarnation without drawing Arceus's intervention (Section 8 — Cult Cosmological Framework).
 
-**Dreamstone capabilities `[LOCKED v0.9.4]`:**
+**Dreamstone capabilities `[LOCKED v0.9.4]`** (of the material; strength scales with the stone):
 
 - **Resonance catalysis** — can resonate with the four inverted Treasures, enabling their material incarnation
-- **Time-displacement** — sufficiently powerful Dreamstones can open paths through time. **Confirmed in-project examples:**
-  - The Slither Wing / Ancient Cormoria encounter (Section 9 — Ancient Cormoria flashback) — Reid + Sable + player are pulled into Ancient Cormoria via Dreamstone resonance
-  - **Cormor's Avalon-rest** (Section 9 — Cormor's True Status) — Cormor and Keerin used a Dreamstone to open a path to the distant past where Cormor sleeps in dreamless rest
+- **Time-displacement** — dreamstone can open paths through time; **a Dreamstone Shard or even a lesser dreamstone is enough** `[user 2026-11-18]` (the *Dreamstone Mysteries* time-travel runs on a mid-sized lesser dreamstone). **Confirmed in-project examples:**
+  - The Slither Wing / Ancient Cormoria encounter (Section 9 — Ancient Cormoria flashback) — Reid + Sable + player are pulled into Ancient Cormoria via dreamstone resonance
+  - **Cormor's Avalon-rest** (Section 9 — Cormor's True Status) — Cormor and Keerin used a dreamstone to open a path to the distant past where Cormor sleeps in dreamless rest
   - **The Mt. Silver / Future-Red encounter** (Section 7 — Future-Red; Section 9 — Keerin) — Keerin's pact-power transports the player across temporal-cosmological space to face Future-Red
 - **Bloodmoon Ursaluna side quest** — used as a catalyst in the Teddiursa-pick post-Champion content
-- **The protagonist's sealing ritual** — Osrid (with Ting-Lu) eventually uses the reassembled Mega Dreamstone's power to seal the Treasures back; the backlash costs him his memory (restored later in Paldea — Section 5 — Protagonist)
+- **The protagonist's sealing ritual** — Osrid (with Ting-Lu) eventually uses the reassembled Mt. Mirroh Dreamstone's power to seal the Treasures back; the backlash costs him his memory (restored later in Paldea — Section 5 — Protagonist)
 
-**Time flows asymmetrically across Dreamstone displacement** — ~12 subjective years pass in Ancient Cormoria for every ~10 real-world years. Sable Ashland's 12-year subjective stay in Ancient Cormoria during a 10-year present-time absence is the canonical example of this asymmetry.
+**Time flows asymmetrically across dreamstone displacement** — ~12 subjective years pass in Ancient Cormoria for every ~10 real-world years. Sable Ashland's 12-year subjective stay in Ancient Cormoria during a 10-year present-time absence is the canonical example of this asymmetry.
 
 `[OPEN]` Where does the Dreamstone the player encounters come from?
 `[OPEN]` How is its power represented mechanically?
-`[OPEN]` Whether the player can witness any Dreamstone's polarity-state visually (e.g., color shifts, sound resonance)
+`[OPEN]` Whether the player can witness any dreamstone's polarity-state visually (e.g., color shifts, sound resonance)
 
 ### Dreamstone resonance — disruptor, accelerator, and the three-stone seal `[LOCKED v0.9.14]`
 
-A Mega Dreamstone's resonance with a Treasure of Ruin can run in **either direction**, depending on configuration:
+A Dreamstone's resonance with a Treasure of Ruin can run in **either direction**, depending on configuration:
 
 - **Accelerator (single stone):** one Dreamstone resonating with one Treasure *re-aligns* the Treasure's negative-polarity frequency and drives its material incarnation — the operation every cult is attempting (Section 8 — Cult Cosmological Framework).
 - **Disruptor (competing stones):** if a *second* Dreamstone enters the resonance field while a Treasure is mid-ritual, the two stones destabilize the operation and can **shatter everything involved** — the Treasure and both Dreamstones. *(This is **not** what befell Alaric's ritual — that failure came from a **misaligned Leyline point**, not a competing stone — but the principle is why the cults keep their operations isolated and why the three-stone endgame below works.)*
-- **The three-stone macroresonance seal — the endgame `[LOCKED v0.9.14]`:** bring **all three Mega Dreamstones into the same place as all four Treasures of Ruin**, and the compound resonance can **seal all four Treasures away completely** — and potentially unmake the root distortions themselves. This is **the same class of event Cormor used against Phancero** at the founding (Section 2 — Founding Myth): a calamity-scale macroresonance, here turned to *pacify* the Treasures rather than banish a distortion — suppressing their reality-warping capacity for (at least) a few thousand years.
+- **The three-stone macroresonance seal — the endgame `[LOCKED v0.9.14]`:** bring **all three Dreamstones into the same place as all four Treasures of Ruin**, and the compound resonance can **seal all four Treasures away completely** — and potentially unmake the root distortions themselves. This is **the same class of event Cormor used against Phancero** at the founding (Section 2 — Founding Myth): a calamity-scale macroresonance, here turned to *pacify* the Treasures rather than banish a distortion — suppressing their reality-warping capacity for (at least) a few thousand years.
 
-**Roma's reconstruction `[LOCKED v0.9.14]`:** the 9 scattered shards are inert as a catalyst until reassembled. **Madame Roma** (Section 7 — Madame Roma) can **reconstruct the shattered Mt. Mirroh Mega Dreamstone from its 9 fragments**, drawing on a **blessing given to her by Keerin** (Keerin, below). This is the in-fiction mechanism behind the reassembled-Mega-Dreamstone catalyst — Osrid recovers the shards; Roma makes them whole.
+**Roma's reconstruction `[LOCKED v0.9.14]`:** the 9 scattered shards are inert as a catalyst until reassembled. **Madame Roma** (Section 7 — Madame Roma) can **reconstruct the shattered Mt. Mirroh Dreamstone from its nine Shards**, drawing on a **blessing given to her by Keerin** (Keerin, below). This is the in-fiction mechanism behind the reassembled-Dreamstone catalyst — Osrid recovers the shards; Roma makes them whole.
 
 **How the climax actually goes `[LOCKED v0.9.14]`:** despite Osrid and the empire's best efforts, the macroresonance seal at the Necropolis does **not** cleanly solve the problem. It seals the Treasures *to a degree*, but **releases far too much energy** — triggering a massive cascade of **earthquakes that permanently reshape the terrain of Cormoria** (the aged, altered land seen ~2,000 years later in *Dreamstone Mysteries*) — and the backlash **shocks Osrid**, wiping nearly all of his memory. His memory is restored only much later, in Paldea, when he reunites with Eden in a Pokémon battle (Section 5 — Protagonist).
 
-### The Mega-Dreamstone Shard Quest — Parallel Main Quest `[LOCKED v0.9.7]`
+### The Dreamstone Shard Quest — Parallel Main Quest `[LOCKED v0.9.7]`
 
-**The single largest structural addition of v0.9.7.** Dreamstone Ruination's narrative spine is now a *double helix:* the public-facing Trial circuit and the clandestine Mega-Dreamstone shard hunt, running in parallel across all 9 chapters of the game leading to the Championship.
+**The single largest structural addition of v0.9.7.** Dreamstone Ruination's narrative spine is now a *double helix:* the public-facing Trial circuit and the clandestine Dreamstone Shard hunt, running in parallel across all 9 chapters of the game leading to the Championship.
 
-**The three Mega Dreamstones `[LOCKED v0.9.14 — expanded from the v0.9.7 "two Dreamstones" framing]`:**
+**The three Dreamstones `[LOCKED v0.9.14 — expanded from the v0.9.7 "two Dreamstones" framing; "Mega" dropped 2026-11-18]`:**
 
-Dreamstones are common across the wider world — most are *small fossils* that have absorbed hundreds of thousands of years of Pokémon and human memory since prehistory (the same material as above, at natural/positive polarity). But Cormoria's official history and mythology speak of **three *special* Mega Dreamstones** — the three stones **Cormor Dream-Eater, Keerin, and their companions used to seal away the calamity (Phancero)** before the empire was founded (Section 2 — Founding Myth). Only these three hold enough resonance to fully align with a Treasure of Ruin, which is exactly why the four Ruin Cults hunt them.
+Lesser dreamstones are common across the wider world — most are *small fossils* that have absorbed hundreds of thousands of years of Pokémon and human memory since prehistory (the same material as above, at natural/positive polarity). But Cormoria's official history and mythology speak of **three Dreamstones** — the three stones **Cormor Dream-Eater, Keerin, and their companions used to seal away the calamity (Phancero)** before the empire was founded (Section 2 — Founding Myth). Only these three hold enough resonance to fully align with a Treasure of Ruin, which is exactly why the four Ruin Cults hunt them.
 
 **None of the three locations were publicly known.** It took the Widening Eye — and then the successor cults after it split — **years** of effort to even narrow down where the stones might be. The three:
 
-1. **The Silversun Mega Dreamstone** — sealed in **Silversun Palace**, in the same chamber where **Justice the Iron Valiant** (the royal family's ace) was uncovered (Section 7 — Royal Family; Justice, below). Held under the royal family's institutional protection. **No cult knows the royals hold it** — they have only *hypothesized* that a Mega Dreamstone lies in the capital (the Beads and Sword Cults *suspect* a palace Dreamstone exists but have not located it). This is the "palace Dreamstone" of prior canon.
-2. **The Mt. Mirroh Mega Dreamstone → the 9 shards.** Found by **Harbinger Alaric** through sheer luck — the one time he ever beat Baradus and Goma to anything (Section 8 — Vessels Cult). In his impatience to incarnate Ting-Lu he chose a Mt. Mirroh Leyline point that was **not** perfectly aligned; though the incarnation "succeeded," the misaligned resonance **shattered the Mega Dreamstone into 9 fragments**, scattered across Cormoria through **miniature interdimensional rifts** torn into space-time by the force of Ting-Lu's incarnation. These 9 shards are the object of the parallel main quest (below), hunted by Osrid *and* by both surviving cults. **This resolves the prior `[OPEN]` shatter-cause: it was Alaric's misaligned Mt. Mirroh incarnation.**
-3. **The Necropolis Mega Dreamstone** — hidden in the depths of the **Mirroh Necropolis**, guarded by **House Langerin** (Section 8 — Necropolis; the Necropolis is also Chien-Pao's Leyline gate). Its location is buried so deep that **almost no one in the main cast knows it exists** — only **Madame Roma, the Blue Moon Hermit, and Kimaris Langerin** (Section 7). The late/post-game crisis turns on **Baradus discovering this stone's location** and realizing the Necropolis is Chien-Pao's Leyline point — which is why the game's final conflict takes place there.
+1. **The Silversun Dreamstone** — sealed in **Silversun Palace**, in the same chamber where **Justice the Iron Valiant** (the royal family's ace) was uncovered (Section 7 — Royal Family; Justice, below). Held under the royal family's institutional protection. **No cult knows the royals hold it** — they have only *hypothesized* that a Dreamstone lies in the capital (the Beads and Sword Cults *suspect* a palace Dreamstone exists but have not located it). This is the "palace Dreamstone" of prior canon.
+2. **The Mt. Mirroh Dreamstone → the 9 shards.** Found by **Harbinger Alaric** through sheer luck — the one time he ever beat Baradus and Goma to anything (Section 8 — Vessels Cult). In his impatience to incarnate Ting-Lu he chose a Mt. Mirroh Leyline point that was **not** perfectly aligned; though the incarnation "succeeded," the misaligned resonance **shattered the Dreamstone into the nine Dreamstone Shards**, scattered across Cormoria through **miniature interdimensional rifts** torn into space-time by the force of Ting-Lu's incarnation. These 9 shards are the object of the parallel main quest (below), hunted by Osrid *and* by both surviving cults. **This resolves the prior `[OPEN]` shatter-cause: it was Alaric's misaligned Mt. Mirroh incarnation.**
+3. **The Necropolis Dreamstone** — hidden in the depths of the **Mirroh Necropolis**, guarded by **House Langerin** (Section 8 — Necropolis; the Necropolis is also Chien-Pao's Leyline gate). Its location is buried so deep that **almost no one in the main cast knows it exists** — only **Madame Roma, the Blue Moon Hermit, and Kimaris Langerin** (Section 7). The late/post-game crisis turns on **Baradus discovering this stone's location** and realizing the Necropolis is Chien-Pao's Leyline point — which is why the game's final conflict takes place there.
 
-**Why the three are scattered `[soft canon — implication, not spelled out in-story]`:** the implication is that **Cormor Dream-Eater himself scattered the three Mega Dreamstones apart** sometime before he "went missing" at the end of his ~300-year reign (Cormor's True Status, below), precisely so no one could reunite them and re-create a calamity-scale resonance. The cults' entire multi-generational project is the slow undoing of that safeguard.
+**Why the three are scattered `[soft canon — implication, not spelled out in-story]`:** the implication is that **Cormor Dream-Eater himself scattered the three Dreamstones apart** sometime before he "went missing" at the end of his ~300-year reign (Cormor's True Status, below), precisely so no one could reunite them and re-create a calamity-scale resonance. The cults' entire multi-generational project is the slow undoing of that safeguard.
 
 **The quest — Umbra's secret main task for the prince:**
 
-After the Eden theft scene in Act I (Section 6 — The Eden Theft Scene), **Cadmus Umbra briefs Osrid on the clandestine objective:** **recover all 9 shards of the lost Mega-Dreamstone.** This is the **secret parallel main quest** the player undertakes alongside the public-facing Trial circuit.
+After the Eden theft scene in Act I (Section 6 — The Eden Theft Scene), **Cadmus Umbra briefs Osrid on the clandestine objective:** **recover all 9 shards of the lost Mt. Mirroh Dreamstone.** This is the **secret parallel main quest** the player undertakes alongside the public-facing Trial circuit.
 
 **Why it must be clandestine:**
-- **Hidden from the cults at all costs.** If Baradus or Goma learned the empire was assembling Mega-Dreamstone shards, every shard location would become an immediate cult target. The cults are *desperate* for an intact Dreamstone catalyst (Section 8 — Cult Cosmological Framework; the Tablets Cult's *hundreds of small Dreamstones* turned to dust in the Wo-Chien ritual, and the Vessels Cult's Mt. Mirroh Mega Dreamstone *shattered into the 9 scattered shards* during the misaligned Ting-Lu incarnation — leaving both operations non-repeatable. The Tablets Cult had also **collected essentially every small Dreamstone on the continent** for its unorthodox brute-force process, so no other cult can reproduce that method even if it wanted to). **Nine assembled shards = the cults' single greatest prize and most dangerous tool — if they could acquire even one shard, much less several, the timeline of cult-Treasure-incarnation would accelerate dramatically.**
+- **Hidden from the cults at all costs.** If Baradus or Goma learned the empire was assembling Dreamstone Shards, every shard location would become an immediate cult target. The cults are *desperate* for an intact Dreamstone catalyst (Section 8 — Cult Cosmological Framework; the Tablets Cult's *hundreds of lesser dreamstones* turned to dust in the Wo-Chien ritual, and the Vessels Cult's Mt. Mirroh Dreamstone *shattered into the 9 scattered shards* during the misaligned Ting-Lu incarnation — leaving both operations non-repeatable. The Tablets Cult had also **collected essentially every lesser dreamstone on the continent** for its unorthodox brute-force process, so no other cult can reproduce that method even if it wanted to). **Nine assembled shards = the cults' single greatest prize and most dangerous tool — if they could acquire even one shard, much less several, the timeline of cult-Treasure-incarnation would accelerate dramatically.**
 - **Hidden from the broader Cormorian public.** The empire's official intelligence apparatus is compromised (Silas Moray as Vizier of Commerce controls much of it). A public quest for the shards would leak through cult-aligned officials to Baradus immediately.
 - **Hidden even from Rhydia (during the first half of the game).** Rhydia is the public Champion and the focus of cult intelligence-gathering. Compartmentalizing the shard-hunt from her keeps her free of the *operational* knowledge that would make her a target for cult interrogation. **Umbra's broader pattern of compartmentalizing operational knowledge from his beloved pupil** (which causes the Umbra-Rhydia tension at the ~50% reveal — see Section 7 — Cadmus Umbra) extends to the shard-hunt.
 
 **Intelligence source:**
 
 The intelligence on the shard locations comes from **Nemo Korolev's private mercenary counter-intelligence network** (Section 7 — Nemo Korolev). Nemo's network has, over the years he has been Trial Baron, gathered fragmentary intelligence on:
-- Where the original Mega-Dreamstone shattering occurred and which directions the fragments dispersed
+- Where the original Dreamstone shattering occurred and which directions the Shards dispersed
 - Which Cormorian figures have, knowingly or unknowingly, become custodians of individual shards
 - Which shards have been lost to ruins, caves, or other geographical concealment
 - Which shards are at risk of being discovered by the cults independently
@@ -100,26 +107,26 @@ The intelligence on the shard locations comes from **Nemo Korolev's private merc
 
 **Why the shards matter — the cosmological function:**
 
-The reassembled Mega-Dreamstone is *the empire's intact-Dreamstone tool* — usable for the climactic sealing ritual at the Necropolis (Section 10 — Act VI; Section 8 — Cult Cosmological Framework's *three conditions for incarnation/sealing* require Dreamstone catalysis as one of the three conditions). **Without the assembled shards, the climactic sealing ritual may not be possible.** *The shard-hunt is, in cosmological terms, building the tool that ends the game's central crisis.*
+The reassembled Mt. Mirroh Dreamstone is *the empire's intact-Dreamstone tool* — usable for the climactic sealing ritual at the Necropolis (Section 10 — Act VI; Section 8 — Cult Cosmological Framework's *three conditions for incarnation/sealing* require Dreamstone catalysis as one of the three conditions). **Without the assembled shards, the climactic sealing ritual may not be possible.** *The shard-hunt is, in cosmological terms, building the tool that ends the game's central crisis.*
 
-**Cross-reference to existing cosmology:** The Dreamstone the player encounters at climactic moments (per the v0.9.6 locked Dreamstone subsection) is *most likely the reassembled Mega-Dreamstone*, recovered shard by shard across the game. **This retroactively explains** why the player has access to a sufficiently powerful Dreamstone for the sealing — the empire's protagonist *assembled* the catalyst across the entire campaign.
+**Cross-reference to existing cosmology:** The Dreamstone the player encounters at climactic moments (per the v0.9.6 locked Dreamstone subsection) is *most likely the reassembled Mt. Mirroh Dreamstone*, recovered shard by shard across the game. **This retroactively explains** why the player has access to a sufficiently powerful Dreamstone for the sealing — the empire's protagonist *assembled* the catalyst across the entire campaign.
 
-**The palace Dreamstone — relationship to the Mega-Dreamstone Shard Quest `[LOCKED v0.9.7]`:**
+**The palace Dreamstone — relationship to the Dreamstone Shard Quest `[LOCKED v0.9.7]`:**
 
 The Dreamstone hidden in the royal palace remains separate from the shard quest. It is:
-- A *separate* intact Dreamstone, distinct from the Mega-Dreamstone
+- A *separate* intact Dreamstone, distinct from the Mt. Mirroh Dreamstone
 - Hidden in the palace under Rhydia's institutional protection
-- Goma's target during the Royal Palace Assassination Plot (Section 10 — Act II) — *Goma was after the palace Dreamstone, not knowing the empire was simultaneously assembling shards of the Mega-Dreamstone elsewhere*
+- Goma's target during the Royal Palace Assassination Plot (Section 10 — Act II) — *Goma was after the palace Dreamstone, not knowing the empire was simultaneously assembling the Shards of the Mt. Mirroh Dreamstone elsewhere*
 - *Preserved* through Goma's plot's failure
 
 **Two Dreamstone sources, one cosmological mission:**
 
-The palace Dreamstone is *Rhydia's responsibility to protect*; the Mega-Dreamstone shards are *Osrid's responsibility to recover*. **The twin Champions' parallel responsibilities re-enact the brother-sister mirror at the cosmological-resource level** — both are guardians of intact-Dreamstone catalysts, both will eventually contribute their guarded resources to the empire's defense.
+The palace Dreamstone is *Rhydia's responsibility to protect*; the Dreamstone Shards are *Osrid's responsibility to recover*. **The twin Champions' parallel responsibilities re-enact the brother-sister mirror at the cosmological-resource level** — both are guardians of intact-Dreamstone catalysts, both will eventually contribute their guarded resources to the empire's defense.
 
-`[OPEN]` Whether the palace Dreamstone is ever used in the climactic sealing ritual alongside the reassembled Mega-Dreamstone (the v0.9.4 sealing-cataclysm lock specifies "the Dreamstone" singular, but with v0.9.7's shard quest the cosmological resource picture is now richer — the sealing may use both, or use the Mega-Dreamstone alone, or use the palace Dreamstone alone)
-`[OPEN]` Whether the *original* shattering of the Mega-Dreamstone was a cult-orchestrated event or an accident (likely cult-orchestrated, possibly involving the Widening Eye's original era — *the very act that created the cults' opportunity by removing the empire's intact-Dreamstone catalyst from active use*; that framing would be thematically circular and elegant)
-`[OPEN]` Whether the Mega-Dreamstone, when reassembled, has properties beyond a standard intact Dreamstone (its "Mega" designation suggests it is more powerful than the palace Dreamstone)
-`[OPEN]` Whether the shard quest has a *visible* tracker or counter in the player's UI (likely yes — a key-item display showing "Mega-Dreamstone Shards Recovered: X / 9")
+`[OPEN]` Whether the palace Dreamstone is ever used in the climactic sealing ritual alongside the reassembled Mt. Mirroh Dreamstone (the v0.9.4 sealing-cataclysm lock specifies "the Dreamstone" singular, but with v0.9.7's shard quest the cosmological resource picture is now richer — the sealing may use both, or use the Mt. Mirroh Dreamstone alone, or use the palace Dreamstone alone)
+`[OPEN]` Whether the *original* shattering of the Mt. Mirroh Dreamstone was a cult-orchestrated event or an accident (likely cult-orchestrated, possibly involving the Widening Eye's original era — *the very act that created the cults' opportunity by removing the empire's intact-Dreamstone catalyst from active use*; that framing would be thematically circular and elegant)
+`[OPEN]` Whether the Mt. Mirroh Dreamstone, once reassembled, behaves exactly like an intact Dreamstone or carries some trace of its shattering (the three are otherwise peers; the old "Mega" name implied no difference in power)
+`[OPEN]` Whether the shard quest has a *visible* tracker or counter in the player's UI (likely yes — a key-item display showing "Dreamstone Shards Recovered: X / 9")
 
 ### The Four Cursed Objects `[LOCKED]`
 
@@ -469,7 +476,7 @@ When consumed by a Bloodmoon Ursaluna (Blue Moon), **permanently replaces the Po
 
 **Lore framing `[LOCKED]`:**
 
-Ancient Peat is a Cormorian geological substance — peat that has absorbed millennia of Leyline-resonance energy (Section 2 — Leyline Resonance). Possibly accumulated near Leyline points like Mt. Ceram's lava pool or a deep cavern system. Connected thematically to the Dreamstone framework (Section 9 — The Dreamstone) — *peat as a low-resolution proto-Dreamstone* with similar emotional-energy accumulation properties at a different scale.
+Ancient Peat is a Cormorian geological substance — peat that has absorbed millennia of Leyline-resonance energy (Section 2 — Leyline Resonance). Possibly accumulated near Leyline points like Mt. Ceram's lava pool or a deep cavern system. Connected thematically to the Dreamstone framework (Section 9 — The Dreamstone) — *peat as a low-resolution proto-dreamstone* with similar emotional-energy accumulation properties at a different scale.
 
 The Ancient Peat Block found in the player's post-Champion Ancient Cormoria side quest is presumably the *only intact specimen* — preserved by the dimensional displacement that protected Ancient Cormoria from the geological erosion of millennia. The Blue Moon Teddiursa line's lunar-mystic identity resonates with the peat's accumulated cosmic energy; the consumption triggers the ability transformation as the Pokemon's nature integrates with the artifact's stored resonance.
 
@@ -639,25 +646,25 @@ The Beads Cult's failure to obtain this Dreamstone is what forces Goma's escalat
 
 ### Dreamstones as Catalysts — The Arceus-Avoidance Mechanism `[LOCKED — cross-reference Section 8]`
 
-Dreamstones are *accumulations of millions of years of memories and emotional energy*. Their role in the cult cosmological framework (Section 8 — Cult Cosmological Framework) is precise:
+Dreamstone is an *accumulation of millions of years of memories and emotional energy*. Its role in the cult cosmological framework (Section 8 — Cult Cosmological Framework) is precise:
 
-**Why Dreamstones are the *perfect* catalyst for Treasure incarnation:**
+**Why dreamstone is the *perfect* catalyst for Treasure incarnation:**
 - Their energy is *consumable* and *finite* — they amplify resonance without lasting cosmic disruption
 - They provide the precise *emotional-energy signature* needed to bridge the Leyline-resonance gap during incarnation
 - Their use does NOT produce the universe-shattering side effects that crude incarnation methods would cause
-- Therefore, **Dreamstone-catalyzed incarnation does not draw Arceus's intervention.** This is the entire reason Baradus and Goma pursue them — they are the *only* known catalyst that allows the cults to incarnate Treasures without triggering cosmic retribution.
+- Therefore, **dreamstone-catalyzed incarnation does not draw Arceus's intervention.** This is the entire reason Baradus and Goma pursue them — they are the *only* known catalyst that allows the cults to incarnate Treasures without triggering cosmic retribution.
 
-**The Dreamstone-fragment failure that derailed the Tablets and Vessels Cults `[LOCKED]`:**
+**The catalyst failure that derailed the Tablets and Vessels Cults `[LOCKED; reconciled with v0.9.14 on 2026-11-18]`:**
 
-Per Section 8 — Cult Cosmological Framework: **the Tablets and Vessels Cults both used Dreamstone *fragments* for their incarnation rituals**, and those fragments turned to dust during the ritual. The fragments were one-use, single-incarnation catalysts that were consumed in the process.
+Per Section 8 — Cult Cosmological Framework: **both cults' catalysts were destroyed by their own successful rituals.** The Tablets Cult brute-forced Wo-Chien with **hundreds of lesser dreamstones, all reduced to dust**; Alaric's Vessels Cult used **the Mt. Mirroh Dreamstone**, which his misaligned Leyline point **shattered into the nine Dreamstone Shards**, scattered across Cormoria.
 
 This means:
-- Baradus, after slaughtering the Tablets Cult and seizing Wo-Chien, **got no usable Dreamstone catalyst from the operation**
-- Goma got nothing from the Vessels Cult's success — Nemo took both Ting-Lu and whatever remained
-- Baradus and Goma have been searching for *intact, sufficiently powerful* Dreamstones for the past 10+ years
+- Baradus, after slaughtering the Tablets Cult and seizing Wo-Chien, **got no usable dreamstone catalyst from the operation**
+- Goma got nothing from the Vessels Cult's success — Nemo took Ting-Lu, and the stone was already in pieces
+- Baradus and Goma have been searching for an *intact* Dreamstone (one of the three) for the past 10+ years — and, once they learn of them, for the Shards
 - **The cults move slowly because they need rare catalysts, and the catalysts they could find are already destroyed.**
 
-**Implications for sealing:** The climactic sealing ritual at the end of Act VI uses Dreamstone catalysis *in reverse* — instead of using a Dreamstone to *incarnate* a Treasure, the player + Ting-Lu use it to *contain* all four Treasures. **The cosmological framework supports both directions.** The cults' meticulous research into Dreamstone-catalysis is what eventually enables the seal that ends them. They built the toolkit; the player uses it against them.
+**Implications for sealing:** The climactic sealing ritual at the end of Act VI uses dreamstone catalysis *in reverse* — instead of using a Dreamstone to *incarnate* a Treasure, the player + Ting-Lu use it to *contain* all four Treasures. **The cosmological framework supports both directions.** The cults' meticulous research into dreamstone catalysis is what eventually enables the seal that ends them. They built the toolkit; the player uses it against them.
 
 `[OPEN]` Which specific Dreamstone(s) are used in the sealing ritual — the royal palace one? A different one? Multiple?
 `[OPEN]` Whether Dreamstones have visual representations in-game (likely yes — they should be visually distinct ritual objects that the player encounters)
@@ -936,7 +943,7 @@ The Book of the Moon is the Blue Moon Hermit's (Sage Lethys of the Celestica's) 
 8. **Chapter 8:** The four objects (tablets, sword, vessel, beads) and the channeling ritual; Roma's miko-consecration role; Cormor's blacksmithing role
 9. **Chapter 9:** Phancero's erasing; the residual contamination; the four objects' inversion
 10. **Chapter 10:** Cormor's post-erasing exploration; the uncovering of Justice / Iron Valiant; the founding of Cormoria
-11. **Chapter 11 (Hermit's notes):** The Hermit's synthesis — the inverted-Dreamstone framework, the modern cult cosmology, the warning about full Treasure incarnation re-opening Phancero's pathway, the partnership thesis as Cormoria's founding act
+11. **Chapter 11 (Hermit's notes):** The Hermit's synthesis — the inverted-dreamstone framework, the modern cult cosmology, the warning about full Treasure incarnation re-opening Phancero's pathway, the partnership thesis as Cormoria's founding act
 
 `[OPEN]` Whether Lethys and Roma's romantic-coupling history and the Cormor-sleeping-or-dead question are included in the Book or remain implied through in-game dialogue only (cleanest design is **the latter** — the Book covers history through Cormor's empire-building era; the personal aftermath remains for player inference)
 
@@ -1048,7 +1055,7 @@ The deepest character secret in Cormoria's cosmological history — known with c
 
 **The Dreamstone time-path resolution:**
 
-Cormor and Keerin found a Dreamstone and used it to **open a path to the distant past.** This establishes Dreamstones as time-displacement tools (Section 9 — Dreamstone, updated above). Cormor found himself a place where he could **fall into a dreamless sleep** and rest his weary soul **until Keerin believes the time is ready to awaken him.**
+Cormor and Keerin found a dreamstone and used it to **open a path to the distant past.** This establishes dreamstone as a time-displacement tool (Section 9 — Dreamstone, updated above). Cormor found himself a place where he could **fall into a dreamless sleep** and rest his weary soul **until Keerin believes the time is ready to awaken him.**
 
 **Design elements:**
 - **Dreamless sleep** — not unconscious, not deathlike, but *true rest*. Cormor's consciousness is quieted entirely; he does not dream.
@@ -1255,5 +1262,5 @@ Substantial engineering work — see Section 14 for full task specifications. Ke
 ---
 
 **`[user 2026-11-16]` Name and a design hook from the Chapter 1 shard briefing:**
-- In Cormoria's old tales the three Mega Dreamstones are called **"the Legacy of Cormor"**.
+- In Cormoria's old tales the three Dreamstones are called **"the Legacy of Cormor"**.
 - **Shard proximity affects Pokémon** `[OPEN, to design]`: Cadmus tells Osrid that "if a shard is nearby, the Pokémon there will be affected in various ways", which is why the PokéLog matters to the shard hunt. Needs a concrete mechanic (e.g. out-of-place species, altered colouring or behaviour, odd PokéLog entries near a shard).

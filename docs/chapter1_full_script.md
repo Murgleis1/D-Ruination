@@ -324,7 +324,7 @@ Neptune, our guest is leaving. Escort her.
 
 **Eden:** ...They told me it'd be the Vizier and an empty lab. Nobody said a word about a Rainhawk.
 
-**Eden:** You fought like a soldier, Nomad Alban. All orders, not one word to that little partner of yours. It tried its best anyway.
+**Eden:** You fought like a soldier, Nomad Alban. Hand signals, not one word to that little partner of yours. It tried its best anyway.
 
 **Eden:** Just saying... it'll be something to see, the day the two of you actually fight together. I mean it.
 
@@ -350,11 +350,11 @@ But just how could that be...
 
 **Cadmus:** Or someone who knew I was preparing for someone. Either way... I can no longer put off telling you about your... other mission. And this one is even more important than the Trials.
 
-**Cadmus:** Long ago, Cormoria possessed three great treasures... the Mega Dreamstones. The old tales called them the Legacy of Cormor.
+**Cadmus:** Long ago, before the Empire, Cormor and his companions sealed away a great calamity with three stones... the Dreamstones. The old tales called them the Legacy of Cormor.
 
-I confess I understand the why of it less than I would like, but the significance is quite telling.
+I confess I understand how they worked less than I would like. But I have learned to take those tales seriously.
 
-**Cadmus:** In any case... one of these stones was shattered at some point in the past. A friend of mine, whose name you are better off not knowing, has learned where its nine pieces came to rest.
+**Cadmus:** In any case... one of these stones was shattered, and its nine pieces scattered across Cormoria. A friend of mine, whose name you are better off not knowing, has been tracing where they came to rest.
 
 **Cadmus:** There are powerful cults in Cormoria. Two of them want those pieces for reasons I am unsure of, but based on what I have learned in the past decade... they are not planning anything good.
 
@@ -368,19 +368,19 @@ A Trial challenger can go almost anywhere he pleases.
 
 **Cadmus:** Your second mission, therefore, is ultimately simple. Bring the pieces to me... and do it quietly, without attracting unneeded attention.
 
+**Cadmus:** I know someone who can make the stone whole again, and keep the cults from taking control of it.
+
 **Cadmus:** The Trials will make you Champion. The shards will make sure there is still an Empire left for you to rule.
 
 **Cadmus:** Which means no more announcing yourself to thieves as the youngest Rainhawk in history.
 
 **Osrid:** ...She asked.
 
-**Cadmus:** I know someone who can make the stone whole again, and keep the cults from taking control of it.
+**Cadmus:** Now, the PokéLog, as I promised. Every Pokémon you record tells me where you have been and what lives there.
 
-**Cadmus:** That is also what the PokéLog is for. Every Pokémon you record tells me where you have been and what lives there.
+If a shard is near, the Pokémon around it will show it, one way or another. I have quite a few potential leads as well, but you are not yet strong enough to pursue them.
 
-If a shard is nearby, the Pokémon there will be affected in various ways. I have quite a few potential leads as well, but you are not yet strong enough to pursue them.
-
-**Osrid:** Where do I begin? Surely there must be something I can do, even if I'm currently a novice Trainer.
+**Osrid:** Then where do I begin? There must be something I can do, novice or not.
 
 **Cadmus:** West, past Route 11, toward Mirroh. Kimaris Langerin oversees the first Trial there, and there are rumors of a piece on the mountain above it.
 

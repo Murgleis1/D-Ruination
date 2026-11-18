@@ -288,9 +288,9 @@ DR_Monastery_Cell_Text_10:
 DR_Monastery_Cell_Text_11:
 # 56 "data/maps/PellucaTemplarMonastery/scripts.pory"
 	.string "You fought like a soldier, Nomad Alban.\n"
-	.string "All orders, not one word to that little\l"
-	.string "partner of yours. It tried its best\l"
-	.string "anyway.$"
+	.string "Hand signals, not one word to that\l"
+	.string "little partner of yours. It tried its\l"
+	.string "best anyway.$"
 
 DR_Monastery_Cell_Text_12:
 # 61 "data/maps/PellucaTemplarMonastery/scripts.pory"

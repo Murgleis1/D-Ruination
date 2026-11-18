@@ -182,9 +182,9 @@ When Rhydia learns at ~50% through the game that "Rainhawk Alban" is her brother
 - He earned his Vizier seat partly through this role as the loyal-keeper-of-royal-continuity during the empire's most vulnerable decade
 - He is one of the four most influential figures in Cormoria *because* of what he has done quietly, not because of what he has done publicly
 
-**Umbra as the Mega-Dreamstone Shard quest-giver `[LOCKED v0.9.7]`:**
+**Umbra as the Dreamstone Shard quest-giver `[LOCKED v0.9.7]`:**
 
-After the Eden theft scene (Section 6 — The Eden Theft Scene), **Umbra briefs Osrid on a clandestine parallel main quest:** recover the **9 scattered shards** of Cormoria's lost Mega-Dreamstone (Section 9 — The Mega-Dreamstone Shard Quest). This is *not* a side quest — it is a **second main quest running in parallel to the Trial circuit across all of the game's 9 chapters.**
+After the Eden theft scene (Section 6 — The Eden Theft Scene), **Umbra briefs Osrid on a clandestine parallel main quest:** recover the **9 scattered shards** of the lost Mt. Mirroh Dreamstone (Section 9 — The Dreamstone Shard Quest). This is *not* a side quest — it is a **second main quest running in parallel to the Trial circuit across all of the game's 9 chapters.**
 
 **Umbra's role across the entire game now expands:**
 - He is *not just* the gift-scene Pokemon Philosopher and the late-game Vizier opponent
@@ -194,7 +194,7 @@ After the Eden theft scene (Section 6 — The Eden Theft Scene), **Umbra briefs 
 
 **Intelligence source — Nemo Korolev `[LOCKED v0.9.7]`:**
 
-Umbra learned of the shattered Mega-Dreamstone's existence and the scattered locations of its fragments through **Nemo Korolev's counter-intelligence network** (Section 7 — Nemo Korolev; Nemo's private mercenary intelligence apparatus runs parallel to and outside the corrupted official Cormorian intelligence apparatus that Silas Moray controls). **Nemo is unaware that Umbra has briefed Osrid on the quest** — the operational compartmentalization is tight. Nemo only learns of Osrid's involvement during the 9th Trial mutual recognition scene (Section 7 — Nemo). **The Umbra-Nemo-Osrid axis is held together by Umbra's coordination across two operatives who don't know each other's full role until the Trial circuit's climax.**
+Umbra learned of the shattered Dreamstone's existence and the scattered locations of its Shards through **Nemo Korolev's counter-intelligence network** (Section 7 — Nemo Korolev; Nemo's private mercenary intelligence apparatus runs parallel to and outside the corrupted official Cormorian intelligence apparatus that Silas Moray controls). **Nemo is unaware that Umbra has briefed Osrid on the quest** — the operational compartmentalization is tight. Nemo only learns of Osrid's involvement during the 9th Trial mutual recognition scene (Section 7 — Nemo). **The Umbra-Nemo-Osrid axis is held together by Umbra's coordination across two operatives who don't know each other's full role until the Trial circuit's climax.**
 
 **The return-lab Tinkatink heritage scene `[LOCKED v0.9.7 — conditional]`:**
 
@@ -264,7 +264,7 @@ At the egg-discovery beat, the player chooses one of two responses to the line *
   - That the "great evil" has a name (Phancero) or what it actually was (Arceus's shadow-self made manifest)
   - That Keerin was a celestial partner rather than a tool Cormor used
   - That Cormor was originally a vengeance-driven tribesman rather than a heroic brigand
-  - That the Treasures of Ruin are inverted Dreamstones / Cormor's original sealing implements
+  - That the Treasures of Ruin are inverted dreamstones / Cormor's original sealing implements
   - That Missingno is Phancero's first incursion
   - That Arceus's non-intervention is *active mercy with limits*
 
@@ -485,9 +485,9 @@ At some point in the early-to-mid game, **Silas — under Baradus's orders — t
 
 **Silas's calculation is masterful and the cruelest specific act of his cult-aligned career.** He served beside Nemo. They were comrades-in-arms. Silas knows the truth about Nemo's voluntary retirement deal (he was Vizier of Commerce during the negotiation, part of the apparatus). **And Silas chose to weaponize that knowledge to corrupt Nemo's other closest friend.**
 
-**Holding a Mega-Dreamstone shard `[LOCKED v0.9.7]`:**
+**Holding a Dreamstone Shard `[LOCKED v0.9.7]`:**
 
-Ambrose secretly possesses **one of the 9 scattered Mega-Dreamstone shards** (Section 9 — The Mega-Dreamstone Shard Quest). He has been holding it for years, unsure whom to entrust it to:
+Ambrose secretly possesses **one of the 9 scattered Dreamstone Shards** (Section 9 — The Dreamstone Shard Quest). He has been holding it for years, unsure whom to entrust it to:
 
 - The crown might use it to consolidate power *or* might fail to protect it from the cults
 - The cults are after it but Ambrose understands them well enough to know they would weaponize it
@@ -513,7 +513,7 @@ At that moment, Ambrose — who has been paralyzed by indecision for years — d
 
 Once Osrid defeats Ambrose, **Ambrose gains true clarity.** The partnership demonstrated in combat communicates a moral truth that political argument could not. **Ambrose:**
 
-- **Surrenders the Mega-Dreamstone shard to Osrid** — joining the shard collection toward the eventual cosmological resolution
+- **Surrenders the Dreamstone Shard to Osrid** — joining the shard collection toward the eventual cosmological resolution
 - **Begins the process of cleansing cult influence out of the Templar order** — purging the corrupted bishops, restoring the order's institutional health
 - **Eventually learns that Silas's "Nemo punishment" story was a lie** (likely after Silas's death and the truth-revelation cascade that follows). *The grief of having been manipulated using Nemo's name is one of the most painful character beats in Ambrose's arc.* `[OPEN]` whether Ambrose explicitly forgives Silas posthumously or carries the betrayal with him
 - **Becomes one of Osrid's staunchest allies into the final half of the game**
@@ -546,7 +546,7 @@ Ambrose joins **Silas (corrupted, redeemed in death) and Glaive (vengeful, opene
 
 **Her arc — the odd one out `[LOCKED v0.9.9]`:** Zeldra is the outlier among Cormoria's anti-cult actors. Unlike Cadmus or Nemo she does **not** carry the deep cosmological knowledge of the cults — she knows only that they exist and are a threat, nothing of Treasures of Ruin, Dreamstones, or incarnation. What set her on her path was **Gideon's death**: though she disliked him alive, his assassination under "mysterious circumstances" troubled her deeply, and she began — quietly, independently, trusting no one — to **hunt the cults on her own.** She does not know what Cadmus and Silas are each doing; she runs her own operation. She is **extremely resourceful**, and as one of the strongest trainers in the empire she is **feared by Goma and by acolytes of both cults** — with one exception (below). After the destruction of the **Alban family** (the Trial 6 chapter) she finally tracks down Baradus, and in the aftermath **sides with Osrid and Cadmus.**
 
-**Her shadow over the first half of the game `[LOCKED v0.9.9]`:** Zeldra's relentless pursuit of the **Swords of Ruin** — in which she finds and **destroys several of the Sword Cult's smaller bases of operation** — keeps Baradus on the back foot through the first half. This is the in-world reason the Sword Cult is **sidelined** until Baradus makes the deliberate move to retrieve Wo-Chien (Trial 6), and the reason the Swords **fail to notice Osrid's Dreamstone-fragment collection until after the midgame**: a harried, defending Baradus cannot complete his research into Chien-Pao's ideal revival-leyline point until very late. Crucially this *complements* rather than contradicts his locked tunnel vision — he never identifies Zeldra as the cause. She is material operational friction he refuses to take seriously: exactly the human-scale resistance his arrogance dismisses (Section 12 — Baradus).
+**Her shadow over the first half of the game `[LOCKED v0.9.9]`:** Zeldra's relentless pursuit of the **Swords of Ruin** — in which she finds and **destroys several of the Sword Cult's smaller bases of operation** — keeps Baradus on the back foot through the first half. This is the in-world reason the Sword Cult is **sidelined** until Baradus makes the deliberate move to retrieve Wo-Chien (Trial 6), and the reason the Swords **fail to notice Osrid's Dreamstone Shard collection until after the midgame**: a harried, defending Baradus cannot complete his research into Chien-Pao's ideal revival-leyline point until very late. Crucially this *complements* rather than contradicts his locked tunnel vision — he never identifies Zeldra as the cause. She is material operational friction he refuses to take seriously: exactly the human-scale resistance his arrogance dismisses (Section 12 — Baradus).
 
 **The one who isn't afraid of her — Baradus `[LOCKED v0.9.9]`:** every cult actor fears Zeldra except Baradus, who **dismisses her** on two false premises — that **Ice "wipes the floor with" Rock** (it does not; Rock is super-effective into Ice and his own Chien-Pao is Rock-weak — his type-contempt is an extension of Chien-Pao's radicalizing superiority, Section 12 — Baradus), and that nothing she does can ultimately derail his plans. He allocates **recurring recruited acolytes** to harry her, treating her as an expected nuisance. **The payoff `[LOCKED v0.9.9 — narrative thread]`:** Zeldra is **present at the Necropolis climax**, where the Rock specialist Baradus dismissed becomes the embodiment of exactly the threat Chien-Pao's hubris refused to fear — the type-truth made flesh against him.
 

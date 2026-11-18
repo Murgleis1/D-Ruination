@@ -163,7 +163,7 @@ The team spreads **four flavours of status** — paralysis (Glare), sleep (Spore
 **Pre-disappearance backstory:**
 - Best friend and military colleague of **Eldred Nightfall**
 - Was the one accompanying Eldred at the moment of Eldred's assassination (10 years before story)
-- During the assassination event, Sable was **kidnapped** by cult operatives and used in a **Dreamstone resonance experiment** — they used him as a test subject for early experiments with Dreamstone time-displacement
+- During the assassination event, Sable was **kidnapped** by cult operatives and used in a **dreamstone resonance experiment** — they used him as a test subject for early experiments with dreamstone time-displacement
 - **The experiment displaced him into Ancient Cormoria.** He was thrown ~2000+ years into the past.
 
 **The Ashland family's 10-year shadow:**
@@ -173,7 +173,7 @@ The team spreads **four flavours of status** — paralysis (Glare), sleep (Spore
 - **Reid Ashland (Sable's nephew) grew up watching his family's reputation collapse** from suspected traitors to socially isolated remnant. His acceptance as a Trial Baron at all was a conditional empire concession.
 
 **Sable's life in Ancient Cormoria (12 subjective years):**
-- Time flows asymmetrically across the Dreamstone displacement — Sable subjectively experienced ~12 years of time, while only ~10 years passed in the present timeline
+- Time flows asymmetrically across the dreamstone displacement — Sable subjectively experienced ~12 years of time, while only ~10 years passed in the present timeline
 - Found a **Gouging Fire egg** in Ancient Cormoria, hatched it, and raised the Paradox Pokémon as his survival companion
 - Lived a *real* 12 years there — surviving, exploring, growing older. Not a brief adventure; a full life.
 - Returns to the present biologically and emotionally older than he was when displaced — *a settled veteran of an impossible existence*
@@ -192,7 +192,7 @@ When the Beads Cult attempts to raid Mt. Ceram for Chi-Yu's revival and the reso
 - Chi-Yu, in fear/madness/rage, accidentally awakens Koraidon
 - **Koraidon destroys Chi-Yu's physical body with a single Breaking Swipe**
 - The player and the two Ashlands run in, seize the **singed Beads of Ruin**, escape before Koraidon decides to pursue
-- They find another Dreamstone formation resonating with the original, enter it, are spat out near Mt. Ceram in the present
+- They find another dreamstone formation resonating with the original, enter it, are spat out near Mt. Ceram in the present
 
 **Sable's restoration to House Ashland leadership:**
 - Sable's return alive **vindicates the Ashland family** — the 10-year treason suspicion is legally and politically dispelled

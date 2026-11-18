@@ -841,19 +841,19 @@ DR_Lab_ShardBriefing::
 # 437 "data/maps/PellucaUmbraLab/scripts.pory"
 	msgbox DR_Lab_ShardBriefing_Text_9
 # 438 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
-# 439 "data/maps/PellucaUmbraLab/scripts.pory"
 	msgbox DR_Lab_ShardBriefing_Text_10
+# 439 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
 # 440 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 441 "data/maps/PellucaUmbraLab/scripts.pory"
-	special DrSetPrinceNameplate
-# 442 "data/maps/PellucaUmbraLab/scripts.pory"
 	msgbox DR_Lab_ShardBriefing_Text_11
+# 441 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 442 "data/maps/PellucaUmbraLab/scripts.pory"
+	special DrSetPrinceNameplate
 # 443 "data/maps/PellucaUmbraLab/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-# 444 "data/maps/PellucaUmbraLab/scripts.pory"
 	msgbox DR_Lab_ShardBriefing_Text_12
+# 444 "data/maps/PellucaUmbraLab/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 445 "data/maps/PellucaUmbraLab/scripts.pory"
 	msgbox DR_Lab_ShardBriefing_Text_13
 # 446 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1601,21 +1601,23 @@ DR_Lab_ShardBriefing_Text_2:
 
 DR_Lab_ShardBriefing_Text_3:
 # 428 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Long ago, Cormoria possessed three\n"
-	.string "great treasures... the Mega\l"
+	.string "Long ago, before the Empire, Cormor and\n"
+	.string "his companions sealed away a great\l"
+	.string "calamity with three stones... the\l"
 	.string "Dreamstones. The old tales called them\l"
 	.string "the Legacy of Cormor.\p"
-	.string "I confess I understand the why of it\n"
-	.string "less than I would like, but the\l"
-	.string "significance is quite telling.$"
+	.string "I confess I understand how they worked\n"
+	.string "less than I would like. But I have\l"
+	.string "learned to take those tales seriously.$"
 
 DR_Lab_ShardBriefing_Text_4:
 # 429 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "In any case... one of these stones was\n"
-	.string "shattered at some point in the past. A\l"
-	.string "friend of mine, whose name you are\l"
-	.string "better off not knowing, has learned\l"
-	.string "where its nine pieces came to rest.$"
+	.string "shattered, and its nine pieces\l"
+	.string "scattered across Cormoria. A friend of\l"
+	.string "mine, whose name you are better off not\l"
+	.string "knowing, has been tracing where they\l"
+	.string "came to rest.$"
 
 DR_Lab_ShardBriefing_Text_5:
 # 430 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1654,42 +1656,41 @@ DR_Lab_ShardBriefing_Text_8:
 
 DR_Lab_ShardBriefing_Text_9:
 # 437 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "The Trials will make you Champion. The\n"
-	.string "shards will make sure there is still an\l"
-	.string "Empire left for you to rule.$"
-
-DR_Lab_ShardBriefing_Text_10:
-# 439 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Which means no more announcing\n"
-	.string "yourself to thieves as the youngest\l"
-	.string "Rainhawk in history.$"
-
-DR_Lab_ShardBriefing_Text_11:
-# 442 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "...She asked.$"
-
-DR_Lab_ShardBriefing_Text_12:
-# 444 "data/maps/PellucaUmbraLab/scripts.pory"
 	.string "I know someone who can make the stone\n"
 	.string "whole again, and keep the cults from\l"
 	.string "taking control of it.$"
 
+DR_Lab_ShardBriefing_Text_10:
+# 438 "data/maps/PellucaUmbraLab/scripts.pory"
+	.string "The Trials will make you Champion. The\n"
+	.string "shards will make sure there is still an\l"
+	.string "Empire left for you to rule.$"
+
+DR_Lab_ShardBriefing_Text_11:
+# 440 "data/maps/PellucaUmbraLab/scripts.pory"
+	.string "Which means no more announcing\n"
+	.string "yourself to thieves as the youngest\l"
+	.string "Rainhawk in history.$"
+
+DR_Lab_ShardBriefing_Text_12:
+# 443 "data/maps/PellucaUmbraLab/scripts.pory"
+	.string "...She asked.$"
+
 DR_Lab_ShardBriefing_Text_13:
 # 445 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "That is also what the PokéLog is for.\n"
-	.string "Every Pokémon you record tells me where\l"
-	.string "you have been and what lives there.\p"
-	.string "If a shard is nearby, the Pokémon there\n"
-	.string "will be affected in various ways. I have\l"
-	.string "quite a few potential leads as well, but\l"
-	.string "you are not yet strong enough to\l"
-	.string "pursue them.$"
+	.string "Now, the PokéLog, as I promised. Every\n"
+	.string "Pokémon you record tells me where you\l"
+	.string "have been and what lives there.\p"
+	.string "If a shard is near, the Pokémon around\n"
+	.string "it will show it, one way or another. I\l"
+	.string "have quite a few potential leads as\l"
+	.string "well, but you are not yet strong enough\l"
+	.string "to pursue them.$"
 
 DR_Lab_ShardBriefing_Text_14:
 # 448 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Where do I begin? Surely there must be\n"
-	.string "something I can do, even if I'm\l"
-	.string "currently a novice Trainer.$"
+	.string "Then where do I begin? There must be\n"
+	.string "something I can do, novice or not.$"
 
 DR_Lab_ShardBriefing_Text_15:
 # 450 "data/maps/PellucaUmbraLab/scripts.pory"

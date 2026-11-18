@@ -8,7 +8,7 @@
 
 > **Legend:** `[LOCKED]` = committed decision · `[WORKING]` = current direction, may refine · `[OPEN]` = unresolved, needs future discussion
 
-> **v0.9.7 patch summary:** Major character expansions (Eden to deuteragonist, Brie Moray to Trial Baroness, Ambrose Caymen as Archbishop of the Arceus Templar, female Rock Vizier, Jordan Ramses + Wakahisa as recurring rivals), the parallel-main-quest Mega-Dreamstone Shard hunt, the Tinkatink dragon-slayer bloodline lore, the Tinkaton Matriarch ancient-sleeper, the Solomonar title, the v0.9.7 Tinkaton stat lock (BST 560), the Behemoth Bash custom move with Steel-effectiveness override, the Vizier gauntlet reorder (Rock → Umbra → Silas → Glaive → Rhydia), and two terminology sweeps: Trial Lord → Trial Baron / Trial Baroness, and Supreme Sage → Lunacy. See full patch notes at end of document.
+> **v0.9.7 patch summary:** Major character expansions (Eden to deuteragonist, Brie Moray to Trial Baroness, Ambrose Caymen as Archbishop of the Arceus Templar, female Rock Vizier, Jordan Ramses + Wakahisa as recurring rivals), the parallel-main-quest Dreamstone Shard hunt, the Tinkatink dragon-slayer bloodline lore, the Tinkaton Matriarch ancient-sleeper, the Solomonar title, the v0.9.7 Tinkaton stat lock (BST 560), the Behemoth Bash custom move with Steel-effectiveness override, the Vizier gauntlet reorder (Rock → Umbra → Silas → Glaive → Rhydia), and two terminology sweeps: Trial Lord → Trial Baron / Trial Baroness, and Supreme Sage → Lunacy. See full patch notes at end of document.
 
 ---
 

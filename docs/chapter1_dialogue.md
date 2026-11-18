@@ -190,7 +190,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 **Cadmus:** Or someone who knew I was preparing for someone. Either way, I can't put off telling you about the other half of your work.
 
-**Cadmus:** Cormoria once had a Mega-Dreamstone. The old tales call it the heart of the Empire. I understand it less than I would like, but I am certain it matters.  It was shattered long ago. A friend of mine, whose name you don't need, has found where nine of the pieces came to rest.
+**Cadmus:** Cormoria once had a Dreamstone. The old tales call it the heart of the Empire. I understand it less than I would like, but I am certain it matters.  It was shattered long ago. A friend of mine, whose name you don't need, has found where nine of the pieces came to rest.
 
 **Cadmus:** There are cults in Cormoria, more of them every year, and two of them want those pieces as badly as I do. If they reach them first, I don't think either of us will like what they wake up.
 

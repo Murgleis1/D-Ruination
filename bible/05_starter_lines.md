@@ -32,8 +32,8 @@ Immediately after the gift scene, **Eden breaks into the basement of Umbra's est
 - This implies *someone* — likely Goma personally, or possibly a Beads Cult bishop — *directed* her to the basement with specific intelligence about Osrid's starter choice. **The theft is a targeted operation, not a freelance crime.** The Beads Cult's intelligence apparatus is documented in Section 8 (Goma's pre-Mt-Ceram operational capability).
 - **Eden does not yet know she's being used.** She believes the theft is her own clever crime; she will eventually learn that her cult handlers leveraged her for this op. Her defection trajectory (Section 7 — Eden) accelerates partly because *she realizes she was a tool*.
 
-**Umbra's response and the Mega-Dreamstone Shard briefing:**
-- After Eden escapes, **Umbra briefs Osrid on a parallel main quest** (Section 9 — The Mega-Dreamstone Shard Quest): clandestinely recover the **9 scattered shards** of Cormoria's lost Mega-Dreamstone, intelligence on which comes from **Nemo Korolev's counter-intelligence network**. This briefing is the moment Osrid learns about the secret cosmological objective running parallel to the public Trial circuit.
+**Umbra's response and the Dreamstone Shard briefing:**
+- After Eden escapes, **Umbra briefs Osrid on a parallel main quest** (Section 9 — The Dreamstone Shard Quest): clandestinely recover the **9 scattered shards** of the lost Mt. Mirroh Dreamstone, intelligence on which comes from **Nemo Korolev's counter-intelligence network**. This briefing is the moment Osrid learns about the secret cosmological objective running parallel to the public Trial circuit.
 - **The shard-quest briefing is conditional on the theft having just happened.** Umbra waits for the theft because (a) it confirms cult intelligence has noticed Osrid's existence, raising the stakes; (b) it gives Umbra moral cover to deputize the prince for clandestine operations the empire's official apparatus cannot be trusted with.
 
 `[OPEN]` Specific dialogue beats and scene blocking of the theft + briefing sequence
@@ -183,7 +183,7 @@ Deep in the **far desert and surrounding mountains** of Cormoria lies an ancient
 **The Matriarch as a parallel to Cormor `[LOCKED v0.9.7]`:**
 
 The Tinkaton Matriarch occupies a *Pokemon-cosmological-tier longevity* slot that mirrors but does not duplicate Cormor's Avalon sleep (Section 9 — Cormor's True Status):
-- **Cormor sleeps** in a distant-past Dreamstone-displaced location, awakening conditional on Keerin's judgment of cosmic need
+- **Cormor sleeps** in a distant-past dreamstone-displaced location, awakening conditional on Keerin's judgment of cosmic need
 - **The Matriarch sleeps** in an ancient cave in the deep desert, awakening conditional on a sufficient threat to her clan's territory
 
 **Both are ancient beings retreated into deep slumber. Both are still alive. Both can wake.** The Matriarch is *not* pact-blessed (she falls outside the Cormor-Lethys-Roma-Cogita Pact-Extended Longevity framework of Section 9); her longevity is *Pokemon-cosmological-tier ancient* — a different mechanism entirely.
@@ -212,7 +212,7 @@ Around the mid-game, the player can travel to the desert region and encounter th
 - **Tinkatuff-bearing player:** Osrid arrives with the *clan's own stolen child*, now mid-evolution. The encounter is one of recognition — the player's Tinkatuff is *of their bloodline*, raised away from them by the empire. Combat tension is overlaid with a kind of fraught reunion.
 - **Bloodmoon-Ursaring-bearing player:** Neutral encounter (the clan has no specific ecological grudge against bears).
 
-**Combat structure:** The player fights multiple **Tinkatinks** of the clan, then a few **Tinkatuffs**, then eventually **the Matriarch awakens** and the player faces her. **The Matriarch is guarding a Dreamstone fragment** — one of the 9 shards of the lost Mega-Dreamstone (Section 9 — Mega-Dreamstone Shard Quest). Defeating her is the *only* way to recover this shard.
+**Combat structure:** The player fights multiple **Tinkatinks** of the clan, then a few **Tinkatuffs**, then eventually **the Matriarch awakens** and the player faces her. **The Matriarch is guarding a Dreamstone Shard** — one of the 9 shards of the lost Mt. Mirroh Dreamstone (Section 9 — Dreamstone Shard Quest). Defeating her is the *only* way to recover this shard.
 
 **The Matriarch's combat profile `[OPEN]`:** Level cap, exact moveset, abilities all TBD. Given her status as an ancient apex-Tinkaton, she should significantly exceed Trial-cap encounters — possibly an above-cap encounter (precedent established by the Frigibax-picker post-Champion quest's level-120 Roaring Moon and Walking Wake; the Matriarch may be in a similar above-cap tier even at the mid-game placement).
 

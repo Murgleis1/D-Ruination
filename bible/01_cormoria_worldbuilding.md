@@ -151,7 +151,7 @@ These are background facts about the Cormorian Empire's recent past (within the 
 **10 years before story start: The Assassination of Prince-Consort Eldred Nightfall.**
 - Eldred Nightfall — Empress Pierra's husband, Osrid and Rhydia's father — was assassinated by the proto-Sword Cult
 - Osrid and Rhydia were both **10 years old** at the time
-- **Sable Ashland** (Eldred's best friend and military colleague) was *also* at the scene; he was kidnapped during the attack and used in a Dreamstone resonance experiment that displaced him into Ancient Cormoria
+- **Sable Ashland** (Eldred's best friend and military colleague) was *also* at the scene; he was kidnapped during the attack and used in a dreamstone resonance experiment that displaced him into Ancient Cormoria
 - Because of Sable's simultaneous disappearance, the **Ashland family was suspected** of complicity in Eldred's death — no proof was ever found, but the suspicion led to a decade of political isolation for House Ashland
 - The assassination created psychological trauma in three major characters:
   - **Empress Pierra** — descends into chronic grief, becomes vulnerable to Silas Moray's manipulation
@@ -326,7 +326,7 @@ The earliest humans of what would become Kanto worshipped this lump of energy. A
 
 Phancero's destabilizing influence on the material world became more visible as belief in it grew. *Belief is power for Pokemon cosmological entities.* Phancero, fed by worship, became more able to act on reality.
 
-It sought to **devour emotional energy, memories, and experiences** — the same currency that Dreamstones accumulate. **And it sought to grow its sect of believers** — expanding its influence outward across the world.
+It sought to **devour emotional energy, memories, and experiences** — the same currency that dreamstone accumulates. **And it sought to grow its sect of believers** — expanding its influence outward across the world.
 
 It flew across the world. It eventually took up **temporary residence in an unnamed region mostly populated by early nomadic human tribes**. This region would, much later, become Cormoria — but at this point in history it was unnamed, inhabited by nomadic tribes that roamed the territory.
 
@@ -359,11 +359,11 @@ To enable the channeling ritual, Cormor and Keerin used **four specific objects*
 
 These objects were **NOT originally legendary or magical artifacts**. They were *ordinary tribal items* — but they were **made of a unique stone material that could store memories and emotional energy**.
 
-**This stone material is *the same substance as Dreamstones.*** Per Section 9 — Dreamstones, Dreamstones are "accumulations of millions of years of memories and emotional energy." The four tribal objects were Dreamstone-material in object-form — *small natural Dreamstones* that had been shaped into utilitarian items over the tribes' history.
+**This stone material is *the same substance as dreamstone.*** Per Section 9 — Dreamstone, dreamstones are "accumulations of millions of years of memories and emotional energy." The four tribal objects were dreamstone-material in object-form — *small lesser dreamstones* that had been shaped into utilitarian items over the tribes' history.
 
 **The erasing event `[LOCKED v0.9.4]`:**
 
-Cormor and Keerin channeled their combined power through the **three Mega Dreamstones**, using the **four Dreamstone-material objects** — crafted specifically as *resonance tools* to align with the stones — as the conduit. Stones and objects together, charged with cosmic-tier resonance, created **a resonance field that broke Phancero's *physical ties* to the material world**. *(Those same four tool-objects, later inverted to negative polarity, became the four Treasures of Ruin — which is why the Treasures resonate with Dreamstones at all: they were built to. The game's climax re-enacts this exact configuration — three stones + four objects — to **seal** the Treasures rather than banish a distortion. See Section 9 — Dreamstone resonance, and the three Mega Dreamstones.)*
+Cormor and Keerin channeled their combined power through the **three Dreamstones**, using the **four dreamstone-material objects** — crafted specifically as *resonance tools* to align with the stones — as the conduit. Stones and objects together, charged with cosmic-tier resonance, created **a resonance field that broke Phancero's *physical ties* to the material world**. *(Those same four tool-objects, later inverted to negative polarity, became the four Treasures of Ruin — which is why the Treasures resonate with dreamstone at all: they were built to. The game's climax re-enacts this exact configuration — three stones + four objects — to **seal** the Treasures rather than banish a distortion. See Section 9 — Dreamstone resonance, and the three Dreamstones.)*
 
 **Crucially: Phancero was *erased*, not sealed.** The incarnated fragment of Phancero was *removed* from material reality — *not bound, not imprisoned*. **There was no seal because the entire incarnated form was cleansed from the world.** Phancero's *true form* persists outside space and time in the void where its essence lies — but the material fragment that had walked the world as the glitch-bird was erased entirely.
 
@@ -373,15 +373,15 @@ Cormor and Keerin channeled their combined power through the **three Mega Dreams
 
 After the erasing event, **the four objects became *inverted*** by their long exposure to Phancero's residual contamination during the ritual:
 
-- Where natural Dreamstones accumulate *positive* emotional and memory energy across millennia, **the four objects began to gradually absorb *negative* emotions and memories as their power source**
-- Across centuries following the erasing, the objects' inverted-Dreamstone resonance *grew* — they became increasingly potent vessels of accumulated negative energy
-- Eventually, each object *manifested* as a Pokemon — a Dark-typed entity reflecting both its original physical form and its inverted-Dreamstone resonance:
+- Where natural dreamstones accumulate *positive* emotional and memory energy across millennia, **the four objects began to gradually absorb *negative* emotions and memories as their power source**
+- Across centuries following the erasing, the objects' inverted-dreamstone resonance *grew* — they became increasingly potent vessels of accumulated negative energy
+- Eventually, each object *manifested* as a Pokemon — a Dark-typed entity reflecting both its original physical form and its inverted-dreamstone resonance:
   - **The wooden tablets → Wo-Chien** (Dark/Grass)
   - **The sword → Chien-Pao** (Dark/Ice)
   - **The vessel → Ting-Lu** (Dark/Ground)
   - **The set of beads → Chi-Yu** (Dark/Fire)
 
-**The Treasures of Ruin are *Cormor's original sealing implements*** — Dreamstone-material tribal artifacts gradually corrupted by their long exposure to Phancero's residual contamination from positive to inverted Dreamstones.
+**The Treasures of Ruin are *Cormor's original sealing implements*** — dreamstone-material tribal artifacts gradually corrupted by their long exposure to Phancero's residual contamination from positive to inverted dreamstones.
 
 **This is *the* defining cosmological reframe of v0.9.4.** The Treasures of Ruin are not *naturally arising* cosmic entities — they are **Cormoria's own founding-myth artifacts**, gradually transformed by their original success. The cults' pursuit of Treasure incarnation is the pursuit of *the residue of Cormoria's founding event*.
 
@@ -391,7 +391,7 @@ After the erasing event, **the four objects became *inverted*** by their long ex
 
 **However**, the full incarnation of all four Treasures of Ruin creates a *new pathway* for Phancero to potentially re-emerge into the world:
 
-- **Resonance amplification:** Four fully-incarnated inverted-Dreamstone vessels resonating in unison would create a cosmic-tier signal that **Phancero in its true form would detect across the void**
+- **Resonance amplification:** Four fully-incarnated inverted-dreamstone vessels resonating in unison would create a cosmic-tier signal that **Phancero in its true form would detect across the void**
 - **Pathway opening:** The Treasures' resonance could provide Phancero with a *homing channel* to push more of itself back into material reality
 - **Distortion gate hijack risk:** Phancero could force its way through one of the existing Distortion World gates — including the gate at the Mirroh Necropolis (Chien-Pao's Leyline point) — using the Treasures' resonance as a beacon and amplifier
 - **The Necropolis Distortion gate is uniquely vulnerable** because it is *adjacent* to a Treasure of Ruin incarnation site (Chien-Pao's Leyline point). If the Sword Cult successfully incarnates Chien-Pao at the gate, the gate becomes Phancero's most plausible entry pathway.
@@ -435,7 +435,7 @@ This origin retroactively reframes the Cormorian state's moral standing:
 
 - **The public knows the Cormor + Keerin story as a fairy tale.** The standard narrative is that *Cormor Dream-Eater fended off a great evil in the past alongside the legendary beast Keerin and founded the nation.* This is treated like other folkloric founding myths — *atmospheric national heritage*, not literal historical record.
 - **Academic skepticism exists.** Among Cormorian philosophers and historians, *some genuinely doubt that Cormor Dream-Eater existed as a literal historical person, and some doubt that Keerin is a real Pokemon at all.* They are treated by some intellectuals as *abstract symbols of a contrived, cultivated national history* — convenient mythology designed to legitimize the dynasty. The empire's official insistence on Cormor and Keerin's literal existence is itself a *political position* that academics quietly question.
-- **Almost no one in Cormoria knows the *deep* truth.** Phancero's existence, the Missingno connection, Arceus's shadow-self framing, the Treasures-as-inverted-Dreamstones identity, Cormor's pact-cost — *none of this is part of Cormorian institutional knowledge.* Even Cadmus Umbra (Vizier of Education, the Pokemon Philosopher, the most learned scholar in Cormoria) **does not know these things**. He knows the fairy-tale level only.
+- **Almost no one in Cormoria knows the *deep* truth.** Phancero's existence, the Missingno connection, Arceus's shadow-self framing, the Treasures-as-inverted-dreamstones identity, Cormor's pact-cost — *none of this is part of Cormorian institutional knowledge.* Even Cadmus Umbra (Vizier of Education, the Pokemon Philosopher, the most learned scholar in Cormoria) **does not know these things**. He knows the fairy-tale level only.
 
 **Why the deep cosmology is lost:**
 
@@ -463,7 +463,7 @@ Throughout the main story, characters reference the Cormor + Keerin founding myt
 - **Academic NPCs** the player may encounter in libraries, museums, or salon contexts express *active skepticism* — debating whether Cormor literally existed, whether Keerin is real, whether the founding myth is contrived state propaganda.
 - **The empire's official position** (encountered through museum exhibits, royal proclamations, ceremonial language) insists on the literal historical truth of Cormor and Keerin, but the public's *actual* belief varies.
 
-**Within the main story, the player learns only the fairy-tale level.** The deep cosmology — Phancero, the inverted-Dreamstones, the Arceus shadow — is *not* surfaced through normal story progression. Even the climactic Necropolis operation does not require the player to understand Phancero; the cult is simply *the cult* and the stakes are *the cult's resonance ritual must be stopped.* **Players who never engage with the Book of the Moon never learn the deep cosmology** — and the story still works completely for them.
+**Within the main story, the player learns only the fairy-tale level.** The deep cosmology — Phancero, the inverted-dreamstones, the Arceus shadow — is *not* surfaced through normal story progression. Even the climactic Necropolis operation does not require the player to understand Phancero; the cult is simply *the cult* and the stakes are *the cult's resonance ritual must be stopped.* **Players who never engage with the Book of the Moon never learn the deep cosmology** — and the story still works completely for them.
 
 **The combined effect:** Players completing only the main story experience a self-contained narrative with cosmological-cult-political stakes and an emotionally satisfying climax. Players engaging with the Book of the Moon discover *why* the stakes were cosmological all along, *who* the true antagonist of cosmic history is, and *how* Cormoria's founding event connects to the deepest pre-history of the Pokemon universe. **The depth scales with the player's engagement; the project's full cosmological depth is gift, not gate.**
 
@@ -531,9 +531,9 @@ The Cormorian region sits on **unusually thin barriers between the axes of space
 The region's unusually high Paradox Pokemon density confirms its barrier-thinness:
 - **Justice** (Iron Valiant — Future Paradox) was pulled back through dimensional resonance into ancient Cormoria's pre-Empire era
 - **Domdaniel** (Scream Tail — Past Paradox) emerged through similar dimensional displacement and bonded with House Moray
-- **Slither Wing** (Past Paradox) lives in Ancient Cormoria, accessible through Dreamstone resonance
+- **Slither Wing** (Past Paradox) lives in Ancient Cormoria, accessible through dreamstone resonance
 - **Gouging Fire** (Past Paradox) — Sable Ashland's hatched companion from his 12 subjective years in Ancient Cormoria
-- **Koraidon** (Past Paradox, far-future-canonically Paldean) lies dormant in an ancient temple accessible through Dreamstone resonance
+- **Koraidon** (Past Paradox, far-future-canonically Paldean) lies dormant in an ancient temple accessible through dreamstone resonance
 
 **No other Pokemon region demonstrates this density of Paradox Pokemon presence.** Cormoria is structurally distinctive at the cosmological level.
 

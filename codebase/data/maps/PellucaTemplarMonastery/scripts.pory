@@ -53,7 +53,7 @@ script DR_Monastery_Cell {
     if (flag(FLAG_DR_LOST_TO_EDEN_LAB)) {
         // Osrid lost the lab fight: same beat, turned around. She still sees something in him.
         showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_NEUTRAL)
-        msgbox(format("You fought like a soldier, Nomad Alban. All orders, not one word to that little partner of yours. It tried its best anyway."))
+        msgbox(format("You fought like a soldier, Nomad Alban. Hand signals, not one word to that little partner of yours. It tried its best anyway."))
         hideportrait
         closemessage
         delay(50)

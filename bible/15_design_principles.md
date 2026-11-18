@@ -367,15 +367,15 @@ If a feature fails any of these, we either revise it or consciously document the
 | Member of nomadic Celestica tribe; lost his people to Phancero | Cormorian prince in exile; lost his father to House Nightfall's destruction |
 | Pursued vengeance through cosmic-tier mission | Pursues the cult war through political-military mission |
 | Pacted with Keerin (cosmic-tier partner) | Bonds with starter + Ting-Lu (cosmic-tier partners) |
-| Used four Dreamstone-material objects in resonance ritual | Uses Dreamstone catalyst in sealing ritual |
-| Erased Phancero from material world | Seals the four inverted-Dreamstone Treasures, preventing Phancero's re-emergence |
+| Used four dreamstone-material objects in resonance ritual | Uses Dreamstone catalyst in sealing ritual |
+| Erased Phancero from material world | Seals the four inverted-dreamstone Treasures, preventing Phancero's re-emergence |
 | Founded a dynasty | Renounces dynasty, founds the Berlitz line through Vandras's compassion |
 | Eventually weary unto sleep | Eventually weary unto renunciation (chooses Veddev identity) |
 
 **Mirroring details:**
 
 - **The player's Mt. Silver Future-Red test mirrors Cormor's worthiness-test.** Keerin explicitly invokes this — *"Let us see if you are as worthy as Cormor was."* The same partner-Pokemon tests both heroes; the same partnership-thesis is enacted across the millennia gap.
-- **The Necropolis Climactic Operation mirrors the original erasing ritual.** Both involve resonance-channeling through Dreamstone-material objects to address a cosmic-tier threat; both succeed through partnership rather than domination.
+- **The Necropolis Climactic Operation mirrors the original erasing ritual.** Both involve resonance-channeling through dreamstone-material objects to address a cosmic-tier threat; both succeed through partnership rather than domination.
 - **Cormor's eventual renunciation-of-engagement (sleep) mirrors Osrid's renunciation-of-identity (Veddev).** Both founding-figures eventually *step back* from the world they shaped, leaving their work to descendants.
 - **The Hermit's centuries-long grief-preservation mirrors the player's late-game discovery of the lost cosmology.** Lethys preserved what Cormoria forgot; the engaged player rediscovers it through the Book of the Moon. **The chain of partnership-tradition closes when the player reads what the Hermit has been preserving for thousands of years.**
 
@@ -399,7 +399,7 @@ The project has *three* parallel major redemption-or-clarity arcs that all resol
 |---|---|---|---|---|
 | **Silas Moray** | Vizier of Commerce; Sword Cult 2IC | Corrupted under false pretenses (Baradus's manipulation post-Pierra-grief) | Vizier defeat by Osrid in Act V (third Vizier fought) | Silas pledges true loyalty; dies in sealing cataclysm as final act of love |
 | **Glaive** | Vizier of War; future Solomonar | Vengeance-driven trainer carrying unrecognized dragon-empathic gift | Vizier defeat by Osrid in Act V (fourth Vizier fought, immediately before Champion) | Heart fully opens; leaves to found Blackthorn City |
-| **Ambrose Caymen** | Archbishop of the Arceus Templar | Paralyzed by three-way pressure (Silas's lies, Umbra's trust, Nemo friendship) | Archbishop fight in Act III/IV after Osrid foils the cult-aligned bishop coup | Surrenders Mega-Dreamstone shard; cleanses cult influence from Templar; becomes staunch ally |
+| **Ambrose Caymen** | Archbishop of the Arceus Templar | Paralyzed by three-way pressure (Silas's lies, Umbra's trust, Nemo friendship) | Archbishop fight in Act III/IV after Osrid foils the cult-aligned bishop coup | Surrenders Dreamstone Shard; cleanses cult influence from Templar; becomes staunch ally |
 
 **The pattern's significance:**
 
