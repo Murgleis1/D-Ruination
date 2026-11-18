@@ -248,7 +248,7 @@ script DR_Lab_Theft{
     waitmovement(0)
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
     speakername("Thief")
-    msgbox(format("But I have what I need now, so I'll just-"))
+    msgbox(format("Anyway... I have what I came for, so I'll just-"))
     hideportrait
     closemessage
     applymovement(LOCALID_DRL_EDEN, moves(walk_fast_left * 6))
@@ -343,7 +343,7 @@ script DR_Lab_Theft{
     msgbox(format("That's fine. I've never heard of you either."))
     showportrait(PORTRAIT_EDEN, PORTRAIT_EXPR_POSITIVE)
     speakername("Thief")
-    msgbox(format("Hah... you've got a sharp tongue on you, Nomad. Just know that people like me don't stay in cells for long.\pAnd when I'm out, I want a rematch... with relish."))
+    msgbox(format("Hah... you've got a sharp tongue on you, Nomad. Just know that people like me don't stay in cells for long.\pAnd when I get out, you owe me a rematch. I went easy on you this time."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("A rematch that will never happen. The Templars keep their holes very deep, and very dark. And they are not known for their mercy.\pNeptune, our guest is leaving. Escort her."))
     goto(DR_Lab_TheftEnd)
@@ -382,7 +382,7 @@ script DR_Lab_EdenWins{
     speakername("Thief")
     msgbox(format("Ow! Hey! Get this walking suit of armor off me!"))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
-    msgbox(format("Do not look so grim, Rainhawk. Every Trainer loses a first real battle. The good ones remember why."))
+    msgbox(format("Do not despair, Rainhawk. Many Trainers lose their first battle. The ones that become true champions are those that learn from that loss."))
     msgbox(format("As for you, child... the Templars keep their holes very deep, and very dark. And they are not known for their mercy.\pNeptune, our guest is leaving. Escort her."))
     goto(DR_Lab_TheftEnd)
 }

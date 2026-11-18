@@ -1416,7 +1416,8 @@ DR_Lab_Theft_Text_4:
 
 DR_Lab_Theft_Text_5:
 # 251 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "But I have what I need now, so I'll just-$"
+	.string "Anyway... I have what I came for, so I'll\n"
+	.string "just-$"
 
 DR_Lab_Theft_Text_6:
 # 257 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1518,8 +1519,8 @@ DR_Lab_Theft_Text_24:
 	.string "Hah... you've got a sharp tongue on you,\n"
 	.string "Nomad. Just know that people like me\l"
 	.string "don't stay in cells for long.\p"
-	.string "And when I'm out, I want a rematch...\n"
-	.string "with relish.$"
+	.string "And when I get out, you owe me a\n"
+	.string "rematch. I went easy on you this time.$"
 
 DR_Lab_Theft_Text_25:
 # 348 "data/maps/PellucaUmbraLab/scripts.pory"
@@ -1565,9 +1566,10 @@ DR_Lab_EdenWins_Text_6:
 
 DR_Lab_EdenWins_Text_7:
 # 385 "data/maps/PellucaUmbraLab/scripts.pory"
-	.string "Do not look so grim, Rainhawk. Every\n"
-	.string "Trainer loses a first real battle. The\l"
-	.string "good ones remember why.$"
+	.string "Do not despair, Rainhawk. Many Trainers\n"
+	.string "lose their first battle. The ones that\l"
+	.string "become true champions are those that\l"
+	.string "learn from that loss.$"
 
 DR_Lab_EdenWins_Text_8:
 # 386 "data/maps/PellucaUmbraLab/scripts.pory"

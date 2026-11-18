@@ -230,7 +230,7 @@ Write down each one you meet, what it is and how it fights, in your own hand. It
 
 **Thief:** Mmm... I have my ways.
 
-**Thief:** But I have what I need now, so I'll just-
+**Thief:** Anyway... I have what I came for, so I'll just-
 
 **Cadmus:** Neptune. Bar the door, and keep one eye on the window. If she runs, pin her. Gently.
 
@@ -276,7 +276,7 @@ Who are you? No... WHAT are you?
 
 **Thief:** Hah... you've got a sharp tongue on you, Nomad. Just know that people like me don't stay in cells for long.
 
-And when I'm out, I want a rematch... with relish.
+And when I get out, you owe me a rematch. I went easy on you this time.
 
 **Cadmus:** A rematch that will never happen. The Templars keep their holes very deep, and very dark. And they are not known for their mercy.
 
@@ -298,7 +298,7 @@ Neptune, our guest is leaving. Escort her.
 
 **Thief:** Ow! Hey! Get this walking suit of armor off me!
 
-**Cadmus:** Do not look so grim, Rainhawk. Every Trainer loses a first real battle. The good ones remember why.
+**Cadmus:** Do not despair, Rainhawk. Many Trainers lose their first battle. The ones that become true champions are those that learn from that loss.
 
 **Cadmus:** As for you, child... the Templars keep their holes very deep, and very dark. And they are not known for their mercy.
 
