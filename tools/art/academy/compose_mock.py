@@ -33,7 +33,7 @@ X0, X1, Y0, Y1 = 6, 23, 4, 27                      # the hall in the cabin map
 # a straight band under the cornice); wood goes onto one honey-oak ramp by brightness, outlines staying dark.
 def hls(c): return colorsys.rgb_to_hls(*(v / 255 for v in c))
 def rgb(h, l, s): return tuple(int(round(v * 255)) for v in colorsys.hls_to_rgb(h, l, s))
-WALLS = {'A ivory plaster': ((236, 226, 202), (206, 194, 168)), 'B pale stone': ((214, 216, 222), (184, 186, 196))}
+WALLS = {'A ivory plaster': ((236, 226, 202), (206, 194, 168))}       # user picked A (B pale stone dropped)
 HONEY = [(78, 50, 34), (106, 70, 44), (136, 96, 58), (164, 122, 76), (190, 148, 98), (210, 172, 120), (226, 196, 146)]
 def is_wood(c):
     r, g, b = c; return c not in ((0, 248, 248), (0, 0, 0)) and r >= b and (r - b) >= 12 and not (g > r + 8)
@@ -42,7 +42,7 @@ def honey(c):
 def wood_pal(pal): return [honey(tuple(c)) if is_wood(tuple(c)) else tuple(c) for c in pal]
 def cabin_ts(wall):
     ts = TS(CABIN); ts.cache = {}
-    for p in range(7, 12): ts.pal[p] = wood_pal(ts.pal[p])
+    for p in (7, 8, 10, 11): ts.pal[p] = wood_pal(ts.pal[p])          # not 9: the carpets keep their own colours
     plaster, shade = WALLS[wall]
     ts.pal[7][15], ts.pal[7][14], ts.pal[7][10] = plaster, shade, plaster
     ts.pal[7][6] = ts.pal[7][7] = (84, 62, 52); ts.pal[7][8] = (150, 120, 96)          # outlines, baseboard: warm
@@ -88,33 +88,78 @@ for p, m in {(6, 21): 0, (6, 22): 0, (7, 21): 0x18B, (7, 22): 0x18B, (21, 20): 0
     EDITS[p] = m                                         # side-wall exit rugs removed
 RUG_CELLS = {(x, y) for x in (13, 14, 15) for y in (21, 22)}
 MAT_CELLS = {(x, 25) for x in (13, 14, 15)} | {(x, 26) for x in (13, 14, 15)}
-FLIGHTS = [(16, 16), (10, 11)]                           # (left column, top row): 3 wide x 3 tall
+FLIGHTS = [(16, 15), (10, 10)]                           # (left column, top row): 3 wide x 4 tall, top row = gallery edge
 
 # ---- the saloon staircase, recoloured to the new wood ----
-STAIR_ROWS = [(192, 193, 194, 247), (200, 201, 202, 240), (208, 209, 210, 248)]   # + the saloon's background
+# Each saloon stair-side tile draws the saloon wall on its bottom layer and the banister alone on its middle
+# layer (tile 496 = empty filler), so the banisters are taken from the middle layer: an exact cut-out. Four rows:
+# the top row stands in the upper gallery's edge row and replaces the railing there (an opening in it, the newel
+# posts capping the railing's ends); then down through the railing and the back wall to the posts at the floor.
+STAIR_ROWS = [(192, 193, 194), (227, 185, 228), (200, 201, 202), (208, 209, 210)]
 def stair_pieces(wall):
-    pal_backup = [list(p) for p in DORM.SAL.pal]; DORM.SAL.cache.clear()
-    for p in range(len(DORM.SAL.pal)): DORM.SAL.pal[p] = wood_pal(DORM.SAL.pal[p])
+    pal = [wood_pal(p) for p in DORM.SAL.pal]
+    L = [h for h in DORM.H if h['addr'] + 0x08000000 == 0x886A39C][0]['layout']
     rows = []
-    for a, b, c, bg in STAIR_ROWS:
-        bgi = DORM.SAL.meta(bg).astype(int); row = []
-        for k, m in enumerate((a, b, c)):
-            img = DORM.SAL.meta(m).copy()
-            mask = np.ones((16, 16), bool) if k == 1 else (np.abs(img.astype(int) - bgi).sum(-1) > 24)
+    for r in STAIR_ROWS:
+        row = []
+        for k, m in enumerate(r):
+            base = off(L['primary']['mt']) + 24 * m if m < 512 else off(L['secondary']['mt']) + 24 * (m - 512)
+            e = _st.unpack_from('<12H', _ROM, base); img = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool)
+            layers = (0, 1) if k == 1 else (1,)            # the steps: base fill + treads; the sides: banister only
+            for layer in layers:
+                for q in range(4):
+                    v = e[layer * 4 + q]; tid = v & 0x3FF
+                    if k != 1 and tid == 496: continue
+                    t = DORM.SAL.tile(tid)
+                    if t is None: continue
+                    if v & 0x400: t = t[:, ::-1]
+                    if v & 0x800: t = t[::-1, :]
+                    y, x = (q // 2) * 8, (q % 2) * 8; P = np.array(pal[v >> 12], np.uint8)
+                    nz = t != 0 if not (k == 1 and layer == 0) else np.ones((8, 8), bool)
+                    img[y:y + 8, x:x + 8][nz] = P[t][nz]; mask[y:y + 8, x:x + 8] |= nz
             row.append((img, mask))
         rows.append(row)
-    DORM.SAL.pal[:] = pal_backup; DORM.SAL.cache.clear()
     return rows
+# under the side columns: the gallery floor without its handrail (top row), then plain plaster
+SIDE_BG = [0x188, None, 0x17A, 0x183]                   # None: keep the railing row as it is
 
-# ---- straight-edged regal carpets, drawn ----
-PURPLE = {'deep': (64, 32, 96), 'mid': (96, 56, 136), 'light': (128, 88, 168), 'white': (240, 236, 248), 'line': (200, 188, 224)}
-def rug(w, h):
-    a = np.zeros((h, w, 3), np.uint8); a[:] = PURPLE['mid']
-    a[0, :] = a[-1, :] = PURPLE['deep']; a[:, 0] = a[:, -1] = PURPLE['deep']
-    a[1:3, 1:-1] = PURPLE['white']; a[-3:-1, 1:-1] = PURPLE['white']; a[1:-1, 1:3] = PURPLE['white']; a[1:-1, -3:-1] = PURPLE['white']
-    a[5, 5:-5] = PURPLE['line']; a[-6, 5:-5] = PURPLE['line']; a[5:-5, 5] = PURPLE['line']; a[5:-5, -6] = PURPLE['line']
-    a[6:-6, 6:-6] = PURPLE['deep']; a[7:-7, 7:-7] = PURPLE['mid']
-    return a
+# ---- the cabin's own carpets, cleaned up (user: the drawn ones were too clean and lifeless) ----
+# Its ornate pattern kept; the worn parts fixed: each rug squared to a true rectangle (the borders stepped out of
+# line halfway across), its top and bottom edges redrawn straight in its own outline colour, the grime notches in
+# the corners filled with its base colour. Colours: palette 9's reds -> regal purple and white, or the original red.
+RUGS = {'centre': ((0x1A0, 0x1A1, 0x1A2), (0x1A8, 0x1A9, 0x1AA)), 'mat': ((0x19E, 0x19F, 0x1AF), (0x1A6, 0x1A7, 0x1B7))}
+PURPLE9 = {5: (88, 50, 124), 6: (104, 62, 144), 8: (136, 96, 176), 12: (236, 230, 244), 7: (176, 156, 208)}
+CARPET = os.environ.get('CARPET', 'purple')
+def rug_index(ts, grid):
+    """The rug's own pixels (palette 9 layer) as indices, 0 elsewhere, over its cells."""
+    H, W = len(grid) * 16, len(grid[0]) * 16; idx = np.zeros((H, W), np.uint8)
+    for r, row in enumerate(grid):
+        for c, m in enumerate(row):
+            base = off(CABIN['primary']['mt']) + 24 * m if m < 512 else off(CABIN['secondary']['mt']) + 24 * (m - 512)
+            e = _st.unpack_from('<12H', _ROM, base)
+            for k, v in enumerate(e):
+                if v >> 12 != 9 or not v & 0x3FF: continue
+                t = ts.tile(v & 0x3FF)
+                if t is None: continue
+                if v & 0x400: t = t[:, ::-1]
+                if v & 0x800: t = t[::-1, :]
+                q = k % 4; y, x = r * 16 + (q // 2) * 8, c * 16 + (q % 2) * 8
+                sub = idx[y:y + 8, x:x + 8]; sub[t != 0] = t[t != 0]
+    return idx
+def clean_rug(idx):
+    """Mirror the rug's clean right half onto its worn left half (the pattern is left-right symmetric; the
+    stepped border and the grime notches are on the left), about the rug's own centre."""
+    m = idx > 0; rc = m.mean(1); rows = np.where(rc > 0.6 * rc.max())[0]
+    cc = m[rows.min():rows.max() + 1].mean(0); cols = np.where(cc > 0.3)[0]
+    x0, x1 = cols.min(), cols.max(); w = x1 - x0 + 1; half = w // 2
+    out = idx.copy(); right = idx[:, x1 - half + 1:x1 + 1]
+    out[:, x0:x0 + half] = right[:, ::-1]
+    return out
+def rug_rgb(ts, name):
+    idx = clean_rug(rug_index(ts, RUGS[name])); pal = list(ts.pal[9])
+    if CARPET == 'purple':
+        for i, c in PURPLE9.items(): pal[i] = c
+    P = np.array(pal, np.uint8); return P[idx], idx > 0
 
 def compose(wall):
     ts = cabin_ts(wall); W, H = X1 - X0, Y1 - Y0
@@ -123,6 +168,7 @@ def compose(wall):
         for x in range(X0, X1):
             m = EDITS.get((x, y), CELLS[y * CW + x] & 0x3FF)
             if (x, y) in RUG_CELLS: m = 0x18B
+            if (x, y) in MAT_CELLS: m = 0x18B if y == 25 else 0
             img[(y - Y0) * 16:(y - Y0 + 1) * 16, (x - X0) * 16:(x - X0 + 1) * 16] = meta_clean(ts, m, top=(y == 6)) if y in WALL_ROWS else ts.meta(m)
     # T4, the haunted lounge: its old dark door in the old dingy colours
     old = TS(CABIN)
@@ -131,11 +177,15 @@ def compose(wall):
         h, w = a.shape[:2]; sub = img[py:py + h, px:px + w]
         if m is None: sub[:] = a
         else: sub[m] = a[m]
-    put(rug(48, 32), (13 - X0) * 16, (21 - Y0) * 16)
-    mat = rug(48, 24); put(mat, (13 - X0) * 16, (25 - Y0) * 16)
+    a, m = rug_rgb(ts, 'centre'); put(a, (13 - X0) * 16, (21 - Y0) * 16, m)
+    a, m = rug_rgb(ts, 'mat'); put(a, (13 - X0) * 16, (25 - Y0) * 16, m)
     for fx, fy in FLIGHTS:
         for dy, row in enumerate(stair_pieces(wall)):
-            for dx, (piece, mask) in enumerate(row): put(piece, (fx + dx - X0) * 16, (fy + dy - Y0) * 16, mask)
+            for dx, (piece, mask) in enumerate(row):
+                px, py = (fx + dx - X0) * 16, (fy + dy - Y0) * 16
+                if dx != 1 and SIDE_BG[dy] is not None:
+                    y = fy + dy; img[py:py + 16, px:px + 16] = meta_clean(ts, SIDE_BG[dy]) if y in WALL_ROWS else ts.meta(SIDE_BG[dy])
+                put(piece, px, py, mask)
     return img
 
 if __name__ == '__main__':
