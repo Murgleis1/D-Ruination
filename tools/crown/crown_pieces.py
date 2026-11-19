@@ -46,7 +46,8 @@ def cut(group, num, x0, y0, w, h, full=None, crop=None, clear=()):
             sub = rgba[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16]
             if (x, y) in full:                             # both layers composited, against the reference's
                 comp = bot.copy(); comp[tm] = top[tm]
-                (rb, _), (rt, rm) = cell_layers(ts, full[(x, y)]); ref = rb.copy(); ref[rm] = rt[rm]
+                if full[(x, y)] < 0: ref = bot                 # -1: against its own bottom layer
+                else: (rb, _), (rt, rm) = cell_layers(ts, full[(x, y)]); ref = rb.copy(); ref[rm] = rt[rm]
                 bm = np.abs(comp.astype(int) - ref.astype(int)).sum(-1) > 0
                 sub[bm, :3] = comp[bm]; sub[bm, 3] = 255; bmask[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16] = bm
                 continue
@@ -84,6 +85,8 @@ PIECES = {
     'step_ladder': (7, 11, 25, 14, 1, 2, {(25, 15): 0x289}, None),
     # the park's signboard on two posts (the harbour market town, g3.0): the standing notice board's frame
     'park_sign': (3, 0, 17, 19, 2, 2, None, None),
+    # the grand piano of the manor room (g17.0), drawn over its wall and floor: kept where it differs from them
+    'grand_piano': (17, 0, 4, 1, 2, 3, {(x, y): -1 for x in (4, 5) for y in (1, 2, 3)}, None),
 }
 
 if __name__ == '__main__':

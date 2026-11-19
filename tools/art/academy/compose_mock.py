@@ -130,6 +130,8 @@ for x in range(DESK[0], DESK[0] + 4):
 # the notice board stands on the ground floor (user 2026-11-19: it looked cramped between the gallery doors);
 # the top gallery is kept clean (user: the crates and the step ladder read as broken junk; the doors closed for
 # renovation tell the story)
+GRAND = (9, 17)                                          # Crown's grand piano (user 2026-11-19) in the upright's place:
+EDITS[(9, 18)], EDITS[(10, 18)], EDITS[(9, 19)], EDITS[(10, 19)] = 0x183, 0x183, 0x188, 0x188   # wall and floor under it
 BOARD = (7, 18)                                          # top-left cell of the standing board (2 x 2): it stands on
 EDITS[(8, 18)], EDITS[(8, 19)] = 0x183, 0x188            # the floor by the wall, left of the piano, in the floor lamp's place
 RUG_CELLS = {(x, y) for x in (13, 14, 15) for y in (21, 22)}
@@ -329,6 +331,10 @@ def compose_layers(wall):
     c, cm = decor_piece('wall_clock.png', CLOCK_RECOLOUR); put(c, (15 - X0) * 16, (12 - Y0) * 16, cm)
     a, m = decor_piece('reception_counter.png', {}); put(a, (DESK[0] - X0) * 16, (DESK[1] - Y0) * 16, m)
     a, m = standing_board(); put(a, (BOARD[0] - X0) * 16, (BOARD[1] - Y0) * 16, m)
+    a, m = decor_piece('grand_piano.png', {})                # its wood in the walnut (user: darker, more elegant)
+    for c in ((168, 120, 72), (128, 80, 56), (72, 56, 56)):  # its three wood colours (not the keys)
+        a[(a == c).all(-1) & m] = honey(c, WALNUT)
+    put(a, (GRAND[0] - X0) * 16, (GRAND[1] - Y0) * 16, m)
     a, m = rug_rgb(ts, 'centre'); put(a, (13 - X0) * 16, (21 - Y0) * 16, m)
     a, m = rug_rgb(ts, 'mat'); put(a, (13 - X0) * 16, (25 - Y0) * 16, m)
     for fx, fy in FLIGHTS:
