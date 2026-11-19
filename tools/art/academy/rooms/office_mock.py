@@ -27,7 +27,9 @@ import compose_mock as HALL
 
 TSM = TS(map_layout(17, 0))                                       # the manor room's set: its candle stands
 W, H = 12, 10                                                     # x0, x11 void; rows 0-1 wall, 2-8 floor, 9 the mat
-TABLE = os.environ.get('TABLE', 'card')
+TABLE = os.environ.get('TABLE', 'archive_desk')
+SHELF_KIND = os.environ.get('SHELF', 'archive')              # archive: Fort Elderflower's archive shelves (user)
+ARCH_WOOD = None                                              # filled lazily: the archive's mauve wood -> the hall's walnut
 SHELVES = [1, 3]
 COUCH_AT = (W - 1) * 16 - 72, 2 * 16 + 1                          # the couch (72 x 55): its side run against the right
 CANDLES = [(1, 7), (10, 7)]
@@ -53,6 +55,33 @@ def couch():
     for c, w in COUCH_RECOLOUR.items(): rgb[(a[..., :3] == c).all(-1)] = w
     return rgb, m
 
+def walnut(rgb):
+    """MonoMyth's mauve-brown furniture wood onto the hall's walnut ramp by brightness (the book spines kept)."""
+    out = rgb.copy()
+    for c in {tuple(v) for v in rgb.reshape(-1, 3).tolist()}:
+        r, g, b = c
+        if abs(r - b) <= 40 and r >= g and r - g >= 8 and max(c) - min(c) < 70:      # the mauve/brown family
+            out[(rgb == c).all(-1)] = HALL.honey(c, HALL.WALNUT)
+    return out
+
+def table_piece():
+    """(rgb, mask) of the table on the carpet, by TABLE."""
+    P = os.path.join(ASSETS, 'monomyth_reference', 'pieces')
+    if TABLE == 'card':
+        t = np.array(Image.open(os.path.join(P, 'card_table.png')).convert('RGBA')); return t[..., :3], t[..., 3] > 0
+    if TABLE == 'archive_desk':                                  # the archive's writing desk: lamp, papers, inlaid top
+        t = np.array(Image.open(os.path.join(P, 'arch_desk_clean.png')).convert('RGBA'))   # lamp kept, stool and gallery cut
+        return walnut(t[..., :3]), t[..., 3] > 0
+    if TABLE == 'hall_table':                                    # the hall's low table, in walnut (its candle and cup)
+        ts = HALL.cabin_ts('A ivory plaster'); tst = HALL.cabin_ts('A ivory plaster')
+        for i, w in ((3, HALL.WALNUT[3]), (11, HALL.WALNUT[4]), (14, HALL.WALNUT[5])): tst.pal[9][i] = w
+        a = np.hstack([HALL.meta_layers(ts, m, ts_obj=tst, clean=False, floor=0x18B)[0] for m in (0x1B0, 0x1B1)])
+        f = np.hstack([HALL.meta_layers(ts, 0x18B, clean=False)[0]] * 2); return a, (a != f).any(-1)
+    cells = {'manor_table': ((0x30, 0x31), (0x38, 0x39)), 'crown': ((0x05, 0x06),), 'crown_290': ((0x290, 0x291),)}[TABLE]
+    T = TSM if TABLE == 'manor_table' else TSC
+    a = np.vstack([np.hstack([T.meta(m) for m in row]) for row in cells])
+    f = np.vstack([np.hstack([T.meta(0x1)] * len(cells[0]))] * len(cells)); return a, (a != f).any(-1)
+
 def compose():
     img = np.zeros((H * 16, W * 16, 3), np.uint8); solid = set()
     def put(x, y, cell): img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell
@@ -61,8 +90,13 @@ def compose():
         put(x, 0, TSC.meta(TRIM)); put(x, 1, TSC.meta(WALL)); put(x, 2, TSC.meta(FLOOR_SHADE))
         for y in range(3, H - 1): put(x, y, TSC.meta(FLOOR))
     for x0 in SHELVES:
-        for dy in range(2):
-            for dx in range(2): put(x0 + dx, 1 + dy, TSC.meta(SHELF[dy][dx])); solid.add((x0 + dx, 1 + dy))
+        if SHELF_KIND == 'archive':
+            a = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'pieces', 'arch_shelf.png')).convert('RGBA'))
+            rgb, m = walnut(a[..., :3]), a[..., 3] > 0; paste(rgb, m, x0 * 16, 1 * 16)
+        else:
+            for dy in range(2):
+                for dx in range(2): put(x0 + dx, 1 + dy, TSC.meta(SHELF[dy][dx]))
+        solid |= {(x0 + dx, 1 + dy) for dx in range(2) for dy in range(2)}
     cx, cy = COUCH_AT; mid = cx + 36                              # the wall pieces centred over the couch's back run
     k = koi(); paste(k, np.ones(k.shape[:2], bool), mid - k.shape[1] // 2, 7)
     for px, rec in ((mid - k.shape[1] // 2 - 18, HALL.BANNER_RECOLOUR), (mid + k.shape[1] - k.shape[1] // 2 + 2, WATER_BANNER)):
@@ -70,13 +104,8 @@ def compose():
     rug = np.array(Image.open(os.path.join(ASSETS, 'water_rug_rebuilt.png')).convert('RGBA'))
     paste(rug[..., :3], rug[..., 3] > 0, cx - 12, cy + 26)       # the carpet in the couch's corner, out past its open sides
     c, cm = couch(); paste(c, cm, cx, cy)
-    if TABLE == 'card':
-        t = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'pieces', 'card_table.png')).convert('RGBA'))
-        paste(t[..., :3], t[..., 3] > 0, cx + 18, cy + 27)
-    else:
-        for dx, m in enumerate((0x05, 0x06)):
-            d = TSC.meta(m); keep = (d != TSC.meta(FLOOR)).any(-1); sub = img[cy + 30:cy + 46, cx + 14 + dx * 16:cx + 30 + dx * 16]
-            sub[keep] = d[keep]
+    t, tm = table_piece()                                        # centred in the couch's corner, on the carpet
+    paste(t, tm, cx + 32 - t.shape[1] // 2, cy + 26 + max(0, (30 - t.shape[0]) // 2))
     for x, y in CANDLES:                                         # two cells: candles (0xA7) over the stand (0xAF)
         for dy, m in ((-1, 0xA7), (0, 0xAF)):
             c2 = TSM.meta(m); f = TSC.meta(FLOOR).copy(); keep = (c2 != TSM.meta(0x1)).any(-1); f[keep] = c2[keep]
