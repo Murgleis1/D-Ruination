@@ -27,11 +27,14 @@ def hearth(img, x0, y0):
         for dx in range(3):
             rgb, m = CM.hearth_piece(dx, dy); blk = img[(y0 + dy) * 16:(y0 + dy) * 16 + 16, (x0 + dx) * 16:(x0 + dx) * 16 + 16]; blk[m] = rgb[m]
 
-def tavern():
-    a = ours('LAYOUT_PELLUCA_TAVERN'); b = a.copy()
-    hearth(b, 3, 0)                                     # cooking fire behind the bar
-    for x, y in ((1, 6), (2, 7), (11, 6), (12, 7)): put(b, x, y, 'F', 712)   # plates on the round tables
-    for x in (0, 1, 12, 13): put(b, x, 8, 'R', 648); put(b, x, 9, 'R', 656)   # barrels in the front corners
+EXTRA = 2                                               # floor rows added behind the bar (user: "really tight")
+def tavern(hx=4):
+    a = ours('LAYOUT_PELLUCA_TAVERN')
+    floor = a[5 * 16:6 * 16]                            # a plain floor row (row 5) for the new space
+    b = np.vstack([a[:2 * 16]] + [floor] * EXTRA + [a[2 * 16:]])   # under the wall; row 2 carries the bar's back edge
+    hearth(b, hx, 0)                                    # the cooking hearth, standing on the floor behind the bar
+    for x, y in ((1, 6), (2, 7), (11, 6), (12, 7)): put(b, x, y + EXTRA, 'F', 712)   # plates on the round tables
+    for x in (0, 1, 12, 13): put(b, x, 8 + EXTRA, 'R', 648); put(b, x, 9 + EXTRA, 'R', 656)   # barrels, front corners
     return a, b
 
 def cell():
@@ -67,10 +70,10 @@ def osrid_room():
     return a, b
 
 if __name__ == '__main__':
-    rows = [("Osrid's room", *osrid_room()), ('Seaside Tavern', *tavern()), ('Templar holding cell', *cell())]
-    W = max(a.shape[1] * 2 + 24 for _, a, _ in rows); H = sum(a.shape[0] + 24 for _, a, _ in rows)
+    rows = [('Seaside Tavern', *tavern()), ('Templar holding cell', *cell())]
+    W = max(a.shape[1] + b.shape[1] + 24 for _, a, b in rows); H = sum(max(a.shape[0], b.shape[0]) + 24 for _, a, b in rows)
     S = Image.new('RGB', (W, H), (28, 28, 28)); d = ImageDraw.Draw(S); y = 0
     for name, a, b in rows:
         d.text((2, y + 4), f'{name}: now', fill=(255, 230, 120)); d.text((a.shape[1] + 26, y + 4), 'with Odyssey pieces', fill=(255, 230, 120))
-        S.paste(Image.fromarray(a), (0, y + 20)); S.paste(Image.fromarray(b), (a.shape[1] + 24, y + 20)); y += a.shape[0] + 24
+        S.paste(Image.fromarray(a), (0, y + 20)); S.paste(Image.fromarray(b), (a.shape[1] + 24, y + 20)); y += max(a.shape[0], b.shape[0]) + 24
     S.resize((S.width * 2, S.height * 2), Image.NEAREST).save('/tmp/pelluca_odyssey_mock.png'); print(S.size)
