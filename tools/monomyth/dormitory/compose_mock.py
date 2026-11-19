@@ -65,10 +65,14 @@ for i, c in {1: (196, 180, 148), 3: (170, 152, 120), 15: (226, 212, 180),       
              2: (166, 104, 74), 7: (134, 84, 60), 9: (106, 68, 50), 4: (150, 120, 92), 8: (118, 92, 76),   # muted brick
              13: (50, 32, 20), 11: (70, 48, 32), 10: (88, 64, 50), 12: (70, 52, 42),  # outlines/soot: dark brown
              5: (128, 112, 98), 6: (110, 96, 84)}.items(): HEARTH_PAL[i] = c
+# the dormitory's hearth: redder, fancier brick and a paler, marble-like mantel (user 2026-11-19)
+DORM_HEARTH_PAL = list(HEARTH_PAL)
+for i, c in {2: (176, 66, 52), 7: (140, 48, 40), 9: (106, 36, 30), 4: (186, 120, 100), 8: (130, 72, 62),
+             15: (238, 232, 216), 1: (214, 204, 184), 3: (188, 176, 154)}.items(): DORM_HEARTH_PAL[i] = c
 FIREBOX = (1, 2); FLOOR_IDX = (1, 3, 15)        # firebox tile: drop Odyssey's stone-floor colours
-def hearth_piece(dx, dy):
+def hearth_piece(dx, dy, palette=None):
     m = HEARTH[dy][dx]; e = FIRE.ents(m)
-    rgb = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool); pal = np.array(HEARTH_PAL, np.uint8)
+    rgb = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool); pal = np.array(palette or HEARTH_PAL, np.uint8)
     layers = (0, 1) if (dx, dy) == FIREBOX else (1,)
     for layer in layers:
         for q in range(4):
@@ -81,7 +85,7 @@ def hearth_piece(dx, dy):
     return rgb, mask
 def M(src, mid):
     if src == 'H':                                               # ('H', ((dx, dy), under))
-        (dx, dy), under = mid; out = M(*under).copy(); rgb, m = hearth_piece(dx, dy); out[m] = rgb[m]; return out
+        (dx, dy), under = mid; out = M(*under).copy(); rgb, m = hearth_piece(dx, dy, DORM_HEARTH_PAL); out[m] = rgb[m]; return out
     if src == 'F': return FIRE.meta(mid)
     if src == 'Fo':
         oid, under = mid; out = M(*under).copy(); rgb, m = fr_layer(FIRE, oid, 1); out[m] = rgb[m]; return out

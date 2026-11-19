@@ -1245,3 +1245,61 @@ static void BlendAnimPalette_BattleDome_FloorLightsNoBlend(u16 timer)
             sSecondaryTilesetAnimCallback = NULL;
     }
 }
+
+// DR: lit hearths (user 2026-11-19). MonoMyth's 4-frame fire inside Pokemon Odyssey's hearth, in the Seaside
+// Tavern and the Pelluca dormitory. Each tileset keeps the fire's 4 tiles first after its own art
+// (tools/odyssey/pieces.py FIRE_TILE); frames are built by tools/odyssey/build_tavern.py and
+// tools/monomyth/dormitory/build_dormitory.py.
+#define DR_HEARTH_FIRE_TILE 229
+
+const u16 gTilesetAnims_ElderflowerTavern_Fire_Frame0[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/anim/fire/0.4bpp");
+const u16 gTilesetAnims_ElderflowerTavern_Fire_Frame1[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/anim/fire/1.4bpp");
+const u16 gTilesetAnims_ElderflowerTavern_Fire_Frame2[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/anim/fire/2.4bpp");
+const u16 gTilesetAnims_ElderflowerTavern_Fire_Frame3[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/anim/fire/3.4bpp");
+const u16 *const gTilesetAnims_ElderflowerTavern_Fire[] = {
+    gTilesetAnims_ElderflowerTavern_Fire_Frame0,
+    gTilesetAnims_ElderflowerTavern_Fire_Frame1,
+    gTilesetAnims_ElderflowerTavern_Fire_Frame2,
+    gTilesetAnims_ElderflowerTavern_Fire_Frame3,
+};
+const u16 gTilesetAnims_PellucaDormitory_Fire_Frame0[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/anim/fire/0.4bpp");
+const u16 gTilesetAnims_PellucaDormitory_Fire_Frame1[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/anim/fire/1.4bpp");
+const u16 gTilesetAnims_PellucaDormitory_Fire_Frame2[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/anim/fire/2.4bpp");
+const u16 gTilesetAnims_PellucaDormitory_Fire_Frame3[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/anim/fire/3.4bpp");
+const u16 *const gTilesetAnims_PellucaDormitory_Fire[] = {
+    gTilesetAnims_PellucaDormitory_Fire_Frame0,
+    gTilesetAnims_PellucaDormitory_Fire_Frame1,
+    gTilesetAnims_PellucaDormitory_Fire_Frame2,
+    gTilesetAnims_PellucaDormitory_Fire_Frame3,
+};
+
+static void QueueAnimTiles_HearthFire(const u16 *const *frames, u16 timer)
+{
+    AppendTilesetAnimToBuffer(frames[timer % 4], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(NUM_TILES_IN_PRIMARY + DR_HEARTH_FIRE_TILE)), 4 * TILE_SIZE_4BPP);
+}
+
+static void TilesetAnim_ElderflowerTavern(u16 timer)
+{
+    if (timer % 8 == 0)
+        QueueAnimTiles_HearthFire(gTilesetAnims_ElderflowerTavern_Fire, timer / 8);
+}
+
+static void TilesetAnim_PellucaDormitory(u16 timer)
+{
+    if (timer % 8 == 0)
+        QueueAnimTiles_HearthFire(gTilesetAnims_PellucaDormitory_Fire, timer / 8);
+}
+
+void InitTilesetAnim_ElderflowerTavern(void)
+{
+    sSecondaryTilesetAnimCounter = 0;
+    sSecondaryTilesetAnimCounterMax = 256;
+    sSecondaryTilesetAnimCallback = TilesetAnim_ElderflowerTavern;
+}
+
+void InitTilesetAnim_PellucaDormitory(void)
+{
+    sSecondaryTilesetAnimCounter = 0;
+    sSecondaryTilesetAnimCounterMax = 256;
+    sSecondaryTilesetAnimCallback = TilesetAnim_PellucaDormitory;
+}

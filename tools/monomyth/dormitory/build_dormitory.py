@@ -56,12 +56,17 @@ FIRST_FREE_TILE = 229
 assert not S_TILES[FIRST_FREE_TILE:].any(), 'secondary tiles past 228 must be unused'
 s_tiles = [t.copy() for t in S_TILES[:FIRST_FREE_TILE]]
 _tile_ids = {}
+# the hearth fire's 4 animated tiles come first (fixed id: src/tileset_anims.c DR_HEARTH_FIRE_TILE)
 def add_tile(t):
     k = t.tobytes()
     if k not in _tile_ids:
         assert len(s_tiles) < 512, 'secondary tile budget'
         _tile_ids[k] = len(s_tiles); s_tiles.append(t.copy())
     return 512 + _tile_ids[k]
+sys.path.insert(0, os.path.join(MM, '..', 'odyssey'))
+import pieces
+assert len(s_tiles) == FIRST_FREE_TILE == pieces.FIRE_TILE
+s_tiles.extend(t.copy() for t in pieces.as_quad(pieces.lit_firebox()[0]))      # frame 0; not deduplicated
 FOREIGN_TILES = {id(AP): tiles_of(AP), id(WP): tiles_of(WP)}
 def import_fr_quad(ts, quad, slot_map):
     """Pokemon Odyssey (FireRed) metatile entries -> ours: FireRed tile ids (primary < 640) resolved by the
@@ -86,13 +91,13 @@ W_LO = import_quad(AP, ents(AP, 177)[4:8], {1: WALL_SLOT})
 DOOR = import_quad(AP, ents(AP, 289)[0:4], {3: DOOR_SLOT})
 MAT = import_quad(AP, ents(AP, 189)[4:8], {1: WALL_SLOT})
 PED = import_quad(WP, ents(WP, 122)[4:8], {2: PED_SLOT})
-# Pokemon Odyssey brick hearth (as an object over our wall, recoloured: slot 10) and food plates (slot 11)
-sys.path.insert(0, os.path.join(MM, '..', 'odyssey'))
-import pieces
-HEARTH_SLOT, PLATE_SLOT = 10, 11
+# Pokemon Odyssey brick hearth (as an object over our wall, recoloured: slot 10) and food plates (slot 11),
+# lit with MonoMyth's fire (animated tiles, slot 12)
+HEARTH_SLOT, PLATE_SLOT, FIRE_SLOT = 10, 11, 12
 FIRE = CM.FIRE
 def quad(tiles, slot): return [add_tile(t) | (slot << 12) for t in tiles]
 HEARTH_Q = {(dx, dy): quad(pieces.hearth(dx, dy), HEARTH_SLOT) for dy in range(3) for dx in range(3)}
+FIRE_Q = [(512 + pieces.FIRE_TILE + i) | FIRE_SLOT << 12 for i in range(4)]
 PLATE = quad(pieces.plate(), PLATE_SLOT)
 FLOOR = sal_ents(155)[4:8]
 EMPTY = [0, 0, 0, 0]
@@ -142,8 +147,11 @@ def cell(c):
     if src == 'L': return add_meta(EMPTY + sal_ents(165)[4:8] + PED), SOLID_E3
     if src in 'PQRT': return rebase(mid), COLL.get(mid, WALL)
     if src == 'H':                                                              # hearth piece over ours
-        (dx, dy), under = mid; base, _ = cell(under)
-        e = pieces.overlay(meta_entries(base), HEARTH_Q[(dx, dy)], lambda v: not (v & 0x3FF))
+        (dx, dy), under = mid; base, _ = cell(under); empty = lambda v: not (v & 0x3FF)
+        e = meta_entries(base)
+        if (dx, dy) == CM.FIREBOX: e = pieces.compact(e, empty)                 # room for the fire on top
+        e = pieces.overlay(e, HEARTH_Q[(dx, dy)], empty)
+        if (dx, dy) == CM.FIREBOX: e = pieces.overlay(e, FIRE_Q, empty)
         return add_meta(e, 0), WALL
     if src == 'Fo':                                                             # a plate on a table
         oid, (usrc, umid) = mid; assert usrc == 's'
@@ -186,7 +194,8 @@ sec_pals[6] = [gba(c) for c in CM.SAL.pal[6]]               # the tavern seconda
 sec_pals[WALL_SLOT] = [gba(c) for c in CM.APT.pal[1]]        # apartment wall + doormat, warmed
 sec_pals[DOOR_SLOT] = [gba(c) for c in CM.APT.pal[3]]        # apartment door, warm wood
 sec_pals[PED_SLOT] = [gba(c) for c in CM.WA.pal[2]]          # Wood Avens pedestal
-sec_pals[HEARTH_SLOT] = [gba(c) for c in pieces.HEARTH_PAL]  # Odyssey brick hearth, recoloured to ours
+sec_pals[HEARTH_SLOT] = [gba(c) for c in CM.DORM_HEARTH_PAL]  # Odyssey brick hearth: redder, fancier brick (user)
+sec_pals[FIRE_SLOT] = [gba(c) for c in pieces.FIRE_ANIM_PAL]   # MonoMyth's fire
 sec_pals[PLATE_SLOT] = [gba(c) for c in FIRE.pal[8]]         # Odyssey food plates
 
 # ---------------- write ----------------
@@ -256,6 +265,7 @@ def main():
     door_ids = [512 + i for i, a in enumerate(s_attr) if a & 0xFF == MB_ANIMATED_DOOR]
     assert door_ids == [DOOR_METATILE], f'door metatile moved to {door_ids}: update DOOR_METATILE and metatile_labels.h'
     write_door_anim()
+    pieces.write_fire_frames(os.path.join(C, 'data/tilesets/secondary/pelluca_dormitory/anim/fire'))
     print('secondary tiles', len(s_tiles), 'secondary metatiles', len(s_meta), {k: v.shape for k, v in ROOMS.items()})
 
 if __name__ == '__main__':

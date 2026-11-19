@@ -1170,7 +1170,7 @@ const struct Tileset gTileset_ElderflowerTavern =
     .palettes = gTilesetPalettes_ElderflowerTavern,
     .metatiles = gMetatiles_ElderflowerTavern,
     .metatileAttributes = gMetatileAttributes_ElderflowerTavern,
-    .callback = NULL,
+    .callback = InitTilesetAnim_ElderflowerTavern,
 };
 
 const struct Tileset gTileset_SpeedwellInterior =
@@ -1192,5 +1192,5 @@ const struct Tileset gTileset_PellucaDormitory =
     .palettes = gTilesetPalettes_PellucaDormitory,
     .metatiles = gMetatiles_PellucaDormitory,
     .metatileAttributes = gMetatileAttributes_PellucaDormitory,
-    .callback = NULL,
+    .callback = InitTilesetAnim_PellucaDormitory,
 };

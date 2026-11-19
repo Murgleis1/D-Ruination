@@ -96,5 +96,23 @@ def lit_firebox():
         layer[~inside] = 0; frames.append(layer)
     return frames
 
+FIRE_TILE = 229              # each lit hearth's tileset puts the fire's 4 animated tiles first, at this secondary tile
+                             # (src/tileset_anims.c: DR_HEARTH_FIRE_TILE)
+
+def compact(entries, is_empty, empty=0):
+    """Move a metatile's drawn layers down to the lowest layers (order kept), freeing the top ones."""
+    layers = [entries[k * 4:k * 4 + 4] for k in range(3)]
+    drawn = [l for l in layers if not all(is_empty(v) for v in l)]
+    while len(drawn) < 3: drawn.append([empty] * 4)
+    return [v for l in drawn for v in l]
+
+def write_fire_frames(directory):
+    """anim/fire/0..3.png: 16x16 (tiles TL, TR, BL, BR), fire palette."""
+    from PIL import Image
+    os.makedirs(directory, exist_ok=True)
+    for i, f in enumerate(lit_firebox()):
+        im = Image.fromarray(f, 'P'); im.putpalette([v for c in FIRE_ANIM_PAL for v in c] + [0] * (768 - 48))
+        im.save(os.path.join(directory, f'{i}.png'))
+
 def as_quad(img16):
     return [img16[(i // 2) * 8:(i // 2) * 8 + 8, (i % 2) * 8:(i % 2) * 8 + 8].copy() for i in range(4)]

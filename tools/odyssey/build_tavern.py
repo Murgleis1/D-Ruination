@@ -7,7 +7,8 @@ Always starts from the original files saved in tools/odyssey/base/tavern/ (so re
     was "really tight"; two rows moved the bar "too much"). The bar and everything below move down one row.
     The behind-the-bar row keeps the bar's back edge but loses its baked-in wall shadow (user: "this shadow
     on the ground needs to go away"); the new row under the wall carries the wall's shadow instead.
-  - the brick hearth on the back wall (cols 4-6), plates on the two round tables, barrels in the front corners.
+  - the brick hearth on the back wall (cols 4-6), lit (MonoMyth's fire, animated: anim/fire, palette 9),
+    plates on the two round tables, barrels in the front corners.
   - data/tilesets/secondary/elderflower_tavern: new tiles from 229, new metatiles from 562, palettes 10-12.
   - data/maps/PellucaCityPokemonCenter/map.json: NPCs and the exit moved down with the room.
 The tavern secondary is used by this map only; its placed art uses palette slot 2 only (checked).
@@ -23,7 +24,7 @@ BASE = os.path.join(HERE, 'base', 'tavern')
 TS_DIR = os.path.join(C, 'data/tilesets/secondary/elderflower_tavern')
 PRIM = os.path.join(C, 'data/tilesets/primary/elderflower_interior')
 W, H0 = 14, 11
-HEARTH_SLOT, PLATE_SLOT, RUSTIC_SLOT = 10, 11, 12
+HEARTH_SLOT, PLATE_SLOT, RUSTIC_SLOT, FIRE_SLOT = 10, 11, 12, 9
 FIRST_TILE, FIRST_META = 229, 562
 SOLID = 1 | 3 << 2
 
@@ -61,6 +62,11 @@ def add_meta(e, a=0):
 def quad(tiles, slot): return [add_tile(t) | slot << 12 for t in tiles]
 def over(under, q): return add_meta(pieces.overlay(ents(under), q, is_empty), attr(under))
 
+# the hearth fire's 4 animated tiles come first (fixed id: src/tileset_anims.c DR_HEARTH_FIRE_TILE)
+assert n_tiles == pieces.FIRE_TILE
+for t in pieces.as_quad(pieces.lit_firebox()[0]):                  # frame 0; not deduplicated
+    i = n_tiles; sheet[(i // 16) * 8:(i // 16) * 8 + 8, (i % 16) * 8:(i % 16) * 8 + 8] = t; n_tiles += 1
+FIRE_Q = [(512 + pieces.FIRE_TILE + i) | FIRE_SLOT << 12 for i in range(4)]
 HEARTH = {(dx, dy): quad(pieces.hearth(dx, dy), HEARTH_SLOT) for dy in range(3) for dx in range(3)}
 PLATE = quad(pieces.plate(), PLATE_SLOT)
 BARREL_TOP, BARREL_BOTTOM = quad(pieces.rustic(648), RUSTIC_SLOT), quad(pieces.rustic(656), RUSTIC_SLOT)
@@ -83,9 +89,14 @@ def build():
     g[4:] = base[3:]
     def put(x, y, m, coll=None):
         g[y, x] = m | ((coll if coll is not None else g[y, x] >> 10) << 10)
-    for dy in range(3):                                     # hearth on the back wall, cols 4-6
+    for dy in range(3):                                     # hearth on the back wall, cols 4-6, lit
         for dx in range(3):
-            x, y = 4 + dx, dy; put(x, y, over(g[y, x] & 0x3FF, HEARTH[(dx, dy)]), SOLID if dy == 2 else None)
+            x, y = 4 + dx, dy; under = int(g[y, x] & 0x3FF)
+            if (dx, dy) == pieces.CM.FIREBOX:
+                e = pieces.compact(ents(under), is_empty)
+                e = pieces.overlay(pieces.overlay(e, HEARTH[(dx, dy)], is_empty), FIRE_Q, is_empty)
+                put(x, y, add_meta(e, attr(under)), SOLID)
+            else: put(x, y, over(under, HEARTH[(dx, dy)]), SOLID if dy == 2 else None)
     for x, y in ((1, 7), (2, 8), (11, 7), (12, 8)):        # plates on the round tables
         put(x, y, over(g[y, x] & 0x3FF, PLATE))
     for x in (0, 1, 12, 13):                                # barrels in the front corners
@@ -102,7 +113,8 @@ def main():
     open(os.path.join(TS_DIR, 'metatiles.bin'), 'wb').write(sm)
     open(os.path.join(TS_DIR, 'metatile_attributes.bin'), 'wb').write(sa)
     im = Image.fromarray(sheet, 'P'); im.putpalette(sheet_pal); im.save(os.path.join(TS_DIR, 'tiles.png'))
-    pals = {HEARTH_SLOT: pieces.HEARTH_PAL, PLATE_SLOT: pieces.PLATE_PAL, RUSTIC_SLOT: pieces.RUSTIC_PAL}
+    pals = {HEARTH_SLOT: pieces.HEARTH_PAL, PLATE_SLOT: pieces.PLATE_PAL, RUSTIC_SLOT: pieces.RUSTIC_PAL, FIRE_SLOT: pieces.FIRE_ANIM_PAL}
+    pieces.write_fire_frames(os.path.join(TS_DIR, 'anim', 'fire'))
     for i in range(16):
         src = os.path.join(BASE, 'palettes', f'{i:02d}.pal'); dst = os.path.join(TS_DIR, 'palettes', f'{i:02d}.pal')
         if i in pals:
