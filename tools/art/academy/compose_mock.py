@@ -202,11 +202,17 @@ def bench(w=16, h=11):
     return a, m
 
 PIANO = {0x1FA, 0x1FB, 0x1FC, 0x202, 0x203, 0x204}
+# the hearth and the chimney column rising through the centre (user: a darker, deeper grey-blue stone): palette 10
+# on these tiles only (the railings borrow a few of its greys), onto a deep slate ramp by brightness
+STONE = {0x1BF, 0x1BB, 0x194, 0x1BD, 0x1BE, 0x1C5, 0x1C6, 0x1C3, 0x19B, 0x19C, 0x19D, 0x1A3, 0x1A4, 0x1A5}
+SLATE = [(26, 30, 44), (38, 46, 64), (52, 62, 84), (68, 80, 104), (86, 98, 124), (106, 118, 146), (132, 144, 170)]
+def slate(pal): return [c if tuple(c) in ((0, 248, 248), (0, 0, 0), (248, 0, 0)) else SLATE[min(6, int(hls(tuple(c))[1] / 0.75 * 7))] for c in pal]
 def compose(wall):
     ts = cabin_ts(wall); W, H = X1 - X0, Y1 - Y0
     tsp = cabin_ts(wall)
     for p in (7, 8, 10, 11): tsp.pal[p] = wood_pal(TS(CABIN).pal[p], WALNUT)
     tsp.cache = {}
+    tss = cabin_ts(wall); tss.pal[10] = slate(TS(CABIN).pal[10]); tss.cache = {}
     img = np.zeros((H * 16, W * 16, 3), np.uint8)
     for y in range(Y0, Y1):
         for x in range(X0, X1):
@@ -214,6 +220,7 @@ def compose(wall):
             if (x, y) in RUG_CELLS: m = 0x18B
             if (x, y) in MAT_CELLS: m = 0x18B if y == 25 else 0
             if m in PIANO: cell = meta_clean(ts, m, top=False, ts_obj=tsp, clean=y in WALL_ROWS)   # piano layer in walnut
+            elif m in STONE: cell = meta_clean(tss, m, top=(y == 6)) if y in WALL_ROWS else tss.meta(m)
             else: cell = meta_clean(ts, m, top=(y == 6)) if y in WALL_ROWS else ts.meta(m)
             img[(y - Y0) * 16:(y - Y0 + 1) * 16, (x - X0) * 16:(x - X0 + 1) * 16] = cell
     # T4, the haunted lounge: its old dark door in the old dingy colours
