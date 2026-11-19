@@ -161,6 +161,43 @@ def rug_rgb(ts, name):
         for i, c in PURPLE9.items(): pal[i] = c
     P = np.array(pal, np.uint8); return P[idx], idx > 0
 
+# ---- the windows and the piano bench, cleaned (user 2026-11-19) ----
+# The windows kept their frames but had dark, smudged, cracked glass; each is re-glazed inside its own outline:
+# pale blue glass lighter at the top, a highlight streak, a honey-oak cross mullion. The piano bench (cabin
+# metatiles 0x20B/0x20C) is redrawn sound: honey-oak frame and legs, a purple velvet cushion (the carpets').
+WINDOW_PAIRS = [(9, 10), (12, 13), (15, 16), (18, 19)]       # each window straddles two cells, rows 6-8
+OUTLINE, FRAME, FRAME_D = (84, 62, 52), HONEY[4], HONEY[2]
+GLASS = [(206, 224, 236), (186, 208, 226), (166, 192, 214)]
+def clean_window(img, plain):
+    """Inside a window's bounding box (where the cells differ from plain wall rendered in the same place): an
+    outline ring, the frame, clean glass, a cross mullion."""
+    m = np.abs(img.astype(int) - plain.astype(int)).sum(-1) > 30
+    ys, xs = np.where(m)
+    if len(ys) == 0: return
+    y0, y1, x0, x1 = ys.min(), ys.max(), xs.min(), xs.max()
+    w, h = x1 - x0 + 1, y1 - y0 + 1; out = img
+    out[y0:y1 + 1, x0:x1 + 1] = OUTLINE                         # outline ring (redrawn square)
+    out[y0 + 1:y1, x0 + 1:x1] = FRAME                           # frame
+    gy0, gy1, gx0, gx1 = y0 + 2, y1 - 2, x0 + 2, x1 - 2         # glass area
+    for yy in range(gy0, gy1 + 1):
+        t = (yy - gy0) / max(1, gy1 - gy0); out[yy, gx0:gx1 + 1] = GLASS[min(2, int(t * 3))]
+    mx = (gx0 + gx1) // 2; my = gy0 + int((gy1 - gy0) * 0.45)
+    out[gy0:gy1 + 1, mx] = FRAME; out[my, gx0:gx1 + 1] = FRAME  # cross mullion
+    for k in range(3):                                          # highlight streak, top-left pane
+        yy, xx = gy0 + 1 + k, gx0 + 2 - k
+        if gx0 <= xx < mx and yy < my: out[yy, xx] = (236, 244, 248)
+    out[y1, x0:x1 + 1] = OUTLINE; out[y1 - 1, x0 + 1:x1] = FRAME_D   # sill shadow
+VELVET = [(64, 32, 96), (96, 56, 136), (128, 88, 168)]
+def bench(w=16, h=11):
+    a = np.zeros((h, w, 3), np.uint8); m = np.zeros((h, w), bool)
+    a[0:6, 0:w] = OUTLINE; m[0:6, 0:w] = True
+    a[1:3, 1:w - 1] = VELVET[2]; a[3:5, 1:w - 1] = VELVET[1]; a[1, 2:w - 2] = (168, 132, 204)   # cushion
+    a[5, 1:w - 1] = FRAME_D
+    for x in (1, w - 3):                                        # legs
+        a[6:h, x:x + 2] = FRAME; a[6:h, x - 1] = OUTLINE; a[6:h, x + 2] = OUTLINE; m[6:h, x - 1:x + 3] = True
+    a[h - 1, :] = a[h - 1, :]
+    return a, m
+
 def compose(wall):
     ts = cabin_ts(wall); W, H = X1 - X0, Y1 - Y0
     img = np.zeros((H * 16, W * 16, 3), np.uint8)
@@ -177,6 +214,12 @@ def compose(wall):
         h, w = a.shape[:2]; sub = img[py:py + h, px:px + w]
         if m is None: sub[:] = a
         else: sub[m] = a[m]
+    plain = np.vstack([np.hstack([meta_clean(ts, m, top=(r == 0)) for m in row]) for r, row in enumerate(((0x179, 0x179), (0x17B, 0x17B), (0x183, 0x183)))])
+    for xa, xb in WINDOW_PAIRS:
+        sub = img[(6 - Y0) * 16:(9 - Y0) * 16, (xa - X0) * 16:(xb + 1 - X0) * 16]; clean_window(sub, plain)
+    # the piano bench: floor under it, then the clean bench centred on the old one
+    for x in (9, 10): img[(20 - Y0) * 16:(21 - Y0) * 16, (x - X0) * 16:(x + 1 - X0) * 16] = ts.meta(0x18B)
+    b, bm = bench(); put(b, (9 - X0) * 16 + 8, (20 - Y0) * 16 + 2, bm)
     a, m = rug_rgb(ts, 'centre'); put(a, (13 - X0) * 16, (21 - Y0) * 16, m)
     a, m = rug_rgb(ts, 'mat'); put(a, (13 - X0) * 16, (25 - Y0) * 16, m)
     for fx, fy in FLIGHTS:
