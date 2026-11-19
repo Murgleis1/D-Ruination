@@ -97,20 +97,28 @@ def _wa_layer1(mid):
         if v & 0x800: t = t[::-1, :]
         assert v >> 12 == 2; out.append(t)
     return out
-RUG_CANVAS = [[np.zeros((8, 8), np.uint8) for _ in range(6)] for _ in range(4)]
-for (mx, my), mid in {(0, 0): 141, (1, 0): 144, (0, 1): 142, (1, 1): 143}.items():
-    for q, t in enumerate(_wa_layer1(mid)):
-        RUG_CANVAS[my * 2 + q // 2][1 + mx * 2 + q % 2] = t
-def rug_quad(cx, cy):
-    return [RUG_CANVAS[cy * 2 + q // 2][cx * 2 + q % 2] for q in range(4)]
-def rug_piece(cx, cy):
+def _canvas(blocks):
+    """A 2x2-metatile Wood Avens object (top layers) centred in a 3x2-cell canvas: shifted half a tile."""
+    c = [[np.zeros((8, 8), np.uint8) for _ in range(6)] for _ in range(4)]
+    for (mx, my), mid in blocks.items():
+        for q, t in enumerate(_wa_layer1(mid)): c[my * 2 + q // 2][1 + mx * 2 + q % 2] = t
+    return c
+# the round red rug, and the log table (user: more seating), both from Wood Avens (its palette 2 = our slot 8)
+CANVAS = {'rug': _canvas({(0, 0): 141, (1, 0): 144, (0, 1): 142, (1, 1): 143}),
+          'table': _canvas({(0, 0): 93, (1, 0): 94, (0, 1): 101, (1, 1): 102})}
+STOOL = 109
+def rug_quad(name, cx, cy):
+    return [CANVAS[name][cy * 2 + q // 2][cx * 2 + q % 2] for q in range(4)]
+def wa_piece(quad):
     pal = np.array(WA.pal[2], np.uint8); rgb = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool)
-    for q, t in enumerate(rug_quad(cx, cy)):
+    for q, t in enumerate(quad):
         y, x = (q // 2) * 8, (q % 2) * 8; nz = t != 0; rgb[y:y + 8, x:x + 8][nz] = pal[t][nz]; mask[y:y + 8, x:x + 8] = nz
     return rgb, mask
 def M(src, mid):
-    if src == 'G':                                               # ('G', ((cx, cy), under)): the fireside rug
-        (cx, cy), under = mid; out = M(*under).copy(); rgb, m = rug_piece(cx, cy); out[m] = rgb[m]; return out
+    if src == 'G':                                   # ('G', ((name, cx, cy), under)): rug or table, centred
+        (name, cx, cy), under = mid; out = M(*under).copy(); rgb, m = wa_piece(rug_quad(name, cx, cy)); out[m] = rgb[m]; return out
+    if src == 'W':                                   # ('W', (wood-avens metatile, under)): its top layer over ours
+        wid, under = mid; out = M(*under).copy(); rgb, m = wa_piece(_wa_layer1(wid)); out[m] = rgb[m]; return out
     if src == 'H':                                               # ('H', ((dx, dy), under))
         (dx, dy), under = mid; out = M(*under).copy(); rgb, m = hearth_piece(dx, dy, DORM_HEARTH_PAL); out[m] = rgb[m]; return out
     if src == 'F': return FIRE.meta(mid)
@@ -175,7 +183,7 @@ def put_hearth(g, x0, y0=0):
     for dy in range(3):
         for dx in range(3): g[y0 + dy][x0 + dx] = ('H', ((dx, dy), pg[y0 + dy][x0 + dx]))
 DOORS_1F = (4,)                 # Osrid's door by the stairs; the student rooms are all upstairs (user)
-DOORS_2F = (4, 9, 14, 19)
+DOORS_2F = (4, 9, 14, 19, 24, 29)     # all six student rooms upstairs (user), 5 apart
 def floor1():
     g = [[('s', v) if v else None for v in r] for r in SALOON]
     # back-wall doors (wall face row 2): Osrid's is the one by the stairs (user 2026-11-19), two locked
@@ -197,7 +205,10 @@ def floor1():
     g[4][13], g[4][17] = ('s', 167), ('s', 159)
     pg = plain(g)
     for cy in range(2):
-        for cx in range(3): g[3 + cy][14 + cx] = ('G', ((cx, cy), pg[3 + cy][14 + cx]))
+        for cx in range(3):
+            g[3 + cy][14 + cx] = ('G', (('rug', cx, cy), pg[3 + cy][14 + cx]))
+            g[5 + cy][14 + cx] = ('G', (('table', cx, cy), pg[5 + cy][14 + cx]))     # log table below the rug
+    g[6][13], g[6][17] = ('W', (STOOL, pg[6][13])), ('W', (STOOL, pg[6][17]))        # a log stool either side
     for y, row in enumerate(g):
         for x, c in enumerate(row):
             if c == ('s', 176): g[y][x] = ('Fo', (PLATE, ('s', 176)))
@@ -209,7 +220,7 @@ def floor1():
     return g
 
 def floor2():
-    W = 22
+    W = 33
     top = [('s', 152)] * W
     band = [('s', 160)] * W
     face = [('s', 240)] + [('s', 168)] * (W - 2) + [('s', 240)]

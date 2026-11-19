@@ -12,7 +12,8 @@ Tilesets
                                   - South Edelweiss apartment wall (upper/lower), door and doormat
                                     (palettes in slots 9 and 7, warmed: compose_mock.WALL_/DOOR_RECOLOUR;
                                     slot 6 stays the tavern secondary's own, the saloon beds use it),
-                                  - the Wood Avens pedestal as the stage lectern (slot 8),
+                                  - the Wood Avens pedestal as the stage lectern, and its round red rug,
+                                    log table and stools at the fireside (all its palette 2: slot 8),
                                   - Pokemon Odyssey's brick hearth as an object over our wall (only its own
                                     pixels; recoloured to ours: slot 10) and food plates on the dining
                                     tables (slot 11), from its fireplace hall (layout 0x8319414; see
@@ -146,6 +147,14 @@ def cell(c):
     if src == 'm': return add_meta(EMPTY + FLOOR + MAT), FLOOR_E3
     if src == 'L': return add_meta(EMPTY + sal_ents(165)[4:8] + PED), SOLID_E3
     if src in 'PQRT': return rebase(mid), COLL.get(mid, WALL)
+    if src == 'G':                                                              # fireside rug / log table
+        (name, cx, cy), under = mid; base, coll = cell(under)
+        e = pieces.overlay(meta_entries(base), quad(CM.rug_quad(name, cx, cy), PED_SLOT), lambda v: not (v & 0x3FF))
+        return add_meta(e, 0), (SOLID_E3 if name == 'table' else coll)
+    if src == 'W':                                                              # Wood Avens log stool
+        wid, under = mid; base, _ = cell(under)
+        e = pieces.overlay(meta_entries(base), quad(CM._wa_layer1(wid), PED_SLOT), lambda v: not (v & 0x3FF))
+        return add_meta(e, 0), SOLID_E3
     if src == 'H':                                                              # hearth piece over ours
         (dx, dy), under = mid; base, _ = cell(under); empty = lambda v: not (v & 0x3FF)
         e = meta_entries(base)
