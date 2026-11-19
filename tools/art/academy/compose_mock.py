@@ -104,7 +104,9 @@ for x0 in (12, 18):                                      # boarded (12-13) and b
     for dy, (a, b) in enumerate(INTACT_WINDOW): EDITS[(x0, 6 + dy)] = a; EDITS[(x0 + 1, 6 + dy)] = b
 for (x, ytop) in ((8, 7), (8, 12), (20, 12), (20, 17)):  # T1, M1, M4, G1: dark broken doors -> wood doors
     EDITS[(x, ytop)], EDITS[(x, ytop + 1)] = WOOD_DOOR
-EDITS[(11, 7)], EDITS[(11, 8)] = 0x17B, 0x183            # T2 removed (the top landing)
+# the top floor (user 2026-11-19): the haunted lounge (T4) stands alone at the right end; the other door there (T3)
+# goes left of the chimney, between the two windows (the old T2 place, at the top of the second stairs)
+EDITS[(17, 7)], EDITS[(17, 8)] = 0x17B, 0x183            # T3's old place: plain wall
 EDITS[(16, 18)], EDITS[(16, 19)] = 0x182, 0x188          # the stuffed Ursaring removed
 EDITS[(13, 17)] = 0x17A                                  # the ground-floor clock removed (user): a banner instead
 EDITS[(15, 12)] = 0x17B                                  # the little middle-gallery clock: Crown's pendulum clock instead

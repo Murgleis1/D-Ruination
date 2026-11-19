@@ -151,7 +151,7 @@ DOORS = {  # bottom cell of each door (cabin coordinates) -> script
     (8, 13): 'DR_Academy_LibraryDoor',     # M1 library
     (17, 13): 'DR_Academy_ClassroomDoor',  # M3 classroom (top of the first stairs)
     (20, 8): 'DR_Academy_LoungeDoor',      # T4 the haunted teachers' lounge (rusted key after the second badge)
-    (20, 13): 'DR_Academy_RenovationDoor', (8, 8): 'DR_Academy_RenovationDoor', (17, 8): 'DR_Academy_RenovationDoor',
+    (20, 13): 'DR_Academy_RenovationDoor', (8, 8): 'DR_Academy_RenovationDoor', (11, 8): 'DR_Academy_RenovationDoor',
 }
 def sign(x, y, script):
     mx, my = m(x, y)
