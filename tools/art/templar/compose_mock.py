@@ -20,9 +20,9 @@ import importlib.util as _ilu                                    # the dormitory
 _spec = _ilu.spec_from_file_location('dorm_compose_mock', '/home/claude/repo/tools/monomyth/dormitory/compose_mock.py')
 DORM = _ilu.module_from_spec(_spec); _spec.loader.exec_module(DORM)     # it shares this module's file name
 
-UP = '/mnt/user-data/uploads/'
-AR = np.array(Image.open(UP + '7a10724b-image.png').convert('RGBA'))[::2, ::2]   # ArceusRuins, halved exactly
-CH = Image.open(UP + 'b046604a-image.jpg').convert('RGB')                         # Church (JPEG, provisional)
+UP = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'assets', 'rejuvenation') + os.sep   # the user's sheets
+AR = np.array(Image.open(UP + 'ArceusRuins.png').convert('RGBA'))[::2, ::2]   # ArceusRuins, halved exactly
+CH = Image.open(UP + 'Church.jpg').convert('RGB')                         # Church (JPEG, provisional)
 HQ_L = layout(u32(off(0x0886DEC8))); HQ = TS(HQ_L); HQ_W = HQ_L['w']; HQ_C = map_cells(HQ_L)
 
 def hq(mid): return HQ.meta(mid).astype(np.uint8)
