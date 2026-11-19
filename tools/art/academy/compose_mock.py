@@ -35,6 +35,7 @@ def hls(c): return colorsys.rgb_to_hls(*(v / 255 for v in c))
 def rgb(h, l, s): return tuple(int(round(v * 255)) for v in colorsys.hls_to_rgb(h, l, s))
 WALLS = {'A ivory plaster': ((236, 226, 202), (206, 194, 168))}       # user picked A (B pale stone dropped)
 HONEY = [(78, 50, 34), (106, 70, 44), (136, 96, 58), (164, 122, 76), (190, 148, 98), (210, 172, 120), (226, 196, 146)]
+MAROON = [(84, 22, 34), (116, 34, 46), (152, 62, 70)]          # palette 8's upholstery greens 9, 10, 12 -> maroon
 WALNUT = [(34, 18, 16), (52, 26, 22), (72, 36, 28), (94, 48, 34), (118, 64, 42), (142, 84, 54), (168, 108, 72)]   # the piano: dark, elegant
 def is_wood(c):
     r, g, b = c; return c not in ((0, 248, 248), (0, 0, 0)) and r >= b and (r - b) >= 12 and not (g > r + 8)
@@ -47,6 +48,7 @@ def cabin_ts(wall):
     plaster, shade = WALLS[wall]
     ts.pal[7][15], ts.pal[7][14], ts.pal[7][10] = plaster, shade, plaster
     ts.pal[7][6] = ts.pal[7][7] = (84, 62, 52); ts.pal[7][8] = (150, 120, 96)          # outlines, baseboard: warm
+    ts.pal[8][9], ts.pal[8][10], ts.pal[8][12] = MAROON                             # the upholstery (user: maroon)
     return ts
 WALL_META = {0x170, 0x178, 0x179, 0x17A, 0x17B, 0x180, 0x182, 0x183, 0x1C7, 0x1CF, 0x1C8, 0x1C9}
 WALL_ROWS = {6, 7, 8, 12, 13, 17, 18}                    # every tile in the wall rows carries plaster (windows, chimney, doors)
