@@ -1216,3 +1216,25 @@ const struct Tileset gTileset_TemplarHall =
     .metatileAttributes = gMetatileAttributes_TemplarHall,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_AcademyHall =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_AcademyHall,
+    .palettes = gTilesetPalettes_AcademyHall,
+    .metatiles = gMetatiles_AcademyHall,
+    .metatileAttributes = gMetatileAttributes_AcademyHall,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyInterior =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_AcademyInterior,
+    .palettes = gTilesetPalettes_AcademyInterior,
+    .metatiles = gMetatiles_AcademyInterior,
+    .metatileAttributes = gMetatileAttributes_AcademyInterior,
+    .callback = NULL,
+};

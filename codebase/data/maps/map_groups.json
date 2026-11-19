@@ -152,7 +152,8 @@
     "PellucaDormitory1F",
     "PellucaDormitory2F",
     "PellucaDormitoryOsridRoom",
-    "PellucaTemplarHall"
+    "PellucaTemplarHall",
+    "PellucaAcademyHall"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

@@ -307,3 +307,7 @@ const u16 gMetatiles_OldHqInterior[] = INCBIN_U16("data/tilesets/primary/old_hq_
 const u16 gMetatileAttributes_OldHqInterior[] = INCBIN_U16("data/tilesets/primary/old_hq_interior/metatile_attributes.bin");
 const u16 gMetatiles_TemplarHall[] = INCBIN_U16("data/tilesets/secondary/templar_hall/metatiles.bin");
 const u16 gMetatileAttributes_TemplarHall[] = INCBIN_U16("data/tilesets/secondary/templar_hall/metatile_attributes.bin");
+const u16 gMetatiles_AcademyHall[] = INCBIN_U16("data/tilesets/secondary/academy_hall/metatiles.bin");
+const u16 gMetatileAttributes_AcademyHall[] = INCBIN_U16("data/tilesets/secondary/academy_hall/metatile_attributes.bin");
+const u16 gMetatiles_AcademyInterior[] = INCBIN_U16("data/tilesets/primary/academy_interior/metatiles.bin");
+const u16 gMetatileAttributes_AcademyInterior[] = INCBIN_U16("data/tilesets/primary/academy_interior/metatile_attributes.bin");

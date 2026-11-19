@@ -1517,11 +1517,6 @@ script DR_PellucaCity_SignInn{
     end
 }
 
-script DR_PellucaCity_DoorAcademy{
-    msgbox(format("The Academy doors are locked."), MSGBOX_SIGN)
-    end
-}
-
 script DR_PellucaCity_DoorCadmus{
     msgbox(format("Vizier Umbra's residence. The door is locked."), MSGBOX_SIGN)
     end

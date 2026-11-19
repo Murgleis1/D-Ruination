@@ -54,11 +54,13 @@ WALL_META = {0x170, 0x178, 0x179, 0x17A, 0x17B, 0x180, 0x182, 0x183, 0x1C7, 0x1C
 WALL_ROWS = {6, 7, 8, 12, 13, 17, 18}                    # every tile in the wall rows carries plaster (windows, chimney, doors)
 import struct as _st
 from render import ROM as _ROM
-def meta_clean(ts, m, top=False, ts_obj=None, clean=True):
-    """A wall metatile with its stains and moss painted out: in palette 7, 14 and 10 -> 15, except a straight
-    3-pixel band at the top of the pieces under the ceiling."""
+def meta_layers(ts, m, top=False, ts_obj=None, clean=True):
+    """(under, over, over mask) of a cabin metatile: under = its bottom and middle layers (below the player),
+    over = its top layer (drawn over the player). With `clean`, a wall metatile has its stains and moss painted
+    out: in palette 7, 14 and 10 -> 15, except a straight 3-pixel band at the top of the pieces under the ceiling."""
     base = off(CABIN['primary']['mt']) + 24 * m if m < 512 else off(CABIN['secondary']['mt']) + 24 * (m - 512)
     e = _st.unpack_from('<12H', _ROM, base); img = np.zeros((16, 16, 3), np.uint8)
+    over = np.zeros((16, 16, 3), np.uint8); om = np.zeros((16, 16), bool)
     for layer in range(3):
         for q in range(4):
             v = e[layer * 4 + q]; T = ts_obj if (ts_obj is not None and layer > 0) else ts
@@ -74,8 +76,12 @@ def meta_clean(ts, m, top=False, ts_obj=None, clean=True):
                 t = np.where(np.isin(t, (10, 14)) & ~band, 15, t); t = np.where(band & (t != 0), 14, t)
             pal = np.array(T.pal[v >> 12], np.uint8)
             if layer == 0: img[y:y + 8, x:x + 8] = pal[t]
-            else: mk = t != 0; img[y:y + 8, x:x + 8][mk] = pal[t][mk]
-    return img
+            elif layer == 1: mk = t != 0; img[y:y + 8, x:x + 8][mk] = pal[t][mk]
+            else: mk = t != 0; over[y:y + 8, x:x + 8][mk] = pal[t][mk]; om[y:y + 8, x:x + 8] |= mk
+    return img, over, om
+def meta_clean(ts, m, top=False, ts_obj=None, clean=True):
+    """The metatile as it looks (all three layers)."""
+    img, over, om = meta_layers(ts, m, top, ts_obj, clean); img = img.copy(); img[om] = over[om]; return img
 
 # ---- the edits, in cabin map coordinates ----
 WOOD_DOOR = (0x1CF, 0x1D7)                               # top, bottom
@@ -238,24 +244,32 @@ def decor_piece(name, recolour):
     return rgb, m
 
 def compose(wall):
+    under, over, om = compose_layers(wall); img = under.copy(); img[om] = over[om]; return img
+def compose_layers(wall):
+    """The hall as (under, over, over mask): `under` is everything below the player (the cabin's bottom and
+    middle layers and all the new pieces), `over` the cabin's top layer (railing tops, lamp shades, the sofa's
+    back, the hearth glow), cleared where the staircases replaced the railing."""
     ts = cabin_ts(wall); W, H = X1 - X0, Y1 - Y0
     tsp = cabin_ts(wall)
     for p in (7, 8, 10, 11): tsp.pal[p] = wood_pal(TS(CABIN).pal[p], WALNUT)
     tsp.cache = {}
     tss = cabin_ts(wall); tss.pal[10] = slate(TS(CABIN).pal[10]); tss.cache = {}
-    img = np.zeros((H * 16, W * 16, 3), np.uint8)
+    img = np.zeros((H * 16, W * 16, 3), np.uint8); OV = np.zeros_like(img); OM = np.zeros((H * 16, W * 16), bool)
     for y in range(Y0, Y1):
         for x in range(X0, X1):
             m = EDITS.get((x, y), CELLS[y * CW + x] & 0x3FF)
             if (x, y) in RUG_CELLS: m = 0x18B
             if (x, y) in MAT_CELLS: m = 0x18B if y == 25 else 0
-            if m in PIANO: cell = meta_clean(ts, m, top=False, ts_obj=tsp, clean=y in WALL_ROWS)   # piano layer in walnut
-            elif m in STONE: cell = meta_clean(tss, m, top=(y == 6)) if y in WALL_ROWS else tss.meta(m)
-            else: cell = meta_clean(ts, m, top=(y == 6)) if y in WALL_ROWS else ts.meta(m)
-            img[(y - Y0) * 16:(y - Y0 + 1) * 16, (x - X0) * 16:(x - X0 + 1) * 16] = cell
+            if m in PIANO: cell = meta_layers(ts, m, top=False, ts_obj=tsp, clean=y in WALL_ROWS)   # piano layer in walnut
+            elif m in STONE: cell = meta_layers(tss, m, top=(y == 6), clean=y in WALL_ROWS)
+            else: cell = meta_layers(ts, m, top=(y == 6), clean=y in WALL_ROWS)
+            sl = (slice((y - Y0) * 16, (y - Y0 + 1) * 16), slice((x - X0) * 16, (x - X0 + 1) * 16))
+            img[sl], OV[sl], OM[sl] = cell
     # T4, the haunted lounge: its old dark door in the old dingy colours
     old = TS(CABIN)
-    for (x, y) in ((20, 7), (20, 8)): img[(y - Y0) * 16:(y - Y0 + 1) * 16, (x - X0) * 16:(x - X0 + 1) * 16] = old.meta(CELLS[y * CW + x] & 0x3FF)
+    for (x, y) in ((20, 7), (20, 8)):
+        sl = (slice((y - Y0) * 16, (y - Y0 + 1) * 16), slice((x - X0) * 16, (x - X0 + 1) * 16))
+        img[sl], OV[sl], OM[sl] = meta_layers(old, CELLS[y * CW + x] & 0x3FF, clean=False)
     def put(a, px, py, m=None):
         h, w = a.shape[:2]; sub = img[py:py + h, px:px + w]
         if m is None: sub[:] = a
@@ -264,7 +278,7 @@ def compose(wall):
     for xa, xb in WINDOW_PAIRS:
         sub = img[(6 - Y0) * 16:(9 - Y0) * 16, (xa - X0) * 16:(xb + 1 - X0) * 16]; clean_window(sub, plain)
     # the piano bench: floor under it, then the clean bench centred on the old one
-    for x in (9, 10): img[(20 - Y0) * 16:(21 - Y0) * 16, (x - X0) * 16:(x + 1 - X0) * 16] = ts.meta(0x18B)
+    for x in (9, 10): img[(20 - Y0) * 16:(21 - Y0) * 16, (x - X0) * 16:(x + 1 - X0) * 16] = meta_layers(ts, 0x18B, clean=False)[0]
     b, bm = bench(); put(b, (9 - X0) * 16 + 8, (20 - Y0) * 16 + 2, bm)
     b, bm = decor_piece('heraldic_banner.png', BANNER_RECOLOUR); put(b, (11 - X0) * 16 + 8, (17 - Y0) * 16, bm)
     c, cm = decor_piece('wall_clock.png', CLOCK_RECOLOUR); put(c, (15 - X0) * 16, (12 - Y0) * 16, cm)
@@ -281,9 +295,10 @@ def compose(wall):
             for dx, (piece, mask) in enumerate(row):
                 px, py = (fx + dx - X0) * 16, (fy + dy - Y0) * 16
                 if dx != 1 and SIDE_BG[dy] is not None:
-                    y = fy + dy; img[py:py + 16, px:px + 16] = meta_clean(ts, SIDE_BG[dy]) if y in WALL_ROWS else ts.meta(SIDE_BG[dy])
+                    y = fy + dy; img[py:py + 16, px:px + 16] = meta_layers(ts, SIDE_BG[dy], clean=y in WALL_ROWS)[0]
+                OM[py:py + 16, px:px + 16] = False
                 put(piece, px, py, mask)
-    return img
+    return img, OV, OM
 
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/academy_mock'

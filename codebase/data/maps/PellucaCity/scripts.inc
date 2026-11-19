@@ -2218,26 +2218,20 @@ DR_PellucaCity_SignInn::
 	end
 
 
-DR_PellucaCity_DoorAcademy::
-# 1521 "data/maps/PellucaCity/scripts.pory"
-	msgbox DR_PellucaCity_DoorAcademy_Text_0, MSGBOX_SIGN
-	end
-
-
 DR_PellucaCity_DoorCadmus::
-# 1526 "data/maps/PellucaCity/scripts.pory"
+# 1521 "data/maps/PellucaCity/scripts.pory"
 	msgbox DR_PellucaCity_DoorCadmus_Text_0, MSGBOX_SIGN
 	end
 
 
 DR_PellucaCity_DoorLocked::
-# 1531 "data/maps/PellucaCity/scripts.pory"
+# 1526 "data/maps/PellucaCity/scripts.pory"
 	msgbox DR_PellucaCity_DoorLocked_Text_0, MSGBOX_SIGN
 	end
 
 
 DR_PellucaCity_CaveSealed::
-# 1536 "data/maps/PellucaCity/scripts.pory"
+# 1531 "data/maps/PellucaCity/scripts.pory"
 	msgbox DR_PellucaCity_CaveSealed_Text_0, MSGBOX_SIGN
 	end
 
@@ -3884,21 +3878,17 @@ DR_PellucaCity_SignInn_Text_0:
 	.string "The Seaside Tavern. Hot meals, warm\n"
 	.string "beds, and rest for weary Pokémon.$"
 
-DR_PellucaCity_DoorAcademy_Text_0:
-# 1521 "data/maps/PellucaCity/scripts.pory"
-	.string "The Academy doors are locked.$"
-
 DR_PellucaCity_DoorCadmus_Text_0:
-# 1526 "data/maps/PellucaCity/scripts.pory"
+# 1521 "data/maps/PellucaCity/scripts.pory"
 	.string "Vizier Umbra's residence. The door is\n"
 	.string "locked.$"
 
 DR_PellucaCity_DoorLocked_Text_0:
-# 1531 "data/maps/PellucaCity/scripts.pory"
+# 1526 "data/maps/PellucaCity/scripts.pory"
 	.string "The door is locked.$"
 
 DR_PellucaCity_CaveSealed_Text_0:
-# 1536 "data/maps/PellucaCity/scripts.pory"
+# 1531 "data/maps/PellucaCity/scripts.pory"
 	.string "A heavy stone slab seals the cave\n"
 	.string "mouth. It bears the crest of House\l"
 	.string "Umbra.$"

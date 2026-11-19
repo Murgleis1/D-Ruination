@@ -6092,6 +6092,16 @@
       "blockdata_filepath": "data/layouts/PellucaTemplarHall/map.bin"
     },
     {
+      "id": "LAYOUT_PELLUCA_ACADEMY_HALL",
+      "name": "PellucaAcademyHall_Layout",
+      "width": 17,
+      "height": 23,
+      "primary_tileset": "gTileset_AcademyInterior",
+      "secondary_tileset": "gTileset_AcademyHall",
+      "border_filepath": "data/layouts/PellucaAcademyHall/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaAcademyHall/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_UMBRA_LAB",
       "name": "PellucaUmbraLab_Layout",
       "width": 12,
