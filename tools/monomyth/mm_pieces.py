@@ -66,6 +66,31 @@ PIECES = {
     'lounge_couch_right': (0x0886A9A0, 12, 4, 1, 2),
 }
 
+def meta_cut(header, rows, full=()):
+    """Like cut(), for given metatile ids (rows of ids) of a map's tilesets; cells in `full` (by id) keep their bottom
+    layer too (the Old HQ candelabra table has its cloth's middle in the bottom layer)."""
+    L = layout(u32(off(header))); ts = TS(L); h, w = len(rows), len(rows[0])
+    rgba = np.zeros((h * 16, w * 16, 4), np.uint8)
+    for dy, row in enumerate(rows):
+        for dx, m in enumerate(row):
+            base = off(L['primary']['mt']) + 24 * m if m < 512 else off(L['secondary']['mt']) + 24 * (m - 512)
+            e = struct.unpack_from('<12H', ROM, base)
+            for k, v in enumerate(e):
+                if k < 4 and m not in full: continue
+                t = ts.tile(v & 0x3FF)
+                if t is None or not v & 0x3FF: continue
+                if v & 0x400: t = t[:, ::-1]
+                if v & 0x800: t = t[::-1, :]
+                q = k % 4; y, x = dy * 16 + (q // 2) * 8, dx * 16 + (q % 2) * 8; mk = t != 0 if k >= 4 else np.ones((8, 8), bool)
+                rgba[y:y + 8, x:x + 8, :3][mk] = np.array(ts.pal[v >> 12], np.uint8)[t][mk]; rgba[y:y + 8, x:x + 8, 3][mk] = 255
+    return rgba
+
+def candelabra_table():
+    """The Old Headquarters' white-clothed table with its gold three-candle candelabra (0x886DEC8; metatiles as the
+    Templar hall uses them), off its teal carpet."""
+    a = meta_cut(0x0886DEC8, [[0x133, 0x131, 0x134], [0x123, 0x128, 0x125], [0x12B, 0x12C, 0x12D]], full=(0x128,))
+    ys, xs = np.where(a[..., 3] > 0); return a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
 def l_couch():
     """La Costa Nostra's L-shaped red velvet couch (North Edelweiss restaurant, 0x886A984, cells 9-13 x 11-14). Its seat
     shares the restaurant carpet's salmon and part of it sits in the bottom layer, so it is cut by its outline: the
@@ -85,6 +110,7 @@ def card_table():
 
 if __name__ == '__main__':
     out0 = os.path.normpath(os.path.join(HERE, '..', '..', 'assets', 'monomyth_reference', 'pieces'))
+    Image.fromarray(candelabra_table()).save(os.path.join(out0, 'candelabra_table.png'))
     Image.fromarray(l_couch()).save(os.path.join(out0, 'l_couch.png')); Image.fromarray(card_table()).save(os.path.join(out0, 'card_table.png'))
     out = os.path.normpath(os.path.join(HERE, '..', '..', 'assets', 'monomyth_reference', 'pieces')); os.makedirs(out, exist_ok=True)
     for name, spec in PIECES.items():

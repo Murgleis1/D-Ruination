@@ -69,6 +69,15 @@ def table_piece():
     P = os.path.join(ASSETS, 'monomyth_reference', 'pieces')
     if TABLE == 'card':
         t = np.array(Image.open(os.path.join(P, 'card_table.png')).convert('RGBA')); return t[..., :3], t[..., 3] > 0
+    if TABLE.startswith('candelabra'):                           # the Old HQ's clothed table with its gold candelabra
+        t = np.array(Image.open(os.path.join(P, 'candelabra_table.png')).convert('RGBA')); rgb = t[..., :3].copy()
+        m = t[..., 3] > 0; low = np.zeros(m.shape, bool); low[29:] = True
+        rgb[low & (t[..., :3] == (120, 120, 128)).all(-1)] = (16, 28, 64)          # its shadow, on the carpet's navy
+        if TABLE == 'candelabra_maroon':                         # the cloth in the Academy maroon (candles, gold kept)
+            body = np.zeros(m.shape, bool); body[8:] = True
+            for c, w in {(248, 248, 248): (118, 36, 48), (184, 192, 200): (84, 22, 34), (224, 232, 232): (152, 62, 70)}.items():
+                rgb[body & (t[..., :3] == c).all(-1)] = w
+        return rgb, m
     if TABLE == 'archive_desk':                                  # the archive's writing desk: lamp, papers, inlaid top
         t = np.array(Image.open(os.path.join(P, 'arch_desk_clean.png')).convert('RGBA'))   # lamp kept, stool and gallery cut
         return walnut(t[..., :3]), t[..., 3] > 0
@@ -105,7 +114,8 @@ def compose():
     paste(rug[..., :3], rug[..., 3] > 0, cx - 12, cy + 26)       # the carpet in the couch's corner, out past its open sides
     c, cm = couch(); paste(c, cm, cx, cy)
     t, tm = table_piece()                                        # centred in the couch's corner, on the carpet
-    paste(t, tm, cx + 32 - t.shape[1] // 2, cy + 26 + max(0, (30 - t.shape[0]) // 2))
+    ty = cy + 18 if TABLE.startswith('candelabra') else cy + 26 + max(0, (30 - t.shape[0]) // 2)
+    paste(t, tm, cx + 32 - t.shape[1] // 2, ty)
     for x, y in CANDLES:                                         # two cells: candles (0xA7) over the stand (0xAF)
         for dy, m in ((-1, 0xA7), (0, 0xAF)):
             c2 = TSM.meta(m); f = TSC.meta(FLOOR).copy(); keep = (c2 != TSM.meta(0x1)).any(-1); f[keep] = c2[keep]
