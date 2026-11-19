@@ -28,7 +28,7 @@ import compose_mock as HALL
 TSM = TS(map_layout(17, 0))                                       # the manor room's set: its candle stands
 W, H = 12, 10                                                     # x0, x11 void; rows 0-1 wall, 2-8 floor, 9 the mat
 TABLE = os.environ.get('TABLE', 'cloth')
-OBJ = os.environ.get('OBJ', 'book_pink')                      # on the cloth: flowers | book_pink | book_stack | papers
+OBJ = os.environ.get('OBJ', 'book_stack')                      # on the cloth: flowers | book_pink | book_stack | papers
 SHELF_KIND = os.environ.get('SHELF', 'archive')              # archive: Fort Elderflower's archive shelves (user)
 ARCH_WOOD = None                                              # filled lazily: the archive's mauve wood -> the hall's walnut
 SHELVES = [1, 3]
