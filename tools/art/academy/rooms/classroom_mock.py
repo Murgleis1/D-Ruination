@@ -5,7 +5,7 @@ team, used with permission): its cream wall with the dark trim, heraldic shields
 floor, red runner, and its two-seat desks and chairs (user: the desks and tables from the Crown classroom too).
 Crown has no windows; the hall's windows looked wrong on Crown's wall (user), so Cascade's windows become Crown's
 bookcases (as Crown's own classroom has beside its board); then (user) both bookcases together on the left, and on the
-right Crown's grandfather clock with a chest of drawers and a coat stand.
+right Crown's grandfather clock with a stone bust and the witch's alchemy table with its potion flasks (user).
 The wall is Crown's own two rows (trim, then the lower wall that meets the floor): a third row stacked another
 lower-wall piece and showed its floor edge as a pale band (user). The chalkboard is widened from 2 to 4 tiles
 (Cascade's is 4) by repeating its middle columns.
@@ -37,7 +37,10 @@ AISLE = (7, 8)
 LEFT = [(5, 1), (5, 4), (7, 2), (7, 5), (9, 3)]                  # (row, left column) of each 2-seat desk: a chevron
 DESKS_AT = LEFT + [(r, 15 - x - 1) for r, x in LEFT]              # mirrored about the aisle
 SHELVES = [1, 3]                                                   # the two bookcases together on the left (user)
-RIGHT_SIDE = [(11, 0x1B), (12, 0x1C), (13, 0x1D)]                  # and with the clock: a chest of drawers, a coat stand
+# with the clock on the right (user): the witch's alchemy table with its potion flasks (Crown map group 20 #1) and a
+# stone bust (Crown's library); both from Crown's library set, drawn by their top layer over this room's wall/floor
+LIB = TS(map_layout(7, 9))
+RIGHT_SIDE = [(11, 1, 0x2DE), (12, 1, 0x2CE), (11, 2, 0x2D5), (12, 2, 0x2D6), (13, 1, 0x2CC), (13, 2, 0x2D4)]
 
 def grid():
     g = [[0] * W for _ in range(H)]
@@ -50,7 +53,6 @@ def grid():
         for dy in range(2):
             for dx in range(2): g[1 + dy][x0 + dx] = SHELF[dy][dx]
     g[1][14], g[2][14] = CLOCK                                     # one grandfather clock, in the corner (user: not two)
-    for x, m in RIGHT_SIDE: g[2][x] = m
     g[3][7], g[3][8] = DESKS[0]                                    # the teacher's desk, before the board
     for y in range(4, H - 1): g[y][7], g[y][8] = RUNNER
     g[H - 1][7], g[H - 1][8] = MAT
@@ -73,6 +75,8 @@ def compose():
             if g[y][x] in MAT: c = recolour(c, MAROON_MAT)
             img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c
     b = board(); img[0:32, 6 * 16:10 * 16] = b
+    for x, y, m in RIGHT_SIDE:
+        (_, _), (top, tm) = cell_layers(LIB, m); img[y * 16:y * 16 + 16, x * 16:x * 16 + 16][tm] = top[tm]
     return img, g
 
 if __name__ == '__main__':
