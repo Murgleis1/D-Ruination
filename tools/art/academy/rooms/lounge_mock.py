@@ -8,7 +8,9 @@ top corners (Pokemon Crown's sewers, map group 7 #11; credit: Blah and the Crown
 Then (user): greyer furniture, even more decrepit walls, more webs and creepiness: the furniture drained towards grey;
 the walls' own damp stains spread (grown from the stains already there, patchily) and darkened, the whole room
 dimmed; the Webbed Woods' webbing (user: better than Crown's cobwebs): a sagging web net under the ceiling over the
-stopped clock, zig-zag strands along the rest of the ceiling and across the desk's shelf; loose papers strewn on the
+stopped clock, zig-zag strands along the rest of the ceiling and across the desk's shelf; then (user: the strands looked
+weird) the big net tilted to slant from the corner towards the window, and small webs (a corner of the same net) on
+the armchair, the sofa's arm, the shelf, the top right corner and under the tea table; loose papers strewn on the
 floor (Fort Elderflower archive).
 Usage: python3 tools/art/academy/rooms/lounge_mock.py [out.png]
 """
@@ -30,9 +32,12 @@ MOVED = {(10, 11): 0x18E, (11, 11): 0x18F, (10, 12): 0x196, (11, 12): 0x197,    
          (18, 12): 0x1E0, (18, 13): 0x1E8}                                                                    # the armchair
 PIECES = os.path.normpath(os.path.join(HERE, '..', '..', '..', '..', 'assets', 'crown_reference', 'pieces'))
 # the webs (user: the Webbed Woods' webbing, not Crown's): (piece, x px, y px) in room pixels
-WEBS = [('web_net', 16, 16),                                              # a sagging net strung under the ceiling, top left
-        ('web_strand', 83, 17), ('web_strand', 160 - 48, 16),                 # webbing along the ceiling to the right
-        ('web_strand', 6 * 16 + 2, 2 * 16 + 1)]                                # and across the top of the desk's shelf
+WEBS = [('web_net_tilted', 16, 16, False),                               # the big net, slanting from the corner towards the window
+        ('web_small', 138, 80, True),                                          # small webs: on the armchair's back,
+        ('web_small', 17, 66, False),                                          # the sofa's arm,
+        ('web_small', 99, 30, True),                                           # the desk's shelf,
+        ('web_small', 160 - 22, 16, True),                                     # the top right corner,
+        ('web_small', 94, 95, False)]                                          # the tea table's corner
 PAPERS = [(13, 12), (17, 14), (11, 13)]
 FURNITURE = {(x, y) for x in (10, 11) for y in (11, 12)} | {(18, 12), (18, 13), (15, 12), (16, 12), (15, 13), (16, 13)} | \
             {(x, y) for x in (15, 16) for y in (9, 10, 11)}
@@ -74,9 +79,10 @@ def compose():
     # the whole room a shade dimmer and colder
     img[:] = np.clip(img.astype(int) * np.array([0.84, 0.9, 0.95]), 0, 255).astype(np.uint8)
     MP = os.path.join(HERE, '..', '..', '..', '..', 'assets', 'monomyth_reference', 'pieces')
-    for name, px, py in WEBS:
-        w = np.array(Image.open(os.path.join(MP, name + '.png')).convert('RGBA')); m = w[..., 3] > 0
-        if name == 'web_corner_r': px -= w.shape[1] - 1                     # right corners anchored by their right edge
+    for name, px, py, flip in WEBS:
+        w = np.array(Image.open(os.path.join(MP, name + '.png')).convert('RGBA'))
+        if flip: w = w[:, ::-1]
+        m = w[..., 3] > 0
         sub = img[py:py + w.shape[0], px:px + w.shape[1]]; sub[m[:sub.shape[0], :sub.shape[1]]] = w[..., :3][:sub.shape[0], :sub.shape[1]][m[:sub.shape[0], :sub.shape[1]]]
     pp = np.array(Image.open(os.path.join(HERE, '..', '..', '..', '..', 'assets', 'monomyth_reference', 'pieces', 'papers.png')).convert('RGBA'))
     pm = pp[..., 3] > 0; prgb = (pp[..., :3].astype(int) * 0.85).astype(np.uint8)
