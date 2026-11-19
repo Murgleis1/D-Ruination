@@ -24,6 +24,14 @@ BOARD = ((0x281, 0x282), (0x289, 0x28A))
 SHELF = ((0x20, 0x21), (0xC0, 0x29)); CLOCK = (0x17, 0x1F)      # the clock stands on the floor, its face on the wall
 DESKS = [(0x05, 0x06), (0x290, 0x291)]; CHAIR = 0x288
 RUNNER, MAT = (0x85, 0x86), (0xC4, 0xC5)
+# the runner and the door mat in the Academy's maroon (user), with the hall carpets' gold trim and cream
+MAROON_RUG = {(216, 112, 104): (118, 36, 48), (200, 88, 80): (96, 26, 40), (160, 64, 104): (84, 22, 34),
+              (104, 56, 88): (64, 18, 28), (208, 216, 104): (186, 150, 100)}
+MAROON_MAT = {(160, 64, 104): (118, 36, 48), (200, 88, 80): (148, 58, 64), (192, 168, 168): (230, 210, 182)}
+def recolour(cell, table):
+    out = cell.copy()
+    for a, b in table.items(): out[(cell == a).all(-1)] = b
+    return out
 AISLE = (7, 8)
 LEFT = [(5, 1), (5, 4), (7, 2), (7, 5), (9, 3)]                  # (row, left column) of each 2-seat desk: a chevron
 DESKS_AT = LEFT + [(r, 15 - x - 1) for r, x in LEFT]              # mirrored about the aisle
@@ -56,7 +64,11 @@ def compose():
     g = grid(); img = np.zeros((H * 16, W * 16, 3), np.uint8)
     for y in range(H):
         for x in range(W):
-            if g[y][x]: img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = TSC.meta(g[y][x])
+            if not g[y][x]: continue
+            c = TSC.meta(g[y][x])
+            if g[y][x] in RUNNER: c = recolour(c, MAROON_RUG)
+            if g[y][x] in MAT: c = recolour(c, MAROON_MAT)
+            img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c
     b = board(); img[0:32, 6 * 16:10 * 16] = b
     return img, g
 
