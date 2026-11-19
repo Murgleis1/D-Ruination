@@ -109,7 +109,7 @@ DESK = (18, 21)                                          # the reception desk's 
 for x in range(DESK[0], DESK[0] + 4):
     for y in range(DESK[1], DESK[1] + 4): EDITS[(x, y)] = 0x18B
 BOARD = (18, 12)                                         # the notice board: middle gallery, outside the classroom
-CRATES = [(7, 9), (7, 10), (9, 9), (21, 9)]                     # the top gallery is still being built: crates and a ladder
+CRATES = [(7, 9), (7, 10), (21, 9), (21, 10)]               # the unfinished top gallery: a stack of crates at each end
 LADDER = (16, 8)                                         # top cell; it stands at the window, its feet on the gallery
 RUG_CELLS = {(x, y) for x in (13, 14, 15) for y in (21, 22)}
 MAT_CELLS = {(x, 25) for x in (13, 14, 15)} | {(x, 26) for x in (13, 14, 15)}
