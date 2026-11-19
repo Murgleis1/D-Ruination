@@ -50,22 +50,26 @@ def M(src, mid):
     return {'s': SAL, 'a': APT, 'w': WA}[src].meta(mid)
 VOID = np.zeros((16, 16, 3), np.uint8)
 PLAIN = True
+def plain(rows):
+    """The approved wall/floor treatment: apartment wall instead of the saloon's panelling and plaster,
+    one even oak floor (no baked-in wall-shadow strips). Objects keep their art; only their background
+    layer changes ('P' onto the lower wall, 'Q' onto the upper wall, 'R'/'T' onto plain floor)."""
+    def fix(c, y):
+        if c in (('s', 168), ('s', 240), ('s', 161)): return ('a', 177)
+        if c == ('s', 160): return ('a', 184)
+        if c in (('s', 153), ('s', 248), ('s', 163)) and y == 3: return ('s', 155)
+        if c is not None and c[0] == 's' and y == 4 and c[1] in (162, 231, 179): return ('T', c[1])
+        if c is not None and c[0] == 's' and y >= 3 and c[1] in (175, 184, 186): return ('R', c[1])
+        if c in (('s', 153), ('s', 154)) and y >= 4: return ('s', 155)
+        if c is not None and c[0] == 's' and y >= 4 and c[1] in (232, 233, 234): return ('R', c[1])
+        if c is not None and c[0] == 's' and y == 3 and c[1] in (224, 225, 226, 189, 190, 191, 208, 210): return ('R', c[1])
+        if c is not None and c[0] == 's' and c[1] in (221, 222, 223, 227, 228): return ('Q', c[1])
+        if c is not None and c[0] == 's' and c[1] in (216, 217, 218, 181, 182, 183, 200, 202): return ('P', c[1])
+        return c
+    return [[fix(c, y) for c in r] for y, r in enumerate(rows)]
 def grid(rows):
     """rows: list of lists of (src, id) or None."""
-    if PLAIN:
-        def fix(c, y):
-            if c in (('s', 168), ('s', 240), ('s', 161)): return ('a', 177)
-            if c == ('s', 160): return ('a', 184)
-            if c in (('s', 153), ('s', 248), ('s', 163)) and y == 3: return ('s', 155)
-            if c is not None and c[0] == 's' and y == 4 and c[1] in (162, 231, 179): return ('T', c[1])
-            if c is not None and c[0] == 's' and y >= 3 and c[1] in (175, 184, 186): return ('R', c[1])
-            if c in (('s', 153), ('s', 154)) and y >= 4: return ('s', 155)
-            if c is not None and c[0] == 's' and y >= 4 and c[1] in (232, 233, 234): return ('R', c[1])
-            if c is not None and c[0] == 's' and y == 3 and c[1] in (224, 225, 226, 189, 190, 191, 208, 210): return ('R', c[1])
-            if c is not None and c[0] == 's' and c[1] in (221, 222, 223, 227, 228): return ('Q', c[1])
-            if c is not None and c[0] == 's' and c[1] in (216, 217, 218, 181, 182, 183, 200, 202): return ('P', c[1])
-            return c
-        rows = [[fix(c, y) for c in r] for y, r in enumerate(rows)]
+    if PLAIN: rows = plain(rows)
     h, w = len(rows), max(len(r) for r in rows)
     img = np.zeros((h * 16, w * 16, 3), np.uint8)
     for y, r in enumerate(rows):

@@ -2235,3 +2235,50 @@ const u16 gTilesetPalettes_ElderflowerTavern[][16] =
 };
 
 const u32 gTilesetTiles_ElderflowerTavern[] = INCBIN_U32("data/tilesets/secondary/elderflower_tavern/tiles.4bpp.lz");
+
+// Pelluca dormitory (tools/monomyth/dormitory/build_dormitory.py): MonoMyth's building primary with
+// recoloured walls/floor, and a secondary of the tavern pieces plus the apartment wall, doors and lectern.
+
+const u16 gTilesetPalettes_SpeedwellInterior[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/speedwell_interior/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_SpeedwellInterior[] = INCBIN_U32("data/tilesets/primary/speedwell_interior/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_PellucaDormitory[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_PellucaDormitory[] = INCBIN_U32("data/tilesets/secondary/pelluca_dormitory/tiles.4bpp.lz");

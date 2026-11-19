@@ -6100,6 +6100,36 @@
       "secondary_tileset": "gTileset_ElderflowerTavern",
       "border_filepath": "data/layouts/PellucaTavern/border.bin",
       "blockdata_filepath": "data/layouts/PellucaTavern/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_DORMITORY_1F",
+      "name": "PellucaDormitory1F_Layout",
+      "width": 19,
+      "height": 15,
+      "primary_tileset": "gTileset_SpeedwellInterior",
+      "secondary_tileset": "gTileset_PellucaDormitory",
+      "border_filepath": "data/layouts/PellucaDormitory1F/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaDormitory1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_DORMITORY_2F",
+      "name": "PellucaDormitory2F_Layout",
+      "width": 16,
+      "height": 7,
+      "primary_tileset": "gTileset_SpeedwellInterior",
+      "secondary_tileset": "gTileset_PellucaDormitory",
+      "border_filepath": "data/layouts/PellucaDormitory2F/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaDormitory2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_DORMITORY_OSRID_ROOM",
+      "name": "PellucaDormitoryOsridRoom_Layout",
+      "width": 11,
+      "height": 10,
+      "primary_tileset": "gTileset_SpeedwellInterior",
+      "secondary_tileset": "gTileset_PellucaDormitory",
+      "border_filepath": "data/layouts/PellucaDormitoryOsridRoom/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaDormitoryOsridRoom/map.bin"
     }
   ]
 }

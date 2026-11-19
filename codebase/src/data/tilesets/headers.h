@@ -1172,3 +1172,25 @@ const struct Tileset gTileset_ElderflowerTavern =
     .metatileAttributes = gMetatileAttributes_ElderflowerTavern,
     .callback = NULL,
 };
+
+const struct Tileset gTileset_SpeedwellInterior =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_SpeedwellInterior,
+    .palettes = gTilesetPalettes_SpeedwellInterior,
+    .metatiles = gMetatiles_SpeedwellInterior,
+    .metatileAttributes = gMetatileAttributes_SpeedwellInterior,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_PellucaDormitory =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PellucaDormitory,
+    .palettes = gTilesetPalettes_PellucaDormitory,
+    .metatiles = gMetatiles_PellucaDormitory,
+    .metatileAttributes = gMetatileAttributes_PellucaDormitory,
+    .callback = NULL,
+};

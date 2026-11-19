@@ -298,3 +298,7 @@ const u16 gMetatiles_ElderflowerStudy[] = INCBIN_U16("data/tilesets/secondary/el
 const u16 gMetatileAttributes_ElderflowerStudy[] = INCBIN_U16("data/tilesets/secondary/elderflower_study/metatile_attributes.bin");
 const u16 gMetatiles_ElderflowerTavern[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/metatiles.bin");
 const u16 gMetatileAttributes_ElderflowerTavern[] = INCBIN_U16("data/tilesets/secondary/elderflower_tavern/metatile_attributes.bin");
+const u16 gMetatiles_SpeedwellInterior[] = INCBIN_U16("data/tilesets/primary/speedwell_interior/metatiles.bin");
+const u16 gMetatileAttributes_SpeedwellInterior[] = INCBIN_U16("data/tilesets/primary/speedwell_interior/metatile_attributes.bin");
+const u16 gMetatiles_PellucaDormitory[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/metatiles.bin");
+const u16 gMetatileAttributes_PellucaDormitory[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/metatile_attributes.bin");
