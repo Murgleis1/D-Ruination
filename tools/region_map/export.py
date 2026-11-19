@@ -22,8 +22,10 @@ PAL_BASE = 112          # BG palette slot 7
 MAX_TILES = 512
 
 def painted():
+    """Painted map with the parchment finish: returns (indices, 48-colour palette)."""
     paint.rng = np.random.default_rng(7)
-    return paint.paint(classify.class_map(SRC))
+    cls = classify.class_map(SRC)
+    return paint.antique(paint.paint(cls), cls)
 
 def tiles_and_map(idx):
     H, W = idx.shape                                  # 160 x 240
@@ -45,22 +47,23 @@ def tiles_and_map(idx):
         raise SystemExit(f'{len(tiles)} unique tiles: over the {MAX_TILES}-tile budget')
     return tiles, tmap
 
-def write(tiles, tmap, outdir=OUT):
+def write(tiles, tmap, colours, outdir=OUT):
     n = len(tiles); rows = (n + 15) // 16
     sheet = np.full((rows * 8, 128), PAL_BASE + 7, np.uint8)
     for i, t in enumerate(tiles):
         r, c = divmod(i, 16); sheet[r*8:r*8+8, c*8:c*8+8] = t
     im = Image.fromarray(sheet, 'P')
     pal = [0] * 768
-    for i, (r, g, b) in enumerate(paint.MM_PAL):
+    for i, (r, g, b) in enumerate(colours):
         pal[(PAL_BASE + i) * 3:(PAL_BASE + i) * 3 + 3] = [r, g, b]
     im.putpalette(pal); im.save(os.path.join(outdir, 'map.png'), optimize=False)
     tmap.astype('<u2').tofile(os.path.join(outdir, 'map.bin'))
     with open(os.path.join(outdir, 'map.pal'), 'w', newline='\r\n') as f:
-        f.write('JASC-PAL\n0100\n%d\n' % len(paint.MM_PAL))
-        for r, g, b in paint.MM_PAL: f.write(f'{r} {g} {b}\n')
+        f.write('JASC-PAL\n0100\n%d\n' % len(colours))
+        for r, g, b in colours: f.write(f'{r} {g} {b}\n')
     return n
 
 if __name__ == '__main__':
-    tiles, tmap = tiles_and_map(painted())
-    print('tiles', write(tiles, tmap))
+    idx, colours = painted()
+    tiles, tmap = tiles_and_map(idx)
+    print('tiles', write(tiles, tmap, colours), 'colours', len(colours))

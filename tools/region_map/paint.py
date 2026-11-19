@@ -255,5 +255,33 @@ def paint(cls):
         if kind == 'city': draw_city(out, name, x, y, w, h)
     return out
 
-def to_rgb(idx):
-    return np.array(MM_PAL, np.uint8)[idx]
+# ---- parchment finish (option E): watercolour on parchment, hatched open sea, burnt edges ----
+# The wash recolours the 48-colour palette; the four new colours (ink, hatch, two scorch tones) go into
+# slots the painted map never uses, so the palette stays 48 colours and the engine needs no change.
+PAPER = np.array([1.0, 0.95, 0.80])
+INK_SLOT, HATCH_SLOT, SCORCH_SLOT, BURNT_SLOT = 0, 8, 11, 46
+def wash(c, sat=0.5, lift=36, keep=0.84):
+    L = (0.3 * c[..., 0] + 0.59 * c[..., 1] + 0.11 * c[..., 2])[..., None]
+    return np.clip(lift + (L + (c - L) * sat) * PAPER * keep, 0, 255)
+
+def antique(idx, cls):
+    """Returns (indices, 48-colour palette) for the parchment-finished map. cls is the classifier's map."""
+    free = (INK_SLOT, HATCH_SLOT, SCORCH_SLOT, BURNT_SLOT)
+    assert not np.isin(idx, free).any(), 'a reserved parchment slot is used by the painter'
+    pal = wash(np.array(MM_PAL, float))
+    pal[7] = (150, 172, 156); pal[2] = (178, 192, 164)                 # sea: pale green-blue wash on the paper
+    pal[INK_SLOT] = (88, 56, 32); pal[HATCH_SLOT] = (124, 146, 130)
+    pal[SCORCH_SLOT] = (110, 76, 44); pal[BURNT_SLOT] = (60, 36, 18)
+    H, W = idx.shape; yy, xx = np.mgrid[0:H, 0:W]
+    out = idx.astype(np.uint8).copy()
+    out[np.isin(idx, [1, 5]) & (cls <= 1)] = INK_SLOT                  # foam and wavelets in brown ink
+    hatch = np.zeros((8, 8), bool); hatch[2, 1:4] = True; hatch[6, 5:8] = True
+    out[np.tile(hatch, (H // 8, W // 8)) & (idx == 7)] = HATCH_SLOT    # short wave strokes on the open sea
+    de = np.minimum(np.minimum(xx, W - 1 - xx), np.minimum(yy, H - 1 - yy)).astype(float)
+    bt = bayer(H, W)
+    out[bt < np.clip((10 - de) / 10.0, 0, 1) * 0.8] = SCORCH_SLOT      # dithered scorch toward the edge
+    out[(de < 2) | ((de < 4) & (bt < 0.5))] = BURNT_SLOT               # burnt rim
+    return out, [tuple(int(v) for v in c) for c in np.clip(pal, 0, 255).round()]
+
+def to_rgb(idx, pal=None):
+    return np.array(MM_PAL if pal is None else pal, np.uint8)[idx]

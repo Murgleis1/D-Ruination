@@ -6,6 +6,7 @@ Source: the user's pixel art, assets/region_map/rufflet_face_source.png (a 27x35
 The art is not redrawn: its pixel grid is sampled back to 27x35, the top 3 px of the crest tip trimmed,
 colours reduced to 15 (k-means over the art's own pixels), then box-resampled to 20 px tall (user's
 choice of size), outlined with the art's darkest colour, and the two eye pixels set white (user).
+sheen() then gives it the medieval finish (ivory, parchment shading, brown outline, gold rim).
 It sits centred in a 32x32 sprite (src/region_map.c: sRegionMapPlayerIconOam is 32x32)."""
 import os
 import numpy as np
@@ -53,12 +54,38 @@ def icon():
     out[y0:y0 + HEIGHT, x0:x0 + w] = np.where(idx >= 0, idx + 1, 0)
     return out, C
 
+# Medieval sheen (user 2026-11-18): whites warmed to ivory, lavender shading to parchment grey, the
+# navy outline to deep brown, and a thin gold glint along the upper-left rim, like a gilded emblem.
+# Body blue, beak, red crest and the white eyes are unchanged.
+WARM = {(240, 240, 248): (248, 240, 216), (232, 232, 240): (232, 222, 196), (240, 232, 208): (240, 226, 192),
+        (200, 200, 224): (204, 190, 160), (200, 200, 216): (196, 182, 152), (16, 16, 24): (56, 32, 16)}
+GOLD, EYE_WHITE = (232, 192, 96), (248, 248, 248)
+def sheen(out, C):
+    C = C.copy(); out = out.copy()
+    used = set(np.unique(out).tolist()) - {0}
+    spare = [k for k in range(15) if k + 1 not in used]
+    gold, eye = spare[0], spare[1]
+    C[gold], C[eye] = GOLD, EYE_WHITE
+    ys, xs = np.where(out > 0); y0, x0 = ys.min(), xs.min()
+    for r, c in EYES: out[y0 + r, x0 + c] = eye + 1
+    edge = int(np.argmin(C.astype(int).sum(1))) + 1           # the outline colour
+    whites = [k + 1 for k in range(15) if k + 1 in used and C[k].astype(int).sum() >= 690]
+    cy, cx = (ys.min() + ys.max()) / 2, (xs.min() + xs.max()) / 2
+    up = np.roll(out, 1, 0); left = np.roll(out, 1, 1)
+    yy, xx = np.mgrid[0:32, 0:32]
+    rim = np.isin(out, whites) & ((up == edge) | (left == edge)) & (yy >= y0 + 5) & (yy < cy + 2) & (xx < cx)
+    out[rim] = gold + 1
+    for k in range(15):
+        t = tuple(int(v) for v in C[k])
+        if t in WARM: C[k] = WARM[t]
+    return out, C
+
 def save_png(path):
-    out, C = icon(); pal = [0, 0, 0] + [int(v) for c in C for v in c]
+    out, C = sheen(*icon()); pal = [0, 0, 0] + [int(v) for c in C for v in c]
     im = Image.fromarray(out, 'P'); im.putpalette(pal + [0] * (48 - len(pal))); im.save(path, transparency=0)
 
 if __name__ == '__main__':
     for n in ('brendan_icon', 'may_icon'):
         save_png(os.path.join(REPO, 'codebase', 'graphics', 'pokenav', 'region_map', f'{n}.png'))
-    out, C = icon(); pal = np.vstack([[120, 160, 110], C]).astype(np.uint8)
+    out, C = sheen(*icon()); pal = np.vstack([[120, 160, 110], C]).astype(np.uint8)
     Image.fromarray(pal[out]).resize((256, 256), Image.NEAREST).save('/tmp/rufflet_icon.png'); print('ok')
