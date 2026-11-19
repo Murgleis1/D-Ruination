@@ -13,8 +13,10 @@ Tilesets
                                     (palettes in slots 9 and 7, warmed: compose_mock.WALL_/DOOR_RECOLOUR;
                                     slot 6 stays the tavern secondary's own, the saloon beds use it),
                                   - the Wood Avens pedestal as the stage lectern (slot 8),
-                                  - Pokemon Odyssey's brick hearth (slot 10) and food plates on the
-                                    dining tables (slot 11), from its fireplace hall (layout 0x8319414),
+                                  - Pokemon Odyssey's brick hearth as an object over our wall (only its own
+                                    pixels; recoloured to ours: slot 10) and food plates on the dining
+                                    tables (slot 11), from its fireplace hall (layout 0x8319414; see
+                                    tools/odyssey/pieces.py),
                                   - saloon furniture re-based onto the new wall / plain oak floor: only the
                                     background layer entry changes, the object layers are untouched,
                                   - warp copies: stair tops (MB_NON_ANIMATED_DOOR), exit mats
@@ -84,13 +86,14 @@ W_LO = import_quad(AP, ents(AP, 177)[4:8], {1: WALL_SLOT})
 DOOR = import_quad(AP, ents(AP, 289)[0:4], {3: DOOR_SLOT})
 MAT = import_quad(AP, ents(AP, 189)[4:8], {1: WALL_SLOT})
 PED = import_quad(WP, ents(WP, 122)[4:8], {2: PED_SLOT})
-# Pokemon Odyssey brick hearth (its palette 7 -> our 10) and food plates (its palette 8 -> our 11)
+# Pokemon Odyssey brick hearth (as an object over our wall, recoloured: slot 10) and food plates (slot 11)
+sys.path.insert(0, os.path.join(MM, '..', 'odyssey'))
+import pieces
 HEARTH_SLOT, PLATE_SLOT = 10, 11
 FIRE = CM.FIRE
-def fr_ents(mid): return list(FIRE.ents(mid))
-HEARTH_META = {m: import_fr_quad(FIRE, fr_ents(m)[0:4], {7: HEARTH_SLOT}) + import_fr_quad(FIRE, fr_ents(m)[4:8], {7: HEARTH_SLOT})
-               for row in CM.HEARTH for m in row}
-PLATE = import_fr_quad(FIRE, fr_ents(CM.PLATE)[4:8], {8: PLATE_SLOT})
+def quad(tiles, slot): return [add_tile(t) | (slot << 12) for t in tiles]
+HEARTH_Q = {(dx, dy): quad(pieces.hearth(dx, dy), HEARTH_SLOT) for dy in range(3) for dx in range(3)}
+PLATE = quad(pieces.plate(), PLATE_SLOT)
 FLOOR = sal_ents(155)[4:8]
 EMPTY = [0, 0, 0, 0]
 
@@ -125,6 +128,9 @@ def rebase(mid):
 COLL = {}
 for v in map_cells(SAL_L): COLL.setdefault(v & 0x3FF, v >> 10)
 
+def meta_entries(mid):
+    return sal_ents(mid) if mid < 512 else list(s_meta[mid - 512])
+
 def cell(c):
     if c is None: return 0, WALL
     src, mid = c
@@ -135,7 +141,10 @@ def cell(c):
     if src == 'm': return add_meta(EMPTY + FLOOR + MAT), FLOOR_E3
     if src == 'L': return add_meta(EMPTY + sal_ents(165)[4:8] + PED), SOLID_E3
     if src in 'PQRT': return rebase(mid), COLL.get(mid, WALL)
-    if src == 'F': return add_meta(EMPTY + HEARTH_META[mid]), WALL               # in the wall rows
+    if src == 'H':                                                              # hearth piece over ours
+        (dx, dy), under = mid; base, _ = cell(under)
+        e = pieces.overlay(meta_entries(base), HEARTH_Q[(dx, dy)], lambda v: not (v & 0x3FF))
+        return add_meta(e, 0), WALL
     if src == 'Fo':                                                             # a plate on a table
         oid, (usrc, umid) = mid; assert usrc == 's'
         e = sal_ents(umid); free = [k for k in range(3) if not any(v & 0x3FF for v in e[k * 4:k * 4 + 4])]
@@ -177,7 +186,7 @@ sec_pals[6] = [gba(c) for c in CM.SAL.pal[6]]               # the tavern seconda
 sec_pals[WALL_SLOT] = [gba(c) for c in CM.APT.pal[1]]        # apartment wall + doormat, warmed
 sec_pals[DOOR_SLOT] = [gba(c) for c in CM.APT.pal[3]]        # apartment door, warm wood
 sec_pals[PED_SLOT] = [gba(c) for c in CM.WA.pal[2]]          # Wood Avens pedestal
-sec_pals[HEARTH_SLOT] = [gba(c) for c in FIRE.pal[7]]        # Odyssey brick hearth
+sec_pals[HEARTH_SLOT] = [gba(c) for c in pieces.HEARTH_PAL]  # Odyssey brick hearth, recoloured to ours
 sec_pals[PLATE_SLOT] = [gba(c) for c in FIRE.pal[8]]         # Odyssey food plates
 
 # ---------------- write ----------------
