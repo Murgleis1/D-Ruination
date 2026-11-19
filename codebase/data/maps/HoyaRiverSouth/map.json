@@ -3,7 +3,7 @@
   "name": "HoyaRiverSouth",
   "layout": "LAYOUT_HOYA_RIVER_SOUTH",
   "music": "SE_M_WATERFALL",
-  "region_map_section": "MAPSEC_HOYA_RIVER_SOUTH",
+  "region_map_section": "MAPSEC_HOYA_RIVER_DELTA",
   "requires_flash": false,
   "weather": "WEATHER_SHADE",
   "map_type": "MAP_TYPE_ROUTE",

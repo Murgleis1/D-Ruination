@@ -100,50 +100,6 @@
 #define MAPSEC_CINNABAR_ISLAND              0x60
 #define MAPSEC_INDIGO_PLATEAU               0x61
 #define MAPSEC_SAFFRON_CITY                 0x62
-#define MAPSEC_ROUTE_4_POKECENTER           0x63
-#define MAPSEC_ROUTE_10_POKECENTER          0x64
-#define MAPSEC_ROUTE_1                      0x65
-#define MAPSEC_ROUTE_2                      0x66
-#define MAPSEC_ROUTE_3                      0x67
-#define MAPSEC_ROUTE_4                      0x68
-#define MAPSEC_ROUTE_5                      0x69
-#define MAPSEC_ROUTE_6                      0x6A
-#define MAPSEC_ROUTE_7                      0x6B
-#define MAPSEC_ROUTE_8                      0x6C
-#define MAPSEC_ROUTE_9                      0x6D
-#define MAPSEC_ROUTE_10                     0x6E
-#define MAPSEC_ROUTE_11                     0x6F
-#define MAPSEC_ROUTE_12                     0x70
-#define MAPSEC_ROUTE_13                     0x71
-#define MAPSEC_ROUTE_14                     0x72
-#define MAPSEC_ROUTE_15                     0x73
-#define MAPSEC_ROUTE_16                     0x74
-#define MAPSEC_ROUTE_17                     0x75
-#define MAPSEC_ROUTE_18                     0x76
-#define MAPSEC_ROUTE_19                     0x77
-#define MAPSEC_ROUTE_20                     0x78
-#define MAPSEC_ROUTE_21                     0x79
-#define MAPSEC_ROUTE_22                     0x7A
-#define MAPSEC_ROUTE_23                     0x7B
-#define MAPSEC_ROUTE_24                     0x7C
-#define MAPSEC_ROUTE_25                     0x7D
-#define MAPSEC_VIRIDIAN_FOREST              0x7E
-#define MAPSEC_MT_MOON                      0x7F
-#define MAPSEC_S_S_ANNE                     0x80
-#define MAPSEC_UNDERGROUND_PATH             0x81
-#define MAPSEC_UNDERGROUND_PATH_2           0x82
-#define MAPSEC_DIGLETTS_CAVE                0x83
-#define MAPSEC_KANTO_VICTORY_ROAD           0x84
-#define MAPSEC_ROCKET_HIDEOUT               0x85
-#define MAPSEC_SILPH_CO                     0x86
-#define MAPSEC_POKEMON_MANSION              0x87
-#define MAPSEC_KANTO_SAFARI_ZONE            0x88
-#define MAPSEC_POKEMON_LEAGUE               0x89
-#define MAPSEC_ROCK_TUNNEL                  0x8A
-#define MAPSEC_SEAFOAM_ISLANDS              0x8B
-#define MAPSEC_POKEMON_TOWER                0x8C
-#define MAPSEC_CERULEAN_CAVE                0x8D
-#define MAPSEC_POWER_PLANT                  0x8E
 
 #define MAPSEC_TREASURE_BEACH               0x97
 #define MAPSEC_CAPE_BRINK                   0x98
@@ -202,14 +158,14 @@
 #define MAPSEC_TRAINER_HILL                 0xD4
 
 //MY MAPS
-#define MAPSEC_CARABRUE_TOWN                 0xD5
-#define MAPSEC_FENNILAHL_TOWN                0xD6
-#define MAPSEC_GASTREE_CITY                  0xD7
+#define MAPSEC_CARABRUE_KEEP                 0xD5
+#define MAPSEC_FENNILAHL                0xD6
+#define MAPSEC_AGUSTREI_HEIGHTS                  0xD7
 #define MAPSEC_CERAM_BASE_CAMP               0xD8
 #define MAPSEC_GALECREST_CITY                0xD9
 #define MAPSEC_SILVERSUN_CITY                0xDA
-#define MAPSEC_PELLUCA_CITY                  0xDB
-#define MAPSEC_MIRROH_BASE_CAMP              0xDC
+#define MAPSEC_PELLUCA_VALLEY                  0xDB
+#define MAPSEC_MIRROH              0xDC
 #define MAPSEC_WINTERLILY_HOLLOW             0xDD
 #define MAPSEC_RIVETSHORE_CITY               0xDE
 #define MAPSEC_VICTORY_CAPE                  0xDF
@@ -225,11 +181,11 @@
 #define MAPSEC_HOYA_RIVER_NORTH              0xE8
 #define MAPSEC_ROUTE6                        0xE9
 #define MAPSEC_RANGER_INSTITUTE              0xEA
-#define MAPSEC_HOYA_RIVER_SOUTH              0xEB
-#define MAPSEC_MT_MIRROH_EXTERIOR            0xEC
+#define MAPSEC_HOYA_RIVER_DELTA              0xEB
+#define MAPSEC_MT_MIRROH            0xEC
 #define MAPSEC_LILY_POND                     0xED
 #define MAPSEC_IVY_RIVER                     0xEE
-#define MAPSEC_MIRROH_PEAK                   0xEF
+#define MAPSEC_MT_MIRROH_PEAK                   0xEF
 #define MAPSEC_MT_MIRROH_INTERIOR            0xF0
 #define MAPSEC_VINE_CAVERNS                  0xF1
 #define MAPSEC_FENNILAHL_TUNNEL              0xF2
@@ -260,6 +216,40 @@
 
 #define MAPSEC_THE_OTHER_HOUSE                0xAC
 #define MAPSEC_SEVII_ISLE_24                0xAD
+
+
+// DR: empire-era places (tools/region_map/sections.py) in reclaimed, unused Kanto/Sevii slots
+#define MAPSEC_DR_ALBAN_ESTATE               0x63
+#define MAPSEC_DR_ASHLANDS                   0x64
+#define MAPSEC_DR_BLUE_MOON_MONASTERY        0x65
+#define MAPSEC_DR_DUNE_PATH                  0x66
+#define MAPSEC_DR_FENNILAHL_SUBURBS          0x67
+#define MAPSEC_DR_GLEAMDUSK_PRISON           0x68
+#define MAPSEC_DR_GRAYMOON_KEEP              0x69
+#define MAPSEC_DR_HOLLOW_HILL                0x6A
+#define MAPSEC_DR_KEERIN_SHRINE              0x6B
+#define MAPSEC_DR_MIRROH_NECROPOLIS          0x6C
+#define MAPSEC_DR_MORAY_ESTATE               0x6D
+#define MAPSEC_DR_NORTHPOINT_ACADEMY         0x6E
+#define MAPSEC_DR_PARAGON_GATE               0x6F
+#define MAPSEC_DR_PARAGON_ROAD               0x70
+#define MAPSEC_DR_PIERRAS_MANOR              0x71
+#define MAPSEC_DR_RIPTIDE_BRIDGE             0x72
+#define MAPSEC_DR_ROUTE_0                    0x73
+#define MAPSEC_DR_ROUTE_10                   0x74
+#define MAPSEC_DR_ROUTE_11                   0x75
+#define MAPSEC_DR_ROUTE_13                   0x76
+#define MAPSEC_DR_ROUTE_14                   0x77
+#define MAPSEC_DR_ROUTE_15                   0x78
+#define MAPSEC_DR_ROUTE_9                    0x79
+#define MAPSEC_DR_SEREGMORN_DESERT           0x7A
+#define MAPSEC_DR_SHADOWMARSHES              0x7B
+#define MAPSEC_DR_SILVERSUN_PALACE           0x7C
+#define MAPSEC_DR_SUNSET_TOWER               0x7D
+#define MAPSEC_DR_TEMPLAR_HQ                 0x7E
+#define MAPSEC_DR_TINKATON_LAIR              0x7F
+#define MAPSEC_DR_VEDDEV                     0x80
+#define MAPSEC_DR_WINDRUNNER_ISLAND          0x81
 
 #define MAPSEC_NONE                          0xFC
 

@@ -3,7 +3,7 @@
   "name": "GastreeCity_Pokemart",
   "layout": "LAYOUT_GASTREE_CITY_POKEMART",
   "music": "MUS_POKE_MART",
-  "region_map_section": "MAPSEC_GASTREE_CITY",
+  "region_map_section": "MAPSEC_AGUSTREI_HEIGHTS",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",

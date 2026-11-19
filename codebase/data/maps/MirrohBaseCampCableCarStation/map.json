@@ -3,7 +3,7 @@
   "name": "MirrohBaseCampCableCarStation",
   "layout": "LAYOUT_MIRROH_BASE_CAMP_CABLE_CAR_STATION",
   "music": "MUS_END",
-  "region_map_section": "MAPSEC_MIRROH_BASE_CAMP",
+  "region_map_section": "MAPSEC_MIRROH",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",

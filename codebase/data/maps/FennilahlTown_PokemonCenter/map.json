@@ -3,7 +3,7 @@
   "name": "FennilahlTown_PokemonCenter",
   "layout": "LAYOUT_FENNILAHL_TOWN_POKEMON_CENTER",
   "music": "MUS_RG_POKE_CENTER",
-  "region_map_section": "MAPSEC_FENNILAHL_TOWN",
+  "region_map_section": "MAPSEC_FENNILAHL",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_INDOOR",
