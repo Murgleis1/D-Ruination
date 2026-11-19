@@ -56,7 +56,32 @@ def fr_layer(ts, mid, layer):
         pal = np.array(ts.pal[v >> 12], np.uint8); y, x = (q // 2) * 8, (q % 2) * 8
         rgb[y:y + 8, x:x + 8] = pal[t]; mask[y:y + 8, x:x + 8] = t != 0
     return rgb, mask
+# The hearth is an object: Odyssey draws it (chimney, mantel, brick surround) on the top layer; only the
+# firebox opening is on the bottom layer, with Odyssey's brick wall and stone floor around it. So we take
+# the top layer + the firebox (its stone-floor pixels cleared) and lay them over OUR wall and floor, in a
+# palette recoloured to ours (user 2026-11-19: the pasted block "isn't integrated well at all").
+HEARTH_PAL = list(FIRE.pal[7])
+for i, c in {1: (196, 180, 148), 3: (170, 152, 120), 15: (226, 212, 180),            # mantel: parchment stone
+             2: (166, 104, 74), 7: (134, 84, 60), 9: (106, 68, 50), 4: (150, 120, 92), 8: (118, 92, 76),   # muted brick
+             13: (50, 32, 20), 11: (70, 48, 32), 10: (88, 64, 50), 12: (70, 52, 42),  # outlines/soot: dark brown
+             5: (128, 112, 98), 6: (110, 96, 84)}.items(): HEARTH_PAL[i] = c
+FIREBOX = (1, 2); FLOOR_IDX = (1, 3, 15)        # firebox tile: drop Odyssey's stone-floor colours
+def hearth_piece(dx, dy):
+    m = HEARTH[dy][dx]; e = FIRE.ents(m)
+    rgb = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool); pal = np.array(HEARTH_PAL, np.uint8)
+    layers = (0, 1) if (dx, dy) == FIREBOX else (1,)
+    for layer in layers:
+        for q in range(4):
+            v = e[layer * 4 + q]; t = FIRE.tile(v & 0x3FF).copy()
+            if v & 0x400: t = t[:, ::-1]
+            if v & 0x800: t = t[::-1, :]
+            if layer == 0: t[np.isin(t, FLOOR_IDX)] = 0
+            y, x = (q // 2) * 8, (q % 2) * 8; nz = t != 0
+            rgb[y:y + 8, x:x + 8][nz] = pal[t][nz]; mask[y:y + 8, x:x + 8] |= nz
+    return rgb, mask
 def M(src, mid):
+    if src == 'H':                                               # ('H', ((dx, dy), under))
+        (dx, dy), under = mid; out = M(*under).copy(); rgb, m = hearth_piece(dx, dy); out[m] = rgb[m]; return out
     if src == 'F': return FIRE.meta(mid)
     if src == 'Fo':
         oid, under = mid; out = M(*under).copy(); rgb, m = fr_layer(FIRE, oid, 1); out[m] = rgb[m]; return out
@@ -113,6 +138,11 @@ SALOON = [  # rows 9..23 of the Speedwell saloon (the ground floor), 19 wide
  [153,155,155,155,155,203,155,155,196,204,212,155,155,155,155,155,203,155,155],
  [  0,  0,  0,  0,  0,  0,  0,  0,211,214,213,  0,  0,  0,  0,  0,  0,  0,  0]]
 
+def put_hearth(g, x0, y0=0):
+    """The hearth over whatever is there (after the wall/floor treatment, so plain() runs first)."""
+    pg = plain(g)
+    for dy in range(3):
+        for dx in range(3): g[y0 + dy][x0 + dx] = ('H', ((dx, dy), pg[y0 + dy][x0 + dx]))
 DOORS_1F = (4, 13, 17)          # Osrid's door first
 DOORS_2F = (4, 9, 14, 19)
 def floor1():
@@ -129,8 +159,7 @@ def floor1():
     g[9][15] = ('L', (1, 165))                  # the pedestal is one metatile; the speaker stands east of it, facing the chairs
     g[11][18] = ('s', 155)
     # Odyssey brick hearth between the two east doors, and a plate of food on every dining table
-    for dy, r in enumerate(HEARTH):
-        for dx, v in enumerate(r): g[dy][14 + dx] = ('F', v)
+    put_hearth(g, 14)
     for y, row in enumerate(g):
         for x, c in enumerate(row):
             if c == ('s', 176): g[y][x] = ('Fo', (PLATE, ('s', 176)))

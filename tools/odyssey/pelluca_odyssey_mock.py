@@ -22,8 +22,10 @@ def put(img, x, y, src, mid, whole=False):
     rgb, m = CM.fr_layer(ts, mid, 1); blk = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]; blk[m] = rgb[m]
 
 def hearth(img, x0, y0):
-    for dy, r in enumerate(CM.HEARTH):
-        for dx, v in enumerate(r): put(img, x0 + dx, y0 + dy, 'F', v, whole=True)
+    """The hearth as an object over what is there (compose_mock.hearth_piece: top layer + firebox, recoloured)."""
+    for dy in range(3):
+        for dx in range(3):
+            rgb, m = CM.hearth_piece(dx, dy); blk = img[(y0 + dy) * 16:(y0 + dy) * 16 + 16, (x0 + dx) * 16:(x0 + dx) * 16 + 16]; blk[m] = rgb[m]
 
 def tavern():
     a = ours('LAYOUT_PELLUCA_TAVERN'); b = a.copy()
@@ -34,8 +36,10 @@ def tavern():
 
 def cell():
     a = ours('LAYOUT_PELLUCA_TEMPLAR_MONASTERY'); b = a.copy()
-    put(b, 2, 3, 'R', 642); put(b, 3, 3, 'R', 642)       # hay bales (bedding) in the cell
-    for x, y in ((4, 4), (8, 3), (9, 4), (10, 3)): put(b, x, y, 'R', 649)    # loose straw
+    # the cell doubles as a storeroom (user: prisoners are rare, there is very little crime in Pelluca)
+    for x, y in ((2, 3), (3, 3), (2, 4)): put(b, x, y, 'R', 642)            # hay bales
+    for x, y in ((4, 4), (6, 3), (7, 4)): put(b, x, y, 'R', 649)            # loose straw
+    for x in (9, 10): put(b, x, 3, 'R', 648); put(b, x, 4, 'R', 656)        # stored barrels
     for (x, y), m in {(8, 8): 643, (9, 8): 644, (8, 9): 651, (9, 9): 652}.items(): put(b, x, y, 'R', m)  # guards' table
     for x, y in ((7, 9), (10, 9)): put(b, x, y, 'R', 650)                    # stools
     return a, b
@@ -50,8 +54,7 @@ def osrid_room():
             elif g[y][x] not in (('s', 216), ('s', 217), ('s', 218), ('s', 224), ('s', 225), ('s', 226)): g[y][x] = ('s', 168 if y == 2 else 155)
     for dy, r in enumerate([[216, 217, 218], [224, 225, 226], [232, 233, 234]]):
         for dx, v in enumerate(r): g[2 + dy][1 + dx] = ('s', v)
-    for dy, r in enumerate(CM.HEARTH):
-        for dx, v in enumerate(r): g[dy][4 + dx] = ('F', v)
+    CM.put_hearth(g, 4)
     for dx, v in enumerate((181, 182, 183)): g[2][7 + dx] = ('s', v)
     for dx, v in enumerate((189, 190, 191)): g[3][7 + dx] = ('s', v)
     g[6][6], g[6][7], g[6][8] = ('s', 167), ('s', 176), ('s', 159)
