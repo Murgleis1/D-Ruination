@@ -792,6 +792,6 @@
 #define METATILE_RSMossdeepGym_Switch_Up       0x238
 
 // gTileset_PellucaDormitory (tools/monomyth/dormitory/build_dormitory.py checks this id)
-#define METATILE_PellucaDormitory_Door         0x23B
+#define METATILE_PellucaDormitory_Door         0x232
 
 #endif // GUARD_METATILE_LABELS_H

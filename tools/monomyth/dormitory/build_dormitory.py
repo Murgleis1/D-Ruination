@@ -13,6 +13,8 @@ Tilesets
                                     (palettes in slots 9 and 7, warmed: compose_mock.WALL_/DOOR_RECOLOUR;
                                     slot 6 stays the tavern secondary's own, the saloon beds use it),
                                   - the Wood Avens pedestal as the stage lectern (slot 8),
+                                  - Pokemon Odyssey's brick hearth (slot 10) and food plates on the
+                                    dining tables (slot 11), from its fireplace hall (layout 0x8319414),
                                   - saloon furniture re-based onto the new wall / plain oak floor: only the
                                     background layer entry changes, the object layers are untouched,
                                   - warp copies: stair tops (MB_NON_ANIMATED_DOOR), exit mats
@@ -59,6 +61,14 @@ def add_tile(t):
         _tile_ids[k] = len(s_tiles); s_tiles.append(t.copy())
     return 512 + _tile_ids[k]
 FOREIGN_TILES = {id(AP): tiles_of(AP), id(WP): tiles_of(WP)}
+def import_fr_quad(ts, quad, slot_map):
+    """Pokemon Odyssey (FireRed) metatile entries -> ours: FireRed tile ids (primary < 640) resolved by the
+    FireRed tileset, tile copied into our secondary, palette slot remapped, flips kept."""
+    out = []
+    for v in quad:
+        t, flips, slot = v & 0x3FF, v & 0xC00, v >> 12
+        out.append(add_tile(ts.tile(t)) | flips | (slot_map[slot] << 12))
+    return out
 def import_quad(ts, quad, slot_map):
     """Foreign metatile entries -> ours: tile copied into the secondary, palette slot remapped, flips kept."""
     out = []
@@ -74,6 +84,13 @@ W_LO = import_quad(AP, ents(AP, 177)[4:8], {1: WALL_SLOT})
 DOOR = import_quad(AP, ents(AP, 289)[0:4], {3: DOOR_SLOT})
 MAT = import_quad(AP, ents(AP, 189)[4:8], {1: WALL_SLOT})
 PED = import_quad(WP, ents(WP, 122)[4:8], {2: PED_SLOT})
+# Pokemon Odyssey brick hearth (its palette 7 -> our 10) and food plates (its palette 8 -> our 11)
+HEARTH_SLOT, PLATE_SLOT = 10, 11
+FIRE = CM.FIRE
+def fr_ents(mid): return list(FIRE.ents(mid))
+HEARTH_META = {m: import_fr_quad(FIRE, fr_ents(m)[0:4], {7: HEARTH_SLOT}) + import_fr_quad(FIRE, fr_ents(m)[4:8], {7: HEARTH_SLOT})
+               for row in CM.HEARTH for m in row}
+PLATE = import_fr_quad(FIRE, fr_ents(CM.PLATE)[4:8], {8: PLATE_SLOT})
 FLOOR = sal_ents(155)[4:8]
 EMPTY = [0, 0, 0, 0]
 
@@ -89,6 +106,9 @@ def add_meta(e, a=0):
         _meta_ids[k] = 512 + len(s_meta); s_meta.append(list(e)); s_attr.append(a)
     return _meta_ids[k]
 
+# the door is always the first new metatile, so its id (= METATILE_PellucaDormitory_Door, which the door
+# animation table is keyed on) does not move when pieces are added
+DOOR_ID = add_meta(DOOR + EMPTY + EMPTY, MB_ANIMATED_DOOR)
 BG = {(514, 514, 530, 530): FLOOR, (514, 514, 531, 531): FLOOR,          # wall-shadow floor strips -> oak
       (560, 513, 576, 529): W_LO,                                          # panelled wainscot -> lower wall
       (544, 544, 544, 544): W_UP}                                          # plaster band -> upper wall
@@ -115,6 +135,13 @@ def cell(c):
     if src == 'm': return add_meta(EMPTY + FLOOR + MAT), FLOOR_E3
     if src == 'L': return add_meta(EMPTY + sal_ents(165)[4:8] + PED), SOLID_E3
     if src in 'PQRT': return rebase(mid), COLL.get(mid, WALL)
+    if src == 'F': return add_meta(EMPTY + HEARTH_META[mid]), WALL               # in the wall rows
+    if src == 'Fo':                                                             # a plate on a table
+        oid, (usrc, umid) = mid; assert usrc == 's'
+        e = sal_ents(umid); free = [k for k in range(3) if not any(v & 0x3FF for v in e[k * 4:k * 4 + 4])]
+        assert free and free[-1] > max(k for k in range(3) if any(v & 0x3FF for v in e[k * 4:k * 4 + 4])), 'no layer above the table'
+        e[free[-1] * 4:free[-1] * 4 + 4] = PLATE
+        return add_meta(e, sal_attr(umid)), COLL.get(umid, WALL)
     raise ValueError(c)
 
 def warp_copy(mid, behaviour):
@@ -150,6 +177,8 @@ sec_pals[6] = [gba(c) for c in CM.SAL.pal[6]]               # the tavern seconda
 sec_pals[WALL_SLOT] = [gba(c) for c in CM.APT.pal[1]]        # apartment wall + doormat, warmed
 sec_pals[DOOR_SLOT] = [gba(c) for c in CM.APT.pal[3]]        # apartment door, warm wood
 sec_pals[PED_SLOT] = [gba(c) for c in CM.WA.pal[2]]          # Wood Avens pedestal
+sec_pals[HEARTH_SLOT] = [gba(c) for c in FIRE.pal[7]]        # Odyssey brick hearth
+sec_pals[PLATE_SLOT] = [gba(c) for c in FIRE.pal[8]]         # Odyssey food plates
 
 # ---------------- write ----------------
 def write_tileset(d, tiles, pals, meta, attrs, show):
@@ -171,7 +200,7 @@ def write_tileset(d, tiles, pals, meta, attrs, show):
 # MonoMyth animates this door as a 1x1 door (its table entry for metatile 289: tiles 0x8873DA8, three
 # 16x16 frames, palette slot 3). Our engine draws 1x2 doors (the door and the metatile above it), so each
 # frame is the upper-wall art over MonoMyth's frame; palettes: top = wall slot, bottom = door slot.
-DOOR_METATILE = 0x23B                                    # = METATILE_PellucaDormitory_Door (metatile_labels.h)
+DOOR_METATILE = 0x232                                    # = METATILE_PellucaDormitory_Door (metatile_labels.h)
 MM_DOOR_FRAMES = 0x873DA8
 def frame_tile(i):
     a = np.frombuffer(ROM[MM_DOOR_FRAMES + 32 * i: MM_DOOR_FRAMES + 32 * i + 32], np.uint8)

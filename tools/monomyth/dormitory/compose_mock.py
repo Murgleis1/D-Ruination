@@ -40,7 +40,26 @@ def lift(mid, old_bg, new_bg):
     """A saloon object lifted off the wall piece it was drawn on (old_bg) onto our wall (new_bg)."""
     src, old = SAL.meta(mid), SAL.meta(old_bg); out = M(*new_bg).copy()
     m = np.abs(src.astype(int) - old).sum(-1) > 0; out[m] = src[m]; return out
+# ---- Pokemon Odyssey pieces (user picked 2026-11-19): its brick hearth and food plates ----
+# FireRed metatiles from Odyssey's brick-fireplace hall (layout 0x8319414); objects are on the top layer.
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(HERE)), 'odyssey'))
+import frlib, frrender as FR
+FIRE = FR.TS(frlib.layout(0x08319414))
+HEARTH = [[668, 669, 670], [676, 677, 678], [684, 685, 686]]
+PLATE = 712
+def fr_layer(ts, mid, layer):
+    rgb = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool); e = ts.ents(mid)
+    for q in range(4):
+        v = e[layer * 4 + q]; t = ts.tile(v & 0x3FF)
+        if v & 0x400: t = t[:, ::-1]
+        if v & 0x800: t = t[::-1, :]
+        pal = np.array(ts.pal[v >> 12], np.uint8); y, x = (q // 2) * 8, (q % 2) * 8
+        rgb[y:y + 8, x:x + 8] = pal[t]; mask[y:y + 8, x:x + 8] = t != 0
+    return rgb, mask
 def M(src, mid):
+    if src == 'F': return FIRE.meta(mid)
+    if src == 'Fo':
+        oid, under = mid; out = M(*under).copy(); rgb, m = fr_layer(FIRE, oid, 1); out[m] = rgb[m]; return out
     if src == 'P': return lift(mid, 168, ('a', 177))
     if src == 'Q': return lift(mid, 160, ('a', 184))
     if src == 'R': return lift(mid, 153, ('s', 155))
@@ -109,6 +128,12 @@ def floor1():
         for dx, v in enumerate(r): g[8 + dy][14 + dx] = ('s', v)
     g[9][15] = ('L', (1, 165))                  # the pedestal is one metatile; the speaker stands east of it, facing the chairs
     g[11][18] = ('s', 155)
+    # Odyssey brick hearth between the two east doors, and a plate of food on every dining table
+    for dy, r in enumerate(HEARTH):
+        for dx, v in enumerate(r): g[dy][14 + dx] = ('F', v)
+    for y, row in enumerate(g):
+        for x, c in enumerate(row):
+            if c == ('s', 176): g[y][x] = ('Fo', (PLATE, ('s', 176)))
     # audience benches facing the stage (west of it), replacing the two right-hand dining sets
     for y in (8, 11):
         for x in (10, 11, 12): g[y][x] = ('s', 155)
