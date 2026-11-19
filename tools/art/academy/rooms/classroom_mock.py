@@ -4,7 +4,7 @@ chevron facing it), skinned with Pokemon Crown's classroom tileset (map group 5 
 team, used with permission): its cream wall with the dark trim, heraldic shields, chalkboard, bookcases, plank
 floor, red runner, and its two-seat desks and chairs (user: the desks and tables from the Crown classroom too).
 Crown has no windows; the hall's windows looked wrong on Crown's wall (user), so Cascade's windows become Crown's
-bookcases (exactly what Crown's own classroom has beside its board), with Crown's grandfather clocks in the corners.
+bookcases (exactly what Crown's own classroom has beside its board), with Crown's grandfather clock in one corner.
 The wall is Crown's own two rows (trim, then the lower wall that meets the floor): a third row stacked another
 lower-wall piece and showed its floor edge as a pale band (user). The chalkboard is widened from 2 to 4 tiles
 (Cascade's is 4) by repeating its middle columns.
@@ -47,7 +47,7 @@ def grid():
     for x0 in SHELVES:
         for dy in range(2):
             for dx in range(2): g[1 + dy][x0 + dx] = SHELF[dy][dx]
-    for x in (1, 14): g[1][x], g[2][x] = CLOCK
+    g[1][14], g[2][14] = CLOCK                                     # one grandfather clock, in the corner (user: not two)
     g[3][7], g[3][8] = DESKS[0]                                    # the teacher's desk, before the board
     for y in range(4, H - 1): g[y][7], g[y][8] = RUNNER
     g[H - 1][7], g[H - 1][8] = MAT
