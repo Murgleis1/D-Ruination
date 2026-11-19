@@ -119,7 +119,7 @@ for fx, fy in CM.FLIGHTS:                                                    # s
 SOLID = {(14, 9), (14, 14)}                                                  # the chimney's bases on the galleries
 SOLID |= {(CM.BOARD[0] + dx, CM.BOARD[1] + dy) for dx in (0, 1) for dy in (0, 1)}   # the standing notice board
 SOLID |= {(x, 19) for x in (8, 9, 10, 13, 14, 15)}                          # lamp + piano, hearth
-SOLID |= {(9, 20), (10, 20), (12, 21), (16, 21)}                             # piano bench, armchairs
+SOLID |= {(9, 20), (10, 20)} | {new for new, _ in CM.ARMCHAIRS.values()}     # piano bench, armchairs
 SOLID |= CM.SITTING                                                          # sofa, armchair, low table, stools
 SOLID |= {(12, 25), (16, 25)}                                                # the entrance lamps' stands
 dx0, dy0 = CM.DESK

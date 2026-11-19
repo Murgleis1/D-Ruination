@@ -135,6 +135,11 @@ EDITS[(9, 18)], EDITS[(10, 18)], EDITS[(9, 19)], EDITS[(10, 19)] = 0x183, 0x183,
 BOARD = (7, 18)                                          # top-left cell of the standing board (2 x 2): it stands on
 EDITS[(8, 18)], EDITS[(8, 19)] = 0x183, 0x188            # the floor by the wall, left of the piano, in the floor lamp's place
 RUG_CELLS = {(x, y) for x in (13, 14, 15) for y in (21, 22)}
+# the hearth's two armchairs (user 2026-11-19: the right one narrowed the way past the reception desk): one tile in,
+# onto the rug's top corners, still facing each other before the fire; drawn over the rug
+ARMCHAIRS = {(12, 21): ((13, 21), 0x1B3), (16, 21): ((15, 21), 0x1B4),
+             (12, 20): ((13, 20), 0x1AB), (16, 20): ((15, 20), 0x1AC)}           # (their backs' tops, in the row above)
+for old in ARMCHAIRS: EDITS[old] = 0x18B
 MAT_CELLS = {(x, 25) for x in (13, 14, 15)} | {(x, 26) for x in (13, 14, 15)}
 FLIGHTS = [(16, 15), (10, 10)]                           # (left column, top row): 3 wide x 4 tall, top row = gallery edge
 
@@ -336,6 +341,10 @@ def compose_layers(wall):
         a[(a == c).all(-1) & m] = honey(c, WALNUT)
     put(a, (GRAND[0] - X0) * 16, (GRAND[1] - Y0) * 16, m)
     a, m = rug_rgb(ts, 'centre'); put(a, (13 - X0) * 16, (21 - Y0) * 16, m)
+    fl = meta_layers(ts, 0x18B, clean=False)[0]
+    for (x, y), mm in ARMCHAIRS.values():
+        c, o, om = meta_layers(ts, mm, clean=False); c = c.copy(); c[om] = o[om]
+        k = (c != fl).any(-1); put(c, (x - X0) * 16, (y - Y0) * 16, k)
     a, m = rug_rgb(ts, 'mat'); put(a, (13 - X0) * 16, (25 - Y0) * 16, m)
     for fx, fy in FLIGHTS:
         for dy, row in enumerate(stair_pieces(wall)):
