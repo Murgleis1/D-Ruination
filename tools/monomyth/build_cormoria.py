@@ -19,6 +19,7 @@ primary tiles where identical. Tile 0 of the primary stays blank (entry 0 = empt
 
 Writes nothing outside the two new tileset directories + build/ manifest.
 Usage: MONOMYTH_ROM=... python3 -I build_cormoria.py <codebase dir>
+Afterwards run cormoria_water.py: it animates the water and patches one foam tile (506) and metatile 0xAB.
 """
 import sys, os, json, struct
 import numpy as np
