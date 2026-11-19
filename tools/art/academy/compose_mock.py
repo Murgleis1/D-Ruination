@@ -89,9 +89,22 @@ EDITS[(11, 7)], EDITS[(11, 8)] = 0x17B, 0x183            # T2 removed (the top l
 EDITS[(16, 18)], EDITS[(16, 19)] = 0x182, 0x188          # the stuffed Ursaring removed
 EDITS[(13, 17)] = 0x17A                                  # the ground-floor clock removed (user): a banner instead
 EDITS[(15, 12)] = 0x17B                                  # the little middle-gallery clock: Crown's pendulum clock instead
+for ytop in (7, 12, 17):                                 # the left wall edge's grime specks (0x170/0x180) -> plain plaster
+    EDITS[(7, ytop)], EDITS[(7, ytop + 1)] = 0x17A, 0x183
 for p, m in {(6, 21): 0, (6, 22): 0, (7, 21): 0x18B, (7, 22): 0x18B, (21, 20): 0x18B, (21, 21): 0x18B,
              (22, 20): 0, (22, 21): 0, (21, 9): 0x188, (21, 10): 0x1BA, (22, 9): 0, (22, 10): 0}.items():
     EDITS[p] = m                                         # side-wall exit rugs removed
+# the sofa set moves left, facing the low table (user 2026-11-19: the reception desk takes the right side)
+SOFA = {(19, 22): (9, 22), (20, 22): (10, 22), (21, 22): (11, 22), (19, 23): (9, 23), (20, 23): (10, 23), (21, 23): (11, 23)}
+for (sx, sy), (dx, dy) in SOFA.items(): EDITS[(dx, dy)] = CELLS[sy * CW + sx] & 0x3FF
+for (sx, sy) in SOFA:
+    if (sx, sy) not in SOFA.values(): EDITS[(sx, sy)] = 0x18B
+DESK = (18, 21)                                          # the reception desk's top-left cell (4 x 4)
+for x in range(DESK[0], DESK[0] + 4):
+    for y in range(DESK[1], DESK[1] + 4): EDITS[(x, y)] = 0x18B
+BOARD = (18, 12)                                         # the notice board: middle gallery, outside the classroom
+CRATES = [(7, 9), (7, 10), (9, 9), (21, 9)]                     # the top gallery is still being built: crates and a ladder
+LADDER = (16, 8)                                         # top cell; it stands at the window, its feet on the gallery
 RUG_CELLS = {(x, y) for x in (13, 14, 15) for y in (21, 22)}
 MAT_CELLS = {(x, 25) for x in (13, 14, 15)} | {(x, 26) for x in (13, 14, 15)}
 FLIGHTS = [(16, 15), (10, 10)]                           # (left column, top row): 3 wide x 4 tall, top row = gallery edge
@@ -135,7 +148,8 @@ SIDE_BG = [0x188, None, 0x17A, 0x183]                   # None: keep the railing
 # the corners filled with its base colour. Colours: palette 9's reds -> regal purple and white, or the original red.
 RUGS = {'centre': ((0x1A0, 0x1A1, 0x1A2), (0x1A8, 0x1A9, 0x1AA)), 'mat': ((0x19E, 0x19F, 0x1AF), (0x1A6, 0x1A7, 0x1B7))}
 PURPLE9 = {5: (88, 50, 124), 6: (104, 62, 144), 8: (136, 96, 176), 12: (236, 230, 244), 7: (176, 156, 208)}
-CARPET = os.environ.get('CARPET', 'purple')
+MAROON9 = {5: (96, 26, 40), 6: (118, 36, 48), 8: (148, 58, 64), 12: (230, 210, 182), 7: (186, 150, 100)}   # user: maroon-ish; cream, gold trim
+CARPET = os.environ.get('CARPET', 'maroon')
 def rug_index(ts, grid):
     """The rug's own pixels (palette 9 layer) as indices, 0 elsewhere, over its cells."""
     H, W = len(grid) * 16, len(grid[0]) * 16; idx = np.zeros((H, W), np.uint8)
@@ -163,8 +177,7 @@ def clean_rug(idx):
     return out
 def rug_rgb(ts, name):
     idx = clean_rug(rug_index(ts, RUGS[name])); pal = list(ts.pal[9])
-    if CARPET == 'purple':
-        for i, c in PURPLE9.items(): pal[i] = c
+    for i, c in {'purple': PURPLE9, 'maroon': MAROON9}.get(CARPET, {}).items(): pal[i] = c
     P = np.array(pal, np.uint8); return P[idx], idx > 0
 
 # ---- the windows and the piano bench, cleaned (user 2026-11-19) ----
@@ -194,11 +207,11 @@ def clean_window(img, plain):
         yy, xx = gy0 + 1 + k, gx0 + 2 - k
         if gx0 <= xx < mx and yy < my: out[yy, xx] = (236, 244, 248)
     out[y1, x0:x1 + 1] = OUTLINE; out[y1 - 1, x0 + 1:x1] = FRAME_D   # sill shadow
-VELVET = [(64, 32, 96), (96, 56, 136), (128, 88, 168)]
+VELVET = [(84, 22, 34), (116, 34, 46), (152, 62, 70)]          # maroon, as the upholstery and the carpets
 def bench(w=16, h=11):
     a = np.zeros((h, w, 3), np.uint8); m = np.zeros((h, w), bool)
     a[0:6, 0:w] = B_OUTLINE; m[0:6, 0:w] = True
-    a[1:3, 1:w - 1] = VELVET[2]; a[3:5, 1:w - 1] = VELVET[1]; a[1, 2:w - 2] = (168, 132, 204)   # cushion
+    a[1:3, 1:w - 1] = VELVET[2]; a[3:5, 1:w - 1] = VELVET[1]; a[1, 2:w - 2] = (184, 96, 100)   # cushion
     a[5, 1:w - 1] = B_FRAME_D
     for x in (1, w - 3):                                        # legs
         a[6:h, x:x + 2] = B_FRAME; a[6:h, x - 1] = B_OUTLINE; a[6:h, x + 2] = B_OUTLINE; m[6:h, x - 1:x + 3] = True
@@ -216,6 +229,9 @@ def slate(pal): return [c if tuple(c) in ((0, 248, 248), (0, 0, 0), (248, 0, 0))
 PIECES = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'assets', 'crown_reference', 'pieces')
 BANNER_RECOLOUR = {(96, 112, 88): (88, 50, 124), (136, 152, 104): (128, 88, 168), (208, 208, 176): (236, 230, 244)}
 CLOCK_RECOLOUR = {(128, 80, 56): (94, 48, 34), (160, 120, 72): (142, 84, 54), (72, 56, 56): (52, 26, 22)}
+def narrow(rgb, m, cols):
+    """Drop whole pixel columns (the notice board is 38 px wide; its gap on the gallery wall is 32)."""
+    keep = [x for x in range(m.shape[1]) if x not in cols]; return rgb[:, keep], m[:, keep]
 def decor_piece(name, recolour):
     a = np.array(Image.open(os.path.join(PIECES, name)).convert('RGBA')); rgb = a[..., :3].copy(); m = a[..., 3] > 0
     for old, new in recolour.items(): rgb[(a[..., :3] == old).all(-1) & m] = new
@@ -252,6 +268,12 @@ def compose(wall):
     b, bm = bench(); put(b, (9 - X0) * 16 + 8, (20 - Y0) * 16 + 2, bm)
     b, bm = decor_piece('heraldic_banner.png', BANNER_RECOLOUR); put(b, (11 - X0) * 16 + 8, (17 - Y0) * 16, bm)
     c, cm = decor_piece('wall_clock.png', CLOCK_RECOLOUR); put(c, (15 - X0) * 16, (12 - Y0) * 16, cm)
+    a, m = decor_piece('reception_counter.png', {}); put(a, (DESK[0] - X0) * 16, (DESK[1] - Y0) * 16, m)
+    a, m = decor_piece('notice_board.png', {}); a, m = a[:30, 6:44], m[:30, 6:44]          # its own 38 x 30 box
+    a, m = narrow(a, m, {2, 17, 18, 19, 20, 33, 34}); put(a, (BOARD[0] - X0) * 16, (BOARD[1] - Y0) * 16 + 2, m)
+    a, m = decor_piece('crate.png', {})
+    for (x, y) in CRATES: put(a, (x - X0) * 16, (y - Y0) * 16, m)
+    a, m = decor_piece('step_ladder.png', {}); put(a, (LADDER[0] - X0) * 16, (LADDER[1] - Y0) * 16, m)
     a, m = rug_rgb(ts, 'centre'); put(a, (13 - X0) * 16, (21 - Y0) * 16, m)
     a, m = rug_rgb(ts, 'mat'); put(a, (13 - X0) * 16, (25 - Y0) * 16, m)
     for fx, fy in FLIGHTS:
