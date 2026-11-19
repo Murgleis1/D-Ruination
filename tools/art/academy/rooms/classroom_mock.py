@@ -4,7 +4,8 @@ chevron facing it), skinned with Pokemon Crown's classroom tileset (map group 5 
 team, used with permission): its cream wall with the dark trim, heraldic shields, chalkboard, bookcases, plank
 floor, red runner, and its two-seat desks and chairs (user: the desks and tables from the Crown classroom too).
 Crown has no windows; the hall's windows looked wrong on Crown's wall (user), so Cascade's windows become Crown's
-bookcases (exactly what Crown's own classroom has beside its board), with Crown's grandfather clock in one corner.
+bookcases (as Crown's own classroom has beside its board); then (user) both bookcases together on the left, and on the
+right Crown's grandfather clock with a chest of drawers and a coat stand.
 The wall is Crown's own two rows (trim, then the lower wall that meets the floor): a third row stacked another
 lower-wall piece and showed its floor edge as a pale band (user). The chalkboard is widened from 2 to 4 tiles
 (Cascade's is 4) by repeating its middle columns.
@@ -26,7 +27,7 @@ DESKS = [(0x05, 0x06), (0x290, 0x291)]; CHAIR = 0x288
 RUNNER, MAT = (0x85, 0x86), (0xC4, 0xC5)
 # the runner and the door mat in the Academy's maroon (user), with the hall carpets' gold trim and cream
 MAROON_RUG = {(216, 112, 104): (118, 36, 48), (200, 88, 80): (96, 26, 40), (160, 64, 104): (84, 22, 34),
-              (104, 56, 88): (64, 18, 28), (208, 216, 104): (186, 150, 100)}
+              (104, 56, 88): (64, 18, 28), (208, 216, 104): (186, 150, 100), (192, 160, 56): (186, 150, 100)}
 MAROON_MAT = {(160, 64, 104): (118, 36, 48), (200, 88, 80): (148, 58, 64), (192, 168, 168): (230, 210, 182)}
 def recolour(cell, table):
     out = cell.copy()
@@ -35,7 +36,8 @@ def recolour(cell, table):
 AISLE = (7, 8)
 LEFT = [(5, 1), (5, 4), (7, 2), (7, 5), (9, 3)]                  # (row, left column) of each 2-seat desk: a chevron
 DESKS_AT = LEFT + [(r, 15 - x - 1) for r, x in LEFT]              # mirrored about the aisle
-SHELVES = [3, 11]                                                  # Cascade's window places (2 wide)
+SHELVES = [1, 3]                                                   # the two bookcases together on the left (user)
+RIGHT_SIDE = [(11, 0x1B), (12, 0x1C), (13, 0x1D)]                  # and with the clock: a chest of drawers, a coat stand
 
 def grid():
     g = [[0] * W for _ in range(H)]
@@ -48,6 +50,7 @@ def grid():
         for dy in range(2):
             for dx in range(2): g[1 + dy][x0 + dx] = SHELF[dy][dx]
     g[1][14], g[2][14] = CLOCK                                     # one grandfather clock, in the corner (user: not two)
+    for x, m in RIGHT_SIDE: g[2][x] = m
     g[3][7], g[3][8] = DESKS[0]                                    # the teacher's desk, before the board
     for y in range(4, H - 1): g[y][7], g[y][8] = RUNNER
     g[H - 1][7], g[H - 1][8] = MAT
