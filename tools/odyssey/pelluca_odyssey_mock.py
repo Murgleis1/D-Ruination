@@ -27,7 +27,7 @@ def hearth(img, x0, y0):
         for dx in range(3):
             rgb, m = CM.hearth_piece(dx, dy); blk = img[(y0 + dy) * 16:(y0 + dy) * 16 + 16, (x0 + dx) * 16:(x0 + dx) * 16 + 16]; blk[m] = rgb[m]
 
-EXTRA = 2                                               # floor rows added behind the bar (user: "really tight")
+EXTRA = 1                                               # one floor row added behind the bar (user: 2 was too much)
 def tavern(hx=4):
     a = ours('LAYOUT_PELLUCA_TAVERN')
     floor = a[5 * 16:6 * 16]                            # a plain floor row (row 5) for the new space
