@@ -1126,7 +1126,7 @@ const struct Tileset gTileset_Cormoria =
     .palettes = gTilesetPalettes_Cormoria,
     .metatiles = gMetatiles_Cormoria,
     .metatileAttributes = gMetatileAttributes_Cormoria,
-    .callback = NULL,
+    .callback = InitTilesetAnim_Cormoria,
 };
 
 const struct Tileset gTileset_PellucaValley =

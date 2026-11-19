@@ -1303,3 +1303,50 @@ void InitTilesetAnim_PellucaDormitory(void)
     sSecondaryTilesetAnimCounterMax = 256;
     sSecondaryTilesetAnimCallback = TilesetAnim_PellucaDormitory;
 }
+
+// DR: Pelluca's water and shoreline (gTileset_Cormoria, primary): MonoMyth's own 8-frame terrain water
+// (open water, the shallows and the surf move together, as on MonoMyth's beaches), remapped to our palette 5
+// by tools/monomyth/cormoria_water.py. Each frame is the animated tiles in order: 182-185 (quay water),
+// 196-199 (open water), 202-210 (shallows and foam), 506 (a foam piece). User: slower than vanilla water,
+// so a new frame every 32 game frames.
+static const u16 gTilesetAnims_Cormoria_Water_Frame0[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/0.4bpp");
+static const u16 gTilesetAnims_Cormoria_Water_Frame1[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/1.4bpp");
+static const u16 gTilesetAnims_Cormoria_Water_Frame2[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/2.4bpp");
+static const u16 gTilesetAnims_Cormoria_Water_Frame3[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/3.4bpp");
+static const u16 gTilesetAnims_Cormoria_Water_Frame4[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/4.4bpp");
+static const u16 gTilesetAnims_Cormoria_Water_Frame5[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/5.4bpp");
+static const u16 gTilesetAnims_Cormoria_Water_Frame6[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/6.4bpp");
+static const u16 gTilesetAnims_Cormoria_Water_Frame7[] = INCBIN_U16("data/tilesets/primary/cormoria/anim/water/7.4bpp");
+static const u16 *const gTilesetAnims_Cormoria_Water[] = {
+    gTilesetAnims_Cormoria_Water_Frame0, gTilesetAnims_Cormoria_Water_Frame1,
+    gTilesetAnims_Cormoria_Water_Frame2, gTilesetAnims_Cormoria_Water_Frame3,
+    gTilesetAnims_Cormoria_Water_Frame4, gTilesetAnims_Cormoria_Water_Frame5,
+    gTilesetAnims_Cormoria_Water_Frame6, gTilesetAnims_Cormoria_Water_Frame7,
+};
+// runs of animated tiles: first tile, tile count (their frame data are consecutive, in this order)
+static const u16 sCormoriaWaterRuns[][2] = {{182, 4}, {196, 4}, {202, 9}, {506, 1}};
+
+static void QueueAnimTiles_Cormoria_Water(u16 timer)
+{
+    const u8 *src = (const u8 *)gTilesetAnims_Cormoria_Water[timer % ARRAY_COUNT(gTilesetAnims_Cormoria_Water)];
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sCormoriaWaterRuns); i++)
+    {
+        AppendTilesetAnimToBuffer((const u16 *)src, (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(sCormoriaWaterRuns[i][0])), sCormoriaWaterRuns[i][1] * TILE_SIZE_4BPP);
+        src += sCormoriaWaterRuns[i][1] * TILE_SIZE_4BPP;
+    }
+}
+
+static void TilesetAnim_Cormoria(u16 timer)
+{
+    if (timer % 32 == 0)
+        QueueAnimTiles_Cormoria_Water(timer / 32);
+}
+
+void InitTilesetAnim_Cormoria(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_Cormoria;
+}
