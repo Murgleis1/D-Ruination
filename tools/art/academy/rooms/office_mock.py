@@ -27,7 +27,8 @@ import compose_mock as HALL
 
 TSM = TS(map_layout(17, 0))                                       # the manor room's set: its candle stands
 W, H = 12, 10                                                     # x0, x11 void; rows 0-1 wall, 2-8 floor, 9 the mat
-TABLE = os.environ.get('TABLE', 'archive_desk')
+TABLE = os.environ.get('TABLE', 'cloth')
+OBJ = os.environ.get('OBJ', 'book_pink')                      # on the cloth: flowers | book_pink | book_stack | papers
 SHELF_KIND = os.environ.get('SHELF', 'archive')              # archive: Fort Elderflower's archive shelves (user)
 ARCH_WOOD = None                                              # filled lazily: the archive's mauve wood -> the hall's walnut
 SHELVES = [1, 3]
@@ -69,6 +70,16 @@ def table_piece():
     P = os.path.join(ASSETS, 'monomyth_reference', 'pieces')
     if TABLE == 'card':
         t = np.array(Image.open(os.path.join(P, 'card_table.png')).convert('RGBA')); return t[..., :3], t[..., 3] > 0
+    if TABLE == 'cloth':                                         # the same table, candelabra off, a small object on it
+        t = np.array(Image.open(os.path.join(P, 'candelabra_table.png')).convert('RGBA'))[12:]; rgb = t[..., :3].copy()
+        m = t[..., 3] > 0; inner = np.zeros(m.shape, bool); inner[0:7, 3:23] = True
+        rgb[inner & m] = (248, 248, 248)                         # the candelabra's foot -> the cloth's white
+        low = np.zeros(m.shape, bool); low[17:] = True; rgb[low & (t[..., :3] == (120, 120, 128)).all(-1)] = (16, 28, 64)
+        if OBJ:
+            src = os.path.join(ASSETS, 'crown_reference' if OBJ == 'flowers' else 'monomyth_reference', 'pieces', OBJ + '.png')
+            o = np.array(Image.open(src).convert('RGBA')); om = o[..., 3] > 0
+            py, px = 9 - o.shape[0] // 2, 13 - o.shape[1] // 2; sub = rgb[py:py + o.shape[0], px:px + o.shape[1]]; sub[om] = o[..., :3][om]
+        return rgb, m
     if TABLE.startswith('candelabra'):                           # the Old HQ's clothed table with its gold candelabra
         t = np.array(Image.open(os.path.join(P, 'candelabra_table.png')).convert('RGBA')); rgb = t[..., :3].copy()
         m = t[..., 3] > 0; low = np.zeros(m.shape, bool); low[29:] = True
@@ -114,7 +125,7 @@ def compose():
     paste(rug[..., :3], rug[..., 3] > 0, cx - 12, cy + 26)       # the carpet in the couch's corner, out past its open sides
     c, cm = couch(); paste(c, cm, cx, cy)
     t, tm = table_piece()                                        # centred in the couch's corner, on the carpet
-    ty = cy + 18 if TABLE.startswith('candelabra') else cy + 26 + max(0, (30 - t.shape[0]) // 2)
+    ty = cy + 18 if TABLE.startswith('candelabra') else cy + 30 if TABLE == 'cloth' else cy + 26 + max(0, (30 - t.shape[0]) // 2)
     paste(t, tm, cx + 32 - t.shape[1] // 2, ty)
     for x, y in CANDLES:                                         # two cells: candles (0xA7) over the stand (0xAF)
         for dy, m in ((-1, 0xA7), (0, 0xAF)):
