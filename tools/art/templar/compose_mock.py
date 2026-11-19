@@ -13,10 +13,12 @@ Image-level mock only (no tileset yet): every piece is composited as pixels.
 import os, sys, json
 import numpy as np
 from PIL import Image, ImageDraw
-sys.path.insert(0, '/home/claude/repo/tools/monomyth'); sys.path.insert(0, '/home/claude/repo/tools/monomyth/dormitory')
+sys.path.insert(0, '/home/claude/repo/tools/monomyth')
 from romlib import u32, off, layout
 from render import TS, map_cells
-import compose_mock as DORM                                     # the saloon (for seating option A)
+import importlib.util as _ilu                                    # the dormitory mock (the saloon), loaded by path:
+_spec = _ilu.spec_from_file_location('dorm_compose_mock', '/home/claude/repo/tools/monomyth/dormitory/compose_mock.py')
+DORM = _ilu.module_from_spec(_spec); _spec.loader.exec_module(DORM)     # it shares this module's file name
 
 UP = '/mnt/user-data/uploads/'
 AR = np.array(Image.open(UP + '7a10724b-image.png').convert('RGBA'))[::2, ::2]   # ArceusRuins, halved exactly

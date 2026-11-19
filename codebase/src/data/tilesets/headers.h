@@ -1194,3 +1194,25 @@ const struct Tileset gTileset_PellucaDormitory =
     .metatileAttributes = gMetatileAttributes_PellucaDormitory,
     .callback = InitTilesetAnim_PellucaDormitory,
 };
+
+const struct Tileset gTileset_OldHqInterior =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_OldHqInterior,
+    .palettes = gTilesetPalettes_OldHqInterior,
+    .metatiles = gMetatiles_OldHqInterior,
+    .metatileAttributes = gMetatileAttributes_OldHqInterior,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarHall =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarHall,
+    .palettes = gTilesetPalettes_TemplarHall,
+    .metatiles = gMetatiles_TemplarHall,
+    .metatileAttributes = gMetatileAttributes_TemplarHall,
+    .callback = NULL,
+};

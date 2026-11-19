@@ -1,0 +1,5 @@
+// ============ DREAMSTONE RUINATION - Pelluca Valley: the Templar Monastery main hall ============
+// The church-like foyer the holding cell's south door opens into (user design 2026-11-19).
+// Built by tools/art/templar/build_hall.py. NPCs and dialogue come with the dialogue pass.
+
+mapscripts PellucaTemplarHall_MapScripts {}

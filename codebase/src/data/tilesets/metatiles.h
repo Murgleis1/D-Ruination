@@ -302,3 +302,8 @@ const u16 gMetatiles_SpeedwellInterior[] = INCBIN_U16("data/tilesets/primary/spe
 const u16 gMetatileAttributes_SpeedwellInterior[] = INCBIN_U16("data/tilesets/primary/speedwell_interior/metatile_attributes.bin");
 const u16 gMetatiles_PellucaDormitory[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/metatiles.bin");
 const u16 gMetatileAttributes_PellucaDormitory[] = INCBIN_U16("data/tilesets/secondary/pelluca_dormitory/metatile_attributes.bin");
+
+const u16 gMetatiles_OldHqInterior[] = INCBIN_U16("data/tilesets/primary/old_hq_interior/metatiles.bin");
+const u16 gMetatileAttributes_OldHqInterior[] = INCBIN_U16("data/tilesets/primary/old_hq_interior/metatile_attributes.bin");
+const u16 gMetatiles_TemplarHall[] = INCBIN_U16("data/tilesets/secondary/templar_hall/metatiles.bin");
+const u16 gMetatileAttributes_TemplarHall[] = INCBIN_U16("data/tilesets/secondary/templar_hall/metatile_attributes.bin");

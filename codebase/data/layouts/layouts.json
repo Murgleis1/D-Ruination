@@ -6082,6 +6082,16 @@
       "blockdata_filepath": "data/layouts/PellucaTemplarMonastery/map.bin"
     },
     {
+      "id": "LAYOUT_PELLUCA_TEMPLAR_HALL",
+      "name": "PellucaTemplarHall_Layout",
+      "width": 17,
+      "height": 22,
+      "primary_tileset": "gTileset_OldHqInterior",
+      "secondary_tileset": "gTileset_TemplarHall",
+      "border_filepath": "data/layouts/PellucaTemplarHall/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaTemplarHall/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_UMBRA_LAB",
       "name": "PellucaUmbraLab_Layout",
       "width": 12,
