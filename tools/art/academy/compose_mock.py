@@ -35,11 +35,12 @@ def hls(c): return colorsys.rgb_to_hls(*(v / 255 for v in c))
 def rgb(h, l, s): return tuple(int(round(v * 255)) for v in colorsys.hls_to_rgb(h, l, s))
 WALLS = {'A ivory plaster': ((236, 226, 202), (206, 194, 168))}       # user picked A (B pale stone dropped)
 HONEY = [(78, 50, 34), (106, 70, 44), (136, 96, 58), (164, 122, 76), (190, 148, 98), (210, 172, 120), (226, 196, 146)]
+WALNUT = [(34, 18, 16), (52, 26, 22), (72, 36, 28), (94, 48, 34), (118, 64, 42), (142, 84, 54), (168, 108, 72)]   # the piano: dark, elegant
 def is_wood(c):
     r, g, b = c; return c not in ((0, 248, 248), (0, 0, 0)) and r >= b and (r - b) >= 12 and not (g > r + 8)
-def honey(c):
-    l = hls(c)[1]; t = min(1.0, max(0.0, (l - 0.14) / 0.42)); return HONEY[int(round(t * (len(HONEY) - 1)))]
-def wood_pal(pal): return [honey(tuple(c)) if is_wood(tuple(c)) else tuple(c) for c in pal]
+def honey(c, ramp=None):
+    ramp = ramp or HONEY; l = hls(c)[1]; t = min(1.0, max(0.0, (l - 0.14) / 0.42)); return ramp[int(round(t * (len(ramp) - 1)))]
+def wood_pal(pal, ramp=None): return [honey(tuple(c), ramp) if is_wood(tuple(c)) else tuple(c) for c in pal]
 def cabin_ts(wall):
     ts = TS(CABIN); ts.cache = {}
     for p in (7, 8, 10, 11): ts.pal[p] = wood_pal(ts.pal[p])          # not 9: the carpets keep their own colours
@@ -51,24 +52,25 @@ WALL_META = {0x170, 0x178, 0x179, 0x17A, 0x17B, 0x180, 0x182, 0x183, 0x1C7, 0x1C
 WALL_ROWS = {6, 7, 8, 12, 13, 17, 18}                    # every tile in the wall rows carries plaster (windows, chimney, doors)
 import struct as _st
 from render import ROM as _ROM
-def meta_clean(ts, m, top=False):
+def meta_clean(ts, m, top=False, ts_obj=None, clean=True):
     """A wall metatile with its stains and moss painted out: in palette 7, 14 and 10 -> 15, except a straight
     3-pixel band at the top of the pieces under the ceiling."""
     base = off(CABIN['primary']['mt']) + 24 * m if m < 512 else off(CABIN['secondary']['mt']) + 24 * (m - 512)
     e = _st.unpack_from('<12H', _ROM, base); img = np.zeros((16, 16, 3), np.uint8)
     for layer in range(3):
         for q in range(4):
-            v = e[layer * 4 + q]; t = ts.tile(v & 0x3FF)
+            v = e[layer * 4 + q]; T = ts_obj if (ts_obj is not None and layer > 0) else ts
+            t = T.tile(v & 0x3FF)
             if t is None: continue
             t = t.copy()
             if v & 0x400: t = t[:, ::-1]
             if v & 0x800: t = t[::-1, :]
             y, x = (q // 2) * 8, (q % 2) * 8
-            if v >> 12 == 7:
+            if v >> 12 == 7 and clean and T is ts:
                 band = np.zeros((8, 8), bool)
                 if top and q < 2: band[:3] = True
                 t = np.where(np.isin(t, (10, 14)) & ~band, 15, t); t = np.where(band & (t != 0), 14, t)
-            pal = np.array(ts.pal[v >> 12], np.uint8)
+            pal = np.array(T.pal[v >> 12], np.uint8)
             if layer == 0: img[y:y + 8, x:x + 8] = pal[t]
             else: mk = t != 0; img[y:y + 8, x:x + 8][mk] = pal[t][mk]
     return img
@@ -167,6 +169,7 @@ def rug_rgb(ts, name):
 # metatiles 0x20B/0x20C) is redrawn sound: honey-oak frame and legs, a purple velvet cushion (the carpets').
 WINDOW_PAIRS = [(9, 10), (12, 13), (15, 16), (18, 19)]       # each window straddles two cells, rows 6-8
 OUTLINE, FRAME, FRAME_D = (84, 62, 52), HONEY[4], HONEY[2]
+B_FRAME, B_FRAME_D, B_OUTLINE = WALNUT[4], WALNUT[2], WALNUT[0]   # the bench matches the piano
 GLASS = [(206, 224, 236), (186, 208, 226), (166, 192, 214)]
 def clean_window(img, plain):
     """Inside a window's bounding box (where the cells differ from plain wall rendered in the same place): an
@@ -190,23 +193,29 @@ def clean_window(img, plain):
 VELVET = [(64, 32, 96), (96, 56, 136), (128, 88, 168)]
 def bench(w=16, h=11):
     a = np.zeros((h, w, 3), np.uint8); m = np.zeros((h, w), bool)
-    a[0:6, 0:w] = OUTLINE; m[0:6, 0:w] = True
+    a[0:6, 0:w] = B_OUTLINE; m[0:6, 0:w] = True
     a[1:3, 1:w - 1] = VELVET[2]; a[3:5, 1:w - 1] = VELVET[1]; a[1, 2:w - 2] = (168, 132, 204)   # cushion
-    a[5, 1:w - 1] = FRAME_D
+    a[5, 1:w - 1] = B_FRAME_D
     for x in (1, w - 3):                                        # legs
-        a[6:h, x:x + 2] = FRAME; a[6:h, x - 1] = OUTLINE; a[6:h, x + 2] = OUTLINE; m[6:h, x - 1:x + 3] = True
+        a[6:h, x:x + 2] = B_FRAME; a[6:h, x - 1] = B_OUTLINE; a[6:h, x + 2] = B_OUTLINE; m[6:h, x - 1:x + 3] = True
     a[h - 1, :] = a[h - 1, :]
     return a, m
 
+PIANO = {0x1FA, 0x1FB, 0x1FC, 0x202, 0x203, 0x204}
 def compose(wall):
     ts = cabin_ts(wall); W, H = X1 - X0, Y1 - Y0
+    tsp = cabin_ts(wall)
+    for p in (7, 8, 10, 11): tsp.pal[p] = wood_pal(TS(CABIN).pal[p], WALNUT)
+    tsp.cache = {}
     img = np.zeros((H * 16, W * 16, 3), np.uint8)
     for y in range(Y0, Y1):
         for x in range(X0, X1):
             m = EDITS.get((x, y), CELLS[y * CW + x] & 0x3FF)
             if (x, y) in RUG_CELLS: m = 0x18B
             if (x, y) in MAT_CELLS: m = 0x18B if y == 25 else 0
-            img[(y - Y0) * 16:(y - Y0 + 1) * 16, (x - X0) * 16:(x - X0 + 1) * 16] = meta_clean(ts, m, top=(y == 6)) if y in WALL_ROWS else ts.meta(m)
+            if m in PIANO: cell = meta_clean(ts, m, top=False, ts_obj=tsp, clean=y in WALL_ROWS)   # piano layer in walnut
+            else: cell = meta_clean(ts, m, top=(y == 6)) if y in WALL_ROWS else ts.meta(m)
+            img[(y - Y0) * 16:(y - Y0 + 1) * 16, (x - X0) * 16:(x - X0 + 1) * 16] = cell
     # T4, the haunted lounge: its old dark door in the old dingy colours
     old = TS(CABIN)
     for (x, y) in ((20, 7), (20, 8)): img[(y - Y0) * 16:(y - Y0 + 1) * 16, (x - X0) * 16:(x - X0 + 1) * 16] = old.meta(CELLS[y * CW + x] & 0x3FF)
