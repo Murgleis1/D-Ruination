@@ -78,6 +78,21 @@ def blonde(rgb, m):
     for c, new in zip(hair, ramp): out[(rgb == c).all(-1) & m] = new
     return out
 
+# ---- tall iron candle stands (user 2026-11-19: replace the "gaudy" crystals) ----
+# Rejuvenation's Church-sheet stand (three lit candles on dark iron), resampled from the JPEG; its muddied
+# colours mapped to a clean ramp (iron, wax, flame), and the JPEG's cream halo along the stem (below the
+# candles) dropped.
+STAND_MAP = {(46, 43, 53): (40, 40, 56), (63, 62, 74): (64, 64, 80), (91, 89, 102): (104, 104, 120),
+             (148, 103, 75): (216, 96, 32), (142, 147, 149): (168, 168, 176), (191, 157, 126): (248, 168, 56),
+             (197, 178, 153): (224, 216, 200), (229, 222, 208): (248, 240, 200)}
+STAND_HALO_FROM = 17                           # rows from here down are stem: light pixels there are halo
+def candle_stand():
+    st, sm = ch_window((112, 4758, 138, 4836), 15); out = st.copy(); m = sm.copy()
+    for k, v in STAND_MAP.items(): out[(st == k).all(-1) & sm] = v
+    halo = np.isin(st.reshape(-1, 3).view([('', st.dtype)] * 3), np.array([(197, 178, 153), (229, 222, 208)], st.dtype).view([('', st.dtype)] * 3)).reshape(st.shape[:2])
+    m[STAND_HALO_FROM:] &= ~halo[STAND_HALO_FROM:]
+    return out, m
+
 def pew():
     """Option B: a three-tile pew seen from behind, in the saloon's warm wood (generic furniture, drawn)."""
     W = (DORM.SAL.pal[4][5], DORM.SAL.pal[4][3], DORM.SAL.pal[4][2], DORM.SAL.pal[4][10], DORM.SAL.pal[4][7])
@@ -123,6 +138,9 @@ def compose(seating):
     # the same tall fluted statue-pillar either side (user: they must match), the right one mirrored
     x0, y0, x1, y1 = BOX[36]; a, m = ar((x0, y0, x0 + 16, y1))
     put(a, m, 5 * 16, (WALL + 2) * 16 - m.shape[0] + 4); put(a[:, ::-1], m[:, ::-1], 11 * 16, (WALL + 2) * 16 - m.shape[0] + 4)
+    # tall iron candle stands either side of the altar (they replaced the crystals: user)
+    a, m = candle_stand()
+    for px in (3 * 16 + 8, 12 * 16 + 8): put(a, m, px, (WALL + 2) * 16 - m.shape[0] + 2)
     # the gold medallion set in the floor before the altar
     x0, y0, x1, y1 = BOX[1]; a, m = ar((x0, y1 - 48, x1, y1)); put(a, m, 8 * 16 + 8 - 24, (WALL + 3) * 16 + 4)
     # candelabra tables down both side walls

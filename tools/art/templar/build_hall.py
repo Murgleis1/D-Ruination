@@ -7,7 +7,8 @@ The hall the holding cell's south door opens into: a church-like foyer with pews
     in its palette slots 8 (wall) and 12 (carpet), plus our pieces:
       - Pokemon Rejuvenation (credit: the Rejuvenation team): ArceusRuins sheet, halved exactly (the art is
         pixel-doubled): the white Arceus statue, two matching tall statue-pillars (user), the altar rug, the
-        gold medallion, the four crystals (user), the cell doorway; Church sheet: the great stained-glass
+        gold medallion, the cell doorway; Church sheet: two tall iron candle stands (they replaced the four
+        crystals, which the user found gaudy), the great stained-glass
         window (the figure's hair re-dyed gold blonde with silver: user) and the two gothic lancets,
         resampled from the JPEG the user supplied (the original PNG was unavailable: user said go ahead).
       - pews drawn in the saloon's warm wood (user picked pews over chairs).
@@ -87,7 +88,7 @@ for x0, y0 in TABLES:
         for dx in range(3): floor[y0 + dy][x0 + dx] = ('hq', TABLE[dy][dx])
 
 # ---------------- object pieces (pixels) and their palette slots ----------------
-GREAT, LANCET, STATUE, CRYS_A, CRYS_B, WALLSLOT, CARPET = 6, 7, 9, 10, 11, 8, 12
+GREAT, LANCET, STATUE, CRYS_A, CRYS_B, WALLSLOT, CARPET = 6, 7, 9, 10, 11, 8, 12   # CRYS_A: the candle stands
 placed = []                                                     # (rgb, mask, px, py, slot), in drawing order
 def place(rgb, m, px, py, slot): placed.append((rgb.astype(np.uint8), m, px, py, slot))
 g, gm = CM.ch_window((4, 7352, 146, 7512), 80); g = CM.blonde(g, gm); place(g, gm, 8 * 16 + 8 - 40, 4, GREAT)
@@ -98,9 +99,10 @@ a, m = CM.ar(CM.BOX[5]); place(a, m, 8 * 16 + 8 - m.shape[1] // 2, WALL_ROWS * 1
 x0, y0, x1, y1 = CM.BOX[36]; a, m = CM.ar((x0, y0, x0 + 16, y1))
 PILLAR_Y = (WALL_ROWS + 2) * 16 - m.shape[0] + 4
 place(a, m, 5 * 16, PILLAR_Y, STATUE); place(a[:, ::-1], m[:, ::-1], 11 * 16, PILLAR_Y, STATUE)
-x0, y0, x1, y1 = CM.BOX[63]
-for k, px, slot in ((0, 3 * 16, CRYS_A), (1, 4 * 16, CRYS_A), (2, 12 * 16, CRYS_B), (3, 13 * 16, CRYS_B)):
-    a, m = CM.ar((x0 + 16 * k, y0, x0 + 16 * k + 16, y1)); place(a, m, px, (WALL_ROWS + 2) * 16 - m.shape[0] + 2, slot)
+# tall iron candle stands where the crystals stood (user 2026-11-19: the crystals were too gaudy)
+STAND_XS = {1: (3 * 16 + 8, 12 * 16 + 8), 2: (3 * 16, 4 * 16, 12 * 16, 13 * 16)}[int(os.environ.get('STANDS', '1'))]
+a, m = CM.candle_stand()
+for px in STAND_XS: place(a, m, px, (WALL_ROWS + 2) * 16 - m.shape[0] + 2, CRYS_A)
 x0, y0, x1, y1 = CM.BOX[1]; a, m = CM.ar((x0, y1 - 48, x1, y1)); place(a, m, 8 * 16 + 8 - 24, (WALL_ROWS + 3) * 16 + 4, CARPET)
 PEWS = [(sx, sy) for sy in range(WALL_ROWS + 6, H - 3, 2) for sx in (4, 10)]
 for sx, sy in PEWS:
