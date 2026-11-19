@@ -258,10 +258,11 @@ static const struct SpriteTemplate sRegionMapCursorSpriteTemplate =
     .callback = SpriteCB_CursorMapFull
 };
 
+// DR: the "you are here" icon is Rufflet's face (tools/art/pokelog/map_icon.py), 20 px tall in a 32x32 sprite
 static const struct OamData sRegionMapPlayerIconOam =
 {
-    .shape = SPRITE_SHAPE(16x16),
-    .size = SPRITE_SIZE(16x16),
+    .shape = SPRITE_SHAPE(32x32),
+    .size = SPRITE_SIZE(32x32),
     .priority = 2
 };
 
@@ -1579,7 +1580,7 @@ static void UNUSED ClearUnkCursorSpriteData(void)
 void CreateRegionMapPlayerIcon(u16 tileTag, u16 paletteTag)
 {
     u8 spriteId;
-    struct SpriteSheet sheet = {sRegionMapPlayerIcon_BrendanGfx, 0x80, tileTag};
+    struct SpriteSheet sheet = {sRegionMapPlayerIcon_BrendanGfx, sizeof(sRegionMapPlayerIcon_BrendanGfx), tileTag};
     struct SpritePalette palette = {sRegionMapPlayerIcon_BrendanPal, paletteTag};
     struct SpriteTemplate template = {tileTag, paletteTag, &sRegionMapPlayerIconOam, sRegionMapPlayerIconAnimTable, NULL, gDummySpriteAffineAnimTable, SpriteCallbackDummy};
 
