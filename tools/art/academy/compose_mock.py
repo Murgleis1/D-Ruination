@@ -54,10 +54,23 @@ WALL_META = {0x170, 0x178, 0x179, 0x17A, 0x17B, 0x180, 0x182, 0x183, 0x1C7, 0x1C
 WALL_ROWS = {6, 7, 8, 12, 13, 17, 18}                    # every tile in the wall rows carries plaster (windows, chimney, doors)
 import struct as _st
 from render import ROM as _ROM
-def meta_layers(ts, m, top=False, ts_obj=None, clean=True):
+def meta_layers(ts, m, top=False, ts_obj=None, clean=True, floor=None):
     """(under, over, over mask) of a cabin metatile: under = its bottom and middle layers (below the player),
     over = its top layer (drawn over the player). With `clean`, a wall metatile has its stains and moss painted
-    out: in palette 7, 14 and 10 -> 15, except a straight 3-pixel band at the top of the pieces under the ceiling."""
+    out: in palette 7, 14 and 10 -> 15, except a straight 3-pixel band at the top of the pieces under the ceiling.
+    With `floor` (a metatile id), furniture moved elsewhere: its own bottom layer (the floor it stood on) is replaced
+    by that floor's, so the boards run on unbroken under it."""
+    if floor is not None:
+        img = meta_layers(ts, floor, clean=False)[0]; _, over, om = meta_layers(ts, m, top, ts_obj, clean)
+        e = _st.unpack_from('<12H', _ROM, (off(CABIN['primary']['mt']) + 24 * m) if m < 512 else off(CABIN['secondary']['mt']) + 24 * (m - 512))
+        for q in range(4):
+            v = e[4 + q]; T = ts_obj if ts_obj is not None else ts; t = T.tile(v & 0x3FF)
+            if t is None or not v & 0x3FF: continue
+            if v & 0x400: t = t[:, ::-1]
+            if v & 0x800: t = t[::-1, :]
+            y, x = (q // 2) * 8, (q % 2) * 8; mk = t != 0
+            img[y:y + 8, x:x + 8][mk] = np.array(T.pal[v >> 12], np.uint8)[t][mk]
+        return img, over, om
     base = off(CABIN['primary']['mt']) + 24 * m if m < 512 else off(CABIN['secondary']['mt']) + 24 * (m - 512)
     e = _st.unpack_from('<12H', _ROM, base); img = np.zeros((16, 16, 3), np.uint8)
     over = np.zeros((16, 16, 3), np.uint8); om = np.zeros((16, 16), bool)
@@ -100,11 +113,15 @@ for ytop in (7, 12, 17):                                 # the left wall edge's 
 for p, m in {(6, 21): 0, (6, 22): 0, (7, 21): 0x18B, (7, 22): 0x18B, (21, 20): 0x18B, (21, 21): 0x18B,
              (22, 20): 0, (22, 21): 0, (21, 9): 0x188, (21, 10): 0x1BA, (22, 9): 0, (22, 10): 0}.items():
     EDITS[p] = m                                         # side-wall exit rugs removed
-# the sofa set moves left, facing the low table (user 2026-11-19: the reception desk takes the right side)
-SOFA = {(19, 22): (9, 22), (20, 22): (10, 22), (21, 22): (11, 22), (19, 23): (9, 23), (20, 23): (10, 23), (21, 23): (11, 23)}
-for (sx, sy), (dx, dy) in SOFA.items(): EDITS[(dx, dy)] = CELLS[sy * CW + sx] & 0x3FF
+# the sitting group (sofa, armchair, low table, stools) on the left, the sofa facing the table (user 2026-11-19:
+# the reception desk takes the right side; then one tile further left, clear of the entrance lamp)
+SOFA = {(19, 22): (8, 22), (20, 22): (9, 22), (21, 22): (10, 22), (19, 23): (8, 23), (20, 23): (9, 23), (21, 23): (10, 23),
+        (8, 24): (7, 24), (9, 24): (8, 24), (10, 24): (9, 24), (11, 24): (10, 24)}       # source cell -> new cell
+MOVED = {}                                               # new cell -> furniture metatile (drawn on its new floor)
+for (sx, sy), (dx, dy) in SOFA.items(): MOVED[(dx, dy)] = CELLS[sy * CW + sx] & 0x3FF
 for (sx, sy) in SOFA:
-    if (sx, sy) not in SOFA.values(): EDITS[(sx, sy)] = 0x18B
+    if (sx, sy) not in MOVED: EDITS[(sx, sy)] = 0x18B
+SITTING = set(MOVED)                                     # all solid
 DESK = (18, 21)                                          # the reception desk's top-left cell (4 x 4)
 for x in range(DESK[0], DESK[0] + 4):
     for y in range(DESK[1], DESK[1] + 4): EDITS[(x, y)] = 0x18B
@@ -275,6 +292,11 @@ def compose_layers(wall):
     for y in range(Y0, Y1):
         for x in range(X0, X1):
             m = EDITS.get((x, y), CELLS[y * CW + x] & 0x3FF)
+            if (x, y) in MOVED:                          # moved furniture on the floor of its new place
+                fl = m if m in (0x188, 0x18B) else 0x18B; m = MOVED[(x, y)]
+                sl = (slice((y - Y0) * 16, (y - Y0 + 1) * 16), slice((x - X0) * 16, (x - X0 + 1) * 16))
+                img[sl], OV[sl], OM[sl] = meta_layers(ts, m, ts_obj=tst if m in TABLE else None, clean=False, floor=fl)
+                continue
             if (x, y) in RUG_CELLS: m = 0x18B
             if (x, y) in MAT_CELLS: m = 0x18B if y == 25 else 0
             if m in PIANO: cell = meta_layers(ts, m, top=False, ts_obj=tsp, clean=y in WALL_ROWS)   # piano layer in walnut
