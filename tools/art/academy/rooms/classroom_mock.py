@@ -1,6 +1,6 @@
 """Mock of the Academy classroom (M3, the active one) (user design 2026-11-19): the layout of MonoMyth's
-Cascade City clown academy classroom (a window wall with a wide chalkboard between two windows, desks in a
-chevron facing it), skinned with Pokemon Crown's classroom tileset (map group 5 #2; credit: Blah and the Crown
+Cascade City clown academy classroom (a window wall with a wide chalkboard between two windows, desks facing
+it; then (user) the desks in plain rows, clear of the runner), skinned with Pokemon Crown's classroom tileset (map group 5 #2; credit: Blah and the Crown
 team, used with permission): its cream wall with the dark trim, heraldic shields, chalkboard, bookcases, plank
 floor, red runner, and its two-seat desks and chairs (user: the desks and tables from the Crown classroom too).
 Crown has no windows; the hall's windows looked wrong on Crown's wall (user), so Cascade's windows become Crown's
@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.join(HERE, '..', '..', '..', 'crown'))
 from crown_pieces import map_layout, TS, cell_layers
 
 L = map_layout(5, 2); TSC = TS(L)
-W, H = 16, 13                                  # x0 and x15 are the void sides; rows 0-1 wall, 2-11 floor, 12 the mat
+W, H = 16, 15                                  # x0 and x15 are the void sides; rows 0-1 wall, 2-13 floor, 14 the mat
 TRIM, SHIELD, WALL, FLOOR, FLOOR_SHADE = 0x72, 0x73, 0x2F, 0x01, 0x93
 BOARD = ((0x281, 0x282), (0x289, 0x28A))
 SHELF = ((0x20, 0x21), (0xC0, 0x29)); CLOCK = (0x17, 0x1F)      # the clock stands on the floor, its face on the wall
@@ -34,7 +34,9 @@ def recolour(cell, table):
     for a, b in table.items(): out[(cell == a).all(-1)] = b
     return out
 AISLE = (7, 8)
-LEFT = [(5, 1), (5, 4), (7, 2), (7, 5), (9, 3)]                  # (row, left column) of each 2-seat desk: a chevron
+LEFT = [(r, x) for r in (5, 8, 11) for x in (2, 4)]                # (row, left column) of each 2-seat desk: straight rows,
+                                                                   # a tile clear of the runner, a free row between one row's
+                                                                   # chairs and the next desks (user; was a chevron)
 DESKS_AT = LEFT + [(r, 15 - x - 1) for r, x in LEFT]              # mirrored about the aisle
 SHELVES = [1, 3]                                                   # the two bookcases together on the left (user)
 # with the clock on the right (user): a stone bust from Crown's library set, drawn by its top layer over this room's
