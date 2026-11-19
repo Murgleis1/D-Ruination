@@ -21,34 +21,38 @@
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_CITY",
       "dest_warp_id": "4"
+    },
+    {
+      "x": 14,
+      "y": 14,
+      "elevation": 0,
+      "dest_map": "MAP_PELLUCA_ACADEMY_OFFICE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_PELLUCA_ACADEMY_LIBRARY",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 11,
+      "y": 9,
+      "elevation": 0,
+      "dest_map": "MAP_PELLUCA_ACADEMY_CLASSROOM",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 14,
+      "y": 4,
+      "elevation": 0,
+      "dest_map": "MAP_PELLUCA_ACADEMY_LOUNGE",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],
   "bg_events": [
-    {
-      "type": "sign",
-      "x": 14,
-      "y": 14,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "DR_Academy_OfficeDoor"
-    },
-    {
-      "type": "sign",
-      "x": 2,
-      "y": 9,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "DR_Academy_LibraryDoor"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 9,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "DR_Academy_ClassroomDoor"
-    },
     {
       "type": "sign",
       "x": 14,

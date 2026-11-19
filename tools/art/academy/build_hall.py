@@ -126,6 +126,13 @@ dx0, dy0 = CM.DESK
 SOLID |= {(dx0, dy0 + d) for d in range(3)} | {(dx0 + 3, dy0 + d) for d in range(3)} | {(dx0 + k, dy0 + 3) for k in range(4)}
 COUNTER = {(dx0 + 1, dy0 + 3), (dx0 + 2, dy0 + 3)}                           # talk across to whoever stands inside
 EXIT = (14, 25)
+# the rooms (tools/art/academy/rooms/build_rooms.py; user design 2026-11-19): hall warps 1-4, in this order; each warps
+# to the room's warp 0 (its door mat). G1/M1/M3 are open doors; T4 (the haunted lounge) keeps its rusted lock: its
+# warp is there for the way back out, its cell stays solid with the sign.
+ROOM_DOORS = [((20, 18), 'MAP_PELLUCA_ACADEMY_OFFICE'), ((8, 13), 'MAP_PELLUCA_ACADEMY_LIBRARY'),
+              ((17, 13), 'MAP_PELLUCA_ACADEMY_CLASSROOM'), ((20, 8), 'MAP_PELLUCA_ACADEMY_LOUNGE')]
+OPEN_DOORS = {c for c, _ in ROOM_DOORS[:3]}
+MB_NON_ANIMATED_DOOR, WARP_E0 = 0x60, 0
 WALK -= SOLID
 
 # ---------------- metatiles and the layout ----------------
@@ -142,14 +149,12 @@ for my in range(H):
         x, y = mx + X0, my + Y0
         a = MB_SOUTH_ARROW_WARP if (x, y) == EXIT else MB_COUNTER if (x, y) in COUNTER else MB_NORMAL
         col = FLOOR_E3 if (x, y) in WALK else SOLID_E3
+        if (x, y) in OPEN_DOORS: a, col = MB_NON_ANIMATED_DOOR, WARP_E0
         grid[my, mx] = add_meta(CELL_E[(mx, my)], a) | col << 10
 VOID_ID = int(grid[0, 0] & 0x3FF)                                            # the black void (border)
 
 # ---------------- events (map coordinates) ----------------
-DOORS = {  # bottom cell of each door (cabin coordinates) -> script
-    (20, 18): 'DR_Academy_OfficeDoor',     # G1 Cadmus's office
-    (8, 13): 'DR_Academy_LibraryDoor',     # M1 library
-    (17, 13): 'DR_Academy_ClassroomDoor',  # M3 classroom (top of the first stairs)
+DOORS = {  # bottom cell of each closed door (cabin coordinates) -> script (G1/M1/M3 are open: ROOM_DOORS)
     (20, 8): 'DR_Academy_LoungeDoor',      # T4 the haunted teachers' lounge (rusted key after the second badge)
     (20, 13): 'DR_Academy_RenovationDoor', (8, 8): 'DR_Academy_RenovationDoor', (11, 8): 'DR_Academy_RenovationDoor',
 }
@@ -165,7 +170,8 @@ MAP = {
     'weather': 'WEATHER_NONE', 'map_type': 'MAP_TYPE_INDOOR', 'allow_cycling': False, 'allow_escaping': False,
     'allow_running': True, 'show_map_name': False, 'battle_scene': 'MAP_BATTLE_SCENE_NORMAL', 'connections': None,
     'object_events': [],
-    'warp_events': [{'x': EX, 'y': EY, 'elevation': 0, 'dest_map': 'MAP_PELLUCA_CITY', 'dest_warp_id': '4'}],
+    'warp_events': [{'x': EX, 'y': EY, 'elevation': 0, 'dest_map': 'MAP_PELLUCA_CITY', 'dest_warp_id': '4'}] +
+                   [{'x': m(*c)[0], 'y': m(*c)[1], 'elevation': 0, 'dest_map': d, 'dest_warp_id': '0'} for c, d in ROOM_DOORS],
     'coord_events': [], 'bg_events': BG}
 CITY_DOOR = (27, 12)                                                         # Pelluca: the Academy's front door
 

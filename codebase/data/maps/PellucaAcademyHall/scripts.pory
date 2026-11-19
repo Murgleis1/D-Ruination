@@ -3,25 +3,11 @@
 // joined by stairs, reception desk, notice board; the top gallery still under construction.
 // The Academy is unfinished: labourers are hard to get out from Silversun (according to Cadmus). Open rooms will
 // be Cadmus's office (G1), the library (M1), an active classroom (M3) and the haunted teachers' lounge (T4,
-// rusted key after the second badge); they are designed next, so every door is closed in this build.
+// rusted key after the second badge). The office, library and classroom open (rooms built 2026-11-19); the lounge
+// stays locked until the key exists.
 // Built by tools/art/academy/build_hall.py. All lines are placeholders for the dialogue pass.
 
 mapscripts PellucaAcademyHall_MapScripts {}
-
-script DR_Academy_OfficeDoor {
-    msgbox(format("A brass plate on the door reads: CADMUS UMBRA, VIZIER OF EDUCATION.\pIt's closed."), MSGBOX_SIGN)
-    end
-}
-
-script DR_Academy_LibraryDoor {
-    msgbox(format("A sign on the door reads: LIBRARY.\pIt's closed."), MSGBOX_SIGN)
-    end
-}
-
-script DR_Academy_ClassroomDoor {
-    msgbox(format("A lesson is going on inside. Better not interrupt."), MSGBOX_SIGN)
-    end
-}
 
 script DR_Academy_LoungeDoor {
     msgbox(format("The door is locked. Its keyhole is crusted with rust."), MSGBOX_SIGN)

@@ -6102,6 +6102,46 @@
       "blockdata_filepath": "data/layouts/PellucaAcademyHall/map.bin"
     },
     {
+      "id": "LAYOUT_PELLUCA_ACADEMY_OFFICE",
+      "name": "PellucaAcademyOffice_Layout",
+      "width": 12,
+      "height": 10,
+      "primary_tileset": "gTileset_AcademyOfficeTiles",
+      "secondary_tileset": "gTileset_AcademyOffice",
+      "border_filepath": "data/layouts/PellucaAcademyOffice/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaAcademyOffice/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_ACADEMY_LIBRARY",
+      "name": "PellucaAcademyLibrary_Layout",
+      "width": 18,
+      "height": 15,
+      "primary_tileset": "gTileset_AcademyLibraryTiles",
+      "secondary_tileset": "gTileset_AcademyLibrary",
+      "border_filepath": "data/layouts/PellucaAcademyLibrary/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaAcademyLibrary/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_ACADEMY_CLASSROOM",
+      "name": "PellucaAcademyClassroom_Layout",
+      "width": 16,
+      "height": 15,
+      "primary_tileset": "gTileset_AcademyClassroomTiles",
+      "secondary_tileset": "gTileset_AcademyClassroom",
+      "border_filepath": "data/layouts/PellucaAcademyClassroom/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaAcademyClassroom/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_ACADEMY_LOUNGE",
+      "name": "PellucaAcademyLounge_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_AcademyLoungeTiles",
+      "secondary_tileset": "gTileset_AcademyLounge",
+      "border_filepath": "data/layouts/PellucaAcademyLounge/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaAcademyLounge/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_UMBRA_LAB",
       "name": "PellucaUmbraLab_Layout",
       "width": 12,

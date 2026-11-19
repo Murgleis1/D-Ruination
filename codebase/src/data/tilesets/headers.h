@@ -1228,6 +1228,94 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_AcademyLounge =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_AcademyLounge,
+    .palettes = gTilesetPalettes_AcademyLounge,
+    .metatiles = gMetatiles_AcademyLounge,
+    .metatileAttributes = gMetatileAttributes_AcademyLounge,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyLoungeTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_AcademyLoungeTiles,
+    .palettes = gTilesetPalettes_AcademyLoungeTiles,
+    .metatiles = gMetatiles_AcademyLoungeTiles,
+    .metatileAttributes = gMetatileAttributes_AcademyLoungeTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyClassroom =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_AcademyClassroom,
+    .palettes = gTilesetPalettes_AcademyClassroom,
+    .metatiles = gMetatiles_AcademyClassroom,
+    .metatileAttributes = gMetatileAttributes_AcademyClassroom,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyClassroomTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_AcademyClassroomTiles,
+    .palettes = gTilesetPalettes_AcademyClassroomTiles,
+    .metatiles = gMetatiles_AcademyClassroomTiles,
+    .metatileAttributes = gMetatileAttributes_AcademyClassroomTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyLibrary =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_AcademyLibrary,
+    .palettes = gTilesetPalettes_AcademyLibrary,
+    .metatiles = gMetatiles_AcademyLibrary,
+    .metatileAttributes = gMetatileAttributes_AcademyLibrary,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyLibraryTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_AcademyLibraryTiles,
+    .palettes = gTilesetPalettes_AcademyLibraryTiles,
+    .metatiles = gMetatiles_AcademyLibraryTiles,
+    .metatileAttributes = gMetatileAttributes_AcademyLibraryTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyOffice =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_AcademyOffice,
+    .palettes = gTilesetPalettes_AcademyOffice,
+    .metatiles = gMetatiles_AcademyOffice,
+    .metatileAttributes = gMetatileAttributes_AcademyOffice,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AcademyOfficeTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_AcademyOfficeTiles,
+    .palettes = gTilesetPalettes_AcademyOfficeTiles,
+    .metatiles = gMetatiles_AcademyOfficeTiles,
+    .metatileAttributes = gMetatileAttributes_AcademyOfficeTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_AcademyInterior =
 {
     .isCompressed = TRUE,

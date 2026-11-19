@@ -1,0 +1,5 @@
+// ============ DREAMSTONE RUINATION - Pelluca Valley: the Academy, lounge ============
+// Built by tools/art/academy/rooms/build_rooms.py from lounge_mock.py (user design 2026-11-19).
+// NPCs and dialogue come with the dialogue pass.
+
+mapscripts PellucaAcademyLounge_MapScripts {}
