@@ -28,6 +28,12 @@ DESK = (0x05, 0x06)
 SHELVES = [1, 9]
 VISITORS = [(4, 4), (7, 4)]                                       # chairs facing the desk; talk from (5,4)/(6,4)
 RUG_AT = (4 * 16 + 4, 4 * 16 + 1)                                 # the wave rug (56 x 30 px) under them, centred
+RUG_KIND = os.environ.get('RUG', 'ornate_blue')
+# the hall's own ornate carpet (the cabin's rug, cleaned) in Water colours: deep sea blues, cream, gold trim
+BLUE9 = {5: (28, 48, 104), 6: (40, 68, 136), 8: (64, 104, 176), 12: (226, 222, 204), 7: (186, 150, 100)}
+CROWN_BLUE = {(216, 112, 104): (40, 68, 136), (200, 88, 80): (28, 48, 104), (160, 64, 104): (20, 36, 84),
+              (104, 56, 88): (16, 28, 64), (208, 216, 104): (186, 150, 100), (192, 160, 56): (186, 150, 100)}
+RUG_SET = {'tl': 0x40, 't': 0x326, 'tr': 0x41, 'l': 0x85, 'm': 0xDC, 'r': 0x86, 'bl': 0x48, 'b': 0x8D, 'br': 0x49}
 CANDLES = [(1, 6), (10, 6)]
 WATER_BANNER = {(96, 112, 88): (28, 56, 112), (136, 152, 104): (52, 96, 168), (208, 208, 176): (200, 224, 240)}
 GOLD = (186, 150, 100)
@@ -54,9 +60,21 @@ def compose():
     k = koi(); paste(k, np.ones(k.shape[:2], bool), 6 * 16 - k.shape[1] // 2, 7)
     for px, rec in ((4 * 16, HALL.BANNER_RECOLOUR), (7 * 16, WATER_BANNER)):     # Academy left, Water right
         b, bm = HALL.decor_piece('heraldic_banner.png', rec); paste(b[:28], bm[:28], px, 3)
-    rug = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'wave_rug.png')).convert('RGBA'))
-    rgb, rm = rug[..., :3].copy(), rug[..., 3] > 0; rgb[(rgb == (120, 120, 120)).all(-1) & rm] = GOLD
-    paste(rgb, rm, *RUG_AT)
+    if RUG_KIND == 'wave':
+        rug = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'wave_rug.png')).convert('RGBA'))
+        rgb, rm = rug[..., :3].copy(), rug[..., 3] > 0; rgb[(rgb == (120, 120, 120)).all(-1) & rm] = GOLD
+        paste(rgb, rm, *RUG_AT)
+    elif RUG_KIND.startswith('ornate'):                          # the hall's carpet design
+        saved = dict(HALL.MAROON9)
+        if RUG_KIND == 'ornate_blue': HALL.MAROON9.clear(); HALL.MAROON9.update(BLUE9)
+        rgb, rm = HALL.rug_rgb(HALL.cabin_ts('A ivory plaster'), 'centre'); HALL.MAROON9.clear(); HALL.MAROON9.update(saved)
+        ys, xs = np.where(rm); rgb, rm = rgb[ys.min():ys.max() + 1, xs.min():xs.max() + 1], rm[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+        paste(rgb, rm, 6 * 16 - rgb.shape[1] // 2, 4 * 16 + 16 - rgb.shape[0] // 2)
+    else:                                                        # Crown's rug set, 4 x 2, in sea blue
+        for y in (4, 5):
+            for x in range(4, 8):
+                v = 't' if y == 4 else 'b'; h = 'l' if x == 4 else 'r' if x == 7 else ''
+                put(x, y, recolour(TSM.meta(RUG_SET[v + h]), CROWN_BLUE))
     for x, y in VISITORS:
         chair = TSC.meta(CHAIR); keep = (chair != TSC.meta(FLOOR)).any(-1)
         img[y * 16:y * 16 + 16, x * 16:x * 16 + 16][keep] = chair[keep]; solid.add((x, y))
