@@ -91,6 +91,7 @@ PIECES = {
     'fountain': (3, 0, 16, 15, 4, 4, {(x, y): 0x0E for x in range(16, 20) for y in range(15, 19)}, None),
     # a wide cobweb from the sewers (g7.11), off its brick wall: the haunted lounge
     'cobweb': (7, 11, 28, 1, 2, 1, {(28, 1): -1, (29, 1): -1}, None),
+    'cobweb_round': (7, 11, 24, 1, 2, 1, {(24, 1): -1, (25, 1): -1}, None),
 }
 
 if __name__ == '__main__':

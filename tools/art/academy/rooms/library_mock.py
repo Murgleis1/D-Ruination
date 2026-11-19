@@ -5,6 +5,8 @@ cornice and panelled back wall lined with bookshelves, the dark lattice cabinet 
 case), two freestanding stacks of shelves either side of a central reading area with two reading tables on rugs,
 and the two stone busts flanking the door. Crown's marble floor. The rugs and the door mat take the Academy's
 maroon with gold trim (user: maroon is the Academy's motif), as the classroom's runner.
+Then (user): no rugs, reading tables or busts; the centre kept clear to walk through; instead a few small round
+tables with chairs, and a few lone chairs, scattered round the edges (Crown's classroom set, drawn over the marble).
 Usage: ODYSSEY_ROM=/path/Crown.gba python3 tools/art/academy/rooms/library_mock.py [out.png]
 """
 import os, sys
@@ -26,9 +28,15 @@ BUST_L, BUST_R = (0x2CC, 0x2D4), (0x2CD, 0x27B)
 RUG = ((0x40, 0x2A6, 0x2A7, 0x41), (0x48, 0x0E, 0x0E, 0x49))     # a reading table and two chairs on its rug
 MAT = (0xC4, 0xC5)
 STACKS = [(x, y) for y in (6, 10) for x in (1, 3, 5, 11, 13, 15)]  # top-left cells of the freestanding shelves
-TABLES = [(7, 6), (7, 10)]
-BUSTS = [(7, 12, BUST_L), (10, 12, BUST_R)]                       # flanking the door
+from classroom_mock import TSC
+NOOKS = [(2, 4), (12, 8), (3, 12)]                               # a small round table with a chair either side (x of the left chair)
+CHAIRS = [(15, 4, 0xE8), (13, 12, 0x288), (1, 9, 0xA6)]         # lone chairs (cell, metatile)
+NOOK = (0xA6, 0x1A, 0xA5)                                        # chair facing right, round table, chair facing left
 RUG_IDS = {m for row in RUG for m in row}
+
+def crown_obj(m):
+    """A Crown classroom-set piece (a chair, a small table) off its plank floor, over this room's marble."""
+    a = TSC.meta(m); f = TSC.meta(0x01); img = TSL.meta(FLOOR).copy(); k = (a != f).any(-1); img[k] = a[k]; return img
 
 def on_floor(m):
     """A piece whose bottom layer is wall (a shelf) or the room's edge (a bust): its top layer over plain floor."""
@@ -48,10 +56,9 @@ def compose():
     for x0, y0 in STACKS:                                           # freestanding: shelf over floor
         for dy in range(2):
             for dx in range(2): put(x0 + dx, y0 + dy, on_floor(SHELF[dy][dx]) if dy == 0 or dx == 1 else TSL.meta(SHELF[dy][dx]))
-    for x0, y0 in TABLES:
-        for dy in range(2):
-            for dx in range(4): put(x0 + dx, y0 + dy, recolour(TSL.meta(RUG[dy][dx]), MAROON_RUG))
-    for x, y, (a, b) in BUSTS: put(x, y, on_floor(a)); put(x, y + 1, on_floor(b))
+    for x0, y in NOOKS:
+        for dx, m in enumerate(NOOK): put(x0 + dx, y, crown_obj(m))
+    for x, y, m in CHAIRS: put(x, y, crown_obj(m))
     put(8, H - 1, recolour(TSL.meta(MAT[0]), MAROON_MAT)); put(9, H - 1, recolour(TSL.meta(MAT[1]), MAROON_MAT))
     return img
 
