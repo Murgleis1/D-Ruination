@@ -102,6 +102,27 @@ FIRE_Q = [(512 + pieces.FIRE_TILE + i) | FIRE_SLOT << 12 for i in range(4)]
 PLATE = quad(pieces.plate(), PLATE_SLOT)
 FLOOR = sal_ents(155)[4:8]
 EMPTY = [0, 0, 0, 0]
+# the purple cactus (user 2026-11-19, option C): the saloon's potted cactus (metatile 203's middle layer,
+# palette 5) recoloured into slot 9's unused indices (compose_mock.PURPLE for its greens, its pot and outline
+# kept), and its pink bloom on the layer above in slot 7's unused indices (both checked under "palettes")
+CACTUS_LUT = {0: 0, 1: 5, 2: 7, 3: 8, 9: 8, 5: 10, 7: 11, 8: 12, 10: 13, 11: 14, 12: 15}   # palette 5 -> slot 9
+BLOOM_IDX = {'lt': 11, 'dk': 12}                                                         # -> slot 7
+def _cactus_quad():
+    lut = np.zeros(16, np.uint8)
+    for a, b in CACTUS_LUT.items(): lut[a] = b
+    out = []
+    for v in sal_ents(CM.CACTUS)[4:8]:
+        assert v >> 12 == 5 and not v & 0xC00
+        t = v & 0x3FF; t = P_TILES[t] if t < 512 else S_TILES[t - 512]
+        assert set(np.unique(t).tolist()) <= set(CACTUS_LUT); out.append(lut[t])
+    return quad(out, WALL_SLOT)
+CACTUS_Q = _cactus_quad()
+_bloom = np.zeros((16, 16), np.uint8)
+for _y, _x, _k in CM.bloom_pixels(): _bloom[_y, _x] = BLOOM_IDX[_k]
+BLOOM_Q = [(add_tile(t) | DOOR_SLOT << 12) if t.any() else 0
+           for t in (_bloom[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8] for q in range(4))]
+PURPLE_PAL = {CACTUS_LUT[i]: (CM.PURPLE.get(i) or CM.SAL.pal[5][i]) for i in CACTUS_LUT if i}
+BLOOM_PAL = {BLOOM_IDX[k]: c for k, c in CM.BLOOM_PINK.items()}
 
 # ---------------- secondary metatiles ----------------
 REAL_SEC_METATILES = 50                                   # 512-561: what MonoMyth's maps use
@@ -162,6 +183,11 @@ def cell(c):
         e = pieces.overlay(e, HEARTH_Q[(dx, dy)], empty)
         if (dx, dy) == CM.FIREBOX: e = pieces.overlay(e, FIRE_Q, empty)
         return add_meta(e, 0), WALL
+    if src == 'C':                                                              # purple cactus with bloom
+        base, _ = cell(mid); empty = lambda v: not (v & 0x3FF)
+        e = pieces.compact(meta_entries(base), empty)                           # floor to the bottom layer, like 203
+        e = pieces.overlay(pieces.overlay(e, CACTUS_Q, empty), BLOOM_Q, empty)
+        return add_meta(e, sal_attr(CM.CACTUS)), COLL.get(CM.CACTUS, WALL)
     if src == 'Fo':                                                             # a plate on a table
         oid, (usrc, umid) = mid; assert usrc == 's'
         e = sal_ents(umid); free = [k for k in range(3) if not any(v & 0x3FF for v in e[k * 4:k * 4 + 4])]
@@ -206,6 +232,17 @@ sec_pals[PED_SLOT] = [gba(c) for c in CM.WA.pal[2]]          # Wood Avens pedest
 sec_pals[HEARTH_SLOT] = [gba(c) for c in CM.DORM_HEARTH_PAL]  # Odyssey brick hearth: redder, fancier brick (user)
 sec_pals[FIRE_SLOT] = [gba(c) for c in pieces.FIRE_ANIM_PAL]   # MonoMyth's fire
 sec_pals[PLATE_SLOT] = [gba(c) for c in FIRE.pal[8]]         # Odyssey food plates
+# the purple cactus and its bloom borrow unused indices of slots 9 and 7: nothing else may draw them
+# (the door animation's frames use slot 9 indices 3 4 6 and slot 7 indices 2 4 5 6 10)
+_own = {v & 0x3FF for v in CACTUS_Q + BLOOM_Q if v}
+for slot, cols, anim in ((WALL_SLOT, PURPLE_PAL, {3, 4, 6}), (DOOR_SLOT, BLOOM_PAL, {2, 4, 5, 6, 10})):
+    drawn = set(anim)
+    for e in s_meta:
+        for v in e:
+            if v >> 12 == slot and v & 0x3FF >= 512 and v & 0x3FF not in _own:
+                drawn |= set(np.unique(s_tiles[(v & 0x3FF) - 512]).tolist())
+    assert not drawn & set(cols), f'slot {slot}: indices {sorted(drawn & set(cols))} are in use'
+    for i, c in cols.items(): sec_pals[slot][i] = gba(c)
 
 # ---------------- write ----------------
 def write_tileset(d, tiles, pals, meta, attrs, show):

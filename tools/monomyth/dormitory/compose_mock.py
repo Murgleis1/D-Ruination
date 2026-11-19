@@ -114,8 +114,37 @@ def wa_piece(quad):
     for q, t in enumerate(quad):
         y, x = (q // 2) * 8, (q % 2) * 8; nz = t != 0; rgb[y:y + 8, x:x + 8][nz] = pal[t][nz]; mask[y:y + 8, x:x + 8] = nz
     return rgb, mask
+# ---- a purple cactus (user 2026-11-19: a second, more purple cactus below the 2F stair plant) ----
+# The saloon's potted cactus (metatile 203: floor on the bottom layer, the plant on the middle layer in
+# palette 5) with its greens (palette 5 indices 1 2 5 12) swapped for purples; pot and outline unchanged.
+CACTUS = 203
+PURPLE = {1: (88, 64, 112), 5: (128, 88, 160), 2: (168, 128, 200), 12: (208, 176, 224)}
+def cactus_layer(mid=CACTUS, recolour=None):
+    e = _st.unpack_from('<12H', _ROM, SAL.pmt + 24 * mid); pal = list(SAL.pal[5])
+    for i, c in (recolour or {}).items(): pal[i] = c
+    rgb = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool)
+    for q, v in enumerate(e[4:8]):
+        assert v >> 12 == 5
+        t = SAL.tile(v & 0x3FF)
+        if v & 0x400: t = t[:, ::-1]
+        if v & 0x800: t = t[::-1, :]
+        y, x = (q // 2) * 8, (q % 2) * 8; nz = t != 0
+        rgb[y:y + 8, x:x + 8][nz] = np.array(pal, np.uint8)[t][nz]; mask[y:y + 8, x:x + 8] = nz
+    return rgb, mask
+# user picked option C: violet body with a small pink bloom on its crown (two pinks, light centre)
+BLOOM_PINK = {'lt': (240, 120, 168), 'dk': (208, 88, 136)}
+def bloom_pixels():
+    """[(y, x, 'lt'|'dk')] in the 16x16 cell: a 2x2 light bloom on the crown's top two rows, flanked by dark
+    on the lower row. (The crown touches the cell's top row, so the bloom stays at and below it.)"""
+    _, m = cactus_layer(CACTUS); ys, xs = np.where(m); top = int(ys.min()); cx = int(xs[ys == top].mean())
+    px = [(top + dy, cx + dx, 'lt' if dx in (0, 1) else 'dk') for dy, dx in ((0, 0), (0, 1), (1, 0), (1, 1), (1, -1), (1, 2))]
+    assert all(0 <= y < 16 and 0 <= x < 16 for y, x, _ in px); return px
 def M(src, mid):
-    if src == 'G':                                   # ('G', ((name, cx, cy), under)): rug or table, centred
+    if src == 'C':                                   # ('C', under): the purple cactus (with bloom) over one of ours
+        out = M(*mid).copy(); rgb, m = cactus_layer(CACTUS, PURPLE); out[m] = rgb[m]
+        for y, x, k in bloom_pixels(): out[y, x] = BLOOM_PINK[k]
+        return out
+    if src == 'G':                                  # ('G', ((name, cx, cy), under)): rug or table, centred
         (name, cx, cy), under = mid; out = M(*under).copy(); rgb, m = wa_piece(rug_quad(name, cx, cy)); out[m] = rgb[m]; return out
     if src == 'W':                                   # ('W', (wood-avens metatile, under)): its top layer over ours
         wid, under = mid; out = M(*under).copy(); rgb, m = wa_piece(_wa_layer1(wid)); out[m] = rgb[m]; return out
@@ -228,7 +257,9 @@ def floor2():
     fl = lambda: [('s', 153)] + [('s', 155)] * (W - 1)
     g = [top, band, face, base, fl(), fl(), fl()]
     for x in DOORS_2F: g[2][x] = ('a', 289); g[3][x] = ('m', 155)
-    g[4][3] = ('s', 203)                          # a plant by the stairs
+    # two potted cacti by the stairs, off the wall (user 2026-11-19): the saloon's green one, a purple one below
+    g[5][3] = ('s', 203)
+    g[6][3] = ('C', ('s', 155))
     # stairs down at the west end (the top of the saloon staircase)
     g[4][0], g[4][1], g[4][2] = ('s', 184), ('s', 155), ('s', 186)
     g[5][0], g[5][1], g[5][2] = ('s', 192), ('s', 193), ('s', 194)
