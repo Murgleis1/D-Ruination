@@ -82,6 +82,8 @@ PIECES = {
     # a wooden crate (the witch's hut, g20.1) and the step ladder (the sewers, g7.11): construction props
     'crate': (20, 1, 10, 4, 1, 1, None, None),
     'step_ladder': (7, 11, 25, 14, 1, 2, {(25, 15): 0x289}, None),
+    # the park's signboard on two posts (the harbour market town, g3.0): the standing notice board's frame
+    'park_sign': (3, 0, 17, 19, 2, 2, None, None),
 }
 
 if __name__ == '__main__':

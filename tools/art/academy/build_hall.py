@@ -13,7 +13,8 @@ every metatile is [under tiles | empty | over tiles].
   * Collision and behaviours are set by hand below (the cabin's own collision assumed object events).
   * Doors: in this build every room is closed (signs): the rooms are designed next.
 Sources: MonoMyth's Ironbark Cabin (reskinned), its Speedwell saloon staircase, Pokemon Crown pieces (credit: Blah
-and the Crown team; used with permission): banner, pendulum clock, reception counter, notice board, crates, ladder.
+and the Crown team; used with permission): banner, pendulum clock, reception counter, the standing notice board
+(the park signboard with the notice board's cork and papers).
 Usage: python3 tools/art/academy/build_hall.py
 """
 import os, sys, json, struct, random, collections
@@ -115,7 +116,8 @@ for y in (9, 10, 14, 15): WALK |= {(x, y) for x in range(7, 22)}             # t
 for y in range(19, 26): WALK |= {(x, y) for x in range(7, 22)}               # the ground floor
 for fx, fy in CM.FLIGHTS:                                                    # stairs: up the centre column
     WALK |= {(fx + 1, fy + d) for d in range(4)}; WALK -= {(fx, fy), (fx + 2, fy)}   # newel posts at the top
-SOLID = set(CM.CRATES) | {(CM.LADDER[0], CM.LADDER[1] + 1), (14, 9), (14, 14)}   # crates, ladder feet, chimney bases
+SOLID = {(14, 9), (14, 14)}                                                  # the chimney's bases on the galleries
+SOLID |= {(CM.BOARD[0] + dx, CM.BOARD[1] + dy) for dx in (0, 1) for dy in (0, 1)}   # the standing notice board
 SOLID |= {(x, 19) for x in (8, 9, 10, 13, 14, 15)}                          # lamp + piano, hearth
 SOLID |= {(9, 20), (10, 20), (12, 21), (16, 21)}                             # piano bench, armchairs
 SOLID |= {(x, y) for x in (9, 10, 11) for y in (22, 23)}                     # the sofa set
@@ -155,7 +157,7 @@ def sign(x, y, script):
     mx, my = m(x, y)
     return {'type': 'sign', 'x': mx, 'y': my, 'elevation': 0, 'player_facing_dir': 'BG_EVENT_PLAYER_FACING_NORTH', 'script': script}
 BG = [sign(x, y, s) for (x, y), s in DOORS.items()]
-BG += [sign(CM.BOARD[0] + k, CM.BOARD[1] + 1, 'DR_Academy_NoticeBoard') for k in (0, 1)]
+BG += [sign(CM.BOARD[0] + k, CM.BOARD[1] + 1, 'DR_Academy_NoticeBoard') for k in (0, 1)]   # read from below it
 EX, EY = m(*EXIT)
 MAP = {
     'id': 'MAP_PELLUCA_ACADEMY_HALL', 'name': 'PellucaAcademyHall', 'layout': 'LAYOUT_PELLUCA_ACADEMY_HALL',

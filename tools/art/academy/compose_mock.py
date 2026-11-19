@@ -108,9 +108,11 @@ for (sx, sy) in SOFA:
 DESK = (18, 21)                                          # the reception desk's top-left cell (4 x 4)
 for x in range(DESK[0], DESK[0] + 4):
     for y in range(DESK[1], DESK[1] + 4): EDITS[(x, y)] = 0x18B
-BOARD = (18, 12)                                         # the notice board: middle gallery, outside the classroom
-CRATES = [(7, 9), (7, 10), (21, 9), (21, 10)]               # the unfinished top gallery: a stack of crates at each end
-LADDER = (16, 8)                                         # top cell; it stands at the window, its feet on the gallery
+# the notice board stands on the ground floor (user 2026-11-19: it looked cramped between the gallery doors);
+# the top gallery is kept clean (user: the crates and the step ladder read as broken junk; the doors closed for
+# renovation tell the story)
+BOARD = (7, 18)                                          # top-left cell of the standing board (2 x 2): it stands on
+EDITS[(8, 18)], EDITS[(8, 19)] = 0x183, 0x188            # the floor by the wall, left of the piano, in the floor lamp's place
 RUG_CELLS = {(x, y) for x in (13, 14, 15) for y in (21, 22)}
 MAT_CELLS = {(x, 25) for x in (13, 14, 15)} | {(x, 26) for x in (13, 14, 15)}
 FLIGHTS = [(16, 15), (10, 10)]                           # (left column, top row): 3 wide x 4 tall, top row = gallery edge
@@ -225,6 +227,7 @@ def bench(w=16, h=11):
     return a, m
 
 PIANO = {0x1FA, 0x1FB, 0x1FC, 0x202, 0x203, 0x204}
+TABLE = {0x1B0, 0x1B1}
 # the hearth and the chimney column rising through the centre (user: a darker, deeper grey-blue stone): palette 10
 # on these tiles only (the railings borrow a few of its greys), onto a deep slate ramp by brightness
 STONE = {0x1BF, 0x1BB, 0x194, 0x1BD, 0x1BE, 0x1C5, 0x1C6, 0x1C3, 0x19B, 0x19C, 0x19D, 0x1A3, 0x1A4, 0x1A5}
@@ -238,6 +241,18 @@ CLOCK_RECOLOUR = {(128, 80, 56): (94, 48, 34), (160, 120, 72): (142, 84, 54), (7
 def narrow(rgb, m, cols):
     """Drop whole pixel columns (the notice board is 38 px wide; its gap on the gallery wall is 32)."""
     keep = [x for x in range(m.shape[1]) if x not in cols]; return rgb[:, keep], m[:, keep]
+# the standing notice board: Crown's park signboard on two posts (its weathered grey wood warmed to walnut), its
+# carved panel replaced by the notice board's cork with two of its pinned papers; the ground shadow made floor-dark
+SIGN_RECOLOUR = {(104, 80, 72): WALNUT[4], (152, 144, 120): WALNUT[6], (120, 120, 128): HONEY[1]}
+CORK, CORK_EDGE = (112, 104, 88), (72, 72, 80)
+def standing_board():
+    a, m = decor_piece('park_sign.png', SIGN_RECOLOUR)
+    a[10:21, 6:26] = CORK; a[10, 6:26] = CORK_EDGE; m[10:21, 6:26] = True       # the cork face
+    nb, nm = decor_piece('notice_board.png', {})
+    for (sx, sy, dx, dy) in ((18, 5, 8, 11), (32, 4, 17, 11)):             # two papers (with their shadows)
+        w, h = 6, 9; pa, pm = nb[sy:sy + h, sx:sx + w], nm[sy:sy + h, sx:sx + w]
+        keep = pm & ~(pa == CORK).all(-1); sub = a[dy:dy + h, dx:dx + w]; sub[keep] = pa[keep]
+    return a, m
 def decor_piece(name, recolour):
     a = np.array(Image.open(os.path.join(PIECES, name)).convert('RGBA')); rgb = a[..., :3].copy(); m = a[..., 3] > 0
     for old, new in recolour.items(): rgb[(a[..., :3] == old).all(-1) & m] = new
@@ -254,6 +269,8 @@ def compose_layers(wall):
     for p in (7, 8, 10, 11): tsp.pal[p] = wood_pal(TS(CABIN).pal[p], WALNUT)
     tsp.cache = {}
     tss = cabin_ts(wall); tss.pal[10] = slate(TS(CABIN).pal[10]); tss.cache = {}
+    tst = cabin_ts(wall)                                     # the low table: its grey slab in walnut, as the piano
+    for i, w in ((3, WALNUT[3]), (11, WALNUT[4]), (14, WALNUT[5])): tst.pal[9][i] = w
     img = np.zeros((H * 16, W * 16, 3), np.uint8); OV = np.zeros_like(img); OM = np.zeros((H * 16, W * 16), bool)
     for y in range(Y0, Y1):
         for x in range(X0, X1):
@@ -261,15 +278,19 @@ def compose_layers(wall):
             if (x, y) in RUG_CELLS: m = 0x18B
             if (x, y) in MAT_CELLS: m = 0x18B if y == 25 else 0
             if m in PIANO: cell = meta_layers(ts, m, top=False, ts_obj=tsp, clean=y in WALL_ROWS)   # piano layer in walnut
+            elif m in TABLE: cell = meta_layers(ts, m, ts_obj=tst, clean=False)
             elif m in STONE: cell = meta_layers(tss, m, top=(y == 6), clean=y in WALL_ROWS)
             else: cell = meta_layers(ts, m, top=(y == 6), clean=y in WALL_ROWS)
             sl = (slice((y - Y0) * 16, (y - Y0 + 1) * 16), slice((x - X0) * 16, (x - X0 + 1) * 16))
             img[sl], OV[sl], OM[sl] = cell
     # T4, the haunted lounge: its old dark door in the old dingy colours
     old = TS(CABIN)
-    for (x, y) in ((20, 7), (20, 8)):
+    for (x, y), mm in zip(((20, 7), (20, 8)), WOOD_DOOR):    # a sound door, but old and dark (the cabin's dingy wood)
         sl = (slice((y - Y0) * 16, (y - Y0 + 1) * 16), slice((x - X0) * 16, (x - X0 + 1) * 16))
-        img[sl], OV[sl], OM[sl] = meta_layers(old, CELLS[y * CW + x] & 0x3FF, clean=False)
+        img[sl], OV[sl], OM[sl] = meta_layers(old, mm, clean=False)
+        wall = meta_layers(ts, 0x17B if y == 7 else 0x183, clean=True)[0]   # its frame sits on clean plaster
+        door = img[sl]; bg = (meta_layers(old, 0x17B if y == 7 else 0x183, clean=False)[0] == door).all(-1)
+        door[bg] = wall[bg]
     def put(a, px, py, m=None):
         h, w = a.shape[:2]; sub = img[py:py + h, px:px + w]
         if m is None: sub[:] = a
@@ -283,11 +304,7 @@ def compose_layers(wall):
     b, bm = decor_piece('heraldic_banner.png', BANNER_RECOLOUR); put(b, (11 - X0) * 16 + 8, (17 - Y0) * 16, bm)
     c, cm = decor_piece('wall_clock.png', CLOCK_RECOLOUR); put(c, (15 - X0) * 16, (12 - Y0) * 16, cm)
     a, m = decor_piece('reception_counter.png', {}); put(a, (DESK[0] - X0) * 16, (DESK[1] - Y0) * 16, m)
-    a, m = decor_piece('notice_board.png', {}); a, m = a[:30, 6:44], m[:30, 6:44]          # its own 38 x 30 box
-    a, m = narrow(a, m, {2, 17, 18, 19, 20, 33, 34}); put(a, (BOARD[0] - X0) * 16, (BOARD[1] - Y0) * 16 + 2, m)
-    a, m = decor_piece('crate.png', {})
-    for (x, y) in CRATES: put(a, (x - X0) * 16, (y - Y0) * 16, m)
-    a, m = decor_piece('step_ladder.png', {}); put(a, (LADDER[0] - X0) * 16, (LADDER[1] - Y0) * 16, m)
+    a, m = standing_board(); put(a, (BOARD[0] - X0) * 16, (BOARD[1] - Y0) * 16, m)
     a, m = rug_rgb(ts, 'centre'); put(a, (13 - X0) * 16, (21 - Y0) * 16, m)
     a, m = rug_rgb(ts, 'mat'); put(a, (13 - X0) * 16, (25 - Y0) * 16, m)
     for fx, fy in FLIGHTS:
