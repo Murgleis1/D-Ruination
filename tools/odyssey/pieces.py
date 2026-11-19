@@ -13,7 +13,7 @@ lay the quad in a free layer above an existing metatile of ours (`overlay`), so 
 """
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..', 'monomyth', 'dormitory'))
+sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..', 'monomyth', 'dormitory')); sys.path.insert(0, os.path.join(HERE, '..', 'monomyth'))
 import numpy as np
 import frlib, frrender as FR
 import compose_mock as CM
@@ -56,3 +56,45 @@ def overlay(entries, quad_entries, is_empty):
     assert k < 3, 'no free layer above the existing art'
     e[k * 4:k * 4 + 4] = quad_entries
     return e
+
+# ---- a lit fire for the hearth (user 2026-11-19: "have the fireplace lit in the tavern") ----
+# MonoMyth's fire animation (4 frames, 16x24: flames over logs, transparent background), the one burning in
+# its small fire rooms (map 0x8869380; frames 0x8966278, tiles 258-263 of primary 0x87314AC, palette 2).
+# Shown inside the hearth's firebox: logs at the bottom of the opening, clipped to the dark interior
+# (index 13 of the firebox piece) so the brick, mantel and grate bars stay in front.
+import struct as _struct
+from romlib import ROM as _MM, off as _moff
+from render import TS as _MMTS
+from headers import load as _load
+_H, _ = _load()
+FIRE_ANIM_PAL = list(_MMTS([h for h in _H if h['addr'] + 0x08000000 == 0x8869380][0]['layout']).pal[2])
+FIRE_ANIM_FRAMES = 0x8966278
+FIRE_DY = 12 - 20                                       # bottom of the logs (fire row 20) rests on the grate (firebox row 12)
+
+def fire_frames():
+    out = []
+    for i in range(4):
+        f = _struct.unpack_from('<I', _MM, _moff(FIRE_ANIM_FRAMES) + 4 * i)[0]
+        a = np.frombuffer(_MM[_moff(f):_moff(f) + 32 * 6], np.uint8).reshape(6, 32)
+        t = np.zeros((6, 8, 8), np.uint8); t[:, :, 0::2] = (a & 15).reshape(6, 8, 4); t[:, :, 1::2] = (a >> 4).reshape(6, 8, 4)
+        img = np.zeros((24, 16), np.uint8)
+        for k in range(6): img[(k // 2) * 8:(k // 2) * 8 + 8, (k % 2) * 8:(k % 2) * 8 + 8] = t[k]
+        out.append(img)
+    return out
+
+def lit_firebox():
+    """4 frames of a 16x16 fire layer (fire palette, 0 = transparent) for the firebox cell."""
+    q = hearth(*CM.FIREBOX); box = np.zeros((16, 16), np.uint8)
+    for i, t in enumerate(q): box[(i // 2) * 8:(i // 2) * 8 + 8, (i % 2) * 8:(i % 2) * 8 + 8] = t
+    inside = box == 13
+    frames = []
+    for f in fire_frames():
+        layer = np.zeros((16, 16), np.uint8)
+        for y in range(16):
+            fy = y - FIRE_DY
+            if 0 <= fy < 24: layer[y] = f[fy]
+        layer[~inside] = 0; frames.append(layer)
+    return frames
+
+def as_quad(img16):
+    return [img16[(i // 2) * 8:(i // 2) * 8 + 8, (i % 2) * 8:(i % 2) * 8 + 8].copy() for i in range(4)]
