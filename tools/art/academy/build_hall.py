@@ -131,7 +131,7 @@ EXIT = (14, 25)
 # warp is there for the way back out, its cell stays solid with the sign.
 ROOM_DOORS = [((20, 18), 'MAP_PELLUCA_ACADEMY_OFFICE'), ((8, 13), 'MAP_PELLUCA_ACADEMY_LIBRARY'),
               ((17, 13), 'MAP_PELLUCA_ACADEMY_CLASSROOM'), ((20, 8), 'MAP_PELLUCA_ACADEMY_LOUNGE')]
-OPEN_DOORS = {c for c, _ in ROOM_DOORS[:3]}
+OPEN_DOORS = {c for c, _ in ROOM_DOORS[:4 if os.environ.get('ACADEMY_TEST_OPEN_LOUNGE') else 3]}   # (test builds only)
 MB_NON_ANIMATED_DOOR, WARP_E0 = 0x60, 0
 WALK -= SOLID
 
