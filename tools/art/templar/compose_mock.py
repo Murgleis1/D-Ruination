@@ -57,6 +57,25 @@ def ch_window(box, w_gba):
     a = np.array(im); m = (a.astype(int).sum(-1) < 720)          # drop the white sheet background
     return a, m
 
+import colorsys
+# the great window's figure: her cyan hair re-dyed gold blonde with tinges of silver (user 2026-11-19).
+# Hair = the window's cyan/teal pixels; each takes a colour on a gold ramp by its brightness, and the
+# brightest strands turn silver.
+HAIR_RAMP = [(96, 64, 32), (144, 104, 40), (192, 148, 56), (224, 184, 88), (240, 212, 136)]
+HAIR_SILVER = [(200, 204, 216), (232, 236, 244)]
+HAIR_SHADES = [(120, 84, 32), (184, 140, 52), (228, 192, 96), (212, 216, 228)]   # deep gold, gold, pale gold, silver
+def is_hair(c):
+    h, l, s = colorsys.rgb_to_hls(*(v / 255 for v in c)); return 0.43 <= h <= 0.56 and s > 0.25
+def blonde(rgb, m):
+    """The window has four hair shades (after quantizing): darkest to lightest -> deep gold, gold, pale gold,
+    silver (the lightest strands: the silver tinge)."""
+    out = rgb.copy(); px = {tuple(int(v) for v in c) for c in rgb[m]}
+    hair = sorted((c for c in px if is_hair(c)), key=lambda c: colorsys.rgb_to_hls(*(v / 255 for v in c))[1])
+    ramp = HAIR_SHADES[-len(hair):] if len(hair) <= len(HAIR_SHADES) else None
+    assert ramp, f'{len(hair)} hair shades'
+    for c, new in zip(hair, ramp): out[(rgb == c).all(-1) & m] = new
+    return out
+
 def pew():
     """Option B: a three-tile pew seen from behind, in the saloon's warm wood (generic furniture, drawn)."""
     W = (DORM.SAL.pal[4][5], DORM.SAL.pal[4][3], DORM.SAL.pal[4][2], DORM.SAL.pal[4][10], DORM.SAL.pal[4][7])
@@ -90,7 +109,7 @@ def compose(seating):
     for dx, (a, b) in enumerate(((0x120, 0xBD), (0x121, 0xBE), (0x122, 0xBF))):
         img[(H - 2) * 16:(H - 1) * 16, (7 + dx) * 16:(8 + dx) * 16] = hq(a); img[(H - 1) * 16:H * 16, (7 + dx) * 16:(8 + dx) * 16] = hq(b)
     # stained glass: the great window centred, the two gothic lancets either side (PROVISIONAL, from the JPEG)
-    g, gm = ch_window((4, 7352, 146, 7512), 80); put(g, gm, 8 * 16 + 8 - 40, 4)
+    g, gm = ch_window((4, 7352, 146, 7512), 80); g = blonde(g, gm); put(g, gm, 8 * 16 + 8 - 40, 4)
     l, lm = ch_window((150, 7392, 210, 7512), 32)
     put(l, lm, 3 * 16, 14); put(l, lm, 12 * 16, 14)
     # the cell door (Rejuvenation's dark doorway) in the wall west of the altar
@@ -99,9 +118,9 @@ def compose(seating):
     # statue-pillars flanking
     a, m = ar(BOX[11]); put(a, m, 7 * 16, WALL * 16)
     a, m = ar(BOX[5]); put(a, m, 8 * 16 + 8 - m.shape[1] // 2, WALL * 16 + 30 - m.shape[0])
-    x0, y0, x1, y1 = BOX[36]
-    for k, px in ((0, 5 * 16), (2, 11 * 16)):
-        a, m = ar((x0 + 16 * k, y0, x0 + 16 * k + 16, y1)); put(a, m, px, (WALL + 2) * 16 - m.shape[0] + 4)
+    # the same tall fluted statue-pillar either side (user: they must match), the right one mirrored
+    x0, y0, x1, y1 = BOX[36]; a, m = ar((x0, y0, x0 + 16, y1))
+    put(a, m, 5 * 16, (WALL + 2) * 16 - m.shape[0] + 4); put(a[:, ::-1], m[:, ::-1], 11 * 16, (WALL + 2) * 16 - m.shape[0] + 4)
     # the gold medallion set in the floor before the altar
     x0, y0, x1, y1 = BOX[1]; a, m = ar((x0, y1 - 48, x1, y1)); put(a, m, 8 * 16 + 8 - 24, (WALL + 3) * 16 + 4)
     # candelabra tables down both side walls
