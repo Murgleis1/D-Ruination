@@ -176,6 +176,12 @@ static const u8 sDoorAnimPalettes_General[] = {1, 1, 1, 1, 1, 1, 1, 1};
 // Top half is the plaster above the door (palette 9), bottom half the door (palette 7).
 static const u8 sDoorAnimTiles_PellucaDormitory[] = INCBIN_U8("graphics/door_anims/pelluca_dormitory.4bpp");
 static const u8 sDoorAnimPalettes_PellucaDormitory[] = {9, 9, 9, 9, 7, 7, 7, 7};
+// DR: Pelluca City's outdoor doors, a generated swing-open (tools/art/pelluca_doors/doors.py):
+// the Umbra Lab door and the timber house door (the dormitory and two warp-less houses).
+static const u8 sDoorAnimTiles_PellucaUmbraLab[] = INCBIN_U8("graphics/door_anims/umbra_lab.4bpp");
+static const u8 sDoorAnimPalettes_PellucaUmbraLab[] = {6, 6, 9, 9, 6, 6, 6, 6};
+static const u8 sDoorAnimTiles_PellucaHouse[] = INCBIN_U8("graphics/door_anims/pelluca_house.4bpp");
+static const u8 sDoorAnimPalettes_PellucaHouse[] = {6, 6, 6, 6, 6, 6, 6, 6};
 static const u8 sDoorAnimPalettes_Snow[] = {7, 7, 2, 2, 2, 2, 2, 2};
 static const u8 sDoorAnimPalettes_PokeCenter[] = {1, 1, 1, 1, 1, 1, 1, 1};
 static const u8 sDoorAnimPalettes_Gym[] = {5, 5, 5, 5, 5, 5, 5, 5};
@@ -287,6 +293,8 @@ static const struct DoorGraphics sDoorAnimGraphicsTable[] =
     {METATILE_TrainerHill_Door_Elevator_Roof,               DOOR_SOUND_SLIDING, 1, sDoorAnimTiles_TrainerHillRoofElevator, sDoorAnimPalettes_TrainerHillRoofElevator},
     {METATILE_Snow_SnowDoor,                                DOOR_SOUND_NORMAL,  1, sDoorAnimTiles_Snow, sDoorAnimPalettes_Snow},
     {METATILE_PellucaDormitory_Door,                        DOOR_SOUND_NORMAL,  1, sDoorAnimTiles_PellucaDormitory, sDoorAnimPalettes_PellucaDormitory},
+    {METATILE_PellucaValley_UmbraLabDoor,                   DOOR_SOUND_NORMAL,  1, sDoorAnimTiles_PellucaUmbraLab, sDoorAnimPalettes_PellucaUmbraLab},
+    {METATILE_Cormoria_TimberHouseDoor,                     DOOR_SOUND_NORMAL,  1, sDoorAnimTiles_PellucaHouse, sDoorAnimPalettes_PellucaHouse},
     {},
 };
 

@@ -793,5 +793,7 @@
 
 // gTileset_PellucaDormitory (tools/monomyth/dormitory/build_dormitory.py checks this id)
 #define METATILE_PellucaDormitory_Door         0x232
+#define METATILE_PellucaValley_UmbraLabDoor    0x3E8
+#define METATILE_Cormoria_TimberHouseDoor      0x05D
 
 #endif // GUARD_METATILE_LABELS_H
