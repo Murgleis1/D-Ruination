@@ -63,7 +63,7 @@ static const struct BgTemplate sFieldRegionMapBgTemplates[] = {
         .baseTile = 0
     }, {
         .bg = 1,
-        .charBaseIndex = 1,
+        .charBaseIndex = 3,             // DR: unused here; off char block 1, which the map's 8bpp tiles now use
         .mapBaseIndex = 30,
         .screenSize = 0,
         .paletteMode = 0,
@@ -71,7 +71,7 @@ static const struct BgTemplate sFieldRegionMapBgTemplates[] = {
         .baseTile = 0
     }, {
         .bg = 2,
-        .charBaseIndex = 2,
+        .charBaseIndex = 1,             // DR: empire-era map, 8bpp, up to 512 tiles (see region_map.c)
         .mapBaseIndex = 28,
         .screenSize = 2,
         .paletteMode = 1,
