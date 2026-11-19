@@ -40,7 +40,9 @@ SHELVES = [1, 3]                                                   # the two boo
 # with the clock on the right (user): a stone bust from Crown's library set, drawn by its top layer over this room's
 # wall and floor
 LIB = TS(map_layout(7, 9))
-RIGHT_SIDE = [(13, 1, 0x2CC), (13, 2, 0x2D4)]                     # the bust beside the clock (user: no potion table)
+# the bust between the chalkboard and the clock, centred in the gap (user): its pixel column, not a cell column
+BUST_PX = (10 * 16 + 14 * 16) // 2 - 8
+RIGHT_SIDE = [(1, 0x2CC), (2, 0x2D4)]                              # (row, metatile): the bust (user: no potion table)
 
 def grid():
     g = [[0] * W for _ in range(H)]
@@ -75,8 +77,8 @@ def compose():
             if g[y][x] in MAT: c = recolour(c, MAROON_MAT)
             img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c
     b = board(); img[0:32, 6 * 16:10 * 16] = b
-    for x, y, m in RIGHT_SIDE:
-        (_, _), (top, tm) = cell_layers(LIB, m); img[y * 16:y * 16 + 16, x * 16:x * 16 + 16][tm] = top[tm]
+    for y, m in RIGHT_SIDE:
+        (_, _), (top, tm) = cell_layers(LIB, m); img[y * 16:y * 16 + 16, BUST_PX:BUST_PX + 16][tm] = top[tm]
     return img, g
 
 if __name__ == '__main__':
