@@ -1650,7 +1650,7 @@
     },
     {
       "map_section": "MAPSEC_DR_TEMPLAR_HQ",
-      "name": "Templar HQ",
+      "name": "Templar Citadel",
       "x": 4,
       "y": 4,
       "width": 1,
@@ -1818,7 +1818,7 @@
     },
     {
       "map_section": "MAPSEC_DR_BLUE_MOON_MONASTERY",
-      "name": "Blue Moon Monastery",
+      "name": "Blue Moon Abbey",
       "x": 20,
       "y": 5,
       "width": 1,
@@ -1826,7 +1826,7 @@
     },
     {
       "map_section": "MAPSEC_DR_NORTHPOINT_ACADEMY",
-      "name": "Northpoint Academy",
+      "name": "Northpoint",
       "x": 22,
       "y": 7,
       "width": 1,

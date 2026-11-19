@@ -179,3 +179,5 @@ Corridor summary (empire-era): Pelluca ↔ Rivetshore (Route 10); Pelluca ↔ Mi
 - **Nobility Concordance chamber** — Silversun Palace vs. a separate civic hall. `[OPEN]`.
 - **Not yet mapped** (per design partner): **indoor maps** and **Ancient Cormoria**.
 - Several new locations still need fuller lore flagged as "later" (e.g., Sunset Tower interior, Gleamdusk operations, Graymoon Keep, Carabrue Keep).
+
+> **Region-map display names** `[user 2026-11-18]`: the in-game map's name window fits about 94 px, so three places show a shorter name there: **Templar Headquarters → "Templar Citadel"**, **Blue Moon Monastery → "Blue Moon Abbey"**, **Northpoint Academy → "Northpoint"**. The full names stay canon everywhere else. Source of truth: `tools/region_map/sections.py`.

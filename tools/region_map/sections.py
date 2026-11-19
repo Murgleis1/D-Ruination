@@ -32,7 +32,7 @@ RENAMES = {
 SECTIONS = {
  'Mt. Mirroh Peak':      ('MAPSEC_MT_MIRROH_PEAK',        'Mt. Mirroh Peak'),
  'Mt. Mirroh':           ('MAPSEC_MT_MIRROH',             'Mt. Mirroh'),
- 'Templar Headquarters': ('MAPSEC_DR_TEMPLAR_HQ',         'Templar HQ'),          # 'Templar Headquarters' is 20 chars: too long
+ 'Templar Headquarters': ('MAPSEC_DR_TEMPLAR_HQ',         'Templar Citadel'),     # user 2026-11-18 ('Templar Headquarters' is 20 chars)
  'Route 13':             ('MAPSEC_DR_ROUTE_13',           'Route 13'),
  'Mirroh':               ('MAPSEC_MIRROH',                'Mirroh'),
  'Hollow Hill':          ('MAPSEC_DR_HOLLOW_HILL',        'Hollow Hill'),
@@ -69,9 +69,9 @@ SECTIONS = {
  'Route 2':              ('MAPSEC_ROUTE2',                'Route 2'),
  'Fennilahl':            ('MAPSEC_FENNILAHL',             'Fennilahl'),
  'Route 4':              ('MAPSEC_ROUTE4',                'Route 4'),
- 'Blue Moon Monastery':  ('MAPSEC_DR_BLUE_MOON_MONASTERY','Blue Moon Monastery'),  # 105 px: too wide for the window
+ 'Blue Moon Monastery':  ('MAPSEC_DR_BLUE_MOON_MONASTERY','Blue Moon Abbey'),      # user 2026-11-18 (full name is 105 px)
  'Route 3 (proposed)':   ('MAPSEC_ROUTE3',                'Route 3'),
- 'Northpoint Academy':   ('MAPSEC_DR_NORTHPOINT_ACADEMY', 'Northpoint Academy'),   # 102 px: too wide for the window
+ 'Northpoint Academy':   ('MAPSEC_DR_NORTHPOINT_ACADEMY', 'Northpoint'),           # user 2026-11-18 (full name is 102 px)
  'Route 0':              ('MAPSEC_DR_ROUTE_0',            'Route 0'),
  'Agustrei Heights':     ('MAPSEC_AGUSTREI_HEIGHTS',      'Agustrei Heights'),
  'Fennilahl Suburbs':    ('MAPSEC_DR_FENNILAHL_SUBURBS',  'Fennilahl Suburbs'),
