@@ -89,6 +89,8 @@ PIECES = {
     'grand_piano': (17, 0, 4, 1, 2, 3, {(x, y): -1 for x in (4, 5) for y in (1, 2, 3)}, None),
     # the harbour town's round fountain (g3.0, 4 x 4), cut off its grass: Cadmus's office (user: a Water-type touch)
     'fountain': (3, 0, 16, 15, 4, 4, {(x, y): 0x0E for x in range(16, 20) for y in range(15, 19)}, None),
+    # a wide cobweb from the sewers (g7.11), off its brick wall: the haunted lounge
+    'cobweb': (7, 11, 28, 1, 2, 1, {(28, 1): -1, (29, 1): -1}, None),
 }
 
 if __name__ == '__main__':
