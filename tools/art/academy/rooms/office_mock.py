@@ -1,12 +1,14 @@
-"""Mock of Cadmus's office (G1, off the hall's ground floor) (user design 2026-11-19: desk and bookshelves, the
-Academy banner and a maroon rug, and a Water-type touch for the Vizier who masters Water).
+"""Mock of Cadmus's office (G1, off the hall's ground floor) (user design 2026-11-19).
 
-Pokemon Crown pieces (credit: Blah and the Crown team, used with permission), in the classroom's finish so the
-rooms read as one building: Crown's trim wall and plank floor, its bookcases along the back wall, the purple
-Academy banner from the hall behind the desk, Crown's desk with two visitors' chairs before it on a maroon rug
-(Crown's rug set: corners, edges and middle, in the Academy maroon with gold trim), and in front, greeting whoever
-comes in, the harbour town's round stone fountain (Crown map group 3 #0), cut off its grass, between the manor
-room's two tall iron candle stands.
+User brief: desk and bookshelves, the Academy banner and a rug, a Water-type touch; then: smaller and cosier, no
+fountain ("no good logistics for a water fountain"), and for the Water touch all three of: a Water banner, the koi
+painting and the blue wave rug.
+
+A small study in the classroom's finish (Crown's trim wall and plank floor; credit: Blah and the Crown team, used
+with permission): a bookcase in each back corner; centred above Cadmus's desk, MonoMyth's framed koi painting (its
+grey frame in the hall's walnut) between the purple Academy banner and his own Water banner (the same Crown banner
+in sea blue); before the desk MonoMyth's Watercress Port wave rug (its grey edge in the Academy's gold) with two
+visitors' chairs on it; the manor room's iron candle stands in the front corners.
 Usage: ODYSSEY_ROM=/path/Crown.gba python3 tools/art/academy/rooms/office_mock.py [out.png]
 """
 import os, sys
@@ -15,50 +17,56 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, '..', '..', '..', 'crown')); sys.path.insert(0, HERE)
 from crown_pieces import map_layout, TS
-from classroom_mock import TSC, TRIM, WALL, FLOOR, FLOOR_SHADE, SHELF, CHAIR, MAT, MAROON_RUG, MAROON_MAT, recolour
-PIECES = os.path.normpath(os.path.join(HERE, '..', '..', '..', '..', 'assets', 'crown_reference', 'pieces'))
+from classroom_mock import TSC, TRIM, WALL, FLOOR, FLOOR_SHADE, SHELF, CHAIR, MAT, MAROON_MAT, recolour
+ASSETS = os.path.normpath(os.path.join(HERE, '..', '..', '..', '..', 'assets'))
 sys.path.insert(0, os.path.join(HERE, '..'))
-import compose_mock as HALL                                       # the hall's banner, in its purple
+import compose_mock as HALL
 
-TSM = TS(map_layout(17, 0))                                       # the manor room's set: its rug pieces
-W, H = 14, 14                                                     # x0, x13 void; rows 0-1 wall, 2-12 floor, 13 the mat
+TSM = TS(map_layout(17, 0))                                       # the manor room's set: its candle stands
+W, H = 12, 9                                                      # x0, x11 void; rows 0-1 wall, 2-7 floor, 8 the mat
 DESK = (0x05, 0x06)
-RUG = {'tl': 0x40, 't': 0x326, 'tr': 0x41, 'l': 0x85, 'm': 0xDC, 'r': 0x86, 'bl': 0x48, 'b': 0x8D, 'br': 0x49}
-RUG_BOX = (4, 4, 9, 6)                                            # x0, y0, x1, y1 (inclusive)
-VISITORS = [(5, 4), (8, 4)]                                       # chairs facing the desk, either side of the gap
-FOUNTAIN = (5, 8)                                                 # its top-left cell (4 x 4)
-SHELVES = [1, 3, 9, 11]
-CANDLES = [(3, 9), (10, 9)]                                       # the manor's tall iron candle stands, either side
+SHELVES = [1, 9]
+VISITORS = [(4, 4), (7, 4)]                                       # chairs facing the desk; talk from (5,4)/(6,4)
+RUG_AT = (4 * 16 + 4, 4 * 16 + 1)                                 # the wave rug (56 x 30 px) under them, centred
+CANDLES = [(1, 6), (10, 6)]
+WATER_BANNER = {(96, 112, 88): (28, 56, 112), (136, 152, 104): (52, 96, 168), (208, 208, 176): (200, 224, 240)}
+GOLD = (186, 150, 100)
+KOI_FRAME = {(80, 80, 104): HALL.WALNUT[0], (192, 192, 208): HALL.WALNUT[6], (152, 152, 168): HALL.WALNUT[5],
+             (120, 96, 104): HALL.WALNUT[2], (160, 128, 136): HALL.WALNUT[4], (136, 112, 120): HALL.WALNUT[3],
+             (168, 168, 176): HALL.WALNUT[5]}
+
+def koi():
+    a = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'koi_painting.png')).convert('RGB'))
+    out = a.copy(); canvas = np.zeros(a.shape[:2], bool); canvas[5:14, 5:23] = True     # the white canvas and its fish
+    for c, w in KOI_FRAME.items(): out[(a == c).all(-1) & ~canvas] = w
+    return out
 
 def compose():
     img = np.zeros((H * 16, W * 16, 3), np.uint8); solid = set()
     def put(x, y, cell): img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell
-    def paste(rgba, px, py):
-        a = np.array(rgba); m = a[..., 3] > 0; sub = img[py:py + a.shape[0], px:px + a.shape[1]]; sub[m] = a[..., :3][m]
+    def paste(rgb, m, px, py): sub = img[py:py + rgb.shape[0], px:px + rgb.shape[1]]; sub[m] = rgb[m]
     for x in range(1, W - 1):
         put(x, 0, TSC.meta(TRIM)); put(x, 1, TSC.meta(WALL)); put(x, 2, TSC.meta(FLOOR_SHADE))
         for y in range(3, H - 1): put(x, y, TSC.meta(FLOOR))
     for x0 in SHELVES:
         for dy in range(2):
             for dx in range(2): put(x0 + dx, 1 + dy, TSC.meta(SHELF[dy][dx])); solid.add((x0 + dx, 1 + dy))
-    b, bm = HALL.decor_piece('heraldic_banner.png', HALL.BANNER_RECOLOUR)
-    sub = img[3:3 + b.shape[0], 6 * 16 + 8:6 * 16 + 8 + b.shape[1]]; sub[bm[:sub.shape[0]]] = b[:sub.shape[0]][bm[:sub.shape[0]]]
-    x0, y0, x1, y1 = RUG_BOX
-    for y in range(y0, y1 + 1):
-        for x in range(x0, x1 + 1):
-            v = 't' if y == y0 else 'b' if y == y1 else ''; h = 'l' if x == x0 else 'r' if x == x1 else ''
-            put(x, y, recolour(TSM.meta(RUG[v + h if v + h else 'm']), MAROON_RUG))
+    k = koi(); paste(k, np.ones(k.shape[:2], bool), 6 * 16 - k.shape[1] // 2, 7)
+    for px, rec in ((4 * 16, HALL.BANNER_RECOLOUR), (7 * 16, WATER_BANNER)):     # Academy left, Water right
+        b, bm = HALL.decor_piece('heraldic_banner.png', rec); paste(b[:28], bm[:28], px, 3)
+    rug = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'wave_rug.png')).convert('RGBA'))
+    rgb, rm = rug[..., :3].copy(), rug[..., 3] > 0; rgb[(rgb == (120, 120, 120)).all(-1) & rm] = GOLD
+    paste(rgb, rm, *RUG_AT)
     for x, y in VISITORS:
-        cell = recolour(TSM.meta(RUG['t']), MAROON_RUG); chair = TSC.meta(CHAIR)
-        floor = TSC.meta(FLOOR); keep = (chair != floor).any(-1); cell[keep] = chair[keep]; put(x, y, cell); solid.add((x, y))
-    put(6, 3, TSC.meta(DESK[0])); put(7, 3, TSC.meta(DESK[1])); solid |= {(6, 3), (7, 3)}
-    paste(Image.open(os.path.join(PIECES, 'fountain.png')).convert('RGBA'), FOUNTAIN[0] * 16, FOUNTAIN[1] * 16)
-    solid |= {(FOUNTAIN[0] + dx, FOUNTAIN[1] + dy) for dx in range(4) for dy in range(4)}
-    for x, y in CANDLES:
-        for dy, m in enumerate((0xA7, 0xAF)):
-            c = TSM.meta(m); f = TSC.meta(FLOOR).copy(); keep = (c != TSM.meta(0x1)).any(-1); f[keep] = c[keep]; put(x, y + dy, f)
-        solid.add((x, y + 1))
-    put(6, H - 1, recolour(TSC.meta(MAT[0]), MAROON_MAT)); put(7, H - 1, recolour(TSC.meta(MAT[1]), MAROON_MAT))
+        chair = TSC.meta(CHAIR); keep = (chair != TSC.meta(FLOOR)).any(-1)
+        img[y * 16:y * 16 + 16, x * 16:x * 16 + 16][keep] = chair[keep]; solid.add((x, y))
+    put(5, 3, TSC.meta(DESK[0])); put(6, 3, TSC.meta(DESK[1])); solid |= {(5, 3), (6, 3)}
+    for x, y in CANDLES:                                         # two cells: candles (0xA7) over the stand (0xAF)
+        for dy, m in ((-1, 0xA7), (0, 0xAF)):
+            c = TSM.meta(m); f = TSC.meta(FLOOR).copy(); keep = (c != TSM.meta(0x1)).any(-1); f[keep] = c[keep]
+            put(x, y + dy, f)
+        solid.add((x, y))
+    put(5, H - 1, recolour(TSC.meta(MAT[0]), MAROON_MAT)); put(6, H - 1, recolour(TSC.meta(MAT[1]), MAROON_MAT))
     return img, solid
 
 if __name__ == '__main__':
