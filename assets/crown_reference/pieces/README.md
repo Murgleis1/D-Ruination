@@ -8,3 +8,8 @@ Cut-outs from Pokémon Crown (credit: Blah and the Crown team; used with permiss
 - crate.png: wooden crate, map group 20 #1, cell (10, 4). step_ladder.png: step ladder, map group 7 #11, cells
   (25, 14-15). The Academy's unfinished top gallery.
 Regenerate: `ODYSSEY_ROM=/path/Crown.gba python3 tools/crown/crown_pieces.py`.
+- park_sign.png: the park's signboard on two posts (map group 3 #0, cells 17-18, 19-20): the Academy hall's standing
+  notice board (its panel replaced by the notice board's cork and papers in the mock).
+- grand_piano.png: the manor room's grand piano (map group 17 #0, cells 4-5, 1-3): the Academy hall (in walnut).
+- fountain.png: the harbour town's round fountain (map group 3 #0, cells 16-19, 15-18), cut off its grass:
+  Cadmus's office.
