@@ -1,6 +1,7 @@
-# Pokémon Crown reference (asset source; credit: Blah and the Pokémon Crown team)
+# Pokémon Crown reference (asset source, used with permission; credit: Blah and the Pokémon Crown team)
 
-Supplied by the user 2026-11-19 as a source of medieval assets, used together with MonoMyth's. Crown is a
+Supplied by the user 2026-11-19 as a source of medieval assets, used together with MonoMyth's. **Used with
+permission (user, 2026-11-19); credit Blah and the Crown team** in the notes and credits. Crown is a
 **FireRed** hack (BPRE) set in the medieval region of Guelder. The ROM is not in the repo: the tools in
 `tools/odyssey/` read any FireRed ROM; point `ODYSSEY_ROM` at Crown.gba.
 

@@ -1,8 +1,9 @@
-# Pokémon Ghost Grey Version EX reference (asset source; credit: JoeyZeed)
+# Pokémon Ghost Grey Version EX reference (asset source, used with permission; credit: JoeyZeed)
 
 Supplied by the user 2026-11-19 as the reference for the **underground Mirroh Necropolis**: the catacombs
 under its Lavender Town. Ghost Grey is a **FireRed** hack (BPRE, internal title "GG OBLIVION") by JoeyZeed,
-whose visuals are all drawn originally for it, so credit JoeyZeed for anything derived from them. The ROM is
+whose visuals are all drawn originally for it. **Used with permission (user, 2026-11-19); credit JoeyZeed** in the
+notes and credits for anything derived from them. The ROM is
 not in the repo: read it with `tools/odyssey/` (`ODYSSEY_ROM=.../Ghost_Grey_EX.gba`).
 
 Measured: map group table at FireRed's own address (pointer 0x5524C -> 0x83526A8), 43 groups, 705 maps.
