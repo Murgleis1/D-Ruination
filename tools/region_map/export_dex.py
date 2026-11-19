@@ -2,7 +2,8 @@
 
     python3 tools/region_map/export_dex.py      # writes codebase/graphics/pokedex/map.{png,bin,pal}
 
-The area screen draws its habitat glow over this map, so it is deliberately flat: terrain in solid
+The area screen draws its habitat glow over this map, so it is deliberately flat (with the same
+parchment finish as the big map, see antique()): terrain in solid
 colours, no tree/peak stamps, roads and markers simplified. Same 240 x 160 geometry and 28 x 15 grid as
 the Fly/Town map. 4bpp, one 16-colour palette; tiles de-duplicated with flips.
 """
@@ -45,6 +46,31 @@ def flat_map(cls):
         out[y0 + 1:y0 + 5, x0 + 1:x0 + ww] = CITY if kind == 'city' else ROAD
     return out
 
+# ---- parchment finish (option E, user 2026-11-18): same wash, ink and hatch as the Fly/Town map ----
+# 16 colours only: roads take the sand slot (the two differ by ~14 RGB once washed; roads keep their dark
+# edge), freeing ROAD, which with the three unused slots holds ink, hatch, scorch and the burnt rim.
+INK, HATCH, SCORCH, BURNT = FOAM, ROCK_D, LAVA, ROAD
+# Visible map rows on the area page: the engine scrolls the map down 8 px (pokedex_area_screen.c,
+# PokedexAreaMapChangeBgY(-8)) and the tab bar covers screen rows 0-15, so map rows 8-151 show.
+VISIBLE_TOP, VISIBLE_BOTTOM = 8, 151
+
+def antique(idx, cls):
+    painted = paint.paint(cls)                               # for the ink strokes, identical to the big map
+    pal = paint.wash(np.array(PAL, float))
+    pal[DEEP] = (150, 172, 156); pal[SHALLOW] = (178, 192, 164)
+    pal[INK] = (88, 56, 32); pal[HATCH] = (124, 146, 130); pal[SCORCH] = (110, 76, 44); pal[BURNT] = (60, 36, 18)
+    out = idx.copy(); out[out == ROAD] = SAND
+    assert not np.isin(out, [INK, HATCH, SCORCH, BURNT]).any()
+    H, W = idx.shape; yy, xx = np.mgrid[0:H, 0:W]
+    out[np.isin(painted, [1, 5]) & (cls <= 1)] = INK
+    hatch = np.zeros((8, 8), bool); hatch[2, 1:4] = True; hatch[6, 5:8] = True
+    out[np.tile(hatch, (H // 8, W // 8)) & (out == DEEP)] = HATCH
+    de = np.minimum(np.minimum(xx, W - 1 - xx), np.minimum(yy - VISIBLE_TOP, VISIBLE_BOTTOM - yy)).astype(float)
+    bt = paint.bayer(H, W)
+    out[bt < np.clip((10 - de) / 10.0, 0, 1) * 0.8] = SCORCH
+    out[(de < 2) | ((de < 4) & (bt < 0.5))] = BURNT
+    return out, [tuple(int(v) for v in c) for c in np.clip(pal, 0, 255).round()]
+
 def tiles_and_map(idx, pal_bits=0):
     full = np.full((160, 256), DEEP, np.uint8); full[:, :240] = idx
     tiles, lookup, tmap = [], {}, np.zeros((20, 32), np.uint16)
@@ -59,25 +85,26 @@ def tiles_and_map(idx, pal_bits=0):
                 lookup[t.tobytes()] = len(tiles); tmap[ty, tx] = len(tiles) | (pal_bits << 12); tiles.append(t.copy())
     return tiles, tmap
 
-def write(tiles, tmap, outdir=OUT):
+def write(tiles, tmap, colours, outdir=OUT):
     n = len(tiles); rows = (n + 15) // 16
     sheet = np.full((rows * 8, 128), DEEP, np.uint8)
     for i, t in enumerate(tiles):
         r, c = divmod(i, 16); sheet[r*8:r*8+8, c*8:c*8+8] = t
-    im = Image.fromarray(sheet, 'P'); pal = [v for rgb in PAL for v in rgb] + [0] * (768 - 48)
+    im = Image.fromarray(sheet, 'P'); pal = [v for rgb in colours for v in rgb] + [0] * (768 - 48)
     im.putpalette(pal); im.save(os.path.join(outdir, 'map.png'))
     tmap.astype('<u2').tofile(os.path.join(outdir, 'map.bin'))
     with open(os.path.join(outdir, 'map.pal'), 'w', newline='\r\n') as f:
         f.write('JASC-PAL\n0100\n16\n')
-        for r, g, b in PAL: f.write(f'{r} {g} {b}\n')
+        for r, g, b in colours: f.write(f'{r} {g} {b}\n')
     return n
 
 if __name__ == '__main__':
     cls = classify.class_map(os.path.join(REPO, 'assets', 'region_map', 'cormorian_empire_illustrated.png'))
-    idx = flat_map(cls)
+    paint.rng = np.random.default_rng(7)                 # same seed as export.py, so the strokes match
+    idx, colours = antique(flat_map(cls), cls)
     tiles, tmap = tiles_and_map(idx, 1)          # palette slot 1: where pokedex_area_region_map.c copies map.gbapal
     if '--preview' in sys.argv:
-        Image.fromarray(np.array(PAL, np.uint8)[idx]).resize((720, 480), Image.NEAREST).save('/tmp/dex_flat.png')
+        Image.fromarray(np.array(colours, np.uint8)[idx]).resize((720, 480), Image.NEAREST).save('/tmp/dex_flat.png')
         print('tiles', len(tiles))
     else:
-        print('tiles', write(tiles, tmap))
+        print('tiles', write(tiles, tmap, colours))
