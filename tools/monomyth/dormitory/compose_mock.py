@@ -83,7 +83,34 @@ def hearth_piece(dx, dy, palette=None):
             y, x = (q // 2) * 8, (q % 2) * 8; nz = t != 0
             rgb[y:y + 8, x:x + 8][nz] = pal[t][nz]; mask[y:y + 8, x:x + 8] |= nz
     return rgb, mask
+# ---- the fireside rug (user 2026-11-19: the hearth is the core of the common room) ----
+# Wood Avens' round red rug (metatiles 141 144 / 142 143, its palette 2 = our slot 8, like the lectern),
+# centred under the 3-wide hearth: shifted half a tile, so it spans 3 cells (canvas of 6x4 tiles, rug in 1-4).
+import struct as _st
+from render import ROM as _ROM, off as _off
+_WP = [h for h in H if h['addr'] + 0x08000000 == 0x886ACB0][0]['layout']['primary']
+def _wa_layer1(mid):
+    e = _st.unpack_from('<12H', _ROM, _off(_WP['mt']) + 24 * mid); out = []
+    for v in e[4:8]:
+        t = WA.tile(v & 0x3FF).copy()
+        if v & 0x400: t = t[:, ::-1]
+        if v & 0x800: t = t[::-1, :]
+        assert v >> 12 == 2; out.append(t)
+    return out
+RUG_CANVAS = [[np.zeros((8, 8), np.uint8) for _ in range(6)] for _ in range(4)]
+for (mx, my), mid in {(0, 0): 141, (1, 0): 144, (0, 1): 142, (1, 1): 143}.items():
+    for q, t in enumerate(_wa_layer1(mid)):
+        RUG_CANVAS[my * 2 + q // 2][1 + mx * 2 + q % 2] = t
+def rug_quad(cx, cy):
+    return [RUG_CANVAS[cy * 2 + q // 2][cx * 2 + q % 2] for q in range(4)]
+def rug_piece(cx, cy):
+    pal = np.array(WA.pal[2], np.uint8); rgb = np.zeros((16, 16, 3), np.uint8); mask = np.zeros((16, 16), bool)
+    for q, t in enumerate(rug_quad(cx, cy)):
+        y, x = (q // 2) * 8, (q % 2) * 8; nz = t != 0; rgb[y:y + 8, x:x + 8][nz] = pal[t][nz]; mask[y:y + 8, x:x + 8] = nz
+    return rgb, mask
 def M(src, mid):
+    if src == 'G':                                               # ('G', ((cx, cy), under)): the fireside rug
+        (cx, cy), under = mid; out = M(*under).copy(); rgb, m = rug_piece(cx, cy); out[m] = rgb[m]; return out
     if src == 'H':                                               # ('H', ((dx, dy), under))
         (dx, dy), under = mid; out = M(*under).copy(); rgb, m = hearth_piece(dx, dy, DORM_HEARTH_PAL); out[m] = rgb[m]; return out
     if src == 'F': return FIRE.meta(mid)
@@ -147,7 +174,7 @@ def put_hearth(g, x0, y0=0):
     pg = plain(g)
     for dy in range(3):
         for dx in range(3): g[y0 + dy][x0 + dx] = ('H', ((dx, dy), pg[y0 + dy][x0 + dx]))
-DOORS_1F = (4, 13, 17)          # Osrid's door first
+DOORS_1F = (4,)                 # Osrid's door by the stairs; the student rooms are all upstairs (user)
 DOORS_2F = (4, 9, 14, 19)
 def floor1():
     g = [[('s', v) if v else None for v in r] for r in SALOON]
@@ -164,6 +191,13 @@ def floor1():
     g[11][18] = ('s', 155)
     # Odyssey brick hearth between the two east doors, and a plate of food on every dining table
     put_hearth(g, 14)
+    # the fireside: the round rug centred under the hearth, a chair either side facing it, a plant either
+    # side of the hearth (user: the hearth is the core of the downstairs common room)
+    g[3][13], g[3][17] = ('s', 203), ('s', 203)
+    g[4][13], g[4][17] = ('s', 167), ('s', 159)
+    pg = plain(g)
+    for cy in range(2):
+        for cx in range(3): g[3 + cy][14 + cx] = ('G', ((cx, cy), pg[3 + cy][14 + cx]))
     for y, row in enumerate(g):
         for x, c in enumerate(row):
             if c == ('s', 176): g[y][x] = ('Fo', (PLATE, ('s', 176)))
