@@ -85,6 +85,8 @@ for (x, ytop) in ((8, 7), (8, 12), (20, 12), (20, 17)):  # T1, M1, M4, G1: dark 
     EDITS[(x, ytop)], EDITS[(x, ytop + 1)] = WOOD_DOOR
 EDITS[(11, 7)], EDITS[(11, 8)] = 0x17B, 0x183            # T2 removed (the top landing)
 EDITS[(16, 18)], EDITS[(16, 19)] = 0x182, 0x188          # the stuffed Ursaring removed
+EDITS[(13, 17)] = 0x17A                                  # the ground-floor clock removed (user): a banner instead
+EDITS[(15, 12)] = 0x17B                                  # the little middle-gallery clock: Crown's pendulum clock instead
 for p, m in {(6, 21): 0, (6, 22): 0, (7, 21): 0x18B, (7, 22): 0x18B, (21, 20): 0x18B, (21, 21): 0x18B,
              (22, 20): 0, (22, 21): 0, (21, 9): 0x188, (21, 10): 0x1BA, (22, 9): 0, (22, 10): 0}.items():
     EDITS[p] = m                                         # side-wall exit rugs removed
@@ -207,6 +209,16 @@ PIANO = {0x1FA, 0x1FB, 0x1FC, 0x202, 0x203, 0x204}
 STONE = {0x1BF, 0x1BB, 0x194, 0x1BD, 0x1BE, 0x1C5, 0x1C6, 0x1C3, 0x19B, 0x19C, 0x19D, 0x1A3, 0x1A4, 0x1A5}
 SLATE = [(26, 30, 44), (38, 46, 64), (52, 62, 84), (68, 80, 104), (86, 98, 124), (106, 118, 146), (132, 144, 170)]
 def slate(pal): return [c if tuple(c) in ((0, 248, 248), (0, 0, 0), (248, 0, 0)) else SLATE[min(6, int(hls(tuple(c))[1] / 0.75 * 7))] for c in pal]
+# ---- wall decor from Pokemon Crown (user 2026-11-19; credit Blah and the Crown team): cut-outs in
+# assets/crown_reference/pieces/ ----
+PIECES = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'assets', 'crown_reference', 'pieces')
+BANNER_RECOLOUR = {(96, 112, 88): (88, 50, 124), (136, 152, 104): (128, 88, 168), (208, 208, 176): (236, 230, 244)}
+CLOCK_RECOLOUR = {(128, 80, 56): (94, 48, 34), (160, 120, 72): (142, 84, 54), (72, 56, 56): (52, 26, 22)}
+def decor_piece(name, recolour):
+    a = np.array(Image.open(os.path.join(PIECES, name)).convert('RGBA')); rgb = a[..., :3].copy(); m = a[..., 3] > 0
+    for old, new in recolour.items(): rgb[(a[..., :3] == old).all(-1) & m] = new
+    return rgb, m
+
 def compose(wall):
     ts = cabin_ts(wall); W, H = X1 - X0, Y1 - Y0
     tsp = cabin_ts(wall)
@@ -236,6 +248,8 @@ def compose(wall):
     # the piano bench: floor under it, then the clean bench centred on the old one
     for x in (9, 10): img[(20 - Y0) * 16:(21 - Y0) * 16, (x - X0) * 16:(x + 1 - X0) * 16] = ts.meta(0x18B)
     b, bm = bench(); put(b, (9 - X0) * 16 + 8, (20 - Y0) * 16 + 2, bm)
+    b, bm = decor_piece('heraldic_banner.png', BANNER_RECOLOUR); put(b, (11 - X0) * 16 + 8, (17 - Y0) * 16, bm)
+    c, cm = decor_piece('wall_clock.png', CLOCK_RECOLOUR); put(c, (15 - X0) * 16, (12 - Y0) * 16, cm)
     a, m = rug_rgb(ts, 'centre'); put(a, (13 - X0) * 16, (21 - Y0) * 16, m)
     a, m = rug_rgb(ts, 'mat'); put(a, (13 - X0) * 16, (25 - Y0) * 16, m)
     for fx, fy in FLIGHTS:
