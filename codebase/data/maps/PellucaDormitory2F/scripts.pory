@@ -1,0 +1,15 @@
+// ============ DREAMSTONE RUINATION - Pelluca Valley: the Academy dormitory, upper floor ============
+// Students' rooms (all locked for now). Locked-door script: PellucaDormitory1F.
+// NPC line is a placeholder for the dialogue pass.
+
+mapscripts PellucaDormitory2F_MapScripts {}
+
+script DR_Dorm_StudentHall {
+    lock
+    faceplayer
+    speakername("Student")
+    msgbox(format("Quiet hours start at dark. Somebody always forgets."))
+    closemessage
+    release
+    end
+}

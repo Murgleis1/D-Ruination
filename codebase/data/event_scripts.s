@@ -1303,6 +1303,9 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/PellucaFishery/scripts.inc"
 
 	.include "data/maps/PellucaCityPokemonCenter/scripts.inc"
+	.include "data/maps/PellucaDormitory1F/scripts.inc"
+	.include "data/maps/PellucaDormitory2F/scripts.inc"
+	.include "data/maps/PellucaDormitoryOsridRoom/scripts.inc"
 
 	.include "data/maps/PellucaCityPokemart/scripts.inc"
 

@@ -148,7 +148,10 @@
     "DoroaTown",
     "DoroaTown_Houses",
     "DoroaTown_GameCorner",
-    "Route6_ZeraoraCave_B1F"
+    "Route6_ZeraoraCave_B1F",
+    "PellucaDormitory1F",
+    "PellucaDormitory2F",
+    "PellucaDormitoryOsridRoom"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

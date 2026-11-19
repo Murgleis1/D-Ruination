@@ -6114,7 +6114,7 @@
     {
       "id": "LAYOUT_PELLUCA_DORMITORY_2F",
       "name": "PellucaDormitory2F_Layout",
-      "width": 16,
+      "width": 22,
       "height": 7,
       "primary_tileset": "gTileset_SpeedwellInterior",
       "secondary_tileset": "gTileset_PellucaDormitory",

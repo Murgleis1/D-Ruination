@@ -94,10 +94,13 @@ SALOON = [  # rows 9..23 of the Speedwell saloon (the ground floor), 19 wide
  [153,155,155,155,155,203,155,155,196,204,212,155,155,155,155,155,203,155,155],
  [  0,  0,  0,  0,  0,  0,  0,  0,211,214,213,  0,  0,  0,  0,  0,  0,  0,  0]]
 
+DOORS_1F = (4, 13, 17)          # Osrid's door first
+DOORS_2F = (4, 9, 14, 19)
 def floor1():
     g = [[('s', v) if v else None for v in r] for r in SALOON]
-    # back-wall doors (wall face row 2): two locked student rooms and Osrid's (east end, the largest)
-    for x in (4, 14, 16): g[2][x] = ('a', 289); g[3][x] = ('m', 155)
+    # back-wall doors (wall face row 2): Osrid's is the one by the stairs (user 2026-11-19), two locked
+    # student rooms spread out to the east
+    for x in DOORS_1F: g[2][x] = ('a', 289); g[3][x] = ('m', 155)
     # small speaking stage: 5 wide x 4 tall in the south-east corner, a pedestal lectern in the middle
     for y in range(6, 12):
         for x in range(14, 19): g[y][x] = ('s', 155)
@@ -114,14 +117,14 @@ def floor1():
     return g
 
 def floor2():
-    W = 16
+    W = 22
     top = [('s', 152)] * W
     band = [('s', 160)] * W
     face = [('s', 240)] + [('s', 168)] * (W - 2) + [('s', 240)]
     base = [('s', 248)] + [('s', 153)] * (W - 2) + [('s', 248)]
     fl = lambda: [('s', 153)] + [('s', 155)] * (W - 1)
     g = [top, band, face, base, fl(), fl(), fl()]
-    for x in (4, 7, 10, 13): g[2][x] = ('a', 289); g[3][x] = ('m', 155)
+    for x in DOORS_2F: g[2][x] = ('a', 289); g[3][x] = ('m', 155)
     g[4][3] = ('s', 203)                          # a plant by the stairs
     # stairs down at the west end (the top of the saloon staircase)
     g[4][0], g[4][1], g[4][2] = ('s', 184), ('s', 155), ('s', 186)

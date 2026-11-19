@@ -1,0 +1,48 @@
+// ============ DREAMSTONE RUINATION - Pelluca Valley: the Academy dormitory, ground floor ============
+// Common room (user design 2026-11-19): food counter, dining tables, a small stage for speeches and
+// public debate, stairs up, room doors on the back wall. Osrid's room is the door nearest the stairs (user
+// 2026-11-19; "the largest on the first floor", script ch.1); the other doors are locked. Built by
+// tools/monomyth/dormitory/build_dormitory.py. NPC lines are placeholders for the dialogue pass.
+
+mapscripts PellucaDormitory1F_MapScripts {}
+
+// shared by the three dormitory maps
+script DR_Dorm_LockedDoor {
+    msgbox(format("It's locked."))
+    end
+}
+
+script DR_Dorm_OsridPlate {
+    msgbox(format("A brass plate beside the door reads: NOMAD ALBAN."))
+    end
+}
+
+// the counter is two tiles deep, so talking to its front reaches the cook
+script DR_Dorm_Cook {
+    lock
+    speakername("Cook")
+    msgbox(format("Supper's at sundown. If you miss it, there's bread and whatever's left in the pot."))
+    closemessage
+    release
+    end
+}
+
+script DR_Dorm_StudentTables {
+    lock
+    faceplayer
+    speakername("Student")
+    msgbox(format("On debate nights you can't hear yourself think in here. The rest of the week, it's the best place to study."))
+    closemessage
+    release
+    end
+}
+
+script DR_Dorm_StudentStage {
+    lock
+    faceplayer
+    speakername("Student")
+    msgbox(format("Anyone may take the lectern on debate night. Most lose their nerve on the way up."))
+    closemessage
+    release
+    end
+}

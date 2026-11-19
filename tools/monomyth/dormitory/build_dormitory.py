@@ -135,7 +135,9 @@ def build(rows, warps):
 ROOMS = {
     'PellucaDormitory1F': build(CM.floor1(), {(1, 0): (193, MB_NON_ANIMATED_DOOR, WARP_E0),
                                               (9, 14): (214, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),
-    'PellucaDormitory2F': build(CM.floor2(), {(1, 5): (193, MB_NON_ANIMATED_DOOR, WARP_E0)}),
+    # the upstairs flight descends southward: an arrow warp (press Down on it). A stair-top
+    # MB_NON_ANIMATED_DOOR would walk an arriving player one tile south, straight back down the stairs.
+    'PellucaDormitory2F': build(CM.floor2(), {(1, 5): (193, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),
     'PellucaDormitoryOsridRoom': build(CM.osrid_room(), {(5, 9): (214, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),
 }
 # the stair below the 2F warp leads off the map: keep the player on the landing
@@ -165,6 +167,32 @@ def write_tileset(d, tiles, pals, meta, attrs, show):
     with open(os.path.join(d, 'metatile_attributes.bin'), 'wb') as f:
         for a in attrs: f.write(struct.pack('<H', a))
 
+# ---------------- door animation ----------------
+# MonoMyth animates this door as a 1x1 door (its table entry for metatile 289: tiles 0x8873DA8, three
+# 16x16 frames, palette slot 3). Our engine draws 1x2 doors (the door and the metatile above it), so each
+# frame is the upper-wall art over MonoMyth's frame; palettes: top = wall slot, bottom = door slot.
+DOOR_METATILE = 0x23B                                    # = METATILE_PellucaDormitory_Door (metatile_labels.h)
+MM_DOOR_FRAMES = 0x873DA8
+def frame_tile(i):
+    a = np.frombuffer(ROM[MM_DOOR_FRAMES + 32 * i: MM_DOOR_FRAMES + 32 * i + 32], np.uint8)
+    t = np.zeros((8, 8), np.uint8); t[:, 0::2] = (a & 15).reshape(8, 4); t[:, 1::2] = (a >> 4).reshape(8, 4); return t
+def quad_pixels(quad):
+    img = np.zeros((16, 16), np.uint8)
+    for q, v in enumerate(quad):
+        t = s_tiles[(v & 0x3FF) - 512]
+        if v & 0x400: t = t[:, ::-1]
+        if v & 0x800: t = t[::-1, :]
+        img[(q // 2) * 8:(q // 2) * 8 + 8, (q % 2) * 8:(q % 2) * 8 + 8] = t
+    return img
+def write_door_anim():
+    img = np.zeros((96, 16), np.uint8)
+    for f in range(3):
+        img[f * 32:f * 32 + 16] = quad_pixels(W_UP)
+        for q in range(4):
+            y, x = f * 32 + 16 + (q // 2) * 8, (q % 2) * 8; img[y:y + 8, x:x + 8] = frame_tile(f * 4 + q)
+    im = Image.fromarray(img, 'P'); im.putpalette([v for c in sec_pals[DOOR_SLOT] for v in c] + [0] * (768 - 48))
+    im.save(os.path.join(C, 'graphics/door_anims/pelluca_dormitory.png'))
+
 def main():
     write_tileset(os.path.join(C, 'data/tilesets/primary/speedwell_interior'), list(P_TILES), prim_pals,
                   [ents(SP, i) for i in range(512)], [attr(SP, i) for i in range(512)], 4)
@@ -187,6 +215,9 @@ def main():
                 [1 for l in lays if l.get('id', '').startswith('LAYOUT_PELLUCA_DORMITORY')])
             lays.insert(at, entry)
     json.dump(L, open(lj, 'w'), indent=2); open(lj, 'a').write('\n')
+    door_ids = [512 + i for i, a in enumerate(s_attr) if a & 0xFF == MB_ANIMATED_DOOR]
+    assert door_ids == [DOOR_METATILE], f'door metatile moved to {door_ids}: update DOOR_METATILE and metatile_labels.h'
+    write_door_anim()
     print('secondary tiles', len(s_tiles), 'secondary metatiles', len(s_meta), {k: v.shape for k, v in ROOMS.items()})
 
 if __name__ == '__main__':

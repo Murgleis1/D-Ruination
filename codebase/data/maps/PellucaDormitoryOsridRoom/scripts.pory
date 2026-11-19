@@ -1,0 +1,15 @@
+// ============ DREAMSTONE RUINATION - Pelluca Valley: Osrid's room in the dormitory ============
+// Cadmus, ch.1: "a room with your cover name on the door, the largest on the first floor. It isn't
+// much, but the door locks and the bed is soft." Lines are placeholders for the dialogue pass.
+
+mapscripts PellucaDormitoryOsridRoom_MapScripts {}
+
+script DR_Dorm_OsridBed {
+    msgbox(format("A plain bed. Soft, as promised."))
+    end
+}
+
+script DR_Dorm_OsridShelf {
+    msgbox(format("Military histories, and a few well-worn maps of Cormoria."))
+    end
+}

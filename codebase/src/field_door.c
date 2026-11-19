@@ -172,6 +172,10 @@ static const struct DoorAnimFrame sBigDoorCloseAnimFrames[] =
 };
 
 static const u8 sDoorAnimPalettes_General[] = {1, 1, 1, 1, 1, 1, 1, 1};
+// DR: Pelluca dormitory room doors (South Edelweiss apartment door, MonoMyth's own opening frames).
+// Top half is the plaster above the door (palette 9), bottom half the door (palette 7).
+static const u8 sDoorAnimTiles_PellucaDormitory[] = INCBIN_U8("graphics/door_anims/pelluca_dormitory.4bpp");
+static const u8 sDoorAnimPalettes_PellucaDormitory[] = {9, 9, 9, 9, 7, 7, 7, 7};
 static const u8 sDoorAnimPalettes_Snow[] = {7, 7, 2, 2, 2, 2, 2, 2};
 static const u8 sDoorAnimPalettes_PokeCenter[] = {1, 1, 1, 1, 1, 1, 1, 1};
 static const u8 sDoorAnimPalettes_Gym[] = {5, 5, 5, 5, 5, 5, 5, 5};
@@ -282,6 +286,7 @@ static const struct DoorGraphics sDoorAnimGraphicsTable[] =
     {METATILE_TrainerHill_Door_Elevator_Lobby,              DOOR_SOUND_SLIDING, 1, sDoorAnimTiles_TrainerHillLobbyElevator, sDoorAnimPalettes_TrainerHillLobbyElevator},
     {METATILE_TrainerHill_Door_Elevator_Roof,               DOOR_SOUND_SLIDING, 1, sDoorAnimTiles_TrainerHillRoofElevator, sDoorAnimPalettes_TrainerHillRoofElevator},
     {METATILE_Snow_SnowDoor,                                DOOR_SOUND_NORMAL,  1, sDoorAnimTiles_Snow, sDoorAnimPalettes_Snow},
+    {METATILE_PellucaDormitory_Door,                        DOOR_SOUND_NORMAL,  1, sDoorAnimTiles_PellucaDormitory, sDoorAnimPalettes_PellucaDormitory},
     {},
 };
 
