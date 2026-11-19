@@ -1,25 +1,24 @@
-"""16x16 region-map player icon: Osrid's head (copper hair, cream mask with the eye-and-tear mark,
-green scarf). Replaces Brendan's face (graphics/pokenav/region_map/brendan_icon / may_icon)."""
+"""16x16 region-map player icon: Osrid's mask -- a cream oval with the Eye of Horus at its centre. Replaces Brendan's face (graphics/pokenav/region_map/brendan_icon / may_icon)."""
 import os
 import numpy as np
 from PIL import Image
-ART = [
- "....o..oo.......",
- "...oHo.oHoo.o...",
- "..oHhHooHHhoHo..",
- ".oHhhhHHhhhhHHo.",
- "odhhhhhhhhhhhhdo",
- "odhhhoooooohhhdo",
- "odhhoMMMMMMoohdo",
- ".odoMMMMMMMMMod.",
- ".odoMMeeeeeMMMo.",
- ".odoMeMMEMMeMMo.",
- "..ooMMeeeeeMMmo.",
- "...oMMMeMMMMmmo.",
- "...omMMMeeMmmo..",
- "..oGGommmmmoGGo.",
- ".oGggGoooooGggGo",
- ".oooooooooooooo."]
+ART = [  # Osrid's mask: an oval with the Eye of Horus (user 2026-11-18)
+ ".....oooooo.....",
+ "...ooMMMMMMoo...",
+ "..oMMMMMMMMMmo..",
+ "..oMeeeeeeeemo..",
+ ".oMMMMMMMMMMMmo.",
+ ".oMMMMeeeeMMMmo.",
+ ".oMMMeMeeMeMMmo.",
+ ".oMMeMMeeMMeeeo.",
+ ".oMMMeMMMMeMMmo.",
+ ".oMMMMeeeeMMMmo.",
+ ".oMMMMMeMMeMMmo.",
+ "..oMMMMeMMMeMo..",
+ "..oMMMMeMMeeMo..",
+ "...oMMMMMMMmo...",
+ "....oMMMMMmo....",
+ ".....oooooo....."]
 PAL = [(0, 0, 0), (24, 16, 16), (128, 48, 24), (200, 88, 40), (240, 144, 80), (248, 240, 224),
        (208, 192, 168), (24, 24, 24), (40, 72, 48), (72, 120, 80)]
 KEY = {'.': 0, 'o': 1, 'd': 2, 'h': 3, 'H': 4, 'M': 5, 'm': 6, 'e': 7, 'E': 7, 'G': 8, 'g': 9}
