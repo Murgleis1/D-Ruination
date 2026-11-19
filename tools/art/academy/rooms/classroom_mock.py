@@ -5,7 +5,7 @@ team, used with permission): its cream wall with the dark trim, heraldic shields
 floor, red runner, and its two-seat desks and chairs (user: the desks and tables from the Crown classroom too).
 Crown has no windows; the hall's windows looked wrong on Crown's wall (user), so Cascade's windows become Crown's
 bookcases (as Crown's own classroom has beside its board); then (user) both bookcases together on the left, and on the
-right Crown's grandfather clock with a stone bust and the witch's alchemy table with its potion flasks (user).
+right Crown's grandfather clock with a stone bust beside it (user; a potion table there was dropped).
 The wall is Crown's own two rows (trim, then the lower wall that meets the floor): a third row stacked another
 lower-wall piece and showed its floor edge as a pale band (user). The chalkboard is widened from 2 to 4 tiles
 (Cascade's is 4) by repeating its middle columns.
@@ -37,10 +37,10 @@ AISLE = (7, 8)
 LEFT = [(5, 1), (5, 4), (7, 2), (7, 5), (9, 3)]                  # (row, left column) of each 2-seat desk: a chevron
 DESKS_AT = LEFT + [(r, 15 - x - 1) for r, x in LEFT]              # mirrored about the aisle
 SHELVES = [1, 3]                                                   # the two bookcases together on the left (user)
-# with the clock on the right (user): the witch's alchemy table with its potion flasks (Crown map group 20 #1) and a
-# stone bust (Crown's library); both from Crown's library set, drawn by their top layer over this room's wall/floor
+# with the clock on the right (user): a stone bust from Crown's library set, drawn by its top layer over this room's
+# wall and floor
 LIB = TS(map_layout(7, 9))
-RIGHT_SIDE = [(11, 1, 0x2DE), (12, 1, 0x2CE), (11, 2, 0x2D5), (12, 2, 0x2D6), (13, 1, 0x2CC), (13, 2, 0x2D4)]
+RIGHT_SIDE = [(13, 1, 0x2CC), (13, 2, 0x2D4)]                     # the bust beside the clock (user: no potion table)
 
 def grid():
     g = [[0] * W for _ in range(H)]
