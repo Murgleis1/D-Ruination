@@ -27,6 +27,7 @@
 - **Kanto seized the Sevii Islands** from a Cormorian settlement there. This is one of the war's specific casus belli.
 - **They unite against Cormoria** out of envy of Cormorian wealth and fear of Cormorian military strength.
 - **The Kanto-Johto war** that Osrid fought in was Cormoria-defensive — defending against this coalition's aggression.
+- **Religion** `[user 2026-11-19]`: this is thousands of years before the main games, the **very early days of belief in Arceus**. **Only in Cormoria is the worship of Arceus the primary religion.** Kanto, Johto and many other regions do not believe Arceus exists; they hold their own beliefs and ideas. Part of other nations' opposition to Cormoria is that they **refuse to convert to belief in Arceus or Valkeerin**.
 
 ### The Long Arc — How the Modern Pokémon World Forms `[LOCKED]`
 
