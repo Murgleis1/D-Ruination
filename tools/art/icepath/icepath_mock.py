@@ -27,7 +27,7 @@ ROCK, LADDER_TOP, LADDER_FOOT = 0x2D9, 0x28F, 0x297
 THIN, CRACKED, BROKEN = 0x20D, 0x20E, 0x206             # Sootopolis gym ice (the build gives them our own ids)
 
 FW, FH = 12, 9                       # the field
-FIELD_X, FIELD_Y = 2, 7              # (the shrine above: four rows, room for the statue)
+FIELD_X, FIELD_Y = 2, 11             # (the shrine above: eight rows, room to stand back from the statue)
 S, E = (5, 8), (6, 0)                # field coordinates: entry from the landing, exit to the gate
 BOULDERS = [(2, 0), (2, 2), (5, 2), (8, 2), (0, 3), (10, 3), (2, 4), (3, 4), (5, 4), (8, 4), (9, 4), (5, 5), (6, 5),
             (11, 5), (1, 6), (2, 6), (5, 6), (8, 6), (2, 7), (3, 7), (0, 8), (9, 8)]
@@ -37,7 +37,10 @@ GATE = (FIELD_X + E[0], WALL_ROW)
 LANDING = (FIELD_X + S[0], FIELD_Y + FH)
 LADDER = (FIELD_X, 1)                # back up to the church, from the shrine's corner
 STATUE_CX = FIELD_X + E[0]           # the statue's column: straight on from the gate
-POSTS, FIRES, FLOWERS = (FIELD_X, FIELD_X + 11), (FIELD_X + 1, FIELD_X + 10), (FIELD_X + 3, FIELD_X + 9)
+STATUE_BASE = 5                      # the row the statue's base sits on (its foot at the row's bottom)
+FIRES = (STATUE_CX - 3, STATUE_CX + 3)   # fire rings level with each other either side of the statue (user)
+LOGS = (STATUE_CX - 4, STATUE_CX + 4)    # the camp's log benches beside them, fossilised to stone (user)
+FLOWERS = (STATUE_CX - 1, STATUE_CX + 1) # offerings at the foot of the statue's ice
 
 def boulder():
     """Shoal Cave's ice boulder (vanilla Emerald; assets/vanilla_reference/ice_boulder.png, cut from the ice room)."""
@@ -99,8 +102,10 @@ def compose():
             c = rock.copy(); c[bm] = b[bm]; img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c; boulders.add((x, y))
     gx, gy = GATE; boulders.discard(GATE)                     # the gate: a block of clearer ice
     gr, gm = gate(); c = rock.copy(); c[gm] = gr[gm]; img[gy * 16:gy * 16 + 16, gx * 16:gx * 16 + 16] = c
-    # (user: no statue-pillars beside it) the worship site round the statue (user: from MonoMyth's Camp Tarragon):
-    # the double tusk arch behind it, log posts with fire rings at the shrine's sides, blue flowers left at its foot
+    # the worship site (user: Camp Tarragon's pieces; no statue-pillars; then "broken and smooshed": everything given
+    # room): the statue at the back on the gate's line; the arch of the two great tusks, in stone, as a gateway
+    # standing over the path between the gate and the statue; fire rings level with each other either side of the
+    # statue with the camp's log benches beside them, fossilised to grey stone (user); blue flowers at its foot
     def piece(name):
         a = np.array(Image.open(os.path.join(ROOT, 'assets', 'monomyth_reference', 'pieces', f'tarragon_{name}.png')).convert('RGBA'))
         return a[..., :3], a[..., 3] > 0
@@ -114,15 +119,23 @@ def compose():
         return out, m
     def put(rgb, m, px, py):
         sub = img[py:py + m.shape[0], px:px + m.shape[1]]; sub[m[:sub.shape[0], :sub.shape[1]]] = rgb[:sub.shape[0], :sub.shape[1]][m[:sub.shape[0], :sub.shape[1]]]
+    from scipy.ndimage import label
     cx = STATUE_CX * 16 + 8
-    ar, am = stone(*piece('tusk_arch')); put(ar, am, cx - am.shape[1] // 2, WALL_ROW * 16 - am.shape[0])
-    po, pm = piece('post'); fr, fm = piece('fire_ring'); fl, flm = piece('blue_flowers')
-    for x in POSTS: put(po, pm, x * 16, (WALL_ROW - 2) * 16)
-    for x in FIRES: put(fr, fm, x * 16, (WALL_ROW - 1) * 16)
-    for x in FLOWERS: put(fl, flm, x * 16, (WALL_ROW - 1) * 16)
     st, sm = statue_half_thawed()
-    px, py = STATUE_CX * 16 + 8 - st.shape[1] // 2, WALL_ROW * 16 - st.shape[0] - 1
-    sub = img[py:py + st.shape[0], px:px + st.shape[1]]; sub[sm] = st[sm]
+    put(st, sm, cx - st.shape[1] // 2, (STATUE_BASE + 1) * 16 - st.shape[0])
+    ar, am = piece('tusk_arch'); lab, n = label(am, structure=np.ones((3, 3)))
+    outer = np.zeros(am.shape, bool)                       # the two great tusks only (the inner pair and charm left out)
+    for i in range(1, n + 1):
+        if np.nonzero(lab == i)[0].min() < 8: outer |= lab == i
+    ys, xs = np.nonzero(outer); ar, am = stone(ar[:ys.max() + 1], outer[:ys.max() + 1])
+    put(ar, am, cx - am.shape[1] // 2, WALL_ROW * 16 - am.shape[0])
+    po, pm = piece('post'); fr, fm = piece('fire_ring'); fl, flm = piece('blue_flowers')
+    lum = po.astype(int).sum(-1); lo, hi = lum[pm].min(), lum[pm].max(); fossil = po.copy()
+    FOSSIL = [(62, 62, 68), (88, 88, 94), (112, 112, 118), (138, 138, 144), (166, 166, 170), (196, 196, 200)]
+    for y, x in zip(*np.nonzero(pm)): fossil[y, x] = FOSSIL[min(5, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 6))]
+    for x in FIRES: put(fr, fm, x * 16, STATUE_BASE * 16)
+    for x in LOGS: put(fossil, pm, x * 16 + 8 - pm.shape[1] // 2, (STATUE_BASE + 1) * 16 - pm.shape[0] + 2)
+    for x in FLOWERS: put(fl, flm, x * 16 + (-6 if x < STATUE_CX else 6), (STATUE_BASE + 1) * 16)
     shrine = {(x, y) for x in range(FIELD_X, FIELD_X + FW) for y in range(2, WALL_ROW)}
     return img, dict(ice=ice, boulders=boulders, gate={GATE}, landing={LANDING}, shrine=shrine,
                      statue={(STATUE_CX, 2), (STATUE_CX + 1, 2), (STATUE_CX, 3), (STATUE_CX + 1, 3)})
