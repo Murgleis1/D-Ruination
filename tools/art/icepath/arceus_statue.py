@@ -1,7 +1,7 @@
 """The half-thawed Arceus statue for the ice path's shrine (user 2026-11-19: reform the supplied statue, which is stuck
 on its platform, into a more compelling statue for the ice cave).
 
-Source: the user's statue sheet (assets/arceus_statue/arceus_statue_on_platform.png: 2x RPG Maker art halved to GBA
+Source: the user's statue sheet (credit: the Pokémon Rejuvenation team) (assets/arceus_statue/arceus_statue_on_platform.png: 2x RPG Maker art halved to GBA
 scale). The figure was cut off its platform (the platform is mirror-symmetric, so pixels that differ from their mirror
 image are figure or its shadow; the shadow and the platform corner the figure hid were dropped):
 assets/arceus_statue/arceus_figure.png. Here it is stood on a new pedestal (plain geometry: a slab, a band of
