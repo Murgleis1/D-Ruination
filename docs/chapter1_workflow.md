@@ -32,12 +32,12 @@ Done (each has a note in `bible/20_chapter1_build.md`):
   is a quest item.
 - Cadmus's manor (`PellucaUmbraManor`). Locked until the mid-game sanctuary mission, when Cadmus gives House
   Umbra's sigil.
+- Pelluca's five houses (`PellucaHouse1`-`5`).
 
 Remaining (proposed order):
-1. Pelluca's five locked houses: (59,8), (54,23), (64,23), (54,30) and (64,30).
-2. The underground ice path below the Arceus church (the map; the crack-tile puzzle is stage 3).
-3. Leaving Pelluca: Route 11, Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
+1. The underground ice path below the Arceus church (the map; the crack-tile puzzle is stage 3).
+2. Leaving Pelluca: Route 11, Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
    These Mirroh maps are still the base game's, on old tilesets.
-4. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
+3. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
 
 Update this list as areas are finished.

@@ -20,14 +20,14 @@
       "y": 16,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_CITY",
-      "dest_warp_id": "5"
+      "dest_warp_id": "10"
     },
     {
       "x": 11,
       "y": 16,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_CITY",
-      "dest_warp_id": "5"
+      "dest_warp_id": "10"
     }
   ],
   "coord_events": [],

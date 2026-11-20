@@ -3,9 +3,9 @@
 manor_mock.py is the picture; this cuts it into its own tileset pair with the Academy's image method
 (tools/art/academy/imgtiles.py: all of it in the bottom layer; nothing in the room stands where the player can walk
 behind it) and sets collision by hand: one elevation, the stairs walkable, the furniture solid.
-Built but locked (user): the manor's door mat warps to Pelluca warp 5, but the city has no warp at the residence
+Built but locked (user): the manor's door mat warps to Pelluca warp 10, but the city has no warp at the residence
 door (13,23) in a normal build, so its "locked" sign answers. MANOR_TEST_OPEN=1 (test builds only) adds that warp
-so the manor can be walked in the emulator. The unlock (story) adds the same warp, as warp 5.
+so the manor can be walked in the emulator. The unlock (story) adds the same warp, as warp 10.
 Credits: Pokemon Crown (Blah and the Crown team, with permission): the manor set; MonoMyth: the museum paintings,
 the study armchair, the archive desk and shelves, the Old HQ candelabras; the Jousteel statue from the project's own
 overworld sprite.
@@ -21,7 +21,7 @@ import manor_mock as MM
 MB_SOUTH_ARROW_WARP = 0x65
 NAME, LAYOUT, MAP = 'PellucaUmbraManor', 'LAYOUT_PELLUCA_UMBRA_MANOR', 'MAP_PELLUCA_UMBRA_MANOR'
 PRIM, SEC = ('umbra_manor_tiles', 'UmbraManorTiles'), ('umbra_manor', 'UmbraManor')
-CITY_DOOR, CITY_WARP = (13, 23), 5
+CITY_DOOR, CITY_WARP = (13, 23), 10                    # (5-9: the five houses)
 
 def rect(x0, x1, y0, y1): return {(x, y) for x in range(x0, x1 + 1) for y in range(y0, y1 + 1)}
 
@@ -63,7 +63,7 @@ def main():
                             f'mapscripts {NAME}_MapScripts {{}}\n')
     # Pelluca: the residence door (13,23) is already a door metatile, and a door warps on a step north into it whatever
     # its collision. So "locked" = no city warp there (its sign answers instead); MANOR_TEST_OPEN adds the warp (as
-    # Pelluca warp 5, the manor's door mat's destination).
+    # Pelluca warp 10, the manor's door mat's destination).
     cj = os.path.join(IT.C, 'data/maps/PellucaCity/map.json'); city = json.load(open(cj))
     ws = [v for v in city['warp_events'] if (v['x'], v['y']) != CITY_DOOR]
     if os.environ.get('MANOR_TEST_OPEN'):

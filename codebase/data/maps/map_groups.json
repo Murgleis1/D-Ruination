@@ -158,7 +158,12 @@
     "PellucaAcademyLibrary",
     "PellucaAcademyClassroom",
     "PellucaAcademyLounge",
-    "PellucaUmbraManor"
+    "PellucaUmbraManor",
+    "PellucaHouse1",
+    "PellucaHouse2",
+    "PellucaHouse3",
+    "PellucaHouse4",
+    "PellucaHouse5"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

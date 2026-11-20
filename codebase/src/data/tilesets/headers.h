@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_PellucaHouses =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PellucaHouses,
+    .palettes = gTilesetPalettes_PellucaHouses,
+    .metatiles = gMetatiles_PellucaHouses,
+    .metatileAttributes = gMetatileAttributes_PellucaHouses,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_PellucaHousesTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_PellucaHousesTiles,
+    .palettes = gTilesetPalettes_PellucaHousesTiles,
+    .metatiles = gMetatiles_PellucaHousesTiles,
+    .metatileAttributes = gMetatileAttributes_PellucaHousesTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_UmbraManor =
 {
     .isCompressed = TRUE,

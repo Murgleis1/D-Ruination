@@ -6152,6 +6152,56 @@
       "blockdata_filepath": "data/layouts/PellucaUmbraManor/map.bin"
     },
     {
+      "id": "LAYOUT_PELLUCA_HOUSE_1",
+      "name": "PellucaHouse1_Layout",
+      "width": 19,
+      "height": 11,
+      "primary_tileset": "gTileset_PellucaHousesTiles",
+      "secondary_tileset": "gTileset_PellucaHouses",
+      "border_filepath": "data/layouts/PellucaHouse1/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaHouse1/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_HOUSE_2",
+      "name": "PellucaHouse2_Layout",
+      "width": 13,
+      "height": 10,
+      "primary_tileset": "gTileset_PellucaHousesTiles",
+      "secondary_tileset": "gTileset_PellucaHouses",
+      "border_filepath": "data/layouts/PellucaHouse2/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaHouse2/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_HOUSE_3",
+      "name": "PellucaHouse3_Layout",
+      "width": 13,
+      "height": 10,
+      "primary_tileset": "gTileset_PellucaHousesTiles",
+      "secondary_tileset": "gTileset_PellucaHouses",
+      "border_filepath": "data/layouts/PellucaHouse3/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaHouse3/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_HOUSE_4",
+      "name": "PellucaHouse4_Layout",
+      "width": 13,
+      "height": 10,
+      "primary_tileset": "gTileset_PellucaHousesTiles",
+      "secondary_tileset": "gTileset_PellucaHouses",
+      "border_filepath": "data/layouts/PellucaHouse4/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaHouse4/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_HOUSE_5",
+      "name": "PellucaHouse5_Layout",
+      "width": 11,
+      "height": 9,
+      "primary_tileset": "gTileset_PellucaHousesTiles",
+      "secondary_tileset": "gTileset_PellucaHouses",
+      "border_filepath": "data/layouts/PellucaHouse5/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaHouse5/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_UMBRA_LAB",
       "name": "PellucaUmbraLab_Layout",
       "width": 12,

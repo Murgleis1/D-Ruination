@@ -1292,6 +1292,11 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/PellucaAcademyClassroom/scripts.inc"
 	.include "data/maps/PellucaAcademyLounge/scripts.inc"
 	.include "data/maps/PellucaUmbraManor/scripts.inc"
+	.include "data/maps/PellucaHouse1/scripts.inc"
+	.include "data/maps/PellucaHouse2/scripts.inc"
+	.include "data/maps/PellucaHouse3/scripts.inc"
+	.include "data/maps/PellucaHouse4/scripts.inc"
+	.include "data/maps/PellucaHouse5/scripts.inc"
 
 	.include "data/maps/HoyaRiverSouth/scripts.inc"
 

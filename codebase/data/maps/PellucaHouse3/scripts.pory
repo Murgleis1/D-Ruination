@@ -1,0 +1,5 @@
+// ============ DREAMSTONE RUINATION - Pelluca: house H3 (door (64, 23)) ============
+// Built by tools/art/houses/build_houses.py from houses_mock.py (user design 2026-11-19).
+// Stage 1 (the look). Who lives here, NPCs and dialogue come in stage 2.
+
+mapscripts PellucaHouse3_MapScripts {}
