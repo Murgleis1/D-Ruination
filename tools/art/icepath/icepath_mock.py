@@ -16,7 +16,7 @@ import numpy as np
 from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
-for p in ('tools/crown', 'tools', 'tools/art/templar'): sys.path.insert(0, os.path.join(ROOT, p))
+for p in ("tools/crown", "tools", "tools/art/templar", "tools/art/icepath"): sys.path.insert(0, os.path.join(ROOT, p))
 from crown_pieces import map_layout, TS
 import render_layout as RL
 
@@ -37,6 +37,7 @@ GATE = (FIELD_X + E[0], WALL_ROW)
 LANDING = (FIELD_X + S[0], FIELD_Y + FH)
 LADDER = (FIELD_X, 1)                # back up to the church, from the shrine's corner
 STATUE_CX = FIELD_X + E[0]           # the statue's column: straight on from the gate
+POSTS, FIRES, FLOWERS = (FIELD_X, FIELD_X + 11), (FIELD_X + 1, FIELD_X + 10), (FIELD_X + 3, FIELD_X + 9)
 
 def boulder():
     """Shoal Cave's ice boulder (vanilla Emerald; assets/vanilla_reference/ice_boulder.png, cut from the ice room)."""
@@ -98,7 +99,27 @@ def compose():
             c = rock.copy(); c[bm] = b[bm]; img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c; boulders.add((x, y))
     gx, gy = GATE; boulders.discard(GATE)                     # the gate: a block of clearer ice
     gr, gm = gate(); c = rock.copy(); c[gm] = gr[gm]; img[gy * 16:gy * 16 + 16, gx * 16:gx * 16 + 16] = c
-    # (user: no statue-pillars beside it)
+    # (user: no statue-pillars beside it) the worship site round the statue (user: from MonoMyth's Camp Tarragon):
+    # the double tusk arch behind it, log posts with fire rings at the shrine's sides, blue flowers left at its foot
+    def piece(name):
+        a = np.array(Image.open(os.path.join(ROOT, 'assets', 'monomyth_reference', 'pieces', f'tarragon_{name}.png')).convert('RGBA'))
+        return a[..., :3], a[..., 3] > 0
+    def stone(rgb, m):                                    # (user: the bone arches shaded as the statue's stone)
+        import arceus_statue as AS
+        ramp = [AS.OUT, AS.D1, AS.D2, AS.MID, AS.LIGHT, AS.TOP, (168, 176, 188)]; out = rgb.copy()
+        lum = rgb.astype(int).sum(-1); lo, hi = lum[m].min(), lum[m].max()
+        for y, x in zip(*np.nonzero(m)): out[y, x] = ramp[min(6, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 7))]
+        rng = np.random.default_rng(4); ys, xs = np.nonzero(m & (lum > lo + (hi - lo) // 2))
+        for i in rng.choice(len(ys), size=len(ys) // 30, replace=False): out[ys[i], xs[i]] = AS.GEMS[i % 3]
+        return out, m
+    def put(rgb, m, px, py):
+        sub = img[py:py + m.shape[0], px:px + m.shape[1]]; sub[m[:sub.shape[0], :sub.shape[1]]] = rgb[:sub.shape[0], :sub.shape[1]][m[:sub.shape[0], :sub.shape[1]]]
+    cx = STATUE_CX * 16 + 8
+    ar, am = stone(*piece('tusk_arch')); put(ar, am, cx - am.shape[1] // 2, WALL_ROW * 16 - am.shape[0])
+    po, pm = piece('post'); fr, fm = piece('fire_ring'); fl, flm = piece('blue_flowers')
+    for x in POSTS: put(po, pm, x * 16, (WALL_ROW - 2) * 16)
+    for x in FIRES: put(fr, fm, x * 16, (WALL_ROW - 1) * 16)
+    for x in FLOWERS: put(fl, flm, x * 16, (WALL_ROW - 1) * 16)
     st, sm = statue_half_thawed()
     px, py = STATUE_CX * 16 + 8 - st.shape[1] // 2, WALL_ROW * 16 - st.shape[0] - 1
     sub = img[py:py + st.shape[0], px:px + st.shape[1]]; sub[sm] = st[sm]

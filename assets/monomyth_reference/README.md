@@ -10,3 +10,7 @@ MonoMyth (Pokémon MonoMyth) reference renders and cut pieces.
   of North Edelweiss's museum (map header 0x886AA48). In the map the frames are blank; the paintings are object events
   (graphics ids 316-319) decoded by the game itself (tools/monomyth/mm_paintings.py). Each keeps its name plaque below.
   Used (recoloured) in Cadmus's manor (tools/art/manor/manor_mock.py).
+- pieces/tarragon_tusk_arch.png, tarragon_post.png, tarragon_fire_ring.png, tarragon_blue_flowers.png: Camp Tarragon's
+  (map header 0x88695F0) double tusk arch with its hanging horn charm (cells 29-34 x 16-20, the snowy tree dropped), a
+  standing log post (29, 11-12), the stone fire ring (31, 11), blue snow flowers (34, 6); cut against the snow with the
+  snow and ice-path colours dropped. Used round the Arceus statue in the ice path's shrine (user: ancient worship site).
