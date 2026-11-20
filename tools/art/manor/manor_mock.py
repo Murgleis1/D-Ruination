@@ -6,12 +6,11 @@ Crown team, used with permission): one map with the upper floor as a gallery beh
 staircase up through it, the way Crown builds its manors (and the Academy hall builds its floors).
 
 Ground floor: the grand dining hall. Crown's stone hearth in the middle of the wall, its two banners in Water
-sea blue, and on the chimney breast the Jousteel crest (the project's own Jousteel sprite, halved, on a sea-blue
-field in a gold frame); the long dining table (two gold candelabras on it) (Crown's manor table lengthened by its middle columns) on a big rug in the
-Academy maroon, and (user) only one chair at each head, facing the table: the maroon wing armchairs
-of the Academy hall's hearth; a bookcase and the maroon banners on the wall; the
-staircase (its runner in maroon) up on the right; the grandfather clock in the corner; a side table, a jug and a
-coat stand by the door.
+sea blue; the long dining table (Crown's manor table lengthened by its middle columns; two gold candelabras on it)
+on a big rug (Academy maroon, or Water navy with RUG=navy), one plain chair at each head facing the table, centred
+on it (user: no side chairs); against the left wall the Jousteel crest as a stone statue on a fluted plinth (user:
+a portrait looked artificial), mirroring the staircase on the right (its runner in maroon); a bookcase in the left
+corner, the grandfather clock in the right; maroon banners; a side table, a jug and a coat stand by the door.
 Upper floor: Cadmus's private rooms: his bed and dresser on the left, a sea-blue Water banner over his writing
 desk (the archive desk, walnut) on a maroon rug in the middle, the archive shelves (walnut, as in his Academy office) in a study corner on the right.
 Usage: ODYSSEY_ROM=/path/Crown.gba python3 tools/art/manor/manor_mock.py [out.png]
@@ -41,7 +40,7 @@ STAIRS = ((0x73, 0x6C, 0x6D, 0x73), (WALL, 0x7C, 0x7D, WALL), (SHADE, 0x74, 0x75
 BOOKCASE = ((0x20, 0x21), (0xC0, 0x29)); CLOCK = (0x17, 0x1F)
 BED = ((0xCC, 0xC9, 0xC9, 0xD4), (0xD0, 0xD1, 0xD1, 0xD2)); DRESSER = (0x13, 0x1B)
 RUG_UP = ((0x40, 0x41), (0x48, 0x49))             # its edges; the middle is under Crown's organ (0x60/0x8D)
-TABLE = ((0x30, 0x32, 0x31), (0x38, 0x3A, 0x39)); CHAIR_L = 0x28A           # its bottom layer: the plain rug
+TABLE = ((0x30, 0x32, 0x31), (0x38, 0x3A, 0x39)); CHAIR_L, CHAIR_R = 0x28A, 0x28B   # Crown's plain head chairs
 SIDE_TABLE = (0x7E, 0x47, 0x3B, 0x4F); JUG, COAT = 0x3D, 0x1D; MAT = (0xC4, 0xC5)
 HEARTH_X, TABLE_X, TABLE_LEN, STAIRS_X = 8, 7, 8, 16
 WATER_BANNER = {(160, 64, 104): (52, 96, 168)}
@@ -67,7 +66,8 @@ def top_on(m, base):
 
 STONE = [(40, 40, 48), (72, 72, 80), (104, 92, 96), (120, 104, 104), (152, 134, 134), (184, 160, 160)]  # the bust's stone
 JOUSTEEL_OW = os.path.join(ROOT, 'codebase', 'graphics', 'pokemon', 'jousteel', 'overworld.png')
-STATUE_AT = (2, 9)                                            # (x, y) of the statue's top-left cell; the plinth below
+STATUE_AT = (3, 5)                    # (x, y) of the statue's top-left cell; the plinth below. Against the left wall,
+                                       # mirroring the staircase on the right (user)
 
 def statue():
     """Jousteel's overworld sprite (the project's own; its first frame, facing down) turned to stone: its colours ranked
@@ -91,15 +91,6 @@ def plinth():
     box(4, 5, 5, 27, K)                                                              # the cap's shadow
     box(12, 16, 2, 30, D); box(13, 14, 3, 29, L); box(14, 15, 3, 29, M)             # the foot
     return img, m
-
-def head_chair(facing_right):
-    """One of the Academy hall's maroon wing armchairs (its hearth pair: 0x1AB/0x1B3 faces right, 0x1AC/0x1B4
-    left), cut from the hall's tileset by its difference from the plank floor: 16 x 32."""
-    ts = HALL.cabin_ts('A ivory plaster'); fl = HALL.meta_layers(ts, 0x18B, clean=False)[0]
-    parts = []
-    for mm in ((0x1AB, 0x1B3) if facing_right else (0x1AC, 0x1B4)):
-        c, o, om = HALL.meta_layers(ts, mm, clean=False); c = c.copy(); c[om] = o[om]; parts.append((c, (c != fl).any(-1)))
-    return np.vstack([p[0] for p in parts]), np.vstack([p[1] for p in parts])
 
 def candelabra():
     """The gold candelabra off the Old HQ table (MonoMyth), its cloth dropped."""
@@ -137,7 +128,7 @@ def compose():
     for x in range(1, W - 1): put(x, 5, cell(TRIM)); put(x, 6, cell(WALL)); put(x, 7, cell(SHADE))
     for dy in range(2):
         for dx in range(2): put(1 + dx, 6 + dy, cell(BOOKCASE[dy][dx]))
-    for x in (4, 14): put(x, 5, top_on(0x5E, cell(TRIM)))        # the Academy's maroon banners (Crown's own colour)
+    for x in (6, 14): put(x, 5, top_on(0x5E, cell(TRIM)))        # the Academy's maroon banners (Crown's own colour)
     for dy, row in enumerate(HEARTH):
         for dx, m in enumerate(row):
             c = cell(m)
@@ -172,8 +163,9 @@ def compose():
             x, y = TABLE_X + dx, 10 + dy; put(x, y, recolour(c, RUG)); solid.add((x, y))  # right end carries a jar
     cd, cdm = candelabra()
     for k in (2, 5): paste(cd, cdm, (TABLE_X + k) * 16 + 16 - cd.shape[1] // 2, 10 * 16 - 4)
-    for x, right in ((TABLE_X - 1, True), (TABLE_X + TABLE_LEN, False)):   # one armchair at each head, facing the table
-        c, cm = head_chair(right); paste(c, cm, x * 16, 10 * 16); solid |= {(x, 10), (x, 11)}
+    for x, m in ((TABLE_X - 1, CHAIR_L), (TABLE_X + TABLE_LEN, CHAIR_R)):   # one plain chair at each head, facing the
+        (_, _), (ct, ctm) = cell_layers(TSG, m)                              # table, centred on its two rows (user)
+        paste(ct, ctm, x * 16, 10 * 16 + 8); solid |= {(x, 10), (x, 11)}
     for y, m in zip(range(9, 13), SIDE_TABLE): put(20, y, top_on(m, cell(FLOOR))); solid.add((20, y))
     sx, sy = STATUE_AT; pr, pm = plinth(); paste(pr, pm, sx * 16, (sy + 2) * 16)
     st, stm = statue(); paste(st, stm, sx * 16, (sy + 2) * 16 - 31)
