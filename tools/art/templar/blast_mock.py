@@ -5,7 +5,8 @@ frozen hollow below (the ice path, tools/art/icepath/). User: the split runs thr
 of the nave. No natural split-floor tiles turned up in Crown or MonoMyth (searched), so it is drawn here as pixel art
 over the approved hall (compose_mock.compose('pews')): a stepped, crisp-edged fissure through the medallion (widest
 at its centre, closing at its rim), the far slab's broken face showing under a lit lip and the near lip a dark edge, the lower half of the slab sunk a shade,
-two small patches of pale ice far down in the dark, and short stepped hairline cracks branching into the carpet.
+two small patches of pale ice far down in the dark, short stepped hairline cracks branching into the carpet,
+and frost (user: the sudden cold the Templar remarks on) creeping out from the split, thickest at its lips.
 Usage: python3 tools/art/templar/blast_mock.py [out.png]
 """
 import os, sys
@@ -68,6 +69,23 @@ def compose():
             for px, py in line((x, y), (x + dx, y + dy)):
                 if r[py, px] > MED_R and CM.WALL * 16 <= py < H: img[py, px] = CRACK
             x, y = x + dx, y + dy
+    # frost (user: the Templar there notes the sudden drop in temperature; ice must lie right below): a band of solid
+    # rime along the split with a ragged edge, a dithered fringe beyond it, and a few small star crystals further out
+    from scipy.ndimage import distance_transform_edt, zoom
+    d = distance_transform_edt(~gap); rng = np.random.default_rng(8)
+    RIME, FRINGE, STAR = (236, 248, 255), (196, 228, 244), (214, 238, 250)
+    blot = zoom(rng.random((H // 4 + 1, W // 4 + 1)), 4, order=1)[:H, :W]          # low-frequency: a ragged edge
+    band = (d >= 1) & (d <= 1.5 + 3.0 * blot) & (yy >= CM.WALL * 16)
+    fringe = (d > 1.5 + 3.0 * blot) & (d <= 3.5 + 5.0 * blot) & ((xx + yy) % 2 == 0) & (yy >= CM.WALL * 16)
+    img[fringe] = FRINGE; img[band] = RIME
+    stars = 0
+    for _ in range(400):
+        y, x = int(rng.integers(0, H)), int(rng.integers(0, W))
+        if not (7 <= d[y, x] <= 16) or y < CM.WALL * 16 + 1 or y >= H - 1 or x < 1 or x >= W - 1: continue
+        img[y, x] = RIME
+        for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)): img[y + dy, x + dx] = STAR
+        stars += 1
+        if stars >= 9: break
     return img
 
 if __name__ == '__main__':
