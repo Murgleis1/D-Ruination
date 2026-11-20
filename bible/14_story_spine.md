@@ -288,6 +288,7 @@ Players can take *any combination* of three optional engagements before committi
 
 3. **The Mt. Silver / Future-Red Keerin Sidequest** `[LOCKED v0.9.4]` — **available only in Elite or Paragon difficulty modes** (Section 9 — Difficulty Modes; Section 7 — Future-Red entry; Section 9 — Keerin entry):
   - Player reaches Keerin in `[OPEN]` (specific chamber location)
+  - **`[user 2026-11-20]` Hollow Hill:** the trip to the distant future and the fight with Red happen **at Hollow Hill** (thinnest layer between dimensions, past and future), whose **summit unlocks only with Keerin in the party** (19_location_atlas.md). **`[OPEN]` reconcile:** with the Mt. Silver framing above (is Mt. Silver the future destination reached from Hollow Hill's summit, or replaced?) and with the order (Keerin joins *after* the fight here, but the summit needs Keerin in the party first).
   - Keerin tests the player's worthiness by transporting them to the top of Mt. Silver from Kanto (via dreamstone temporal-cosmological displacement)
   - Player faces **Future-Red** — multiverse-displaced older corrupted version of canonical Red — with **6 broken legendaries** (Mewtwo, Urshifu, Yveltal, Mega Rayquaza, Eternatus, Miraidon)
   - Player allowed Keerin + 2 reserve Pokemon (3v6 disadvantage); fight is winnable through targeted Yveltal-counter strategy
