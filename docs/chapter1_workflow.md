@@ -20,6 +20,12 @@ Rules that follow from the order:
 - Areas that belong to later chapters wait for those chapters, even when they sit inside Chapter 1's map. One example
   is the Umbra sanctuary below Pelluca's beach cliff door, which is mid-game.
 
+Map design rules (user 2026-11-20, "design 101"): **never cut a tree (or any object) in half, never let trees
+smoosh on top of each other, never let them bleed into buildings, cliffs, walls or water.** Trees and props are
+placed as whole units on a clear footprint; dense woods use the source tileset's own stacking pattern and end in
+complete trees. **Terrain changes gradually**, the way MonoMyth's and Crown's routes do it at their boundaries: one
+ground shade reaches into the next in patches with proper edge pieces, and tree kinds mix before they change.
+
 How each area is done in stage 1: mock it first, get the user's approval, build it, verify it in the emulator,
 add a bible note (`20_chapter1_build.md`), then commit and push.
 

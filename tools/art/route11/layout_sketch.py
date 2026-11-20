@@ -88,3 +88,48 @@ def main(out):
 
 if __name__ == '__main__':
     main(sys.argv[1])
+
+def route11_v2(d, ox, oy, f):
+    """Revision 2 (user 2026-11-20): twice as long (90x30); the Ivy River's thin western branch comes down from the
+    north (as on the illustrated region map, just west of Pelluca), under a bridge on the road, to the sea at the
+    cove; the grass darkens in bands, each band reaching into the next in patches."""
+    W, H = 90, 30
+    shades = [(150, 214, 170), (128, 196, 140), (122, 188, 108), (100, 150, 84)]     # mint, sage, spring, olive
+    bands = [(66, 89, 0), (44, 65, 1), (22, 43, 2), (0, 21, 3)]
+    for a, b, k in bands: box(d, ox, oy, a, 0, b, H - 1, shades[k])
+    import random; rnd = random.Random(3)
+    for a, b, k in bands[:-1]:                                  # the next band's patches reaching in
+        for _ in range(6):
+            px = rnd.randint(a - 4, a + 6); py = rnd.randint(0, H - 3)
+            box(d, ox, oy, px, py, px + rnd.randint(1, 3), py + rnd.randint(1, 2), shades[k + 1])
+    box(d, ox, oy, 82, 0, 89, 13, C['pine']); box(d, ox, oy, 82, 17, 89, 29, C['pine'])
+    for (a, b, c, e) in [(64, 0, 71, 3), (70, 4, 72, 6), (48, 19, 52, 22)]: box(d, ox, oy, a, b, c, e, C['pine'])
+    for (a, b, c, e) in [(30, 2, 38, 6), (36, 20, 41, 24), (24, 24, 30, 29)]: box(d, ox, oy, a, b, c, e, (60, 120, 70))
+    box(d, ox, oy, 0, 0, 19, 10, C['dark']); box(d, ox, oy, 0, 19, 21, 29, C['dark']); box(d, ox, oy, 12, 0, 26, 5, C['dark'])
+    for (a, b, c, e) in [(72, 0, 81, 2), (73, 3, 80, 4)]: box(d, ox, oy, a, b, c, e, C['cliff'])
+    box(d, ox, oy, 73, 6, 79, 9, C['house']); box(d, ox, oy, 72, 10, 80, 11, (200, 200, 150), outline=(120, 80, 40))
+    box(d, ox, oy, 66, 6, 71, 8, C['crops']); box(d, ox, oy, 66, 9, 71, 11, C['field'])
+    box(d, ox, oy, 74, 18, 80, 20, C['flowers'], outline=(120, 80, 40)); box(d, ox, oy, 66, 18, 71, 20, C['tall'])
+    # the river: from the north edge, a fall over the cliff step, under the bridge, out to the cove
+    river = [(59, 0, 62, 5), (60, 6, 62, 8), (59, 9, 62, 13), (59, 17, 62, 21), (58, 22, 63, 23)]
+    for (a, b, c, e) in river: box(d, ox, oy, a, b, c, e, C['sea'])
+    box(d, ox, oy, 59, 6, 62, 7, (220, 235, 250))                # the fall
+    box(d, ox, oy, 58, 14, 63, 16, (150, 100, 60))               # the bridge
+    box(d, ox, oy, 63, 21, 81, 22, (60, 60, 70)); box(d, ox, oy, 52, 21, 57, 22, (60, 60, 70))    # sea wall
+    box(d, ox, oy, 52, 23, 81, 24, C['sand']); box(d, ox, oy, 52, 25, 81, 29, C['sea'])
+    box(d, ox, oy, 64, 14, 89, 16, C['road']); box(d, ox, oy, 0, 14, 57, 16, C['dirt'])
+    for a, b, c, e in [(30, 12, 35, 13), (8, 11, 13, 12), (40, 17, 45, 18), (16, 17, 20, 18), (50, 10, 54, 12)]:
+        box(d, ox, oy, a, b, c, e, C['tall'])
+    for x, y, t, c in [(83, 14, 'Pelluca', (0, 0, 0)), (1, 14, 'to Hollow Hill', (0, 0, 0)), (73, 6, 'farm', (255, 255, 255)),
+                       (55, 0, 'river (from the Ivy, N)', (0, 0, 0)), (58, 13, 'bridge', (0, 0, 0)), (60, 26, 'cove', (255, 255, 255)),
+                       (66, 0, 'pines', (255, 255, 255)), (31, 3, 'mixed', (255, 255, 255)), (2, 3, 'dark woods', (255, 255, 255)),
+                       (74, 0, 'tan cliffs', (0, 0, 0)), (14, 13, 'Eiscue', (200, 0, 0)),
+                       (67, 27, 'mint', (255, 255, 255)), (46, 27, 'sage', (0, 0, 0)), (24, 27, '', (0, 0, 0)),
+                       (44, 0, 'sage band', (0, 0, 0)), (23, 7, 'spring band', (0, 0, 0)), (2, 13, '', (0, 0, 0))]:
+        label(d, ox, oy, x, y, t, f, c)
+
+def main_v2(out):
+    f = ImageFont.load_default()
+    img = Image.new('RGB', (90 * S + 20, 30 * S + 50), (30, 30, 34)); d = ImageDraw.Draw(img, 'RGBA')
+    d.text((10, 8), 'ROUTE 11 rev. 2 (90x30): mint -> sage -> spring -> olive grass in bands (patches of the next reaching in); pines -> mixed -> dark woods; the river and bridge near Pelluca', fill=(255, 255, 255), font=f)
+    route11_v2(d, 10, 30, f); img.save(out)
