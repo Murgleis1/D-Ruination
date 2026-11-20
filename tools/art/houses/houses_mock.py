@@ -24,7 +24,7 @@ BED = ((0xCC, 0xC9, 0xCA), (0xD0, 0xD1, 0xD2))
 WARDROBE = ((0x9D, 0x95), (0x1C, 0x1B))
 BOOKCASE = ((0x9E, 0x9F), (0xC0, 0x29))
 TABLE = ((0xA5, 0x8, 0x9, 0xA6), (0xA5, 0x10, 0x11, 0xA6))
-ARMCHAIR, COAT, CANDLE, BARREL = (0x16, 0x1E), (0x15, 0x1D), (0xAE, 0xC7), 0xC
+COAT, CANDLE, BARREL = (0x15, 0x1D), (0xAE, 0xC7), 0xC   # (user: no free-standing chair-and-harp piece mid-floor)
 MAT = (0xD8, 0xD9, 0xDA)
 
 MM_FLOOR = 0x50                    # the Wood Avens cabins' plain plank floor (the pieces are cut against it)
@@ -111,12 +111,12 @@ def h3():
 
 def h4():
     """The alchemist's cottage: bookcases, then Crown's cluttered alchemy desk and potion shelf against the back wall
-    (user: no hearth; something unique), an armchair, the bed in the corner, a table on the left."""
+    (user: no hearth; something unique), the bed in the corner, a table on the left."""
     r = Room(13, 10, windows={6, 7}, mat_x=5)
     r.block(BOOKCASE, 1, 2, solid_rows={1}); r.block(BOOKCASE, 3, 2, solid_rows={1})
     r.paste(alchemy_desk(), 5 * 16, 2 * 16, solid={(5, 3), (6, 3)}); r.paste(potion_shelf(), 7 * 16, 2 * 16, solid={(7, 3), (8, 3)})
     r.block(BED, 9, 3)
-    r.block((ARMCHAIR[:1], ARMCHAIR[1:]), 9, 5); r.block(TABLE, 1, 5); r.block((COAT[:1], COAT[1:]), 11, 7)
+    r.block(TABLE, 1, 5); r.block((COAT[:1], COAT[1:]), 11, 7)
     return r
 
 def h5():
@@ -135,7 +135,6 @@ def h1():
     r.block(WARDROBE, 12, 2, solid_rows={1}); r.block(BED, 15, 3); r.block(TABLE, 13, 6)
     st = stump(); r.paste(st, 2 * 16, 5 * 16, solid={(3, 6), (4, 6)})
     r.block((CANDLE[:1], CANDLE[1:]), 1, 8); r.block((CANDLE[:1], CANDLE[1:]), 17, 8)
-    r.block((ARMCHAIR[:1], ARMCHAIR[1:]), 11, 6)
     return r
 
 HOUSES = {'H1': h1, 'H2': h2, 'H3': h3, 'H4': h4, 'H5': h5}
