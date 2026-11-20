@@ -61,15 +61,6 @@ def statue_half_thawed():
     sys.path.insert(0, HERE); import arceus_statue
     return arceus_statue.statue(ice=True)
 
-def pillar_frosted():
-    """The church's tall fluted statue-pillar (Rejuvenation) in the statue's cave stone, frosted over from the base."""
-    import compose_mock as TM; import arceus_statue as AS
-    x0, y0, x1, y1 = TM.BOX[36]; a, m = TM.ar((x0, y0, x0 + 16, y1))
-    ramp = [AS.D1, AS.D2, AS.MID, AS.LIGHT, AS.TOP, AS.TOP]; out = a.copy(); lum = a.astype(int).sum(-1)
-    lo, hi = lum[m].min(), lum[m].max()
-    for y, x in zip(*np.nonzero(m)): out[y, x] = ramp[min(5, int((lum[y, x] - lo) / max(1, hi - lo) * 6))]
-    return frost(out, m, 0.55), m
-
 def gate():
     """The gate in the ice wall: a boulder of clearer, paler ice (it gives way when the field is done)."""
     b, bm = boulder(); out = b.copy()
@@ -107,9 +98,7 @@ def compose():
             c = rock.copy(); c[bm] = b[bm]; img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c; boulders.add((x, y))
     gx, gy = GATE; boulders.discard(GATE)                     # the gate: a block of clearer ice
     gr, gm = gate(); c = rock.copy(); c[gm] = gr[gm]; img[gy * 16:gy * 16 + 16, gx * 16:gx * 16 + 16] = c
-    pr, pm = pillar_frosted()                                 # frosted statue-pillars either side of the statue
-    for px in ((STATUE_CX - 3) * 16, (STATUE_CX + 4) * 16):
-        py = (WALL_ROW) * 16 - pm.shape[0] - 2; sub = img[py:py + pm.shape[0], px:px + 16]; sub[pm] = pr[pm]
+    # (user: no statue-pillars beside it)
     st, sm = statue_half_thawed()
     px, py = STATUE_CX * 16 + 8 - st.shape[1] // 2, WALL_ROW * 16 - st.shape[0] - 1
     sub = img[py:py + st.shape[0], px:px + st.shape[1]]; sub[sm] = st[sm]
