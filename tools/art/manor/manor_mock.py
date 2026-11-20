@@ -30,7 +30,9 @@ from classroom_mock import MAROON_MAT
 ASSETS = os.path.join(ROOT, 'assets')
 JOUSTEEL = os.path.join(ROOT, 'codebase', 'graphics', 'pokemon', 'jousteel', 'front.png')
 TSG = TS(map_layout(4, 0))
-W, H = 22, 16                    # x0, x21 void; rows 0-1 upper wall, 2-4 upper floor, 5-7 lower wall, 8-14 floor, 15 mat
+UPPER = 4                        # the upper floor's rows (user: room for a proper desk and chair up there)
+LW = 2 + UPPER                   # the lower wall's top row
+W, H = 22, LW + 11               # x0, x21 void; rows 0-1 upper wall, 2..LW-1 upper floor, LW..LW+2 lower wall, then 7 floor rows, the mat
 FLOOR, WALL_TOP, WALL, TRIM, SHADE = 0x01, 0x27, 0x2F, 0x72, 0x93
 SCONCE, WINDOW = (0x44, 0x77), 0x7B
 HEARTH = ((0x280, 0x5E, 0x52, 0x53, 0x5E, 0x281),
@@ -39,7 +41,6 @@ HEARTH = ((0x280, 0x5E, 0x52, 0x53, 0x5E, 0x281),
 STAIRS = ((0x73, 0x6C, 0x6D, 0x73), (WALL, 0x7C, 0x7D, WALL), (SHADE, 0x74, 0x75, 0x92))
 BOOKCASE = ((0x20, 0x21), (0xC0, 0x29)); CLOCK = (0x17, 0x1F)
 BED = ((0xCC, 0xC9, 0xC9, 0xD4), (0xD0, 0xD1, 0xD1, 0xD2)); DRESSER = (0x13, 0x1B)
-RUG_UP = ((0x40, 0x41), (0x48, 0x49))             # its edges; the middle is under Crown's organ (0x60/0x8D)
 TABLE = ((0x30, 0x32, 0x31), (0x38, 0x3A, 0x39)); CHAIR_L, CHAIR_R = 0x28A, 0x28B   # Crown's plain head chairs
 SIDE_TABLE = (0x7E, 0x47, 0x3B, 0x4F); JUG, COAT = 0x3D, 0x1D; MAT = (0xC4, 0xC5)
 HEARTH_X, TABLE_X, TABLE_LEN, STAIRS_X = 8, 7, 8, 16
@@ -66,7 +67,7 @@ def top_on(m, base):
 
 STONE = [(40, 40, 48), (72, 72, 80), (104, 92, 96), (120, 104, 104), (152, 134, 134), (184, 160, 160)]  # the bust's stone
 JOUSTEEL_OW = os.path.join(ROOT, 'codebase', 'graphics', 'pokemon', 'jousteel', 'overworld.png')
-STATUE_AT = (3, 5)                    # (x, y) of the statue's top-left cell; the plinth below. Against the left wall,
+STATUE_AT = (3, LW)                   # (x, y) of the statue's top-left cell; the plinth below. Against the left wall,
                                        # mirroring the staircase on the right (user)
 
 def statue():
@@ -100,6 +101,49 @@ def candelabra():
     for c in ((248, 248, 248), (224, 232, 232), (184, 192, 200), (120, 120, 128), (80, 80, 104)): m &= ~(cloth & (rgb == c).all(-1))
     return rgb, m
 
+PAINTINGS = os.path.join(ASSETS, 'monomyth_reference', 'pieces')
+# North Edelweiss museum paintings (MonoMyth; tools/monomyth/mm_paintings.py), recoloured to be Cadmus's own (user):
+# the starry night's gold swirls and stars turned sea-foam (a starry sea, for the Water house), the portrait's
+# orange ground turned the Academy maroon
+PAINT_RECOLOUR = {'starry': {(232, 192, 88): (120, 208, 200), (224, 208, 136): (184, 236, 228), (208, 176, 112): (88, 168, 176),
+                             (200, 160, 96): (64, 136, 160), (248, 248, 248): (232, 248, 244)},
+                  'harbour': {(232, 144, 56): (152, 62, 70), (168, 120, 80): (118, 36, 48), (168, 96, 40): (84, 22, 34),
+                              (200, 160, 96): (176, 92, 96), (208, 176, 112): (196, 120, 116), (224, 208, 136): (220, 168, 150)}}
+
+def painting(name):
+    """(rgb, mask) of a museum painting, its name plaque cut off, its canvas (inside the 3-px frame) recoloured."""
+    a = np.array(Image.open(os.path.join(PAINTINGS, 'painting_%s.png' % name)).convert('RGBA')); m = a[..., 3] > 0
+    w = a.shape[1]; bottom = next(y for y in range(4, a.shape[0]) if m[y].sum() < w - 4)
+    rgb, m = a[:bottom, :, :3].copy(), m[:bottom]
+    canvas = np.zeros(m.shape, bool); canvas[3:-3, 3:-3] = True
+    for c, n in PAINT_RECOLOUR.get(name, {}).items(): rgb[canvas & (a[:bottom, :, :3] == c).all(-1)] = n
+    return rgb, m
+
+ROYAL_CHAIR = {(152, 152, 168): (184, 96, 100), (128, 136, 144): (152, 62, 70), (104, 112, 120): (118, 36, 48),
+               (72, 72, 88): (84, 22, 34), (56, 56, 64): (52, 24, 30), (72, 72, 72): (64, 18, 28)}   # last: its shadow
+
+def royal_chair():
+    """MonoMyth's study armchair (front view) re-upholstered in the Academy maroon: Cadmus's seat behind his desk."""
+    a = np.array(Image.open(os.path.join(PAINTINGS, 'study_armchair.png')).convert('RGBA')); rgb = a[..., :3].copy()
+    for c in {tuple(v) for v in rgb[a[..., 3] > 0].tolist()}:
+        if c in ROYAL_CHAIR: rgb[(a[..., :3] == c).all(-1)] = ROYAL_CHAIR[c]
+    return rgb, a[..., 3] > 0
+
+def ornate_rug(x0, x1, y0, y1, table):
+    """Crown's dining rug (corner ornaments, border, plain field) at any size, recoloured."""
+    plain = rug_base(CHAIR_L)
+    def one(x, y):
+        top, bot = y == y0, y == y1
+        if x == x0: m = 0x78 if top else 0x88 if bot else 0x90
+        elif x == x1: m = 0x7A if top else 0xE4 if bot else 0x84
+        elif x == x0 + 1 and (top or bot): m = 0x79 if top else 0x91
+        elif x == x1 - 1 and (top or bot): m = 0xA1 if top else 0x89
+        elif top: m = 0x98
+        elif bot: m = 0x99
+        else: return recolour(plain, table)
+        return recolour(cell(m), table)
+    return one
+
 def compose():
     img = np.zeros((H * 16, W * 16, 3), np.uint8); solid = set()
     def put(x, y, c): img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c
@@ -107,41 +151,41 @@ def compose():
     # --- the upper floor: Cadmus's rooms
     for x in range(1, W - 1):
         put(x, 0, cell(WALL_TOP)); put(x, 1, cell(WALL))
-        for y in (2, 3, 4): put(x, y, cell(FLOOR))
-    for x in (2, 6, 14, 18): put(x, 0, cell(SCONCE[0])); put(x + 1, 0, cell(SCONCE[1]))
-    for x in (4, 16): put(x, 0, cell(WINDOW))
+        for y in range(2, LW): put(x, y, cell(FLOOR))
+    for x in (6, 13, 19): put(x, 0, cell(SCONCE[0])); put(x + 1, 0, cell(SCONCE[1]))
     for dy, row in enumerate(BED):
         for dx, m in enumerate(row): put(2 + dx, 2 + dy, cell(m)); solid.add((2 + dx, 2 + dy))
     put(7, 1, cell(DRESSER[0])); put(7, 2, cell(DRESSER[1])); solid.add((7, 2))
-    for dy, row in enumerate(RUG_UP):                          # the reading rug (4 wide, in maroon), the desk on it
-        for dx in range(4):
-            m = row[0] if dx == 0 else row[1] if dx == 3 else (0x60 if dy == 0 else 0x8D)
-            c = cell_layers(TSG, m)[0][0].copy() if m == 0x60 else cell(m)
-            put(9 + dx, 2 + dy, recolour(c, MAROON_UP))
-    b, bm = HALL.decor_piece('heraldic_banner.png', HALL_WATER); paste(b[:28], bm[:28], 11 * 16 - b.shape[1] // 2, 2)
-    d = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'pieces', 'arch_desk_clean.png')).convert('RGBA'))
-    paste(walnut(d[..., :3]), d[..., 3] > 0, 11 * 16 - 16, 2 * 16 + 2); solid |= {(10, 2), (11, 2), (10, 3), (11, 3)}
-    shelf = np.array(Image.open(os.path.join(ASSETS, 'monomyth_reference', 'pieces', 'arch_shelf.png')).convert('RGBA'))
-    for x0 in (13, 19):
+    for name, cx in (('starry', 4 * 16), ('harbour', 18 * 16)):   # over the bed; over the stairhead between the shelves
+        p, pm = painting(name); paste(p, pm, cx - p.shape[1] // 2, 6)
+    rug = ornate_rug(8, 13, 2, LW - 1, NAVY)                   # the study: a Water-navy rug (the maroon chair stands out on it)
+    for y in range(2, LW):
+        for x in range(8, 14): put(x, y, rug(x, y))
+    b, bm = HALL.decor_piece('heraldic_banner.png', HALL_WATER); paste(b[:28], bm[:28], 11 * 16 - b.shape[1] // 2, 1)
+    c, cm = royal_chair(); paste(c, cm, 11 * 16 - 16, 2 * 16 - 4)
+    d = np.array(Image.open(os.path.join(PAINTINGS, 'arch_desk_clean.png')).convert('RGBA'))
+    paste(walnut(d[..., :3]), d[..., 3] > 0, 11 * 16 - 16, 3 * 16 + 4); solid |= {(x, y) for x in (10, 11) for y in (2, 3, 4)}
+    shelf = np.array(Image.open(os.path.join(PAINTINGS, 'arch_shelf.png')).convert('RGBA'))
+    for x0 in (15, 20 - 1):
         paste(walnut(shelf[..., :3]), shelf[..., 3] > 0, x0 * 16, 16); solid |= {(x0, 2), (x0 + 1, 2)}
     # --- the lower wall: hearth with the crest, bookcase, banners, the stairs, the clock
-    for x in range(1, W - 1): put(x, 5, cell(TRIM)); put(x, 6, cell(WALL)); put(x, 7, cell(SHADE))
+    for x in range(1, W - 1): put(x, LW, cell(TRIM)); put(x, LW + 1, cell(WALL)); put(x, LW + 2, cell(SHADE))
     for dy in range(2):
-        for dx in range(2): put(1 + dx, 6 + dy, cell(BOOKCASE[dy][dx]))
-    for x in (6, 14): put(x, 5, top_on(0x5E, cell(TRIM)))        # the Academy's maroon banners (Crown's own colour)
+        for dx in range(2): put(1 + dx, LW + 1 + dy, cell(BOOKCASE[dy][dx]))
+    for x in (6, 14): put(x, LW, top_on(0x5E, cell(TRIM)))        # the Academy's maroon banners (Crown's own colour)
     for dy, row in enumerate(HEARTH):
         for dx, m in enumerate(row):
             c = cell(m)
             if m == 0x5E: c = recolour(c, WATER_BANNER)
-            put(HEARTH_X + dx, 5 + dy, c)
-    solid |= {(HEARTH_X + dx, 7) for dx in range(6)}
+            put(HEARTH_X + dx, LW + dy, c)
+    solid |= {(HEARTH_X + dx, LW + 2) for dx in range(6)}
     for dy, row in enumerate(STAIRS):
-        for dx, m in enumerate(row): put(STAIRS_X + dx, 5 + dy, recolour(cell(m), STAIR_RUNNER))
-    put(20, 6, cell(CLOCK[0])); put(20, 7, cell(CLOCK[1]))
+        for dx, m in enumerate(row): put(STAIRS_X + dx, LW + dy, recolour(cell(m), STAIR_RUNNER))
+    put(20, LW + 1, cell(CLOCK[0])); put(20, LW + 2, cell(CLOCK[1]))
     # --- the dining hall
     for x in range(1, W - 1):
-        for y in range(8, H - 1): put(x, y, cell(FLOOR))
-    rx0, rx1, ry0, ry1 = TABLE_X - 2, TABLE_X + TABLE_LEN + 1, 9, 12       # the rug: two past each head
+        for y in range(LW + 3, H - 1): put(x, y, cell(FLOOR))
+    rx0, rx1, ry0, ry1 = TABLE_X - 2, TABLE_X + TABLE_LEN + 1, LW + 4, LW + 7   # the rug: two past each head
     plain = rug_base(CHAIR_L)
     def rug(x, y):
         top, bot = y == ry0, y == ry1
@@ -160,17 +204,17 @@ def compose():
             m = row[0] if dx == 0 else row[1]
             c = top_on(m, plain)
             if dx == TABLE_LEN - 1: c = top_on(row[0], plain[:, ::-1])[:, ::-1]   # the left end mirrored: Crown's
-            x, y = TABLE_X + dx, 10 + dy; put(x, y, recolour(c, RUG)); solid.add((x, y))  # right end carries a jar
+            x, y = TABLE_X + dx, LW + 5 + dy; put(x, y, recolour(c, RUG)); solid.add((x, y))  # right end carries a jar
     cd, cdm = candelabra()
-    for k in (2, 5): paste(cd, cdm, (TABLE_X + k) * 16 + 16 - cd.shape[1] // 2, 10 * 16 - 4)
+    for k in (2, 5): paste(cd, cdm, (TABLE_X + k) * 16 + 16 - cd.shape[1] // 2, (LW + 5) * 16 - 4)
     for x, m in ((TABLE_X - 1, CHAIR_L), (TABLE_X + TABLE_LEN, CHAIR_R)):   # one plain chair at each head, facing the
         (_, _), (ct, ctm) = cell_layers(TSG, m)                              # table, centred on its two rows (user)
-        paste(ct, ctm, x * 16, 10 * 16 + 8); solid |= {(x, 10), (x, 11)}
-    for y, m in zip(range(9, 13), SIDE_TABLE): put(20, y, top_on(m, cell(FLOOR))); solid.add((20, y))
+        paste(ct, ctm, x * 16, (LW + 5) * 16 + 8); solid |= {(x, LW + 5), (x, LW + 6)}
+    for y, m in zip(range(LW + 4, LW + 8), SIDE_TABLE): put(20, y, top_on(m, cell(FLOOR))); solid.add((20, y))
     sx, sy = STATUE_AT; pr, pm = plinth(); paste(pr, pm, sx * 16, (sy + 2) * 16)
     st, stm = statue(); paste(st, stm, sx * 16, (sy + 2) * 16 - 31)
     solid |= {(sx, sy + 2), (sx + 1, sy + 2)}
-    put(1, 13, top_on(JUG, cell(FLOOR))); put(1, 14, top_on(COAT, cell(FLOOR))); solid |= {(1, 13), (1, 14)}
+    put(1, LW + 8, top_on(JUG, cell(FLOOR))); put(1, LW + 9, top_on(COAT, cell(FLOOR))); solid |= {(1, LW + 8), (1, LW + 9)}
     put(10, H - 1, recolour(cell(MAT[0]), MAROON_MAT)); put(11, H - 1, recolour(cell(MAT[1]), MAROON_MAT))
     return img, solid
 
