@@ -145,7 +145,17 @@ The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy
 - Templar holding cell: the high-contrast white striped floor was repainted as soft grey flagstone (user: eye strain), tiles 515/516/531/532 of the monastery tileset.
 
 ### 16.10 Refinement process + playthrough pass `[2026-11-18, user-directed]`
-**Process (user, 2026-11-18) — applies to every chapter:**
+**Completion order (user, 2026-11-19) — LOCKED; supersedes the 2026-11-18 three-step process below.** Chapter 1 is completed and polished in exactly this order:
+1. **Towns and routes.** Design every area first and perfect them visually (exteriors and interiors; no NPC design yet).
+2. **NPCs and enemy trainers.** All secondary NPCs and non-critical trainer fights (basic route trainers and the like).
+3. **Quests.** Side quests, then main-quest work, which leads into
+4. **Main story.** Important characters, scripted events, dialogue.
+5. **Wild Pokémon,** overworld static encounters, special non-quest events.
+6. **Items** to pick up or find lying around, including a few hidden items.
+7. **Everything else.** New QoL features, anything missed.
+Who lives in a home, its NPCs and its dialogue are stage 2+, not stage 1.
+
+**Process (user, 2026-11-18; superseded by the order above) — applies to every chapter:**
 1. **Skeleton first:** every major event and sequence, and the core maps and routes, through the end of the chapter.
 2. **Then content:** all NPCs, dialogue and the actual fights throughout the chapter.
 3. **Then** sidequests, quality-of-life, and serious play-driving.
