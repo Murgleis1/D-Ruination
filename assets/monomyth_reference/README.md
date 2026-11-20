@@ -14,3 +14,6 @@ MonoMyth (Pokémon MonoMyth) reference renders and cut pieces.
   (map header 0x88695F0) double tusk arch with its hanging horn charm (cells 29-34 x 16-20, the snowy tree dropped), a
   standing log post (29, 11-12), the stone fire ring (31, 11), blue snow flowers (34, 6); cut against the snow with the
   snow and ice-path colours dropped. Used round the Arceus statue in the ice path's shrine (user: ancient worship site).
+- pieces/rubble_pile_a.png, rubble_pile_b.png, rubble_pile_c.png, rubble_stones.png, rubble_stone.png: rubble piles and
+  loose stones from Mt. Thunder (map 0x886D608, cells (29,28), (39,34), (42,33), (32,30), (30,32)), cut against its icy
+  floor. Used (turned grey) to choke the cell doorway in the church after Eden's blast (tools/art/templar/blast_mock.py).
