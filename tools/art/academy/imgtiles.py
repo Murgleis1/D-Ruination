@@ -14,9 +14,10 @@ from PIL import Image
 C = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'codebase'))
 WALL, FLOOR_E3, SOLID_E3, WARP_E0 = 1, 3 << 2, 1 | 3 << 2, 0
 
-def build(under, W, H, over=None, om=None, walk=(), beh=None, col=None, seed=7):
+def build(under, W, H, over=None, om=None, walk=(), beh=None, col=None, seed=7, merge=8, tries=1500, rare=None):
     """-> dict(tiles, pals, meta, attrs, grid, void): `walk` = walkable cells; beh(x, y) -> behaviour;
-    col(x, y) -> collision byte or None for the default (walkable: FLOOR_E3, else SOLID_E3)."""
+    col(x, y) -> collision byte or None for the default (walkable: FLOOR_E3, else SOLID_E3); `merge`: colours this
+    close per channel are merged (8 = one GBA step; past 8 only colours under `rare` pixels, if given); `tries`: randomised palette packings tried."""
     under = (under >> 3) << 3
     if over is None: over, om = np.zeros_like(under), np.zeros(under.shape[:2], bool)
     over = (over >> 3) << 3
@@ -26,7 +27,9 @@ def build(under, W, H, over=None, om=None, walk=(), beh=None, col=None, seed=7):
         if c in rep: continue
         rep[c] = c
         for d in pix:
-            if d not in rep and max(abs(a - b) for a, b in zip(c, d)) <= 8: rep[d] = c
+            if d in rep: continue
+            dist = max(abs(a - b) for a, b in zip(c, d))
+            if dist <= 8 or (dist <= merge and (rare is None or pix[d] < rare)): rep[d] = c
     def remap(img):
         out = img.copy(); flat = out.reshape(-1, 3)
         for k, v in rep.items():
@@ -55,7 +58,7 @@ def build(under, W, H, over=None, om=None, walk=(), beh=None, col=None, seed=7):
             else: pals[best[1]] |= s
         return pals
     rng = random.Random(seed); PALS = None
-    for _ in range(1500):
+    for _ in range(tries):
         o = list(red); rng.shuffle(o); o.sort(key=lambda s: -len(s) + rng.random() * 4)
         p = greedy(o)
         if PALS is None or len(p) < len(PALS): PALS = p

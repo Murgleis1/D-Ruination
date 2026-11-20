@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_UmbraManor =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_UmbraManor,
+    .palettes = gTilesetPalettes_UmbraManor,
+    .metatiles = gMetatiles_UmbraManor,
+    .metatileAttributes = gMetatileAttributes_UmbraManor,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_UmbraManorTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_UmbraManorTiles,
+    .palettes = gTilesetPalettes_UmbraManorTiles,
+    .metatiles = gMetatiles_UmbraManorTiles,
+    .metatileAttributes = gMetatileAttributes_UmbraManorTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_AcademyLounge =
 {
     .isCompressed = TRUE,

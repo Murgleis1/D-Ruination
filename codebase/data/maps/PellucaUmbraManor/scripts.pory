@@ -1,0 +1,5 @@
+// ============ DREAMSTONE RUINATION - Pelluca: Cadmus's manor (Vizier Umbra's residence) ============
+// Built by tools/art/manor/build_manor.py from manor_mock.py (user design 2026-11-19).
+// Built but locked: the city door keeps its sign. NPCs and dialogue come with the story.
+
+mapscripts PellucaUmbraManor_MapScripts {}

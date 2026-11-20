@@ -6142,6 +6142,16 @@
       "blockdata_filepath": "data/layouts/PellucaAcademyLounge/map.bin"
     },
     {
+      "id": "LAYOUT_PELLUCA_UMBRA_MANOR",
+      "name": "PellucaUmbraManor_Layout",
+      "width": 22,
+      "height": 17,
+      "primary_tileset": "gTileset_UmbraManorTiles",
+      "secondary_tileset": "gTileset_UmbraManor",
+      "border_filepath": "data/layouts/PellucaUmbraManor/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaUmbraManor/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_UMBRA_LAB",
       "name": "PellucaUmbraLab_Layout",
       "width": 12,
