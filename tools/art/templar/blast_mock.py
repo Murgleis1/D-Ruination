@@ -8,7 +8,7 @@ at its centre, closing at its rim), the far slab's broken face showing under a l
 two small patches of pale ice far down in the dark, short stepped hairline cracks branching into the carpet,
 frost (user: the sudden cold the Templar remarks on) creeping out from the split, thickest at its lips; and the
 old foundation fault the blast exposed (user): Old HQ's cracked wall pieces, faint old cracks in the carpet; and the
-cell room caved in (user): its doorway choked with fallen stone, fresh cracks running from it to the split.
+cell room caved in (user): its doorway choked with fallen stone.
 Usage: python3 tools/art/templar/blast_mock.py [out.png]
 """
 import os, sys
@@ -120,14 +120,12 @@ def old_fault(img):
 # the cell room caved in (user: the blast let Eden out of the cell but brought part of that room down, and the
 # collapse set off the chain of cracks that split the chapel floor): the cell doorway on the north wall choked with
 # fallen stone (MonoMyth's rubble piles from Mt. Thunder, map 0x886D608, turned to the church's grey; user: the Crown
-# rocks looked unnatural), and fresh cracks running from the doorway across the floor to the split
+# rocks looked unnatural). (A long chain of fresh cracks from the doorway to the split was tried and dropped, user:
+# it read as unnatural and isn't needed)
 ROCKS = os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces')
 DOOR_X = 1 * 16                                          # the cell doorway (compose_mock: x 1, on the wall's foot)
 PILE = [('rubble_pile_a', 1 * 16 - 3, CM.WALL * 16 - 30), ('rubble_pile_a', 1 * 16 - 6, CM.WALL * 16 - 12),
         ('rubble_stone', 0 * 16 + 1, CM.WALL * 16 + 4), ('rubble_stone', 2 * 16 - 2, CM.WALL * 16 + 8)]   # clear of the stand
-# from the foot of the choked doorway, under the candle stand, to where the split's own crack begins
-CHAIN = [(1 * 16 + 10, CM.WALL * 16 + 12), (2 * 16 + 2, CM.WALL * 16 + 22), (2 * 16 + 12, CM.WALL * 16 + 34),
-         (3 * 16 + 12, CM.WALL * 16 + 40), (4 * 16 + 14, CM.WALL * 16 + 49), (6 * 16 + 4, CM.WALL * 16 + 57)]
 GREY = [(40, 40, 46), (66, 66, 72), (94, 94, 100), (122, 122, 128), (150, 150, 156), (178, 178, 182)]
 
 def rock(name):
@@ -144,11 +142,6 @@ def cave_in(img):
         rgb, m = rock(name); sub = img[py:py + m.shape[0], px:px + m.shape[1]]
         mm = m[:sub.shape[0], :sub.shape[1]]; sub[mm] = rgb[:sub.shape[0], :sub.shape[1]][mm]
         rubble[py:py + mm.shape[0], px:px + mm.shape[1]] |= mm
-    pts = CHAIN
-    for p, q in zip(pts, pts[1:]):                         # the chain of fresh cracks, doorway to split, with spurs
-        for x, y in line(p, q): img[y, x] = CRACK_FRESH
-    for (x, y), (dx, dy) in zip(pts[1:-1], ((4, -2), (-3, 4), (2, 4), (3, -3))):
-        for px, py in line((x, y), (x + dx, y + dy)): img[py, px] = CRACK_FRESH
     return rubble
 
 CRACK_FRESH = (30, 30, 36)
