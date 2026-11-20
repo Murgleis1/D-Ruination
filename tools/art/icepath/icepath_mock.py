@@ -127,7 +127,8 @@ def compose():
     outer = np.zeros(am.shape, bool)                       # the two great tusks only (the inner pair and charm left out)
     for i in range(1, n + 1):
         if np.nonzero(lab == i)[0].min() < 8: outer |= lab == i
-    ys, xs = np.nonzero(outer); ar, am = stone(ar[:ys.max() + 1], outer[:ys.max() + 1])
+    ys, xs = np.nonzero(outer)                             # cropped to the tusks, so they centre on the gate (user)
+    ar, am = stone(ar[:ys.max() + 1, xs.min():xs.max() + 1], outer[:ys.max() + 1, xs.min():xs.max() + 1])
     put(ar, am, cx - am.shape[1] // 2, WALL_ROW * 16 - am.shape[0])
     po, pm = piece('post'); fr, fm = piece('fire_ring'); fl, flm = piece('blue_flowers')
     lum = po.astype(int).sum(-1); lo, hi = lum[pm].min(), lum[pm].max(); fossil = po.copy()
