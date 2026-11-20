@@ -133,3 +133,45 @@ def main_v2(out):
     img = Image.new('RGB', (90 * S + 20, 30 * S + 50), (30, 30, 34)); d = ImageDraw.Draw(img, 'RGBA')
     d.text((10, 8), 'ROUTE 11 rev. 2 (90x30): mint -> sage -> spring -> olive grass in bands (patches of the next reaching in); pines -> mixed -> dark woods; the river and bridge near Pelluca', fill=(255, 255, 255), font=f)
     route11_v2(d, 10, 30, f); img.save(out)
+
+def route11_v3(d, ox, oy, f):
+    """Revision 3 (user 2026-11-20): the river comes in from the north-east (from the Ivy, north of Pelluca) and
+    runs down south-west to the sea in a terraced gorge with falls (MonoMyth's Route 7 as the model); the road
+    bridges the gorge; the beach is only the river mouth's, so nothing crosses the river's way."""
+    W, H = 90, 30
+    shades = [(150, 214, 170), (128, 196, 140), (122, 188, 108), (100, 150, 84)]
+    for a, b, k in [(60, 89, 0), (40, 59, 1), (20, 39, 2), (0, 19, 3)]: box(d, ox, oy, a, 0, b, H - 1, shades[k])
+    import random; rnd = random.Random(5)
+    for a, k in [(60, 1), (40, 2), (20, 3)]:
+        for _ in range(6):
+            px = rnd.randint(a - 3, a + 6); py = rnd.randint(0, H - 3)
+            if not (13 <= py <= 17): box(d, ox, oy, px, py, px + rnd.randint(1, 3), py + rnd.randint(1, 2), shades[k])
+    box(d, ox, oy, 82, 0, 89, 13, C['pine']); box(d, ox, oy, 82, 17, 89, 29, C['pine'])
+    # the gorge: terraced cliffs either side of the river, falls at each step
+    gorge = [(71, 0, 80, 4), (68, 5, 78, 9), (65, 10, 76, 13), (63, 17, 74, 20), (59, 21, 70, 24)]
+    for (a, b, c, e) in gorge: box(d, ox, oy, a, b, c, e, C['cliff'])
+    river = [(74, 0, 77, 4), (71, 5, 74, 9), (68, 10, 72, 13), (66, 17, 71, 20), (61, 21, 66, 24), (60, 25, 66, 26)]
+    for (a, b, c, e) in river: box(d, ox, oy, a, b, c, e, C['sea'])
+    for (a, b, c, e) in [(74, 4, 77, 4), (71, 9, 74, 9), (66, 20, 71, 20)]: box(d, ox, oy, a, b, c, e, (225, 238, 250))
+    box(d, ox, oy, 64, 14, 75, 16, (150, 100, 60))                 # the bridge
+    box(d, ox, oy, 46, 27, 80, 29, C['sea']); box(d, ox, oy, 52, 25, 59, 26, C['sand']); box(d, ox, oy, 67, 25, 74, 26, C['sand'])
+    box(d, ox, oy, 46, 25, 51, 26, C['cliff']); box(d, ox, oy, 75, 21, 81, 26, C['cliff'])
+    # the farm west of the gorge; the road
+    box(d, ox, oy, 52, 5, 58, 8, C['house']); box(d, ox, oy, 51, 9, 59, 10, (200, 200, 150), outline=(120, 80, 40))
+    box(d, ox, oy, 44, 4, 49, 6, C['crops']); box(d, ox, oy, 44, 7, 49, 10, C['field'])
+    box(d, ox, oy, 50, 18, 56, 20, C['flowers'], outline=(120, 80, 40)); box(d, ox, oy, 76, 18, 80, 20, C['tall'])
+    box(d, ox, oy, 76, 14, 89, 16, C['road']); box(d, ox, oy, 0, 14, 63, 16, C['dirt'])
+    for (a, b, c, e) in [(30, 2, 38, 6), (34, 20, 40, 24), (24, 23, 30, 29), (40, 0, 46, 2)]: box(d, ox, oy, a, b, c, e, (60, 120, 70))
+    box(d, ox, oy, 0, 0, 19, 10, C['dark']); box(d, ox, oy, 0, 19, 21, 29, C['dark']); box(d, ox, oy, 12, 0, 26, 5, C['dark'])
+    for a, b, c, e in [(30, 11, 35, 12), (8, 11, 13, 12), (40, 18, 45, 19), (16, 17, 20, 18)]: box(d, ox, oy, a, b, c, e, C['tall'])
+    for x, y, t, c in [(83, 14, 'Pelluca', (0, 0, 0)), (1, 14, 'to Hollow Hill', (0, 0, 0)), (52, 5, 'farm', (255, 255, 255)),
+                       (72, 1, 'river from the Ivy (NE)', (0, 0, 0)), (66, 13, 'bridge', (0, 0, 0)), (60, 28, 'the river mouth', (255, 255, 255)),
+                       (31, 3, 'mixed', (255, 255, 255)), (2, 3, 'dark woods', (255, 255, 255)), (14, 13, 'Eiscue', (200, 0, 0)),
+                       (62, 22, 'gorge', (0, 0, 0)), (61, 1, 'mint', (0, 0, 0)), (41, 3, 'sage', (0, 0, 0)), (21, 7, 'spring', (0, 0, 0))]:
+        label(d, ox, oy, x, y, t, f, c)
+
+def main_v3(out):
+    f = ImageFont.load_default()
+    img = Image.new('RGB', (90 * S + 20, 30 * S + 50), (30, 30, 34)); d = ImageDraw.Draw(img, 'RGBA')
+    d.text((10, 8), 'ROUTE 11 rev. 3 (90x30): the river from the north-east down a terraced gorge (falls) under the bridge to its mouth; beach only at the mouth', fill=(255, 255, 255), font=f)
+    route11_v3(d, 10, 30, f); img.save(out)
