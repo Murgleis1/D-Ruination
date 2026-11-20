@@ -40,7 +40,7 @@ STATUE_CX = FIELD_X + E[0]           # the statue's column: straight on from the
 STATUE_BASE = 5                      # the row the statue's base sits on (its foot at the row's bottom)
 FIRES = (STATUE_CX - 3, STATUE_CX + 3)   # fire rings level with each other either side of the statue (user)
 LOGS = (STATUE_CX - 4, STATUE_CX + 4)    # the camp's log benches beside them, fossilised to stone (user)
-FLOWERS = (STATUE_CX - 2, STATUE_CX + 2) # offerings between the statue's ice and the fire rings
+FLOWERS = LOGS                           # offerings in front of the logs, beside the fire rings (user)
 
 def boulder():
     """Shoal Cave's ice boulder (vanilla Emerald; assets/vanilla_reference/ice_boulder.png, cut from the ice room)."""
@@ -158,7 +158,7 @@ def compose():
     for y, x in zip(*np.nonzero(pm)): fossil[y, x] = FOSSIL[min(5, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 6))]
     for x in FIRES: put(fr, fm, x * 16, STATUE_BASE * 16)
     for x in LOGS: put(fossil, pm, x * 16 + 8 - pm.shape[1] // 2, (STATUE_BASE + 1) * 16 - pm.shape[0] + 2)
-    for x in FLOWERS: put(fl, flm, x * 16, STATUE_BASE * 16)
+    for x in FLOWERS: put(fl, flm, x * 16, (STATUE_BASE + 1) * 16 + 2)
     shrine = {(x, y) for x in range(FIELD_X, FIELD_X + FW) for y in range(2, WALL_ROW)}
     return img, dict(ice=ice, boulders=boulders, gate={GATE}, landing={LANDING}, shrine=shrine,
                      statue={(STATUE_CX, 2), (STATUE_CX + 1, 2), (STATUE_CX, 3), (STATUE_CX + 1, 3)})
