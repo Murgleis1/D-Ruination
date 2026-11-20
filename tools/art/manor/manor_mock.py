@@ -61,22 +61,32 @@ def rug_base(m): return cell_layers(TSG, m)[0][0].copy()       # a cell's bottom
 def top_on(m, base):
     (_, _), (top, tm) = cell_layers(TSG, m); out = base.copy(); out[tm] = top[tm]; return out
 
-def crest():
-    """The Jousteel crest: the project's own Jousteel sprite halved (each 2x2 block to its commonest colour, the
-    outline redrawn) on a sea-blue field in a gold frame, 34 x 34."""
-    from collections import Counter
-    from scipy.ndimage import binary_erosion
-    j = Image.open(JOUSTEEL); bg = tuple(j.getpalette()[:3]); a = np.array(j.convert('RGB')); m = ~(a == bg).all(-1)
-    s = np.zeros((32, 32, 3), np.uint8); sm = np.zeros((32, 32), bool)
-    for y in range(32):
-        for x in range(32):
-            bm, ba = m[2 * y:2 * y + 2, 2 * x:2 * x + 2], a[2 * y:2 * y + 2, 2 * x:2 * x + 2]
-            if bm.sum() >= 2: s[y, x] = Counter(map(tuple, ba[bm].tolist())).most_common(1)[0][0]; sm[y, x] = True
-    s[sm & ~binary_erosion(sm)] = (40, 28, 36)
-    out = np.zeros((34, 34, 3), np.uint8); out[:] = (64, 48, 32); out[1:-1, 1:-1] = (208, 176, 72)
-    out[2:-2, 2:-2] = (52, 96, 168); out[18:-2, 2:-2] = (40, 80, 148)
-    sub = out[1:33, 1:33]; sub[sm] = s[sm]
-    return out, np.ones((34, 34), bool)
+STONE = [(40, 40, 48), (72, 72, 80), (104, 92, 96), (120, 104, 104), (152, 134, 134), (184, 160, 160)]  # the bust's stone
+JOUSTEEL_OW = os.path.join(ROOT, 'codebase', 'graphics', 'pokemon', 'jousteel', 'overworld.png')
+STATUE_AT = (2, 9)                                            # (x, y) of the statue's top-left cell; the plinth below
+
+def statue():
+    """Jousteel's overworld sprite (the project's own; its first frame, facing down) turned to stone: its colours ranked
+    by brightness and spread over the stone ramp of Crown's library bust, the outline kept dark. 32 x 32."""
+    j = Image.open(JOUSTEEL_OW); a = np.array(j.convert('RGB'))[:, :32]; idx = np.array(j)[:, :32]; m = idx != 0
+    lum = a @ np.array([0.30, 0.59, 0.11]); out = np.zeros_like(a)
+    vals = sorted(np.unique(lum[m])); rest = vals[1:]                 # the darkest is the outline
+    out[(lum == vals[0]) & m] = STONE[0]
+    for i, v in enumerate(rest):                                     # the rest by rank, spread over the ramp
+        out[(lum == v) & m] = STONE[1 + i * (len(STONE) - 1) // len(rest)]
+    return out, m
+
+def plinth():
+    """A fluted stone plinth for the statue (32 x 16), in the bust pedestal's stone: a cap, the fluted body, a foot."""
+    D, K, M, L = STONE[0], STONE[1], STONE[3], STONE[5]; S = STONE[4]
+    img = np.zeros((16, 32, 3), np.uint8); m = np.zeros((16, 32), bool)
+    def box(y0, y1, x0, x1, c): img[y0:y1, x0:x1] = c; m[y0:y1, x0:x1] = True
+    box(0, 4, 1, 31, D); box(1, 2, 2, 30, L); box(2, 3, 2, 30, S)                   # the cap: its top face, its edge
+    box(4, 12, 4, 28, D); box(4, 12, 5, 27, M)                                       # the body
+    for x in range(7, 26, 4): box(5, 11, x, x + 1, K); box(5, 11, x + 1, x + 2, S)  # fluting
+    box(4, 5, 5, 27, K)                                                              # the cap's shadow
+    box(12, 16, 2, 30, D); box(13, 14, 3, 29, L); box(14, 15, 3, 29, M)             # the foot
+    return img, m
 
 def candelabra():
     """The gold candelabra off the Old HQ table (MonoMyth), its cloth dropped."""
@@ -121,7 +131,6 @@ def compose():
             if m == 0x5E: c = recolour(c, WATER_BANNER)
             put(HEARTH_X + dx, 5 + dy, c)
     solid |= {(HEARTH_X + dx, 7) for dx in range(6)}
-    cr, cm = crest(); paste(cr, cm, (HEARTH_X + 2) * 16 - 1, 5 * 16 + 1)
     for dy, row in enumerate(STAIRS):
         for dx, m in enumerate(row): put(STAIRS_X + dx, 5 + dy, recolour(cell(m), STAIR_RUNNER))
     put(20, 6, cell(CLOCK[0])); put(20, 7, cell(CLOCK[1]))
@@ -157,6 +166,9 @@ def compose():
         up = rug(x, ry1).copy(); f = ct[::-1]; fm = ctm[::-1]; up[fm] = f[fm]      # placeholder: the chair flipped
         put(x, ry1, recolour(up, MAROON))
     for y, m in zip(range(9, 13), SIDE_TABLE): put(20, y, top_on(m, cell(FLOOR))); solid.add((20, y))
+    sx, sy = STATUE_AT; pr, pm = plinth(); paste(pr, pm, sx * 16, (sy + 2) * 16)
+    st, stm = statue(); paste(st, stm, sx * 16, (sy + 2) * 16 - 31)
+    solid |= {(sx, sy + 2), (sx + 1, sy + 2)}
     put(1, 13, top_on(JUG, cell(FLOOR))); put(1, 14, top_on(COAT, cell(FLOOR))); solid |= {(1, 13), (1, 14)}
     put(10, H - 1, recolour(cell(MAT[0]), MAROON_MAT)); put(11, H - 1, recolour(cell(MAT[1]), MAROON_MAT))
     return img, solid
