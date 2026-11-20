@@ -233,9 +233,9 @@ GW0, GE0 = 62, 75              # the chasm's land edges: 1b6 (land west of it) a
 LIP = 20                       # the coastal cliff's lip row; its faces are rows 21-22; the beach below
 SEA = 26                       # the waterline row
 COVE_W, COVE_E = 47, 81        # the cove's side walls (their land-edge columns)
-STAIRS = (58, 59)              # steps (two wide, to read clearly) cut down the coastal cliff to the west beach, just past the bridge (user
-                               # 2026-11-20: the beach holds a trainer, more later). MonoMyth's own: 1a7 in the
-                               # lip, 22 down each face row (its Route 7 family, map 5 at 58,24).
+STAIRS = (58, 59)              # stone stairs cut down the coastal cliff to the west beach, just past the bridge
+                               # (user 2026-11-20: the beach holds a trainer, more later): Pelluca's own stairs
+                               # (45/46, as in its sea wall), with dark rock cheeks either side.
 
 def gorge(M):
     """The chasm (GW0..GE0): 1b6 | 29 29 | the river's eight columns | 28 28 | 1b4. Down it: a pool off the north
@@ -291,7 +291,12 @@ def coast(M):
     for x in range(COVE_W + 1, COVE_E):
         if GW0 <= x <= GE0: continue
         if x in STAIRS:
-            for y, v in ((LIP, 0x1a7), (LIP + 1, 0x22), (LIP + 2, 0x22)): M.lay(x, y, 'mm', v, 'stairs')
+            for y in (LIP, LIP + 1, LIP + 2):
+                M.lay(x, y, 'cor', 45 if x == STAIRS[0] else 46, 'stairs')
+                o = M.over[y][x][-1]                        # cut into the rock: a dark cheek either side
+                cols = (0, 1) if x == STAIRS[0] else (15, 14)
+                o[:, cols[0], :3] = (72, 56, 72); o[:, cols[1], :3] = (104, 72, 80)
+                if y == LIP: o[:4, :, 3] = 0                # the lip's grass fringe runs over the top step
             continue
         L(x, LIP, 0x1bd)
         for y in (LIP + 1, LIP + 2):
