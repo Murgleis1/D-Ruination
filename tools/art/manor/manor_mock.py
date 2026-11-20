@@ -8,7 +8,8 @@ staircase up through it, the way Crown builds its manors (and the Academy hall b
 Ground floor: the grand dining hall. Crown's stone hearth in the middle of the wall, its two banners in Water
 sea blue, and on the chimney breast the Jousteel crest (the project's own Jousteel sprite, halved, on a sea-blue
 field in a gold frame); the long dining table (two gold candelabras on it) (Crown's manor table lengthened by its middle columns) on a big rug in the
-Academy maroon, a chair at each head and four down each side; a bookcase and the maroon banners on the wall; the
+Academy maroon, and (user) only one chair at each head, facing the table: the maroon wing armchairs
+of the Academy hall's hearth; a bookcase and the maroon banners on the wall; the
 staircase (its runner in maroon) up on the right; the grandfather clock in the corner; a side table, a jug and a
 coat stand by the door.
 Upper floor: Cadmus's private rooms: his bed and dresser on the left, a sea-blue Water banner over his writing
@@ -40,7 +41,7 @@ STAIRS = ((0x73, 0x6C, 0x6D, 0x73), (WALL, 0x7C, 0x7D, WALL), (SHADE, 0x74, 0x75
 BOOKCASE = ((0x20, 0x21), (0xC0, 0x29)); CLOCK = (0x17, 0x1F)
 BED = ((0xCC, 0xC9, 0xC9, 0xD4), (0xD0, 0xD1, 0xD1, 0xD2)); DRESSER = (0x13, 0x1B)
 RUG_UP = ((0x40, 0x41), (0x48, 0x49))             # its edges; the middle is under Crown's organ (0x60/0x8D)
-TABLE = ((0x30, 0x32, 0x31), (0x38, 0x3A, 0x39)); CHAIR_L, CHAIR_R, CHAIR_DOWN = 0x28A, 0x28B, 0x07
+TABLE = ((0x30, 0x32, 0x31), (0x38, 0x3A, 0x39)); CHAIR_L = 0x28A           # its bottom layer: the plain rug
 SIDE_TABLE = (0x7E, 0x47, 0x3B, 0x4F); JUG, COAT = 0x3D, 0x1D; MAT = (0xC4, 0xC5)
 HEARTH_X, TABLE_X, TABLE_LEN, STAIRS_X = 8, 7, 8, 16
 WATER_BANNER = {(160, 64, 104): (52, 96, 168)}
@@ -48,6 +49,9 @@ MAROON = {(200, 88, 80): (118, 36, 48), (160, 64, 96): (84, 22, 34), (184, 176, 
           (160, 144, 128): (150, 118, 80)}
 MAROON_UP = {(216, 112, 104): (118, 36, 48), (200, 88, 80): (96, 26, 40), (160, 64, 104): (84, 22, 34),   # the classroom's
              (104, 56, 88): (64, 18, 28), (208, 216, 104): (196, 162, 104), (192, 160, 56): (186, 150, 100)}  # runner table
+NAVY = {(200, 88, 80): (36, 56, 104), (160, 64, 96): (24, 36, 72), (184, 176, 168): (196, 162, 104),
+        (160, 144, 128): (150, 118, 80)}
+RUG = NAVY if os.environ.get('RUG') == 'navy' else MAROON          # the dining rug: maroon, or Water navy
 STAIR_RUNNER = {(168, 112, 200): (152, 62, 70), (136, 88, 168): (118, 36, 48), (96, 88, 152): (84, 22, 34)}
 HALL_WATER = {(96, 112, 88): (28, 56, 112), (136, 152, 104): (52, 96, 168), (208, 208, 176): (200, 224, 240)}
 
@@ -87,6 +91,15 @@ def plinth():
     box(4, 5, 5, 27, K)                                                              # the cap's shadow
     box(12, 16, 2, 30, D); box(13, 14, 3, 29, L); box(14, 15, 3, 29, M)             # the foot
     return img, m
+
+def head_chair(facing_right):
+    """One of the Academy hall's maroon wing armchairs (its hearth pair: 0x1AB/0x1B3 faces right, 0x1AC/0x1B4
+    left), cut from the hall's tileset by its difference from the plank floor: 16 x 32."""
+    ts = HALL.cabin_ts('A ivory plaster'); fl = HALL.meta_layers(ts, 0x18B, clean=False)[0]
+    parts = []
+    for mm in ((0x1AB, 0x1B3) if facing_right else (0x1AC, 0x1B4)):
+        c, o, om = HALL.meta_layers(ts, mm, clean=False); c = c.copy(); c[om] = o[om]; parts.append((c, (c != fl).any(-1)))
+    return np.vstack([p[0] for p in parts]), np.vstack([p[1] for p in parts])
 
 def candelabra():
     """The gold candelabra off the Old HQ table (MonoMyth), its cloth dropped."""
@@ -150,21 +163,17 @@ def compose():
         else: return plain.copy()
         return cell(m)
     for y in range(ry0, ry1 + 1):
-        for x in range(rx0, rx1 + 1): put(x, y, recolour(rug(x, y), MAROON))
+        for x in range(rx0, rx1 + 1): put(x, y, recolour(rug(x, y), RUG))
     for dy, row in enumerate(TABLE):                           # 30 32.. 31 / 38 3a.. 39 on the rug
         for dx in range(TABLE_LEN):
-            m = row[0] if dx == 0 else row[2] if dx == TABLE_LEN - 1 else row[1]
-            x, y = TABLE_X + dx, 10 + dy; put(x, y, recolour(top_on(m, plain), MAROON)); solid.add((x, y))
+            m = row[0] if dx == 0 else row[1]
+            c = top_on(m, plain)
+            if dx == TABLE_LEN - 1: c = top_on(row[0], plain[:, ::-1])[:, ::-1]   # the left end mirrored: Crown's
+            x, y = TABLE_X + dx, 10 + dy; put(x, y, recolour(c, RUG)); solid.add((x, y))  # right end carries a jar
     cd, cdm = candelabra()
     for k in (2, 5): paste(cd, cdm, (TABLE_X + k) * 16 + 16 - cd.shape[1] // 2, 10 * 16 - 4)
-    for y in (10, 11):
-        put(TABLE_X - 1, y, recolour(top_on(CHAIR_L, plain), MAROON)); put(TABLE_X + TABLE_LEN, y, recolour(top_on(CHAIR_R, plain), MAROON))
-    side = [TABLE_X + 1, TABLE_X + 3, TABLE_X + 4, TABLE_X + 6]
-    for x in side:                                              # side chairs: facing the table from both long sides
-        put(x, ry0, recolour(top_on(CHAIR_DOWN, rug(x, ry0)), MAROON))
-        (_, _), (ct, ctm) = cell_layers(TSG, CHAIR_DOWN)
-        up = rug(x, ry1).copy(); f = ct[::-1]; fm = ctm[::-1]; up[fm] = f[fm]      # placeholder: the chair flipped
-        put(x, ry1, recolour(up, MAROON))
+    for x, right in ((TABLE_X - 1, True), (TABLE_X + TABLE_LEN, False)):   # one armchair at each head, facing the table
+        c, cm = head_chair(right); paste(c, cm, x * 16, 10 * 16); solid |= {(x, 10), (x, 11)}
     for y, m in zip(range(9, 13), SIDE_TABLE): put(20, y, top_on(m, cell(FLOOR))); solid.add((20, y))
     sx, sy = STATUE_AT; pr, pm = plinth(); paste(pr, pm, sx * 16, (sy + 2) * 16)
     st, stm = statue(); paste(st, stm, sx * 16, (sy + 2) * 16 - 31)
