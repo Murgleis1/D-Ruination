@@ -129,6 +129,11 @@ The palace Dreamstone is *Rhydia's responsibility to protect*; the Dreamstone Sh
 `[OPEN]` Whether the Mt. Mirroh Dreamstone, once reassembled, behaves exactly like an intact Dreamstone or carries some trace of its shattering (the three are otherwise peers; the old "Mega" name implied no difference in power)
 `[OPEN]` Whether the shard quest has a *visible* tracker or counter in the player's UI (likely yes — a key-item display showing "Dreamstone Shards Recovered: X / 9")
 
+### Sparkling Opals — Arceus's footprints `[user 2026-11-20]`
+- **Sparkling Opals form only where Arceus has actually set foot in the material realm.** The Templar Arceus Order has sought them for **centuries**: whispered of in doctrine, reportedly seen, never held.
+- The one the player finds in the frozen shrine under Pelluca's church (Chapter 1, the ice path; it falls from the ice when the statue's seal breaks) is, as far as **Archbishop Ambrose Caymen** knows, **the first physical proof of Arceus's existence discovered in centuries**. With the pre-imperial shrine around it, it is proof both that Arceus is real and that Arceus was worshipped (and walked) here **before the Empire was formed**: a discovery of the first order for a faith that is young and almost Cormoria's alone (02_geopolitics.md).
+- In game: key item `ITEM_SPARKLING_OPAL`. The player shows it to Ambrose, who receives it with massive enthusiasm and gives the **Warding Ring** in return (20_chapter1_build.md).
+
 ### The Four Cursed Objects `[LOCKED]`
 
 - The Sword (becomes Chien-Pao)
