@@ -27,7 +27,7 @@ ROCK, LADDER_TOP, LADDER_FOOT = 0x2D9, 0x28F, 0x297
 THIN, CRACKED, BROKEN = 0x20D, 0x20E, 0x206             # Sootopolis gym ice (the build gives them our own ids)
 
 FW, FH = 12, 9                       # the field
-FIELD_X, FIELD_Y = 2, 6
+FIELD_X, FIELD_Y = 2, 7              # (the shrine above: four rows, room for the statue)
 S, E = (5, 8), (6, 0)                # field coordinates: entry from the landing, exit to the gate
 BOULDERS = [(2, 0), (2, 2), (5, 2), (8, 2), (0, 3), (10, 3), (2, 4), (3, 4), (5, 4), (8, 4), (9, 4), (5, 5), (6, 5),
             (11, 5), (1, 6), (2, 6), (5, 6), (8, 6), (2, 7), (3, 7), (0, 8), (9, 8)]
@@ -57,28 +57,18 @@ def frost(rgb, m, top_frac):
     return out.astype(np.uint8)
 
 def statue_half_thawed():
-    """The church's white Arceus statue (Rejuvenation), its lower half still locked in a block of clear ice."""
-    import compose_mock as TM
-    a, m = TM.ar(TM.BOX[5]); h, w = m.shape
-    top = int(h * 0.5); pad = 3
-    rgb = np.zeros((h + 2, w + 2 * pad, 3), np.uint8); bm = np.zeros((h + 2, w + 2 * pad), bool)
-    rgb[:h, pad:pad + w][m] = a[m]; bm[:h, pad:pad + w] = m
-    rng = np.random.default_rng(3)
-    for x in range(rgb.shape[1]):                               # the ice block: an uneven, faceted lump round the base
-        inset = pad - 1 if x in (0, rgb.shape[1] - 1) else 0
-        t = top + int(rng.integers(-3, 2)) + inset * 3
-        for y in range(t, h + 2):
-            if bm[y, x]: rgb[y, x] = (rgb[y, x].astype(float) * 0.4 + np.array(ICE_RAMP[3]) * 0.6).astype(np.uint8)
-            else: rgb[y, x] = ICE_RAMP[4] if (x * 3 + y) % 7 else ICE_RAMP[5]; bm[y, x] = True
-        rgb[t, x] = ICE_RAMP[5]; bm[t, x] = True
-    rgb[h:, :] = ICE_RAMP[1]
-    return rgb, bm
+    """The reformed Arceus statue (tools/art/icepath/arceus_statue.py): gem-laden cave stone, half locked in ice."""
+    sys.path.insert(0, HERE); import arceus_statue
+    return arceus_statue.statue(ice=True)
 
 def pillar_frosted():
-    """The church's tall fluted statue-pillar (Rejuvenation), frosted over from the base."""
-    import compose_mock as TM
+    """The church's tall fluted statue-pillar (Rejuvenation) in the statue's cave stone, frosted over from the base."""
+    import compose_mock as TM; import arceus_statue as AS
     x0, y0, x1, y1 = TM.BOX[36]; a, m = TM.ar((x0, y0, x0 + 16, y1))
-    return frost(a, m, 0.55), m
+    ramp = [AS.D1, AS.D2, AS.MID, AS.LIGHT, AS.TOP, AS.TOP]; out = a.copy(); lum = a.astype(int).sum(-1)
+    lo, hi = lum[m].min(), lum[m].max()
+    for y, x in zip(*np.nonzero(m)): out[y, x] = ramp[min(5, int((lum[y, x] - lo) / max(1, hi - lo) * 6))]
+    return frost(out, m, 0.55), m
 
 def gate():
     """The gate in the ice wall: a boulder of clearer, paler ice (it gives way when the field is done)."""
@@ -121,7 +111,7 @@ def compose():
     for px in ((STATUE_CX - 3) * 16, (STATUE_CX + 4) * 16):
         py = (WALL_ROW) * 16 - pm.shape[0] - 2; sub = img[py:py + pm.shape[0], px:px + 16]; sub[pm] = pr[pm]
     st, sm = statue_half_thawed()
-    px, py = STATUE_CX * 16 + 8 - st.shape[1] // 2, 2 * 16 + 4 - max(0, st.shape[0] - 40)
+    px, py = STATUE_CX * 16 + 8 - st.shape[1] // 2, WALL_ROW * 16 - st.shape[0] - 1
     sub = img[py:py + st.shape[0], px:px + st.shape[1]]; sub[sm] = st[sm]
     shrine = {(x, y) for x in range(FIELD_X, FIELD_X + FW) for y in range(2, WALL_ROW)}
     return img, dict(ice=ice, boulders=boulders, gate={GATE}, landing={LANDING}, shrine=shrine,
