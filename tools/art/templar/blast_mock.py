@@ -90,6 +90,7 @@ def compose():
         if stars >= 9: break
     old_fault(img)
     cave_in(img)
+    glass_cracks(img)
     return img
 
 # the old foundation fault (user: the blast only exposed it; the church was always at risk): MonoMyth Old
@@ -145,6 +146,32 @@ def cave_in(img):
         for px, py in line((x, y), (x + dx, y + dy)): img[py, px] = CRACK_FRESH
 
 CRACK_FRESH = (30, 30, 36)
+
+# cracked stained glass (user: two or three minor cracks in each of the three windows, one even across the face of
+# the girl in the great window behind the statue): small star fractures, pale fracture lines with a dark pit at the
+# point of impact, drawn only on the glass (never on the wall round it)
+GLASS = [  # (centre, rays as (dx, dy) steps, the window's box x0, y0, x1, y1)
+    ((123, 45), [(-5, -4), (6, -3), (4, 6), (-3, 7), (-7, 2)], (98, 4, 170, 92)),        # across the girl's face
+    ((152, 70), [(5, -5), (-6, -2), (2, 7)], (98, 4, 170, 92)),
+    ((109, 26), [(-4, 5), (5, 3)], (98, 4, 170, 92)),
+    ((58, 40), [(-5, -6), (6, -4), (-3, 7), (5, 6)], (48, 14, 81, 79)),                    # the west lancet
+    ((70, 66), [(-4, 4), (4, -3)], (48, 14, 81, 79)),
+    ((210, 54), [(5, -6), (-6, -3), (-2, 7), (6, 5)], (192, 14, 225, 79)),                 # the east lancet
+    ((200, 30), [(4, -4), (-3, 5)], (192, 14, 225, 79)),
+]
+FRACTURE, PIT = (232, 238, 244), (36, 36, 44)
+
+def glass_cracks(img):
+    wall = tuple(img[60, 40]); wall2 = tuple(img[60, 90])               # the wall's own greys round the windows
+    def glass(x, y, box):
+        x0, y0, x1, y1 = box
+        return x0 <= x < x1 and y0 <= y < y1 and tuple(img[y, x]) not in (wall, wall2)
+    for (cx, cy), rays, box in GLASS:
+        for dx, dy in rays:
+            for i, (x, y) in enumerate(line((cx, cy), (cx + dx, cy + dy))):
+                if glass(x, y, box) and i:                     # pale on dark glass, dark on pale glass
+                    img[y, x] = FRACTURE if int(img[y, x].astype(int).sum()) < 480 else (64, 64, 78)
+        if glass(cx, cy, box): img[cy, cx] = PIT
 
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/arceus/church_blast.png'
