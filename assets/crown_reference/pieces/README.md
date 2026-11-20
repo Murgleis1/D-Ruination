@@ -13,3 +13,6 @@ Regenerate: `ODYSSEY_ROM=/path/Crown.gba python3 tools/crown/crown_pieces.py`.
 - grand_piano.png: the manor room's grand piano (map group 17 #0, cells 4-5, 1-3): the Academy hall (in walnut).
 - fountain.png: the harbour town's round fountain (map group 3 #0, cells 16-19, 15-18), cut off its grass:
   Cadmus's office.
+- rubble_rock_small.png, rubble_rock_tall.png, rubble_rock_big.png, rubble_rock_mid.png: fallen rocks from Crown's
+  underground halls (map group 6 #8; cells (1,30), (5,30), (13,25), (14,21)), cut against the chasm's dark floor. Used
+  (turned to grey masonry) to choke the cell doorway in the church after Eden's blast (`tools/art/templar/blast_mock.py`).

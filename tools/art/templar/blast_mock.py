@@ -7,7 +7,8 @@ over the approved hall (compose_mock.compose('pews')): a stepped, crisp-edged fi
 at its centre, closing at its rim), the far slab's broken face showing under a lit lip and the near lip a dark edge, the lower half of the slab sunk a shade,
 two small patches of pale ice far down in the dark, short stepped hairline cracks branching into the carpet,
 frost (user: the sudden cold the Templar remarks on) creeping out from the split, thickest at its lips; and the
-old foundation fault the blast exposed (user): Old HQ's cracked wall pieces, faint old cracks in the carpet.
+old foundation fault the blast exposed (user): Old HQ's cracked wall pieces, faint old cracks in the carpet; and the
+cell room caved in (user): its doorway choked with fallen stone, fresh cracks running from it to the split.
 Usage: python3 tools/art/templar/blast_mock.py [out.png]
 """
 import os, sys
@@ -88,6 +89,7 @@ def compose():
         stars += 1
         if stars >= 9: break
     old_fault(img)
+    cave_in(img)
     return img
 
 # the old foundation fault (user: the blast only exposed it; the church was always at risk): MonoMyth Old
@@ -110,6 +112,39 @@ def old_fault(img):
             for px, py in line((x, y), (x + dx, y + dy)):
                 if 0 <= py < H and 0 <= px < W: img[py, px] = (img[py, px].astype(int) * 0.62).astype(np.uint8)
             x, y = x + dx, y + dy
+
+# the cell room caved in (user: the blast let Eden out of the cell but brought part of that room down, and the
+# collapse set off the chain of cracks that split the chapel floor): the cell doorway on the north wall choked with
+# fallen stone (Pokemon Crown's rubble rocks, from its underground halls, group 6 #8, turned to the church's grey),
+# rubble spilling onto the floor below it, and fresh cracks running from the doorway across the floor to the split
+ROCKS = os.path.join(HERE, '..', '..', '..', 'assets', 'crown_reference', 'pieces')
+DOOR_X = 1 * 16                                          # the cell doorway (compose_mock: x 1, on the wall's foot)
+PILE = [('rubble_rock_small', 1 * 16 - 4, CM.WALL * 16 - 30), ('rubble_rock_small', 1 * 16 + 6, CM.WALL * 16 - 24),
+        ('rubble_rock_small', 0 * 16 + 6, CM.WALL * 16 - 12), ('rubble_rock_small', 1 * 16 + 12, CM.WALL * 16 - 6)]
+# from the foot of the choked doorway, under the candle stand, to where the split's own crack begins
+CHAIN = [(1 * 16 + 10, CM.WALL * 16 + 10), (2 * 16 + 2, CM.WALL * 16 + 22), (2 * 16 + 12, CM.WALL * 16 + 34),
+         (3 * 16 + 12, CM.WALL * 16 + 40), (4 * 16 + 14, CM.WALL * 16 + 49), (6 * 16 + 4, CM.WALL * 16 + 57)]
+GREY = [(40, 40, 46), (66, 66, 72), (94, 94, 100), (122, 122, 128), (150, 150, 156), (178, 178, 182)]
+
+def rock(name):
+    a = np.array(Image.open(os.path.join(ROCKS, name + '.png')).convert('RGBA')); rgb, m = a[..., :3].copy(), a[..., 3] > 0
+    lum = rgb.astype(int).sum(-1); lo, hi = lum[m].min(), lum[m].max()
+    for y, x in zip(*np.nonzero(m)): rgb[y, x] = GREY[min(5, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 6))]
+    return rgb, m
+
+def cave_in(img):
+    H, W = img.shape[:2]
+    img[CM.WALL * 16 - 32:CM.WALL * 16, DOOR_X:DOOR_X + 18] = GREY[0]          # the doorway's dark, now dust and stone
+    for name, px, py in PILE:
+        rgb, m = rock(name); sub = img[py:py + m.shape[0], px:px + m.shape[1]]
+        mm = m[:sub.shape[0], :sub.shape[1]]; sub[mm] = rgb[:sub.shape[0], :sub.shape[1]][mm]
+    pts = CHAIN
+    for p, q in zip(pts, pts[1:]):                         # the chain of fresh cracks, doorway to split, with spurs
+        for x, y in line(p, q): img[y, x] = CRACK_FRESH
+    for (x, y), (dx, dy) in zip(pts[1:-1], ((4, -2), (-3, 4), (2, 4), (3, -3))):
+        for px, py in line((x, y), (x + dx, y + dy)): img[py, px] = CRACK_FRESH
+
+CRACK_FRESH = (30, 30, 36)
 
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/arceus/church_blast.png'
