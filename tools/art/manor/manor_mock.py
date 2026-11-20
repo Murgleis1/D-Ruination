@@ -7,12 +7,12 @@ staircase up through it, the way Crown builds its manors (and the Academy hall b
 
 Ground floor: the grand dining hall. Crown's stone hearth in the middle of the wall, its two banners in Water
 sea blue; the long dining table (Crown's manor table lengthened by its middle columns; two gold candelabras on it)
-on a big rug (Academy maroon, or Water navy with RUG=navy), one plain chair at each head facing the table, centred
+on a big rug (Water navy with gold, user; maroon with RUG=maroon), one plain chair at each head facing the table, centred
 on it (user: no side chairs); against the left wall the Jousteel crest as a stone statue on a fluted plinth (user:
-a portrait looked artificial), mirroring the staircase on the right (its runner in maroon); a bookcase in the left
+a portrait looked artificial), mirroring the staircase on the right (its runner in the rugs' navy, user); a bookcase in the left
 corner, the grandfather clock in the right; maroon banners; a side table, a jug and a coat stand by the door.
 Upper floor: Cadmus's private rooms: his bed and dresser on the left, a sea-blue Water banner over his writing
-desk (the archive desk, walnut) on a maroon rug in the middle, the archive shelves (walnut, as in his Academy office) in a study corner on the right.
+desk (the archive desk, walnut) with his armchair (light violet, user) behind it on a navy rug in the middle, the archive shelves (walnut, as in his Academy office) in a study corner on the right.
 Usage: ODYSSEY_ROM=/path/Crown.gba python3 tools/art/manor/manor_mock.py [out.png]
 """
 import os, sys
@@ -51,8 +51,8 @@ MAROON_UP = {(216, 112, 104): (118, 36, 48), (200, 88, 80): (96, 26, 40), (160, 
              (104, 56, 88): (64, 18, 28), (208, 216, 104): (196, 162, 104), (192, 160, 56): (186, 150, 100)}  # runner table
 NAVY = {(200, 88, 80): (36, 56, 104), (160, 64, 96): (24, 36, 72), (184, 176, 168): (196, 162, 104),
         (160, 144, 128): (150, 118, 80)}
-RUG = NAVY if os.environ.get('RUG') == 'navy' else MAROON          # the dining rug: maroon, or Water navy
-STAIR_RUNNER = {(168, 112, 200): (152, 62, 70), (136, 88, 168): (118, 36, 48), (96, 88, 152): (84, 22, 34)}
+RUG = MAROON if os.environ.get('RUG') == 'maroon' else NAVY        # the dining rug: Water navy (user), or maroon
+STAIR_RUNNER = {(168, 112, 200): (36, 56, 104), (136, 88, 168): (24, 36, 72), (96, 88, 152): (16, 24, 52)}   # the rugs' navy (user)
 HALL_WATER = {(96, 112, 88): (28, 56, 112), (136, 152, 104): (52, 96, 168), (208, 208, 176): (200, 224, 240)}
 
 def recolour(img, table):
@@ -119,11 +119,11 @@ def painting(name):
     for c, n in PAINT_RECOLOUR.get(name, {}).items(): rgb[canvas & (a[:bottom, :, :3] == c).all(-1)] = n
     return rgb, m
 
-ROYAL_CHAIR = {(152, 152, 168): (184, 96, 100), (128, 136, 144): (152, 62, 70), (104, 112, 120): (118, 36, 48),
-               (72, 72, 88): (84, 22, 34), (56, 56, 64): (52, 24, 30), (72, 72, 72): (64, 18, 28)}   # last: its shadow
-
+ROYAL_CHAIR = {(152, 152, 168): (216, 204, 236), (128, 136, 144): (188, 172, 220), (104, 112, 120): (160, 144, 200),
+               (72, 72, 88): (112, 96, 156), (56, 56, 64): (64, 52, 96), (72, 72, 72): (24, 36, 72)}   # calm light violet
+                                                                                               # (user); last: its shadow
 def royal_chair():
-    """MonoMyth's study armchair (front view) re-upholstered in the Academy maroon: Cadmus's seat behind his desk."""
+    """MonoMyth's study armchair (front view) re-upholstered in a calm light violet (user): Cadmus's seat behind his desk."""
     a = np.array(Image.open(os.path.join(PAINTINGS, 'study_armchair.png')).convert('RGBA')); rgb = a[..., :3].copy()
     for c in {tuple(v) for v in rgb[a[..., 3] > 0].tolist()}:
         if c in ROYAL_CHAIR: rgb[(a[..., :3] == c).all(-1)] = ROYAL_CHAIR[c]
@@ -158,7 +158,7 @@ def compose():
     put(7, 1, cell(DRESSER[0])); put(7, 2, cell(DRESSER[1])); solid.add((7, 2))
     for name, cx in (('starry', 4 * 16), ('harbour', 18 * 16)):   # over the bed; over the stairhead between the shelves
         p, pm = painting(name); paste(p, pm, cx - p.shape[1] // 2, 6)
-    rug = ornate_rug(8, 13, 2, LW - 1, NAVY)                   # the study: a Water-navy rug (the maroon chair stands out on it)
+    rug = ornate_rug(8, 13, 2, LW - 1, NAVY)                   # the study: a Water-navy rug 
     for y in range(2, LW):
         for x in range(8, 14): put(x, y, rug(x, y))
     b, bm = HALL.decor_piece('heraldic_banner.png', HALL_WATER); paste(b[:28], bm[:28], 11 * 16 - b.shape[1] // 2, 1)
