@@ -109,13 +109,34 @@ def compose():
     def piece(name):
         a = np.array(Image.open(os.path.join(ROOT, 'assets', 'monomyth_reference', 'pieces', f'tarragon_{name}.png')).convert('RGBA'))
         return a[..., :3], a[..., 3] > 0
-    def stone(rgb, m):                                    # (user: the bone arches shaded as the statue's stone)
-        import arceus_statue as AS
-        ramp = [AS.OUT, AS.D1, AS.D2, AS.MID, AS.LIGHT, AS.TOP, (168, 176, 188)]; out = rgb.copy()
+    def stone(rgb, m):
+        """The tusks as old carved stone (user: more like stone, very worn and aged): grey stone by brightness,
+        mottled, cracked, chipped along their edges and worn down at the tips."""
+        from scipy.ndimage import binary_erosion
+        ramp = [(40, 42, 48), (66, 68, 76), (92, 94, 102), (116, 118, 126), (140, 142, 148), (164, 166, 170)]
+        rng = np.random.default_rng(21); m = m.copy(); H_, W_ = m.shape
         lum = rgb.astype(int).sum(-1); lo, hi = lum[m].min(), lum[m].max()
-        for y, x in zip(*np.nonzero(m)): out[y, x] = ramp[min(6, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 7))]
-        rng = np.random.default_rng(4); ys, xs = np.nonzero(m & (lum > lo + (hi - lo) // 2))
-        for i in rng.choice(len(ys), size=len(ys) // 30, replace=False): out[ys[i], xs[i]] = AS.GEMS[i % 3]
+        k = np.zeros(m.shape, int)
+        for y, x in zip(*np.nonzero(m)): k[y, x] = min(5, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 6))
+        blot = rng.choice([-1, 0, 0, 1], (H_ // 3 + 1, W_ // 3 + 1))                     # mottling: 3-px blotches
+        k += np.kron(blot, np.ones((3, 3), int))[:H_, :W_] + (rng.random(m.shape) < 0.15) * rng.choice([-1, 1], m.shape)
+        edge = m & ~binary_erosion(m)
+        for y, x in zip(*np.nonzero(edge)):                                              # chips out of the edges
+            if rng.random() < 0.16:
+                for dy in (-1, 0, 1):
+                    for dx in (-1, 0, 1):
+                        if 0 <= y + dy < H_ and 0 <= x + dx < W_ and rng.random() < 0.7: m[y + dy, x + dx] = False
+        ys, xs = np.nonzero(m)
+        for _ in range(14):                                                              # cracks: short dark walks
+            i = rng.integers(len(ys)); y, x = ys[i], xs[i]
+            for _ in range(int(rng.integers(5, 12))):
+                if 0 <= y < H_ and 0 <= x < W_ and m[y, x]: k[y, x] = 0
+                y += int(rng.integers(0, 2)); x += int(rng.choice([-1, 0, 1]))
+        inner = binary_erosion(m)                                                        # worn: edges a step darker
+        k[m & ~inner] -= 1
+        k[m & ~binary_erosion(m) & ~np.roll(m, 1, 0)] += 2                                     # a lit upper rim
+        out = rgb.copy()
+        for y, x in zip(*np.nonzero(m)): out[y, x] = ramp[max(0, min(5, k[y, x]))]
         return out, m
     def put(rgb, m, px, py):
         sub = img[py:py + m.shape[0], px:px + m.shape[1]]; sub[m[:sub.shape[0], :sub.shape[1]]] = rgb[:sub.shape[0], :sub.shape[1]][m[:sub.shape[0], :sub.shape[1]]]
