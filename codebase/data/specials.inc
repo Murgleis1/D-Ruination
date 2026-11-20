@@ -546,6 +546,8 @@ gSpecials::
 	def_special DrSetCadmusNameplate
 	def_special DrIcePathFreeze
 	def_special DrIcePathReset
+	def_special DrPlayEchoCry
+	def_special DrEndEchoCry
 	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint

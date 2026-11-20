@@ -801,5 +801,8 @@
 #define METATILE_PellucaIcePath_Broken         0x241
 #define METATILE_PellucaIcePath_GateOpen       0x20B
 #define METATILE_PellucaIcePath_Safe           0x242
+#define DR_ICE_PATH_FIRE_TILE                  431
+#define DR_ICE_PATH_FIRE_TILES                 4
+#define DR_ICE_PATH_FIRE_FRAMES                4
 
 #endif // GUARD_METATILE_LABELS_H

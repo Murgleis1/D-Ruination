@@ -74,7 +74,7 @@ def puddle(img, cx, y, f):
 FLAMES = {'warm': [(150, 36, 20), (220, 84, 24), (248, 160, 40), (252, 224, 120), (255, 250, 220)],
           'holy': [(28, 56, 120), (48, 104, 176), (96, 176, 240), (170, 228, 250), (250, 254, 255)]}
 
-def flame(k, scheme, seed=3):
+def flame(k, scheme, seed=3, scale=1.0):
     """Frame k (0-3) of a campfire's flames (16 wide, 18 tall, base at the bottom): three teardrop tongues, each
     drawn as nested shells (outer dark, then mid, hot core, white-hot heart), whose heights and lean change from
     frame to frame."""
@@ -82,7 +82,7 @@ def flame(k, scheme, seed=3):
     h, w = 18, 16; idx = np.full((h, w), -1)
     tongues = [(5.0, 11, 2.8), (8.0, 16, 3.6), (11.0, 12, 2.8)]
     for cx, ht, half in tongues:
-        ht = ht + int(rng.integers(-2, 3)); lean = float(rng.uniform(-1.6, 1.6))
+        ht = int(round((ht + int(rng.integers(-2, 3))) * scale)); lean = float(rng.uniform(-1.6, 1.6))
         for level, scale in ((1, 1.0), (2, 0.72), (3, 0.46), (4, 0.22)):
             H_ = ht * (0.55 + 0.45 * scale); hw = half * scale + 0.2
             for y in range(int(H_)):
@@ -107,20 +107,39 @@ def opal_icon():
     BODY = [(150, 170, 204), (184, 202, 228), (212, 226, 244), (238, 244, 252)]
     shade = np.clip(((yy - 6) / 14 + (xx - 4) / 30) * 4, 0, 3).astype(int)
     for y, x in zip(*np.nonzero(body)): img[y, x] = BODY[3 - shade[y, x]]; m[y, x] = True
-    from scipy.ndimage import zoom
-    rng = np.random.default_rng(6)                    # play of colour: irregular flashes from two smooth noise fields,
-    hue = zoom(rng.random((5, 5)), S / 5, order=3)[:S, :S]          # one picking the colour, one where it shows
-    show = zoom(rng.random((6, 6)), S / 6, order=3)[:S, :S]
-    FIRE = [(104, 176, 240), (110, 214, 180), (150, 226, 140), (224, 150, 206), (110, 150, 236)]
-    t = (hue - hue.min()) / (np.ptp(hue) + 1e-9)
+    import colorsys
+    rng = np.random.default_rng(12)                   # play of colour (user: more rainbow): a patchwork of flashes,
+    seeds = [(int(rng.integers(7, 19)), int(rng.integers(4, 20))) for _ in range(13)]   # each cell of the patchwork
+    hues = [(i / 7 + rng.uniform(-0.03, 0.03)) % 1 for i in range(7)] * 2              # one spectral colour; a few
+    rng.shuffle(hues)                                                                   # left milky
+    d = np.stack([np.hypot(yy - sy, xx - sx) for sy, sx in seeds]); near = d.argmin(0); d.sort(0)
     for y, x in zip(*np.nonzero(body & ~rim)):
-        if show[y, x] > 0.62:
-            c = np.array(FIRE[min(4, int(t[y, x] * 5))], float)
-            a_ = 0.55 if show[y, x] < 0.72 else 0.9
-            img[y, x] = (img[y, x] * (1 - a_) + c * a_).astype(np.uint8)
+        k = near[y, x]
+        if k == 3: continue
+        edge = d[1, y, x] - d[0, y, x] < 0.5           # a milky seam between flashes
+        if edge: continue
+        lit = (y + x) % 5 == 0 or d[0, y, x] < 1.2
+        r, g, b_ = colorsys.hsv_to_rgb(hues[k], 0.4 if lit else 0.78, 1.0 if lit else 0.95)
+        c = np.array((r * 255, g * 255, b_ * 255)); a_ = 0.95 - 0.2 * (shade[y, x] / 3)
+        img[y, x] = (img[y, x] * (1 - a_) + c * a_).astype(np.uint8)
     img[rim] = (64, 76, 116)
     img[6:8, 8:11] = (255, 255, 255); img[8, 7] = (255, 255, 255); img[16, 17] = (255, 255, 255)   # highlights
     return img, m
+
+def shrine_base():
+    """The composed ice path with the statue taken out (its cells back to floor, its head's wall row back to wall)."""
+    full, _ = M.compose()
+    base = full.copy(); cx = M.STATUE_CX * 16 + 8
+    st0, sm0 = AS.statue(ice=True); y0 = (M.STATUE_BASE + 1) * 16 - st0.shape[0]; x0 = cx - st0.shape[1] // 2
+    floor = M.TSI.meta(M.ROCK)
+    for y in range(y0 // 16, (y0 + st0.shape[0] - 1) // 16 + 1):
+        for x in range(x0 // 16, (x0 + st0.shape[1] - 1) // 16 + 1):
+            if y >= 2: base[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = floor
+    wall = M.TSI.meta(M.IN_TOP)
+    for x in range(x0 // 16, (x0 + st0.shape[1] - 1) // 16 + 1): base[16:32, x * 16:x * 16 + 16] = wall
+    return base
+
+FLAME_SCALE = 0.72                                    # (the build: the flames kept inside the fire ring's cell)
 
 def scene(img_base, statue, fire_scheme=None, fire_k=0, puddle_f=None, glow=0.0):
     img = img_base.copy(); cx = M.STATUE_CX * 16 + 8
@@ -129,9 +148,10 @@ def scene(img_base, statue, fire_scheme=None, fire_k=0, puddle_f=None, glow=0.0)
     y0 = (M.STATUE_BASE + 1) * 16 - st.shape[0]; x0 = cx - st.shape[1] // 2
     sub = img[y0:y0 + st.shape[0], x0:x0 + st.shape[1]]; sub[sm] = st[sm]
     if fire_scheme:
-        fl, fm = flame(fire_k, fire_scheme)
+        fl, fm = flame(fire_k, fire_scheme, scale=FLAME_SCALE)
         for x in M.FIRES:
             px, py = x * 16, (M.STATUE_BASE + 1) * 16 - fl.shape[0] - 3
+            fm = fm.copy(); fm[:max(0, M.STATUE_BASE * 16 - py)] = False        # clipped to the ring's cell
             s2 = img[py:py + fl.shape[0], px:px + fl.shape[1]]; s2[fm] = fl[fm]
     if glow:
         img = (img.astype(float) * (1 - glow) + 255 * glow).astype(np.uint8)
@@ -139,19 +159,7 @@ def scene(img_base, statue, fire_scheme=None, fire_k=0, puddle_f=None, glow=0.0)
 
 def main(outdir):
     os.makedirs(outdir, exist_ok=True)
-    # the shrine without the statue (the mock's own composition, statue area restored from a statue-less render)
-    full, _ = M.compose()
-    base = full.copy(); cx = M.STATUE_CX * 16 + 8
-    st0, sm0 = AS.statue(ice=True); y0 = (M.STATUE_BASE + 1) * 16 - st0.shape[0]; x0 = cx - st0.shape[1] // 2
-    floor = M.TSI.meta(M.ROCK)
-    for y in range(y0 // 16, (y0 + st0.shape[0] - 1) // 16 + 1):
-        for x in range(x0 // 16, (x0 + st0.shape[1] - 1) // 16 + 1):
-            if y >= 2: base[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = floor
-    # keep the wall rows (0-1) as composed but without the statue's head over them
-    top_rows = full[:32].copy(); base[:32] = top_rows
-    m_ = np.zeros(base.shape[:2], bool); m_[y0:y0 + st0.shape[0], x0:x0 + st0.shape[1]] = sm0
-    wall = M.TSI.meta(M.IN_TOP)
-    for x in range(x0 // 16, (x0 + st0.shape[1] - 1) // 16 + 1): base[16:32, x * 16:x * 16 + 16] = wall
+    base = shrine_base(); floor = M.TSI.meta(M.ROCK)
     crop = lambda im: im[0:8 * 16, 2 * 16:14 * 16]
     frames = []
     for i, f in enumerate((0.0, 0.3, 0.55, 0.8, 1.0)):

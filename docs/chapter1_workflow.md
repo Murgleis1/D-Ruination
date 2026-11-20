@@ -34,8 +34,9 @@ Done (each has a note in `bible/20_chapter1_build.md`):
   Umbra's sigil.
 - Pelluca's five houses (`PellucaHouse1`-`5`).
 - The ice path under the church (`PellucaIcePath`) with its thin-ice puzzle working (stages 1 and 3 combined for this
-  piece, user), and the hall after Eden's blast (a second hall layout, behind `FLAG_DR_CHURCH_BLASTED`). The blast
-  scene, the Templar, the Sparkling Opal and the Archbishop are stages 3-4.
+  piece, user), the hall after Eden's blast (a second hall layout, behind `FLAG_DR_CHURCH_BLASTED`), and the shrine's
+  awakening with the Sparkling Opal (user asked for it now). Still stages 3-4: the blast scene, the Templar, the
+  Opal-for-Warding-Ring exchange with Archbishop Ambrose (and the Ring's on/off repel).
 
 Remaining (proposed order):
 1. Leaving Pelluca: Route 11, Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).

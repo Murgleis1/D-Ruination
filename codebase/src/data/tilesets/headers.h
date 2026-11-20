@@ -1269,7 +1269,7 @@ const struct Tileset gTileset_PellucaIcePathTiles =
     .palettes = gTilesetPalettes_PellucaIcePathTiles,
     .metatiles = gMetatiles_PellucaIcePathTiles,
     .metatileAttributes = gMetatileAttributes_PellucaIcePathTiles,
-    .callback = NULL,
+    .callback = InitTilesetAnim_PellucaIcePath,
 };
 
 const struct Tileset gTileset_PellucaHouses =

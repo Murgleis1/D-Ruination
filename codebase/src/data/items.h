@@ -14623,6 +14623,22 @@ const struct Item gItemsInfo[] =
         .iconPic = gItemIcon_StarfBerry,
         .iconPalette = gItemIconPalette_StarfBerry,
     },
+
+    [ITEM_SPARKLING_OPAL] =      // Dreamstone Ruination: the ice path's Arceus statue; to Archbishop Ambrose
+    {                            // for the Warding Ring (stage 4)
+        .name = _("Sparkling Opal"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Fell from the ice of\n"
+            "an Arceus statue. It\n"
+            "shimmers as if alive."),
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_SparklingOpal,
+        .iconPalette = gItemIconPalette_SparklingOpal,
+    },
 };
 
 

@@ -11,6 +11,9 @@ mapscripts PellucaIcePath_MapScripts {
         if (flag(FLAG_DR_ICE_PATH_SOLVED)) {
             setvar(VAR_ICE_STEP_COUNT, 999)
             call(PellucaIcePath_EventScript_SetSolved)
+            if (flag(FLAG_DR_STATUE_AWAKENED)) {
+                call(PellucaIcePath_EventScript_SetAwakened)
+            }
         } else {
             special(DrIcePathReset)
         }
@@ -57,3 +60,233 @@ script PellucaIcePath_EventScript_FallThroughIce {
 movement PellucaIcePath_Movement_FallThroughIce {
     set_invisible
 }
+
+script PellucaIcePath_EventScript_SetAwakened {
+    call(PellucaIcePath_EventScript_Melt4)
+    call(PellucaIcePath_EventScript_LightLeftFire)
+    call(PellucaIcePath_EventScript_LightRightFire)
+    return
+}
+
+// ---- The awakening (user 2026-11-20): with the field solved, A on the statue: dramatic music (Rayquaza Appears) from
+// the touch, a rumble, the ice melts off it, the seal breaks in a holy light with Arceus's cry echoing, the fire rings
+// light (holy sapphire flame, animated), the music ends; something falls out of the ice: the Sparkling Opal. (Later, stage 4: the Opal goes to Archbishop Ambrose up in the church, for the Warding Ring.)
+script PellucaIcePath_EventScript_Statue {
+    if (flag(FLAG_DR_STATUE_AWAKENED)) {
+        end
+    }
+    lockall
+    playbgm(MUS_RAYQUAZA_APPEARS, FALSE)
+    delay(16)
+    playse(SE_M_EARTHQUAKE)
+    setvar(VAR_0x8004, 1)
+    setvar(VAR_0x8005, 1)
+    setvar(VAR_0x8006, 12)
+    setvar(VAR_0x8007, 4)
+    special(ShakeCamera)
+    waitstate
+    delay(20)
+    playse(SE_M_MORNING_SUN)
+    call(PellucaIcePath_EventScript_Melt0)
+    special(DrawWholeMapView)
+    delay(24)
+    call(PellucaIcePath_EventScript_Melt1)
+    special(DrawWholeMapView)
+    delay(24)
+    call(PellucaIcePath_EventScript_Melt2)
+    special(DrawWholeMapView)
+    delay(24)
+    call(PellucaIcePath_EventScript_Melt3)
+    special(DrawWholeMapView)
+    delay(24)
+    call(PellucaIcePath_EventScript_Melt4)
+    special(DrawWholeMapView)
+    delay(24)
+    waitse
+    fadescreenspeed(FADE_TO_WHITE, 4)
+    special(DrPlayEchoCry)
+    delay(30)
+    fadescreenspeed(FADE_FROM_WHITE, 4)
+    waitmoncry
+    special(DrEndEchoCry)
+    delay(20)
+    call(PellucaIcePath_EventScript_LightLeftFire)
+    special(DrawWholeMapView)
+    playse(SE_M_SACRED_FIRE)
+    delay(30)
+    call(PellucaIcePath_EventScript_LightRightFire)
+    special(DrawWholeMapView)
+    playse(SE_M_SACRED_FIRE)
+    waitse
+    delay(30)
+    fadedefaultbgm
+    delay(40)
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    msgbox(format("Something fell down out of the ice... Could this be...!!"))
+    hideportrait
+    closemessage
+    setvar(VAR_0x8004, ITEM_SPARKLING_OPAL)
+    setvar(VAR_0x8005, 1)
+    setvar(VAR_0x8006, ITEM_SPARKLING_OPAL)
+    setvar(VAR_0x8007, TRUE)
+    additem(ITEM_SPARKLING_OPAL)
+    bufferitemname(STR_VAR_2, ITEM_SPARKLING_OPAL)
+    checkitemtype(ITEM_SPARKLING_OPAL)
+    call(EventScript_BufferPocketNameAndTryFanfare)
+    message(format("{PLAYER} found the Sparkling Opal!"))
+    showitemdescription
+    waitfanfare
+    waitmessage
+    msgbox(gText_PutItemInPocket, MSGBOX_DEFAULT)
+    hideitemdescription
+    setflag(FLAG_DR_STATUE_AWAKENED)
+    releaseall
+    end
+}
+
+script PellucaIcePath_EventScript_Melt0 {
+    setmetatile(6, 4, 0x20B, FALSE)
+    setmetatile(6, 5, 0x24E, FALSE)
+    setmetatile(7, 1, 0x205, TRUE)
+    setmetatile(7, 2, 0x244, TRUE)
+    setmetatile(7, 3, 0x247, TRUE)
+    setmetatile(7, 4, 0x24A, TRUE)
+    setmetatile(7, 5, 0x24F, TRUE)
+    setmetatile(7, 6, 0x253, FALSE)
+    setmetatile(8, 1, 0x243, TRUE)
+    setmetatile(8, 2, 0x245, TRUE)
+    setmetatile(8, 3, 0x248, TRUE)
+    setmetatile(8, 4, 0x24B, TRUE)
+    setmetatile(8, 5, 0x250, TRUE)
+    setmetatile(8, 6, 0x254, FALSE)
+    setmetatile(9, 1, 0x207, TRUE)
+    setmetatile(9, 2, 0x246, TRUE)
+    setmetatile(9, 3, 0x249, TRUE)
+    setmetatile(9, 4, 0x24C, TRUE)
+    setmetatile(9, 5, 0x251, TRUE)
+    setmetatile(9, 6, 0x255, FALSE)
+    setmetatile(10, 3, 0x20B, FALSE)
+    setmetatile(10, 4, 0x24D, FALSE)
+    setmetatile(10, 5, 0x252, FALSE)
+    return
+}
+
+script PellucaIcePath_EventScript_Melt1 {
+    setmetatile(6, 4, 0x20B, FALSE)
+    setmetatile(6, 5, 0x25E, FALSE)
+    setmetatile(7, 1, 0x205, TRUE)
+    setmetatile(7, 2, 0x244, TRUE)
+    setmetatile(7, 3, 0x258, TRUE)
+    setmetatile(7, 4, 0x25B, TRUE)
+    setmetatile(7, 5, 0x25F, TRUE)
+    setmetatile(7, 6, 0x263, FALSE)
+    setmetatile(8, 1, 0x243, TRUE)
+    setmetatile(8, 2, 0x257, TRUE)
+    setmetatile(8, 3, 0x259, TRUE)
+    setmetatile(8, 4, 0x25C, TRUE)
+    setmetatile(8, 5, 0x260, TRUE)
+    setmetatile(8, 6, 0x264, FALSE)
+    setmetatile(9, 1, 0x256, TRUE)
+    setmetatile(9, 2, 0x246, TRUE)
+    setmetatile(9, 3, 0x25A, TRUE)
+    setmetatile(9, 4, 0x25D, TRUE)
+    setmetatile(9, 5, 0x261, TRUE)
+    setmetatile(9, 6, 0x265, FALSE)
+    setmetatile(10, 3, 0x20B, FALSE)
+    setmetatile(10, 4, 0x20B, FALSE)
+    setmetatile(10, 5, 0x262, FALSE)
+    return
+}
+
+script PellucaIcePath_EventScript_Melt2 {
+    setmetatile(6, 4, 0x20B, FALSE)
+    setmetatile(6, 5, 0x20B, FALSE)
+    setmetatile(7, 1, 0x205, TRUE)
+    setmetatile(7, 2, 0x244, TRUE)
+    setmetatile(7, 3, 0x258, TRUE)
+    setmetatile(7, 4, 0x266, TRUE)
+    setmetatile(7, 5, 0x269, TRUE)
+    setmetatile(7, 6, 0x26C, FALSE)
+    setmetatile(8, 1, 0x243, TRUE)
+    setmetatile(8, 2, 0x257, TRUE)
+    setmetatile(8, 3, 0x259, TRUE)
+    setmetatile(8, 4, 0x267, TRUE)
+    setmetatile(8, 5, 0x26A, TRUE)
+    setmetatile(8, 6, 0x26D, FALSE)
+    setmetatile(9, 1, 0x256, TRUE)
+    setmetatile(9, 2, 0x246, TRUE)
+    setmetatile(9, 3, 0x25A, TRUE)
+    setmetatile(9, 4, 0x268, TRUE)
+    setmetatile(9, 5, 0x26B, TRUE)
+    setmetatile(9, 6, 0x26E, FALSE)
+    setmetatile(10, 3, 0x20B, FALSE)
+    setmetatile(10, 4, 0x20B, FALSE)
+    setmetatile(10, 5, 0x20B, FALSE)
+    return
+}
+
+script PellucaIcePath_EventScript_Melt3 {
+    setmetatile(6, 4, 0x20B, FALSE)
+    setmetatile(6, 5, 0x20B, FALSE)
+    setmetatile(7, 1, 0x205, TRUE)
+    setmetatile(7, 2, 0x244, TRUE)
+    setmetatile(7, 3, 0x258, TRUE)
+    setmetatile(7, 4, 0x266, TRUE)
+    setmetatile(7, 5, 0x26F, TRUE)
+    setmetatile(7, 6, 0x272, FALSE)
+    setmetatile(8, 1, 0x243, TRUE)
+    setmetatile(8, 2, 0x257, TRUE)
+    setmetatile(8, 3, 0x259, TRUE)
+    setmetatile(8, 4, 0x267, TRUE)
+    setmetatile(8, 5, 0x270, TRUE)
+    setmetatile(8, 6, 0x273, FALSE)
+    setmetatile(9, 1, 0x256, TRUE)
+    setmetatile(9, 2, 0x246, TRUE)
+    setmetatile(9, 3, 0x25A, TRUE)
+    setmetatile(9, 4, 0x268, TRUE)
+    setmetatile(9, 5, 0x271, TRUE)
+    setmetatile(9, 6, 0x274, FALSE)
+    setmetatile(10, 3, 0x20B, FALSE)
+    setmetatile(10, 4, 0x20B, FALSE)
+    setmetatile(10, 5, 0x20B, FALSE)
+    return
+}
+
+script PellucaIcePath_EventScript_Melt4 {
+    setmetatile(6, 4, 0x20B, FALSE)
+    setmetatile(6, 5, 0x20B, FALSE)
+    setmetatile(7, 1, 0x205, TRUE)
+    setmetatile(7, 2, 0x244, TRUE)
+    setmetatile(7, 3, 0x258, TRUE)
+    setmetatile(7, 4, 0x266, TRUE)
+    setmetatile(7, 5, 0x275, TRUE)
+    setmetatile(7, 6, 0x278, FALSE)
+    setmetatile(8, 1, 0x243, TRUE)
+    setmetatile(8, 2, 0x257, TRUE)
+    setmetatile(8, 3, 0x259, TRUE)
+    setmetatile(8, 4, 0x267, TRUE)
+    setmetatile(8, 5, 0x276, TRUE)
+    setmetatile(8, 6, 0x279, FALSE)
+    setmetatile(9, 1, 0x256, TRUE)
+    setmetatile(9, 2, 0x246, TRUE)
+    setmetatile(9, 3, 0x25A, TRUE)
+    setmetatile(9, 4, 0x268, TRUE)
+    setmetatile(9, 5, 0x277, TRUE)
+    setmetatile(9, 6, 0x27A, FALSE)
+    setmetatile(10, 3, 0x20B, FALSE)
+    setmetatile(10, 4, 0x20B, FALSE)
+    setmetatile(10, 5, 0x20B, FALSE)
+    return
+}
+
+script PellucaIcePath_EventScript_LightLeftFire {
+    setmetatile(5, 5, 0x280, TRUE)
+    return
+}
+
+script PellucaIcePath_EventScript_LightRightFire {
+    setmetatile(11, 5, 0x280, TRUE)
+    return
+}
+

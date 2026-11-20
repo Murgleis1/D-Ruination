@@ -27,6 +27,7 @@ void InitTilesetAnim_Building(void);
 void InitTilesetAnim_ElderflowerTavern(void);
 void InitTilesetAnim_PellucaDormitory(void);
 void InitTilesetAnim_Cormoria(void);
+void InitTilesetAnim_PellucaIcePath(void);
 void InitTilesetAnim_Cave(void);
 void InitTilesetAnim_BikeShop(void);
 void InitTilesetAnim_Underwater(void);

@@ -54,3 +54,5 @@ tools/trainerproc/trainerproc
 *.smol
 *.fastSmol
 *.smolTM
+# Ported songs keep their samples as source data (tools/monomyth/port_song.py)
+!sound/monomyth/**/*.bin

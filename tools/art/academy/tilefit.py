@@ -27,3 +27,22 @@ def reduce_tiles(img, box, limit=15):
         _, a, b = best; keep, drop = (a, b) if cnt[a] >= cnt[b] else (b, a)
         flat = sub.reshape(-1, 3); flat[(flat == drop).all(1)] = keep; sub[:] = flat.reshape(sub.shape); merges += 1
     return out, merges
+
+def reduce_joint(imgs, box, target):
+    """Several pictures that will share tiles' palettes (an animation's frames): merge colours across all of them
+    inside box (rarer into commoner, nearest first, as reduce_tiles) until the box holds at most `target` colours
+    in all of them together. Returns the new pictures and the number of merges."""
+    x0, y0, x1, y1 = box; outs = [(im >> 3) << 3 for im in imgs]; merges = 0
+    while True:
+        cnt = collections.Counter()
+        for o in outs: cnt.update(map(tuple, o[y0:y1, x0:x1].reshape(-1, 3).tolist()))
+        if len(cnt) <= target: return outs, merges
+        cols = list(cnt); best = None
+        for i, a in enumerate(cols):
+            for b in cols[i + 1:]:
+                d = sum((p - q) ** 2 for p, q in zip(a, b)) ** 0.5 * min(cnt[a], cnt[b]) ** 0.5
+                if best is None or d < best[0]: best = (d, a, b)
+        _, a, b = best; keep, drop = (a, b) if cnt[a] >= cnt[b] else (b, a)
+        for o in outs:
+            sub = o[y0:y1, x0:x1]; flat = sub.reshape(-1, 3); flat[(flat == drop).all(1)] = keep; sub[:] = flat.reshape(sub.shape)
+        merges += 1

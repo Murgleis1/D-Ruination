@@ -1026,8 +1026,9 @@
 #define ITEM_HISTORIAN_MEDAL 854
 #define ITEM_ARCHAEOLENS_2 855
 #define ITEM_APEX_FRUIT 856   // Dreamstone Ruination: Tavern Sage, changes a Pokemon's ability
+#define ITEM_SPARKLING_OPAL 857   // Dreamstone Ruination: from the ice path's Arceus statue (key item)
 
-#define ITEMS_COUNT 857
+#define ITEMS_COUNT 858
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 

@@ -1620,6 +1620,8 @@ extern const u32 gItemIconPalette_OldKey[];
 extern const u32 gItemIcon_Scanner[];
 extern const u32 gItemIconPalette_Scanner[];
 extern const u32 gItemIcon_StorageKey[];
+extern const u32 gItemIcon_SparklingOpal[];          // Dreamstone Ruination
+extern const u32 gItemIconPalette_SparklingOpal[];
 extern const u32 gItemIcon_KeyToRoom1[];
 extern const u32 gItemIconPalette_Key[];
 extern const u32 gItemIcon_KeyToRoom2[];

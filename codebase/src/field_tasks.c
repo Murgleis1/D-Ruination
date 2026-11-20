@@ -21,6 +21,9 @@
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
 #include "constants/layouts.h"
+#include "constants/species.h"
+#include "constants/sound.h"
+#include "m4a.h"
 
 /*  This file handles some persistent tasks that run in the overworld.
  *  - Task_RunTimeBasedEvents: Periodically updates local time and RTC events. Also triggers ambient cries.
@@ -677,6 +680,26 @@ static void DrIcePathReplace(u16 to, bool32 thinToo)
 void DrIcePathFreeze(void)
 {
     DrIcePathReplace(METATILE_PellucaIcePath_Safe, TRUE);
+}
+
+// The shrine's awakening (user 2026-11-20): Arceus's cry, echoed through the frozen hall when the seal breaks. The
+// cry's own chorus mode (Hyper Voice's echo) under a heavy reverb on the sound mixer; DrEndEchoCry (after
+// waitmoncry) puts the reverb back as it was.
+EWRAM_DATA static u8 sDrSavedReverb = 0;   // (EWRAM: keeps IWRAM, and the test harness's addresses, as they were)
+
+void DrPlayEchoCry(void)
+{
+    sDrSavedReverb = SOUND_INFO_PTR->reverb;
+    m4aSoundMode(SOUND_MODE_REVERB_SET | 110);
+    PlayCry_ByMode(SPECIES_ARCEUS, 0, CRY_MODE_ECHO_END);
+}
+
+void DrEndEchoCry(void)
+{
+    if (sDrSavedReverb)
+        m4aSoundMode(SOUND_MODE_REVERB_SET | sDrSavedReverb);
+    else
+        SOUND_INFO_PTR->reverb = 0;
 }
 
 // Not solved, on every full map load: a fresh field (a continued save restores the cracked cells in view) and a

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "constants/metatile_labels.h"
 #include "graphics.h"
 #include "palette.h"
 #include "util.h"
@@ -1349,4 +1350,31 @@ void InitTilesetAnim_Cormoria(void)
     sPrimaryTilesetAnimCounter = 0;
     sPrimaryTilesetAnimCounterMax = 256;
     sPrimaryTilesetAnimCallback = TilesetAnim_Cormoria;
+}
+
+// DR: the ice path's lit fire rings (tools/art/icepath/build_icepath.py): DR_ICE_PATH_FIRE_FRAMES frames of the
+// holy sapphire flame on a run of DR_ICE_PATH_FIRE_TILES dedicated primary tiles from DR_ICE_PATH_FIRE_TILE (only
+// the lit-ring metatile uses them, so the flames show once the shrine has awakened). A new frame every 8 game frames.
+static const u16 gTilesetAnims_PellucaIcePath_Fire_Frame0[] = INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/anim/fire/0.4bpp");
+static const u16 gTilesetAnims_PellucaIcePath_Fire_Frame1[] = INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/anim/fire/1.4bpp");
+static const u16 gTilesetAnims_PellucaIcePath_Fire_Frame2[] = INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/anim/fire/2.4bpp");
+static const u16 gTilesetAnims_PellucaIcePath_Fire_Frame3[] = INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/anim/fire/3.4bpp");
+static const u16 *const gTilesetAnims_PellucaIcePath_Fire[] = {
+    gTilesetAnims_PellucaIcePath_Fire_Frame0, gTilesetAnims_PellucaIcePath_Fire_Frame1,
+    gTilesetAnims_PellucaIcePath_Fire_Frame2, gTilesetAnims_PellucaIcePath_Fire_Frame3,
+};
+
+static void TilesetAnim_PellucaIcePath(u16 timer)
+{
+    if (timer % 8 == 0)
+        AppendTilesetAnimToBuffer(gTilesetAnims_PellucaIcePath_Fire[(timer / 8) % DR_ICE_PATH_FIRE_FRAMES],
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(DR_ICE_PATH_FIRE_TILE)),
+                                  DR_ICE_PATH_FIRE_TILES * TILE_SIZE_4BPP);
+}
+
+void InitTilesetAnim_PellucaIcePath(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_PellucaIcePath;
 }
