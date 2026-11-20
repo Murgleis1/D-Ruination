@@ -158,6 +158,14 @@ In game, a name is shown only when a new speaker starts talking.
 
 *Later, in a holding cell beneath the Templar monastery.*
 
+*(Foreshadowing, user 2026-11-19; DRAFT lines: the church's old foundation fault that Eden's escape blast will expose.)*
+
+**Cadmus:** These walls have seen better days. That crack runs halfway up to the ceiling.
+
+**Templar:** The monastery is old, Vizier. Old stone settles. A few cracks are only its age showing, nothing to trouble yourself over.
+
+**Cadmus:** ...As you say. Then let us begin.
+
 **Templar:** Name.
 
 **Thief:** Eden.
