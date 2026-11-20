@@ -6,7 +6,8 @@ of the nave. No natural split-floor tiles turned up in Crown or MonoMyth (search
 over the approved hall (compose_mock.compose('pews')): a stepped, crisp-edged fissure through the medallion (widest
 at its centre, closing at its rim), the far slab's broken face showing under a lit lip and the near lip a dark edge, the lower half of the slab sunk a shade,
 two small patches of pale ice far down in the dark, short stepped hairline cracks branching into the carpet,
-and frost (user: the sudden cold the Templar remarks on) creeping out from the split, thickest at its lips.
+frost (user: the sudden cold the Templar remarks on) creeping out from the split, thickest at its lips; and the
+old foundation fault the blast exposed (user): Old HQ's cracked wall pieces, faint old cracks in the carpet.
 Usage: python3 tools/art/templar/blast_mock.py [out.png]
 """
 import os, sys
@@ -86,7 +87,29 @@ def compose():
         for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)): img[y + dy, x + dx] = STAR
         stars += 1
         if stars >= 9: break
+    old_fault(img)
     return img
+
+# the old foundation fault (user: the blast only exposed it; the church was always at risk): MonoMyth Old
+# Headquarters' own cracked wall and trim pieces laid over a few stretches of clear wall, and faint old hairline cracks in the carpet (a shade darker than the carpet, not black like
+# the fresh split) running from the walls towards the medallion
+OLD_WALL = [(2, 0, 0xCC, 0xCA), (2, 2, 0xD4, 0xD2), (14, 0, 0xCD, 0xCA), (15, 1, 0xD4, 0xD2), (14, 3, 0xD5, 0xD2),
+            (0, 3, 0xD5, 0xD2)]                         # (x, wall row, cracked piece, the clean piece it is drawn on)
+OLD_CRACKS = [((1 * 16 + 4, CM.WALL * 16), [(3, 4), (2, 5), (4, 3), (3, 6), (5, 4)]),
+              ((15 * 16 + 6, CM.WALL * 16), [(-3, 5), (-4, 3), (-2, 6), (-5, 4)]),
+              ((3 * 16 + 2, 14 * 16), [(5, -3), (6, -2), (4, -4)]),
+              ((14 * 16 + 8, 13 * 16), [(-5, -2), (-4, -4), (-6, -1)])]
+
+def old_fault(img):
+    H, W = img.shape[:2]
+    for x, row, cracked, clean in OLD_WALL:                 # only the crack's own pixels, over our wall
+        a, b = CM.hq(cracked), CM.hq(clean); m = np.abs(a.astype(int) - b.astype(int)).sum(-1) > 0
+        sub = img[row * 16:row * 16 + 16, x * 16:x * 16 + 16]; sub[m] = a[m]
+    for (x, y), steps in OLD_CRACKS:
+        for dx, dy in steps:
+            for px, py in line((x, y), (x + dx, y + dy)):
+                if 0 <= py < H and 0 <= px < W: img[py, px] = (img[py, px].astype(int) * 0.62).astype(np.uint8)
+            x, y = x + dx, y + dy
 
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/arceus/church_blast.png'
