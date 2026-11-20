@@ -27,7 +27,7 @@ ROCK, LADDER_TOP, LADDER_FOOT = 0x2D9, 0x28F, 0x297
 THIN, CRACKED, BROKEN = 0x20D, 0x20E, 0x206             # Sootopolis gym ice (the build gives them our own ids)
 
 FW, FH = 12, 9                       # the field
-FIELD_X, FIELD_Y = 2, 11             # (the shrine above: eight rows, room to stand back from the statue)
+FIELD_X, FIELD_Y = 2, 13             # (the shrine above: ten rows: the statue, then the ribcage of tusk arches)
 S, E = (5, 8), (6, 0)                # field coordinates: entry from the landing, exit to the gate
 BOULDERS = [(2, 0), (2, 2), (5, 2), (8, 2), (0, 3), (10, 3), (2, 4), (3, 4), (5, 4), (8, 4), (9, 4), (5, 5), (6, 5),
             (11, 5), (1, 6), (2, 6), (5, 6), (8, 6), (2, 7), (3, 7), (0, 8), (9, 8)]
@@ -40,7 +40,7 @@ STATUE_CX = FIELD_X + E[0]           # the statue's column: straight on from the
 STATUE_BASE = 5                      # the row the statue's base sits on (its foot at the row's bottom)
 FIRES = (STATUE_CX - 3, STATUE_CX + 3)   # fire rings level with each other either side of the statue (user)
 LOGS = (STATUE_CX - 4, STATUE_CX + 4)    # the camp's log benches beside them, fossilised to stone (user)
-FLOWERS = (STATUE_CX - 1, STATUE_CX + 1) # offerings at the foot of the statue's ice
+FLOWERS = (STATUE_CX - 2, STATUE_CX + 2) # offerings between the statue's ice and the fire rings
 
 def boulder():
     """Shoal Cave's ice boulder (vanilla Emerald; assets/vanilla_reference/ice_boulder.png, cut from the ice room)."""
@@ -109,12 +109,12 @@ def compose():
     def piece(name):
         a = np.array(Image.open(os.path.join(ROOT, 'assets', 'monomyth_reference', 'pieces', f'tarragon_{name}.png')).convert('RGBA'))
         return a[..., :3], a[..., 3] > 0
-    def stone(rgb, m):
+    def stone(rgb, m, seed=21):
         """The tusks as old carved stone (user: more like stone, very worn and aged): grey stone by brightness,
         mottled, cracked, chipped along their edges and worn down at the tips."""
         from scipy.ndimage import binary_erosion
         ramp = [(40, 42, 48), (66, 68, 76), (92, 94, 102), (116, 118, 126), (140, 142, 148), (164, 166, 170)]
-        rng = np.random.default_rng(21); m = m.copy(); H_, W_ = m.shape
+        rng = np.random.default_rng(seed); m = m.copy(); H_, W_ = m.shape
         lum = rgb.astype(int).sum(-1); lo, hi = lum[m].min(), lum[m].max()
         k = np.zeros(m.shape, int)
         for y, x in zip(*np.nonzero(m)): k[y, x] = min(5, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 6))
@@ -122,15 +122,13 @@ def compose():
         k += np.kron(blot, np.ones((3, 3), int))[:H_, :W_] + (rng.random(m.shape) < 0.15) * rng.choice([-1, 1], m.shape)
         edge = m & ~binary_erosion(m)
         for y, x in zip(*np.nonzero(edge)):                                              # chips out of the edges
-            if rng.random() < 0.16:
-                for dy in (-1, 0, 1):
-                    for dx in (-1, 0, 1):
-                        if 0 <= y + dy < H_ and 0 <= x + dx < W_ and rng.random() < 0.7: m[y + dy, x + dx] = False
-        ys, xs = np.nonzero(m)
-        for _ in range(14):                                                              # cracks: short dark walks
+            if rng.random() < 0.04: m[y, x] = False                                   # (user: worn, not broken: a
+                                                                                       # few single-pixel nicks only)
+        ys, xs = np.nonzero(m); inner_ = binary_erosion(m)
+        for _ in range(6):                                                               # hairline cracks, a shade darker
             i = rng.integers(len(ys)); y, x = ys[i], xs[i]
-            for _ in range(int(rng.integers(5, 12))):
-                if 0 <= y < H_ and 0 <= x < W_ and m[y, x]: k[y, x] = 0
+            for _ in range(int(rng.integers(3, 6))):
+                if 0 <= y < H_ and 0 <= x < W_ and inner_[y, x]: k[y, x] -= 2
                 y += int(rng.integers(0, 2)); x += int(rng.choice([-1, 0, 1]))
         inner = binary_erosion(m)                                                        # worn: edges a step darker
         k[m & ~inner] -= 1
@@ -149,15 +147,18 @@ def compose():
     for i in range(1, n + 1):
         if np.nonzero(lab == i)[0].min() < 8: outer |= lab == i
     ys, xs = np.nonzero(outer)                             # cropped to the tusks, so they centre on the gate (user)
-    ar, am = stone(ar[:ys.max() + 1, xs.min():xs.max() + 1], outer[:ys.max() + 1, xs.min():xs.max() + 1])
-    put(ar, am, cx - am.shape[1] // 2, WALL_ROW * 16 - am.shape[0])
+    ar0 = ar[:ys.max() + 1, xs.min():xs.max() + 1]; am0 = outer[:ys.max() + 1, xs.min():xs.max() + 1]
+    RIB = 24                                               # px between the ribs
+    for i in (2, 1, 0):                                    # three in a row like a ribcage (user): back to front, the
+        a2, m2 = stone(ar0, am0, seed=21 + i)              # nearest standing at the gate
+        put(a2, m2, cx - m2.shape[1] // 2, WALL_ROW * 16 - i * RIB - m2.shape[0])
     po, pm = piece('post'); fr, fm = piece('fire_ring'); fl, flm = piece('blue_flowers')
     lum = po.astype(int).sum(-1); lo, hi = lum[pm].min(), lum[pm].max(); fossil = po.copy()
     FOSSIL = [(62, 62, 68), (88, 88, 94), (112, 112, 118), (138, 138, 144), (166, 166, 170), (196, 196, 200)]
     for y, x in zip(*np.nonzero(pm)): fossil[y, x] = FOSSIL[min(5, int((lum[y, x] - lo) / max(1, hi - lo + 1) * 6))]
     for x in FIRES: put(fr, fm, x * 16, STATUE_BASE * 16)
     for x in LOGS: put(fossil, pm, x * 16 + 8 - pm.shape[1] // 2, (STATUE_BASE + 1) * 16 - pm.shape[0] + 2)
-    for x in FLOWERS: put(fl, flm, x * 16 + (-6 if x < STATUE_CX else 6), (STATUE_BASE + 1) * 16)
+    for x in FLOWERS: put(fl, flm, x * 16, STATUE_BASE * 16)
     shrine = {(x, y) for x in range(FIELD_X, FIELD_X + FW) for y in range(2, WALL_ROW)}
     return img, dict(ice=ice, boulders=boulders, gate={GATE}, landing={LANDING}, shrine=shrine,
                      statue={(STATUE_CX, 2), (STATUE_CX + 1, 2), (STATUE_CX, 3), (STATUE_CX + 1, 3)})
