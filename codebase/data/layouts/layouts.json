@@ -6092,6 +6092,26 @@
       "blockdata_filepath": "data/layouts/PellucaTemplarHall/map.bin"
     },
     {
+      "id": "LAYOUT_PELLUCA_TEMPLAR_HALL_RUINED",
+      "name": "PellucaTemplarHallRuined_Layout",
+      "width": 17,
+      "height": 22,
+      "primary_tileset": "gTileset_TemplarHallRuinedTiles",
+      "secondary_tileset": "gTileset_TemplarHallRuined",
+      "border_filepath": "data/layouts/PellucaTemplarHallRuined/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaTemplarHallRuined/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_ICE_PATH",
+      "name": "PellucaIcePath_Layout",
+      "width": 16,
+      "height": 24,
+      "primary_tileset": "gTileset_PellucaIcePathTiles",
+      "secondary_tileset": "gTileset_PellucaIcePath",
+      "border_filepath": "data/layouts/PellucaIcePath/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaIcePath/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_ACADEMY_HALL",
       "name": "PellucaAcademyHall_Layout",
       "width": 17,

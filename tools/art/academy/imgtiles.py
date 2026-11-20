@@ -44,6 +44,7 @@ def build(under, W, H, over=None, om=None, walk=(), beh=None, col=None, seed=7, 
     for _, _, u, o, mk in blocks():
         sets.add(frozenset(map(tuple, u.reshape(-1, 3).tolist())))
         if mk.any(): sets.add(frozenset(map(tuple, o[mk].tolist())))
+    big = max(sets, key=len); assert len(big) <= 15, f'an 8x8 tile has {len(big)} colours (tilefit.reduce_tiles first)'
     red = []
     for s in sorted(sets, key=len, reverse=True):
         if not any(s <= r for r in red): red.append(s)
@@ -139,7 +140,7 @@ def register_tilesets(pairs):
              f'    .metatileAttributes = gMetatileAttributes_{name},\n    .callback = NULL,\n}};\n')
 
 def write_room(r, map_name, layout_id, prim, sec, mapj, after_layout='LAYOUT_PELLUCA_ACADEMY_HALL', after_map='PellucaAcademyHall'):
-    """prim/sec: (dir, Name). Writes everything for one room."""
+    """prim/sec: (dir, Name). Writes everything for one room (mapj None: the layout and tilesets only)."""
     blank = [(0, 0, 0)] * 16; P = r['pals']
     pals = [(P[i] + [(0, 0, 0)] * 16)[:16] if i < len(P) else blank for i in range(16)]
     write_tileset(os.path.join(C, 'data/tilesets/primary', prim[0]), r['tiles'], [p if i < 6 else blank for i, p in enumerate(pals)], [[0] * 12], [0], 0)
@@ -157,9 +158,10 @@ def write_room(r, map_name, layout_id, prim, sec, mapj, after_layout='LAYOUT_PEL
     if old: lays[old[0]] = entry
     else: lays.insert([i for i, l in enumerate(lays) if l.get('id') == after_layout][0] + 1, entry)
     json.dump(L, open(lj, 'w'), indent=2); open(lj, 'a').write('\n')
+    register_tilesets([('primary', prim[0], prim[1]), ('secondary', sec[0], sec[1])])
+    if mapj is None: return                       # a second layout for an existing map: no map of its own
     md = os.path.join(C, 'data/maps', map_name); os.makedirs(md, exist_ok=True)
     json.dump(mapj, open(os.path.join(md, 'map.json'), 'w'), indent=2); open(os.path.join(md, 'map.json'), 'a').write('\n')
-    register_tilesets([('primary', prim[0], prim[1]), ('secondary', sec[0], sec[1])])
     _add('data/event_scripts.s', f'\t.include "data/maps/{after_map}/scripts.inc"\n', f'\t.include "data/maps/{map_name}/scripts.inc"\n')
     gj = os.path.join(C, 'data/maps/map_groups.json'); G = json.load(open(gj))
     if map_name not in G['gMapGroup_Phase3']:

@@ -20,6 +20,7 @@
 #include "constants/items.h"
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
+#include "constants/layouts.h"
 
 /*  This file handles some persistent tasks that run in the overworld.
  *  - Task_RunTimeBasedEvents: Periodically updates local time and RTC events. Also triggers ambient cries.
@@ -649,6 +650,43 @@ void SetSootopolisGymCrackedIceMetatiles(void)
     }
 }
 
+// DREAMSTONE RUINATION: the ice path under Pelluca's church (tools/art/icepath/build_icepath.py) reuses the
+// Sootopolis gym's step callback with its own cracked/broken metatiles.
+static bool32 InDrIcePath(void)
+{
+    return gMapHeader.mapLayoutId == LAYOUT_PELLUCA_ICE_PATH;
+}
+
+// Swap every ice metatile of the field from one id set to another, keeping each cell's collision and elevation.
+static void DrIcePathReplace(u16 to, bool32 thinToo)
+{
+    s32 x, y;
+    for (y = 0; y < gMapHeader.mapLayout->height; y++)
+    {
+        for (x = 0; x < gMapHeader.mapLayout->width; x++)
+        {
+            u32 id = MapGridGetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET);
+            if (id == METATILE_PellucaIcePath_Cracked || id == METATILE_PellucaIcePath_Broken
+             || (thinToo && id == METATILE_PellucaIcePath_Thin))
+                MapGridSetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET, to);
+        }
+    }
+}
+
+// Solved: the field refreezes solid (safe ice, no behaviour), so the player can cross it freely.
+void DrIcePathFreeze(void)
+{
+    DrIcePathReplace(METATILE_PellucaIcePath_Safe, TRUE);
+}
+
+// Not solved, on every full map load: a fresh field (a continued save restores the cracked cells in view) and a
+// fresh count.
+void DrIcePathReset(void)
+{
+    DrIcePathReplace(METATILE_PellucaIcePath_Thin, FALSE);
+    VarSet(VAR_ICE_STEP_COUNT, 1);
+}
+
 #define tState data[1]
 #define tPrevX data[2]
 #define tPrevY data[3]
@@ -710,9 +748,10 @@ static void SootopolisGymIcePerStepCallback(u8 taskId)
             x = tIceX;
             y = tIceY;
             PlaySE(SE_ICE_CRACK);
-            MapGridSetMetatileIdAt(x, y, METATILE_SootopolisGym_Ice_Cracked);
+            MapGridSetMetatileIdAt(x, y, InDrIcePath() ? METATILE_PellucaIcePath_Cracked : METATILE_SootopolisGym_Ice_Cracked);
             CurrentMapDrawMetatileAt(x, y);
-            MarkIcePuzzleCoordVisited(x - MAP_OFFSET, y - MAP_OFFSET);
+            if (!InDrIcePath()) // the Sootopolis row vars only fit the gym's own field
+                MarkIcePuzzleCoordVisited(x - MAP_OFFSET, y - MAP_OFFSET);
             tState = 1;
         }
         break;
@@ -727,7 +766,7 @@ static void SootopolisGymIcePerStepCallback(u8 taskId)
             x = tIceX;
             y = tIceY;
             PlaySE(SE_ICE_BREAK);
-            MapGridSetMetatileIdAt(x, y, METATILE_SootopolisGym_Ice_Broken);
+            MapGridSetMetatileIdAt(x, y, InDrIcePath() ? METATILE_PellucaIcePath_Broken : METATILE_SootopolisGym_Ice_Broken);
             CurrentMapDrawMetatileAt(x, y);
             tState = 1;
         }

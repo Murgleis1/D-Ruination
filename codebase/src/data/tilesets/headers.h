@@ -1228,6 +1228,50 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_TemplarHallRuined =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarHallRuined,
+    .palettes = gTilesetPalettes_TemplarHallRuined,
+    .metatiles = gMetatiles_TemplarHallRuined,
+    .metatileAttributes = gMetatileAttributes_TemplarHallRuined,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarHallRuinedTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_TemplarHallRuinedTiles,
+    .palettes = gTilesetPalettes_TemplarHallRuinedTiles,
+    .metatiles = gMetatiles_TemplarHallRuinedTiles,
+    .metatileAttributes = gMetatileAttributes_TemplarHallRuinedTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_PellucaIcePath =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PellucaIcePath,
+    .palettes = gTilesetPalettes_PellucaIcePath,
+    .metatiles = gMetatiles_PellucaIcePath,
+    .metatileAttributes = gMetatileAttributes_PellucaIcePath,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_PellucaIcePathTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_PellucaIcePathTiles,
+    .palettes = gTilesetPalettes_PellucaIcePathTiles,
+    .metatiles = gMetatiles_PellucaIcePathTiles,
+    .metatileAttributes = gMetatileAttributes_PellucaIcePathTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_PellucaHouses =
 {
     .isCompressed = TRUE,

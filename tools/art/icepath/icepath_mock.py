@@ -36,6 +36,8 @@ WALL_ROW = FIELD_Y - 1               # the ice wall between the field and the sh
 GATE = (FIELD_X + E[0], WALL_ROW)
 LANDING = (FIELD_X + S[0], FIELD_Y + FH)
 LADDER = (FIELD_X, 1)                # back up to the church, from the shrine's corner
+ROPE = (LANDING[0] - 1, LANDING[1])  # (build) the Templars' rope down the split, beside the landing: the way back up
+                                     # before the field is solved
 STATUE_CX = FIELD_X + E[0]           # the statue's column: straight on from the gate
 STATUE_BASE = 5                      # the row the statue's base sits on (its foot at the row's bottom)
 FIRES = (STATUE_CX - 3, STATUE_CX + 3)   # fire rings level with each other either side of the statue (user)
@@ -64,6 +66,20 @@ def statue_half_thawed():
     """The reformed Arceus statue (tools/art/icepath/arceus_statue.py): gem-laden cave stone, half locked in ice."""
     sys.path.insert(0, HERE); import arceus_statue
     return arceus_statue.statue(ice=True)
+
+def rope():
+    """The rope the Templars let down the split (drawn here: a plain hemp rope hanging from above into a loose coil)."""
+    rgb = np.zeros((16, 16, 3), np.uint8); m = np.zeros((16, 16), bool)
+    HEMP = [(92, 64, 36), (138, 102, 58), (178, 140, 86), (210, 176, 118)]
+    for y in range(0, 11):                                 # the hanging length: two px wide, a twist every two rows
+        for dx in (0, 1):
+            m[y, 7 + dx] = True; rgb[y, 7 + dx] = HEMP[1 + ((y // 2 + dx) % 2) * 2 - (1 if dx else 0)]
+    yy, xx = np.mgrid[0:16, 0:16]
+    for r, sh in ((5.0, 1), (3.2, 2)):                     # the coil on the floor: two loops, lit along the top
+        e = np.abs(np.hypot((xx - 7.5) / 1.6, (yy - 12.5)) - r / 1.6) < 0.55
+        for y, x in zip(*np.nonzero(e)):
+            if 9 <= y <= 15: m[y, x] = True; rgb[y, x] = HEMP[sh + (1 if y < 12 else 0)] if y < 14 else HEMP[0]
+    return rgb, m
 
 def gate():
     """The gate in the ice wall: a boulder of clearer, paler ice (it gives way when the field is done)."""
@@ -98,8 +114,9 @@ def compose():
     rock = TSI.meta(ROCK)
     for x in range(FIELD_X, FIELD_X + FW):                    # the ice wall above the field, the landing row below
         for y in (WALL_ROW, FIELD_Y + FH):
-            if (x, y) == LANDING: continue
+            if (x, y) in (LANDING, ROPE): continue
             c = rock.copy(); c[bm] = b[bm]; img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = c; boulders.add((x, y))
+    rx, ry = ROPE; c = rock.copy(); rp, rm = rope(); c[rm] = rp[rm]; img[ry * 16:ry * 16 + 16, rx * 16:rx * 16 + 16] = c
     gx, gy = GATE; boulders.discard(GATE)                     # the gate: a block of clearer ice
     gr, gm = gate(); c = rock.copy(); c[gm] = gr[gm]; img[gy * 16:gy * 16 + 16, gx * 16:gx * 16 + 16] = c
     # the worship site (user: Camp Tarragon's pieces; no statue-pillars; then "broken and smooshed": everything given
@@ -149,9 +166,15 @@ def compose():
     ys, xs = np.nonzero(outer)                             # cropped to the tusks, so they centre on the gate (user)
     ar0 = ar[:ys.max() + 1, xs.min():xs.max() + 1]; am0 = outer[:ys.max() + 1, xs.min():xs.max() + 1]
     RIB = 24                                               # px between the ribs
+    arch = np.zeros_like(img); arch_m = np.zeros(img.shape[:2], bool); feet = set()   # (for the build)
     for i in (2, 1, 0):                                    # three in a row like a ribcage (user): back to front, the
         a2, m2 = stone(ar0, am0, seed=21 + i)              # nearest standing at the gate
-        put(a2, m2, cx - m2.shape[1] // 2, WALL_ROW * 16 - i * RIB - m2.shape[0])
+        px, py = cx - m2.shape[1] // 2, WALL_ROW * 16 - i * RIB - m2.shape[0]
+        put(a2, m2, px, py)
+        sub = arch[py:py + m2.shape[0], px:px + m2.shape[1]]; sub[m2] = a2[m2]; arch_m[py:py + m2.shape[0], px:px + m2.shape[1]] |= m2
+        foot_y = py + m2.shape[0] - 1                       # each leg's foot: where it meets the floor (the build:
+        for xx in np.nonzero(m2[-3:].any(0))[0]:            # solid; the rest of each rib stands over the player)
+            feet.add(((px + int(xx)) // 16, foot_y // 16))
     po, pm = piece('post'); fr, fm = piece('fire_ring'); fl, flm = piece('blue_flowers')
     lum = po.astype(int).sum(-1); lo, hi = lum[pm].min(), lum[pm].max(); fossil = po.copy()
     FOSSIL = [(62, 62, 68), (88, 88, 94), (112, 112, 118), (138, 138, 144), (166, 166, 170), (196, 196, 200)]
@@ -160,8 +183,10 @@ def compose():
     for x in LOGS: put(fossil, pm, x * 16 + 8 - pm.shape[1] // 2, (STATUE_BASE + 1) * 16 - pm.shape[0] + 2)
     for x in FLOWERS: put(fl, flm, x * 16, (STATUE_BASE - 1) * 16)
     shrine = {(x, y) for x in range(FIELD_X, FIELD_X + FW) for y in range(2, WALL_ROW)}
-    return img, dict(ice=ice, boulders=boulders, gate={GATE}, landing={LANDING}, shrine=shrine,
-                     statue={(STATUE_CX, 2), (STATUE_CX + 1, 2), (STATUE_CX, 3), (STATUE_CX + 1, 3)})
+    return img, dict(ice=ice, boulders=boulders, gate={GATE}, landing={LANDING}, rope={ROPE}, shrine=shrine,
+                     statue={(x, y) for x in (STATUE_CX - 1, STATUE_CX, STATUE_CX + 1) for y in range(2, STATUE_BASE + 1)},
+                     fires={(x, STATUE_BASE) for x in FIRES}, flowers={(x, STATUE_BASE - 1) for x in FLOWERS},
+                     logs={(x, y) for x in LOGS for y in (STATUE_BASE - 1, STATUE_BASE)}, arch=(arch, arch_m), feet=feet)
 
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/pisces/icepath_mock.png'

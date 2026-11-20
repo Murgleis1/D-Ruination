@@ -1,0 +1,59 @@
+// ============ DREAMSTONE RUINATION - Pelluca: the ice path under the church ============
+// Written by tools/art/icepath/build_icepath.py (user design 2026-11-19; bible 20_chapter1_build.md).
+// The thin-ice field (after Pokemon Pisces' Sootopolis gym): every one of its 86 ice cells must crack exactly once.
+// The Sootopolis step callback counts VAR_ICE_STEP_COUNT up from 1 per fresh cell and sets it to 0 on a cracked one.
+//   87 (all cracked): the gate in the ice wall gives way, the field refreezes solid (DrIcePathFreeze), solved.
+//   0 (a second step on a cracked cell): the ice breaks; black out, back on the landing with a fresh field.
+// NPCs and dialogue (the Templar, the discovery) come with the story pass.
+
+mapscripts PellucaIcePath_MapScripts {
+    MAP_SCRIPT_ON_LOAD {
+        if (flag(FLAG_DR_ICE_PATH_SOLVED)) {
+            setvar(VAR_ICE_STEP_COUNT, 999)
+            call(PellucaIcePath_EventScript_SetSolved)
+        } else {
+            special(DrIcePathReset)
+        }
+    }
+    MAP_SCRIPT_ON_RESUME {
+        setstepcallback(STEP_CB_SOOTOPOLIS_ICE)
+    }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_ICE_STEP_COUNT, 87: PellucaIcePath_EventScript_Solved
+        VAR_ICE_STEP_COUNT, 0: PellucaIcePath_EventScript_FallThroughIce
+    ]
+}
+
+script PellucaIcePath_EventScript_SetSolved {
+    setmetatile(8, 12, METATILE_PellucaIcePath_GateOpen, FALSE)
+    special(DrIcePathFreeze)
+    return
+}
+
+script PellucaIcePath_EventScript_Solved {
+    lockall
+    setvar(VAR_ICE_STEP_COUNT, 999)
+    delay(40)
+    playse(SE_ICE_STAIRS)
+    call(PellucaIcePath_EventScript_SetSolved)
+    special(DrawWholeMapView)
+    setflag(FLAG_DR_ICE_PATH_SOLVED)
+    releaseall
+    end
+}
+
+script PellucaIcePath_EventScript_FallThroughIce {
+    lockall
+    delay(20)
+    applymovement(OBJ_EVENT_ID_PLAYER, PellucaIcePath_Movement_FallThroughIce)
+    waitmovement(0)
+    playse(SE_FALL)
+    delay(60)
+    warpsilent(MAP_PELLUCA_ICE_PATH, 0)
+    waitstate
+    end
+}
+
+movement PellucaIcePath_Movement_FallThroughIce {
+    set_invisible
+}

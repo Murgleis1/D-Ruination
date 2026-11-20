@@ -2349,6 +2349,94 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_TemplarHallRuined[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarHallRuined[] = INCBIN_U32("data/tilesets/secondary/templar_hall_ruined/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarHallRuinedTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_hall_ruined_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarHallRuinedTiles[] = INCBIN_U32("data/tilesets/primary/templar_hall_ruined_tiles/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_PellucaIcePath[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_ice_path/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_PellucaIcePath[] = INCBIN_U32("data/tilesets/secondary/pelluca_ice_path/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_PellucaIcePathTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_ice_path_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_PellucaIcePathTiles[] = INCBIN_U32("data/tilesets/primary/pelluca_ice_path_tiles/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_PellucaHouses[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/pelluca_houses/palettes/00.gbapal"),

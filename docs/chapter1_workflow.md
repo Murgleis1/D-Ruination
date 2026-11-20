@@ -33,11 +33,13 @@ Done (each has a note in `bible/20_chapter1_build.md`):
 - Cadmus's manor (`PellucaUmbraManor`). Locked until the mid-game sanctuary mission, when Cadmus gives House
   Umbra's sigil.
 - Pelluca's five houses (`PellucaHouse1`-`5`).
+- The ice path under the church (`PellucaIcePath`) with its thin-ice puzzle working (stages 1 and 3 combined for this
+  piece, user), and the hall after Eden's blast (a second hall layout, behind `FLAG_DR_CHURCH_BLASTED`). The blast
+  scene, the Templar, the Sparkling Opal and the Archbishop are stages 3-4.
 
 Remaining (proposed order):
-1. The underground ice path below the Arceus church (the map; the crack-tile puzzle is stage 3).
-2. Leaving Pelluca: Route 11, Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
+1. Leaving Pelluca: Route 11, Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
    These Mirroh maps are still the base game's, on old tilesets.
-3. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
+2. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
 
 Update this list as areas are finished.

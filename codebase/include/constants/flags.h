@@ -1500,6 +1500,8 @@
 // (battle_setup.c CB2_EndTrainerBattle, BS_DrJumpIfStoryBattle). The script reads GetBattleOutcome.
 #define FLAG_DR_STORY_BATTLE                        FLAG_UNUSED_0x88F
 #define FLAG_DR_LOST_TO_EDEN_LAB                    FLAG_UNUSED_0x8E3   // remembered for the cell scene
+#define FLAG_DR_CHURCH_BLASTED                      FLAG_UNUSED_0x901   // Eden's blast has split the church floor
+#define FLAG_DR_ICE_PATH_SOLVED                     FLAG_UNUSED_0x902   // ice field under the church cleared
 
 #define FLAG_SYS_TV_HOME                            (SYSTEM_FLAGS + 0x30)
 #define FLAG_SYS_TV_WATCH                           (SYSTEM_FLAGS + 0x31)

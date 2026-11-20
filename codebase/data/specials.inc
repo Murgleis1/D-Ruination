@@ -544,6 +544,8 @@ gSpecials::
 	def_special DrTavernBufferAbilityChoices
 	def_special DrTavernSetAbilitySlot
 	def_special DrSetCadmusNameplate
+	def_special DrIcePathFreeze
+	def_special DrIcePathReset
 	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint

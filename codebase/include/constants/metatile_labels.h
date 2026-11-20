@@ -795,5 +795,11 @@
 #define METATILE_PellucaDormitory_Door         0x232
 #define METATILE_PellucaValley_UmbraLabDoor    0x3E8
 #define METATILE_Cormoria_TimberHouseDoor      0x05D
+// gTileset_PellucaIcePath (written by tools/art/icepath/build_icepath.py)
+#define METATILE_PellucaIcePath_Thin           0x23C
+#define METATILE_PellucaIcePath_Cracked        0x240
+#define METATILE_PellucaIcePath_Broken         0x241
+#define METATILE_PellucaIcePath_GateOpen       0x20B
+#define METATILE_PellucaIcePath_Safe           0x242
 
 #endif // GUARD_METATILE_LABELS_H

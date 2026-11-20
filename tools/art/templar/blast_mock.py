@@ -89,9 +89,12 @@ def compose():
         stars += 1
         if stars >= 9: break
     old_fault(img)
-    cave_in(img)
+    rubble = cave_in(img)
     glass_cracks(img)
+    LAST.update(gap=gap, rubble=rubble)                  # (for build_ruined.py: the fall cells, the blocked cells)
     return img
+
+LAST = {}
 
 # the old foundation fault (user: the blast only exposed it; the church was always at risk): MonoMyth Old
 # Headquarters' own cracked wall and trim pieces laid over a few stretches of clear wall, and faint old hairline cracks in the carpet (a shade darker than the carpet, not black like
@@ -136,14 +139,17 @@ def rock(name):
 def cave_in(img):
     H, W = img.shape[:2]
     img[CM.WALL * 16 - 32:CM.WALL * 16, DOOR_X:DOOR_X + 18] = GREY[0]          # the doorway's dark, now dust and stone
+    rubble = np.zeros((H, W), bool)
     for name, px, py in PILE:
         rgb, m = rock(name); sub = img[py:py + m.shape[0], px:px + m.shape[1]]
         mm = m[:sub.shape[0], :sub.shape[1]]; sub[mm] = rgb[:sub.shape[0], :sub.shape[1]][mm]
+        rubble[py:py + mm.shape[0], px:px + mm.shape[1]] |= mm
     pts = CHAIN
     for p, q in zip(pts, pts[1:]):                         # the chain of fresh cracks, doorway to split, with spurs
         for x, y in line(p, q): img[y, x] = CRACK_FRESH
     for (x, y), (dx, dy) in zip(pts[1:-1], ((4, -2), (-3, 4), (2, 4), (3, -3))):
         for px, py in line((x, y), (x + dx, y + dy)): img[py, px] = CRACK_FRESH
+    return rubble
 
 CRACK_FRESH = (30, 30, 36)
 

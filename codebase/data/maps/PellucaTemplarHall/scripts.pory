@@ -1,5 +1,13 @@
 // ============ DREAMSTONE RUINATION - Pelluca Valley: the Templar Monastery main hall ============
 // The church-like foyer the holding cell's south door opens into (user design 2026-11-19).
-// Built by tools/art/templar/build_hall.py. NPCs and dialogue come with the dialogue pass.
+// Built by tools/art/templar/build_hall.py (intact) and build_ruined.py (after Eden's escape blast: the split
+// floor down to the ice path, the cell room caved in). This file is written by build_ruined.py.
+// NPCs and dialogue come with the dialogue pass.
 
-mapscripts PellucaTemplarHall_MapScripts {}
+mapscripts PellucaTemplarHall_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        if (flag(FLAG_DR_CHURCH_BLASTED)) {
+            setmaplayoutindex(LAYOUT_PELLUCA_TEMPLAR_HALL_RUINED)
+        }
+    }
+}
