@@ -153,7 +153,7 @@ The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy
 5. **Wild Pokémon,** overworld static encounters, special non-quest events.
 6. **Items** to pick up or find lying around, including a few hidden items.
 7. **Everything else.** New QoL features, anything missed.
-Who lives in a home, its NPCs and its dialogue are stage 2+, not stage 1.
+Who lives in a home, its NPCs and its dialogue are stage 2+, not stage 1. **Working copy with the stage-1 status list: `docs/chapter1_workflow.md`** (read it before starting Chapter 1 work).
 
 **Process (user, 2026-11-18; superseded by the order above) — applies to every chapter:**
 1. **Skeleton first:** every major event and sequence, and the core maps and routes, through the end of the chapter.

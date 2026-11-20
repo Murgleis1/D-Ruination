@@ -1,0 +1,43 @@
+# Chapter 1 workflow: the completion order
+
+**Locked by the user, 2026-11-19.** Read this before starting any Chapter 1 work, and check the next task against
+it. Also recorded in `bible/20_chapter1_build.md` §16.10. It replaces the 2026-11-18 three-step process.
+
+Chapter 1 is completed and polished in exactly this order:
+
+1. **Towns and routes.** Design every area first and perfect them visually: exteriors and interiors, no NPC design yet.
+2. **NPCs and enemy trainers.** All secondary NPCs and non-critical trainer fights (basic route trainers and the like).
+3. **Quests.** Side quests, then main-quest work, which leads into
+4. **Main story.** Important characters, scripted events, dialogue.
+5. **Wild Pokémon,** overworld static encounters, special non-quest events.
+6. **Items** to pick up or find lying around, including a few hidden items.
+7. **Everything else.** New QoL features, anything missed.
+
+Rules that follow from the order:
+- In stage 1, an interior is designed for its look alone. Who lives in a home, its NPCs and its dialogue are stage 2
+  or later.
+- A puzzle's mechanics (scripts) belong to its quest (stage 3). Its map is stage 1.
+- Areas that belong to later chapters wait for those chapters, even when they sit inside Chapter 1's map. One example
+  is the Umbra sanctuary below Pelluca's beach cliff door, which is mid-game.
+
+How each area is done in stage 1: mock it first, get the user's approval, build it, verify it in the emulator,
+add a bible note (`20_chapter1_build.md`), then commit and push.
+
+## Stage 1 status
+
+Done (each has a note in `bible/20_chapter1_build.md`):
+- Pelluca Valley exterior. Doors: Umbra Lab, Seaside Tavern, dormitory, Templar hall, the Academy.
+- Umbra Lab, Seaside Tavern, dormitory (1F, 2F, Osrid's room), Templar hall, the Templar holding cell.
+- Academy main hall plus office, library, classroom and haunted lounge. The lounge is locked; its rusted-key unlock
+  is a quest item.
+- Cadmus's manor (`PellucaUmbraManor`). Locked until the mid-game sanctuary mission, when Cadmus gives House
+  Umbra's sigil.
+
+Remaining (proposed order):
+1. Pelluca's five locked houses: (59,8), (54,23), (64,23), (54,30) and (64,30).
+2. The underground ice path below the Arceus church (the map; the crack-tile puzzle is stage 3).
+3. Leaving Pelluca: Route 11, Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
+   These Mirroh maps are still the base game's, on old tilesets.
+4. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
+
+Update this list as areas are finished.

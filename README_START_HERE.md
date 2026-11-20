@@ -1,3 +1,5 @@
+> **Chapter 1 work:** follow the locked completion order in [`docs/chapter1_workflow.md`](docs/chapter1_workflow.md) (user, 2026-11-19).
+
 # Dreamstone Ruination — Master Handoff Package (v0.9.6)
 
 **Date:** May 22, 2026
