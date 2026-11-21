@@ -48,6 +48,8 @@ Done (each has a note in `bible/20_chapter1_build.md`):
   composer by `tools/art/route11/build_route11.py`. A provisional story gate on Pelluca's west road (open once the
   shrine is awakened; stage 4 sets the real condition). Music: MonoMyth's Route 15 theme (`MUS_DR_MM_ROUTE15`); Ghost Grey's Route 1 became Hollow Hill's theme (`MUS_DR_HOLLOW_HILL`). Pelluca's theme is now Crown's route theme 292 on piano (`MUS_DR_CROWN_PELLUCA_PIANO`). The east beach has no way
   down yet (revisit later, user). The west end waits for Hollow Hill.
+- Hollow Hill: mock v3 liked by the user (2026-11-20; the way north goes over the hill, never round it). Next: the in-game build
+  (its own tileset, sharing Route 11's woods and track at the seam). Later: a ruined structure on the top (user).
 
 Remaining (proposed order):
 1. Leaving Pelluca: Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
