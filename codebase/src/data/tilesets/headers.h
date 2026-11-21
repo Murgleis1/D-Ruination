@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_NecropolisLake =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_NecropolisLake,
+    .palettes = gTilesetPalettes_NecropolisLake,
+    .metatiles = gMetatiles_NecropolisLake,
+    .metatileAttributes = gMetatileAttributes_NecropolisLake,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_NecropolisLakeTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_NecropolisLakeTiles,
+    .palettes = gTilesetPalettes_NecropolisLakeTiles,
+    .metatiles = gMetatiles_NecropolisLakeTiles,
+    .metatileAttributes = gMetatileAttributes_NecropolisLakeTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_HollowHill =
 {
     .isCompressed = TRUE,

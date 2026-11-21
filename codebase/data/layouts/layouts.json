@@ -6142,6 +6142,16 @@
       "blockdata_filepath": "data/layouts/PellucaAcademyHall/map.bin"
     },
     {
+      "id": "LAYOUT_NECROPOLIS_LAKE",
+      "name": "NecropolisLake_Layout",
+      "width": 41,
+      "height": 32,
+      "primary_tileset": "gTileset_NecropolisLakeTiles",
+      "secondary_tileset": "gTileset_NecropolisLake",
+      "border_filepath": "data/layouts/NecropolisLake/border.bin",
+      "blockdata_filepath": "data/layouts/NecropolisLake/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_ACADEMY_OFFICE",
       "name": "PellucaAcademyOffice_Layout",
       "width": 12,

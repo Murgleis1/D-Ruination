@@ -1,0 +1,8 @@
+mapscripts NecropolisLake_MapScripts {}
+
+script NecropolisLake_EventScript_Necromancer {
+    lock
+    faceplayer
+    msgbox("(A necromancer of House Langerin.\nNo battle yet: the Trial is not written.)")
+    release
+}

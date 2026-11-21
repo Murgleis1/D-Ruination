@@ -26,12 +26,20 @@ GRV = os.path.join(HERE, '..', '..', '..', 'assets', 'necropolis_reference', 'gr
 GG = F.GG
 rnd = lambda *k: (zlib.crc32(repr(k).encode()) & 0xFFFF) / 65536.0
 SEED, NGRAVES = 108, 34
+# graves added by hand to the generated layout (user 2026-11-21, the push-off rule: stopped on the ice you can
+# only set off away from something solid; under it the door was out of reach until this one went in)
+EXTRA_GRAVES = []    # [(18, 7)] restores the door under lake_puzzle.PUSH_OFF
+def layout():
+    g, graves, soil = P.generate(SEED, n_graves=NGRAVES)
+    for (x, y) in EXTRA_GRAVES: g[y, x] = P.BLOCK
+    return g, graves + EXTRA_GRAVES, soil
 
 # ------------------------------------------------------------------ the ice of the lake of the damned
 # silver, ethereal (user 2026-11-21: the first, blue ice was too blue): near-neutral greys with the faintest cold
 # lilac in the shadows, the streaks catching a pale silver light
 ICEPAL = [(10, 10, 16), (26, 27, 36), (48, 50, 62), (84, 88, 102), (138, 143, 158), (212, 216, 228)]
 _ICE_T = None
+GAME = False      # the in-game build (build_lake.py): the ice repeats every 4x4 cells and keeps to its own palette
 def lake_ice(x, y):
     """Dark silver ice, its long streaks catching a pale ghost light (Heater Forest's ice, recoloured)."""
     global _ICE_T
@@ -41,26 +49,33 @@ def lake_ice(x, y):
     t = 0.2 + 0.3 * _ICE_T ** 1.4                                    # the streaks, softened
     yy, xx = np.mgrid[0:16, 0:16]
     gx, gy = (x * 16 + xx) / 56.0, (y * 16 + yy) / 56.0                  # a slow pale sheen drifting over it
+    per = None
+    if GAME: gx, gy, per = ((x % 4) * 16 + xx) / 32.0, ((y % 4) * 16 + yy) / 32.0, 2   # (repeating: 4x4 cells)
     sheen = np.zeros((16, 16))
-    for (sx, sy, w) in ((1, 1, 0.6), (2.3, 1.7, 0.4)):
+    for (sx, sy, w) in (((1, 1, 0.6), (2.3, 1.7, 0.4)) if not GAME else ((1, 1, 0.7), (2, 2, 0.3))):
         X, Y = gx * sx, gy * sy; x0, y0 = np.floor(X).astype(int), np.floor(Y).astype(int); fx, fy = X - x0, Y - y0
         fx, fy = fx * fx * (3 - 2 * fx), fy * fy * (3 - 2 * fy)
-        v = lambda i, j: np.vectorize(lambda p, q: rnd('sh', sx, p, q))(x0 + i, y0 + j)
+        L = per * sx if per else None
+        v = lambda i, j: np.vectorize(lambda p, q: rnd('sh', sx, p % L if L else p, q % L if L else q))(x0 + i, y0 + j)
         sheen += w * (v(0, 0) * (1 - fx) * (1 - fy) + v(1, 0) * fx * (1 - fy) + v(0, 1) * (1 - fx) * fy + v(1, 1) * fx * fy)
     t = t + 0.32 * np.clip(sheen - 0.45, 0, 1)
-    cols = np.array(ICEPAL, float); q = np.clip(t, 0, 0.999) * (len(cols) - 1); i = np.floor(q).astype(int)
+    cols = np.array(ICEPAL, float); q = np.clip(t, 0, 0.999) * (len(cols) - 1)
+    if GAME: q = np.round(q * 2) / 2                                    # (whole and half steps: 11 colours)
+    i = np.floor(q).astype(int)
     return (cols[i] + (cols[np.minimum(i + 1, len(cols) - 1)] - cols[i]) * (q - i)[..., None]).astype(np.uint8)
 
 SKULL = ["..###..", ".#####.", "#.###.#", "#######", ".##.##.", "..###..", "..#.#.."]
 HAND = ["#.#.#..", "#.#.#.#", "#######", ".#####.", "..###..", "..###..", "..###.."]
 def drowned(img, x, y):
     """Something under the ice: a skull or a reaching hand, dim, as if a foot down."""
+    if GAME: x, y = x % 4, y % 4                                        # (a few kinds, repeating)
     glyph = SKULL if rnd('g', x, y) < 0.55 else HAND
     ox, oy = 3 + int(rnd('ox', x, y) * 5), 3 + int(rnd('oy', x, y) * 5)
     for j, row in enumerate(glyph):
         for i, ch in enumerate(row):
             if ch == '#' and 0 <= oy + j < 16 and 0 <= ox + i < 16:      # pale, faint, under the ice
                 p = img[oy + j, ox + i].astype(float); img[oy + j, ox + i] = p * 0.6 + np.array([150, 156, 172]) * 0.4
+                if GAME: img[oy + j, ox + i] = (84, 88, 102)
     return img
 
 # ------------------------------------------------------------------ the gravestones
@@ -243,7 +258,7 @@ def bonfire(base, lit):
     return out
 
 def compose(lit=False):
-    g, graves, soil = P.generate(SEED, n_graves=NGRAVES)
+    g, graves, soil = layout()
     c = GG['cells']; H, W = c.shape
     types = grave_types(); names = sorted(types)
     img = np.zeros((H * 16, W * 16, 3), np.uint8)

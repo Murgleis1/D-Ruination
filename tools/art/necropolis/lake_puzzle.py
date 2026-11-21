@@ -59,9 +59,14 @@ def base():
 
 DIRS = ((0, -1), (0, 1), (-1, 0), (1, 0))
 def blocked(g, x, y): return not (0 <= x < W and 0 <= y < H) or g[y, x] == BLOCK
+PUSH_OFF = False   # the user's push-off rule, under test in the game (2026-11-21); the engine decides
 def move(g, p, d):
+    """One move from a place the player has stopped. On soil you walk one step any way. Stopped on the ice you
+    can only set off pushing against something (user 2026-11-21): the cell behind you, opposite the way you
+    go, must be solid (a grave, a wall, the room's edge); with nothing there you cannot start a slide that way."""
     x, y = p; nx, ny = x + d[0], y + d[1]
     if blocked(g, nx, ny): return None
+    if PUSH_OFF and g[y, x] == ICE and not blocked(g, x - d[0], y - d[1]): return None
     if g[ny, nx] == SOIL: return (nx, ny)
     cx, cy = nx, ny
     while True:

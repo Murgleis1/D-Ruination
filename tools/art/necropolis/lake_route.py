@@ -65,7 +65,7 @@ def draw(img, legs):
 if __name__ == '__main__':
     mockdir = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/necro'
     out = sys.argv[2] if len(sys.argv) > 2 else os.path.join(mockdir, 'necropolis_lake_route.png')
-    g, _, _ = P.generate(L.SEED, n_graves=L.NGRAVES)
+    g, _, _ = L.layout()
     n = check(g); total, legs = tour(g)
     print('stopping places', n, '- all can reach every bonfire, the door and the landing')
     print('tour', total, 'moves:', ', '.join('%s %d' % (k, len(s)) for k, s in legs))
