@@ -2349,6 +2349,28 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_Route11[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/route11/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_Route11[] = INCBIN_U32("data/tilesets/secondary/route11/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_TemplarHallRuined[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/templar_hall_ruined/palettes/00.gbapal"),

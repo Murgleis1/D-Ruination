@@ -5002,6 +5002,16 @@
       "blockdata_filepath": "data/layouts/PellucaCity/map.bin"
     },
     {
+      "id": "LAYOUT_ROUTE11",
+      "name": "Route11_Layout",
+      "width": 90,
+      "height": 40,
+      "primary_tileset": "gTileset_Cormoria",
+      "secondary_tileset": "gTileset_Route11",
+      "border_filepath": "data/layouts/Route11/border.bin",
+      "blockdata_filepath": "data/layouts/Route11/map.bin"
+    },
+    {
       "id": "LAYOUT_HOYA_RIVER_SOUTH",
       "name": "HoyaRiverSouth_Layout",
       "width": 30,

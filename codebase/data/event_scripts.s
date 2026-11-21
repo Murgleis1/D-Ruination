@@ -1287,6 +1287,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/PellucaTemplarMonastery/scripts.inc"
 	.include "data/maps/PellucaTemplarHall/scripts.inc"
 	.include "data/maps/PellucaIcePath/scripts.inc"
+	.include "data/maps/Route11/scripts.inc"
 	.include "data/maps/PellucaAcademyHall/scripts.inc"
 	.include "data/maps/PellucaAcademyOffice/scripts.inc"
 	.include "data/maps/PellucaAcademyLibrary/scripts.inc"

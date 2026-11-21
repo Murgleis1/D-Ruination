@@ -1531,3 +1531,30 @@ script DR_PellucaCity_CaveSealed{
     msgbox(format("A heavy stone slab seals the cave mouth. It bears the crest of House Umbra."), MSGBOX_SIGN)
     end
 }
+
+// DR: the west gate (tools/art/route11/build_route11.py). Leaving the Valley for Route 11 is stopped until the story
+// sends Osrid west (bible 20). For now the way opens once the shrine under the church is awakened; stage 4 (the
+// main story) puts the real condition here.
+script PellucaCity_EventScript_DrWestGate {
+    if (flag(FLAG_DR_STATUE_AWAKENED)) {
+        setvar(VAR_TEMP_1, 1)
+        end
+    }
+    lockall
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    special(DrSetPrinceNameplate)
+    if (flag(FLAG_DR_CHURCH_BLASTED)) {
+        msgbox(format("Cadmus told me to meet him at the church.\pI shouldn't leave the Valley yet."))
+    } else {
+        msgbox(format("I still have things to take care of here in the Valley.\pI shouldn't leave just yet."))
+    }
+    hideportrait
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, PellucaCity_Movement_DrWestGateBack)
+    waitmovement(0)
+    releaseall
+}
+
+movement PellucaCity_Movement_DrWestGateBack {
+    walk_right
+}

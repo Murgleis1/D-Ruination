@@ -1228,6 +1228,17 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_Route11 =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_Route11,
+    .palettes = gTilesetPalettes_Route11,
+    .metatiles = gMetatiles_Route11,
+    .metatileAttributes = gMetatileAttributes_Route11,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_TemplarHallRuined =
 {
     .isCompressed = TRUE,

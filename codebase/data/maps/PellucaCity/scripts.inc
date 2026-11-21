@@ -2236,6 +2236,49 @@ DR_PellucaCity_CaveSealed::
 	end
 
 
+PellucaCity_EventScript_DrWestGate::
+# 1539 "data/maps/PellucaCity/scripts.pory"
+	goto_if_set FLAG_DR_STATUE_AWAKENED, PellucaCity_EventScript_DrWestGate_2
+# 1543 "data/maps/PellucaCity/scripts.pory"
+	lockall
+# 1544 "data/maps/PellucaCity/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 1545 "data/maps/PellucaCity/scripts.pory"
+	special DrSetPrinceNameplate
+# 1546 "data/maps/PellucaCity/scripts.pory"
+	goto_if_set FLAG_DR_CHURCH_BLASTED, PellucaCity_EventScript_DrWestGate_5
+# 1549 "data/maps/PellucaCity/scripts.pory"
+	msgbox PellucaCity_EventScript_DrWestGate_Text_1
+PellucaCity_EventScript_DrWestGate_4:
+# 1551 "data/maps/PellucaCity/scripts.pory"
+	hideportrait
+# 1552 "data/maps/PellucaCity/scripts.pory"
+	closemessage
+# 1553 "data/maps/PellucaCity/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, PellucaCity_Movement_DrWestGateBack
+# 1554 "data/maps/PellucaCity/scripts.pory"
+	waitmovement 0
+# 1555 "data/maps/PellucaCity/scripts.pory"
+	releaseall
+	return
+
+PellucaCity_EventScript_DrWestGate_2:
+# 1540 "data/maps/PellucaCity/scripts.pory"
+	setvar VAR_TEMP_1, 1
+	end
+
+PellucaCity_EventScript_DrWestGate_5:
+# 1547 "data/maps/PellucaCity/scripts.pory"
+	msgbox PellucaCity_EventScript_DrWestGate_Text_0
+	goto PellucaCity_EventScript_DrWestGate_4
+
+
+# 1558 "data/maps/PellucaCity/scripts.pory"
+PellucaCity_Movement_DrWestGateBack:
+# 1559 "data/maps/PellucaCity/scripts.pory"
+	walk_right
+	step_end
+
 # 59 "data/maps/PellucaCity/scripts.pory"
 PellucaCity_MayorFight_Trigger_Movement_0:
 # 59 "data/maps/PellucaCity/scripts.pory"
@@ -3892,6 +3935,18 @@ DR_PellucaCity_CaveSealed_Text_0:
 	.string "A heavy stone slab seals the cave\n"
 	.string "mouth. It bears the crest of House\l"
 	.string "Umbra.$"
+
+PellucaCity_EventScript_DrWestGate_Text_0:
+# 1547 "data/maps/PellucaCity/scripts.pory"
+	.string "Cadmus told me to meet him at the\n"
+	.string "church.\p"
+	.string "I shouldn't leave the Valley yet.$"
+
+PellucaCity_EventScript_DrWestGate_Text_1:
+# 1549 "data/maps/PellucaCity/scripts.pory"
+	.string "I still have things to take care of here\n"
+	.string "in the Valley.\p"
+	.string "I shouldn't leave just yet.$"
 
 PellucaCityFlooded_TriggerText::
 # 343 "data/maps/PellucaCity/scripts.pory"

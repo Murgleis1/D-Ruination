@@ -43,9 +43,14 @@ Done (each has a note in `bible/20_chapter1_build.md`):
   piece, user), the hall after Eden's blast (a second hall layout, behind `FLAG_DR_CHURCH_BLASTED`), and the shrine's
   awakening with the Sparkling Opal (user asked for it now). Still stages 3-4: the blast scene, the Templar, the
   Opal-for-Warding-Ring exchange with Archbishop Ambrose (and the Ring's on/off repel).
+- Route 11 (`Route11`, 90x40: the approved 90x30 picture with five rows of woods and sea above and below, out of
+  reach), connected to Pelluca's west road. Its own secondary tileset under Pelluca's primary, built from the
+  composer by `tools/art/route11/build_route11.py`. A provisional story gate on Pelluca's west road (open once the
+  shrine is awakened; stage 4 sets the real condition). Music is a placeholder (Route 104). The east beach has no way
+  down yet (revisit later, user). The west end waits for Hollow Hill.
 
 Remaining (proposed order):
-1. Leaving Pelluca: Route 11, Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
+1. Leaving Pelluca: Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
    These Mirroh maps are still the base game's, on old tilesets.
 2. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
 
