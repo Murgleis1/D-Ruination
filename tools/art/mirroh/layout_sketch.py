@@ -23,7 +23,7 @@ def main(out):
     try: f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 11)
     except Exception: f = ImageFont.load_default()
     d.text((10, 8), 'MIRROH (about 60x60): a walled city climbing the massif; light snow below, deep snow above; '
-           'gothic, gloomy, wintry; v2', fill=(230, 230, 230), font=f)
+           'gothic, gloomy, wintry; v3: walk-through gatehouses S and NW', fill=(230, 230, 230), font=f)
     # the mountain all round, snow deepening upward
     box(d, 0, 0, W - 1, H - 1, C['snow3'])
     box(d, 0, 20, W - 1, H - 1, C['snow2']); box(d, 0, 38, W - 1, H - 1, C['snow'])
@@ -32,7 +32,7 @@ def main(out):
     box(d, 26, 52, 33, H - 1, C['road']); label(d, 24, 57, 'from Hollow Hill', f)
     # the city walls (Elderflower): crenellated terrace walls that jog with the slope, stairs staggered so the way
     # winds up through the town; the gatehouse south
-    box(d, 5, 49, 53, 51, C['wall']); box(d, 27, 49, 32, 51, C['keep']); label(d, 27, 50, 'south gate', f, (255, 255, 255))
+    box(d, 5, 49, 53, 51, C['wall']); box(d, 26, 48, 33, 52, C['keep']); label(d, 26, 50, 'S gatehouse', f, (255, 255, 255))
     box(d, 24, 49, 25, 49, C['banner']); box(d, 34, 49, 35, 49, C['banner'])
     box(d, 5, 22, 6, 49, C['wall']); box(d, 53, 12, 54, 49, C['wall']); box(d, 7, 12, 8, 21, C['wall'])
     # lower town (light snow): cottages with fenced gardens (Crown village), a well, lanterns; the street bends east
@@ -60,9 +60,9 @@ def main(out):
     box(d, 38, 10, 46, 16, C['house']); label(d, 38, 9, 'House Langerin town house', f, (40, 40, 60))
     # the keep gate north (east of centre): the road up to the Necropolis (its own map) and the mountain
     box(d, 7, 6, 54, 8, C['wall'])
-    box(d, 9, 6, 13, 8, C['keep']); label(d, 9, 7, 'NW gate', f, (255, 255, 255))
-    box(d, 10, 0, 12, 5, C['road']); label(d, 14, 1, 'north, out of town', f)
-    box(d, 48, 6, 52, 8, C['keep']); label(d, 48, 7, 'NE gate', f, (255, 255, 255))
+    box(d, 8, 5, 15, 9, C['keep']); label(d, 8, 7, 'NW gatehouse', f, (255, 255, 255))
+    box(d, 10, 0, 12, 4, C['road']); label(d, 14, 1, 'NW: the mountain, the Templar HQ', f)
+    box(d, 49, 6, 51, 8, C['stairs']); label(d, 44, 7, 'open path', f, (255, 255, 255))
     box(d, 49, 0, 51, 5, C['road']); label(d, 36, 3, 'to the Necropolis', f)
     # the way through: south gate -> street bending east -> stairs -> the square -> west stairs -> past the chapel
     for (x0, y0, x1, y1) in ((30, 52, 30, 39), (30, 39, 40, 39), (40, 39, 40, 33), (40, 33, 18, 29), (18, 29, 18, 17),
