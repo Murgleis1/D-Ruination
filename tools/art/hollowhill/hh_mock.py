@@ -156,6 +156,7 @@ class Map:
         self.face = {}                                     # (x, y) -> Odyssey metatile (terraces, stairs, door)
         self.over = [[[] for _ in range(W)] for _ in range(H)]
         self.used = np.full((H, W), None, object)
+        self.units = []                                    # the pines of the woods' columns: (x0, top row)
         self.ground = [[None] * W for _ in range(H)]       # an RGB image replacing the grass, or None
         for y in range(H):
             for x in range(W):
@@ -252,7 +253,14 @@ def pine(M, x, y, check=True):
     for dy, row in enumerate(PINE):
         for dx, v in enumerate(row): M.lay(x + dx, y + dy, 'ody', v, f'tree:pine{x},{y}', top=dy == 0)
 
+def column_units(x0, yt, yb, kind):
+    if kind == 'north': return [(x0, f - 2) for f in range(yb, 1, -2)]
+    if kind == 'south': return [(x0, t) for t in range(yt, H - 2, 2)]
+    if kind == 'stack': return [(x0, t) for t in range(yt, yb - 1, 2)]
+    return [(x0, t) for t in range((yt + 1) // 2 * 2, yb - 1, 2)]           # 'wall': a crown on every even row
+
 def pine_column(M, x0, yt, yb, kind):
+    M.units += column_units(x0, yt, yb, kind)
     """Odyssey's pine forest: a column of pines two cells wide, each overlapping the one below (283 284: one pine's
     foot over the next one's crown). kind 'north' hangs from above yt (cut by the map's top), ends in a foot at yb;
     'south' starts with a crown at yt and runs off the bottom; 'wall' runs through (cut both ends)."""
@@ -558,32 +566,62 @@ def blood(M, img, seed=13, n=22):
         if 0 <= y < H * 16 and faceish[y, x] : img[y, x] = BLOOD[int(rng.integers(0, 2))]
     return img
 
-# webs: the Webbed Woods' webbing (MonoMyth; cut out for the haunted teachers' lounge), blood red, hung in the trees
+# webs (user 2026-11-20): the Webbed Woods' own webbing (MonoMyth), as MonoMyth hangs it, blood red. It lives in the
+# trees: on a webbed tree a fan of web at each side of its crown and a drape sagging under it; trees side by side
+# share a fan in the V between them; a zig-zag strand crosses an open gap from one webbed tree to the next; a big
+# sagging net closes a narrow path between two webbed trees. Webbing comes in patches (whole stretches of woods), not
+# on every tree. Layers cut from MonoMyth's webbed trees (its map 0x886DD40: cells 236 234 237 / 21e 22c 21f, the
+# shared fans 235 233 / 21d 21b, the strand 279 277 275 26e 26f / 27a 278 272 273 274), keyed out by the two web
+# colours: assets/monomyth_reference/pieces/webtree_*.png; the net: web_net.png (0x886DD5C).
 WEB_DIR = os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces')
-WEB_RED = {(240, 240, 248): (170, 36, 42), (200, 216, 232): (104, 18, 26)}
+WEB_RED = {(240, 240, 248): (146, 30, 36), (200, 216, 232): (92, 16, 24)}          # (old blood, not paint)
 def web(name):
     im = np.array(Image.open(os.path.join(WEB_DIR, name + '.png')).convert('RGBA'))
     for a, b in WEB_RED.items(): im[(im[..., :3] == a).all(-1), :3] = b
+    im[im[..., 3] == 0] = 0
     return im
 
-# (piece, cell x, cell y, pixel offset x, y): across the way north, over the trees that close the ways, at the
-# clearing's edge, at the foot of the stairs, among the clumps of pines on the rings
-WEBS = [('web_strand', 16, 7, 8, 1), ('web_corner_l', 15, 7, 0, 0), ('web_corner_r', 19, 7, 8, 0),
-        ('web_net', 6, 19, 0, 6), ('web_net_tilted', 30, 9, 0, 0), ('web_net', 50, 30, 0, 0),
-        ('web_net_tilted', 26, 51, 4, 6), ('web_net', 2, 45, 4, 0), ('web_small', 12, 52, 0, 4),
-        ('web_drape', 45, 52, 0, 2), ('web_small', 14, 9, 4, 4), ('web_net', 40, 4, 0, 10)]
+# the webbed patches (cells x0, y0, x1, y1): a pine is webbed when its crown's widest row lies inside one
+WEBBED = [(12, 0, 28, 13),            # round the way north, and the woods' edge above the dead tree (user)
+          (24, 44, 33, 48),           # the pair of pines on ring 1's south terrace (user)
+          (0, 41, 17, 63),            # round the clearing
+          (47, 23, 54, 37),           # the trees closing the way east
+          (23, 50, 31, 63),           # the trees closing the way south
+          (38, 0, 51, 12),            # the north-east woods
+          (34, 23, 41, 33)]           # a clump on ring 2
+NETS = [(16, 4, 5)]                   # (gap's first cell x, width, tree row): the big net across the way north
 
 def hang_webs(M, img):
     out = Image.fromarray(img).convert('RGBA')
-    for name, x, y, ox, oy in WEBS:
-        out.alpha_composite(Image.fromarray(web(name)), (x * 16 + ox, y * 16 + oy))
-    # and on a few of the pines standing alone: a small web or a corner caught in the branches
-    pines = sorted({u for u in M.used.ravel() if isinstance(u, str) and u.startswith('tree:pine')})
-    for i, u in enumerate(pines):
-        if i % 3: continue
-        x, y = map(int, u[len('tree:pine'):].split(','))
-        name = ('web_small', 'web_corner_r', 'web_corner_l')[(i // 3) % 3]
-        out.alpha_composite(Image.fromarray(web(name)), (x * 16 + (18 if name != 'web_corner_l' else -8), y * 16 + 14))
+    put = lambda name, px, py: out.alpha_composite(Image.fromarray(web(name)), (int(px), int(py)))
+    def open_(x, y): return 0 <= x < W and 0 <= y < H and (M.used[y, x] in (None, 'road') or str(M.used[y, x]).startswith('soft'))
+    # of the woods, only the trees on their edge (facing open ground: the ones the player sees close by)
+    trees = {(x, y) for x, y in M.units if M.used[y + 1, x] == 'woods' and
+             (any(open_(x + dx, y + dy) for dx in (-1, 2) for dy in (1, 2)) or open_(x, y + 3) or open_(x + 1, y + 3))}
+    alone = {tuple(map(int, u[len('tree:pine'):].split(','))) for u in M.used.ravel()
+             if isinstance(u, str) and u.startswith('tree:pine')}
+    trees |= alone
+    webbed = sorted((x, y) for x, y in trees
+                    if any(a <= x + 1 <= c and b <= y + 1 <= d for a, b, c, d in WEBBED))
+    at = set(webbed)
+    for x, y in webbed:
+        px, py = x * 16, (y + 1) * 16                       # the crown's widest row and the row under it
+        put('webtree_drape', px + 8, py)
+        if (x - 2, y) not in at: put('webtree_fan_l', px - 6, py)
+        if (x + 2, y) in at: put('webtree_fan_r', px + 22, py)       # the fan both trees share
+        else: put('webtree_fan_r', px + 22, py)
+        # a strand across an open gap to the next webbed tree in the row (1-4 cells of open ground)
+        for g in range(1, 5):
+            if (x, y) in alone and (x + 2 + g, y) in alone and (x + 2 + g, y) in at and all(M.used[y + 1, x + 2 + k] in (None, 'road') or str(M.used[y + 1, x + 2 + k]).startswith('soft')
+                                             for k in range(g)):
+                s = web('webtree_strand'); mid = s[:, 16:64]
+                span = g * 16 + 4
+                body = np.concatenate([mid] * 3, 1)[:, :span]
+                put_arr = Image.fromarray(body); out.alpha_composite(put_arr, ((x + 2) * 16 - 2, py))
+                break
+    for gx, w, row in NETS:
+        net = web('web_net')
+        out.alpha_composite(Image.fromarray(net), (gx * 16 + (w * 16 - net.shape[1]) // 2, row * 16 + 2))
     return np.array(out.convert('RGB'))
 
 def main(outdir):

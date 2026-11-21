@@ -17,3 +17,4 @@ MonoMyth (Pokémon MonoMyth) reference renders and cut pieces.
 - pieces/rubble_pile_a.png, rubble_pile_b.png, rubble_pile_c.png, rubble_stones.png, rubble_stone.png: rubble piles and
   loose stones from Mt. Thunder (map 0x886D608, cells (29,28), (39,34), (42,33), (32,30), (30,32)), cut against its icy
   floor. Used (turned grey) to choke the cell doorway in the church after Eden's blast (tools/art/templar/blast_mock.py).
+- pieces/webtree_fan_l.png, webtree_drape.png, webtree_fan_r.png, webtree_join.png, webtree_strand.png: the web layer of the Webbed Woods' webbed trees (0x886DD40: the left fan 236/21e, the drape under the crown 234/22c, the right fan 237/21f, the fans two trees share 235 233 / 21d 21b, the strand across a gap 279 277 275 26e 26f / 27a 278 272 273 274), keyed out by the two web colours. Hollow Hill's blood-red webbing (user).
