@@ -12,12 +12,18 @@ Output: sound/songs/<label>.s (assembled into song_data with the other songs) an
 sound/monomyth/<label>/*.bin. The song still has to be listed in sound/song_table.inc and include/constants/songs.h.
 Credit: MonoMyth (its music).
 Usage: python3 tools/monomyth/port_song.py <song index> <label>     (e.g. 677 mus_dr_old_hq)
+Other games (user 2026-11-20: Ghost Grey's Route 1): set the ROM, its song table and the credit by environment:
+  PORT_ROM=/home/claude/ghostgrey/Ghost_Grey_EX.gba PORT_TABLE=0x8F8C2C0 PORT_CREDIT="Ghost Grey" PORT_DIR=ghostgrey
+  (the samples then go to sound/ported/<PORT_DIR>/<label>/)
 """
 import os, sys, struct
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
+if 'PORT_ROM' in os.environ: os.environ['MONOMYTH_ROM'] = os.environ['PORT_ROM']
 from romlib import ROM, u32
 C = os.path.normpath(os.path.join(HERE, '..', '..', 'codebase'))
-SONG_TABLE = 0x8E3AE10
+SONG_TABLE = int(os.environ.get('PORT_TABLE', '0x8E3AE10'), 0)
+CREDIT = os.environ.get('PORT_CREDIT', 'MonoMyth')
+SDIR = ('sound/ported/' + os.environ['PORT_DIR']) if 'PORT_DIR' in os.environ else 'sound/monomyth'
 
 def o(v): return (v & 0x0FFFFFFF) - 0x08000000
 def ptr_ok(v): return 0 <= o(v) < len(ROM)
@@ -49,8 +55,8 @@ def main(index, label):
     start = min(o(t) for t in tracks); end = hdr                 # the tracks lie just before their header
     ptrs, progs = decode(start, end)
     for at, v in ptrs.items(): assert start <= o(v) < end, f'pointer at {at:#x} -> {v:#x} leaves the song'
-    out = [f'@ {label}: MonoMyth song {index} (header {u32(entry) & 0x0FFFFFFF:#x}), ported by tools/monomyth/port_song.py',
-           '@ Credit: MonoMyth (its music).', '', '\t.section .rodata', '\t.align 2', '']
+    out = [f'@ {label}: {CREDIT} song {index} (header {u32(entry) & 0x0FFFFFFF:#x}), ported by tools/monomyth/port_song.py',
+           f'@ Credit: {CREDIT} (its music).', '', '\t.section .rodata', '\t.align 2', '']
     # ---- the tracks ----
     out.append(f'{label}_tracks:')
     starts = {o(t): k for k, t in enumerate(tracks)}
@@ -68,7 +74,7 @@ def main(index, label):
         out.append('\t.byte ' + ', '.join(f'0x{x:02X}' for x in ROM[i:j])); i = j
     out += ['', '\t.align 2']
     # ---- voices and samples ----
-    sdir = os.path.join(C, 'sound', 'monomyth', label); os.makedirs(sdir, exist_ok=True)
+    sdir = os.path.join(C, SDIR, label); os.makedirs(sdir, exist_ok=True)
     samples, waves, groups, tables = {}, {}, {}, {}
     def sample(v):
         a = o(v)
@@ -118,7 +124,7 @@ def main(index, label):
         for p in range(128): out += voice(a + 12 * p, p in used)
     for a, name in tables.items(): out += ['', f'{name}:', '\t.byte ' + ', '.join(str(x) for x in ROM[a:a + 128])]
     for a, name in waves.items(): out += ['', '\t.align 2', f'{name}:', '\t.byte ' + ', '.join(f'0x{x:02X}' for x in ROM[a:a + 16])]
-    for a, name in samples.items(): out += ['', '\t.align 2', f'{name}:', f'\t.incbin "sound/monomyth/{label}/{name}.bin"']
+    for a, name in samples.items(): out += ['', '\t.align 2', f'{name}:', f'\t.incbin "{SDIR}/{label}/{name}.bin"']
     # ---- the header ----
     out += ['', '\t.align 2', f'\t.global {label}', f'{label}:', f'\t.byte {nt}, {nb}, {pri}, 0x{rev:02X}', f'\t.4byte {label}_voices']
     out += [f'\t.4byte {label}_{k + 1}' for k in range(nt)]

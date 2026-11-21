@@ -215,7 +215,7 @@ def write(r):
     json.dump(L, open(lj, 'w'), indent=2); open(lj, 'a').write('\n')
     IT.register_tilesets([('secondary', TSDIR, TSNAME)])
 
-MUSIC = 'MUS_ROUTE104'          # a placeholder (the user picks Route 11's music)
+MUSIC = 'MUS_DR_GG_ROUTE1_PIANO' # on trial (user 2026-11-20: Ghost Grey's Route 1 on piano; kept from map.json once set)
 GATE_TEXT = {
     'church': "Cadmus told me to meet him at the church.\pI shouldn't leave the Valley yet.",
     'early': "I still have things to take care of here in the Valley.\pI shouldn't leave just yet.",

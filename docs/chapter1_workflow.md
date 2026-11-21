@@ -46,7 +46,7 @@ Done (each has a note in `bible/20_chapter1_build.md`):
 - Route 11 (`Route11`, 90x40: the approved 90x30 picture with five rows of woods and sea above and below, out of
   reach), connected to Pelluca's west road. Its own secondary tileset under Pelluca's primary, built from the
   composer by `tools/art/route11/build_route11.py`. A provisional story gate on Pelluca's west road (open once the
-  shrine is awakened; stage 4 sets the real condition). Music is a placeholder (Route 104). The east beach has no way
+  shrine is awakened; stage 4 sets the real condition). Music on trial: Ghost Grey's Route 1 theme on piano (`MUS_DR_GG_ROUTE1_PIANO`; the original as ported is `MUS_DR_GG_ROUTE1`). The east beach has no way
   down yet (revisit later, user). The west end waits for Hollow Hill.
 
 Remaining (proposed order):

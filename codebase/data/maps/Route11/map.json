@@ -2,7 +2,7 @@
   "id": "MAP_ROUTE11",
   "name": "Route11",
   "layout": "LAYOUT_ROUTE11",
-  "music": "MUS_ROUTE104",
+  "music": "MUS_DR_GG_ROUTE1_PIANO",
   "region_map_section": "MAPSEC_DR_ROUTE_11",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
