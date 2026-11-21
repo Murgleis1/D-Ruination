@@ -1368,7 +1368,7 @@ const struct Tileset gTileset_NecropolisLake =
     .palettes = gTilesetPalettes_NecropolisLake,
     .metatiles = gMetatiles_NecropolisLake,
     .metatileAttributes = gMetatileAttributes_NecropolisLake,
-    .callback = NULL,
+    .callback = InitTilesetAnim_NecropolisLake,
 };
 
 const struct Tileset gTileset_NecropolisLakeTiles =

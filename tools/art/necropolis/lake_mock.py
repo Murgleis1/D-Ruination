@@ -240,28 +240,91 @@ def overlay(img, fig, a, px, py):
 RING = os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces', 'tarragon_fire_ring.png')
 FLAME = ["....#....", "...##....", "...###...", "..####...", "..#####..", ".######..", ".#######.",
          "########.", "#########", ".#######.", "..#####.."]
+TORCH = os.path.join(HERE, '..', '..', '..', 'codebase', 'data', 'tilesets', 'secondary', 'battle_pyramid', 'anim', 'torch')
+GHOSTFIRE = [(36, 96, 140), (70, 160, 196), (140, 226, 240), (232, 252, 255)]
+def flame_frames():
+    """The bonfires' cold ghost flame: the base game's Battle Pyramid torch flame (its three frames), lifted out of
+    its brazier and recoloured from orange to a spectral cyan-white by lightness. -> three RGBA 16x32 pictures:
+    rows 0-15 rise over the cell above the fire, rows 16-31 burn in the fire's own cell."""
+    from scipy.ndimage import binary_fill_holes
+    out = []
+    for k in range(3):
+        p = Image.open(os.path.join(TORCH, '%d.png' % k)); idx = np.array(p)
+        im = np.array(p.convert('RGB')).astype(int)
+        r, b = im[..., 0], im[..., 2]
+        warm = (r > b + 60) & (r > 150)
+        rows = np.arange(32)[:, None] < 16
+        # the flame: its red outline (index 14) and all it encloses, and its tip above the brazier; the
+        # brazier's grille (the same orange, outside the outline) left out
+        from scipy.ndimage import binary_closing
+        shape = binary_fill_holes(binary_closing((idx == 14) | (warm & rows), np.ones((3, 3), bool)) | (idx == 14) | (warm & rows))
+        im[shape & ~warm] = (255, 156, 0)                                  # (the brazier's rim crossing it: flame)
+        warm = shape
+        lum = (im @ [0.3, 0.59, 0.11])
+        rgba = np.zeros((32, 16, 4), np.uint8)
+        lv = np.digitize(lum, [110, 165, 215])
+        col = np.array(GHOSTFIRE, np.uint8)[lv]
+        sh = np.zeros_like(warm); sh[1:] = warm[:-1]                        # (down a pixel: its foot in the logs)
+        cs = np.zeros_like(col); cs[1:] = col[:-1]
+        rgba[sh, :3] = cs[sh]; rgba[sh, 3] = 255
+        out.append(rgba)
+    return out
+
+LOGS = ["oo....oo", "oLo..oLo", ".oL**Lo.", "..oLLo..", ".oL**Lo.", "oLo..oLo", "oo....oo"]
+LOG_COL = {'o': (34, 28, 32), 'L': (88, 70, 62), '*': (176, 182, 196)}   # charcoal, the burnt wood, frost-grey ash
 def bonfire(base, lit):
+    """A bonfire: MonoMyth's (Tarragon's) stone fire ring, cold-tinted, with charred logs crossed in it and frost on
+    their ash (user 2026-11-21: real bonfire art, unlit and lit). Lit, the ghost flame burns up out of the logs."""
     out = base.copy()
     ring = np.array(Image.open(RING).convert('RGBA'))
     rh, rw = ring.shape[:2]; oy, ox = 16 - rh, (16 - rw) // 2
     for j in range(rh):
         for i in range(rw):
             if ring[j, i, 3] > 0 and 0 <= oy + j < 16 and 0 <= ox + i < 16:
-                out[oy + j, ox + i] = mm.gloom(ring[j:j + 1, i:i + 1, :3], 0.3)[0, 0]
-    if lit:                                                              # a cold ghost flame
-        for j, row in enumerate(FLAME):
-            for i, ch in enumerate(row):
-                y, x = j + 1, i + 3
-                if ch == '#' and 0 <= y < 16 and 0 <= x < 16:
-                    core = abs(i - 4) <= 1 and j > 4
-                    out[y, x] = (236, 252, 255) if core else (120, 230, 240) if abs(i - 4) <= 2 else (60, 170, 200)
+                l = float(ring[j, i, :3] @ [0.3, 0.59, 0.11]) * 0.82          # (its stones' own light, frost-cold)
+                out[oy + j, ox + i] = np.clip([l * 0.94, l * 0.96, l * 1.08 + 6], 0, 255).astype(np.uint8)
+    for j, row in enumerate(LOGS):
+        for i, ch in enumerate(row):
+            if ch != '.': out[oy + 4 + j, ox + 4 + i] = LOG_COL[ch]
+    if lit:                                                              # a cold ghost flame (its foot; its tip
+        f = flame_frames()[0][16:]; m = f[..., 3] > 0; out[m] = f[..., :3][m]   # is drawn on the cell above)
     return out
+
+VOIDS = (0x281, 0x3fe)
+MARGIN = 2              # rows below and columns right of the old chamber, so its south and east shores can be drawn
+def bank(lake, x, y):
+    """The lake's shore where the ice meets the dark (user 2026-11-21: slides stopped against nothing to be seen):
+    a bank of frozen rock, a ragged lip of frost along each side the ice touches, the rock sinking into the dark
+    away from the lake. lake(x, y) -> True for the lake's cells."""
+    rock = (F.tone(0x3eb, GG['full'][0x3eb]).astype(float) * 0.5 + np.array([4, 4, 10])).clip(0, 255)
+    yy, xx = np.mgrid[0:16, 0:16]
+    sides = {(0, -1): 15 - yy, (0, 1): yy, (-1, 0): 15 - xx, (1, 0): xx}   # 15 - (distance to that side)
+    near = np.full((16, 16), 99.0)
+    for (dx, dy), dd in sides.items():
+        if lake(x + dx, y + dy): near = np.minimum(near, (15 - dd).astype(float))
+    for dx in (-1, 1):                                                      # corners the ice only touches diagonally
+        for dy in (-1, 1):
+            if lake(x + dx, y + dy) and not lake(x + dx, y) and not lake(x, y + dy):
+                cx, cy = (15 if dx > 0 else 0), (15 if dy > 0 else 0)
+                near = np.minimum(near, np.sqrt((xx - cx) ** 2 + (yy - cy) ** 2))
+    fade = np.clip(1 - (near - 3) / 12.0, 0.0, 1)[..., None]
+    if GAME: fade = np.round(fade * 3) / 3                                  # (a few steps: keeps the colours down)
+    out = rock * fade + np.array(F.VOID, float) * (1 - fade)
+    if GAME: out = np.round(out / 8) * 8
+    for (dx, dy), dd in sides.items():
+        if not lake(x + dx, y + dy): continue
+        d = 15 - dd                                                         # 0 at the edge the ice touches
+        along = xx if dy else yy
+        depth = np.vectorize(lambda a: 1 + int(rnd('lip', x if not GAME else x % 4, y if not GAME else y % 4, dx, dy, int(a)) * 3))(along)
+        out[d < depth] = (150, 156, 172); out[d == 0] = (206, 212, 224)
+        out[(d == depth)] = (26, 26, 36)
+    return out.clip(0, 255).astype(np.uint8)
 
 def compose(lit=False):
     g, graves, soil = layout()
     c = GG['cells']; H, W = c.shape
     types = grave_types(); names = sorted(types)
-    img = np.zeros((H * 16, W * 16, 3), np.uint8)
+    img = np.zeros(((H + MARGIN) * 16, (W + MARGIN) * 16, 3), np.uint8); img[:] = F.VOID
     isl_soil, isl_block = P.islands()
     isl = set(isl_soil) | set(isl_block)
     demon = {(x + dx, y + dy) for (x, y) in P.DEMONS for dx in (0, 1) for dy in (0, 1)}
@@ -299,8 +362,25 @@ def compose(lit=False):
     for xx in range(gx * 16, gx * 16 + 16):                             # frost frozen up round its plinth
         h = 1 + int(rnd('gc', xx) * 2)
         for yy in range(gy * 16 + 16 - h, gy * 16 + 16): img[yy, xx] = (206, 212, 224) if yy == gy * 16 + 16 - h else (150, 156, 172)
+    # the shore: every dark cell (or cell past the old chamber's edge) beside the lake is frozen bank; under the
+    # landing the stair carries on south (the way in)
+    lakecell = lambda x, y: 0 <= x < W and 0 <= y < H and (g[y, x] != P.BLOCK or (x, y) in graves or (x, y) == P.GARGOYLE
+                                                         or (x, y) in isl or (x, y) in centre or (x, y) in demon)
+    for y in range(H + MARGIN):
+        for x in range(W + MARGIN):
+            inside = 0 <= x < W and 0 <= y < H
+            if inside and not (int(c[y, x]) in VOIDS and g[y, x] == P.BLOCK and (x, y) not in isl): continue
+            if lakecell(x, y): continue
+            if not any(lakecell(x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1)): continue
+            if y >= H and P.MAT[0][0] <= x <= P.MAT[-1][0]:
+                t = F.tone(int(c[H - 1, x]), GG['full'][int(c[H - 1, x])])
+            else: t = bank(lakecell, x, y)
+            img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = t
+    if lit:                                                          # the flames' tips over the cells above
+        tip = flame_frames()[0][:16]; m = tip[..., 3] > 0
+        for (fx, fy) in fires: img[(fy - 1) * 16:fy * 16, fx * 16:fx * 16 + 16][m] = tip[..., :3][m]
     if lit:                                                          # each bonfire's cold light on the ice round it
-        yy, xx = np.mgrid[0:H * 16, 0:W * 16]
+        yy, xx = np.mgrid[0:img.shape[0], 0:img.shape[1]]
         f = img.astype(float)
         for (fx, fy) in fires:
             cx, cy = fx * 16 + 8, fy * 16 + 6

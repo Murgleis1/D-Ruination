@@ -3,17 +3,17 @@ NecropolisLake_MapScripts::
 
 
 NecropolisLake_EventScript_Necromancer::
-# 4 "data/maps/NecropolisLake/scripts.pory"
-	lock
 # 5 "data/maps/NecropolisLake/scripts.pory"
-	faceplayer
+	lock
 # 6 "data/maps/NecropolisLake/scripts.pory"
-	msgbox NecropolisLake_EventScript_Necromancer_Text_0
+	faceplayer
 # 7 "data/maps/NecropolisLake/scripts.pory"
+	msgbox NecropolisLake_EventScript_Necromancer_Text_0
+# 8 "data/maps/NecropolisLake/scripts.pory"
 	release
 	return
 
 
 NecropolisLake_EventScript_Necromancer_Text_0:
-# 6 "data/maps/NecropolisLake/scripts.pory"
+# 7 "data/maps/NecropolisLake/scripts.pory"
 	.string "(A necromancer of House Langerin.\nNo battle yet: the Trial is not written.)$"

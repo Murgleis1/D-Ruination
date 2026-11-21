@@ -20,7 +20,8 @@ def load(d):
     for i in range(16):
         L = open(d + '/palettes/%02d.pal' % i).read().split('\n')[3:19]; pals.append(np.array([[int(v) for v in l.split()] for l in L], np.uint8))
     return tiles, pals
-def main(name, out):
+def main(name, out, swaps=None, anim=None):
+    """swaps: {(x, y): metatile id} (a script's setmetatile); anim: (first tile, frame PNG) for a tileset animation's frame."""
     m = json.load(open(C + '/data/maps/%s/map.json' % name))
     L = [l for l in json.load(open(C + '/data/layouts/layouts.json'))['layouts'] if l.get('id') == m['layout']][0]
     (pd, pm), (sd, sm) = tileset(L['primary_tileset']), tileset(L['secondary_tileset'])
@@ -29,6 +30,10 @@ def main(name, out):
     meta = lambda f: [struct.unpack('<12H', f[i * 24:i * 24 + 24]) for i in range(len(f) // 24)]
     PM, SM = meta(open(pm, 'rb').read()), meta(open(sm, 'rb').read())
     W, H = L['width'], L['height']; grid = np.fromfile(C + '/' + L['blockdata_filepath'], '<u2').reshape(H, W)
+    for (x, y), v in (swaps or {}).items(): grid[y, x] = (grid[y, x] & 0xFC00) | v
+    if anim:
+        a = np.array(Image.open(anim[1])) & 15
+        for i in range(a.shape[0] // 8): pt[anim[0] + i] = a[i * 8:i * 8 + 8, :8]
     img = np.zeros((H * 16, W * 16, 3), np.uint8)
     for y in range(H):
         for x in range(W):

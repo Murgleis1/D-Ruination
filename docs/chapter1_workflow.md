@@ -54,14 +54,13 @@ Done (each has a note in `bible/20_chapter1_build.md`):
 - Mirroh: built and walked, 2026-11-21, as three maps (`MirrohGate`, `MirrohLower`, `MirrohUpper`) and two
   gatehouse hallways. Reached from Hollow Hill's way north by a short fade.
 - Mirroh Necropolis grounds (`NecropolisGrounds`): built and walked, 2026-11-21. Reached from Mirroh's skull gate.
-- The Trial lake (`NecropolisLake`): built and walked, 2026-11-21. Reached from the grounds' grand entrance. Still
-  to do: a visible frozen bank where the ice meets the dark, and real bonfire art (lit and unlit).
+- The Trial lake (`NecropolisLake`): built and walked, 2026-11-21. Reached from the grounds' grand entrance. Its
+  frozen bank and its bonfires (unlit, and lit with an animated ghost flame for the Trial script to switch on) are done.
 - Kimaris's chamber (`KimarisChamber`): built and walked, 2026-11-21. Fantasma's room, four MonoMyth cauldrons,
   copper, Mirroh stone.
 
 Remaining (proposed order):
-1. The lake's bank and bonfire art; then Mirroh's interiors (next session), Mt. Mirroh and Mirroh Peak (the one
-   after).
+1. Mirroh's interiors (next session), then Mt. Mirroh and Mirroh Peak (the one after).
    The base game's Mirroh maps are still on old tilesets.
 2. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
 

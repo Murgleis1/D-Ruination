@@ -1,4 +1,5 @@
-mapscripts NecropolisLake_MapScripts {}
+mapscripts NecropolisLake_MapScripts {
+}
 
 script NecropolisLake_EventScript_Necromancer {
     lock

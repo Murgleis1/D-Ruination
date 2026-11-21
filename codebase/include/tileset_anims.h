@@ -7,6 +7,7 @@ void UpdateTilesetAnimations(void);
 void TransferTilesetAnimsBuffer(void);
 
 void InitTilesetAnim_General(void);
+void InitTilesetAnim_NecropolisLake(void);
 void InitTilesetAnim_KimarisChamber(void);
 void InitTilesetAnim_Snow(void);
 void InitTilesetAnim_Petalburg(void);

@@ -1483,3 +1483,27 @@ void InitTilesetAnim_KimarisChamber(void)
     sSecondaryTilesetAnimCallback = TilesetAnim_KimarisChamber;
 }
 // --- end KimarisChamber ---
+
+// --- NecropolisLake bonfires (build_lake.py) ---
+static const u16 sTilesetAnims_NecropolisLake_Flame0[] = INCBIN_U16("data/tilesets/secondary/necropolis_lake/anim/flame/0.4bpp");
+static const u16 sTilesetAnims_NecropolisLake_Flame1[] = INCBIN_U16("data/tilesets/secondary/necropolis_lake/anim/flame/1.4bpp");
+static const u16 sTilesetAnims_NecropolisLake_Flame2[] = INCBIN_U16("data/tilesets/secondary/necropolis_lake/anim/flame/2.4bpp");
+static const u16 *const sTilesetAnims_NecropolisLake_Flame[] = {
+    sTilesetAnims_NecropolisLake_Flame0,
+    sTilesetAnims_NecropolisLake_Flame1,
+    sTilesetAnims_NecropolisLake_Flame2,
+};
+
+static void TilesetAnim_NecropolisLake(u16 timer)
+{
+    if (timer % 8 == 0)
+        AppendTilesetAnimToBuffer(sTilesetAnims_NecropolisLake_Flame[(timer / 8) % 3], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(409)), 8 * TILE_SIZE_4BPP);
+}
+
+void InitTilesetAnim_NecropolisLake(void)
+{
+    sSecondaryTilesetAnimCounter = 0;
+    sSecondaryTilesetAnimCounterMax = 24;
+    sSecondaryTilesetAnimCallback = TilesetAnim_NecropolisLake;
+}
+// --- end NecropolisLake ---

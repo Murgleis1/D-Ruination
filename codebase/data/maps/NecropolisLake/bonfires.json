@@ -1,0 +1,66 @@
+{
+ "NE": [
+  {
+   "x": 37,
+   "y": 8,
+   "unlit": 536,
+   "lit": 697,
+   "solid": false
+  },
+  {
+   "x": 37,
+   "y": 9,
+   "unlit": 552,
+   "lit": 698,
+   "solid": true
+  }
+ ],
+ "NW": [
+  {
+   "x": 3,
+   "y": 8,
+   "unlit": 523,
+   "lit": 699,
+   "solid": true
+  },
+  {
+   "x": 3,
+   "y": 9,
+   "unlit": 552,
+   "lit": 700,
+   "solid": true
+  }
+ ],
+ "SE": [
+  {
+   "x": 37,
+   "y": 27,
+   "unlit": 531,
+   "lit": 701,
+   "solid": false
+  },
+  {
+   "x": 37,
+   "y": 28,
+   "unlit": 552,
+   "lit": 702,
+   "solid": true
+  }
+ ],
+ "SW": [
+  {
+   "x": 3,
+   "y": 27,
+   "unlit": 531,
+   "lit": 703,
+   "solid": false
+  },
+  {
+   "x": 3,
+   "y": 28,
+   "unlit": 552,
+   "lit": 704,
+   "solid": true
+  }
+ ]
+}
