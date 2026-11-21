@@ -559,6 +559,39 @@ def clean_snow(S, cells):
         S -= bad
     return thick(S & cells)
 
+def north_wall(M):
+    """The city's north wall along the map's top (rows 0-1: Elderflower's back parapet, its snowy crenels and its
+    inner face), from wall to wall, broken only by the two gates: nobody leaves north but through them."""
+    for x in range(4, 56):
+        if any(M.gtag[y, x] in ('gate', 'roof') for y in range(0, 4)) or 7 <= x <= 20 or 39 <= x <= 49: continue
+        M.ground(x, 0, ef(0x206), 'wall'); M.ground(x, 1, ef(0x2aa), 'wall')
+
+def flanks(M):
+    """Close the flanks: in each three-column strip, stacked bands (top to bottom, chosen by place) of either a
+    big pine with a small pine and a buried rock beside it (three rows), or a ridge of rock right across (one row),
+    or two small pines beside a big one's... The bands meet exactly, so no cell is left to walk through."""
+    for side, xs in (('w', 0), ('e', 57)):
+        big_x = xs if side == 'w' else xs + 1          # (the big pines on the outside, the small ones by the wall)
+        small_x = xs + 2 if side == 'w' else xs
+        y = 0; k = 0
+        while y <= 56:
+            left = 56 - y + 1
+            if left >= 3 and (rnd('fl', side, k) < 0.72 or left in (3,)):
+                pine(M, big_x, y, True)
+                pine(M, small_x, y, False)
+                M.ground(small_x, y + 2, ef(0xe8), 'rock')     # (a snow-buried rock: solid)
+                y += 3
+            else:
+                for dx, m in enumerate((0x105, 0x106, 0x107)):
+                    M.ground(xs + dx, y, ef(m), 'rock')
+                y += 1
+            k += 1
+
+def pine(M, x, y, big):
+    for dy in range(3 if big else 2):
+        for dx in range(2 if big else 1): M.ground(x + dx, y + dy, ef(0xed), 'snow')
+    mm.pine(M, x, y, big)
+
 def compose():
     M = Map()
     for y in range(SEAM):
@@ -633,7 +666,7 @@ def compose():
     necro_gate(M, 39, 0)                                             # north-east, to the Necropolis
 
     # --- L3: the chapel, its graveyard loose among small pines on the snow, the way to the Necropolis gate
-    chapel(M, 26, 1)
+    chapel(M, 26, 2)
     graves = [(36, 2), (38, 4), (36, 6), (38, 8), (36, 10), (40, 12), (43, 13), (47, 12), (48, 10)]
     for x, y in graves: mm.headstone(M, x, y)
     for x, y in ((38, 11), (45, 12)): mm.pine(M, x, y, False)
@@ -650,6 +683,11 @@ def compose():
     for x, y in ((4, 2), (54, 6), (4, 19), (54, 23)): mm.pine(M, x, y, True)
     for x, y in ((6, 11), (55, 15), (5, 27)): rock(M, x, y)
     fence(M, 4, 14, 49, gaps=(9,)); fence(M, 41, 54, 49, gaps=(47,))
+    # --- L0: the flanks. Nobody gets round Mirroh (user 2026-11-21): the three columns either side of the walls,
+    # from the map's top down to the city wall's foot, are closed by the massif's own pinewood and rock (every
+    # cell a tree, a boulder or a rock ridge; Elderflower's pines and its rock ledges 105/106/107)
+    flanks(M)
+    north_wall(M)
     # --- L0: the slope outside, pines in clumps, rocks under the snow
     for x0, y0 in ((0, 2), (57, 4), (0, 15), (57, 18), (0, 28), (57, 31), (0, 41), (57, 44), (1, 56), (54, 56),
                    (8, 58), (18, 57), (38, 58), (47, 57), (24, 59), (34, 59)):
