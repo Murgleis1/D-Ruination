@@ -37,8 +37,8 @@ def ody_raw(m): return kit.atlas('ody_0_97')['full'][m]
 # sinister stone, dark and light mixed. Odyssey's colours, one for one (its trunks, mushrooms and the door's cold blue kept).
 BONE = {(32, 96, 96): (124, 116, 102), (48, 128, 128): (150, 142, 124), (32, 88, 88): (108, 100, 90),   # floor
         (16, 64, 64): (84, 76, 72), (16, 40, 40): (52, 42, 46), (16, 32, 32): (32, 26, 32),             # shadow
-        (104, 128, 120): (228, 220, 198), (88, 136, 96): (204, 196, 172), (56, 112, 96): (170, 160, 138),  # pines
-        (40, 72, 64): (112, 100, 92),
+        (104, 128, 120): (224, 218, 202), (88, 136, 96): (192, 188, 178), (56, 112, 96): (146, 144, 144),  # pines: bone
+        (40, 72, 64): (90, 88, 96),                                     # going to a sinister grey
         (64, 40, 56): (60, 40, 48), (128, 96, 104): (140, 120, 112), (88, 72, 80): (96, 80, 82),         # wood
         (160, 136, 112): (186, 172, 150),
         (64, 72, 104): (58, 50, 64), (40, 48, 88): (30, 24, 36), (96, 96, 120): (92, 84, 96),             # stone
@@ -516,9 +516,79 @@ def annotate(img, scale=2):
         d.text((px + 14, py - 6), t, fill=(255, 230, 80))
     return im
 
+# ------------------------------------------------------------------ the unsettling touches
+# blood: dark red stains running down the cliffs from their tops (drawn on the faces only)
+BLOOD = [(70, 10, 18), (104, 18, 26), (140, 30, 36)]
+
+def blood(M, img, seed=13, n=22):
+    rng = np.random.default_rng(seed)
+    faceish = np.zeros((H * 16, W * 16), bool)
+    for (x, y), v in M.face.items():
+        if abs(v) in (0x338, 0x339, 0x2ed, 0x2ee): continue                     # never the stairs or the door
+        if v in (0x2e1, 0x2e3, 0x2e4): continue                                  # nor the thin north lips
+        faceish[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = True
+    tops = [(x, y) for (x, y), v in M.face.items() if v in (0x2f1, 0x2df, 0x2e7, 0x2e8, 0x2ea, 0x2f0, 0x2f2)
+            and (x, y - 1) not in M.face]                                       # a face cell at the top of its cliff
+    rng.shuffle(tops)
+    for x, y in tops[:n]:
+        px = x * 16 + int(rng.integers(2, 14)); py = y * 16 + int(rng.integers(0, 4))
+        for k in range(int(rng.integers(2, 5))):                                # a blot, then drips from it
+            img[py + k // 2, px - 1 + k % 3] = BLOOD[1] if faceish[py + k // 2, px - 1 + k % 3] else img[py + k // 2, px - 1 + k % 3]
+        for d in range(int(rng.integers(1, 3))):
+            dx = px + int(rng.integers(-2, 3)); L = int(rng.integers(5, 26)); w = 2 if rng.random() < 0.3 else 1
+            for j in range(L):
+                yy = py + j
+                if yy >= H * 16 or not faceish[yy, dx]: break
+                c = BLOOD[2] if j < 2 else BLOOD[1] if j < L - 3 else BLOOD[0]
+                img[yy, dx:dx + w] = c
+            if yy < H * 16 and faceish[min(yy, H * 16 - 1), dx]: img[yy - 1:yy + 1, dx - 1:dx + w + 1][:] = BLOOD[0]   # the drop at its end
+    # old stains soaked into the stone: irregular blots, here and there
+    cells = [(x, y) for (x, y), v in M.face.items() if v in (0x2f1, 0x2df, 0x2e7, 0x2e8, 0x2ea, 0x2f0, 0x2f2, 0x2db, 0x2dc)]
+    for i in rng.permutation(len(cells))[:16]:
+        x, y = cells[i]; cx = x * 16 + int(rng.integers(3, 13)); cy = y * 16 + int(rng.integers(3, 13))
+        r = rng.uniform(1.5, 3.5)
+        for yy in range(cy - 4, cy + 5):
+            for xx in range(cx - 4, cx + 5):
+                d = ((xx - cx) ** 2 + (yy - cy) ** 2) ** 0.5 + rng.uniform(-1, 1)
+                if d < r and faceish[yy, xx]: img[yy, xx] = BLOOD[0] if d > r - 1.2 else BLOOD[1]
+    # round the sealed door: smeared hand-high stains
+    dx0, dy0 = DOOR[0] * 16, DOOR[1] * 16
+    for _ in range(30):
+        x = dx0 + int(rng.integers(-6, 38)); y = dy0 + int(rng.integers(-10, 14))
+        if 0 <= y < H * 16 and faceish[y, x] : img[y, x] = BLOOD[int(rng.integers(0, 2))]
+    return img
+
+# webs: the Webbed Woods' webbing (MonoMyth; cut out for the haunted teachers' lounge), blood red, hung in the trees
+WEB_DIR = os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces')
+WEB_RED = {(240, 240, 248): (170, 36, 42), (200, 216, 232): (104, 18, 26)}
+def web(name):
+    im = np.array(Image.open(os.path.join(WEB_DIR, name + '.png')).convert('RGBA'))
+    for a, b in WEB_RED.items(): im[(im[..., :3] == a).all(-1), :3] = b
+    return im
+
+# (piece, cell x, cell y, pixel offset x, y): across the way north, over the trees that close the ways, at the
+# clearing's edge, at the foot of the stairs, among the clumps of pines on the rings
+WEBS = [('web_strand', 16, 7, 8, 1), ('web_corner_l', 15, 7, 0, 0), ('web_corner_r', 19, 7, 8, 0),
+        ('web_net', 6, 19, 0, 6), ('web_net_tilted', 30, 9, 0, 0), ('web_net', 50, 30, 0, 0),
+        ('web_net_tilted', 26, 51, 4, 6), ('web_net', 2, 45, 4, 0), ('web_small', 12, 52, 0, 4),
+        ('web_drape', 45, 52, 0, 2), ('web_small', 14, 9, 4, 4), ('web_net', 40, 4, 0, 10)]
+
+def hang_webs(M, img):
+    out = Image.fromarray(img).convert('RGBA')
+    for name, x, y, ox, oy in WEBS:
+        out.alpha_composite(Image.fromarray(web(name)), (x * 16 + ox, y * 16 + oy))
+    # and on a few of the pines standing alone: a small web or a corner caught in the branches
+    pines = sorted({u for u in M.used.ravel() if isinstance(u, str) and u.startswith('tree:pine')})
+    for i, u in enumerate(pines):
+        if i % 3: continue
+        x, y = map(int, u[len('tree:pine'):].split(','))
+        name = ('web_small', 'web_corner_r', 'web_corner_l')[(i // 3) % 3]
+        out.alpha_composite(Image.fromarray(web(name)), (x * 16 + (18 if name != 'web_corner_l' else -8), y * 16 + 14))
+    return np.array(out.convert('RGB'))
+
 def main(outdir):
     os.makedirs(outdir, exist_ok=True)
-    M = compose(); img = M.render()
+    M = compose(); img = hang_webs(M, blood(M, M.render()))
     strip = route11_strip()
     strip[:, :1] = (255, 64, 64)                       # the seam (Route 11 to the right)
     full = np.concatenate([img, strip], 1)
