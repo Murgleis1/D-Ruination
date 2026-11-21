@@ -366,7 +366,13 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
             _spires(M, xs, ycren - 4, side)
         mx, my = x0 + 5, ycren - 4
     if far_mat:
-        mat(M, mx, my, 4, tone or crimson_tone)
+        # the hallway's far door: no mat (a mat against a roof read wrong, user 2026-11-21): the lane runs on to the
+        # gatehouse's back, flat to its roof, and the two cells there are the warp
+        for k in (1, 2):
+            if M.gtag[my, mx + k] == 'cobble':
+                M.ground(mx + k, my, ef((0x208, 0x20a)[k - 1]), 'warp')
+            else:
+                M.gtag[my, mx + k] = 'warp'
 
 def crimson_tone(img): return ramp_tone(img, (46, 10, 20), (150, 36, 46))
 def ramp_tone(img, lo, hi):
