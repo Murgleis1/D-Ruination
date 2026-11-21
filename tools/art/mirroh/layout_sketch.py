@@ -5,7 +5,7 @@ Usage: python3 tools/art/mirroh/layout_sketch.py out.png"""
 import sys
 from PIL import Image, ImageDraw, ImageFont
 S = 14
-C = dict(snow=(232, 236, 244), snow2=(214, 222, 236), snow3=(196, 206, 224), cobble=(150, 150, 165),
+C = dict(ice=(170, 200, 230), icepath=(90, 100, 125), snow=(232, 236, 244), snow2=(214, 222, 236), snow3=(196, 206, 224), cobble=(150, 150, 165),
          wall=(92, 92, 112), wallhi=(120, 120, 140), stairs=(200, 200, 205), house=(70, 70, 92), roofthatch=(120, 105, 90),
          tavern=(150, 60, 60), shop=(60, 90, 150), chapel=(50, 45, 70), grave=(110, 110, 120), garden=(120, 140, 110),
          bone=(186, 176, 152), pine=(60, 90, 80), mtn=(170, 180, 200), road=(176, 170, 160), lantern=(240, 200, 90),
@@ -23,7 +23,7 @@ def main(out):
     try: f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 11)
     except Exception: f = ImageFont.load_default()
     d.text((10, 8), 'MIRROH (about 60x60): a walled city climbing the massif; light snow below, deep snow above; '
-           'gothic, gloomy, wintry', fill=(230, 230, 230), font=f)
+           'gothic, gloomy, wintry; v2', fill=(230, 230, 230), font=f)
     # the mountain all round, snow deepening upward
     box(d, 0, 0, W - 1, H - 1, C['snow3'])
     box(d, 0, 20, W - 1, H - 1, C['snow2']); box(d, 0, 38, W - 1, H - 1, C['snow'])
@@ -39,16 +39,17 @@ def main(out):
     box(d, 7, 37, 52, 48, C['snow'])
     for x0, y0 in ((9, 39), (16, 41), (43, 39), (47, 43), (22, 44)): box(d, x0, y0, x0 + 4, y0 + 3, C['roofthatch'])
     for x0, y0 in ((9, 44), (16, 46), (42, 45)): box(d, x0, y0, x0 + 4, y0 + 1, C['garden'], outline=(90, 70, 50))
-    box(d, 28, 40, 31, 48, C['cobble']); box(d, 28, 38, 41, 40, C['cobble']); box(d, 33, 43, 34, 44, C['water']); label(d, 35, 43, 'well', f)
+    box(d, 28, 40, 31, 48, C['icepath']); box(d, 28, 38, 41, 40, C['icepath'])
+    box(d, 34, 42, 39, 46, C['ice'], outline=(90, 90, 110)); label(d, 34, 47, 'reflecting ice (Opal)', f)
     label(d, 8, 37, 'cottages + gardens', f)
     # terrace wall (jogging) with the stairs at its east end
     box(d, 7, 35, 30, 36, C['wall']); box(d, 31, 34, 52, 35, C['wall']); box(d, 40, 34, 41, 35, C['stairs'])
     # middle terrace: the square west of the stairs: the Tavern (Pokemon Center), the market hall, stalls, a frozen fountain
-    box(d, 9, 20, 52, 34, C['snow2']); box(d, 16, 23, 41, 33, C['cobble'])
-    box(d, 9, 22, 15, 27, C['tavern']); label(d, 9, 28, 'Tavern', f)
+    box(d, 9, 20, 52, 34, C['snow2']); box(d, 16, 23, 41, 33, C['icepath'])
+    box(d, 9, 22, 15, 27, C['tavern']); label(d, 9, 28, 'Tavern (slate)', f)
     box(d, 44, 22, 51, 27, C['shop']); label(d, 44, 28, 'market hall', f)
     for x0 in (18, 22, 34, 38): box(d, x0, 30, x0 + 1, 31, (160, 120, 80))
-    box(d, 26, 25, 29, 28, C['water']); label(d, 24, 24, 'frozen fountain', f)
+    box(d, 24, 24, 31, 28, C['ice'], outline=(90, 90, 110)); label(d, 24, 23, 'reflecting ice', f)
     box(d, 9, 30, 14, 33, C['house']); box(d, 45, 30, 51, 33, C['house'])
     # terrace wall with the stairs at its west end
     box(d, 9, 18, 31, 19, C['wall']); box(d, 32, 19, 52, 20, C['wall']); box(d, 17, 18, 18, 19, C['stairs'])
@@ -56,17 +57,20 @@ def main(out):
     box(d, 9, 9, 52, 17, C['snow3'])
     box(d, 10, 10, 17, 16, C['chapel']); label(d, 10, 9, 'gothic chapel', f, (40, 40, 60))
     box(d, 19, 12, 26, 16, C['grave']); label(d, 19, 11, 'graveyard', f, (40, 40, 60))
-    box(d, 40, 10, 50, 16, C['house']); label(d, 40, 9, 'Langerin town house?', f, (40, 40, 60))
+    box(d, 38, 10, 46, 16, C['house']); label(d, 38, 9, 'House Langerin town house', f, (40, 40, 60))
     # the keep gate north (east of centre): the road up to the Necropolis (its own map) and the mountain
-    box(d, 7, 6, 54, 8, C['wall']); box(d, 31, 6, 36, 8, C['keep']); label(d, 31, 7, 'north gate', f, (255, 255, 255))
-    box(d, 32, 0, 35, 5, C['road']); label(d, 37, 1, 'up to the Necropolis, the Templar Citadel, Mt. Mirroh', f)
+    box(d, 7, 6, 54, 8, C['wall'])
+    box(d, 9, 6, 13, 8, C['keep']); label(d, 9, 7, 'NW gate', f, (255, 255, 255))
+    box(d, 10, 0, 12, 5, C['road']); label(d, 14, 1, 'north, out of town', f)
+    box(d, 48, 6, 52, 8, C['keep']); label(d, 48, 7, 'NE gate', f, (255, 255, 255))
+    box(d, 49, 0, 51, 5, C['road']); label(d, 36, 3, 'to the Necropolis', f)
     # the way through: south gate -> street bending east -> stairs -> the square -> west stairs -> past the chapel
     for (x0, y0, x1, y1) in ((30, 52, 30, 39), (30, 39, 40, 39), (40, 39, 40, 33), (40, 33, 18, 29), (18, 29, 18, 17),
-                             (18, 17, 33, 13), (33, 13, 33, 6)):
+                             (18, 17, 11, 13), (11, 13, 11, 6), (18, 17, 30, 14), (30, 14, 50, 12), (50, 12, 50, 6)):
         d.line([10 + x0 * S + 7, 30 + y0 * S + 7, 10 + x1 * S + 7, 30 + y1 * S + 7], fill=(200, 40, 40), width=2)
     label(d, 42, 37, 'the way up', f, (200, 40, 40))
     # lanterns along the streets
-    for x, y in ((27, 41), (32, 46), (37, 38), (16, 24), (41, 24), (16, 32), (41, 32), (27, 14), (36, 12)):
+    for x, y in ((27, 41), (32, 46), (37, 38), (16, 24), (41, 24), (16, 32), (41, 32), (27, 14), (36, 12), (13, 9), (47, 9)):
         box(d, x, y, x, y, C['lantern'])
     # fog low over the lower town
     im.save(out); print(out)
