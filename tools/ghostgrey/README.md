@@ -26,3 +26,10 @@ south edge. Interiors: houses with kitchens and dining tables (33.7, 33.9-33.11)
 All Game Boy greyscale like the rest of Ghost Grey: they need real palettes.
 Renders: `assets/ghostgrey_reference/opal_village_33_5.png`, `opal_village_ice_zoom.png`, `opal_village_interiors.png`.
 
+
+**Heater Forest** (user 2026-11-21: the model for the Necropolis Trial's ice-sliding puzzle; sliding ice, no cracking
+ice): region section 130, maps 33.6 (32x46), 33.13 (22x22), 33.14 (30x29), 33.15, 36.5 (30x30), 36.6, 36.7.
+Wide sheets of sliding ice (long diagonal streaks) walled by snowy pines; boulders scattered on the ice as the
+stoppers, a few patches of snow on the ice where a slide also stops, the way on at the far side; in 33.6 dark
+pits in the ice too. Step onto the ice and you slide until a boulder, a tree or the snow stops you.
+Renders: `assets/ghostgrey_reference/heater_forest_33_6.png`, `heater_forest_33_14.png`, `heater_forest_36_5.png`.
