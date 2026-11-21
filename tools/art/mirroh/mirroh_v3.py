@@ -203,7 +203,10 @@ def snow_on(M, S, floor, cells, tag):
         elif se: m = 0x32e
         if m is None: M.ground(x, y, snow_tile(x, y), 'snow'); continue
         piece = ef(m).copy(); k = (piece == pave).all(-1)
-        piece[k] = floor(x, y)[k]
+        fl = floor(x, y); piece[k] = fl[k]
+        if not (fl == pave).all():                      # (on the ice: the drift's dark edge line a cold ice-blue)
+            p = piece.astype(int); dark = ~k & (_lum(p.astype(float)) < 150)
+            piece[dark] = (132, 160, 196)
         M.ground(x, y, piece, 'snow')
 
 def thick(S):
@@ -470,6 +473,92 @@ def blob(cx, cy, rx, ry, seed):
             if d < 1 + 0.35 * (rnd(seed, x, y) - 0.5): out.add((x, y))
     return out
 
+def vnoise(x, y, scale, seed):
+    """Smooth value noise in [0, 1): random values on a grid every `scale` cells, blended between."""
+    gx, gy = x / scale, y / scale; x0, y0 = int(np.floor(gx)), int(np.floor(gy)); tx, ty = gx - x0, gy - y0
+    sm = lambda t: t * t * (3 - 2 * t); tx, ty = sm(tx), sm(ty)
+    v = lambda i, j: rnd(seed, i, j)
+    return (v(x0, y0) * (1 - tx) + v(x0 + 1, y0) * tx) * (1 - ty) + (v(x0, y0 + 1) * (1 - tx) + v(x0 + 1, y0 + 1) * tx) * ty
+
+def _seg_dist(p, a, b):
+    p, a, b = np.array(p, float), np.array(a, float), np.array(b, float); ab = b - a
+    t = np.clip(np.dot(p - a, ab) / max(np.dot(ab, ab), 1e-9), 0, 1); return np.linalg.norm(p - (a + t * ab))
+
+def snow_field(l, cells, ways, keep, base):
+    """Where snow lies on a paved level: in ragged drifts of every size (smooth noise at two scales), a little more
+    toward its edges (walls, parapets, the map's top), cleared along the ways; always round `keep`."""
+    from scipy.ndimage import distance_transform_edt
+    mask = np.zeros((H, W), bool)
+    for (x, y) in cells: mask[y, x] = True
+    d = distance_transform_edt(mask)
+    S = set(); F = {}
+    for (x, y) in cells:
+        dd = min(d[y, x], y + 1)
+        f = base + 0.45 * np.exp(-(dd - 1) / 3.0) + 1.0 * (vnoise(x, y, 6.0, ('s', l)) - 0.5) \
+            + 0.45 * (vnoise(x, y, 2.6, ('t', l)) - 0.5)
+        w = min(_seg_dist((x, y), a, b) for way in ways for a, b in zip(way, way[1:]))
+        if w < 1.6: f -= 1.2 * (1.6 - w) / 1.6
+        if any(abs(x - kx) <= 1 and -1 <= y - ky <= 2 for kx, ky in keep): f = max(f, 0.6)
+        F[(x, y)] = f
+        if f > 0.5: S.add((x, y))
+    return S, F
+
+_DUST = {}
+def dust_tile(level, seed):
+    """Elderflower's paving with snow dusted on it: specks and little tufts, `level` 1 (a few) to 3 (thick);
+    two variants each (the in-game build will hold these few pieces)."""
+    key = (level, seed)
+    if key not in _DUST:
+        t = ef(0x275).copy(); n = (0, 5, 11, 19)[level]
+        for k in range(n):
+            x = int(rnd('dx', level, seed, k) * 15); y = int(rnd('dy', level, seed, k) * 14)
+            t[y, x] = (236, 240, 248); t[y, min(x + 1, 15)] = (236, 240, 248)
+            if rnd('dz', level, seed, k) < 0.5: t[y + 1, x] = (204, 212, 232)
+            if level == 3 and rnd('dw', seed, k) < 0.5: t[max(y - 1, 0), x] = (236, 240, 248)
+        _DUST[key] = t
+    return _DUST[key]
+
+def dust(M, S, cells, F, ways, l):
+    """The paving round the drifts, and here and there in the open, dusted: thicker next to the snow, thinning
+    out, none on the swept ways. So the drifts fade into the stone instead of stopping at a hard edge."""
+    for (x, y) in cells:
+        if (x, y) in S or M.gtag[y, x] != 'pave': continue
+        near = min((max(abs(x - a), abs(y - b)) for a in range(x - 2, x + 3) for b in range(y - 2, y + 3)
+                    if (a, b) in S), default=9)
+        w = min(_seg_dist((x, y), a, b) for way in ways for a, b in zip(way, way[1:]))
+        if w < 1.2: continue
+        f = F[(x, y)] + (0.35 if near == 1 else 0.15 if near == 2 else 0) + 0.25 * (rnd('du', x, y) - 0.5)
+        lev = 3 if f > 0.42 else 2 if f > 0.3 else 1 if f > 0.16 else 0
+        if lev:
+            sh = M.g[y][x]
+            if not (sh == ef(0x275)).all(): continue        # (shaded paving by a wall or parapet left as it is)
+            M.ground(x, y, dust_tile(lev, int(rnd('dv', x, y) * 2)), 'pave')
+
+def clean_snow(S, cells):
+    """Snow the drift pieces can draw: no crumbs (fewer than five cells), no one-cell necks or tips, no paving
+    holes of one or two cells inside it, no cell with bare paving only at two opposite corners."""
+    from scipy.ndimage import label
+    for _ in range(4):
+        S = thick(S & cells)
+        m = np.zeros((H, W), bool)
+        for (x, y) in S: m[y, x] = True
+        lab, n = label(m)
+        for i in range(1, n + 1):
+            if (lab == i).sum() < 5: S -= {(int(x), int(y)) for y, x in np.argwhere(lab == i)}
+        hole = np.zeros((H, W), bool)
+        for (x, y) in cells:
+            if (x, y) not in S: hole[y, x] = True
+        lab, n = label(hole)
+        for i in range(1, n + 1):
+            if (lab == i).sum() <= 2: S |= {(int(x), int(y)) for y, x in np.argwhere(lab == i)}
+        bad = set()
+        for (x, y) in S:
+            pv = lambda a, b: (a, b) in cells and (a, b) not in S
+            if not (pv(x - 1, y) or pv(x + 1, y) or pv(x, y - 1) or pv(x, y + 1)):
+                if (pv(x - 1, y - 1) and pv(x + 1, y + 1)) or (pv(x + 1, y - 1) and pv(x - 1, y + 1)): bad.add((x, y))
+        S -= bad
+    return thick(S & cells)
+
 def compose():
     M = Map()
     for y in range(SEAM):
@@ -477,38 +566,63 @@ def compose():
     mm.hh_seam(M)
     lv = lambda l: {(x, y) for y in range(SEAM) for x in range(W) if L[y, x] == l}
 
-    # --- L2 (the square) and L3 (the sacred terrace): paving, with snow lying on it in drifts; the ice in a snowy
-    # yard in the square. L3 snowier than L2 (deeper uphill).
-    for l, snows in ((2, [blob(14, 24, 4, 3, 'a'), blob(48, 13, 2, 4, 'b'), blob(12, 13, 3, 2, 'c'),
-                          rrect_cells(22, 21, 38, 31, 3), blob(44, 30, 3, 1, 'd'), blob(20, 31, 3, 1, 'e')]),
-                     (3, [blob(36, 7, 5, 6, 'gy'), blob(46, 13, 3, 1, 'f'), blob(26, 13, 2, 1, 'g')])):
-        cells = lv(l); S = set()
-        for b in snows: S |= b
-        S = thick(S & cells)
-        snow_on(M, S, lambda x, y: ef(0x275), cells, 'pave')
-    # the reflecting ice, in the square's snowy yard: Opal Village's ice (coloured), the yard's snow drifting onto it
-    ice = rect(26, 24, 34, 28)
-    yard = thick(rrect_cells(22, 21, 38, 31, 3) & lv(2))
-    icef = lambda x, y: recolour(full('gg', 0x282 if (x, y) in ((26, 24), (34, 24), (26, 28), (34, 28)) else 0x34b),
-                                 GG_ICE)
-    banks = thick({c for c in yard if c not in ice or c in rect(26, 24, 34, 24)} )
-    snow_on(M, banks, icef, yard, 'snow')
-    for c in ice - banks: M.gtag[c[1], c[0]] = 'ice'
+    # --- L2 (the square) and L3 (the sacred terrace): paving, with snow lying on it as it would: drifted deep
+    # against the walls, the parapets and round the buildings, thinning out into the open in ragged tongues and
+    # islands, and swept clear along the ways people walk (stair to door to gate); deeper on L3 (uphill). The
+    # reflecting ice sits in a drift of its own in the square.
+    BOULDERS = ((26, 25), (34, 27), (17, 45))
+    icef = lambda x, y: recolour(full('gg', 0x282 if (x, y) in BOULDERS else 0x34b), GG_ICE)
+    def pool(cx, cy, rx, ry, seed):                     # (the ice in a rounded, uneven shape, two cells thick or more)
+        return thick({(x, y) for y in range(cy - ry - 1, cy + ry + 2) for x in range(cx - rx - 1, cx + rx + 2)
+                      if ((x - cx) / (rx + 0.5)) ** 2 + ((y - cy) / (ry + 0.5)) ** 2
+                      < 1 + 0.3 * (vnoise(x, y, 1.8, seed) - 0.5)})
+    ice = pool(30, 26, 5, 2, 'ice')
+    WAYS = {2: [((15, 32), (15, 27), (12, 30)), ((44, 32), (44, 28), (46, 27)), ((15, 27), (22, 22), (37, 20)),
+                ((44, 28), (40, 22), (37, 20)), ((15, 27), (15, 12)), ((22, 22), (20, 32))],
+            3: [((37, 14), (31, 13)), ((37, 14), (40, 11), (44, 10))]}
+    KEEP = {2: [(12, 12), (17, 25), (13, 11), (19, 11), (49, 11)],            # pines, lamps: stand in snow
+            3: [(36, 2), (38, 4), (36, 6), (38, 8), (36, 10), (40, 12), (43, 13), (47, 12), (48, 10), (38, 11),
+                (45, 12)]}
+    for l, base in ((2, 0.2), (3, 0.42)):
+        cells = lv(l)
+        S, F = snow_field(l, cells, WAYS[l], KEEP[l], base)
+        yard = set()
+        if l == 2:
+            yard = {(x, y) for (x, y) in cells
+                    if ((x - 30) / 8.0) ** 2 + ((y - 26) / 5.3) ** 2 < 1 + 0.3 * (vnoise(x, y, 2.5, 'yd') - 0.5)}
+            S |= yard
+        S = clean_snow(S - ice, cells - ice) | (yard - ice)
+        near_ice = lambda x, y: any((x + i, y + j) in ice for i in (-1, 0, 1) for j in (-1, 0, 1))
+        floor = (lambda x, y: (icef(x, y) if (x, y) in ice else recolour(full('gg', 0x34b), GG_ICE))
+                 if near_ice(x, y) else ef(0x275))         # (a bank's drift shows the ice it lies against)
+        snow_on(M, S, floor, cells, 'pave')
+        dust(M, S, cells - ice, F, WAYS[l], l)
+        if l == 2:
+            for (x, y) in ice:
+                if (x, y) not in S: M.gtag[y, x] = 'ice'
 
     # --- L1 (the lower town): snow, cobbled lanes
-    C = set()
-    C |= rect(28, 40, 33, 42) | rect(10, 40, 49, 41)                # the street along the square's wall
-    C |= rect(14, 37, 16, 39) | rect(43, 37, 45, 39)                # to the two stairs up
-    C |= rect(30, 43, 31, 46)                                       # to the south gatehouse's far door (its mat)
-    C |= rect(8, 42, 10, 46) | rect(49, 42, 51, 46)                 # lanes to the cottages, the market
-    C &= lv(1)
+    def lane(pts, half, seed):                          # (a worn lane: its width and line wander a little)
+        out = set()
+        for y in range(H):
+            for x in range(W):
+                w = min(_seg_dist((x, y), a, b) for a, b in zip(pts, pts[1:]))
+                if w < half + 0.7 * (vnoise(x, y, 3.0, seed) - 0.5): out.add((x, y))
+        return out
+    C = lane(((10, 41), (20, 40.5), (30, 41.5), (40, 40.5), (50, 41)), 1.25, 'st')   # the street under the wall
+    C |= lane(((15, 37), (15, 41)), 1.3, 'w1') | lane(((44, 37), (44, 41)), 1.3, 'w2')   # to the stairs up
+    C |= lane(((30.5, 41), (30.5, 46)), 1.1, 'gt')                   # to the south gatehouse's back
+    C |= lane(((10, 41), (9, 46)), 1.2, 'w3') | lane(((50, 41), (51, 47)), 1.2, 'w4')    # the cottages, the market
+    C |= {c for c in rect(29, 43, 32, 46) if ((c[0] - 30.5) / 2.2) ** 2 + ((c[1] - 46) / 2.4) ** 2 < 1}  # (its foot)
+    C = thick(C & lv(1)) | (rect(30, 45, 31, 46))
     cobbles(M, C)
     # a small frozen pond by the cottages (the same ice, its snow drifting onto it)
-    pond = rect(17, 45, 19, 47); pondyard = rect(15, 43, 21, 49)
+    pond = pool(18, 46, 2, 1, 'pond'); pondyard = {c for c in rect(14, 43, 22, 49)
+                                                 if ((c[0] - 18) / 4.6) ** 2 + ((c[1] - 46) / 3.4) ** 2 < 1.15} | pond
     snow_on(M, thick(pondyard - pond), icef, pondyard, 'snow')
     for c in pond: M.gtag[c[1], c[0]] = 'ice'
     # --- L0 (outside): the cobbled way up from Hollow Hill to the south gatehouse
-    C0 = rect(29, 57, 32, SEAM - 3)
+    C0 = thick(lane(((30.5, 57), (30, 59.5), (30.8, SEAM - 2.6)), 1.6, 'hh'))
     cobbles(M, C0)
 
     walls(M)
