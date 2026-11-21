@@ -14,3 +14,15 @@ the last (1.94) is a pillared chamber with a sealed gate and a carved floor seal
 room). All in Game Boy greyscale: they need a real palette (user).
 
 Renders: `assets/ghostgrey_reference/` (`catacombs_1_89..94.png`, `catacombs_sheet.png`, `lavender_town_sheet.png`).
+
+**Opal Village** (user 2026-11-20: loves its reflecting ice; study its landscape and its indoor and outdoor tiles for
+Mirroh): Ghost Grey's northernmost town, region section 128 ("Opal Village", name pointer at 0x3F1D4C), outdoor map
+group 33 map 5 (35x39, layout 0x8812780, snow weather; primary 0x82D4A94, secondary 0x82D4E24, no tile animation in
+the secondary). Raised snowbanks held by brick retaining walls with stone stairs; dark icy paths strewn with
+sparkles; two square sheets of reflecting ice (long diagonal reflection streaks) sunk inside brick rims, boulders at
+their corners, a low fence along the front; snowy pines, benches, lamp posts, a snowman, a picket fence along the
+south edge. Interiors: houses with kitchens and dining tables (33.7, 33.9-33.11), the Credits Museum's display halls
+(33.8, 33.16: plinths on pale stone over a dark tiled floor), a rest room (34.8), more in group 1 (1.10, 1.11, 1.21).
+All Game Boy greyscale like the rest of Ghost Grey: they need real palettes.
+Renders: `assets/ghostgrey_reference/opal_village_33_5.png`, `opal_village_ice_zoom.png`, `opal_village_interiors.png`.
+
