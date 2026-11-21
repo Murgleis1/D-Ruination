@@ -457,6 +457,7 @@ def compose(seed=5):
     # --- trees, dead trees, stumps, logs, rocks, mushrooms, weeds: scattered, never cut, stacked or touching a cliff,
     # and never closing the way between the key spots
     near(M, pine, 2, [(53, 39), (54, 48), (50, 16)])    # Odyssey's pines in the mixed band
+
     # tall grass (the wild Pokemon's): Odyssey's dark tufts, in patches
     for x0, y0, x1, y1 in ((5, 25, 8, 29), (12, 37, 15, 40), (38, 52, 42, 54), (22, 52, 26, 54), (43, 18, 46, 20),
                            (24, 16, 28, 17), (36, 33, 38, 36), (20, 22, 22, 25), (46, 34, 47, 38)):
@@ -599,15 +600,17 @@ def _line(layer, a, b, c):
         if e2 >= dy: err += dy; x0 += sx
         if e2 <= dx: err += dx; y0 += sy
 
-def sheet(layer, A, B, rng, depth=3, sag=None):
+def sheet(layer, A, B, rng, depth=3, sag=None, bulge=(0, 1)):
     """Threads sagging from A to B (pixels), one under another, laced by zig-zags; torn ends trailing below."""
     L = ((B[0] - A[0]) ** 2 + (B[1] - A[1]) ** 2) ** 0.5
     sag = sag if sag is not None else 3 + L * 0.16
     n = max(4, int(L / 3))
     rows = []
     for i in range(depth):
-        a = (A[0], A[1] + i * 2); b = (B[0], B[1] + i * 2); sg = sag + i * 3.5
-        pts = [(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t + sg * 4 * t * (1 - t)) for t in np.linspace(0, 1, n + 1)]
+        bx, by = bulge                                           # the way the web sags (down; out from a woods' side)
+        a = (A[0] + bx * i * 2, A[1] + by * i * 2); b = (B[0] + bx * i * 2, B[1] + by * i * 2); sg = sag + i * 3.5
+        pts = [(a[0] + (b[0] - a[0]) * t + bx * sg * 4 * t * (1 - t), a[1] + (b[1] - a[1]) * t + by * sg * 4 * t * (1 - t))
+               for t in np.linspace(0, 1, n + 1)]
         rows.append(pts)
         for p, q in zip(pts, pts[1:]): _line(layer, p, q, WEB_LIGHT if i == 0 else WEB_DARK)
     for i in range(depth - 1):                                   # the lace: zig-zags between one thread and the next
@@ -615,7 +618,7 @@ def sheet(layer, A, B, rng, depth=3, sag=None):
             j = k + (1 if (k + i) % 2 else -1)
             if 0 < j < n: _line(layer, rows[i][k], rows[i + 1][j], WEB_DARK)
     for k in rng.choice(np.arange(2, n - 1), size=min(3, max(0, n - 3)), replace=False) if n > 4 else []:
-        x, y = rows[-1][k]; _line(layer, (x, y), (x + rng.integers(-1, 2), y + rng.integers(3, 8)), WEB_DARK)
+        x, y = rows[-1][k]; _line(layer, (x, y), (x + bulge[0] * rng.integers(2, 6) + rng.integers(-1, 2), y + rng.integers(3, 8)), WEB_DARK)
 
 def orb(layer, C, R, anchors, rng, torn=0.25):
     """A round web: spokes to its anchors and out, a spiral, broken in places."""
@@ -649,16 +652,39 @@ def hang_webs(M, img, seed=4):
     garland([(x, north(x)) for x in (4, 6, 8, 10, 12, 14)])               # the woods' edge west of the way north
     garland([(x, north(x)) for x in (20, 22, 24, 26, 28)])                # and east of it, over the dead tree (user)
     garland([(x, north(x)) for x in (38, 40, 42, 44, 46, 48)])            # the north-east woods
-    garland([(x, south(x)) for x in (4, 6, 8, 10, 12, 14)])               # the treeline south of the clearing
+    garland([(x, south(x)) for x in range(4, 26, 2)])                    # the treeline along the south
+    garland([(x, south(x)) for x in range(30, 52, 2) if any(u[0] == x and u[1] > 40 for u in units)])
+    garland([(x, north(x)) for x in range(34, 50, 2) if x not in (38, 40, 42, 44, 46, 48)])
+    # down the west woods' side, facing the west woods and the clearing: webs bulging out from tree to tree
+    wall = sorted(t for x, t in units if x == 2 and 22 <= t <= 52)
+    for t0, t1 in zip(wall, wall[1:]):
+        if (t0 // 2) % 3 == 0: continue                                    # (not every gap: in stretches)
+        sheet(layer, (2 * 16 + 30, (t0 + 1) * 16 + 10), (2 * 16 + 30, (t1 + 1) * 16 + 10), rng, depth=2, sag=6, bulge=(1, 0.3))
+    # the trees closing the way east: down their open side
+    for x0 in (50,):
+        st = sorted(t for x, t in units if x == x0 and 24 <= t <= 36)
+        for t0, t1 in zip(st, st[1:]):
+            sheet(layer, (x0 * 16 + 2, (t0 + 1) * 16 + 10), (x0 * 16 + 2, (t1 + 1) * 16 + 10), rng, depth=2, sag=5, bulge=(-1, 0.3))
     # a small round web in the dead tree's branches under the woods' edge (user)
     orb(layer, (23 * 16 + 9, 11 * 16 + 9), 9, [(23 * 16 + 3, 11 * 16 + 2), (23 * 16 + 14, 11 * 16 + 4)], rng, torn=0.3)
-    # the clearing's corner, where the west woods meet the treeline south of it
-    orb(layer, (5 * 16 + 4, 53 * 16 + 4), 13, [(3 * 16 + 14, 52 * 16 + 2), (6 * 16 + 2, 55 * 16 + 4)], rng)
-    # the pair of pines on ring 1's south terrace (user): a deep sheet between them
-    sheet(layer, (26 * 16 + 26, 46 * 16 + 8), (30 * 16 + 6, 46 * 16 + 8), rng, depth=3)
-    # round webs where the woods close the ways against the cliffs: east and south
-    orb(layer, (50 * 16 + 4, 29 * 16 + 8), 16, [(50 * 16 - 2, 26 * 16 + 8), (51 * 16, 32 * 16 + 6)], rng)
-    orb(layer, (27 * 16 + 14, 51 * 16 + 8), 13, [(26 * 16 + 4, 51 * 16), (29 * 16 + 10, 51 * 16)], rng)
+    # groups of pines (user 2026-11-20: webs on actual groups of trees, never in the open): every two pines standing
+    # near each other at about the same height share a sheet, and a pine near a woods' edge is webbed to it
+    alone = sorted({tuple(map(int, u[len('tree:pine'):].split(','))) for u in M.used.ravel()
+                    if isinstance(u, str) and u.startswith('tree:pine')})
+    edge = [u for u in units if M.used[u[1] + 1, u[0]] == 'woods']
+    done = set()
+    for a in alone:
+        for b in alone:
+            if b[0] > a[0] and b[0] - a[0] <= 7 and abs(b[1] - a[1]) <= 1 and (a, b) not in done:
+                A = (a[0] * 16 + 26, (a[1] + 1) * 16 + 8); B = (b[0] * 16 + 6, (b[1] + 1) * 16 + 8)
+                sheet(layer, A, B, rng, depth=3 if b[0] - a[0] <= 4 else 2); done.add((a, b))
+        for e in edge:                       # the woods' edge beside it, crowns at about the same height
+            dx = e[0] - a[0]
+            if abs(e[1] - a[1]) <= 1 and 3 <= abs(dx) <= 6:
+                if dx > 0: sheet(layer, (a[0] * 16 + 26, (a[1] + 1) * 16 + 8), (e[0] * 16 + 6, (e[1] + 1) * 16 + 8), rng, depth=2)
+                else: sheet(layer, (e[0] * 16 + 26, (e[1] + 1) * 16 + 8), (a[0] * 16 + 6, (a[1] + 1) * 16 + 8), rng, depth=2)
+    # a round web where the two woods columns close the way south meet (in the V between their crowns)
+    orb(layer, (28 * 16, 52 * 16 + 2), 11, [(27 * 16 + 4, 51 * 16 + 6), (28 * 16 + 12, 51 * 16 + 6)], rng)
     # a clump on ring 2: two pines and the stump between them
     out = Image.fromarray(img).convert('RGBA'); out.alpha_composite(Image.fromarray(layer))
     for gx, w, row in NETS:
