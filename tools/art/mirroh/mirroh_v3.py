@@ -45,12 +45,57 @@ def to_ef(img):
     out[col] = gloom(img, 0.25)[col]
     return out
 
+# ------------------------------------------------------------------ copper: Mirroh's colour, House Langerin's crest's
+COPPER = ((44, 22, 20), (74, 36, 26), (112, 58, 36), (150, 82, 48), (186, 112, 66), (222, 160, 108))
+PATINA = ((70, 112, 100), (96, 150, 132))
+def copper_tone(img):
+    """Anything to copper by lightness (the crest's colour)."""
+    l = _lum(img.astype(float)) / 255.0
+    lo, hi = np.array(COPPER[0], float), np.array(COPPER[5], float)
+    return (lo + (hi - lo) * np.clip((l - 0.12) / 0.75, 0, 1)[..., None]).astype(np.uint8)
+
+def to_mirroh(img):
+    """Crown's stone restoned (to_ef), its purple banners in copper."""
+    out = to_ef(img); f = img.astype(int)
+    purple = (f[..., 2] > f[..., 1] + 30) & (f[..., 0] > f[..., 1] + 10)
+    out[purple] = copper_tone(img)[purple]
+    return out
+
+def copper_roof(w, h, seed='roof'):
+    """A pitched copper roof seen from above, its ridge running back from the middle (the way the roof of Crown's
+    cathedral runs back between its towers): standing seams leaning down each slope, staggered joints, the lit west
+    slope and the shaded east one, a bright ridge, a little verdigris in the seams near the eaves. w, h in pixels."""
+    img = np.zeros((h, w, 3), np.uint8); mid = w // 2
+    for y in range(h):
+        for x in range(w):
+            west = x < mid; d = (mid - 1 - x) if west else (x - mid)
+            k = (d + y // 5) % 5                     # seams lean outward as they run down the slope
+            base, seam = (COPPER[3], COPPER[2]) if west else (COPPER[2], COPPER[1])
+            c = seam if k == 0 or (y % 5 == 4 and k in (1, 2)) else base
+            if y >= h - 2: c = COPPER[1] if y == h - 2 else COPPER[0]          # the eave
+            if k == 0 and y > h * 0.55 and rnd(seed, x // 3, y // 4) < 0.18:
+                c = PATINA[1] if west else PATINA[0]
+            img[y, x] = c
+        img[y, mid - 1] = COPPER[5]; img[y, mid - 2] = COPPER[4]; img[y, mid] = COPPER[0]
+        img[y, 0] = img[y, w - 1] = COPPER[0]
+    # snow lying on its upper slopes: a soft drift edge (depth varying smoothly along the roof), shaded east
+    knots = [10 + 7 * rnd(seed, 'k', i) for i in range(w // 12 + 2)]
+    for x in range(1, w - 1):
+        i, t = divmod(x, 12); t /= 12.0
+        depth = int(knots[i] * (1 - t) + knots[i + 1] * t)
+        for y in range(min(depth + 1, h - 3)):
+            west = x < w // 2
+            c = (236, 240, 248) if west else (200, 210, 232)
+            if y == depth: c = (176, 190, 216) if west else (150, 160, 192)
+            img[y, x] = c
+    return img
+
 # ------------------------------------------------------------------ the plan: levels
 L = np.zeros((H, W), int)                         # 0 outside; 1 lower town; 2 the square; 3 the sacred terrace
 def level(l, x0, y0, x1, y1): L[y0:y1 + 1, x0:x1 + 1] = l
 level(1, 3, 0, 56, 50)
-level(2, 7, 0, 53, 33)
-level(3, 23, 0, 50, 15)
+level(2, 6, 0, 53, 33)
+level(3, 25, 0, 50, 15)
 FACES = {1: 5, 2: 2, 3: 2}                         # face rows under each level's crenels (the city wall is tall)
 
 # ------------------------------------------------------------------ ground
@@ -173,7 +218,7 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
     for dy in range(7):
         for dx in range(12):
             m = int(c[36 + dy, 20 + dx])
-            t = ef(0x21e) if dy == 6 else ef(0x20e) if m == 0x66 else to_ef(cr(m))   # (its moat-dark course: wall)
+            t = ef(0x21e) if dy == 6 else ef(0x20e) if m == 0x66 else to_mirroh(cr(m))   # (its moat-dark course: wall)
             M.ground(x0 + tw + dx, ycren + dy, t, 'gate')
     xr = x0 + tw + 12
     if style == 'roof':
@@ -199,7 +244,15 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
                     if side: M.ground(xs + 2 - dx, ycren - 1 + dy, fx(ef(m)), 'gate')
                     else: M.ground(xs + dx, ycren - 1 + dy, ef(m), 'gate')
             _spires(M, xs, ycren - 4, side)
-        mx, my = x0 + 7, ycren - 1
+        # between the towers: the back wall's crenels (snow on them), then a copper roof running down to the front
+        # walk (Crown's cathedral: a pitched roof between its spired towers)
+        for dx in range(12):
+            M.ground(x0 + 3 + dx, ycren - 4, ef(0x206), 'gate')
+        roof = copper_roof(12 * 16, 3 * 16)
+        for dy in range(3):
+            for dx in range(12):
+                M.ground(x0 + 3 + dx, ycren - 3 + dy, roof[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], 'gate')
+        mx, my = x0 + 7, ycren - 5
     if far_mat:
         mat(M, mx, my, 4, tone or crimson_tone)
 
@@ -253,7 +306,21 @@ def chapel(M, x0, y0):
             0x6f, 0x77, 0x18, 0x19, 0x10, 0x11, 0x12, 0xc, 0xd, 0x2e, 0x2f, 0x36, 0x37)
     b = cut('c32', 26, 1, 9, 12, ground=C32G, ring=False, rows=[1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 14])
     for dx in range(3, 6): b[0][dx] = b[1][dx] = None   # (above the roof's peak: the cathedral's woods, not ours)
-    M.place(b, x0, y0, 'chapel', fn=lambda i: to_ef(slate_roof(i)))
+    M.place(b, x0, y0, 'chapel', fn=copper_roofs)
+
+def copper_roofs(img):
+    """Crown's verdigris-green roofs to Mirroh's copper (a touch of the green kept in the darkest seams); the rest
+    restoned."""
+    f = img.astype(int); green = (f[..., 1] > f[..., 0] + 28) & (f[..., 1] > f[..., 2] + 12)   # (the roof, not its green-grey stone)
+    out = to_ef(slate_roof(img)); cu = copper_tone(img); out[green] = cu[green]
+    return out
+
+def langerin(M, x0, y0):
+    """House Langerin's town house: Crown's long townhouse, its slate roof in the family's copper."""
+    def tone(i):
+        f = i.astype(int); blue = (f[..., 2] > f[..., 0] + 18)
+        out = gloom(i, keep_snow=False); out[blue] = copper_tone(i)[blue]; return out
+    M.place(cut('c33', 15, 10, 7, 6), x0, y0, 'house', fn=tone)
 
 def fence(M, x0, x1, y, gaps=()):
     mm.fence(M, x0, x1, y, gaps)
@@ -292,7 +359,7 @@ def compose():
     # yard in the square. L3 snowier than L2 (deeper uphill).
     for l, snows in ((2, [blob(14, 24, 4, 3, 'a'), blob(48, 13, 2, 4, 'b'), blob(12, 13, 3, 2, 'c'),
                           rrect_cells(22, 21, 38, 31, 3), blob(44, 30, 3, 1, 'd'), blob(20, 31, 3, 1, 'e')]),
-                     (3, [blob(33, 7, 6, 5, 'gy'), blob(46, 13, 3, 1, 'f'), blob(26, 13, 2, 1, 'g')])):
+                     (3, [blob(36, 7, 5, 6, 'gy'), blob(46, 13, 3, 1, 'f'), blob(26, 13, 2, 1, 'g')])):
         cells = lv(l); S = set()
         for b in snows: S |= b
         S = thick(S & cells)
@@ -315,7 +382,7 @@ def compose():
     C &= lv(1)
     cobbles(M, C)
     # a small frozen pond by the cottages (the same ice, its snow drifting onto it)
-    pond = rect(18, 45, 22, 47); pondyard = rect(16, 43, 24, 49) - rect(24, 43, 24, 43)
+    pond = rect(17, 45, 19, 47); pondyard = rect(15, 43, 21, 49)
     snow_on(M, thick(pondyard - pond), icef, pondyard, 'snow')
     for c in pond: M.gtag[c[1], c[0]] = 'ice'
     # --- L0 (outside): the cobbled way up from Hollow Hill to the south gatehouse
@@ -325,28 +392,28 @@ def compose():
     walls(M)
     stair(M, 15, 33); stair(M, 44, 33)                               # lower town -> square
     stair(M, 37, 15)                                                 # square -> sacred terrace
-    gatehouse(M, 24, 50, far_mat=True)                                 # south, from Hollow Hill
-    gatehouse(M, 8, 3)                                               # north-west, to the mountain
+    gatehouse(M, 22, 50, style='towers', far_mat=True, tone=lambda i: copper_tone(i))   # south, from Hollow Hill
+    gatehouse(M, 7, 4, style='towers')                               # north-west, to the mountain
     necro_gate(M, 39, 0)                                             # north-east, to the Necropolis
 
     # --- L3: the chapel, its graveyard loose among small pines on the snow, the way to the Necropolis gate
-    chapel(M, 24, 1)
-    graves = [(34, 2), (37, 3), (34, 5), (37, 6), (34, 9), (37, 10), (40, 12), (47, 12), (48, 10)]
+    chapel(M, 26, 1)
+    graves = [(36, 2), (38, 4), (36, 6), (38, 8), (36, 10), (40, 12), (43, 13), (47, 12), (48, 10)]
     for x, y in graves: mm.headstone(M, x, y)
-    for x, y in ((36, 7), (45, 12)): mm.pine(M, x, y, False)
+    for x, y in ((38, 11), (45, 12)): mm.pine(M, x, y, False)
     # --- L2: the Tavern (west), House Langerin's town house between its gargoyles (east), benches by the ice
     mm.tavern(M, 9, 22)
-    mm.c33_house(M, 'long', 43, 21); mm.gargoyle(M, 41, 24); mm.gargoyle(M, 50, 24)
+    langerin(M, 43, 21); mm.gargoyle(M, 41, 24); mm.gargoyle(M, 50, 24)
     for x, y in ((24, 30), (36, 30)): bench(M, x, y)
     for x, y in ((12, 12), (17, 25)): mm.pine(M, x, y, False)
     # --- L1: cottages west, the market east (Crown's shop and a townhouse), barrels, a bench
-    mm.ef_house(M, 5, 43); mm.c33_house(M, 'small', 11, 43)
-    mm.c33_house(M, 'shop', 46, 43); mm.c33_house(M, 'long', 37, 43)
-    mm.barrels(M, 51, 47); mm.barrels(M, 44, 47); mm.barrels(M, 44, 48); bench(M, 26, 44)
-    for x, y in ((17, 43), (53, 44), (4, 33), (55, 34)): mm.pine(M, x, y, False)
+    mm.ef_house(M, 4, 43); mm.c33_house(M, 'small', 9, 43)
+    mm.c33_house(M, 'shop', 49, 43); mm.c33_house(M, 'long', 41, 43)
+    mm.barrels(M, 54, 46); mm.barrels(M, 48, 48); mm.barrels(M, 54, 47); bench(M, 26, 44)
+    for x, y in ((20, 43), (4, 33), (55, 34)): mm.pine(M, x, y, False)
     for x, y in ((4, 2), (54, 6), (4, 19), (54, 23)): mm.pine(M, x, y, True)
     for x, y in ((6, 11), (55, 15), (5, 27)): rock(M, x, y)
-    fence(M, 5, 16, 49, gaps=(9,)); fence(M, 45, 54, 49, gaps=(49,))
+    fence(M, 4, 14, 49, gaps=(9,)); fence(M, 41, 54, 49, gaps=(47,))
     # --- L0: the slope outside, pines in clumps, rocks under the snow
     for x0, y0 in ((0, 2), (57, 4), (0, 15), (57, 18), (0, 28), (57, 31), (0, 41), (57, 44), (1, 56), (54, 56),
                    (8, 58), (18, 57), (38, 58), (47, 57), (24, 59), (34, 59)):
@@ -358,7 +425,7 @@ def compose():
         if M.free(x, y, 1, 1): rock(M, x, y)
     # --- lamps: at every stair's foot, the gates, the Tavern's and Langerin's doors, along the street
     for x, y in ((13, 37), (17, 37), (42, 37), (46, 37), (35, 12), (39, 12), (28, 41), (35, 41), (27, 57), (34, 57),
-                 (22, 10), (38, 10), (49, 11), (19, 28), (47, 27), (7, 41), (52, 41)):
+                 (13, 11), (19, 11), (49, 11), (19, 28), (47, 27), (7, 41), (52, 41)):
         if M.free(x, y, 1, 2, ground=('snow', 'pave', 'cobble')): mm.lamp(M, x, y)
         else: print('no room for a lamp at', x, y)
     return M
