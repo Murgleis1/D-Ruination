@@ -391,7 +391,7 @@ The Cormorian common-knowledge view that "House Ashland probably helped assassin
 
 **The two older Langerin brothers `[LOCKED v0.9.8]`:**
 
-- **Dale Langerin** and **Gram Langerin** — Kimaris's two older brothers, the *first* and *second* sons of the previous Langerin patriarch. Both are *lesser trainers* the player fights as opening encounters in the Mirroh Necropolis before reaching Kimaris at the Trial 1 chamber. They are minor characters — no further backstory required. Their place in the Langerin succession was supplanted by Rhydia's age-12 decree elevating Kimaris over them; whatever their reaction to that decree was, **they have accepted it.** ([OPEN] minor flavor for their dialog and team composition; cap 18 like Kimaris.)
+- **Dale Langerin** and **Gram Langerin** — Kimaris's two older brothers, the *first* and *second* sons of the previous Langerin patriarch. Both are *lesser trainers* the player fights as opening encounters in the Mirroh Necropolis before reaching Kimaris at the Trial 1 chamber. They are minor characters — no further backstory required. **Where they are fought (user 2026-11-21):** Dale, Gram and **their two assistants** (two more necromancers) each guard one of the four spectral bonfires on the frozen lake of the Necropolis catacombs (the Trial; 20_chapter1_build.md). The player beats all four, the four bonfires burn, and the north door opens to Kimaris's chamber. Their place in the Langerin succession was supplanted by Rhydia's age-12 decree elevating Kimaris over them; whatever their reaction to that decree was, **they have accepted it.** ([OPEN] minor flavor for their dialog and team composition; cap 18 like Kimaris.)
 
 **Background — House and lineage:**
 - **Head of House Langerin** (patriarch by Rhydia's decree) — Ghost-type masters, one of the **five-oldest noble houses** of Cormoria (Section 12). Keepers of the **Mirroh Necropolis** (which decays into "Mirroh Base Camp Graveyard" in DM's era).
@@ -551,7 +551,7 @@ The Trial 1 team (Crowley + 5 supporting Ghosts at cap 18) is *not* Kimaris's ac
 
 - `[OPEN]` Specific dialog for Kimaris's pre- and post-Trial-1 conversations (recommended register: warm, paternal, perceptive of the player without pressing for backstory; goofy when interacting with Crowley)
 - `[OPEN]` Specific overworld scene with Kimaris hugging/polishing Crowley (the project's earliest Show-Don't-Tell partnership demonstration — Section 11)
-- `[OPEN]` Specific teams and dialog for the older brothers Dale and Gram (lesser Necropolis-keeper Ghost trainers fought before reaching Kimaris; cap 18)
+- `[OPEN]` Specific teams and dialog for the older brothers Dale and Gram (lesser Necropolis-keeper Ghost trainers fought before reaching Kimaris; cap 18), and for their two assistant necromancers (names, teams; cap 18)
 - ~~`[OPEN]` Kimaris's true team for the post-Champion side quest~~ — **RESOLVED v0.9.9** (full Reserve-Champion roster locked above; ~L100).
 - `[OPEN]` Specific exorcism / supernatural-consultancy scenes with Ambrose Caymen (recommend at least one mid-game observation scene where the player sees Kimaris and the Archbishop collaborating on a haunting — Show-Don't-Tell institutional alliance demonstration before the late-game Necropolis Assault)
 - `[OPEN]` Specific Kimaris-Cadmus academy-friendship moments (recommend brief reference scenes; the friendship is a structural pillar but doesn't need extensive on-screen depiction)
