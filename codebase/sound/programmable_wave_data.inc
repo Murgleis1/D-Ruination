@@ -76,3 +76,7 @@ ProgrammableWaveData_24::
 
 ProgrammableWaveData_25::
 	.incbin "sound/programmable_wave_samples/25.pcm"
+
+@ Dreamstone Ruination: a pure sine (the ghostly echo in Hollow Hill's theme)
+ProgrammableWaveData_DrSine::
+	.incbin "sound/programmable_wave_samples/dr_sine.pcm"
