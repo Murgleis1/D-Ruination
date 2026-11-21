@@ -7,17 +7,16 @@ haunted, the thinnest place between worlds) rather than Route 11's.
 
 The song is 24 bars, looped: bars 0-11 carry the tune over slow chords; in bars 12-23 the tune falls silent and
 only the chords go on, every third bar empty. The arrangement (all decoded from the ROM: tools/music/m4a_decode.py):
-  melody   the tune, on the soft "pedal" piano (voicegroup195 via 196, program 0): short key presses, the release
+  melody   the tune, on the soft "pedal" piano (voicegroup195 via 194, program 0): short key presses, the release
            tail is the ring
   chords   Ghost Grey's own piano chords, softer
   counter  its four-note counter-line, piano
   echo     the ghostly echo: in the silent half the tune comes back as a far-off voice (the soft female voice,
-           program 53, slow to swell): the first note of each half bar of bar b-12, held two beats, panned away.
+           voicegroup194 program 53, slow to swell): the first note of each half bar of bar b-12, held two beats, panned away.
            (A first try used a sine on the wave channel; the user heard it as random beeps.)
-  wind     gusts of noise (the GBA's noise channel, program 83), swelling in and dying away, over the empty bars
-           and the hush at the end of the first half
-The wind uses the GBA's own noise channel; the echo plays only where the tune is silent, so with the chords it
-stays within the five sampled voices the game allows (too many at once is what made the first port crackle). Engine reverb is turned well up (midi.cfg).
+The echo plays only where the tune is silent, so with the chords it stays within the five sampled voices the game
+allows (too many at once is what made the first port crackle). (Wind on the noise channel was tried and taken out:
+the user heard it as static.) Engine reverb is turned well up (midi.cfg).
 Credit: Ghost Grey (the composition).
 Output: codebase/sound/songs/midi/mus_dr_hollow_hill.mid
 """
@@ -46,13 +45,8 @@ def build():
         if t % 48: continue                                  # half bar, held two beats, a voice far off
         echo.append((t + 12 * BAR, p, 46, 60))
     parts['echo'] = echo
-    wind = []
-    for i, b in enumerate((11, 14, 17, 20, 23)):             # the hush and the empty bars
-        key = (62, 59, 64, 58, 61)[i]                        # (a high hiss: low noise keys thud like a drum)
-        wind.append((b * BAR, key, BAR + 24 if b < 23 else BAR, 36 if b == 11 else 48))
-    parts['wind'] = wind
     SET = {  # program, volume, pan
-        'melody': (0, 100, 58), 'chords': (0, 72, 64), 'counter': (0, 70, 70), 'echo': (53, 58, 80), 'wind': (83, 34, 64)}
+        'melody': (0, 100, 58), 'chords': (0, 72, 64), 'counter': (0, 70, 70), 'echo': (53, 58, 80)}
     mid = mido.MidiFile(type=1, ticks_per_beat=24 * S)
     t0 = mido.MidiTrack(); mid.tracks.append(t0)
     t0.append(mido.MetaMessage('text', text='[', time=0))
