@@ -83,16 +83,49 @@ def stone(img, x0=0, y0=0):
 
 def druddighul_statue(M, x0, y0):
     """A stone Druddighul (user 2026-11-21): MonoMyth's Druddighul, the decrepit dragon of the Apocryphal
-    Bastion's ruined castle (its overworld sprite, graphics 0x128, 32x32), turned to grey stone head to toe,
-    on a plinth (Crown's statue plinth, greyed). 2 x 3."""
+    Bastion's ruined castle (its overworld sprite, graphics 0x128), drawn at twice its size (user: bigger, no
+    plinth) and turned to grey stone head to toe, the stone's grain laid at the map's own pixel size so it does not
+    look blown up; it stands on a snow-capped outcrop of rock (Elderflower's rock ridge), not a plinth. 4 x 5."""
     im = np.array(Image.open(DRUDDIGHUL).convert('RGBA'))
+    im = im.repeat(2, 0).repeat(2, 1)                    # 64 x 64
     rgb, a = im[..., :3], im[..., 3] > 0
     st = stone(rgb, x0 * 16, y0 * 16)
+    # the outline (its darkest pixels on the edge of the figure) back to one pixel wide, so the doubled
+    # sprite keeps a fine line where it meets the snow
+    from scipy.ndimage import binary_erosion
+    inner = binary_erosion(a, np.ones((3, 3), bool))
+    edge = a & ~inner
+    st[edge] = (np.array([34, 34, 40]))
     blk = [[(st[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], a[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16])
-            for dx in range(2)] for dy in range(2)]
-    plinth = mm.cut('c33', 22, 10, 2, 1)
-    blk.append([(stone(c[0], x0 * 16 + 16 * i, y0 * 16 + 32), c[1]) if c else None for i, c in enumerate(plinth[0])])
+            for dx in range(4)] for dy in range(4)]
     M.place(blk, x0, y0, 'statue', check=False)
+    for dx, m in enumerate((0x105, 0x106, 0x106, 0x107)):      # the outcrop it stands on
+        M.ground(x0 + dx, y0 + 4, ef(m), 'rock')
+    for dy in range(4):
+        for dx in range(4):
+            if a[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16].any(): M.otag[y0 + dy, x0 + dx] = 'statue'
+
+def flowers(M, seed, n_clusters, avoid):
+    """Snow flowers the way they grow: a few clumps (two to five plants each, touching), in the open snow away
+    from the paths and the graves, none scattered alone."""
+    placed = 0; k = 0; seeds = []
+    free = lambda xx, yy: M.gtag[yy, xx] == 'snow' and M.otag[yy, xx] is None and (xx, yy) not in avoid
+    while placed < n_clusters and k < 2000:
+        k += 1
+        x = 3 + int(rnd(seed, 'x', k) * (W - 6)); y = 13 + int(rnd(seed, 'y', k) * (H - 20))
+        if not all(free(xx, yy) for xx, yy in ((x, y), (x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1))): continue
+        if any(max(abs(x - a), abs(y - b)) < 8 for a, b in seeds): continue     # (clumps well apart)
+        seeds.append((x, y))
+        size = 2 + int(rnd(seed, 'n', k) * 4); cells = [(x, y)]
+        for j in range(12):
+            if len(cells) >= size: break
+            cx, cy = cells[int(rnd(seed, 'c', k, j) * len(cells))]
+            dx, dy = ((1, 0), (-1, 0), (0, 1), (0, -1))[int(rnd(seed, 'd', k, j) * 4)]
+            c = (cx + dx, cy + dy)
+            if c not in cells and M.gtag[c[1], c[0]] == 'snow' and M.otag[c[1], c[0]] is None and c not in avoid:
+                cells.append(c)
+        for (cx, cy) in cells: M.ground(cx, cy, ef(0xee), 'snow')
+        placed += 1
 
 def palisade(M, x0, y0):
     """The grand entrance: Crown's palisade gate (its walled capital, cells 43-55 x 5-14), charred: its timber
@@ -119,7 +152,7 @@ def palisade(M, x0, y0):
 def compose():
     M = mm.Map()
     for y in range(H):
-        for x in range(W): M.ground(x, y, v3.snow_tile(x, y), 'snow')
+        for x in range(W): M.ground(x, y, ef(0xed), 'snow')
     O = 4                                               # (everything below the fortress wall: four rows down)
     # --- the fortress wall across the top (the mountain's foot): crenels on row 8, its face, its foot on row 11;
     # the grand entrance stands out from it (its back against the wall, as in Crown), the dark within the way down
@@ -141,6 +174,8 @@ def compose():
         if y == 17: continue                            # (its head starts below the roses)
         trees(M, 20, y + O, 2, tip=(y == 21)); trees(M, 22, y + O, 2, tip=(y == 21))
     trees(M, 21, 33 + O, 1)
+    # --- a stone Druddighul either side of the cross (user: in place of the mausoleums), bigger, on rock
+    druddighul_statue(M, 4, 25); druddighul_statue(M, 36, 25)
     # --- headstones in rows in the four quarters (every other cell, as in Dreamstone Mysteries)
     for (x0, x1, y0, y1) in ((5, 17, 15, 21), (26, 38, 15, 21), (5, 17, 29, 35), (26, 38, 29, 35)):
         for y in range(y0 + O, y1 + O + 1, 2):
@@ -152,12 +187,14 @@ def compose():
     for x, y in ((21, 17), (20, 18), (22, 18), (21, 19)):
         M.place(dm([[0x4]], ancient), x, y, 'flowers', check=False)
     # --- a stone Druddighul either side of the cross (user: in place of the mausoleums)
-    druddighul_statue(M, 6, 27); druddighul_statue(M, 36, 27)
     # --- the way in at the foot: the fence, the hedges, the way down to Mirroh
     M.place(dm([[0x149, 0x149, 0x13a, None, None, 0x138, 0x149, 0x149]]), 18, 37 + O, 'fence', check=False)
     for y in range(39 + O, H):
         M.place(dm([[0xc7]], ancient), 19, y, 'hedge', check=False); M.place(dm([[0xc7]], ancient), 24, y, 'hedge', check=False)
     v3.stone_pass(M)
+    # --- snow flowers in a few natural clumps (user: the scattered ones looked odd)
+    paths = {(x, y) for x in range(19, 25) for y in range(12, H)}
+    flowers(M, 'fl', 10, paths)
     for x in (20, 21, 22, 23): M.gtag[H - 1, x] = 'warp'
     return M
 
