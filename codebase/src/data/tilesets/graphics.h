@@ -2349,6 +2349,28 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_HollowHill[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HollowHill[] = INCBIN_U32("data/tilesets/secondary/hollow_hill/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_Route11[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/route11/palettes/00.gbapal"),

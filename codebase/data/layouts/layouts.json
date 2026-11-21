@@ -5012,6 +5012,16 @@
       "blockdata_filepath": "data/layouts/Route11/map.bin"
     },
     {
+      "id": "LAYOUT_HOLLOW_HILL",
+      "name": "HollowHill_Layout",
+      "width": 66,
+      "height": 64,
+      "primary_tileset": "gTileset_Cormoria",
+      "secondary_tileset": "gTileset_HollowHill",
+      "border_filepath": "data/layouts/HollowHill/border.bin",
+      "blockdata_filepath": "data/layouts/HollowHill/map.bin"
+    },
+    {
       "id": "LAYOUT_HOYA_RIVER_SOUTH",
       "name": "HoyaRiverSouth_Layout",
       "width": 30,

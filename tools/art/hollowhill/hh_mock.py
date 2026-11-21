@@ -553,41 +553,53 @@ def annotate(img, scale=2):
 BLOOD = [(70, 10, 18), (104, 18, 26), (140, 30, 36)]
 
 def blood(M, img, seed=13, n=22):
+    """Stains as a few patterns, each used again and again (the game's tiles repeat): drips that start at a cliff's
+    top and run down two bands of a south face (four patterns) or of a lit west face (two), blots soaked into a face
+    (two), and smears round the sealed door."""
     rng = np.random.default_rng(seed)
-    faceish = np.zeros((H * 16, W * 16), bool)
-    for (x, y), v in M.face.items():
-        if abs(v) in (0x338, 0x339, 0x2ed, 0x2ee): continue                     # never the stairs or the door
-        if v in (0x2e1, 0x2e3, 0x2e4): continue                                  # nor the thin north lips
-        faceish[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = True
-    tops = [(x, y) for (x, y), v in M.face.items() if v in (0x2f1, 0x2df, 0x2e7, 0x2e8, 0x2ea, 0x2f0, 0x2f2)
-            and (x, y - 1) not in M.face]                                       # a face cell at the top of its cliff
-    rng.shuffle(tops)
-    for x, y in tops[:n]:
-        px = x * 16 + int(rng.integers(2, 14)); py = y * 16 + int(rng.integers(0, 4))
-        for k in range(int(rng.integers(2, 5))):                                # a blot, then drips from it
-            img[py + k // 2, px - 1 + k % 3] = BLOOD[1] if faceish[py + k // 2, px - 1 + k % 3] else img[py + k // 2, px - 1 + k % 3]
-        for d in range(int(rng.integers(1, 3))):
-            dx = px + int(rng.integers(-2, 3)); L = int(rng.integers(5, 26)); w = 2 if rng.random() < 0.3 else 1
-            for j in range(L):
-                yy = py + j
-                if yy >= H * 16 or not faceish[yy, dx]: break
-                c = BLOOD[2] if j < 2 else BLOOD[1] if j < L - 3 else BLOOD[0]
-                img[yy, dx:dx + w] = c
-            if yy < H * 16 and faceish[min(yy, H * 16 - 1), dx]: img[yy - 1:yy + 1, dx - 1:dx + w + 1][:] = BLOOD[0]   # the drop at its end
-    # old stains soaked into the stone: irregular blots, here and there
-    cells = [(x, y) for (x, y), v in M.face.items() if v in (0x2f1, 0x2df, 0x2e7, 0x2e8, 0x2ea, 0x2f0, 0x2f2, 0x2db, 0x2dc)]
-    for i in rng.permutation(len(cells))[:16]:
-        x, y = cells[i]; cx = x * 16 + int(rng.integers(3, 13)); cy = y * 16 + int(rng.integers(3, 13))
-        r = rng.uniform(1.5, 3.5)
-        for yy in range(cy - 4, cy + 5):
-            for xx in range(cx - 4, cx + 5):
-                d = ((xx - cx) ** 2 + (yy - cy) ** 2) ** 0.5 + rng.uniform(-1, 1)
-                if d < r and faceish[yy, xx]: img[yy, xx] = BLOOD[0] if d > r - 1.2 else BLOOD[1]
-    # round the sealed door: smeared hand-high stains
+    def drips(face, k):
+        """A 16x32 pattern of drips over two cells of one face (its own stone left where no blood is)."""
+        r = np.random.default_rng(100 + k + (50 if face == 0x2e8 else 0))
+        base = np.concatenate([ody(face), ody(face)], 0).copy()
+        stone = np.ones((32, 16), bool)
+        for _ in range(int(r.integers(1, 3))):
+            px = int(r.integers(3, 13)); py = int(r.integers(0, 3))
+            base[py:py + 2, px - 1:px + 2] = BLOOD[1]; base[py, px] = BLOOD[2]
+            for d in range(int(r.integers(1, 3))):
+                dx = min(14, max(1, px + int(r.integers(-2, 3)))); L = int(r.integers(8, 28)); w = 2 if r.random() < 0.3 else 1
+                for j in range(L):
+                    yy = py + j
+                    if yy >= 31: break
+                    base[yy, dx:dx + w] = BLOOD[2] if j < 2 else BLOOD[1] if j < L - 3 else BLOOD[0]
+                base[min(31, py + L), dx - 1:dx + w + 1] = BLOOD[0]
+        return base
+    def blot(face, k):
+        r = np.random.default_rng(200 + k); c = ody(face).copy(); cx, cy = int(r.integers(5, 11)), int(r.integers(5, 11))
+        rad = r.uniform(2.2, 3.4)
+        for yy in range(16):
+            for xx in range(16):
+                d = ((xx - cx) ** 2 + (yy - cy) ** 2) ** 0.5 + r.uniform(-0.8, 0.8)
+                if d < rad: c[yy, xx] = BLOOD[0] if d > rad - 1.2 else BLOOD[1]
+        return c
+    PAT = {0x2f1: [drips(0x2f1, k) for k in range(4)], 0x2e8: [drips(0x2e8, k) for k in range(2)]}
+    BLOT = {0x2f1: [blot(0x2f1, k) for k in range(2)], 0x2e8: [blot(0x2e8, k + 2) for k in range(1)]}
+    sites = [(x, y) for (x, y), v in M.face.items() if v in (0x2f1, 0x2e8) and M.face.get((x, y + 1)) == v
+             and M.face.get((x, y - 1)) not in (0x2f1, 0x2e8, 0x2df, 0x2e7)]
+    sites = [sites[i] for i in rng.permutation(len(sites))]
+    used = set()
+    for x, y in sites[:n]:
+        if (x - 1, y) in used or (x + 1, y) in used: continue          # (never two side by side: no fence of drips)
+        v = M.face[x, y]; p = PAT[v][int(rng.integers(0, len(PAT[v])))]
+        img[y * 16:y * 16 + 32, x * 16:x * 16 + 16] = p; used.add((x, y))
+    cells = [(x, y) for (x, y), v in M.face.items() if v in BLOT and (x, y) not in used and (x, y - 1) not in used]
+    for i in rng.permutation(len(cells))[:10]:
+        x, y = cells[i]; v = M.face[x, y]
+        img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = BLOT[v][int(rng.integers(0, len(BLOT[v])))]
+    # the sealed door: a dark stain spread under it and smeared up its frame
     dx0, dy0 = DOOR[0] * 16, DOOR[1] * 16
-    for _ in range(30):
-        x = dx0 + int(rng.integers(-6, 38)); y = dy0 + int(rng.integers(-10, 14))
-        if 0 <= y < H * 16 and faceish[y, x] : img[y, x] = BLOOD[int(rng.integers(0, 2))]
+    for x in range(dx0 - 4, dx0 + 36):
+        for yy in range(dy0 - 6, dy0 + 2):
+            if rng.random() < 0.18 and M.face.get((x // 16, yy // 16)) in (0x2f1, 0x2df, 0x2e7): img[yy, x] = BLOOD[int(rng.integers(0, 2))]
     return img
 
 # webs (user 2026-11-20): the Webbed Woods' own webbing (MonoMyth), as MonoMyth hangs it, blood red. It lives in the
@@ -610,7 +622,7 @@ def web(name):
 # zig-zag lace between them and torn threads trailing from their lower edge; the big net closes the narrow way north;
 # round orb webs, some torn, in the corners where the woods meet the cliffs. Drawn a pixel at a time in the webbing's
 # two colours (MonoMyth's, made old-blood red), so they read as the same webbing.
-WEB_LIGHT, WEB_DARK = (146, 30, 36), (92, 16, 24)
+WEB_LIGHT, WEB_DARK = (140, 30, 36), (104, 18, 26)    # (the blood's own reds)
 NETS = [(16, 4, 5)]                   # (gap's first cell x, width, tree row): the big net across the way north
 
 def _line(layer, a, b, c):
@@ -654,61 +666,70 @@ def orb(layer, C, R, anchors, rng, torn=0.25):
             if rng.random() < torn: continue
             _line(layer, (C[0] + r * np.cos(t0), C[1] + r * np.sin(t0)), (C[0] + r * np.cos(t1), C[1] + r * np.sin(t1)), WEB_DARK)
 
+_TPL = {}
+def _template(kind, *key):
+    """A web drawn once on its own small canvas and stamped wherever its shape recurs (the same tiles each time)."""
+    k = (kind,) + key
+    if k in _TPL: return _TPL[k]
+    import zlib; rng = np.random.default_rng(zlib.crc32(repr(k).encode()))       # (a fixed seed: the same webs every build)
+    if kind == 'garland':                                 # from one pine's crown side to another's, L cells on, dt rows
+        L, dt = key; rows = abs(dt) + 2
+        c = np.zeros((rows * 16, L * 16, 4), np.uint8)
+        ya = 8 + (dt < 0) * abs(dt) * 16; yb = 8 + (dt > 0) * dt * 16
+        sheet(c, (10, ya), (L * 16 - 10, yb), rng, depth=2, sag=min(8, 2 + L * 1.6))
+    elif kind == 'side':                                  # down a woods' side, from one pine to the next (two rows on)
+        side, = key; c = np.zeros((48, 32, 4), np.uint8)
+        x = 14 if side > 0 else 18
+        sheet(c, (x, 8), (x, 40), rng, depth=2, sag=6, bulge=(side, 0.3))
+    _TPL[k] = c; return c
+
+GARLANDS = {(2, 0), (2, 1), (2, -1), (2, 2), (2, -2), (4, 0)}
+
 def hang_webs(M, img, seed=4):
     rng = np.random.default_rng(seed)
     layer = np.zeros(img.shape[:2] + (4,), np.uint8)
+    def stamp(t, cx, cy):
+        h, w = t.shape[:2]; sl = layer[cy * 16:cy * 16 + h, cx * 16:cx * 16 + w]
+        m = t[..., 3] > 0; sl[m] = t[m]
     units = set(M.units)
-    def north(x0):                        # the lowest pine of a woods column hanging from the top
-        return max(t for x, t in units if x == x0 and t < 30)
-    def south(x0):                        # the highest pine of a column rising from the bottom
-        return min(t for x, t in units if x == x0 and t > 40)
-    def front(u):                         # where a web holds on: the front of a pine's crown, low down
-        x0, t = u; return (x0 * 16 + 16, (t + 2) * 16 + 1)
-    def garland(us):
-        """Along a woods' edge: each tree's crown to the next one's (up to two along) if they hang at about the
-        same height, the web sagging between; never one steeply above the other."""
-        pts = [front(u) for u in us]
-        for i, A in enumerate(pts):
-            for B in pts[i + 1:i + 3]:
-                if abs(B[1] - A[1]) <= 18 or (abs(B[1] - A[1]) <= 34 and B[0] - A[0] >= 60):
-                    sheet(layer, (A[0] + 6, A[1]), (B[0] - 6, B[1]), rng, depth=2 + (B[0] - A[0] > 40)); break
-    garland([(x, north(x)) for x in (4, 6, 8, 10, 12, 14)])               # the woods' edge west of the way north
-    garland([(x, north(x)) for x in (20, 22, 24, 26, 28)])                # and east of it, over the dead tree (user)
-    garland([(x, north(x)) for x in (38, 40, 42, 44, 46, 48)])            # the north-east woods
-    garland([(x, south(x)) for x in range(4, 26, 2)])                    # the treeline along the south
-    garland([(x, south(x)) for x in range(30, 52, 2) if any(u[0] == x and u[1] > 40 for u in units)])
-    garland([(x, north(x)) for x in range(34, 50, 2) if x not in (38, 40, 42, 44, 46, 48)])
-    # down the west woods' side, facing the west woods and the clearing: webs bulging out from tree to tree
-    wall = sorted(t for x, t in units if x == 2 and 22 <= t <= 52)
-    for t0, t1 in zip(wall, wall[1:]):
-        if (t0 // 2) % 3 == 0: continue                                    # (not every gap: in stretches)
-        sheet(layer, (2 * 16 + 30, (t0 + 1) * 16 + 10), (2 * 16 + 30, (t1 + 1) * 16 + 10), rng, depth=2, sag=6, bulge=(1, 0.3))
-    # the trees closing the way east: down their open side
-    for x0 in (50,):
-        st = sorted(t for x, t in units if x == x0 and 24 <= t <= 36)
-        for t0, t1 in zip(st, st[1:]):
-            sheet(layer, (x0 * 16 + 2, (t0 + 1) * 16 + 10), (x0 * 16 + 2, (t1 + 1) * 16 + 10), rng, depth=2, sag=5, bulge=(-1, 0.3))
-    # a small round web in the dead tree's branches under the woods' edge (user)
-    orb(layer, (23 * 16 + 9, 11 * 16 + 9), 9, [(23 * 16 + 3, 11 * 16 + 2), (23 * 16 + 14, 11 * 16 + 4)], rng, torn=0.3)
-    # groups of pines (user 2026-11-20: webs on actual groups of trees, never in the open): every two pines standing
-    # near each other at about the same height share a sheet, and a pine near a woods' edge is webbed to it
     alone = sorted({tuple(map(int, u[len('tree:pine'):].split(','))) for u in M.used.ravel()
                     if isinstance(u, str) and u.startswith('tree:pine')})
+    def north(x0): return max(t for x, t in units if x == x0 and t < 30)
+    def south(x0): return min(t for x, t in units if x == x0 and t > 40)
+    def garland(a, b):
+        (xa, ta), (xb, tb) = a, b
+        L, dt = xb - xa, tb - ta
+        if (L, dt) not in GARLANDS: return                # (only the shapes that recur: the tileset has room for few)
+        stamp(_template('garland', L, dt), xa + 1, min(ta, tb) + 1)
+    def line(us):
+        """Along a woods' edge: each pine to the next one along (or the one after) if it hangs at the same height
+        or one tree's step (two rows) above or below."""
+        for i, a in enumerate(us):
+            for b in us[i + 1:i + 3]:
+                if abs(b[1] - a[1]) <= 2: garland(a, b); break
+    line([(x, north(x)) for x in (4, 6, 8, 10, 12, 14)])                 # the woods' edge west of the way north
+    line([(x, north(x)) for x in (20, 22, 24, 26, 28)])                  # and east of it, over the dead tree (user)
+    line([(x, north(x)) for x in range(34, 50, 2)])                      # the north-east woods
+    line([(x, south(x)) for x in range(4, 26, 2)])                       # the treeline along the south
+    line([(x, south(x)) for x in range(30, 52, 2) if any(u[0] == x and u[1] > 40 for u in units)])
+    # pines standing near each other or near a woods' edge, crowns level: webbed together
     edge = [u for u in units if M.used[u[1] + 1, u[0]] == 'woods']
-    done = set()
     for a in alone:
-        for b in alone:
-            if b[0] > a[0] and b[0] - a[0] <= 7 and abs(b[1] - a[1]) <= 1 and (a, b) not in done:
-                A = (a[0] * 16 + 26, (a[1] + 1) * 16 + 8); B = (b[0] * 16 + 6, (b[1] + 1) * 16 + 8)
-                sheet(layer, A, B, rng, depth=3 if b[0] - a[0] <= 4 else 2); done.add((a, b))
-        for e in edge:                       # the woods' edge beside it, crowns at about the same height
-            dx = e[0] - a[0]
-            if abs(e[1] - a[1]) <= 1 and 3 <= abs(dx) <= 6:
-                if dx > 0: sheet(layer, (a[0] * 16 + 26, (a[1] + 1) * 16 + 8), (e[0] * 16 + 6, (e[1] + 1) * 16 + 8), rng, depth=2)
-                else: sheet(layer, (e[0] * 16 + 26, (e[1] + 1) * 16 + 8), (a[0] * 16 + 6, (a[1] + 1) * 16 + 8), rng, depth=2)
-    # a round web where the two woods columns close the way south meet (in the V between their crowns)
+        for b in alone + edge:
+            if b[1] == a[1] and 3 <= b[0] - a[0] <= 6: garland(a, b)
+        for e in edge:
+            if e[1] == a[1] and 3 <= a[0] - e[0] <= 6: garland(e, a)
+    # down the west woods' side and the trees closing the way east, from tree to tree, in stretches
+    wall = sorted(t for x, t in units if x == 2 and 22 <= t <= 52)
+    for t0, t1 in zip(wall, wall[1:]):
+        if (t0 // 2) % 3 and t1 - t0 == 2: stamp(_template('side', 1), 3, t0 + 1)
+    st = sorted(t for x, t in units if x == 50 and 24 <= t <= 36)
+    for t0, t1 in zip(st, st[1:]):
+        if t1 - t0 == 2: stamp(_template('side', -1), 49, t0 + 1)
+    # small round webs: in the dead tree's branches under the woods' edge (user), in the V where the two columns
+    # closing the way south meet
+    orb(layer, (23 * 16 + 9, 11 * 16 + 9), 9, [(23 * 16 + 3, 11 * 16 + 2), (23 * 16 + 14, 11 * 16 + 4)], rng, torn=0.3)
     orb(layer, (28 * 16, 52 * 16 + 2), 11, [(27 * 16 + 4, 51 * 16 + 6), (28 * 16 + 12, 51 * 16 + 6)], rng)
-    # a clump on ring 2: two pines and the stump between them
     out = Image.fromarray(layer)
     for gx, w, row in NETS:
         net = Image.open(os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces', 'web_net.png')).convert('RGBA')

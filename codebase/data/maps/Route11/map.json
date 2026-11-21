@@ -17,6 +17,11 @@
       "map": "MAP_PELLUCA_CITY",
       "offset": -9,
       "direction": "right"
+    },
+    {
+      "map": "MAP_HOLLOW_HILL",
+      "offset": -24,
+      "direction": "left"
     }
   ],
   "object_events": [],
