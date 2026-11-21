@@ -85,7 +85,7 @@ def druddighul_statue(M, x0, y0):
     """A stone Druddighul (user 2026-11-21): MonoMyth's Druddighul, the decrepit dragon of the Apocryphal
     Bastion's ruined castle (its overworld sprite, graphics 0x128), drawn at twice its size (user: bigger, no
     plinth) and turned to grey stone head to toe, the stone's grain laid at the map's own pixel size so it does not
-    look blown up; it stands on a snow-capped outcrop of rock (Elderflower's rock ridge), not a plinth. 4 x 5."""
+    look blown up; it stands in the snow, no platform (user), its shadow under it, the snow banked over its feet. 4 x 5."""
     im = np.array(Image.open(DRUDDIGHUL).convert('RGBA'))
     im = im.repeat(2, 0).repeat(2, 1)                    # 64 x 64
     rgb, a = im[..., :3], im[..., 3] > 0
@@ -96,11 +96,31 @@ def druddighul_statue(M, x0, y0):
     inner = binary_erosion(a, np.ones((3, 3), bool))
     edge = a & ~inner
     st[edge] = (np.array([34, 34, 40]))
-    blk = [[(st[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], a[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16])
-            for dx in range(4)] for dy in range(4)]
+    # no platform (user): it stands in the snow, its shadow on the snow under it and the snow banked up over
+    # its feet
+    hh, ww = a.shape
+    rows = np.where(a.any(1))[0]; foot = rows[-1]
+    cols = np.where(a[foot - 6:foot + 1].any(0))[0]; cx = (cols[0] + cols[-1]) / 2; rx = (cols[-1] - cols[0]) / 2 + 5
+    canvas = np.zeros((hh + 8, ww, 3), np.uint8); alpha = np.zeros((hh + 8, ww), bool)
+    for y in range(foot - 4, foot + 6):                     # the shadow: an ellipse of cold blue under the feet
+        for x in range(ww):
+            if ((x - cx) / rx) ** 2 + ((y - foot - 1) / 4.5) ** 2 < 1:
+                canvas[y, x] = (158, 174, 212); alpha[y, x] = True
+    canvas[:hh][a] = st[a]; alpha[:hh] |= a
+    snow = np.array([(240, 244, 250), (222, 230, 244), (200, 212, 236)])
+    for x in range(int(cx - rx + 3), int(cx + rx - 2)):     # the drift over the feet, its top edge uneven
+        top = foot - 2 - int(2 * rnd('dr', x0, x // 3))
+        for y in range(top, foot + 2):
+            if 0 <= x < ww and (alpha[y, x]):
+                canvas[y, x] = snow[0] if y > top else snow[1]
+        if 0 <= x < ww and alpha[top - 1, x] and a[top - 1, x]: canvas[top - 1, x] = snow[2]
+    blk = [[(canvas[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], alpha[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16])
+            for dx in range(4)] for dy in range(5)] if hh + 8 > 64 else None
+    pad = np.zeros((80, ww, 3), np.uint8); pa = np.zeros((80, ww), bool)
+    pad[:hh + 8] = canvas; pa[:hh + 8] = alpha
+    blk = [[(pad[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], pa[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16])
+            for dx in range(4)] for dy in range(5)]
     M.place(blk, x0, y0, 'statue', check=False)
-    for dx, m in enumerate((0x105, 0x106, 0x106, 0x107)):      # the outcrop it stands on
-        M.ground(x0 + dx, y0 + 4, ef(m), 'rock')
     for dy in range(4):
         for dx in range(4):
             if a[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16].any(): M.otag[y0 + dy, x0 + dx] = 'statue'
