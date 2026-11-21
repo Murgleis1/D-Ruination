@@ -55,12 +55,26 @@ def _copper(px, lo, hi):
     l = px.astype(float) @ [0.3, 0.59, 0.11] / 255.0
     t = np.clip((l - l.min()) / max(l.max() - l.min(), 1e-6), 0, 1)
     return COPPER[np.round(lo + (hi - lo) * t).astype(int)].astype(np.uint8)
+CSTONE = np.array([(30, 26, 32), (56, 46, 50), (86, 70, 68), (118, 98, 90), (148, 126, 116), (176, 156, 146),
+                   (206, 192, 184), (234, 226, 222)], float)        # Mirroh's copper-shaded stone (mirroh_v3.CSTONE)
+STONE_DARK = 0.82                                                 # a shade darker, as the Necropolis (user)
+def mirroh_stone(img):
+    """Fantasma's violet-grey stone (walls, floor, the circle's floor) in Mirroh's copper-shaded stone, by
+    lightness, a shade darker (user 2026-11-21: like the rest of Mirroh and the Necropolis outside)."""
+    f = img.astype(int); sat = f.max(-1) - f.min(-1); l = f @ [0.3, 0.59, 0.11]
+    stone = (sat < 36) & (f[..., 2] >= f[..., 0] - 6) & (l > 12) & (l < 170)
+    t = np.clip((l * STONE_DARK - 20) / 200.0, 0, 1) * (len(CSTONE) - 1)
+    i = np.floor(t).astype(int); i1 = np.minimum(i + 1, len(CSTONE) - 1); w = (t - i)[..., None]
+    col = (CSTONE[i] * (1 - w) + CSTONE[i1] * w).astype(np.uint8)
+    out = img.copy(); out[stone] = col[stone]
+    return out
+
 def langerin(img):
     """Fantasma's gold and violet in House Langerin's copper: the two banners (cloth dark copper, skull and trim
     bright), the circle's ring; the circle's old sigil (a skull over a bowl between crescents) taken out and the
     Wraith badge's symbol (the Trial's stamp on the Trainer Card, tools/art/trainer_card/stamps_src.py) inlaid in
     copper at its centre."""
-    out = img.copy(); f = img.astype(int)
+    out = mirroh_stone(img); f = img.astype(int)
     gold = (f[..., 0] > 140) & (f[..., 0] > f[..., 2] + 60) & (f[..., 1] > 70)
     purple = (f[..., 2] > f[..., 1] + 25) & (f[..., 0] > f[..., 1] + 10)
     for x0 in (96, 160):                                                  # the banners (cells 6 and 10, rows 0-1)

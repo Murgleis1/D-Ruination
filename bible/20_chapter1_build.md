@@ -214,9 +214,10 @@ Chapter 1 is the template: once its foundations (mechanics, maps, buildings, NPC
       - lower left: dark blue;
       - lower right: the original green.
       The cauldron is from **Rinri's house in MonoMyth's Wood Avens** (hut tileset 0x87310D4, metatiles 0x2A0-0x2B2 over the legs 0x282-0x284; 9-frame animation at 0x89691C0). Its iron is a cold grey here. The four boil out of step with each other, and their bowls and legs are solid. Credit MonoMyth.
+    - **The stone (user 2026-11-21):** Fantasma's violet-grey walls and floor are recoloured to **Mirroh's copper-shaded stone** (`mirroh_v3.CSTONE`, by lightness), a shade darker, to match Mirroh and the Necropolis outside.
     - **House Langerin's copper (user 2026-11-21):** the two banners and the summoning circle's ring are copper. At the circle's centre is **the Wraith badge's symbol** (the Trial 1 stamp on the Trainer Card), inlaid in copper in place of Fantasma's old sigil.
     - **Built and walked (2026-11-21):** `MAP_KIMARIS_CHAMBER` (17x15), built by `tools/art/necropolis/build_kimaris.py`.
-      - Tileset: its own pair, 11 palettes, 374 tiles, 151 metatiles. The cauldrons' tiles (78) are played by `InitTilesetAnim_KimarisChamber` in `src/tileset_anims.c`, a frame every 8 frames as in MonoMyth (`assets/necropolis_reference/kimaris_chamber_cauldrons.gif`).
+      - Tileset: its own pair, 9 palettes, 368 tiles, 157 metatiles. The cauldrons' tiles (77) are played by `InitTilesetAnim_KimarisChamber` in `src/tileset_anims.c`, a frame every 8 frames as in MonoMyth (`assets/necropolis_reference/kimaris_chamber_cauldrons.gif`).
       - Kimaris stands on the very top of the Wraith skull, (8, 6) (user 2026-11-21), facing the stair. The player meets him on the skull's lower half, (8, 7). The old sigil's solid block is floor again. Placeholder line, no battle yet.
       - The stair foot (8, 14) is a south arrow warp down to the lake's arch (21, 4). The lake's arch warps up here; it stays solid until the Trial script opens it.
       - The barred door behind Kimaris has no warp yet (the secret way down, late game).
