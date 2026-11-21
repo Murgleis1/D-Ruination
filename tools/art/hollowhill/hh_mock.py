@@ -581,47 +581,92 @@ def web(name):
     im[im[..., 3] == 0] = 0
     return im
 
-# the webbed patches (cells x0, y0, x1, y1): a pine is webbed when its crown's widest row lies inside one
-WEBBED = [(12, 0, 28, 13),            # round the way north, and the woods' edge above the dead tree (user)
-          (24, 44, 33, 48),           # the pair of pines on ring 1's south terrace (user)
-          (0, 41, 17, 63),            # round the clearing
-          (47, 23, 54, 37),           # the trees closing the way east
-          (23, 50, 31, 63),           # the trees closing the way south
-          (38, 0, 51, 12),            # the north-east woods
-          (34, 23, 41, 33)]           # a clump on ring 2
+# Hung across the trees (user 2026-11-20: a web on each tree looked strange; hang them across more of the trees,
+# more naturally): sheets of web sag from tree to tree along the woods' edges, a few threads deep with MonoMyth's
+# zig-zag lace between them and torn threads trailing from their lower edge; the big net closes the narrow way north;
+# round orb webs, some torn, in the corners where the woods meet the cliffs. Drawn a pixel at a time in the webbing's
+# two colours (MonoMyth's, made old-blood red), so they read as the same webbing.
+WEB_LIGHT, WEB_DARK = (146, 30, 36), (92, 16, 24)
 NETS = [(16, 4, 5)]                   # (gap's first cell x, width, tree row): the big net across the way north
 
-def hang_webs(M, img):
-    out = Image.fromarray(img).convert('RGBA')
-    put = lambda name, px, py: out.alpha_composite(Image.fromarray(web(name)), (int(px), int(py)))
-    def open_(x, y): return 0 <= x < W and 0 <= y < H and (M.used[y, x] in (None, 'road') or str(M.used[y, x]).startswith('soft'))
-    # of the woods, only the trees on their edge (facing open ground: the ones the player sees close by)
-    trees = {(x, y) for x, y in M.units if M.used[y + 1, x] == 'woods' and
-             (any(open_(x + dx, y + dy) for dx in (-1, 2) for dy in (1, 2)) or open_(x, y + 3) or open_(x + 1, y + 3))}
-    alone = {tuple(map(int, u[len('tree:pine'):].split(','))) for u in M.used.ravel()
-             if isinstance(u, str) and u.startswith('tree:pine')}
-    trees |= alone
-    webbed = sorted((x, y) for x, y in trees
-                    if any(a <= x + 1 <= c and b <= y + 1 <= d for a, b, c, d in WEBBED))
-    at = set(webbed)
-    for x, y in webbed:
-        px, py = x * 16, (y + 1) * 16                       # the crown's widest row and the row under it
-        put('webtree_drape', px + 8, py)
-        if (x - 2, y) not in at: put('webtree_fan_l', px - 6, py)
-        if (x + 2, y) in at: put('webtree_fan_r', px + 22, py)       # the fan both trees share
-        else: put('webtree_fan_r', px + 22, py)
-        # a strand across an open gap to the next webbed tree in the row (1-4 cells of open ground)
-        for g in range(1, 5):
-            if (x, y) in alone and (x + 2 + g, y) in alone and (x + 2 + g, y) in at and all(M.used[y + 1, x + 2 + k] in (None, 'road') or str(M.used[y + 1, x + 2 + k]).startswith('soft')
-                                             for k in range(g)):
-                s = web('webtree_strand'); mid = s[:, 16:64]
-                span = g * 16 + 4
-                body = np.concatenate([mid] * 3, 1)[:, :span]
-                put_arr = Image.fromarray(body); out.alpha_composite(put_arr, ((x + 2) * 16 - 2, py))
-                break
+def _line(layer, a, b, c):
+    (x0, y0), (x1, y1) = (int(round(a[0])), int(round(a[1]))), (int(round(b[0])), int(round(b[1])))
+    dx, dy = abs(x1 - x0), -abs(y1 - y0); sx, sy = (1 if x0 < x1 else -1), (1 if y0 < y1 else -1); err = dx + dy
+    while True:
+        if 0 <= y0 < layer.shape[0] and 0 <= x0 < layer.shape[1]: layer[y0, x0] = (*c, 255)
+        if x0 == x1 and y0 == y1: break
+        e2 = 2 * err
+        if e2 >= dy: err += dy; x0 += sx
+        if e2 <= dx: err += dx; y0 += sy
+
+def sheet(layer, A, B, rng, depth=3, sag=None):
+    """Threads sagging from A to B (pixels), one under another, laced by zig-zags; torn ends trailing below."""
+    L = ((B[0] - A[0]) ** 2 + (B[1] - A[1]) ** 2) ** 0.5
+    sag = sag if sag is not None else 3 + L * 0.16
+    n = max(4, int(L / 3))
+    rows = []
+    for i in range(depth):
+        a = (A[0], A[1] + i * 2); b = (B[0], B[1] + i * 2); sg = sag + i * 3.5
+        pts = [(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t + sg * 4 * t * (1 - t)) for t in np.linspace(0, 1, n + 1)]
+        rows.append(pts)
+        for p, q in zip(pts, pts[1:]): _line(layer, p, q, WEB_LIGHT if i == 0 else WEB_DARK)
+    for i in range(depth - 1):                                   # the lace: zig-zags between one thread and the next
+        for k in range(1, n):
+            j = k + (1 if (k + i) % 2 else -1)
+            if 0 < j < n: _line(layer, rows[i][k], rows[i + 1][j], WEB_DARK)
+    for k in rng.choice(np.arange(2, n - 1), size=min(3, max(0, n - 3)), replace=False) if n > 4 else []:
+        x, y = rows[-1][k]; _line(layer, (x, y), (x + rng.integers(-1, 2), y + rng.integers(3, 8)), WEB_DARK)
+
+def orb(layer, C, R, anchors, rng, torn=0.25):
+    """A round web: spokes to its anchors and out, a spiral, broken in places."""
+    spokes = [np.arctan2(ay - C[1], ax - C[0]) for ax, ay in anchors] + list(np.linspace(0, 2 * np.pi, 9)[:-1] + 0.2)
+    for ax, ay in anchors: _line(layer, C, (ax, ay), WEB_LIGHT)
+    for t in spokes: _line(layer, C, (C[0] + R * np.cos(t), C[1] + R * np.sin(t)), WEB_LIGHT)
+    ang = sorted(t % (2 * np.pi) for t in spokes)
+    for r in np.arange(4, R, 3.2):
+        for t0, t1 in zip(ang, ang[1:] + [ang[0] + 2 * np.pi]):
+            if rng.random() < torn: continue
+            _line(layer, (C[0] + r * np.cos(t0), C[1] + r * np.sin(t0)), (C[0] + r * np.cos(t1), C[1] + r * np.sin(t1)), WEB_DARK)
+
+def hang_webs(M, img, seed=4):
+    rng = np.random.default_rng(seed)
+    layer = np.zeros(img.shape[:2] + (4,), np.uint8)
+    units = set(M.units)
+    def north(x0):                        # the lowest pine of a woods column hanging from the top
+        return max(t for x, t in units if x == x0 and t < 30)
+    def south(x0):                        # the highest pine of a column rising from the bottom
+        return min(t for x, t in units if x == x0 and t > 40)
+    def front(u):                         # where a web holds on: the front of a pine's crown, low down
+        x0, t = u; return (x0 * 16 + 16, (t + 2) * 16 + 1)
+    def garland(us):
+        """Along a woods' edge: each tree's crown to the next one's (up to two along) if they hang at about the
+        same height, the web sagging between; never one steeply above the other."""
+        pts = [front(u) for u in us]
+        for i, A in enumerate(pts):
+            for B in pts[i + 1:i + 3]:
+                if abs(B[1] - A[1]) <= 18 or (abs(B[1] - A[1]) <= 34 and B[0] - A[0] >= 60):
+                    sheet(layer, (A[0] + 6, A[1]), (B[0] - 6, B[1]), rng, depth=2 + (B[0] - A[0] > 40)); break
+    garland([(x, north(x)) for x in (4, 6, 8, 10, 12, 14)])               # the woods' edge west of the way north
+    garland([(x, north(x)) for x in (20, 22, 24, 26, 28)])                # and east of it, over the dead tree (user)
+    garland([(x, north(x)) for x in (38, 40, 42, 44, 46, 48)])            # the north-east woods
+    garland([(x, south(x)) for x in (4, 6, 8, 10, 12, 14)])               # the treeline south of the clearing
+    # a small round web in the dead tree's branches under the woods' edge (user)
+    orb(layer, (23 * 16 + 9, 11 * 16 + 9), 9, [(23 * 16 + 3, 11 * 16 + 2), (23 * 16 + 14, 11 * 16 + 4)], rng, torn=0.3)
+    # the clearing's corner, where the west woods meet the treeline south of it
+    orb(layer, (5 * 16 + 4, 53 * 16 + 4), 13, [(3 * 16 + 14, 52 * 16 + 2), (6 * 16 + 2, 55 * 16 + 4)], rng)
+    # the pair of pines on ring 1's south terrace (user): a deep sheet between them
+    sheet(layer, (26 * 16 + 26, 46 * 16 + 8), (30 * 16 + 6, 46 * 16 + 8), rng, depth=3)
+    # round webs where the woods close the ways against the cliffs: east and south
+    orb(layer, (50 * 16 + 4, 29 * 16 + 8), 16, [(50 * 16 - 2, 26 * 16 + 8), (51 * 16, 32 * 16 + 6)], rng)
+    orb(layer, (27 * 16 + 14, 51 * 16 + 8), 13, [(26 * 16 + 4, 51 * 16), (29 * 16 + 10, 51 * 16)], rng)
+    # a clump on ring 2: two pines and the stump between them
+    out = Image.fromarray(img).convert('RGBA'); out.alpha_composite(Image.fromarray(layer))
     for gx, w, row in NETS:
-        net = web('web_net')
-        out.alpha_composite(Image.fromarray(net), (gx * 16 + (w * 16 - net.shape[1]) // 2, row * 16 + 2))
+        net = Image.open(os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces', 'web_net.png')).convert('RGBA')
+        a = np.array(net); m = a[..., 3] > 0
+        light = (a[..., :3] == (240, 240, 248)).all(-1)
+        a[m & light, :3] = WEB_LIGHT; a[m & ~light, :3] = WEB_DARK
+        out.alpha_composite(Image.fromarray(a), (gx * 16 + (w * 16 - a.shape[1]) // 2, row * 16 + 2))
     return np.array(out.convert('RGB'))
 
 def main(outdir):
