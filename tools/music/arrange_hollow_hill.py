@@ -27,7 +27,7 @@ import m4a_decode as D
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 OUT = os.path.join(ROOT, 'codebase', 'sound', 'songs', 'midi', 'mus_dr_hollow_hill.mid')
 GG_ROM, GG_TABLE, GG_SONG = '/home/claude/ghostgrey/Ghost_Grey_EX.gba', 0x8F8C2C0, 291
-BPM = 72
+BPM = 64                       # (user: 124 -> 106 -> 90 -> 72 -> 64; the engine counts tempo in steps of 2)
 S = 4                          # MIDI ticks per engine tick (96 per quarter here, 24 in the engine)
 BAR = 96                       # engine ticks per bar
 NBARS = 24
