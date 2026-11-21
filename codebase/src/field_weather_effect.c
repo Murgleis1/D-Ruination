@@ -8,6 +8,12 @@
 #include "script.h"
 #include "constants/weather.h"
 #include "constants/songs.h"
+#include "constants/region_map_sections.h"
+
+#ifndef HOLLOW_HILL_FOG_EVA
+#define HOLLOW_HILL_FOG_EVA 6
+#define HOLLOW_HILL_FOG_EVB 13
+#endif
 #include "sound.h"
 #include "sprite.h"
 #include "task.h"
@@ -1374,7 +1380,14 @@ void FogHorizontal_Main(void)
     case 0:
         CreateFogHorizontalSprites();
         if (gWeatherPtr->currWeather == WEATHER_FOG_HORIZONTAL)
-            Weather_SetTargetBlendCoeffs(12, 8, 3);
+        {
+            // DR: over Hollow Hill's bone-white woods the usual fog (12/16 over 8/16) washes everything out; a
+            // thinner fog there keeps the woods, the dark cliffs and the red webs showing through it (user 2026-11-20).
+            if (gMapHeader.regionMapSectionId == MAPSEC_DR_HOLLOW_HILL)
+                Weather_SetTargetBlendCoeffs(HOLLOW_HILL_FOG_EVA, HOLLOW_HILL_FOG_EVB, 3);
+            else
+                Weather_SetTargetBlendCoeffs(12, 8, 3);
+        }
         else
             Weather_SetTargetBlendCoeffs(4, 16, 0);
         gWeatherPtr->initStep++;
