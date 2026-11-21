@@ -80,7 +80,27 @@ def cathedral_roof(w, h):
     lab, n = label(green)                             # (the roof is one sheet: no stray bits of the towers' roofs)
     if n > 1: green = lab == (np.argmax(np.bincount(lab.ravel())[1:]) + 1)
     alpha = binary_dilation(green, np.ones((3, 3), bool))
-    return copper_roofs(img), alpha
+    # a clean hip: its top edge a straight line down from the ridge's end to each side (the cut leaves it ragged),
+    # any sheet newly inside it filled from the same column ten rows down (the pattern repeats every five rows),
+    # a dark outline along it
+    hh, ww = alpha.shape; mid = ww // 2
+    tops = np.array([np.argmax(alpha[:, x]) if alpha[:, x].any() else hh for x in range(ww)], float)
+    out = copper_roofs(img)
+    line = np.zeros(ww)
+    for xs in (np.arange(0, mid), np.arange(mid, ww)):
+        ok = tops[xs] < hh
+        k, b = np.polyfit(xs[ok], tops[xs][ok], 1); line[xs] = k * xs + b
+    line = np.clip(np.round(line), 0, hh - 1).astype(int)
+    for x in range(ww):
+        for y in range(line[x], hh):
+            if not alpha[y, x]:
+                yy = y + 10
+                while yy < hh and not alpha[yy, x]: yy += 5
+                if yy < hh: out[y, x] = out[yy, x]
+            alpha[y, x] = True
+        alpha[:line[x], x] = False
+        out[line[x], x] = COPPER[0]
+    return out, alpha
 
 def copper_roof(w, h, seed='roof'):
     """A pitched copper roof seen from above, its ridge running back from the middle (the way the roof of Crown's
@@ -316,6 +336,20 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
                 sl = (slice(dy * 16, dy * 16 + 16), slice(dx * 16, dx * 16 + 16))
                 t = M.g[ycren - 3 + dy][x0 + 2 + dx].copy(); t[ra[sl]] = roof[sl][ra[sl]]
                 M.ground(x0 + 2 + dx, ycren - 3 + dy, t, 'gate')
+        # its eave: the roof comes down over the crenels' walk (their top half) to a dark copper edge, its shadow
+        # on the wall face under it, the banners still hanging from the wall (user: the roof and the stone did not
+        # meet naturally)
+        ext = roof[-10:-2]                                 # (the sheets' pattern repeats every five rows)
+        for dx in range(8):
+            t = M.g[ycren][x0 + 3 + dx].copy()
+            band = to_mirroh(cr(0x45))                     # (under the eave plain wall, not the merlons' feet;
+            f = cr(int(c[36, 22 + dx])).astype(int)          #  the banners' tops kept)
+            ban = (f[..., 2] > f[..., 1] + 30) & (f[..., 0] > f[..., 1] + 10)
+            t[8:][~ban[8:]] = band[8:][~ban[8:]]
+            t[:8] = ext[:, 16 + dx * 16:32 + dx * 16]
+            t[6] = copper_tone(np.full((16, 3), 70, np.uint8))[0]; t[7] = COPPER[0]
+            t[8:10] = (t[8:10].astype(float) * 0.62).astype(np.uint8)
+            M.ground(x0 + 3 + dx, ycren, t, 'gate')
         for side, xs in ((0, x0), (1, xr)):
             for dy, r in enumerate(body):
                 for dx, m in enumerate(r):
