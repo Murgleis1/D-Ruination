@@ -31,17 +31,43 @@ OFF = 24                        # Route 11 row = Hollow Hill row - OFF
 ROAD = 19 + OFF                 # the track's three rows (Route 11's road rows 19-21)
 
 # ------------------------------------------------------------------ pieces
-def ody(m): return kit.atlas('ody_0_97')['full'][m]
+def ody_raw(m): return kit.atlas('ody_0_97')['full'][m]
+
+# Hollow Hill's own colours (user 2026-11-20): the woods and their floor an off-white, creepy bone; the cliffs a
+# sinister stone, dark and light mixed. Odyssey's colours, one for one (its trunks, mushrooms and the door's cold blue kept).
+BONE = {(32, 96, 96): (124, 116, 102), (48, 128, 128): (150, 142, 124), (32, 88, 88): (108, 100, 90),   # floor
+        (16, 64, 64): (84, 76, 72), (16, 40, 40): (52, 42, 46), (16, 32, 32): (32, 26, 32),             # shadow
+        (104, 128, 120): (228, 220, 198), (88, 136, 96): (204, 196, 172), (56, 112, 96): (170, 160, 138),  # pines
+        (40, 72, 64): (112, 100, 92),
+        (64, 40, 56): (60, 40, 48), (128, 96, 104): (140, 120, 112), (88, 72, 80): (96, 80, 82),         # wood
+        (160, 136, 112): (186, 172, 150),
+        (64, 72, 104): (58, 50, 64), (40, 48, 88): (30, 24, 36), (96, 96, 120): (92, 84, 96),             # stone
+        (144, 144, 136): (176, 168, 150), (192, 192, 168): (222, 214, 192), (120, 120, 128): (124, 114, 120),
+        (128, 136, 136): (146, 138, 130), (176, 184, 192): (198, 190, 176), (200, 200, 200): (232, 226, 210),
+        (160, 168, 168): (176, 168, 156), (88, 88, 104): (80, 72, 84),
+        (48, 136, 40): (122, 118, 80), (112, 200, 80): (170, 164, 110), (40, 72, 8): (80, 74, 50),       # weeds
+        (176, 240, 120): (204, 198, 150)}
+
+def bone(img):
+    out = img.copy(); flat = out.reshape(-1, 3); key = [tuple(p) for p in flat.tolist()]
+    for i, k in enumerate(key):
+        if k in BONE: flat[i] = BONE[k]
+    return out
+
+_ody = {}
+def ody(m):
+    if m not in _ody: _ody[m] = bone(ody_raw(m))
+    return _ody[m]
 TEAL_GRASS = {(32, 96, 96), (48, 128, 128), (32, 88, 88)}
 OLIVE_GRASS = set(kit.OLIVE4) | {(104, 160, 88)}
-SRC = {'ody': (ody, TEAL_GRASS), 'c325': (lambda m: kit.atlas('crown325')['full'][m], OLIVE_GRASS),
+SRC = {'ody': (ody_raw, TEAL_GRASS), 'c325': (lambda m: kit.atlas('crown325')['full'][m], OLIVE_GRASS),
        'c31': (lambda m: kit.atlas('crown31')['full'][m], {(112, 184, 136), (128, 192, 136), (144, 200, 152), (80, 160, 112)})}
 
 def overlay(src, m, keep_grass=False):
     f, grass = SRC[src]; img = f(m).copy()
     key = [tuple(p) for p in img.reshape(-1, 3).tolist()]
     a = np.array([255 if keep_grass or k not in grass else 0 for k in key], np.uint8).reshape(16, 16)
-    out = np.zeros((16, 16, 4), np.uint8); out[..., :3] = img; out[..., 3] = a
+    out = np.zeros((16, 16, 4), np.uint8); out[..., :3] = bone(img) if src == 'ody' else img; out[..., 3] = a
     return out
 
 # ------------------------------------------------------------------ the four grounds, olive (Route 11) to teal
@@ -50,14 +76,14 @@ def _recolour(img, pairs):
     for a, b in pairs: flat[(flat == a).all(1)] = b
     return out
 TEAL = ody(0x2e9).copy()
-def _teal(base, blade, dark): return _recolour(TEAL, [((32, 96, 96), base), ((48, 128, 128), blade), ((32, 88, 88), dark)])
+def _teal(base, blade, dark): return _recolour(ody_raw(0x2e9), [((32, 96, 96), base), ((48, 128, 128), blade), ((32, 88, 88), dark)])
 GROUNDS = [kit.plain(3),                                                                           # Route 11's olive
            _recolour(kit.plain(3), zip(kit.OLIVE, [(72, 126, 66), (86, 138, 76), (98, 150, 86)])),
-           _recolour(kit.plain(3), zip(kit.OLIVE, [(62, 116, 72), (74, 126, 80), (86, 138, 90)])),
-           _teal((52, 110, 84), (70, 136, 104), (48, 102, 80)),
-           _teal((42, 104, 90), (58, 132, 116), (38, 96, 86)),
-           TEAL]                                                                                    # Odyssey's teal
-RIM = [(80, 136, 64), (72, 126, 66), (62, 116, 72), (48, 102, 80), (38, 96, 86), (32, 88, 88)]
+           _recolour(kit.plain(3), zip(kit.OLIVE, [(84, 122, 70), (96, 132, 80), (108, 142, 90)])),
+           _teal((104, 118, 88), (126, 140, 106), (94, 106, 80)),
+           _teal((116, 116, 98), (140, 136, 116), (104, 104, 88)),
+           TEAL]                                                                                    # the bone floor
+RIM = [(80, 136, 64), (72, 126, 66), (84, 122, 70), (94, 106, 80), (104, 104, 88), (108, 100, 90)]
 TOP = len(GROUNDS) - 1
 
 def ground_cell(v):
@@ -193,8 +219,8 @@ def shade_field(seed=11):
         if not bad: break
     return v
 
-def tint(rgb, t, to=(36, 92, 92)):
-    """Crown's greens drawn toward the haunted teal (its trees darkening as the woods change)."""
+def tint(rgb, t, to=(186, 176, 152)):
+    """Crown's greens drawn toward the bone woods (its trees paling as the woods change)."""
     return (rgb * (1 - t) + np.array(to) * t).astype(np.uint8)
 
 def flatten(M, x0, y0, w, h, k):
@@ -266,7 +292,7 @@ def broad(M, x, y):
     for dy, row in enumerate(((0xb, 0xc, 0xd), (0x13, 0x14, 0x15), (0x1b, 0x1c, 0x1d))):
         for dx, v in enumerate(row):
             M.lay(x + dx, y + dy, 'c325', v, f'tree:broad{x},{y}', top=dy == 0)
-            if k: o = M.over[y + dy][x + dx][-1][0]; o[..., :3] = tint(o[..., :3], 0.13 * k)
+            if k: o = M.over[y + dy][x + dx][-1][0]; o[..., :3] = tint(o[..., :3], 0.18 * k)
 
 def thing(M, x, y, ids, what='thing', w=1):
     """A small piece (or a row/column of them): stump, log, rock, dead tree, burrow, mushrooms."""
@@ -385,9 +411,9 @@ def compose(seed=5):
     # east: Route 11's own woods (Crown's), as its west end has them (its rows shifted by OFF), then, westward,
     # Crown's woods and Odyssey's pines mixing before the pines take over
     crown_woods(M, [(63, 0, 15 + OFF)], 'north'); crown_woods(M, [(63, 24 + OFF, H - 1)], 'south')
-    crown_woods(M, [(60, 0, 25)], 'north', 0.18); crown_woods(M, [(60, 50, H - 1)], 'south', 0.18)
-    crown_woods(M, [(57, 0, 30)], 'north', 0.3); crown_woods(M, [(57, 53, H - 1)], 'south', 0.34)
-    crown_woods(M, [(54, 0, 34)], 'north', 0.42, k=2)
+    crown_woods(M, [(60, 0, 25)], 'north', 0.2); crown_woods(M, [(60, 50, H - 1)], 'south', 0.2)
+    crown_woods(M, [(57, 0, 30)], 'north', 0.4); crown_woods(M, [(57, 53, H - 1)], 'south', 0.4)
+    crown_woods(M, [(54, 0, 34)], 'north', 0.6, k=2)
     pine_column(M, 52, 0, 18, 'north')
     for x0, yt in ((55, 52), (53, 55), (50, 55)): pine_column(M, x0, yt, H - 1, 'south')
     # west: two columns of Odyssey's pines the whole height
@@ -471,7 +497,7 @@ def fog(img, seed=3, amount=0.42):
         return np.array(Image.fromarray((g * 255).astype(np.uint8)).resize((g.shape[1] * cell, g.shape[0] * cell), Image.BICUBIC))[:h, :w] / 255.0
     n = smooth(96) * 0.6 + smooth(40) * 0.4
     n = np.clip((n - 0.25) * 1.6, 0, 1)[..., None] * amount
-    fogc = np.array([196, 210, 214], float)
+    fogc = np.array([170, 182, 196], float)
     return (img * (1 - n) + fogc * n).astype(np.uint8)
 
 LABELS = [((17, 6), 'north to Mirroh (Glaive)'), ((8, 50), 'clearing: Eiscue, the 1v2'), ((59, 47), 'from Route 11'),
