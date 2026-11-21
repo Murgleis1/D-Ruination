@@ -2,7 +2,7 @@
   "id": "MAP_PELLUCA_CITY",
   "name": "PellucaCity",
   "layout": "LAYOUT_PELLUCA_CITY",
-  "music": "MUS_DR_CROWN_PELLUCA",
+  "music": "MUS_DR_CROWN_PELLUCA_PIANO",
   "region_map_section": "MAPSEC_PELLUCA_VALLEY",
   "requires_flash": false,
   "weather": "WEATHER_NONE",
