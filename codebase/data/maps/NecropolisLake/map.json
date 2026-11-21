@@ -67,7 +67,15 @@
       "flag": "0"
     }
   ],
-  "warp_events": [],
+  "warp_events": [
+    {
+      "x": 21,
+      "y": 4,
+      "elevation": 3,
+      "dest_map": "MAP_KIMARIS_CHAMBER",
+      "dest_warp_id": "0"
+    }
+  ],
   "coord_events": [],
   "bg_events": []
 }

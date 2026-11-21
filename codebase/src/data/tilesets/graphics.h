@@ -2349,6 +2349,50 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_KimarisChamber[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/kimaris_chamber/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_KimarisChamber[] = INCBIN_U32("data/tilesets/secondary/kimaris_chamber/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_KimarisChamberTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/kimaris_chamber_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_KimarisChamberTiles[] = INCBIN_U32("data/tilesets/primary/kimaris_chamber_tiles/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_NecropolisLake[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/necropolis_lake/palettes/00.gbapal"),

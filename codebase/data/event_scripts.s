@@ -1290,6 +1290,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/Route11/scripts.inc"
 	.include "data/maps/HollowHill/scripts.inc"
 	.include "data/maps/PellucaAcademyHall/scripts.inc"
+	.include "data/maps/KimarisChamber/scripts.inc"
 	.include "data/maps/NecropolisLake/scripts.inc"
 	.include "data/maps/PellucaAcademyOffice/scripts.inc"
 	.include "data/maps/PellucaAcademyLibrary/scripts.inc"

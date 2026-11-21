@@ -1378,3 +1378,40 @@ void InitTilesetAnim_PellucaIcePath(void)
     sPrimaryTilesetAnimCounterMax = 256;
     sPrimaryTilesetAnimCallback = TilesetAnim_PellucaIcePath;
 }
+
+// --- KimarisChamber cauldron (build_kimaris.py) ---
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame0[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/0.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame1[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/1.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame2[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/2.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame3[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/3.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame4[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/4.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame5[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/5.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame6[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/6.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame7[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/7.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame8[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/8.4bpp");
+static const u16 *const sTilesetAnims_KimarisChamber_Cauldron[] = {
+    sTilesetAnims_KimarisChamber_Cauldron_Frame0,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame1,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame2,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame3,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame4,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame5,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame6,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame7,
+    sTilesetAnims_KimarisChamber_Cauldron_Frame8,
+};
+
+static void TilesetAnim_KimarisChamber(u16 timer)
+{
+    if (timer % 8 == 0)
+        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_Cauldron[(timer / 8) % ARRAY_COUNT(sTilesetAnims_KimarisChamber_Cauldron)],
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(234)), 36 * TILE_SIZE_4BPP);
+}
+
+void InitTilesetAnim_KimarisChamber(void)
+{
+    sSecondaryTilesetAnimCounter = 0;
+    sSecondaryTilesetAnimCounterMax = 72;
+    sSecondaryTilesetAnimCallback = TilesetAnim_KimarisChamber;
+}
+// --- end KimarisChamber ---

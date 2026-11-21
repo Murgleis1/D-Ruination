@@ -6142,6 +6142,16 @@
       "blockdata_filepath": "data/layouts/PellucaAcademyHall/map.bin"
     },
     {
+      "id": "LAYOUT_KIMARIS_CHAMBER",
+      "name": "KimarisChamber_Layout",
+      "width": 17,
+      "height": 15,
+      "primary_tileset": "gTileset_KimarisChamberTiles",
+      "secondary_tileset": "gTileset_KimarisChamber",
+      "border_filepath": "data/layouts/KimarisChamber/border.bin",
+      "blockdata_filepath": "data/layouts/KimarisChamber/map.bin"
+    },
+    {
       "id": "LAYOUT_NECROPOLIS_LAKE",
       "name": "NecropolisLake_Layout",
       "width": 41,

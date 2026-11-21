@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_KimarisChamber =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_KimarisChamber,
+    .palettes = gTilesetPalettes_KimarisChamber,
+    .metatiles = gMetatiles_KimarisChamber,
+    .metatileAttributes = gMetatileAttributes_KimarisChamber,
+    .callback = InitTilesetAnim_KimarisChamber,
+};
+
+const struct Tileset gTileset_KimarisChamberTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_KimarisChamberTiles,
+    .palettes = gTilesetPalettes_KimarisChamberTiles,
+    .metatiles = gMetatiles_KimarisChamberTiles,
+    .metatileAttributes = gMetatileAttributes_KimarisChamberTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_NecropolisLake =
 {
     .isCompressed = TRUE,
