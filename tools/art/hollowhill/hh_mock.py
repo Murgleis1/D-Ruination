@@ -94,7 +94,8 @@ def clean(m):
 
 def rings():
     P1 = rrect(10, 14, 49, 50, 7) & ~rrect(2, 43, 14, 63, 5)     # ring 1, the south-west clearing bitten out of it
-    P2 = rrect(17, 19, 41, 43, 5)
+    P2 = rrect(17, 19, 41, 43, 5) | rrect(12, 27, 47, 33, 0)     # ring 2 runs out to ring 1's edge west and east,
+                                                               # cutting ring 1 in two (north and south halves)
     P3 = rrect(23, 24, 35, 35, 4)                               # the knoll
     P1, P2, P3 = clean(P1), clean(P2), clean(P3)
     E = cheb_depth(P1, 2) + cheb_depth(P2, 2) + cheb_depth(P3, 3)
@@ -152,7 +153,9 @@ class Map:
         return True
 
     def cell(self, x, y):
-        if (x, y) in self.face: img = ody(self.face[x, y]).copy()
+        if (x, y) in self.face:
+            v = self.face[x, y]; img = ody(abs(v)).copy()
+            if v < 0: img = img[::-1].copy()              # (negative: drawn upside down, stairs on a north edge)
         elif self.ground[y][x] is not None: img = self.ground[y][x].copy()
         else:
             f = self.field; img = ground_cell((f[y, x], f[y, x + 1], f[y + 1, x], f[y + 1, x + 1]))
@@ -201,7 +204,7 @@ def flatten(M, x0, y0, w, h, k):
 def settle(M):
     """After flattening: no cell may span more than two neighbouring shades; unlocked vertices give way."""
     f, lk = M.field, M.lock
-    for _ in range(16):
+    for _ in range(80):
         bad = False
         for yy in range(H):
             for xx in range(W):
@@ -245,7 +248,7 @@ CROWN_WOODS_N = lambda yb, y, k: ((0x13, 0x14, 0x15)[k] if y == yb - 1 else (0x1
                                   else ((0x18, 0x19, 0x1a), (0x10, 0x11, 0x12))[(yb - 2 - y) % 2][k])
 CROWN_WOODS_S = lambda yt, y, k: ((0xb, 0xc, 0xd)[k] if y == yt else ((0x10, 0x11, 0x12), (0x18, 0x19, 0x1a))[(y - yt - 1) % 2][k])
 
-def crown_woods(M, cols, kind, t=0.0):
+def crown_woods(M, cols, kind, t=0.0, k=None):
     """Route 11's own woods (Crown's), columns three wide, as at Route 11's west end (on olive or moss ground)."""
     for x0, yt, yb in cols:
         for y in range(yt, yb + 1):
@@ -255,7 +258,7 @@ def crown_woods(M, cols, kind, t=0.0):
                 v = CROWN_WOODS_N(yb, y, k) if kind == 'north' else CROWN_WOODS_S(yt, y, k)
                 M.lay(x, y, 'c325', v, 'woods', top=kind == 'south' and y == yt)
                 if t: o = M.over[y][x][-1][0]; o[..., :3] = tint(o[..., :3], t)
-        flatten(M, x0, yt, 3, yb - yt + 1, min(1, int(M.field[yt:yb + 2, x0:x0 + 4].min())))
+        flatten(M, x0, yt, 3, yb - yt + 1, k if k is not None else min(1, int(M.field[yt:yb + 2, x0:x0 + 4].min())))
 
 def broad(M, x, y):
     assert M.free(x, y, 3, 3), ('broad', x, y)
@@ -284,13 +287,17 @@ def pit(M, x0, y0, w, h, eyes):
             M.ground[y][x] = ody(v).copy(); M.used[y, x] = 'pit'
 
 # ------------------------------------------------------------------ the composition
-S1 = (35, 49)                   # stairs up ring 1 (south face, two wide, two bands)
-S2 = (23, 42)                   # stairs up ring 2
+# stairs, two wide, two bands: (x, top row, 'S' on a south face | 'N' on a north edge)
+STAIRS = {'ring 1, from the south-east': (35, 49, 'S'), 'ring 1, from the clearing': (19, 49, 'S'),
+          'ring 1, down to the north woods': (20, 14, 'N'), 'ring 1, down to the north-east woods': (40, 14, 'N'),
+          'ring 2, south-west': (23, 42, 'S'), 'ring 2, south-east': (33, 42, 'S'),
+          'ring 2, north-west': (22, 19, 'N'), 'ring 2, north-east': (34, 19, 'N')}
 DOOR = (29, 35)                 # the sealed door, in the knoll's lowest band
-KEY = {'from Route 11': (57, 44), 'to Mirroh': (17, 5), 'clearing': (8, 50), 'foot of ring 1': (35, 51),
-       'ring 1': (35, 48), 'foot of ring 2': (23, 44), 'ring 2': (23, 41), 'the door': (29, 36)}
+KEY = {'from Route 11': (57, 44), 'to Mirroh': (17, 5), 'clearing': (8, 50), 'north-east woods': (46, 11),
+       'ring 1 south': (35, 48), 'ring 1 north': (30, 17), 'ring 2': (23, 41), 'the door': (29, 36)}
 # kept open: the clearing, the way north, the stairs' approaches, the door's forecourt, the track's end
-RESERVED = [(5, 46, 13, 54), (15, 0, 20, 13), (33, 47, 38, 54), (21, 40, 26, 45), (27, 36, 32, 39), (48, 42, 65, 46), (50, 30, 52, 50)]
+RESERVED = [(5, 46, 13, 54), (15, 0, 20, 13), (27, 36, 32, 39), (48, 42, 65, 46), (50, 36, 52, 50)] + \
+           [(x - 1, y - 3, x + 2, y + 4) for x, y, _ in STAIRS.values()]
 SOFT = {0x2ef, 0x2f6, 0x308, 0x30a, 0x290}      # weeds, slabs, mushrooms: walked over
 
 def walkable(M):
@@ -301,9 +308,10 @@ def walkable(M):
             if u is None or u == 'stairs' or u == 'road' or u.startswith('soft'): ok[y, x] = True
     return ok
 
-def connected(M):
+def connected(M, blocked=()):
     """Every key spot reachable from the track's end on foot (levels change only on the stairs)."""
     ok = walkable(M); E = M.E
+    for x, y in blocked: ok[y, x] = False
     start = KEY['from Route 11']; seen = {start}; todo = [start]
     while todo:
         x, y = todo.pop()
@@ -354,11 +362,14 @@ def compose(seed=5):
     M = Map(); M.field = shade_field()
     rng = np.random.default_rng(seed)
     # --- stairs and the door (cut into the south faces)
-    for x0, y0 in (S1, S2):
+    for name, (x0, y0, side) in STAIRS.items():
         for i in range(2):
             for b in range(2):
-                assert M.face.get((x0 + i, y0 + b)) == 0x2f1, ('stairs not on a south face', x0 + i, y0 + b)
-                M.face[x0 + i, y0 + b] = 0x339 if b == 0 else 0x338; M.used[y0 + b, x0 + i] = 'stairs'
+                want = 0x2f1 if side == 'S' else 0x2e1
+                assert M.face.get((x0 + i, y0 + b)) == want, ('stairs not on a straight edge', name, x0 + i, y0 + b)
+                # the landing on the high side: the top row on a south face, the bottom row (flipped) on a north edge
+                M.face[x0 + i, y0 + b] = (0x339 if b == 0 else 0x338) if side == 'S' else (0x338 if b == 0 else -0x339)
+                M.used[y0 + b, x0 + i] = 'stairs'
     for i, v in enumerate((0x2ed, 0x2ee)):
         assert M.face.get((DOOR[0] + i, DOOR[1])) == 0x2f1, ('door', DOOR)
         M.face[DOOR[0] + i, DOOR[1]] = v; M.used[DOOR[1], DOOR[0] + i] = 'door'
@@ -375,38 +386,42 @@ def compose(seed=5):
     # Crown's woods and Odyssey's pines mixing before the pines take over
     crown_woods(M, [(63, 0, 15 + OFF)], 'north'); crown_woods(M, [(63, 24 + OFF, H - 1)], 'south')
     crown_woods(M, [(60, 0, 25)], 'north', 0.18); crown_woods(M, [(60, 50, H - 1)], 'south', 0.18)
-    crown_woods(M, [(57, 0, 17)], 'north', 0.34); crown_woods(M, [(57, 53, H - 1)], 'south', 0.34)
-    for x0, yb in ((55, 13), (53, 20), (51, 11)): pine_column(M, x0, 0, yb, 'north')
+    crown_woods(M, [(57, 0, 30)], 'north', 0.3); crown_woods(M, [(57, 53, H - 1)], 'south', 0.34)
+    crown_woods(M, [(54, 0, 34)], 'north', 0.42, k=2)
+    pine_column(M, 52, 0, 18, 'north')
     for x0, yt in ((55, 52), (53, 55), (50, 55)): pine_column(M, x0, yt, H - 1, 'south')
     # west: two columns of Odyssey's pines the whole height
     pine_column(M, 0, 0, H - 1, 'wall'); pine_column(M, 2, 0, H - 1, 'wall')
     # north: pines hanging from the top, the gap for the way north to Mirroh (columns 16-19)
     for x0, yb in ((4, 11), (6, 8), (8, 10), (10, 7), (12, 9), (14, 6), (20, 7), (22, 9), (24, 6), (26, 8), (28, 10),
-                   (30, 7), (32, 9), (34, 6), (36, 8), (38, 7), (40, 6), (42, 7), (44, 8), (46, 10), (48, 8)):
+                   (30, 13), (32, 13), (34, 6), (36, 8), (38, 7), (40, 6), (42, 7), (44, 8), (46, 10), (48, 8)):
         pine_column(M, x0, 0, yb, 'north')
     # south: pines rising from the bottom
     for x0, yt in ((4, 56), (6, 58), (8, 57), (10, 55), (12, 57), (14, 56), (16, 58), (18, 56), (20, 57), (22, 55),
-                   (24, 58), (26, 56), (28, 57), (30, 55), (32, 58), (34, 56), (36, 57), (38, 55), (40, 58), (42, 56),
+                   (24, 58), (26, 51), (28, 51), (30, 55), (32, 58), (34, 56), (36, 57), (38, 55), (40, 58), (42, 56),
                    (44, 57), (46, 55), (48, 57)):
         pine_column(M, x0, yt, H - 1, 'south')
     # the west strip's edge, ragged: free-standing stacks of pines
-    pine_column(M, 4, 24, 30, 'stack'); pine_column(M, 4, 36, 40, 'stack')
+    pine_column(M, 4, 36, 40, 'stack')
+    # the forest floor closes off into sections where the woods meet the hill's cliffs: from one section to the
+    # next the way is always up into the hill (west, north, east and south)
+    for x0, yt, yb in ((4, 26, 34), (6, 27, 33), (8, 26, 34), (50, 26, 34), (52, 25, 35)):
+        pine_column(M, x0, yt, yb, 'stack')
     # --- the void pits, red eyes watching
-    pit(M, 4, 15, 4, 4, {(5, 16): 0x353, (6, 17): 0x354})
-    pit(M, 41, 9, 4, 3, {(42, 10): 0x357})
     # --- burrow mouths (scenery now; secrets later): Odyssey's hollow, 314 over 31c
-    for x, y in ((8, 33), (34, 16), (44, 28), (34, 39), (20, 31), (16, 51), (13, 35)):
-        thing(M, x, y, [[0x314], [0x31c]], 'thing:burrow')
+    for x, y in ((8, 20), (27, 16), (44, 24), (36, 38), (19, 36), (16, 52), (14, 42), (44, 39)):
+        try: thing(M, x, y, [[0x314], [0x31c]], 'thing:burrow')
+        except AssertionError: print('no room for a burrow at', x, y)
     # --- the knoll's forecourt: broken slabs before the door
     for x, y, v in ((29, 36, 0x308), (30, 36, 0x30a), (29, 38, 0x30a), (31, 37, 0x308)):
         M.lay(x, y, 'ody', v, 'soft:slab')
     # --- the east, between Route 11's woods and the haunted floor: a Crown broadleaf, then Odyssey's pines
-    near(M, broad, 3, [(57, 28), (56, 36), (59, 49), (61, 30)])
+    near(M, broad, 3, [(56, 37), (59, 49), (61, 30)])
     # the knoll's top: one dead tree, rocks (out of reach until late in the game)
     thing(M, 29, 29, [[0x2a0], [0x2a8]], 'thing:dead'); thing(M, 27, 30, 0x2fe, 'thing:rock'); thing(M, 31, 31, 0x2fe, 'thing:rock')
     # --- trees, dead trees, stumps, logs, rocks, mushrooms, weeds: scattered, never cut, stacked or touching a cliff,
     # and never closing the way between the key spots
-    near(M, pine, 2, [(53, 27), (54, 39), (53, 48), (55, 22)])    # Odyssey's pines in the mixed band
+    near(M, pine, 2, [(53, 39), (54, 48), (50, 16)])    # Odyssey's pines in the mixed band
     # tall grass (the wild Pokemon's): Odyssey's dark tufts, in patches
     for x0, y0, x1, y1 in ((6, 21, 8, 24), (12, 37, 15, 40), (38, 52, 42, 54), (22, 52, 26, 54), (43, 18, 46, 20),
                            (24, 16, 28, 17), (36, 33, 38, 36), (20, 22, 22, 25), (46, 34, 47, 38)):
@@ -427,6 +442,11 @@ def compose(seed=5):
     settle(M)
     miss = connected(M)
     assert not miss, ('cut off', miss)
+    # the hill is the only way between the sections: with ring 2's stairs closed the north is out of reach
+    ring2 = [(x + i, y + b) for n, (x, y, _) in STAIRS.items() if n.startswith('ring 2') for i in range(2) for b in range(2)]
+    assert 'to Mirroh' in connected(M, ring2), 'the north can be reached without crossing ring 2'
+    ring1 = [(x + i, y + b) for n, (x, y, _) in STAIRS.items() if n.startswith('ring 1') for i in range(2) for b in range(2)]
+    assert set(connected(M, ring1)) >= {'clearing', 'to Mirroh', 'north-east woods'}, 'the woods join round the hill'
     return M
 
 # ------------------------------------------------------------------ output
@@ -454,10 +474,10 @@ def fog(img, seed=3, amount=0.42):
     return (img * (1 - n) + fogc * n).astype(np.uint8)
 
 LABELS = [((17, 6), 'north to Mirroh (Glaive)'), ((8, 50), 'clearing: Eiscue, the 1v2'), ((59, 47), 'from Route 11'),
-          ((35, 52), 'stairs: ring 1'), ((23, 45), 'stairs: ring 2'), ((29, 37), 'sealed door'),
-          ((29, 27), 'knoll top (late game)'), ((5, 14), 'void pit, eyes'), ((42, 8), 'void pit'),
-          ((8, 33), 'burrow'), ((34, 16), 'burrow'), ((44, 28), 'burrow'), ((34, 39), 'burrow'), ((20, 31), 'burrow'),
-          ((16, 51), 'burrow'), ((13, 35), 'burrow'), ((6, 22), 'tall grass')]
+          ((29, 37), 'sealed door'), ((29, 27), 'knoll top (late game)'), ((6, 30), 'trees close the way'),
+          ((51, 30), 'trees close the way'), ((31, 6), 'trees close the way'), ((27, 54), 'trees close the way'),
+          ((46, 11), 'north-east woods'), ((6, 20), 'north-west woods')] + \
+         [((x, y), 'stairs') for x, y, _ in STAIRS.values()]
 
 def annotate(img, scale=2):
     im = Image.fromarray(img).resize((img.shape[1] * scale, img.shape[0] * scale), 0); d = ImageDraw.Draw(im)
