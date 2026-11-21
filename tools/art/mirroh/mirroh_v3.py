@@ -86,14 +86,18 @@ def cathedral_roof(w, h):
     hh, ww = alpha.shape; mid = ww // 2
     tops = np.array([np.argmax(alpha[:, x]) if alpha[:, x].any() else hh for x in range(ww)], float)
     out = copper_roofs(img)
+    o = out.astype(int); cold = o[..., 2] > o[..., 0]   # (its weathering streaks and seams in the copper's own dark,
+    out[cold] = copper_tone(out)[cold]                  #  not the stone's blue-grey)
     line = np.zeros(ww)
     for xs in (np.arange(0, mid), np.arange(mid, ww)):
         ok = tops[xs] < hh
         k, b = np.polyfit(xs[ok], tops[xs][ok], 1); line[xs] = k * xs + b
+    line -= line[mid - 1:mid + 1].min()                 # (its peak at the top: the far door's mat meets it)
     line = np.clip(np.round(line), 0, hh - 1).astype(int)
     for x in range(ww):
         for y in range(line[x], hh):
-            if not alpha[y, x]:
+            old_edge = abs(y - tops[x]) <= 3 and not green[y, x]      # (the cut's old ragged outline, inside now)
+            if not alpha[y, x] or old_edge:
                 yy = y + 10
                 while yy < hh and not alpha[yy, x]: yy += 5
                 if yy < hh: out[y, x] = out[yy, x]
@@ -273,8 +277,12 @@ def mat(M, x, y, n, tone):
     for k, m in enumerate(ids):
         t = ne[m]; under = ef(0xed) if M.gtag[y, x + k] == 'snow' else M.g[y][x + k].copy()
         f = t.astype(int); a = f.sum(-1) > 0
+        body = np.where(a.any(1))[0]                     # (the mat, six rows, to the foot of its cell: it meets
+        if len(body):                                    #  the building behind it)
+            r0, r1 = body[0], body[-1]; t2 = np.zeros_like(t); a2 = np.zeros_like(a)
+            t2[16 - (r1 - r0 + 1):] = t[r0:r1 + 1]; a2[16 - (r1 - r0 + 1):] = a[r0:r1 + 1]; t, a = t2, a2
         img = tone(t); under[a] = img[a]
-        M.ground(x + k, y, under, 'gate-in')
+        M.ground(x + k, y, under, 'mat')                # (the far door's warp; not restoned: the path shows round it)
 
 def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
     """A gatehouse on Crown's castle gate (its rows 36-42: crenels, banners, a portcullis between lanterns),
@@ -335,7 +343,7 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
             for dx in range(10):
                 sl = (slice(dy * 16, dy * 16 + 16), slice(dx * 16, dx * 16 + 16))
                 t = M.g[ycren - 3 + dy][x0 + 2 + dx].copy(); t[ra[sl]] = roof[sl][ra[sl]]
-                M.ground(x0 + 2 + dx, ycren - 3 + dy, t, 'gate')
+                M.ground(x0 + 2 + dx, ycren - 3 + dy, t, 'roof')
         # its eave: the roof comes down over the crenels' walk (their top half) to a dark copper edge, its shadow
         # on the wall face under it, the banners still hanging from the wall (user: the roof and the stone did not
         # meet naturally)
@@ -410,6 +418,10 @@ def chapel(M, x0, y0):
             0x6f, 0x77, 0x18, 0x19, 0x10, 0x11, 0x12, 0xc, 0xd, 0x2e, 0x2f, 0x36, 0x37)
     b = cut('c32', 26, 1, 9, 12, ground=C32G, ring=False, rows=[1, 2, 3, 4, 7, 8, 9, 10, 11, 12, 13, 14])
     for dx in range(3, 6): b[0][dx] = b[1][dx] = None   # (above the roof's peak: the cathedral's woods, not ours)
+    for r in range(4, 8):                               # (beside its front towers: the cathedral's long roof running
+        for dx, cols in ((0, slice(0, 9)), (8, slice(7, 16))):    #  back down its sides, not part of our front)
+            if b[r][dx] is not None:
+                img, a = b[r][dx]; a = a.copy(); a[:, cols] = False; b[r][dx] = (img, a)
     M.place(b, x0, y0, 'chapel', fn=copper_roofs)
 
 def copper_roofs(img):
@@ -481,7 +493,7 @@ def compose():
     C = set()
     C |= rect(28, 40, 33, 42) | rect(10, 40, 49, 41)                # the street along the square's wall
     C |= rect(14, 37, 16, 39) | rect(43, 37, 45, 39)                # to the two stairs up
-    C |= rect(30, 43, 31, 44)                                       # to the steps up from the south gatehouse
+    C |= rect(30, 43, 31, 46)                                       # to the south gatehouse's far door (its mat)
     C |= rect(8, 42, 10, 46) | rect(49, 42, 51, 46)                 # lanes to the cottages, the market
     C &= lv(1)
     cobbles(M, C)
@@ -541,7 +553,7 @@ def audit(M):
         for x in range(W):
             if M.g[y][x] is None: bad.append(('no ground', x, y))
             o, g = M.otag[y, x], M.gtag[y, x]
-            if o and o != 'spire' and g in ('wall', 'stairs', 'ice', 'gate', 'gate-in'): bad.append((o, 'on', g, x, y))
+            if o and o != 'spire' and g in ('wall', 'stairs', 'ice', 'gate', 'gate-in', 'roof'): bad.append((o, 'on', g, x, y))
             if o == 'tree' and g not in ('snow',): bad.append(('tree on', g, x, y))
     return bad
 
