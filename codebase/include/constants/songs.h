@@ -568,9 +568,10 @@
 #define MUS_DR_TITLE                629 // Dreamstone Ruination: title screen theme (looped) -- ethereal arrangement of 'Conquest' (tools/music/arrange_conquest_title.py)
 #define MUS_DR_FAR_HORIZONS         630 // Dreamstone Ruination: the former title theme ("Far Horizons", piano + harp; commit 0dcc231), cold open: Cadmus's letter until Osrid lands in Pelluca
 #define MUS_DR_OLD_HQ               631 // Dreamstone Ruination: MonoMyth's Old Headquarters music (tools/monomyth/port_song.py), the ice path under the church
-#define MUS_DR_GG_ROUTE1            632 // Dreamstone Ruination: Ghost Grey's Route 1 theme as it is (tools/monomyth/port_song.py), for comparison
-#define MUS_DR_GG_ROUTE1_PIANO      633 // Dreamstone Ruination: Ghost Grey's Route 1 theme on piano (lead and counter-line from square waves to its piano, tempo 124 -> 90, no percussion), Route 11
-#define MUS_DR_HOLLOW_HILL          634 // Dreamstone Ruination: Hollow Hill's theme, Ghost Grey's Route 1 re-arranged: pedal piano, a far-off voice echoing the tune (tools/music/arrange_hollow_hill.py)
+#define MUS_DR_HOLLOW_HILL          632 // Dreamstone Ruination: Hollow Hill's theme, Ghost Grey's Route 1 re-arranged: pedal piano, a far-off voice echoing the tune (tools/music/arrange_hollow_hill.py)
+#define MUS_DR_MM_ROUTE15           633 // Dreamstone Ruination: MonoMyth's Route 15 theme (tools/monomyth/port_song.py), Route 11 (user)
+#define MUS_DR_CROWN_PELLUCA        634 // Dreamstone Ruination: Pokemon Crown's route theme (its song 292), Pelluca Valley's main theme (user)
+#define MUS_DR_CROWN_PELLUCA_PIANO  635 // Dreamstone Ruination: the same with our pedal piano for its guitar, harp, clarinet and flute (comparison, user)
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 

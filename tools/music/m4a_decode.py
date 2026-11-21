@@ -3,6 +3,7 @@
 -> (tracks, loop_tick, header): tracks = [dict(notes=[(tick, key, dur, vel)], voice, vol, pan)], ticks at
 24 per quarter note (the engine's own clock). Handles waits, notes (N1-N96 with running key/velocity/gate),
 TIE/EOT, PATT/PEND (one level), REPT, GOTO (the loop: stops there and reports where it returns to), KEYSH.
+Each track also lists played = [(program, key)] for every note (the key before KEYSH), for porting drum kits.
 """
 import struct
 LEN = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28, 30, 32, 36,
@@ -15,7 +16,7 @@ def decode(rom, table, index):
     starts = [o(u32(h + 8 + 4 * k)) for k in range(nt)]
     out, loop_tick, tempo = [], None, None
     for s in starts:
-        i, t, notes, ties = s, 0, [], {}
+        i, t, notes, ties, nv = s, 0, [], {}, []
         key, vel, gate, last, keysh = 60, 100, 0, None, 0
         stack, voice, vol, pan = [], None, 100, 64
         loop_at = None; labels = {s: 0}
@@ -63,10 +64,10 @@ def decode(rom, table, index):
                 if rom[i] < 0x80: key = rom[i]; i += 1
                 if rom[i] < 0x80: vel = rom[i]; i += 1
                 if rom[i] < 0x80: gate = rom[i]; i += 1
-                if b == 0xCF: ties[key] = (t, vel)
-                else: notes.append((t, key + keysh, LEN[b - 0xCF] + gate, vel))
+                if b == 0xCF: ties[key] = (t, vel); nv.append((voice, key))
+                else: notes.append((t, key + keysh, LEN[b - 0xCF] + gate, vel)); nv.append((voice, key))
                 continue
             i += 1
-        out.append(dict(notes=notes, voice=voice, vol=vol, pan=pan, end=t, loop=loop_at))
+        out.append(dict(notes=notes, voice=voice, vol=vol, pan=pan, end=t, loop=loop_at, played=nv))
         if loop_at is not None: loop_tick = loop_at
     return out, loop_tick, tempo

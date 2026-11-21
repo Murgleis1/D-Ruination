@@ -636,9 +636,10 @@ gSongTable::
 	song mus_dr_title, 0, 0
 	song mus_dr_far_horizons, 0, 0
 	song mus_dr_old_hq, 0, 0
-	song mus_dr_gg_route1, 0, 0
-	song mus_dr_gg_route1_piano, 0, 0
 	song mus_dr_hollow_hill, 0, 0
+	song mus_dr_mm_route15, 0, 0
+	song mus_dr_crown_pelluca, 0, 0
+	song mus_dr_crown_pelluca_piano, 0, 0
 
 	.align 2
 dummy_song_header:

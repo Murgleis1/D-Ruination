@@ -46,7 +46,7 @@ Done (each has a note in `bible/20_chapter1_build.md`):
 - Route 11 (`Route11`, 90x40: the approved 90x30 picture with five rows of woods and sea above and below, out of
   reach), connected to Pelluca's west road. Its own secondary tileset under Pelluca's primary, built from the
   composer by `tools/art/route11/build_route11.py`. A provisional story gate on Pelluca's west road (open once the
-  shrine is awakened; stage 4 sets the real condition). Music: a placeholder (Route 104) until the user picks; Ghost Grey's Route 1 became Hollow Hill's theme (`MUS_DR_HOLLOW_HILL`). The east beach has no way
+  shrine is awakened; stage 4 sets the real condition). Music: MonoMyth's Route 15 theme (`MUS_DR_MM_ROUTE15`); Ghost Grey's Route 1 became Hollow Hill's theme (`MUS_DR_HOLLOW_HILL`). Pelluca's theme is now Crown's route theme 292 (`MUS_DR_CROWN_PELLUCA`). The east beach has no way
   down yet (revisit later, user). The west end waits for Hollow Hill.
 
 Remaining (proposed order):
