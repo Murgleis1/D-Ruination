@@ -51,10 +51,17 @@ Done (each has a note in `bible/20_chapter1_build.md`):
 - Hollow Hill: built (2026-11-20; mock v8: bone woods, dark stone, blood, red webs; the way north goes over the hill),
   connected to Route 11, thinned fog. Its tileset is nearly full. Later: a ruined structure on the top, the guardian
   quest (user). Next: the Mirroh area.
+- Mirroh: mock v3 approved (user 2026-11-21: "pretty good"), not yet built in the game.
+- Mirroh Necropolis grounds: mock approved (user 2026-11-21: "looks good overall"), not yet built.
+- The Trial lake (`NecropolisLake`): built and walked, 2026-11-21. Not reachable yet (the grounds come first). Still
+  to do: a visible frozen bank where the ice meets the dark, and real bonfire art (lit and unlit).
+- Kimaris's chamber (`KimarisChamber`): built and walked, 2026-11-21. Fantasma's room, four MonoMyth cauldrons,
+  copper, Mirroh stone.
 
 Remaining (proposed order):
-1. Leaving Pelluca: Hollow Hill, then the Mirroh area (base camp, Mt. Mirroh, the Necropolis, Mirroh Peak).
-   These Mirroh maps are still the base game's, on old tilesets.
+1. The Mirroh area: build Mirroh (seam with Hollow Hill's way north), its gatehouses, the Necropolis grounds
+   (skull gate in, grand entrance down to the lake); then Mirroh's interiors, Mt. Mirroh and Mirroh Peak.
+   The base game's Mirroh maps are still on old tilesets.
 2. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
 
 Update this list as areas are finished.
