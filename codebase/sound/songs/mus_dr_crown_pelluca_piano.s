@@ -463,15 +463,11 @@ mus_dr_crown_pelluca_piano_voices:
 
 	.align 2
 mus_dr_crown_pelluca_piano_group_00:
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_00
+	.4byte mus_dr_crown_pelluca_piano_sample_00
 	.byte 0xFF, 0xFA, 0x00, 0xF0
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_01
-	.byte 0xFF, 0xFA, 0x00, 0xF0
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_02
-	.byte 0xFF, 0xFA, 0x00, 0xF0
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -600,14 +596,10 @@ mus_dr_crown_pelluca_piano_group_00:
 
 	.align 2
 mus_dr_crown_pelluca_piano_group_01:
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_03
-	.byte 0xFF, 0xFC, 0x00, 0xF0
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_04
-	.byte 0xFF, 0xFC, 0x00, 0xF0
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_05
+	.4byte mus_dr_crown_pelluca_piano_sample_01
 	.byte 0xFF, 0xFC, 0x00, 0xF0
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -738,10 +730,10 @@ mus_dr_crown_pelluca_piano_group_01:
 	.align 2
 mus_dr_crown_pelluca_piano_group_02:
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_06
+	.4byte mus_dr_crown_pelluca_piano_sample_02
 	.byte 0xFF, 0xF8, 0x00, 0xE2
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_07
+	.4byte mus_dr_crown_pelluca_piano_sample_03
 	.byte 0xFF, 0xF8, 0x00, 0xE2
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -873,14 +865,12 @@ mus_dr_crown_pelluca_piano_group_02:
 	.align 2
 mus_dr_crown_pelluca_piano_group_03:
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_19
+	.4byte mus_dr_crown_pelluca_piano_sample_04
 	.byte 0xFF, 0xFE, 0x20, 0xA5
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_20
+	.4byte mus_dr_crown_pelluca_piano_sample_05
 	.byte 0xFF, 0xFE, 0x20, 0xA5
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_21
-	.byte 0xFF, 0xFE, 0x20, 0xA5
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1010,10 +1000,10 @@ mus_dr_crown_pelluca_piano_group_03:
 	.align 2
 mus_dr_crown_pelluca_piano_group_04:
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_25
+	.4byte mus_dr_crown_pelluca_piano_sample_06
 	.byte 0xFF, 0xFA, 0x00, 0xEC
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_26
+	.4byte mus_dr_crown_pelluca_piano_sample_07
 	.byte 0xFF, 0xFA, 0x00, 0xEC
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1144,21 +1134,13 @@ mus_dr_crown_pelluca_piano_group_04:
 
 	.align 2
 mus_dr_crown_pelluca_piano_group_05:
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_27
-	.byte 0xFF, 0xFE, 0xE8, 0xD8
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_28
+	.4byte mus_dr_crown_pelluca_piano_sample_08
 	.byte 0xFF, 0xFE, 0xA1, 0xD8
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_29
-	.byte 0xFF, 0xFE, 0xA1, 0xD8
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_30
-	.byte 0xFF, 0xFE, 0xA1, 0xD8
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_31
-	.byte 0xFF, 0xFE, 0xA1, 0xD8
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1286,14 +1268,12 @@ mus_dr_crown_pelluca_piano_group_05:
 	.align 2
 mus_dr_crown_pelluca_piano_group_06:
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_32
+	.4byte mus_dr_crown_pelluca_piano_sample_09
 	.byte 0xFF, 0xFC, 0x80, 0xB2
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_33
+	.4byte mus_dr_crown_pelluca_piano_sample_10
 	.byte 0xFF, 0xFC, 0x80, 0xB2
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_34
-	.byte 0xFF, 0xFC, 0x80, 0xB2
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1422,14 +1402,12 @@ mus_dr_crown_pelluca_piano_group_06:
 
 	.align 2
 mus_dr_crown_pelluca_piano_group_07:
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_35
+	.4byte mus_dr_crown_pelluca_piano_sample_11
 	.byte 0xFF, 0xFE, 0xB8, 0xCE
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_36
-	.byte 0xFF, 0xFE, 0xB8, 0xCE
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_37
+	.4byte mus_dr_crown_pelluca_piano_sample_12
 	.byte 0xFF, 0xFE, 0xB8, 0xCE
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1560,13 +1538,13 @@ mus_dr_crown_pelluca_piano_group_07:
 	.align 2
 mus_dr_crown_pelluca_piano_group_08:
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_45
+	.4byte mus_dr_crown_pelluca_piano_sample_13
 	.byte 0xFF, 0xF9, 0x90, 0xB4
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_46
+	.4byte mus_dr_crown_pelluca_piano_sample_14
 	.byte 0xFF, 0xF9, 0xB0, 0xB4
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_47
+	.4byte mus_dr_crown_pelluca_piano_sample_15
 	.byte 0xFF, 0xFE, 0xD0, 0xB4
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1715,34 +1693,34 @@ mus_dr_crown_pelluca_piano_group_09:
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_48
+	.4byte mus_dr_crown_pelluca_piano_sample_16
 	.byte 0xFF, 0xF7, 0x00, 0xAB
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_49
+	.4byte mus_dr_crown_pelluca_piano_sample_17
 	.byte 0xFF, 0xF7, 0x00, 0xD6
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_50
+	.4byte mus_dr_crown_pelluca_piano_sample_18
 	.byte 0xFF, 0xF7, 0x00, 0xD6
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_51
+	.4byte mus_dr_crown_pelluca_piano_sample_19
 	.byte 0xFF, 0xF9, 0xB4, 0x44
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_52
+	.4byte mus_dr_crown_pelluca_piano_sample_20
 	.byte 0xFF, 0xFA, 0x00, 0xD6
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_53
+	.4byte mus_dr_crown_pelluca_piano_sample_21
 	.byte 0xFF, 0xF4, 0x00, 0xE2
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_54
+	.4byte mus_dr_crown_pelluca_piano_sample_22
 	.byte 0x0E, 0xF7, 0x00, 0xE2
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1763,7 +1741,7 @@ mus_dr_crown_pelluca_piano_group_09:
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_crown_pelluca_sample_55
+	.4byte mus_dr_crown_pelluca_piano_sample_23
 	.byte 0xFF, 0xF9, 0x00, 0xAB
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1867,6 +1845,126 @@ mus_dr_crown_pelluca_piano_keys_07:
 
 mus_dr_crown_pelluca_piano_piano_keys:
 	.byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_00
+mus_dr_crown_pelluca_piano_sample_00:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_00.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_01
+mus_dr_crown_pelluca_piano_sample_01:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_01.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_02
+mus_dr_crown_pelluca_piano_sample_02:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_02.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_03
+mus_dr_crown_pelluca_piano_sample_03:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_03.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_04
+mus_dr_crown_pelluca_piano_sample_04:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_04.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_05
+mus_dr_crown_pelluca_piano_sample_05:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_05.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_06
+mus_dr_crown_pelluca_piano_sample_06:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_06.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_07
+mus_dr_crown_pelluca_piano_sample_07:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_07.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_08
+mus_dr_crown_pelluca_piano_sample_08:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_08.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_09
+mus_dr_crown_pelluca_piano_sample_09:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_09.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_10
+mus_dr_crown_pelluca_piano_sample_10:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_10.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_11
+mus_dr_crown_pelluca_piano_sample_11:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_11.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_12
+mus_dr_crown_pelluca_piano_sample_12:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_12.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_13
+mus_dr_crown_pelluca_piano_sample_13:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_13.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_14
+mus_dr_crown_pelluca_piano_sample_14:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_14.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_15
+mus_dr_crown_pelluca_piano_sample_15:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_15.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_16
+mus_dr_crown_pelluca_piano_sample_16:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_16.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_17
+mus_dr_crown_pelluca_piano_sample_17:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_17.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_18
+mus_dr_crown_pelluca_piano_sample_18:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_18.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_19
+mus_dr_crown_pelluca_piano_sample_19:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_19.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_20
+mus_dr_crown_pelluca_piano_sample_20:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_20.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_21
+mus_dr_crown_pelluca_piano_sample_21:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_21.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_22
+mus_dr_crown_pelluca_piano_sample_22:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_22.bin"
+
+	.align 2
+	.global mus_dr_crown_pelluca_piano_sample_23
+mus_dr_crown_pelluca_piano_sample_23:
+	.incbin "sound/ported/crown/mus_dr_crown_pelluca_piano/mus_dr_crown_pelluca_piano_sample_23.bin"
 
 	.align 2
 	.global mus_dr_crown_pelluca_piano
