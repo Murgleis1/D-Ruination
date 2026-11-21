@@ -569,7 +569,7 @@
 #define MUS_DR_FAR_HORIZONS         630 // Dreamstone Ruination: the former title theme ("Far Horizons", piano + harp; commit 0dcc231), cold open: Cadmus's letter until Osrid lands in Pelluca
 #define MUS_DR_OLD_HQ               631 // Dreamstone Ruination: MonoMyth's Old Headquarters music (tools/monomyth/port_song.py), the ice path under the church
 #define MUS_DR_GG_ROUTE1            632 // Dreamstone Ruination: Ghost Grey's Route 1 theme as it is (tools/monomyth/port_song.py), for comparison
-#define MUS_DR_GG_ROUTE1_PIANO      633 // Dreamstone Ruination: Ghost Grey's Route 1 theme on piano (lead and counter-line from square waves to its piano), trial for Route 11
+#define MUS_DR_GG_ROUTE1_PIANO      633 // Dreamstone Ruination: Ghost Grey's Route 1 theme on piano (lead and counter-line from square waves to its piano, tempo 124 -> 106), Route 11
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 
