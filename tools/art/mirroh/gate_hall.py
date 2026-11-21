@@ -18,7 +18,7 @@ from mirroh_mock import gloom
 REF = '/home/claude/scratch/mirroh/ref'
 NE = np.load(f'{REF}/mm_ne_gate.npz')
 ROWS = [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]   # (its first benches dropped: shorter)
-CARPET = {0x1e0, 0x1e1, 0x1e2, 0x1e8, 0x1e9, 0x1ea, 0x1f0, 0x1f1, 0x1f2}
+CARPET = {0x1e0, 0x1e1, 0x1e2, 0x1e8, 0x1e9, 0x1ea, 0x1f0, 0x1f1, 0x1f2, 0x1cb, 0x1cc, 0x1cd}
 
 def crimson(img):
     f = img.astype(float); l = v3._lum(f) / 255.0
@@ -33,7 +33,7 @@ def tile(m):
     img = NE['full'][m]
     fl = np.array([[tuple(p) in _FLOOR for p in row] for row in img])
     if m in CARPET:
-        f = img.astype(int); warm = (f[..., 0] - f[..., 2] > 60) & (f[..., 0] > 150)
+        f = img.astype(int); warm = (f[..., 0] - f[..., 2] > 60) & (f[..., 0] > 150) if m < 0x1cb or m > 0x1cd else (f[..., 0] - f[..., 2] > 30)
         out = v3.to_ef(img); out[warm] = crimson(img)[warm]; out[fl & ~warm] = _PAVE[fl & ~warm]; return out
     out = v3.to_ef(img); out[fl] = _PAVE[fl]
     f = img.astype(int); wood = (f[..., 0] - f[..., 2] > 40) & ~fl

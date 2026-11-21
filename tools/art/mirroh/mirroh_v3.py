@@ -146,34 +146,75 @@ def stair(M, x, ycren):
             M.ground(x - 2 + dx, ycren - 1 + dy, ef(m), 'stairs' if 1 <= dx <= 3 else 'wall')
 
 # ------------------------------------------------------------------ gates
-def gatehouse(M, x0, ycren, steps=False):
-    """A roofed gatehouse 14 wide: Crown's castle gate (its rows 36-42: crenels, banners, a portcullis between
-    lanterns), restoned in Elderflower's stone, with Elderflower's foot; a slate hip roof (Crown's townhouse's)
-    behind its crenels; round towers either side. Its door is the portcullis (columns x0+5..x0+8, row ycren+5).
-    With steps: on its far side a flight of steps down into it (the hallway's far door), four wide over the
-    portcullis."""
+def to_ef_all(img):
+    """Every pixel to Elderflower's stone ramp by lightness (no colour kept)."""
+    return _RAMP[np.clip(np.searchsorted(_RL, _lum(img.astype(float))), 0, len(_RAMP) - 1)]
+
+def mat(M, x, y, n, tone):
+    """A doormat n wide on the ground (North Edelweiss's hall mat, in the runner's colour): the far door of a gate."""
+    ne = np.load('/home/claude/scratch/mirroh/ref/mm_ne_gate.npz')['full']
+    ids = [0x1cb] + [0x1cc] * (n - 2) + [0x1cd]
+    for k, m in enumerate(ids):
+        t = ne[m]; under = M.g[y][x + k].copy()
+        f = t.astype(int); a = f.sum(-1) > 0
+        img = tone(t); under[a] = img[a]
+        M.ground(x + k, y, under, 'gate-in')
+
+def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
+    """A gatehouse on Crown's castle gate (its rows 36-42: crenels, banners, a portcullis between lanterns),
+    restoned in Elderflower's stone, with Elderflower's foot. Its door is the portcullis.
+    style 'roof' (14 wide): round towers either side, a hip roof behind the crenels (Crown's townhouse's) in
+      slate, restoned to the stone's own darks, no timber; the portcullis at columns x0+5..x0+8.
+    style 'towers' (18 wide): no roof; three-wide towers a row taller than the crenellated walk, capped with the
+      Necropolis gate's spires (the same family); the portcullis at columns x0+7..x0+10.
+    far_mat: the hallway's far door on the city side, a mat on the ground behind it (Ghost Grey's Saffron gates)."""
     c = ATL['c33']['cells']
+    tw = 1 if style == 'roof' else 3
     for dy in range(7):
         for dx in range(12):
             m = int(c[36 + dy, 20 + dx])
             t = ef(0x21e) if dy == 6 else ef(0x20e) if m == 0x66 else to_ef(cr(m))   # (its moat-dark course: wall)
-            M.ground(x0 + 1 + dx, ycren + dy, t, 'gate')
-    for dy, m in enumerate([0x2a3, 0x222, 0x222, 0x222, 0x222, 0x22a, 0x307]):
-        M.ground(x0, ycren + dy, ef(m), 'gate'); M.ground(x0 + 13, ycren + dy, fx(ef(m)), 'gate')
-    rows = ([0x80] + [0x81, 0x82, 0x83, 0x84] * 3, [0x88] + [0x89, 0x8a, 0x8b, 0x8c] * 3,
-            [0x90] + [0x91, 0x92, 0x93, 0x94] * 3)
-    for dy, r in enumerate(rows):
-        r = r[:11]
-        roof = [gloom(cr(m), 0.15, keep_snow=False) for m in r] + [fx(gloom(cr(r[0]), 0.15, keep_snow=False))]
-        for dx, t in enumerate(roof):
-            under = M.g[ycren - 3 + dy][x0 + 1 + dx]
-            a = ~(t == cr(0x8)).all(-1)                  # (the roof's own corners: Crown's grass under them)
-            img = under.copy(); img[a] = t[a]
-            M.ground(x0 + 1 + dx, ycren - 3 + dy, img, 'gate')
-    if steps:
-        for dx, (top, st) in enumerate(zip((0x2a5, 0x2ae, 0x2ae, 0x2a7), (0x2ab, 0x2b6, 0x2b6, 0x2ac))):
-            M.ground(x0 + 5 + dx, ycren - 5, ef(top), 'gate-in' if 1 <= dx <= 2 else 'wall')
-            M.ground(x0 + 5 + dx, ycren - 4, ef(st), 'gate-in' if 1 <= dx <= 2 else 'wall')
+            M.ground(x0 + tw + dx, ycren + dy, t, 'gate')
+    xr = x0 + tw + 12
+    if style == 'roof':
+        for dy, m in enumerate([0x2a3, 0x222, 0x222, 0x222, 0x222, 0x22a, 0x307]):
+            M.ground(x0, ycren + dy, ef(m), 'gate'); M.ground(xr, ycren + dy, fx(ef(m)), 'gate')
+        rows = ([0x80] + [0x81, 0x82, 0x83, 0x84] * 3, [0x88] + [0x89, 0x8a, 0x8b, 0x8c] * 3,
+                [0x90] + [0x91, 0x92, 0x93, 0x94] * 3)
+        for dy, r in enumerate(rows):
+            r = r[:11]
+            roof = [cr(m) for m in r] + [fx(cr(r[0]))]
+            for dx, t in enumerate(roof):
+                under = M.g[ycren - 3 + dy][x0 + 1 + dx]
+                a = ~(t == cr(0x8)).all(-1)                  # (the roof's own corners: Crown's grass under them)
+                img = under.copy(); img[a] = to_ef_all(slate_roof(t))[a]
+                M.ground(x0 + 1 + dx, ycren - 3 + dy, img, 'gate')
+        mx, my = x0 + 5, ycren - 4
+    else:
+        body = [[0x2a3, 0x272, 0x272]] + [[0x222, 0x20e, 0x20e]] * 2 + [[0x222, 0x22b, 0x20e]] + \
+               [[0x222, 0x20e, 0x20e]] * 2 + [[0x22a, 0x20e, 0x20e], [0x307, 0x21e, 0x21e]]
+        for side, xs in ((0, x0), (1, xr)):
+            for dy, r in enumerate(body):
+                for dx, m in enumerate(r):
+                    if side: M.ground(xs + 2 - dx, ycren - 1 + dy, fx(ef(m)), 'gate')
+                    else: M.ground(xs + dx, ycren - 1 + dy, ef(m), 'gate')
+            _spires(M, xs, ycren - 4, side)
+        mx, my = x0 + 7, ycren - 1
+    if far_mat:
+        mat(M, mx, my, 4, tone or crimson_tone)
+
+def crimson_tone(img): return ramp_tone(img, (46, 10, 20), (150, 36, 46))
+def ramp_tone(img, lo, hi):
+    l = _lum(img.astype(float)) / 255.0; lo, hi = np.array(lo), np.array(hi)
+    return (lo + (hi - lo) * np.clip((l - 0.25) / 0.65, 0, 1)[..., None]).astype(np.uint8)
+CARPETS = {'brown-purple': ((44, 26, 40), (124, 82, 104)), 'copper': ((50, 24, 16), (158, 88, 54))}
+
+def _spires(M, xs, y0, side):
+    global _SPIRE
+    if _SPIRE is None: necro_gate(Map(), 0, 0)
+    blk = [[None if c is None else ((fx(c[0]), fx(c[1])) if side else c) for c in (r[::-1] if side else r)]
+           for r in _SPIRE]
+    M.place(blk, xs, y0, 'spire', fn=lambda i: to_ef(slate_roof(i)), check=False)
 
 _SPIRE = None
 def necro_gate(M, x0, y0):
@@ -284,7 +325,7 @@ def compose():
     walls(M)
     stair(M, 15, 33); stair(M, 44, 33)                               # lower town -> square
     stair(M, 37, 15)                                                 # square -> sacred terrace
-    gatehouse(M, 24, 50, steps=True)                                 # south, from Hollow Hill
+    gatehouse(M, 24, 50, far_mat=True)                                 # south, from Hollow Hill
     gatehouse(M, 8, 3)                                               # north-west, to the mountain
     necro_gate(M, 39, 0)                                             # north-east, to the Necropolis
 
