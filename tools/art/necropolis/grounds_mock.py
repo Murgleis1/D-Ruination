@@ -69,6 +69,31 @@ def mausoleum(M, x0, y0):
         for dx in range(5): M.ground(x0 + 1 + dx, y0 + 2 + dy, ef(int(c[14 + dy, 28 + dx])), 'wall')
     M.gtag[y0 + 5, x0 + 3] = 'door'
 
+DRUDDIGHUL = os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces', 'druddighul_ow.png')
+def stone(img, x0=0, y0=0):
+    """A grey, weathered stone from head to toe: lightness onto a cold grey ramp, mottled."""
+    f = img.astype(float); l = v3._lum(f) / 255.0
+    lo, hi = np.array([40, 40, 46], float), np.array([206, 206, 212], float)
+    out = lo + (hi - lo) * np.clip((l - 0.08) / 0.8, 0, 1)[..., None]
+    hh, ww = l.shape
+    for y in range(hh):
+        for x in range(ww):
+            out[y, x] += (rnd('st', x0 + x, y0 + y) - 0.5) * 18
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+def druddighul_statue(M, x0, y0):
+    """A stone Druddighul (user 2026-11-21): MonoMyth's Druddighul, the decrepit dragon of the Apocryphal
+    Bastion's ruined castle (its overworld sprite, graphics 0x128, 32x32), turned to grey stone head to toe,
+    on a plinth (Crown's statue plinth, greyed). 2 x 3."""
+    im = np.array(Image.open(DRUDDIGHUL).convert('RGBA'))
+    rgb, a = im[..., :3], im[..., 3] > 0
+    st = stone(rgb, x0 * 16, y0 * 16)
+    blk = [[(st[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], a[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16])
+            for dx in range(2)] for dy in range(2)]
+    plinth = mm.cut('c33', 22, 10, 2, 1)
+    blk.append([(stone(c[0], x0 * 16 + 16 * i, y0 * 16 + 32), c[1]) if c else None for i, c in enumerate(plinth[0])])
+    M.place(blk, x0, y0, 'statue', check=False)
+
 def palisade(M, x0, y0):
     """The grand entrance: Crown's palisade gate (its walled capital, cells 43-55 x 5-14), charred: its timber
     burnt dark, its stone the fortress stone, its green lanterns a ghostly cold flame; the dark within is the way
@@ -126,15 +151,12 @@ def compose():
     # --- the winter roses at the head, between the gargoyles
     for x, y in ((21, 17), (20, 18), (22, 18), (21, 19)):
         M.place(dm([[0x4]], ancient), x, y, 'flowers', check=False)
-    # --- a mausoleum at each end of the cross
-    mausoleum(M, 2, 22 + O); mausoleum(M, 35, 22 + O)
+    # --- a stone Druddighul either side of the cross (user: in place of the mausoleums)
+    druddighul_statue(M, 6, 27); druddighul_statue(M, 36, 27)
     # --- the way in at the foot: the fence, the hedges, the way down to Mirroh
     M.place(dm([[0x149, 0x149, 0x13a, None, None, 0x138, 0x149, 0x149]]), 18, 37 + O, 'fence', check=False)
     for y in range(39 + O, H):
         M.place(dm([[0xc7]], ancient), 19, y, 'hedge', check=False); M.place(dm([[0xc7]], ancient), 24, y, 'hedge', check=False)
-    for x, y in ((14, 16), (29, 16), (18, 35 + O), (25, 35 + O), (9, 26 + O), (34, 26 + O)):
-        if M.free(x, y, 1, 2): mm.lamp(M, x, y)
-        else: print('no room for a lamp at', x, y)
     v3.stone_pass(M)
     for x in (20, 21, 22, 23): M.gtag[H - 1, x] = 'warp'
     return M
