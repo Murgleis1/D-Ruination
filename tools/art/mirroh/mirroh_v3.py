@@ -111,6 +111,36 @@ def copper_roof(w, h, seed='roof'):
             img[y, x] = c
     return img
 
+# ------------------------------------------------------------------ the fortress stone: copper-shaded (user 2026-11-21)
+# Every wall, tower, parapet, stair and gate of Mirroh in one stone, a cold stone warmed toward copper, to go with
+# the copper roofs (the user: the same colour everywhere, for consistency). Mapped by lightness from Elderflower's
+# stone (and Crown's restoned); snow on the crenels kept; the paving keeps its dark slate.
+CSTONE = np.array([(30, 26, 32), (56, 46, 50), (86, 70, 68), (118, 98, 90), (148, 126, 116), (176, 156, 146),
+                   (206, 192, 184), (234, 226, 222)], float)
+_EF_STONE_IDS = (0x272, 0x20e, 0x21e, 0x222, 0x22a, 0x307, 0x2a3, 0x22b, 0x216, 0x291, 0x206, 0x2b4, 0x223, 0x233,
+                 0x21a, 0x21b, 0x25e, 0x224, 0x22c, 0x232, 0x234, 0x2a5, 0x2ae, 0x2a7, 0x2ab, 0x2b6, 0x2ac, 0x2b5,
+                 0x2b7, 0x2bd, 0x2be, 0x2bf, 0x258, 0x25c, 0x260, 0x264, 0x249, 0x24a, 0x24b, 0x250, 0x251, 0x252,
+                 0x253, 0x254, 0x259, 0x25a, 0x25b, 0x261, 0x262, 0x263)
+def _key(a): a = a.astype(np.int64); return (a[..., 0] << 16) | (a[..., 1] << 8) | a[..., 2]
+_STONE_KEYS = np.unique(np.concatenate([_key(ef(m)).ravel() for m in _EF_STONE_IDS] + [_key(_RAMP)]))
+def cstone(img):
+    """Mirroh's copper-shaded stone: every pixel of the stone's own colours, by lightness, onto CSTONE."""
+    f = img.astype(float); l = _lum(f)
+    stone = np.isin(_key(img), _STONE_KEYS)
+    snow = (l > 214) & (f[..., 2] >= f[..., 0])
+    sel = stone & ~snow
+    t = np.clip((l - 30) / 200.0, 0, 1) * (len(CSTONE) - 1)
+    i = np.floor(t).astype(int); i1 = np.minimum(i + 1, len(CSTONE) - 1); w = (t - i)[..., None]
+    out = img.copy(); col = (CSTONE[i] * (1 - w) + CSTONE[i1] * w).astype(np.uint8)
+    out[sel] = col[sel]
+    return out
+
+def stone_pass(M):
+    for y in range(H):
+        for x in range(W):
+            if M.gtag[y, x] in ('wall', 'gate', 'stairs', 'gate-in') and M.g[y][x] is not None:
+                M.g[y][x] = cstone(M.g[y][x])
+
 # ------------------------------------------------------------------ the plan: levels
 L = np.zeros((H, W), int)                         # 0 outside; 1 lower town; 2 the square; 3 the sacred terrace
 def level(l, x0, y0, x1, y1): L[y0:y1 + 1, x0:x1 + 1] = l
@@ -280,12 +310,12 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
         xr = x0 + 11
         body = [[0x2a3, 0x272, 0x272]] + [[0x222, 0x20e, 0x20e]] * 2 + [[0x222, 0x22b, 0x20e]] + \
                [[0x222, 0x20e, 0x20e]] * 2 + [[0x22a, 0x20e, 0x20e], [0x307, 0x21e, 0x21e]]
-        roof, ra = cathedral_roof(8 * 16, 3 * 16)
+        roof, ra = cathedral_roof(10 * 16, 3 * 16)     # (a column wider each side: it runs in behind the towers)
         for dy in range(3):
-            for dx in range(8):
+            for dx in range(10):
                 sl = (slice(dy * 16, dy * 16 + 16), slice(dx * 16, dx * 16 + 16))
-                t = M.g[ycren - 3 + dy][x0 + 3 + dx].copy(); t[ra[sl]] = roof[sl][ra[sl]]
-                M.ground(x0 + 3 + dx, ycren - 3 + dy, t, 'gate')
+                t = M.g[ycren - 3 + dy][x0 + 2 + dx].copy(); t[ra[sl]] = roof[sl][ra[sl]]
+                M.ground(x0 + 2 + dx, ycren - 3 + dy, t, 'gate')
         for side, xs in ((0, x0), (1, xr)):
             for dy, r in enumerate(body):
                 for dx, m in enumerate(r):
@@ -464,6 +494,7 @@ def compose():
     for x, y in ((1, 12), (58, 1), (1, 37), (58, 29), (11, 61), (27, 60), (35, 61), (50, 61), (16, 60)):
         if M.free(x, y, 1, 1): rock(M, x, y)
     # --- lamps: at every stair's foot, the gates, the Tavern's and Langerin's doors, along the street
+    stone_pass(M)
     for x, y in ((13, 37), (17, 37), (42, 37), (46, 37), (35, 12), (39, 12), (28, 41), (35, 41), (27, 57), (34, 57),
                  (13, 11), (19, 11), (49, 11), (19, 28), (47, 27), (7, 41), (52, 41)):
         if M.free(x, y, 1, 2, ground=('snow', 'pave', 'cobble')): mm.lamp(M, x, y)
