@@ -29,6 +29,19 @@ from kit import RL
 W, H = 66, 64
 OFF = 24                        # Route 11 row = Hollow Hill row - OFF
 ROAD = 19 + OFF                 # the track's three rows (Route 11's road rows 19-21)
+SEAM = 58                       # columns 58-65 are Route 11's own (its columns 1-8, its metatiles): a connected map is
+                                # drawn with the tilesets of the map the player stands in, so the columns each map shows
+                                # of the other are the same metatiles on both sides (as Route 11 does with Pelluca)
+
+def r11_cell(x, y):
+    """Route 11's block (metatile | collision) for one of the seam's cells: its column x - 57, its row y - OFF (above
+    its top, its woods' two-row pattern carried up)."""
+    import struct
+    if not hasattr(r11_cell, 'v'):
+        d = open(os.path.join(RL.C if hasattr(RL, 'C') else '/home/claude/repo/codebase', 'data/layouts/Route11/map.bin'), 'rb').read()
+        r11_cell.v = struct.unpack('<%dH' % (90 * 40), d)
+    ry = y - OFF if y >= OFF else y % 2
+    return r11_cell.v[ry * 90 + (x - 57)]
 
 # ------------------------------------------------------------------ pieces
 def ody_raw(m): return kit.atlas('ody_0_97')['full'][m]
@@ -148,6 +161,13 @@ def face_piece(E, x, y):
     return None
 
 # ------------------------------------------------------------------ the map
+_r11ts = {}
+def r11_img(m):
+    if m not in _r11ts:
+        if 'ts' not in _r11ts: _r11ts['ts'] = RL.TS('LAYOUT_ROUTE11')
+        _r11ts[m] = np.asarray(_r11ts['ts'].metatile(m), np.uint8)
+    return _r11ts[m].copy()
+
 class Map:
     def __init__(self):
         self.field = None
@@ -158,6 +178,8 @@ class Map:
         self.used = np.full((H, W), None, object)
         self.units = []                                    # the pines of the woods' columns: (x0, top row)
         self.ground = [[None] * W for _ in range(H)]       # an RGB image replacing the grass, or None
+        self.seam = {(x, y): r11_cell(x, y) for y in range(H) for x in range(SEAM, W)}
+        for (x, y) in self.seam: self.used[y, x] = 'seam'
         for y in range(H):
             for x in range(W):
                 p = face_piece(self.E, x, y)
@@ -180,6 +202,7 @@ class Map:
         return True
 
     def cell(self, x, y):
+        if (x, y) in self.seam: return r11_img(self.seam[x, y] & 0x3FF)
         if (x, y) in self.face:
             v = self.face[x, y]; img = ody(abs(v)).copy()
             if v < 0: img = img[::-1].copy()              # (negative: drawn upside down, stairs on a north edge)
@@ -208,9 +231,9 @@ def shade_field(seed=11):
         return (a * (1 - fx) + b * fx) * (1 - fy) + (c * (1 - fx) + d * fx) * fy
     n = noise(6) * 0.6 + noise(3) * 0.4 - 0.5
     x = np.arange(W + 1)[None, :].astype(float)
-    s = np.interp(x, [0, 50, 52, 54, 56, 58, 60, 62, 64, 66], [5, 5, 4.5, 3.8, 3, 2.2, 1.4, 0.7, 0, 0]) + n * 3 * np.interp(x, [0, 50, 53, 61, 64], [0, 0, 1, 1, 0])
+    s = np.interp(x, [0, 49, 51, 53, 54, 55, 56, 57, 58, 66], [5, 5, 4.4, 3.6, 3, 2.2, 1.4, 0.6, 0, 0]) + n * 2.4 * np.interp(x, [0, 49, 51, 55, 57], [0, 0, 1, 1, 0])
     v = np.clip(np.rint(s), 0, TOP).astype(int); v = np.broadcast_to(v, (H + 1, W + 1)).copy()
-    v[:, 64:] = 0; v[:, :51] = TOP
+    v[:, 57:] = 0; v[:, :50] = TOP
     for _ in range(8):
         bad = False
         for yy in range(H):
@@ -288,11 +311,11 @@ def crown_woods(M, cols, kind, t=0.0, k=None):
         for y in range(yt, yb + 1):
             for k in range(3):
                 x = x0 + k
-                if not 0 <= x < W: continue
+                if not 0 <= x < SEAM: continue
                 v = CROWN_WOODS_N(yb, y, k) if kind == 'north' else CROWN_WOODS_S(yt, y, k)
                 M.lay(x, y, 'c325', v, 'woods', top=kind == 'south' and y == yt)
                 if t: o = M.over[y][x][-1][0]; o[..., :3] = tint(o[..., :3], t)
-        flatten(M, x0, yt, 3, yb - yt + 1, k if k is not None else min(1, int(M.field[yt:yb + 2, x0:x0 + 4].min())))
+        flatten(M, x0, yt, min(3, SEAM - x0), yb - yt + 1, k if k is not None else min(1, int(M.field[yt:yb + 2, x0:x0 + 4].min())))
 
 def broad(M, x, y):
     assert M.free(x, y, 3, 3), ('broad', x, y)
@@ -411,19 +434,19 @@ def compose(seed=5):
     for (x, y), v in list(M.face.items()):
         if v == 0x2f1 and rng.random() < 0.12: M.face[x, y] = int(rng.choice([0x2df, 0x2e7]))
     # --- Route 11's dirt track carries on from the east edge and ends in the woods floor
-    for x in range(57, W):
-        for dy, v in enumerate((0x2c0, 0x2c8, 0x2d0) if x == 57 else (0x2c1, 0x7e, 0x2d1)):
+    for x in range(52, SEAM):
+        for dy, v in enumerate((0x2c0, 0x2c8, 0x2d0) if x == 52 else (0x2c1, 0x7e, 0x2d1)):
             M.lay(x, ROAD + dy, 'c31', v, 'road')
-    flatten(M, 57, ROAD, W - 57, 3, 0)
+    flatten(M, 52, ROAD, SEAM - 52, 3, 0)
     # --- the woods round the edge
     # east: Route 11's own woods (Crown's), as its west end has them (its rows shifted by OFF), then, westward,
     # Crown's woods and Odyssey's pines mixing before the pines take over
-    crown_woods(M, [(63, 0, 15 + OFF)], 'north'); crown_woods(M, [(63, 24 + OFF, H - 1)], 'south')
-    crown_woods(M, [(60, 0, 25)], 'north', 0.2); crown_woods(M, [(60, 50, H - 1)], 'south', 0.2)
-    crown_woods(M, [(57, 0, 30)], 'north', 0.4); crown_woods(M, [(57, 53, H - 1)], 'south', 0.4)
-    crown_woods(M, [(54, 0, 34)], 'north', 0.6, k=2)
+    # (column 57 is the first column of Route 11's own westmost woods, the rest of it in the seam: untinted, its
+    # rows as Route 11 has them, so the trees are whole)
+    crown_woods(M, [(57, 0, 15 + OFF)], 'north'); crown_woods(M, [(57, 24 + OFF, H - 1)], 'south')
+    crown_woods(M, [(54, 0, 34)], 'north', 0.35, k=1); crown_woods(M, [(54, 50, H - 1)], 'south', 0.35, k=1)
     pine_column(M, 52, 0, 18, 'north')
-    for x0, yt in ((55, 52), (53, 55), (50, 55)): pine_column(M, x0, yt, H - 1, 'south')
+    for x0, yt in ((52, 52), (50, 55)): pine_column(M, x0, yt, H - 1, 'south')
     # west: two columns of Odyssey's pines the whole height
     pine_column(M, 0, 0, H - 1, 'wall'); pine_column(M, 2, 0, H - 1, 'wall')
     # north: pines hanging from the top, the gap for the way north to Mirroh (columns 16-19)
@@ -451,12 +474,12 @@ def compose(seed=5):
     for x, y, v in ((29, 36, 0x308), (30, 36, 0x30a), (29, 38, 0x30a), (31, 37, 0x308)):
         M.lay(x, y, 'ody', v, 'soft:slab')
     # --- the east, between Route 11's woods and the haunted floor: a Crown broadleaf, then Odyssey's pines
-    near(M, broad, 3, [(56, 37), (59, 49), (61, 30)])
+    near(M, broad, 3, [(53, 37)]) if False else None
     # the knoll's top: one dead tree, rocks (out of reach until late in the game)
     thing(M, 29, 29, [[0x2a0], [0x2a8]], 'thing:dead'); thing(M, 27, 30, 0x2fe, 'thing:rock'); thing(M, 31, 31, 0x2fe, 'thing:rock')
     # --- trees, dead trees, stumps, logs, rocks, mushrooms, weeds: scattered, never cut, stacked or touching a cliff,
     # and never closing the way between the key spots
-    near(M, pine, 2, [(53, 39), (54, 48), (50, 16)])    # Odyssey's pines in the mixed band
+    near(M, pine, 2, [(51, 39), (52, 48), (50, 16)])    # Odyssey's pines in the mixed band
 
     # tall grass (the wild Pokemon's): Odyssey's dark tufts, in patches
     for x0, y0, x1, y1 in ((5, 25, 8, 29), (12, 37, 15, 40), (38, 52, 42, 54), (22, 52, 26, 54), (43, 18, 46, 20),
@@ -686,18 +709,52 @@ def hang_webs(M, img, seed=4):
     # a round web where the two woods columns close the way south meet (in the V between their crowns)
     orb(layer, (28 * 16, 52 * 16 + 2), 11, [(27 * 16 + 4, 51 * 16 + 6), (28 * 16 + 12, 51 * 16 + 6)], rng)
     # a clump on ring 2: two pines and the stump between them
-    out = Image.fromarray(img).convert('RGBA'); out.alpha_composite(Image.fromarray(layer))
+    out = Image.fromarray(layer)
     for gx, w, row in NETS:
         net = Image.open(os.path.join(HERE, '..', '..', '..', 'assets', 'monomyth_reference', 'pieces', 'web_net.png')).convert('RGBA')
         a = np.array(net); m = a[..., 3] > 0
         light = (a[..., :3] == (240, 240, 248)).all(-1)
         a[m & light, :3] = WEB_LIGHT; a[m & ~light, :3] = WEB_DARK
         out.alpha_composite(Image.fromarray(a), (gx * 16 + (w * 16 - a.shape[1]) // 2, row * 16 + 2))
-    return np.array(out.convert('RGB'))
+    return np.array(out)                                   # (RGBA: the webs, drawn over everything, walked under)
+
+def layers(M):
+    """The whole map as the game draws it: under (the ground, cliffs, everything the player stands in front of, the
+    blood) and over (tree crowns, the webs: drawn over the player), with the over layer's mask. Seam cells left black."""
+    U = np.zeros((H * 16, W * 16, 3), np.uint8); O = np.zeros_like(U); OM = np.zeros((H * 16, W * 16), bool)
+    for y in range(H):
+        for x in range(W):
+            if (x, y) in M.seam: continue
+            c = M.cell.__func__(M, x, y) if False else None
+            if (x, y) in M.face:
+                v = M.face[x, y]; img = ody(abs(v)).copy()
+                if v < 0: img = img[::-1].copy()
+            elif M.ground[y][x] is not None: img = M.ground[y][x].copy()
+            else:
+                f = M.field; img = ground_cell((f[y, x], f[y, x + 1], f[y + 1, x], f[y + 1, x + 1]))
+            ov = np.zeros_like(img); om = np.zeros((16, 16), bool)
+            for o, top in M.over[y][x]:
+                m = o[..., 3] > 0
+                if top: ov[m] = o[..., :3][m]; om |= m
+                else: img[m] = o[..., :3][m]
+            U[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = img
+            O[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = ov; OM[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = om
+    U = blood(M, U)
+    webs = hang_webs(M, U)
+    wm = webs[..., 3] > 0
+    for y in range(H):                                     # (no web over the seam: Route 11's own cells)
+        for x in range(SEAM, W): wm[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = False
+    O[wm] = webs[..., :3][wm]; OM |= wm
+    return U, O, OM
+
+def flat(M, U, O, OM):
+    img = U.copy(); img[OM] = O[OM]
+    for (x, y), v in M.seam.items(): img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = r11_img(v & 0x3FF)
+    return img
 
 def main(outdir):
     os.makedirs(outdir, exist_ok=True)
-    M = compose(); img = hang_webs(M, blood(M, M.render()))
+    M = compose(); img = flat(M, *layers(M))
     strip = route11_strip()
     strip[:, :1] = (255, 64, 64)                       # the seam (Route 11 to the right)
     full = np.concatenate([img, strip], 1)
