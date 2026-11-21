@@ -61,6 +61,27 @@ def to_mirroh(img):
     out[purple] = copper_tone(img)[purple]
     return out
 
+def cathedral_roof(w, h):
+    """The roof of Crown's cathedral as it runs back between its towers (real Crown art: its metal sheets, its
+    ridge, the stone band at its back end), cut out between the towers and widened to w pixels at mid-slope, in
+    copper. h pixels from its back end down."""
+    a = ATL['c32']; cc = a['cells']
+    src = np.vstack([np.hstack([a['full'][int(cc[y, x])] for x in range(26, 35)]) for y in range(3, 9)])
+    reg = src[:h, 9:135]                              # between the towers; its ridge at x 63
+    L, R = reg[:, :63], reg[:, 63:]
+    need = w // 2
+    while L.shape[1] < need: L = np.concatenate([L[:, :20], L[:, 12:20], L[:, 20:]], axis=1)   # one 8 px strip
+    while R.shape[1] < w - need: R = np.concatenate([R[:, :40], R[:, 40:48], R[:, 40:]], axis=1)
+    img = np.concatenate([L[:, -need:], R[:, :w - need]], axis=1)
+    # only the roof itself (its sheets and their dark outline): not the back towers' feet beside its top
+    from scipy.ndimage import binary_dilation
+    f = img.astype(int); green = (f[..., 1] > f[..., 0] + 28) & (f[..., 1] > f[..., 2] + 12)
+    from scipy.ndimage import label
+    lab, n = label(green)                             # (the roof is one sheet: no stray bits of the towers' roofs)
+    if n > 1: green = lab == (np.argmax(np.bincount(lab.ravel())[1:]) + 1)
+    alpha = binary_dilation(green, np.ones((3, 3), bool))
+    return copper_roofs(img), alpha
+
 def copper_roof(w, h, seed='roof'):
     """A pitched copper roof seen from above, its ridge running back from the middle (the way the roof of Crown's
     cathedral runs back between its towers): standing seams leaning down each slope, staggered joints, the lit west
@@ -200,7 +221,7 @@ def mat(M, x, y, n, tone):
     ne = np.load('/home/claude/scratch/mirroh/ref/mm_ne_gate.npz')['full']
     ids = [0x1cb] + [0x1cc] * (n - 2) + [0x1cd]
     for k, m in enumerate(ids):
-        t = ne[m]; under = M.g[y][x + k].copy()
+        t = ne[m]; under = ef(0xed) if M.gtag[y, x + k] == 'snow' else M.g[y][x + k].copy()
         f = t.astype(int); a = f.sum(-1) > 0
         img = tone(t); under[a] = img[a]
         M.ground(x + k, y, under, 'gate-in')
@@ -210,12 +231,13 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
     restoned in Elderflower's stone, with Elderflower's foot. Its door is the portcullis.
     style 'roof' (14 wide): round towers either side, a hip roof behind the crenels (Crown's townhouse's) in
       slate, restoned to the stone's own darks, no timber; the portcullis at columns x0+5..x0+8.
+    style 'cathedral' (14 wide, the chosen one, user 2026-11-21): see below.
     style 'towers' (18 wide): no roof; three-wide towers a row taller than the crenellated walk, capped with the
       Necropolis gate's spires (the same family); the portcullis at columns x0+7..x0+10.
     far_mat: the hallway's far door on the city side, a mat on the ground behind it (Ghost Grey's Saffron gates)."""
     c = ATL['c33']['cells']
     tw = 1 if style == 'roof' else 3
-    for dy in range(7):
+    for dy in range(7 if style != 'cathedral' else 0):
         for dx in range(12):
             m = int(c[36 + dy, 20 + dx])
             t = ef(0x21e) if dy == 6 else ef(0x20e) if m == 0x66 else to_mirroh(cr(m))   # (its moat-dark course: wall)
@@ -235,7 +257,7 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
                 img = under.copy(); img[a] = to_ef_all(slate_roof(t))[a]
                 M.ground(x0 + 1 + dx, ycren - 3 + dy, img, 'gate')
         mx, my = x0 + 5, ycren - 4
-    else:
+    elif style == 'towers':
         body = [[0x2a3, 0x272, 0x272]] + [[0x222, 0x20e, 0x20e]] * 2 + [[0x222, 0x22b, 0x20e]] + \
                [[0x222, 0x20e, 0x20e]] * 2 + [[0x22a, 0x20e, 0x20e], [0x307, 0x21e, 0x21e]]
         for side, xs in ((0, x0), (1, xr)):
@@ -244,15 +266,33 @@ def gatehouse(M, x0, ycren, style='roof', far_mat=False, tone=None):
                     if side: M.ground(xs + 2 - dx, ycren - 1 + dy, fx(ef(m)), 'gate')
                     else: M.ground(xs + dx, ycren - 1 + dy, ef(m), 'gate')
             _spires(M, xs, ycren - 4, side)
-        # between the towers: the back wall's crenels (snow on them), then a copper roof running down to the front
-        # walk (Crown's cathedral: a pitched roof between its spired towers)
-        for dx in range(12):
-            M.ground(x0 + 3 + dx, ycren - 4, ef(0x206), 'gate')
-        roof = copper_roof(12 * 16, 3 * 16)
-        for dy in range(3):
-            for dx in range(12):
-                M.ground(x0 + 3 + dx, ycren - 3 + dy, roof[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], 'gate')
         mx, my = x0 + 7, ycren - 5
+    else:   # 'cathedral'
+        # 14 wide: Crown's gate core (its columns 22-29: pillar, lantern, the portcullis, lantern, pillar; its banners
+        # over the lanterns) between three-wide spired towers, and over the core, running back between the towers,
+        # the real roof of Crown's cathedral (its roof between its towers, cut at its ridge's back end), in copper.
+        for dy in range(7):
+            for dx in range(8):
+                m = int(c[36 + dy, 22 + dx])
+                if dx in (0, 7) and dy in (0, 1): m = (0x39, 0x45)[dy]       # (no half banners at its ends)
+                t = ef(0x21e) if dy == 6 else ef(0x20e) if m == 0x66 else to_mirroh(cr(m))
+                M.ground(x0 + 3 + dx, ycren + dy, t, 'gate')
+        xr = x0 + 11
+        body = [[0x2a3, 0x272, 0x272]] + [[0x222, 0x20e, 0x20e]] * 2 + [[0x222, 0x22b, 0x20e]] + \
+               [[0x222, 0x20e, 0x20e]] * 2 + [[0x22a, 0x20e, 0x20e], [0x307, 0x21e, 0x21e]]
+        roof, ra = cathedral_roof(8 * 16, 3 * 16)
+        for dy in range(3):
+            for dx in range(8):
+                sl = (slice(dy * 16, dy * 16 + 16), slice(dx * 16, dx * 16 + 16))
+                t = M.g[ycren - 3 + dy][x0 + 3 + dx].copy(); t[ra[sl]] = roof[sl][ra[sl]]
+                M.ground(x0 + 3 + dx, ycren - 3 + dy, t, 'gate')
+        for side, xs in ((0, x0), (1, xr)):
+            for dy, r in enumerate(body):
+                for dx, m in enumerate(r):
+                    if side: M.ground(xs + 2 - dx, ycren - 1 + dy, fx(ef(m)), 'gate')
+                    else: M.ground(xs + dx, ycren - 1 + dy, ef(m), 'gate')
+            _spires(M, xs, ycren - 4, side)
+        mx, my = x0 + 5, ycren - 4
     if far_mat:
         mat(M, mx, my, 4, tone or crimson_tone)
 
@@ -392,8 +432,8 @@ def compose():
     walls(M)
     stair(M, 15, 33); stair(M, 44, 33)                               # lower town -> square
     stair(M, 37, 15)                                                 # square -> sacred terrace
-    gatehouse(M, 22, 50, style='towers', far_mat=True, tone=lambda i: copper_tone(i))   # south, from Hollow Hill
-    gatehouse(M, 7, 4, style='towers')                               # north-west, to the mountain
+    gatehouse(M, 24, 50, style='cathedral', far_mat=True, tone=lambda i: copper_tone(i))   # south, from Hollow Hill
+    gatehouse(M, 7, 4, style='cathedral')                            # north-west, to the mountain
     necro_gate(M, 39, 0)                                             # north-east, to the Necropolis
 
     # --- L3: the chapel, its graveyard loose among small pines on the snow, the way to the Necropolis gate
