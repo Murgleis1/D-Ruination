@@ -81,49 +81,84 @@ def stone(img, x0=0, y0=0):
             out[y, x] += (rnd('st', x0 + x, y0 + y) - 0.5) * 18
     return np.clip(out, 0, 255).astype(np.uint8)
 
-def druddighul_statue(M, x0, y0):
+def weathered_stone(img, a, seed):
+    """Old grey stone, rough and weathered (user 2026-11-21: "this actually looks correct"): the lightness on a
+    cold grey ramp under a strong mottle, light catching its top edges, grime gathered low down, hairline cracks,
+    lichen-dark pits; a one-pixel outline."""
+    from scipy.ndimage import binary_erosion
+    f = img.astype(float); l = v3._lum(f) / 255.0
+    lo, hi = np.array([36, 36, 42], float), np.array([196, 196, 200], float)
+    t = np.clip((l - 0.08) / 0.8, 0, 1) * 0.85 + 0.08
+    hh, ww = l.shape
+    noise = np.array([[rnd(seed, 'm', x // 2, y // 2) - 0.5 + 0.5 * (rnd(seed, 'f', x, y) - 0.5)
+                       for x in range(ww)] for y in range(hh)])
+    t = t + noise * 0.22
+    ys = np.arange(hh)[:, None] / hh
+    t = t - 0.12 * np.clip((ys - 0.65) / 0.35, 0, 1)                  # grime low down
+    up = a & ~np.vstack([np.zeros((1, ww), bool), a[:-1]])               # pixels with open air above
+    t[up] += 0.18
+    out = lo + (hi - lo) * np.clip(t, 0, 1)[..., None]
+    for k in range(7):                                                    # hairline cracks
+        x, y = int(rnd(seed, 'cx', k) * ww), int(rnd(seed, 'cy', k) * hh)
+        for j in range(4 + int(rnd(seed, 'cl', k) * 5)):
+            if 0 <= x < ww and 0 <= y < hh and a[y, x]: out[y, x] = (30, 30, 36)
+            x += 1 if rnd(seed, 'dx', k, j) < 0.5 else -1; y += 1
+    for k in range(16):                                                   # lichen-dark pits
+        x, y = int(rnd(seed, 'px', k) * ww), int(rnd(seed, 'py', k) * hh)
+        if a[y, x]: out[y, x] = (62, 70, 62)
+    edge = a & ~binary_erosion(a, np.ones((3, 3), bool))
+    out[edge] = (30, 30, 36)
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+def druddighul_statue(M, x0, y0, cy_px, seed):
     """A stone Druddighul (user 2026-11-21): MonoMyth's Druddighul, the decrepit dragon of the Apocryphal
-    Bastion's ruined castle (its overworld sprite, graphics 0x128), drawn at twice its size (user: bigger, no
-    plinth) and turned to grey stone head to toe, the stone's grain laid at the map's own pixel size so it does not
-    look blown up; it stands in the snow, no platform (user), its shadow under it, the snow banked over its feet. 4 x 5."""
+    Bastion's ruined castle (its overworld sprite, graphics 0x128), drawn at twice its size, in old weathered
+    stone with snow on it; nothing under it (user); its figure centred, to the pixel, on the tree cross's arm
+    beside it (cy_px: the arm's middle, in map pixels). Laid over the cells x0..x0+3."""
     im = np.array(Image.open(DRUDDIGHUL).convert('RGBA'))
     im = im.repeat(2, 0).repeat(2, 1)                    # 64 x 64
     rgb, a = im[..., :3], im[..., 3] > 0
-    st = stone(rgb, x0 * 16, y0 * 16)
-    # the outline (its darkest pixels on the edge of the figure) back to one pixel wide, so the doubled
-    # sprite keeps a fine line where it meets the snow
-    from scipy.ndimage import binary_erosion
-    inner = binary_erosion(a, np.ones((3, 3), bool))
-    edge = a & ~inner
-    st[edge] = (np.array([34, 34, 40]))
-    # no platform (user): it stands in the snow, its shadow on the snow under it and the snow banked up over
-    # its feet
-    hh, ww = a.shape
-    rows = np.where(a.any(1))[0]; foot = rows[-1]
-    cols = np.where(a[foot - 6:foot + 1].any(0))[0]; cx = (cols[0] + cols[-1]) / 2; rx = (cols[-1] - cols[0]) / 2 + 5
-    canvas = np.zeros((hh + 8, ww, 3), np.uint8); alpha = np.zeros((hh + 8, ww), bool)
-    for y in range(foot - 4, foot + 6):                     # the shadow: an ellipse of cold blue under the feet
-        for x in range(ww):
-            if ((x - cx) / rx) ** 2 + ((y - foot - 1) / 4.5) ** 2 < 1:
-                canvas[y, x] = (158, 174, 212); alpha[y, x] = True
-    canvas[:hh][a] = st[a]; alpha[:hh] |= a
-    snow = np.array([(240, 244, 250), (222, 230, 244), (200, 212, 236)])
-    for x in range(int(cx - rx + 3), int(cx + rx - 2)):     # the drift over the feet, its top edge uneven
-        top = foot - 2 - int(2 * rnd('dr', x0, x // 3))
-        for y in range(top, foot + 2):
-            if 0 <= x < ww and (alpha[y, x]):
-                canvas[y, x] = snow[0] if y > top else snow[1]
-        if 0 <= x < ww and alpha[top - 1, x] and a[top - 1, x]: canvas[top - 1, x] = snow[2]
-    blk = [[(canvas[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], alpha[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16])
-            for dx in range(4)] for dy in range(5)] if hh + 8 > 64 else None
-    pad = np.zeros((80, ww, 3), np.uint8); pa = np.zeros((80, ww), bool)
-    pad[:hh + 8] = canvas; pa[:hh + 8] = alpha
-    blk = [[(pad[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16], pa[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16])
-            for dx in range(4)] for dy in range(5)]
-    M.place(blk, x0, y0, 'statue', check=False)
-    for dy in range(4):
-        for dx in range(4):
-            if a[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16].any(): M.otag[y0 + dy, x0 + dx] = 'statue'
+    st = weathered_stone(rgb, a, seed)
+    rows = np.where(a.any(1))[0]; cols = np.where(a.any(0))[0]
+    fig = st[rows[0]:rows[-1] + 1, cols[0]:cols[-1] + 1]; fa = a[rows[0]:rows[-1] + 1, cols[0]:cols[-1] + 1]
+    fh, fw = fa.shape
+    top = int(round(cy_px - fh / 2)); left = x0 * 16 + (64 - fw) // 2
+    ty0 = top // 16; ty1 = (top + fh - 1) // 16
+    for ty in range(ty0, ty1 + 1):
+        for tx in range(x0, x0 + 4):
+            c = np.zeros((16, 16, 3), np.uint8); ca = np.zeros((16, 16), bool)
+            for py in range(16):
+                for px in range(16):
+                    fy, fx_ = ty * 16 + py - top, tx * 16 + px - left
+                    if 0 <= fy < fh and 0 <= fx_ < fw and fa[fy, fx_]:
+                        c[py, px] = fig[fy, fx_]; ca[py, px] = True
+            if ca.any():
+                M.obj[ty][tx].append((c, ca)); M.otag[ty, tx] = 'statue'
+
+def buried_grave(M, x, y, seed):
+    """A half-buried grave: Dreamstone Mysteries' headstone sunk into the snow (four to six pixels), the snow
+    heaped against its foot."""
+    s = np.asarray(DM.metatile(0x3A5), np.uint8); a = ~(s == _DMSNOW).all(-1)
+    d = 4 + int(rnd(seed, 'd', x, y) * 3)
+    img = np.zeros_like(s); al = np.zeros_like(a)
+    img[d:] = s[:16 - d]; al[d:] = a[:16 - d]
+    cols = np.where(al.any(0))[0]
+    for xx in range(max(cols[0] - 1, 0), min(cols[-1] + 2, 16)):  # the heap: uneven, over its foot
+        top = 12 - int(rnd(seed, 'h', x, y, xx // 2) * 2)
+        for yy in range(top, 16):
+            img[yy, xx] = (238, 242, 250) if yy > top else (210, 220, 238); al[yy, xx] = yy < 15 or al[yy, xx]
+    M.place([[(img, al)]], x, y, 'grave')
+
+def stone_ring(M, cx, cy, seed):
+    """A ring of half-buried graves round a statue (user): eight, about a statue's width and a half out from its
+    middle (cx, cy: map cells), on snow only."""
+    import math
+    done = set()
+    for k in range(8):
+        ang = k * math.pi / 4 + 0.39
+        x = int(round(cx + 3.9 * math.cos(ang))); y = int(round(cy + 3.4 * math.sin(ang)))
+        if (x, y) in done or not M.free(x, y, 1, 1): continue
+        done.add((x, y)); buried_grave(M, x, y, seed)
 
 def flowers(M, seed, n_clusters, avoid):
     """Snow flowers the way they grow: a few clumps (two to five plants each, touching), in the open snow away
@@ -194,13 +229,18 @@ def compose():
         if y == 17: continue                            # (its head starts below the roses)
         trees(M, 20, y + O, 2, tip=(y == 21)); trees(M, 22, y + O, 2, tip=(y == 21))
     trees(M, 21, 33 + O, 1)
-    # --- a stone Druddighul either side of the cross (user: in place of the mausoleums), bigger, on rock
-    druddighul_statue(M, 4, 25); druddighul_statue(M, 36, 25)
+    # --- a stone Druddighul either side of the cross (user: in place of the mausoleums), centred to the pixel on
+    # the cross's arm, and across the gap between the arm's ends and the trees closing the yard
+    arm = [y * 16 + py for y in range(H) for (img, al) in M.obj[y][10] for py in range(16) if al[py].any()
+           and 23 <= y <= 32]
+    cy = (min(arm) + max(arm) + 1) / 2
+    druddighul_statue(M, 4, 0, cy, 'dw'); druddighul_statue(M, 36, 0, cy, 'de')
     # --- headstones in rows in the four quarters (every other cell, as in Dreamstone Mysteries)
     for (x0, x1, y0, y1) in ((5, 17, 15, 21), (26, 38, 15, 21), (5, 17, 29, 35), (26, 38, 29, 35)):
         for y in range(y0 + O, y1 + O + 1, 2):
             for x in range(x0, x1 + 1, 2):
-                if M.free(x, y, 1, 1) and not (35 <= x <= 37 and 31 + O <= y <= 33 + O): mm.headstone(M, x, y)
+                if M.free(x, y, 1, 1) and not (35 <= x <= 37 and 31 + O <= y <= 33 + O) \
+                        and not ((3 <= x <= 8 or 35 <= x <= 40) and 24 <= y <= 32): mm.headstone(M, x, y)
     # the open grave (Dreamstone Mysteries' dug earth), lower right
     M.place(dm([[0x103, 0x104, 0x105], [0x10b, 0x10c, 0x10d], [0x113, 0x114, 0x115]]), 35, 31 + O, 'grave', check=False)
     # --- the winter roses at the head, between the gargoyles
