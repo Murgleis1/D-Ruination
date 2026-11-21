@@ -393,7 +393,8 @@ def compose(seed=5):
     # west: two columns of Odyssey's pines the whole height
     pine_column(M, 0, 0, H - 1, 'wall'); pine_column(M, 2, 0, H - 1, 'wall')
     # north: pines hanging from the top, the gap for the way north to Mirroh (columns 16-19)
-    for x0, yb in ((4, 11), (6, 8), (8, 10), (10, 7), (12, 9), (14, 6), (20, 7), (22, 9), (24, 6), (26, 8), (28, 10),
+    for x0, yb in ((4, 22), (6, 21), (8, 22), (10, 16), (12, 14), (14, 13),     # (closing the north-west corner)
+                    (20, 7), (22, 9), (24, 6), (26, 8), (28, 10),
                    (30, 13), (32, 13), (34, 6), (36, 8), (38, 7), (40, 6), (42, 7), (44, 8), (46, 10), (48, 8)):
         pine_column(M, x0, 0, yb, 'north')
     # south: pines rising from the bottom
@@ -405,11 +406,11 @@ def compose(seed=5):
     pine_column(M, 4, 36, 40, 'stack')
     # the forest floor closes off into sections where the woods meet the hill's cliffs: from one section to the
     # next the way is always up into the hill (west, north, east and south)
-    for x0, yt, yb in ((4, 26, 34), (6, 27, 33), (8, 26, 34), (50, 26, 34), (52, 25, 35)):
+    for x0, yt, yb in ((50, 26, 34), (52, 25, 35)):
         pine_column(M, x0, yt, yb, 'stack')
     # --- the void pits, red eyes watching
     # --- burrow mouths (scenery now; secrets later): Odyssey's hollow, 314 over 31c
-    for x, y in ((8, 20), (27, 16), (44, 24), (36, 38), (19, 36), (16, 52), (14, 42), (44, 39)):
+    for x, y in ((7, 30), (27, 16), (44, 24), (36, 38), (19, 36), (16, 52), (14, 42), (44, 39)):
         try: thing(M, x, y, [[0x314], [0x31c]], 'thing:burrow')
         except AssertionError: print('no room for a burrow at', x, y)
     # --- the knoll's forecourt: broken slabs before the door
@@ -423,7 +424,7 @@ def compose(seed=5):
     # and never closing the way between the key spots
     near(M, pine, 2, [(53, 39), (54, 48), (50, 16)])    # Odyssey's pines in the mixed band
     # tall grass (the wild Pokemon's): Odyssey's dark tufts, in patches
-    for x0, y0, x1, y1 in ((6, 21, 8, 24), (12, 37, 15, 40), (38, 52, 42, 54), (22, 52, 26, 54), (43, 18, 46, 20),
+    for x0, y0, x1, y1 in ((5, 25, 8, 29), (12, 37, 15, 40), (38, 52, 42, 54), (22, 52, 26, 54), (43, 18, 46, 20),
                            (24, 16, 28, 17), (36, 33, 38, 36), (20, 22, 22, 25), (46, 34, 47, 38)):
         for y in range(y0, y1 + 1):
             for x in range(x0, x1 + 1):
@@ -474,9 +475,9 @@ def fog(img, seed=3, amount=0.42):
     return (img * (1 - n) + fogc * n).astype(np.uint8)
 
 LABELS = [((17, 6), 'north to Mirroh (Glaive)'), ((8, 50), 'clearing: Eiscue, the 1v2'), ((59, 47), 'from Route 11'),
-          ((29, 37), 'sealed door'), ((29, 27), 'knoll top (late game)'), ((6, 30), 'trees close the way'),
+          ((29, 37), 'sealed door'), ((29, 27), 'knoll top (late game)'), ((7, 17), 'trees close the way'),
           ((51, 30), 'trees close the way'), ((31, 6), 'trees close the way'), ((27, 54), 'trees close the way'),
-          ((46, 11), 'north-east woods'), ((6, 20), 'north-west woods')] + \
+          ((46, 11), 'north-east woods'), ((6, 32), 'west woods')] + \
          [((x, y), 'stairs') for x, y, _ in STAIRS.values()]
 
 def annotate(img, scale=2):
