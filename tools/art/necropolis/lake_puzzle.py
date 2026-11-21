@@ -31,8 +31,15 @@ CORNERS = {
     'SW': dict(plat=[(x, y) for x in (3, 4, 5) for y in (26, 27, 28)], fire=(3, 28), trainer=(5, 28)),
     'SE': dict(plat=[(x, y) for x in (35, 36, 37) for y in (26, 27, 28)], fire=(37, 28), trainer=(35, 28)),
 }
-# the bronze demon heads kept from the chamber (2x2): two by the arch, two by the landing
-DEMONS = [(18, 5), (23, 5), (16, 28), (25, 28), (18, 30), (23, 30)]
+# the bronze demon heads kept from the chamber (2x2): only the two by the arch (user 2026-11-21: the four by the
+# landing went; one very weathered head, centred, takes the place of the pair on the middle island)
+DEMONS = [(18, 5), (23, 5)]
+# a small stone gargoyle out on the ice to the right of the landing, where the right-hand demon stood (user)
+GARGOYLE = (25, 29)
+# the middle island (x 18-24, y 18-21): its two demon heads (cells 19-20 and 22-23, rows 19-20) become one,
+# centred on the island to the pixel (it straddles cells 20-22, so those three columns block)
+CENTRE_OLD = [(x, y) for x in (19, 20, 22, 23) for y in (19, 20)]
+CENTRE_STATUE = [(x, y) for x in (20, 21, 22) for y in (19, 20)]
 
 BRICKS = {0x3f0, 0x3f1, 0x3f2, 0x3f8, 0x3f9, 0x3fa}
 def base():
@@ -47,6 +54,7 @@ def base():
         g[v['fire'][1], v['fire'][0]] = BLOCK; g[v['trainer'][1], v['trainer'][0]] = BLOCK
     for (x, y) in DEMONS:
         g[y:y + 2, x:x + 2] = BLOCK
+    g[GARGOYLE[1], GARGOYLE[0]] = BLOCK
     return g
 
 DIRS = ((0, -1), (0, 1), (-1, 0), (1, 0))
@@ -108,8 +116,10 @@ def islands():
         for x in range(W):
             m = int(c[y, x])
             if m in (0x281, 0x3fe): continue
-            if m in (0x3d7, 0x3d4, 0x3d3, 0x3f3, 0x3f4, 0x3fb, 0x3fc): block.append((x, y))
+            if (x, y) in CENTRE_OLD: soil.append((x, y))
+            elif m in (0x3d7, 0x3d4, 0x3d3, 0x3f3, 0x3f4, 0x3fb, 0x3fc): block.append((x, y))
             else: soil.append((x, y))
+    soil = [c for c in soil if c not in CENTRE_STATUE]; block += CENTRE_STATUE
     return soil, block
 
 def generate(seed, n_graves=30, n_soil=0, grid=False):
