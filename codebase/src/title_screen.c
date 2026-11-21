@@ -61,7 +61,7 @@ static void SpriteCB_PressStartCopyrightBanner(struct Sprite *sprite);
 static void SpriteCB_PokemonLogoShine(struct Sprite *sprite);
 
 #define TITLE_SOUND_CHANNELS   10  // sampled voices while the title theme plays (the engine allows up to 12)
-#define DEFAULT_SOUND_CHANNELS 5   // the game's default (m4aSoundInit in m4a.c)
+#define DEFAULT_SOUND_CHANNELS 10  // the game's default (m4aSoundInit in m4a.c; raised from 5 for the ported songs)
 
 // const rom data
 static const u16 sUnusedUnknownPal[] = INCBIN_U16("graphics/title_screen/unused.gbapal");

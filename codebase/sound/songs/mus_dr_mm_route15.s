@@ -917,9 +917,7 @@ mus_dr_mm_route15_group_01:
 	.byte 0x00, 0x3C, 0x00, 0x00
 	.4byte mus_dr_mm_route15_sample_09
 	.byte 0xFF, 0xFA, 0x00, 0xDD
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_10
-	.byte 0xFF, 0xF7, 0x00, 0xDD
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1048,14 +1046,12 @@ mus_dr_mm_route15_group_01:
 	.align 2
 mus_dr_mm_route15_group_02:
 	.byte 0x00, 0x3C, 0x00, 0x00
+	.4byte mus_dr_mm_route15_sample_10
+	.byte 0xFF, 0xA5, 0x5A, 0xD8
+	.byte 0x00, 0x3C, 0x00, 0x00
 	.4byte mus_dr_mm_route15_sample_11
 	.byte 0xFF, 0xA5, 0x5A, 0xD8
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_12
-	.byte 0xFF, 0xA5, 0x5A, 0xD8
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_13
-	.byte 0xFF, 0xA5, 0x5A, 0xD8
+	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1185,13 +1181,13 @@ mus_dr_mm_route15_group_02:
 	.align 2
 mus_dr_mm_route15_group_03:
 	.byte 0x00, 0x3C, 0x00, 0x00
+	.4byte mus_dr_mm_route15_sample_12
+	.byte 0xFF, 0x00, 0xFF, 0xC4
+	.byte 0x00, 0x3C, 0x00, 0x00
+	.4byte mus_dr_mm_route15_sample_13
+	.byte 0xFF, 0x00, 0xFF, 0xC4
+	.byte 0x00, 0x3C, 0x00, 0x00
 	.4byte mus_dr_mm_route15_sample_14
-	.byte 0xFF, 0x00, 0xFF, 0xC4
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_15
-	.byte 0xFF, 0x00, 0xFF, 0xC4
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_16
 	.byte 0xFF, 0x00, 0xFF, 0xC4
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1322,13 +1318,13 @@ mus_dr_mm_route15_group_03:
 	.align 2
 mus_dr_mm_route15_group_04:
 	.byte 0x00, 0x3C, 0x00, 0x00
+	.4byte mus_dr_mm_route15_sample_15
+	.byte 0xFF, 0x00, 0xC1, 0x7F
+	.byte 0x00, 0x3C, 0x00, 0x00
+	.4byte mus_dr_mm_route15_sample_16
+	.byte 0xFF, 0x00, 0xC1, 0x7F
+	.byte 0x00, 0x3C, 0x00, 0x00
 	.4byte mus_dr_mm_route15_sample_17
-	.byte 0xFF, 0x00, 0xC1, 0x7F
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_18
-	.byte 0xFF, 0x00, 0xC1, 0x7F
-	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_19
 	.byte 0xFF, 0x00, 0xC1, 0x7F
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1459,13 +1455,13 @@ mus_dr_mm_route15_group_04:
 	.align 2
 mus_dr_mm_route15_group_05:
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_20
+	.4byte mus_dr_mm_route15_sample_18
 	.byte 0xFF, 0x00, 0xF8, 0xA5
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_21
+	.4byte mus_dr_mm_route15_sample_19
 	.byte 0xFF, 0x00, 0xE0, 0xA5
 	.byte 0x00, 0x3C, 0x00, 0x00
-	.4byte mus_dr_mm_route15_sample_22
+	.4byte mus_dr_mm_route15_sample_20
 	.byte 0xFF, 0x00, 0xDA, 0xA5
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
 	.byte 0x01, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0   @ unused
@@ -1609,96 +1605,109 @@ mus_dr_mm_route15_keys_04:
 	.byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
 
 	.align 2
+	.global mus_dr_mm_route15_sample_00
 mus_dr_mm_route15_sample_00:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_00.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_01
 mus_dr_mm_route15_sample_01:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_01.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_02
 mus_dr_mm_route15_sample_02:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_02.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_03
 mus_dr_mm_route15_sample_03:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_03.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_04
 mus_dr_mm_route15_sample_04:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_04.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_05
 mus_dr_mm_route15_sample_05:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_05.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_06
 mus_dr_mm_route15_sample_06:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_06.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_07
 mus_dr_mm_route15_sample_07:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_07.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_08
 mus_dr_mm_route15_sample_08:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_08.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_09
 mus_dr_mm_route15_sample_09:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_09.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_10
 mus_dr_mm_route15_sample_10:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_10.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_11
 mus_dr_mm_route15_sample_11:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_11.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_12
 mus_dr_mm_route15_sample_12:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_12.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_13
 mus_dr_mm_route15_sample_13:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_13.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_14
 mus_dr_mm_route15_sample_14:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_14.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_15
 mus_dr_mm_route15_sample_15:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_15.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_16
 mus_dr_mm_route15_sample_16:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_16.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_17
 mus_dr_mm_route15_sample_17:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_17.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_18
 mus_dr_mm_route15_sample_18:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_18.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_19
 mus_dr_mm_route15_sample_19:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_19.bin"
 
 	.align 2
+	.global mus_dr_mm_route15_sample_20
 mus_dr_mm_route15_sample_20:
 	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_20.bin"
-
-	.align 2
-mus_dr_mm_route15_sample_21:
-	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_21.bin"
-
-	.align 2
-mus_dr_mm_route15_sample_22:
-	.incbin "sound/monomyth/mus_dr_mm_route15/mus_dr_mm_route15_sample_22.bin"
 
 	.align 2
 	.global mus_dr_mm_route15

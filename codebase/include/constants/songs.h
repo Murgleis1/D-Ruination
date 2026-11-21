@@ -566,12 +566,13 @@
 #define MUS_BW_ACCUMULA_TOWN        616
 #define MUS_OSRID_THEME             628
 #define MUS_DR_TITLE                629 // Dreamstone Ruination: title screen theme (looped) -- ethereal arrangement of 'Conquest' (tools/music/arrange_conquest_title.py)
-#define MUS_DR_FAR_HORIZONS         630 // Dreamstone Ruination: the former title theme ("Far Horizons", piano + harp; commit 0dcc231), cold open: Cadmus's letter until Osrid lands in Pelluca
+#define MUS_DR_FAR_HORIZONS         630 // Dreamstone Ruination: the former title theme ("Far Horizons", piano + harp; commit 0dcc231), (was the cold open's music until 2026-11-20; PellucaReflection and the intro now play MUS_DR_LEGEND_UNFOLDS)
 #define MUS_DR_OLD_HQ               631 // Dreamstone Ruination: MonoMyth's Old Headquarters music (tools/monomyth/port_song.py), the ice path under the church
 #define MUS_DR_HOLLOW_HILL          632 // Dreamstone Ruination: Hollow Hill's theme, Ghost Grey's Route 1 re-arranged: pedal piano, a far-off voice echoing the tune (tools/music/arrange_hollow_hill.py)
 #define MUS_DR_MM_ROUTE15           633 // Dreamstone Ruination: MonoMyth's Route 15 theme (tools/monomyth/port_song.py), Route 11 (user)
 #define MUS_DR_CROWN_PELLUCA        634 // Dreamstone Ruination: Pokemon Crown's route theme (its song 292), Pelluca Valley's main theme (user)
 #define MUS_DR_CROWN_PELLUCA_PIANO  635 // Dreamstone Ruination: the same with our pedal piano for its guitar, harp, clarinet and flute (comparison, user)
+#define MUS_DR_LEGEND_UNFOLDS       636 // Dreamstone Ruination: MonoMyth's "A Legend Unfolds" (the museum legend), the whole cold open (user)
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 

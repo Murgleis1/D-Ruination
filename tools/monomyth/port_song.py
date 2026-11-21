@@ -132,8 +132,10 @@ def main(index, label):
             return ['\t.byte 0x40, 0, 0, 0   @ piano in place of the original instrument', '\t.4byte voicegroup195',
                     f'\t.4byte {label}_piano_keys']
         t = ROM[a]; b = ROM[a:a + 12]
-        if t == 0x40:                          # keysplit
-            return [f'\t.byte 0x{b[0]:02X}, 0x{b[1]:02X}, 0x{b[2]:02X}, 0x{b[3]:02X}', f'\t.4byte {group(u32(a + 4), keys=u32(a + 8))}',
+        if t == 0x40:                          # keysplit: only the splits the song's notes reach
+            prog = (a - o(vg)) // 12 if 0 <= a - o(vg) < 128 * 12 else None
+            pk = drum_keys.get(prog) if prog is not None else None
+            return [f'\t.byte 0x{b[0]:02X}, 0x{b[1]:02X}, 0x{b[2]:02X}, 0x{b[3]:02X}', f'\t.4byte {group(u32(a + 4), keys=u32(a + 8), played=pk)}',
                     f'\t.4byte {table(u32(a + 8))}']
         if t == 0x80:                                                              # drum kit: the keys played
             prog = (a - o(vg)) // 12 if 0 <= a - o(vg) < 128 * 12 else None
@@ -150,11 +152,11 @@ def main(index, label):
         if k == 3: return [head, f'\t.4byte {wave(u32(a + 4))}', tail]              # programmable wave
         return ['\t.byte ' + ', '.join(f'0x{x:02X}' for x in b)]                    # square / noise
     pending = []
-    def group(v, keys=None, drum_keys=None):
+    def group(v, keys=None, drum_keys=None, played=None):
         a = o(v)
         if a not in groups:
             groups[a] = f'{label}_group_{len(groups):02d}'
-            if keys: used = set(ROM[o(keys) + k] for k in range(128))
+            if keys: used = set(ROM[o(keys) + k] for k in (played if played else range(128)))
             else: used = drum_keys if drum_keys is not None else set(range(128))
             pending.append((a, groups[a], used))
         return groups[a]

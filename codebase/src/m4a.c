@@ -75,7 +75,9 @@ void m4aSoundInit(void)
     m4aSoundMode(SOUND_MODE_DA_BIT_8
                | SOUND_MODE_FREQ_13379
                | (12 << SOUND_MODE_MASVOL_SHIFT)
-               | (5 << SOUND_MODE_MAXCHN_SHIFT));
+               | (10 << SOUND_MODE_MAXCHN_SHIFT));   // Dreamstone Ruination: 10 sampled voices (was 5): the
+                                                       // songs brought in from MonoMyth and Crown play up to 10-12
+                                                       // notes at once; with 5, notes cut each other off (crackle)
 
     for (i = 0; i < NUM_MUSIC_PLAYERS; i++)
     {
