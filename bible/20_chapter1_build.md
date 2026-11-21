@@ -193,6 +193,11 @@ Chapter 1 is the template: once its foundations (mechanics, maps, buildings, NPC
     - **Ghost Tower** (graves in fog): the grounds;
     - **Snow**: Mt. Mirroh.
 
+    **Kimaris's Trial chamber, decided (user 2026-11-21: "actually perfect for the Kimaris fight"):** Fantasma's summoning room (its mapsec 1, layout `s001_b8b0`, 17x15; `assets/fantasma_reference/kimaris_chamber*.png`).
+    - **The room:** a violet-stone hall; a gold-ringed dark summoning circle with a skull sigil in its middle (Kimaris's place); skull niches and gold skull banners on the back wall, either side of a barred door; a cyan spectral window; candelabra, barrels, an urn, bookcases, a desk with an open tome. The way in is the stair at its foot, so the player climbs up into it from the lake's sealed arch.
+    - **Port budget:** self-contained, needing nothing from Fantasma's primary. It is 100 metatiles, 201 tiles and 7 palettes (Fantasma's slots 6-12), so it fits as its own secondary tileset under ours.
+    - Needs the Fantasma team's permission and credit, like the rest.
+
     Its **violet gothic castle interiors** (skull bookcases, gold skull banners that could be copper, cyan spectral braziers, magic circles, a cell block) are a kit for the catacomb floors and Kimaris's chamber. Using its art needs the Fantasma team's permission and credit. Renders: `assets/fantasma_reference/`; tools: `tools/fantasma/`.
   - **Templar Headquarters ("Templar Citadel", Mt. Mirroh):** Crown's gothic cathedral on its moat island with timber chalets (group 3 #2), with an alpine/snow treatment and perhaps an outer wall.
   - **Academy:** MonoMyth's Ironbark Cabin (0x886B35C main hall + rooms) cleaned up (user: it looks dingy now): no boarded windows, moss or broken doors. **For the rooms (user 2026-11-19): MonoMyth's clown academy in Cascade City** (0x8868EF4 / 0x886AEE0): two classrooms (green chalkboard with writing, curtained windows, rows of desks), a music room (piano, music stand), a lounge, a lobby counter; modern tiled floors, so its furniture would be lifted onto our wood. Crown's classroom (group 5 #2: blackboard, desk rows, red runner) for the classroom.
