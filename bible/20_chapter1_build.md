@@ -208,15 +208,20 @@ Chapter 1 is the template: once its foundations (mechanics, maps, buildings, NPC
     - **The room:** a violet-stone hall; a gold-ringed dark summoning circle with a skull sigil in its middle (Kimaris's place); skull niches and gold skull banners on the back wall, either side of a barred door; a cyan spectral window; candelabra, barrels, an urn, bookcases, a desk with an open tome. The way in is the stair at its foot, so the player climbs up into it from the lake's sealed arch.
     - **Port budget:** self-contained, needing nothing from Fantasma's primary. It is 100 metatiles, 201 tiles and 7 palettes (Fantasma's slots 6-12), so it fits as its own secondary tileset under ours.
     - Needs the Fantasma team's permission and credit, like the rest.
-    - **The boiling cauldron (user 2026-11-21):** from **Rinri's house in MonoMyth's Wood Avens**. In MonoMyth its brew bubbles and splashes in a 9-frame tile animation (hut tileset 0x87310D4, metatiles 0x2A0-0x2B2 over the legs 0x282-0x284; frames 0x89691C0). Here the brew and splashes are **a ghostly white**, its iron a cold grey, and it **stands on the left side** of the chamber: top layer on x 3-5, y 3-5, legs on row 6; rows 5-6 are solid. Credit MonoMyth.
+    - **Four boiling cauldrons (user 2026-11-21):** they stand on the corners of a square round the circle's centre (bowl centres 42 px out each way; lower ones clear of the stair), each brew and its smoke its own colour:
+      - upper left: white/grey;
+      - upper right: bloody crimson;
+      - lower left: dark blue;
+      - lower right: the original green.
+      The cauldron is from **Rinri's house in MonoMyth's Wood Avens** (hut tileset 0x87310D4, metatiles 0x2A0-0x2B2 over the legs 0x282-0x284; 9-frame animation at 0x89691C0). Its iron is a cold grey here. The four boil out of step with each other, and their bowls and legs are solid. Credit MonoMyth.
+    - **House Langerin's copper (user 2026-11-21):** the two banners and the summoning circle's ring are copper. At the circle's centre is **the Wraith badge's symbol** (the Trial 1 stamp on the Trainer Card), inlaid in copper in place of Fantasma's old sigil.
     - **Built and walked (2026-11-21):** `MAP_KIMARIS_CHAMBER` (17x15), built by `tools/art/necropolis/build_kimaris.py`.
-      - Tileset: its own pair, 10 palettes, 270 tiles, 108 metatiles. The cauldron's 36 tiles are played by `InitTilesetAnim_KimarisChamber` in `src/tileset_anims.c`, a frame every 8 frames as in MonoMyth.
+      - Tileset: its own pair, 11 palettes, 374 tiles, 151 metatiles. The cauldrons' tiles (78) are played by `InitTilesetAnim_KimarisChamber` in `src/tileset_anims.c`, a frame every 8 frames as in MonoMyth (`assets/necropolis_reference/kimaris_chamber_cauldrons.gif`).
       - Kimaris stands on the sigil (8, 8), facing the stair (placeholder line, no battle yet).
       - The stair foot (8, 14) is a south arrow warp down to the lake's arch (21, 4). The lake's arch warps up here; it stays solid until the Trial script opens it.
       - The barred door behind Kimaris has no warp yet (the secret way down, late game).
       - Walked in the emulator: arriving, up to Kimaris, round the cauldron, talking to him, and down the stair to the lake (`assets/necropolis_reference/ingame_kimaris_chamber.png`, `ingame_kimaris_cauldron.gif`).
       - `DR_KIMARIS_TEST=1` adds a test entrance from Hollow Hill's way north (off in the committed build).
-      - OPEN: the banners and the circle's gold, or copper for the Langerin crest.
 
     Its **violet gothic castle interiors** (skull bookcases, gold skull banners that could be copper, cyan spectral braziers, magic circles, a cell block) are a kit for Kimaris's chamber and the hidden depths below it. Using its art needs the Fantasma team's permission and credit. Renders: `assets/fantasma_reference/`; tools: `tools/fantasma/`.
   - **Templar Headquarters ("Templar Citadel", Mt. Mirroh):** Crown's gothic cathedral on its moat island with timber chalets (group 3 #2), with an alpine/snow treatment and perhaps an outer wall.

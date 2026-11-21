@@ -4,17 +4,18 @@ The room is Fantasma's summoning room (its mapsec 1, layout s001_b8b0, 17x15; th
 Kimaris fight"), drawn by tools/fantasma/fsread.py and cut into its own tileset pair by academy/imgtiles.py.
 Credit: Fantasma (permission to be asked).
 
-On its left side stands **the boiling cauldron from Rinri's house in MonoMyth's Wood Avens** (user 2026-11-21),
-its brew turned a ghostly white. In MonoMyth it is the hut tileset 0x87310D4's metatiles 0x2A0-0x2B2 (the brew,
-the splashes and the rim, all on the top layer, animated) over the hut's cauldron legs (metatiles 0x282-0x284).
+Round the summoning circle stand **four boiling cauldrons** (user 2026-11-21), on the corners of a square about
+the circle's centre, each brew and its smoke its own colour: upper left white/grey, upper right bloody crimson,
+lower left dark blue, lower right MonoMyth's own green. The cauldron is **the one from Rinri's house in
+MonoMyth's Wood Avens**: the hut tileset 0x87310D4's metatiles 0x2A0-0x2B2 (the brew, the smoke and the rim,
+all on the top layer, animated) over the hut's cauldron legs (metatiles 0x282-0x284); its iron here a cold grey.
 The animation: every 8 frames the hut's tileset callback (0x809B901 -> 0x809B918) copies frame (timer / 8) % 9
-of the list at 0x89691C0 (9 frames, 24 tiles) to VRAM tile 0x320. Here the same 9 frames, recoloured, are
-redrawn as the cauldron's 3x3 top layer (36 tiles of their own) and played by InitTilesetAnim_KimarisChamber
-(src/tileset_anims.c) the same way: a frame every 8 frames.
-Credit: MonoMyth (the cauldron and its animation).
-
-Placement (the chamber's cells): the cauldron's top layer on x 3-5, y 3-5 (its splashes above, the brew on
-row 5), its legs on row 6; rows 5-6 solid, rows 3-4 walked behind.
+of the list at 0x89691C0 (9 frames, 24 tiles) to VRAM tile 0x320. Here each cauldron's top layer has tiles of
+its own and InitTilesetAnim_KimarisChamber (src/tileset_anims.c) plays its 9 frames the same way, each cauldron
+a few frames out of step with the others. Credit: MonoMyth (the cauldron and its animation).
+House Langerin's copper (user 2026-11-21): the banners and the circle's ring in copper, and at the circle's
+centre the Wraith badge's symbol (the Trial 1 stamp on the Trainer Card) inlaid in copper, in place of
+Fantasma's old sigil.
 Warps: the stair foot (8, 14) is a south arrow warp down to the lake's sealed arch (lake warp 0, at (21, 4));
 the lake's arch warps up here. The arch stays solid until the Trial is scripted (all four bonfires lit).
 The barred door behind Kimaris (the secret way down to the Distortion gate and the Necropolis Dreamstone) stays
@@ -34,7 +35,6 @@ C = IT.C
 MAP, LAYOUT, MAPID = 'KimarisChamber', 'LAYOUT_KIMARIS_CHAMBER', 'MAP_KIMARIS_CHAMBER'
 PRIM, SEC = ('kimaris_chamber_tiles', 'KimarisChamberTiles'), ('kimaris_chamber', 'KimarisChamber')
 MB_NORMAL, MB_SOUTH_ARROW_WARP = 0x00, 0x65
-CX, CY = 3, 3                        # the cauldron's top-left cell (its 3x3 top layer), legs on CY + 3
 STAIR = (8, 14)
 TEST = bool(os.environ.get('DR_KIMARIS_TEST'))
 FANT_HEADERS = os.environ.get('FANTASMA_HEADERS', '/tmp/fant_hs.pkl')
@@ -46,28 +46,78 @@ def room():
     L = [h for h in hs if h['mapsec'] == 1 and (h['layout']['addr'] & 0xffff) == 0xb8b0][0]['layout']
     img = F.render(L); o = F.off(L['map'])
     raw = np.frombuffer(F.ROM[o:o + L['w'] * L['h'] * 2], '<u2').reshape(L['h'], L['w'])
-    return img, (raw >> 10) & 3
+    return langerin(img), (raw >> 10) & 3
+
+# ------------------------------------------------------------------ House Langerin's copper (user 2026-11-21)
+COPPER = np.array([(44, 22, 20), (74, 36, 26), (112, 58, 36), (150, 82, 48), (186, 112, 66), (222, 160, 108)], float)
+CENTRE, RING_IN = (136, 120), 30                 # the summoning circle's centre (pixels) and its inside radius
+def _copper(px, lo, hi):
+    l = px.astype(float) @ [0.3, 0.59, 0.11] / 255.0
+    t = np.clip((l - l.min()) / max(l.max() - l.min(), 1e-6), 0, 1)
+    return COPPER[np.round(lo + (hi - lo) * t).astype(int)].astype(np.uint8)
+def langerin(img):
+    """Fantasma's gold and violet in House Langerin's copper: the two banners (cloth dark copper, skull and trim
+    bright), the circle's ring; the circle's old sigil (a skull over a bowl between crescents) taken out and the
+    Wraith badge's symbol (the Trial's stamp on the Trainer Card, tools/art/trainer_card/stamps_src.py) inlaid in
+    copper at its centre."""
+    out = img.copy(); f = img.astype(int)
+    gold = (f[..., 0] > 140) & (f[..., 0] > f[..., 2] + 60) & (f[..., 1] > 70)
+    purple = (f[..., 2] > f[..., 1] + 25) & (f[..., 0] > f[..., 1] + 10)
+    for x0 in (96, 160):                                                  # the banners (cells 6 and 10, rows 0-1)
+        box = (slice(0, 32), slice(x0, x0 + 16))
+        sub, g, p = out[box], gold[box], purple[box]
+        if p.any(): sub[p] = _copper(img[box][p], 0, 2)
+        if g.any(): sub[g] = _copper(img[box][g], 4, 5)
+    yy, xx = np.mgrid[0:img.shape[0], 0:img.shape[1]]
+    d = np.hypot(xx - CENTRE[0], yy - CENTRE[1])
+    inside = d < RING_IN                                                  # the old sigil out: the circle's upper
+    low = inside & (yy > CENTRE[1])                                       # half mirrored onto its lower half
+    out[low] = out[2 * CENTRE[1] - yy[low], xx[low]]
+    ring = (d >= RING_IN) & (d < 40) & gold
+    out[ring] = _copper(img[ring], 1, 5)
+    import re
+    src = open(os.path.join(HERE, '..', 'trainer_card', 'stamps_src.py')).read()     # (read, not imported: it
+    rows = re.search(r"'Wraith': \"\"\"(.*?)\"\"\"", src, re.S).group(1).strip('\n').split('\n')  # loads fonts)
+    glyph = np.array([[c == '#' for c in row] for row in rows])
+    glyph = glyph.repeat(2, 0).repeat(2, 1); gh, gw = glyph.shape
+    oy, ox = CENTRE[1] - gh // 2, CENTRE[0] - gw // 2
+    from scipy.ndimage import binary_dilation
+    rim = binary_dilation(glyph) & ~glyph
+    reg = out[oy - 1:oy + gh + 1, ox - 1:ox + gw + 1]
+    g2 = np.pad(glyph, 1); r2 = np.pad(rim, 1)
+    reg[r2 & ~binary_dilation(np.zeros_like(g2))] = COPPER[0]             # a dark edge round the inlay
+    reg[g2] = COPPER[4]
+    up = g2 & ~np.vstack([np.zeros((1, g2.shape[1]), bool), g2[:-1]])     # light catching its top edges
+    reg[up] = COPPER[5]
+    dn = g2 & ~np.vstack([g2[1:], np.zeros((1, g2.shape[1]), bool)])      # and shade under them
+    reg[dn] = COPPER[3]
+    return out
 
 # ------------------------------------------------------------------ the cauldron (MonoMyth)
-GHOST = np.array([(150, 160, 184), (200, 210, 226), (236, 242, 252)], float)
+# the four brews (user 2026-11-21): their colour, dark to light; None keeps MonoMyth's own swamp green
+BREWS = {'white': [(150, 160, 184), (200, 210, 226), (236, 242, 252)],
+         'crimson': [(104, 16, 28), (164, 28, 40), (216, 72, 80)],
+         'blue': [(24, 36, 104), (40, 68, 164), (96, 132, 216)],
+         'green': None}
 # MonoMyth's iron is lit green by its brew; here a cold, neutral iron (darkest to lightest)
 IRON = {(88, 80, 104): (30, 28, 40), (96, 112, 104): (58, 58, 74), (136, 128, 152): (92, 92, 112),
         (160, 168, 144): (150, 152, 170)}
-def ghostly(rgba):
-    """The brew and its splashes from MonoMyth's swamp green to a ghostly white (by their own lightness, so the
-    small splashes stay bright); the iron to a cold grey."""
+def brew(rgba, ramp):
+    """The brew and its smoke from MonoMyth's swamp green to the given colour (by their own lightness, so the
+    small splashes keep their brightness); the iron to a cold grey."""
     out = rgba.copy(); f = rgba[..., :3].astype(int); a = rgba[..., 3] > 0
     q = (f >> 3) << 3
     iron = np.zeros(a.shape, bool)
     for src, dst in IRON.items():
         m = a & (q == src).all(-1); out[..., :3][m] = dst; iron |= m
+    if ramp is None: return out
     green = a & ~iron & (f[..., 1] > f[..., 0] + 16) & (f[..., 1] > f[..., 2] + 8)
     g = f[..., 1][green]
-    out[..., :3][green] = GHOST[np.digitize(g, [150, 200])].astype(np.uint8)
+    out[..., :3][green] = np.array(ramp)[np.digitize(g, [150, 200])].astype(np.uint8)
     return out
 
-def cauldron():
-    """-> (frames: 9 RGBA 48x48 top layers, legs: RGBA 48x16)."""
+def cauldron(ramp):
+    """-> (frames: 9 RGBA 48x48 top layers, legs: RGBA 48x16), the brew in the given colour."""
     import romlib, render
     from romlib import ROM, u16, off, u32
     hs = romlib.find_headers(); L = [h for h in hs if h['addr'] == 0x86ac94][0]['layout']
@@ -94,8 +144,8 @@ def cauldron():
     frames = []
     for k in range(9):
         ts = ts_frame(k)
-        frames.append(ghostly(np.concatenate([np.concatenate([layers(ts, m, [2]) for m in r], 1)
-                                              for r in ([0x2a0, 0x2a1, 0x2a2], [0x2a8, 0x2a9, 0x2aa], [0x2b0, 0x2b1, 0x2b2])], 0)))
+        frames.append(brew(np.concatenate([np.concatenate([layers(ts, m, [2]) for m in r], 1)
+                                           for r in ([0x2a0, 0x2a1, 0x2a2], [0x2a8, 0x2a9, 0x2aa], [0x2b0, 0x2b1, 0x2b2])], 0), ramp))
     ts = ts_frame(0)
     legs = np.concatenate([layers(ts, m, [1, 2]) for m in (0x282, 0x283, 0x284)], 1)
     floor = layers(ts, 0x28b, [0, 1, 2])                          # the hut's planks: flooded out from the row's
@@ -115,69 +165,91 @@ def cauldron():
                 up = y > 0 and legs[y - 1, x, 3]; dn = y < 15 and legs[y + 1, x, 3]
                 if up or dn: break
                 legs[y, x, 3] = 0
-    return frames, ghostly(legs)
+    return frames, brew(legs, ramp)
 
-def quantize(frames, legs, n=15):
-    """One palette for the cauldron (its animated top layer must keep to one): all frames and the legs together."""
-    allpx = np.concatenate([f[..., :3][f[..., 3] > 0] for f in frames] + [legs[..., :3][legs[..., 3] > 0]])
-    cols = np.unique((allpx >> 3) << 3, axis=0)
-    if len(cols) > n:
-        im = Image.fromarray(allpx.reshape(1, -1, 3).astype(np.uint8)).quantize(colors=n, method=Image.Quantize.MAXCOVERAGE, dither=Image.Dither.NONE)
-        pal = np.array(im.getpalette()[:n * 3]).reshape(n, 3)
-    else: pal = cols
-    pal = (pal >> 3) << 3
-    def snap(img):
-        out = img.copy(); m = img[..., 3] > 0; px = img[..., :3][m].astype(int)
-        out[..., :3][m] = pal[((px[:, None, :] - pal[None]) ** 2).sum(-1).argmin(1)]
-        return out
-    return [snap(f) for f in frames], snap(legs), [tuple(int(v) for v in c) for c in pal]
+# the four cauldrons (user 2026-11-21): a square round the circle's centre, each brew and its smoke its own colour;
+# (name, brew, the bowl's centre as an offset from the circle's centre in pixels, animation phase in frames)
+CAULDRONS = [('ul', 'white', (-42, -42), 0), ('ur', 'crimson', (42, -42), 2),
+             ('ll', 'blue', (-42, 42), 4), ('lr', 'green', (42, 42), 6)]
 
 def main():
     img, coll = room(); H, W = coll.shape
-    frames, legs, cpal = quantize(*cauldron())
     under = img.copy()
-    ly = (CY + 3) * 16; lx = CX * 16                            # a soft shadow on the floor, then the legs
-    yy, xx = np.mgrid[0:16, 0:48]; sh = ((xx - 24) / 22.0) ** 2 + ((yy - 12) / 5.0) ** 2 < 1
-    sub = under[ly:ly + 16, lx:lx + 48]; sub[sh] = (sub[sh] * 0.55).astype(np.uint8)
-    a = legs[..., 3] > 0; sub[a] = legs[..., :3][a]
-    walk = set()
-    for y in range(H):
-        for x in range(W):
-            if coll[y, x] == 0: walk.add((x, y))
+    walk = {(x, y) for y in range(H) for x in range(W) if coll[y, x] == 0}
     walk |= {(x, y) for x in (7, 8, 9) for y in (12, 13, 14)}            # the stair down
-    for x in range(CX, CX + 3):
-        for y in (CY + 2, CY + 3): walk.discard((x, y))                   # the cauldron's bowl and legs
+    pots = []
+    for name, brw, (dx, dy), phase in CAULDRONS:
+        frames, legs = cauldron(BREWS[brw])
+        body = np.concatenate([frames[0][32:], legs], 0)[..., 3] > 0       # the bowl and legs (rows 32-63)
+        ys, xs = np.where(body); bcx, bcy = (xs.min() + xs.max() + 1) / 2, 32 + (ys.min() + ys.max() + 1) / 2
+        px, py = int(round(CENTRE[0] + dx - bcx)), int(round(CENTRE[1] + dy - bcy))   # the 48x64 picture's top left
+        yy, xx = np.mgrid[0:16, 0:48]; sh = ((xx - 24) / 22.0) ** 2 + ((yy - 12) / 5.0) ** 2 < 1
+        sub = under[py + 48:py + 64, px:px + 48]; sub[sh] = (sub[sh] * 0.55).astype(np.uint8)   # a soft shadow
+        a = legs[..., 3] > 0; sub[a] = legs[..., :3][a]                    # the legs (static, under the player)
+        x0, x1, y0, y1 = px + xs.min(), px + xs.max() + 1, py + 32 + ys.min(), py + 32 + ys.max() + 1
+        for cy in range(y0 // 16, (y1 - 1) // 16 + 1):                   # the bowl and legs are solid where they
+            for cx in range(x0 // 16, (x1 - 1) // 16 + 1):                # cover more than a sliver of a cell
+                ox = min(x1, cx * 16 + 16) - max(x0, cx * 16); oy = min(y1, cy * 16 + 16) - max(y0, cy * 16)
+                if ox >= 5 and oy >= 5: walk.discard((cx, cy))
+        pots.append(dict(name=name, brew=brw, frames=frames, px=px, py=py, phase=phase))
+        print(name, brw, 'picture at', (px, py), 'bowl centre', (px + bcx, py + bcy))
+    stairs = (8, 13); seen = {stairs}; q = [stairs]                       # Kimaris must still be reachable
+    while q:
+        x, y = q.pop()
+        for d in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            n = (x + d[0], y + d[1])
+            if n in walk and n not in seen: seen.add(n); q.append(n)
+    assert (8, 9) in seen, 'the way from the stair to Kimaris is blocked'
     beh = lambda x, y: MB_SOUTH_ARROW_WARP if (x, y) == STAIR else MB_NORMAL
     r = IT.build(under, W, H, walk=walk, beh=beh, tries=400)
-    # the cauldron's top layer: 36 tiles of its own (so its frames can be copied over them), one palette
-    assert r['npal'] < 13, r['npal']
-    slot = len(r['pals']); r['pals'].append([(0, 0, 0)] + cpal + [(0, 0, 0)] * (15 - len(cpal)))
-    lut = {c: i + 1 for i, c in enumerate(cpal)}
-    def idx(rgba):
+    # their top layers (brew, rim and smoke): tiles of their own so each frame can be copied over them; two
+    # palettes shared two cauldrons apiece
+    groups = [('ul', 'ur'), ('ll', 'lr')]
+    slots = {}
+    for grp in groups:
+        cols = set()
+        for p in pots:
+            if p['name'] in grp:
+                for f in p['frames']: cols |= {tuple(int(v) for v in c) for c in ((f[..., :3][f[..., 3] > 0] >> 3) << 3)}
+        cols = sorted(cols, key=sum); assert len(cols) <= 15, (grp, len(cols))
+        slot = len(r['pals']); r['pals'].append([(0, 0, 0)] + cols + [(0, 0, 0)] * (15 - len(cols)))
+        for n in grp: slots[n] = (slot, {c: i + 1 for i, c in enumerate(cols)})
+    assert len(r['pals']) <= 13, len(r['pals'])
+    def idx(rgba, lut):
         t = np.zeros(rgba.shape[:2], np.uint8)
-        for (y, x) in zip(*np.where(rgba[..., 3] > 0)): t[y, x] = lut[tuple(int(v) for v in rgba[y, x, :3])]
+        for (y, x) in zip(*np.where(rgba[..., 3] > 0)): t[y, x] = lut[tuple(int(v) >> 3 << 3 for v in rgba[y, x, :3])]
         return t
-    first = len(r['tiles']); order = []
-    for cy in range(3):
-        for cx in range(3):
-            g = int(r['grid'][CY + cy, CX + cx]); e = list(r['meta'][(g & 0x3FF) - 512])
-            for q in range(4):
-                n = len(r['tiles']); order.append((cy, cx, q))
-                tq = idx(frames[0][cy * 16 + (q // 2) * 8:cy * 16 + (q // 2) * 8 + 8, cx * 16 + (q % 2) * 8:cx * 16 + (q % 2) * 8 + 8])
-                r['tiles'].append(tq); e[8 + q] = n | slot << 12
-            r['meta'].append(e); r['attrs'].append(r['attrs'][(g & 0x3FF) - 512])
-            r['grid'][CY + cy, CX + cx] = (512 + len(r['meta']) - 1) | (g & 0xFC00)
+    newmeta = {}                                                           # cell -> its own new metatile
+    ad = os.path.join(C, 'data/tilesets/secondary', SEC[0], 'anim'); os.makedirs(ad, exist_ok=True)
+    for p in pots:
+        slot, lut = slots[p['name']]
+        canv = [np.zeros((H * 16, W * 16, 4), np.uint8) for _ in range(9)]
+        for k, f in enumerate(p['frames']):
+            c = canv[k][p['py']:p['py'] + 48, p['px']:p['px'] + 48]; m = f[..., 3] > 0; c[m] = f[m]
+        anyp = np.any([c[..., 3] > 0 for c in canv], 0)
+        tiles_here = [(tx, ty) for ty in range(H * 2) for tx in range(W * 2) if anyp[ty * 8:ty * 8 + 8, tx * 8:tx * 8 + 8].any()]
+        p['first'] = len(r['tiles']); p['n'] = len(tiles_here)
+        for (tx, ty) in tiles_here:
+            cell = (tx // 2, ty // 2)
+            if cell not in newmeta:
+                g = int(r['grid'][cell[1], cell[0]]); e = list(r['meta'][(g & 0x3FF) - 512])
+                r['meta'].append(e); r['attrs'].append(r['attrs'][(g & 0x3FF) - 512])
+                newmeta[cell] = len(r['meta']) - 1; r['grid'][cell[1], cell[0]] = (512 + newmeta[cell]) | (g & 0xFC00)
+            n = len(r['tiles']); r['tiles'].append(idx(canv[0][ty * 8:ty * 8 + 8, tx * 8:tx * 8 + 8], lut))
+            r['meta'][newmeta[cell]][8 + (ty % 2) * 2 + tx % 2] = n | slot << 12
+        pal_flat = [v for c in r['pals'][slot] for v in c] + [0] * (768 - 48)
+        d = os.path.join(ad, 'cauldron_' + p['name']); os.makedirs(d, exist_ok=True)
+        for k in range(9):
+            col = np.zeros((len(tiles_here) * 8, 8), np.uint8)
+            for i, (tx, ty) in enumerate(tiles_here): col[i * 8:i * 8 + 8] = idx(canv[k][ty * 8:ty * 8 + 8, tx * 8:tx * 8 + 8], lut)
+            im = Image.fromarray(col, 'P'); im.putpalette(pal_flat); im.save(os.path.join(d, '%d.png' % k))
     assert len(r['tiles']) <= 512 and len(r['meta']) <= 512, (len(r['tiles']), len(r['meta']))
-    print('palettes', len(r['pals']), 'tiles', len(r['tiles']), 'metatiles', len(r['meta']), 'cauldron tiles from', first)
-    # the frames, as the animation's pictures (8 px wide: its 36 tiles in order)
-    ad = os.path.join(C, 'data/tilesets/secondary', SEC[0], 'anim', 'cauldron'); os.makedirs(ad, exist_ok=True)
-    pal_flat = [v for c in r['pals'][slot] for v in c] + [0] * (768 - 48)
-    for k, f in enumerate(frames):
-        col = np.zeros((36 * 8, 8), np.uint8)
-        for i, (cy, cx, q) in enumerate(order):
-            col[i * 8:i * 8 + 8] = idx(f[cy * 16 + (q // 2) * 8:cy * 16 + (q // 2) * 8 + 8, cx * 16 + (q % 2) * 8:cx * 16 + (q % 2) * 8 + 8])
-        im = Image.fromarray(col, 'P'); im.putpalette(pal_flat); im.save(os.path.join(ad, '%d.png' % k))
-    open(os.path.join(ad, 'FIRST_TILE'), 'w').write('%d\n' % first)
+    print('palettes', len(r['pals']), 'tiles', len(r['tiles']), 'metatiles', len(r['meta']),
+          'cauldron tiles', [(p['name'], p['first'], p['n']) for p in pots])
+    old = os.path.join(ad, 'cauldron')
+    if os.path.isdir(old):
+        import shutil; shutil.rmtree(old)
+    json.dump([{k: p[k] for k in ('name', 'first', 'n', 'phase')} for p in pots], open(os.path.join(ad, 'cauldrons.json'), 'w'), indent=1)
     objs = [{'graphics_id': 'OBJ_EVENT_GFX_KIMARIS', 'x': 8, 'y': 8, 'elevation': 3,
              'movement_type': 'MOVEMENT_TYPE_FACE_DOWN', 'movement_range_x': 0, 'movement_range_y': 0,
              'trainer_type': 'TRAINER_TYPE_NONE', 'trainer_sight_or_berry_tree_id': '0',
@@ -200,18 +272,26 @@ def main():
     test_entrance()
 
 def anim_code():
-    """The cauldron's animation in src/tileset_anims.c and its callback on the chamber's secondary tileset."""
-    first = int(open(os.path.join(C, 'data/tilesets/secondary', SEC[0], 'anim/cauldron/FIRST_TILE')).read())
+    """The cauldrons' animation in src/tileset_anims.c and its callback on the chamber's secondary tileset: every 8
+    frames each cauldron's next frame (its own phase, so they do not boil in step)."""
+    pots = json.load(open(os.path.join(C, 'data/tilesets/secondary', SEC[0], 'anim/cauldrons.json')))
     f = os.path.join(C, 'src/tileset_anims.c'); t = open(f).read()
     start, end = '// --- KimarisChamber cauldron (build_kimaris.py) ---\n', '// --- end KimarisChamber ---\n'
     if start in t: t = t[:t.index(start)] + t[t.index(end) + len(end):]
-    block = start + ''.join('static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame%d[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/%d.4bpp");\n' % (k, k) for k in range(9)) \
-        + 'static const u16 *const sTilesetAnims_KimarisChamber_Cauldron[] = {\n' + ''.join('    sTilesetAnims_KimarisChamber_Cauldron_Frame%d,\n' % k for k in range(9)) + '};\n\n' \
-        + 'static void TilesetAnim_KimarisChamber(u16 timer)\n{\n    if (timer % 8 == 0)\n' \
-        + '        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_Cauldron[(timer / 8) % ARRAY_COUNT(sTilesetAnims_KimarisChamber_Cauldron)],\n' \
-        + '                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(%d)), 36 * TILE_SIZE_4BPP);\n}\n\n' % first \
-        + 'void InitTilesetAnim_KimarisChamber(void)\n{\n    sSecondaryTilesetAnimCounter = 0;\n    sSecondaryTilesetAnimCounterMax = 72;\n' \
-        + '    sSecondaryTilesetAnimCallback = TilesetAnim_KimarisChamber;\n}\n' + end
+    block = start
+    for p in pots:
+        nm = p['name'].upper()
+        block += ''.join('static const u16 sTilesetAnims_KimarisChamber_%s_Frame%d[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_%s/%d.4bpp");\n'
+                         % (nm, k, p['name'], k) for k in range(9))
+        block += 'static const u16 *const sTilesetAnims_KimarisChamber_%s[] = {\n' % nm + \
+                 ''.join('    sTilesetAnims_KimarisChamber_%s_Frame%d,\n' % (nm, k) for k in range(9)) + '};\n'
+    block += '\nstatic void TilesetAnim_KimarisChamber(u16 timer)\n{\n    if (timer % 8 == 0)\n    {\n'
+    for p in pots:
+        nm = p['name'].upper()
+        block += ('        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_%s[(timer / 8 + %d) %% 9],\n'
+                  '                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(%d)), %d * TILE_SIZE_4BPP);\n') % (nm, p['phase'], p['first'], p['n'])
+    block += '    }\n}\n\nvoid InitTilesetAnim_KimarisChamber(void)\n{\n    sSecondaryTilesetAnimCounter = 0;\n' \
+             '    sSecondaryTilesetAnimCounterMax = 72;\n    sSecondaryTilesetAnimCallback = TilesetAnim_KimarisChamber;\n}\n' + end
     t = t.rstrip('\n') + '\n\n' + block
     open(f, 'w').write(t)
     h = os.path.join(C, 'include/tileset_anims.h'); ht = open(h).read()

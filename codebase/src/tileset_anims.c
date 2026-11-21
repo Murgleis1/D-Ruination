@@ -1380,32 +1380,100 @@ void InitTilesetAnim_PellucaIcePath(void)
 }
 
 // --- KimarisChamber cauldron (build_kimaris.py) ---
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame0[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/0.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame1[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/1.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame2[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/2.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame3[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/3.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame4[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/4.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame5[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/5.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame6[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/6.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame7[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/7.4bpp");
-static const u16 sTilesetAnims_KimarisChamber_Cauldron_Frame8[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron/8.4bpp");
-static const u16 *const sTilesetAnims_KimarisChamber_Cauldron[] = {
-    sTilesetAnims_KimarisChamber_Cauldron_Frame0,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame1,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame2,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame3,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame4,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame5,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame6,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame7,
-    sTilesetAnims_KimarisChamber_Cauldron_Frame8,
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame0[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/0.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame1[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/1.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame2[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/2.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame3[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/3.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame4[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/4.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame5[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/5.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame6[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/6.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame7[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/7.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UL_Frame8[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ul/8.4bpp");
+static const u16 *const sTilesetAnims_KimarisChamber_UL[] = {
+    sTilesetAnims_KimarisChamber_UL_Frame0,
+    sTilesetAnims_KimarisChamber_UL_Frame1,
+    sTilesetAnims_KimarisChamber_UL_Frame2,
+    sTilesetAnims_KimarisChamber_UL_Frame3,
+    sTilesetAnims_KimarisChamber_UL_Frame4,
+    sTilesetAnims_KimarisChamber_UL_Frame5,
+    sTilesetAnims_KimarisChamber_UL_Frame6,
+    sTilesetAnims_KimarisChamber_UL_Frame7,
+    sTilesetAnims_KimarisChamber_UL_Frame8,
+};
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame0[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/0.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame1[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/1.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame2[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/2.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame3[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/3.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame4[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/4.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame5[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/5.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame6[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/6.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame7[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/7.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_UR_Frame8[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ur/8.4bpp");
+static const u16 *const sTilesetAnims_KimarisChamber_UR[] = {
+    sTilesetAnims_KimarisChamber_UR_Frame0,
+    sTilesetAnims_KimarisChamber_UR_Frame1,
+    sTilesetAnims_KimarisChamber_UR_Frame2,
+    sTilesetAnims_KimarisChamber_UR_Frame3,
+    sTilesetAnims_KimarisChamber_UR_Frame4,
+    sTilesetAnims_KimarisChamber_UR_Frame5,
+    sTilesetAnims_KimarisChamber_UR_Frame6,
+    sTilesetAnims_KimarisChamber_UR_Frame7,
+    sTilesetAnims_KimarisChamber_UR_Frame8,
+};
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame0[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/0.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame1[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/1.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame2[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/2.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame3[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/3.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame4[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/4.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame5[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/5.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame6[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/6.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame7[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/7.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LL_Frame8[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_ll/8.4bpp");
+static const u16 *const sTilesetAnims_KimarisChamber_LL[] = {
+    sTilesetAnims_KimarisChamber_LL_Frame0,
+    sTilesetAnims_KimarisChamber_LL_Frame1,
+    sTilesetAnims_KimarisChamber_LL_Frame2,
+    sTilesetAnims_KimarisChamber_LL_Frame3,
+    sTilesetAnims_KimarisChamber_LL_Frame4,
+    sTilesetAnims_KimarisChamber_LL_Frame5,
+    sTilesetAnims_KimarisChamber_LL_Frame6,
+    sTilesetAnims_KimarisChamber_LL_Frame7,
+    sTilesetAnims_KimarisChamber_LL_Frame8,
+};
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame0[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/0.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame1[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/1.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame2[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/2.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame3[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/3.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame4[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/4.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame5[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/5.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame6[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/6.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame7[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/7.4bpp");
+static const u16 sTilesetAnims_KimarisChamber_LR_Frame8[] = INCBIN_U16("data/tilesets/secondary/kimaris_chamber/anim/cauldron_lr/8.4bpp");
+static const u16 *const sTilesetAnims_KimarisChamber_LR[] = {
+    sTilesetAnims_KimarisChamber_LR_Frame0,
+    sTilesetAnims_KimarisChamber_LR_Frame1,
+    sTilesetAnims_KimarisChamber_LR_Frame2,
+    sTilesetAnims_KimarisChamber_LR_Frame3,
+    sTilesetAnims_KimarisChamber_LR_Frame4,
+    sTilesetAnims_KimarisChamber_LR_Frame5,
+    sTilesetAnims_KimarisChamber_LR_Frame6,
+    sTilesetAnims_KimarisChamber_LR_Frame7,
+    sTilesetAnims_KimarisChamber_LR_Frame8,
 };
 
 static void TilesetAnim_KimarisChamber(u16 timer)
 {
     if (timer % 8 == 0)
-        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_Cauldron[(timer / 8) % ARRAY_COUNT(sTilesetAnims_KimarisChamber_Cauldron)],
-                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(234)), 36 * TILE_SIZE_4BPP);
+    {
+        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_UL[(timer / 8 + 0) % 9],
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(296)), 18 * TILE_SIZE_4BPP);
+        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_UR[(timer / 8 + 2) % 9],
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(314)), 17 * TILE_SIZE_4BPP);
+        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_LL[(timer / 8 + 4) % 9],
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(331)), 23 * TILE_SIZE_4BPP);
+        AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_LR[(timer / 8 + 6) % 9],
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(354)), 20 * TILE_SIZE_4BPP);
+    }
 }
 
 void InitTilesetAnim_KimarisChamber(void)
