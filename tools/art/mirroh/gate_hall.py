@@ -4,7 +4,7 @@ The user's direction (2026-11-21): you go in at the gate, pass down a short hall
 the far side; study MonoMyth's North Edelweiss gate, Crown's pass-through buildings and Ghost Grey's Saffron gates.
 Layout: North Edelweiss's gate hallway (MonoMyth, group 6 map 20): a long hall, a dark doorway at its top, a runner
 up its middle, guard desks facing each other across it, benches and plants along the walls, the mat at its foot.
-Mirroh's: cold stone instead of its warm wood and tile (Elderflower's stone and paving), the runner crimson, gloomier.
+Mirroh's: cold stone instead of its warm wood and tile (Elderflower's stone and paving), the runner copper, gloomier.
 Guards (marked) stand behind the desks.
 Usage: python3 tools/art/mirroh/gate_hall.py [outdir]
 """
@@ -21,8 +21,9 @@ ROWS = [0, 1, 2, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]   # (it
 CARPET = {0x1e0, 0x1e1, 0x1e2, 0x1e8, 0x1e9, 0x1ea, 0x1f0, 0x1f1, 0x1f2, 0x1cb, 0x1cc, 0x1cd}
 
 def crimson(img):
+    """The runner: copper, not red (user 2026-11-21: red is generic; copper is Mirroh's colour)."""
     f = img.astype(float); l = v3._lum(f) / 255.0
-    lo, hi = np.array([46, 10, 20]), np.array([150, 36, 46])
+    lo, hi = (np.array(c, float) for c in v3.CARPETS['copper'])
     return (lo + (hi - lo) * np.clip((l - 0.35) / 0.6, 0, 1)[..., None]).astype(np.uint8)
 
 _FLOOR = {tuple(p) for p in np.unique(NE['full'][0x1ad].reshape(-1, 3), axis=0)}

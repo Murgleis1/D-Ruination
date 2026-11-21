@@ -8,7 +8,8 @@ metatiles). Behaviours and collision come from the puzzle grid (lake_puzzle via 
   soil   -> normal floor, walkable (the islands, the corner platforms, the landing, the door's landing);
   block  -> solid (graves, statues, walls, the bonfires, the sealed arch, the dark).
 The four necromancers stand by their bonfires as object events (placeholders: no scripts or teams yet).
-Not reachable from anywhere yet (the Necropolis grounds are not built). With DR_LAKE_TEST=1 a test way in is added:
+The landing's foot (x 20-22, the bottom row) is a south arrow warp up to the grounds' grand entrance; the sealed
+arch (21, 4) warps up to Kimaris's chamber (solid until the Trial opens it). With DR_LAKE_TEST=1 a test way in is added:
 a trigger on Hollow Hill's way north warps to the landing (one way); rebuild without it
 to take it out.
 Usage: python3 tools/art/necropolis/build_lake.py   (then make)
@@ -37,7 +38,8 @@ def main():
     q, _ = tilefit.reduce_tiles(q, (0, 0, q.shape[1], q.shape[0]), 15)
     trainers = {v['trainer'] for v in P.CORNERS.values()}
     walk = {(x, y) for y in range(H) for x in range(W) if g[y, x] != P.BLOCK} | trainers
-    beh = lambda x, y: MB_ICE if g[y, x] == P.ICE and (x, y) not in trainers else MB_NORMAL
+    mats = [(x, P.H - 1) for x in (20, 21, 22)]                  # the landing's foot: up to the grounds
+    beh = lambda x, y: MB_ICE if g[y, x] == P.ICE and (x, y) not in trainers else 0x65 if (x, y) in mats else MB_NORMAL
     r = IT.build(q, W, H, walk=walk, beh=beh, tries=400)
     print('palettes', r['npal'], 'tiles', len(r['tiles']), 'metatiles', len(r['meta']), 'check', IT.check(r))
     objs = []
@@ -51,7 +53,9 @@ def main():
             'region_map_section': 'MAPSEC_DR_MIRROH_NECROPOLIS', 'requires_flash': False, 'weather': 'WEATHER_NONE',
             'map_type': 'MAP_TYPE_UNDERGROUND', 'allow_cycling': False, 'allow_escaping': False, 'allow_running': True,
             'show_map_name': True, 'battle_scene': 'MAP_BATTLE_SCENE_NORMAL', 'connections': None,
-            'object_events': objs, 'warp_events': [],
+            'object_events': objs,
+            'warp_events': [{'x': 21, 'y': 4, 'elevation': 3, 'dest_map': 'MAP_KIMARIS_CHAMBER', 'dest_warp_id': '0'}] +
+                           [{'x': x, 'y': y, 'elevation': 3, 'dest_map': 'MAP_NECROPOLIS_GROUNDS', 'dest_warp_id': '4'} for (x, y) in mats],
             'coord_events': [], 'bg_events': []}
     IT.write_room(r, MAP, LAYOUT, PRIM, SEC, mapj)
     d = os.path.join(C, 'data/maps', MAP)

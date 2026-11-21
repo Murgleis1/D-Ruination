@@ -74,6 +74,27 @@
       "elevation": 3,
       "dest_map": "MAP_KIMARIS_CHAMBER",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 20,
+      "y": 31,
+      "elevation": 3,
+      "dest_map": "MAP_NECROPOLIS_GROUNDS",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 21,
+      "y": 31,
+      "elevation": 3,
+      "dest_map": "MAP_NECROPOLIS_GROUNDS",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 22,
+      "y": 31,
+      "elevation": 3,
+      "dest_map": "MAP_NECROPOLIS_GROUNDS",
+      "dest_warp_id": "4"
     }
   ],
   "coord_events": [],

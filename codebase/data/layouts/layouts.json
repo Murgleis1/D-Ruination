@@ -6142,6 +6142,56 @@
       "blockdata_filepath": "data/layouts/PellucaAcademyHall/map.bin"
     },
     {
+      "id": "LAYOUT_NECROPOLIS_GROUNDS",
+      "name": "NecropolisGrounds_Layout",
+      "width": 44,
+      "height": 50,
+      "primary_tileset": "gTileset_NecropolisGroundsTiles",
+      "secondary_tileset": "gTileset_NecropolisGrounds",
+      "border_filepath": "data/layouts/NecropolisGrounds/border.bin",
+      "blockdata_filepath": "data/layouts/NecropolisGrounds/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_GATE",
+      "name": "MirrohGate_Layout",
+      "width": 60,
+      "height": 23,
+      "primary_tileset": "gTileset_MirrohGateTiles",
+      "secondary_tileset": "gTileset_MirrohGate",
+      "border_filepath": "data/layouts/MirrohGate/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohGate/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_GATEHOUSE",
+      "name": "MirrohSouthGatehouse_Layout",
+      "width": 10,
+      "height": 18,
+      "primary_tileset": "gTileset_MirrohGatehouseTiles",
+      "secondary_tileset": "gTileset_MirrohGatehouse",
+      "border_filepath": "data/layouts/MirrohSouthGatehouse/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohSouthGatehouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_UPPER",
+      "name": "MirrohUpper_Layout",
+      "width": 60,
+      "height": 39,
+      "primary_tileset": "gTileset_MirrohUpperTiles",
+      "secondary_tileset": "gTileset_MirrohUpper",
+      "border_filepath": "data/layouts/MirrohUpper/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohUpper/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_LOWER",
+      "name": "MirrohLower_Layout",
+      "width": 60,
+      "height": 31,
+      "primary_tileset": "gTileset_MirrohLowerTiles",
+      "secondary_tileset": "gTileset_MirrohLower",
+      "border_filepath": "data/layouts/MirrohLower/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohLower/map.bin"
+    },
+    {
       "id": "LAYOUT_KIMARIS_CHAMBER",
       "name": "KimarisChamber_Layout",
       "width": 17,

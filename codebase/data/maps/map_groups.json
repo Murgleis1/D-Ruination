@@ -168,7 +168,13 @@
     "Route11",
     "HollowHill",
     "NecropolisLake",
-    "KimarisChamber"
+    "KimarisChamber",
+    "MirrohLower",
+    "MirrohUpper",
+    "MirrohSouthGatehouse",
+    "MirrohNWGatehouse",
+    "MirrohGate",
+    "NecropolisGrounds"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

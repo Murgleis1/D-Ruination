@@ -1,0 +1,8 @@
+mapscripts MirrohSouthGatehouse_MapScripts {}
+
+script MirrohGatehouse_EventScript_Guard {
+    lock
+    faceplayer
+    msgbox("Mirroh's gate. Keep to the road, traveller.")
+    release
+}

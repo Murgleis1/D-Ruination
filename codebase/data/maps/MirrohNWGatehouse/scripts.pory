@@ -1,0 +1,13 @@
+mapscripts MirrohNWGatehouse_MapScripts {}
+
+script MirrohNWGatehouse_EventScript_RoadClosed {
+    lock
+    msgbox("The road beyond is snowed in.\n(Mt. Mirroh is not built yet.)")
+    applymovement(OBJ_EVENT_ID_PLAYER, MirrohNWGatehouse_Movement_StepBack)
+    waitmovement(0)
+    release
+}
+
+movement MirrohNWGatehouse_Movement_StepBack {
+    walk_down
+}

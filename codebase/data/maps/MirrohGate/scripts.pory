@@ -1,0 +1,21 @@
+mapscripts MirrohGate_MapScripts {}
+
+script MirrohGate_EventScript_ToHollowHill16 {
+    setvar(VAR_TEMP_1, 1)
+    warp(MAP_HOLLOW_HILL, 16, 1)
+}
+
+script MirrohGate_EventScript_ToHollowHill17 {
+    setvar(VAR_TEMP_1, 1)
+    warp(MAP_HOLLOW_HILL, 17, 1)
+}
+
+script MirrohGate_EventScript_ToHollowHill18 {
+    setvar(VAR_TEMP_1, 1)
+    warp(MAP_HOLLOW_HILL, 18, 1)
+}
+
+script MirrohGate_EventScript_ToHollowHill19 {
+    setvar(VAR_TEMP_1, 1)
+    warp(MAP_HOLLOW_HILL, 19, 1)
+}

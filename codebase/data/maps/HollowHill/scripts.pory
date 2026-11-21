@@ -1,1 +1,21 @@
 mapscripts HollowHill_MapScripts {}
+
+script HollowHill_EventScript_ToMirroh16 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_MIRROH_GATE, 28, 21)
+}
+
+script HollowHill_EventScript_ToMirroh17 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_MIRROH_GATE, 29, 21)
+}
+
+script HollowHill_EventScript_ToMirroh18 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_MIRROH_GATE, 30, 21)
+}
+
+script HollowHill_EventScript_ToMirroh19 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_MIRROH_GATE, 31, 21)
+}

@@ -703,25 +703,88 @@ def compose():
                  (13, 11), (19, 11), (49, 11), (19, 28), (47, 27), (7, 41), (52, 41)):
         if M.free(x, y, 1, 2, ground=('snow', 'pave', 'cobble')): mm.lamp(M, x, y)
         else: print('no room for a lamp at', x, y)
+    seam_fade(M)
     return M
 
-def audit(M):
-    bad = []
-    for y in range(H):
+def seam_fade(M, top=56):
+    """Outside the south gate, the snow gives out gradually onto Hollow Hill's floor (user 2026-11-21: the straight
+    line where the snow stopped looked wrong). Drawn a pixel at a time: the snow's cover falls off southward against
+    smooth noise at two scales, so its edge wanders through the cells instead of following them; along the edge the
+    drift's soft blue shading on the snow side and a faint shadow on the floor; loose specks of snow on the floor
+    beside it, thinning out; round the pines, rocks and lamps the snow stays. The cobbled lane carries on down to
+    the path, losing whole stones as it goes."""
+    import mirroh_mock as mm_
+    from scipy.ndimage import binary_dilation, binary_erosion, label
+    hm = np.frombuffer(open(os.path.join(mm_.RL.C, 'data/layouts/HollowHill/map.bin'), 'rb').read(), '<u2')
+    floor_px = np.asarray(mm_.RL.TS('LAYOUT_HOLLOW_HILL').metatile(int(hm[12 * 66 + 18]) & 0x3FF), np.uint8)
+    y0, y1 = top, SEAM
+    Hp, Wp = (y1 - y0) * 16, W * 16
+    fl = floor_px.reshape(-1, 3); FLOOR_DARK = tuple(int(v) for v in fl[np.argmin(fl.astype(int).sum(-1))])
+    yy, xx = np.mgrid[0:Hp, 0:Wp].astype(float)
+    def pnoise(scale, seed):                                   # smooth value noise per pixel
+        gx, gy = xx / scale, yy / scale; x0, y0_ = np.floor(gx).astype(int), np.floor(gy).astype(int)
+        tx, ty = gx - x0, gy - y0_; tx, ty = tx * tx * (3 - 2 * tx), ty * ty * (3 - 2 * ty)
+        v = np.vectorize(lambda i, j: rnd(seed, int(i), int(j)))
+        return (v(x0, y0_) * (1 - tx) + v(x0 + 1, y0_) * tx) * (1 - ty) + (v(x0, y0_ + 1) * (1 - tx) + v(x0 + 1, y0_ + 1) * tx) * ty
+    t = yy / Hp
+    f = 1.25 - 1.15 * t + 0.7 * (pnoise(40.0, 'sa') - 0.5) + 0.3 * (pnoise(13.0, 'sb') - 0.5) + 0.06 * (pnoise(4.0, 'sc') - 0.5)
+    bases = {}                                                    # the snow holds round what stands in it
+    for y in range(y0, y1):
         for x in range(W):
-            if M.g[y][x] is None: bad.append(('no ground', x, y))
-            o, g = M.otag[y, x], M.gtag[y, x]
-            if o and o != 'spire' and g in ('wall', 'stairs', 'ice', 'gate', 'gate-in', 'roof'): bad.append((o, 'on', g, x, y))
-            if o == 'tree' and g not in ('snow',): bad.append(('tree on', g, x, y))
-    return bad
+            if M.otag[y, x] and not (y + 1 < y1 and M.otag[y + 1, x] == M.otag[y, x]):
+                bases[(x, y)] = ((y - y0) * 16 + 12, x * 16 + 8)
+    for (cy, cx) in bases.values():
+        f = f + 0.75 * np.exp(-(((yy - cy) / 14.0) ** 2 + ((xx - cx) / 20.0) ** 2))
+    from scipy.ndimage import binary_opening, binary_closing
+    snow = binary_closing(binary_opening(f > 0.5, np.ones((3, 3), bool)), np.ones((3, 3), bool)); snow[:12] = True
+    lab, n = label(snow)                                          # no crumbs of snow or floor
+    for i in range(1, n + 1):
+        if (lab == i).sum() < 30: snow[lab == i] = False
+    lab, n = label(~snow)
+    for i in range(1, n + 1):
+        if (lab == i).sum() < 30: snow[lab == i] = True
+    edge = snow & ~binary_erosion(snow, np.ones((3, 3), bool))
+    shade = snow & ~binary_erosion(snow, np.ones((5, 5), bool)) & ~edge
+    shadow = ~snow & binary_dilation(snow, np.ones((2, 1), bool), origin=(-1, 0) if False else 0) & (np.roll(snow, 1, 0))
+    for y in range(y0, y1):
+        for x in range(W):
+            if M.gtag[y, x] not in ('snow', 'snow-floor', 'floor', 'cobble'): continue
+            sl = (slice((y - y0) * 16, (y - y0) * 16 + 16), slice(x * 16, x * 16 + 16))
+            st = snow_tile(x, y); img = floor_px.copy()
+            sm, eg, sh, sw = snow[sl], edge[sl], shade[sl], shadow[sl]
+            img[sm] = st[sm]
+            img[sh] = (204, 212, 232)                           # (a few fixed colours: the town's palettes are full)
+            img[eg] = (176, 196, 224)
+            img[sw] = FLOOR_DARK
+            # loose specks on the floor near the snow, thinning out
+            for k in range(6):
+                px, py = int(rnd('sp', x, y, k) * 16), int(rnd('sq', x, y, k) * 16)
+                gy_, gx_ = (y - y0) * 16 + py, x * 16 + px
+                if not snow[gy_, gx_] and f[gy_, gx_] > 0.32 and rnd('sr', x, y, k) < 0.8:
+                    img[py, px] = (236, 240, 248)
+            tag = 'snow' if sm.all() else 'floor'
+            if M.gtag[y, x] == 'cobble': M._under = getattr(M, '_under', {}); M._under[(x, y)] = img; continue
+            M.ground(x, y, img, tag)
+    # the lane: on down to the seam, losing whole stones toward the path
+    lane = {(x, y) for y in range(y0, y1) for x in range(W) if M.gtag[y, x] == 'cobble'}
+    for y in range(y0, y1):
+        for x in (29, 30, 31, 32):
+            if not M.otag[y, x] and abs(x - 30.5) <= 1.6: lane.add((x, y))
+    under = getattr(M, '_under', {})
+    for (x, y) in lane:
+        n_, s_, e, w = (x, y - 1) in lane, (x, y + 1) in lane, (x + 1, y) in lane, (x - 1, y) in lane
+        row = 0 if not n_ else 2 if not s_ else 1; col = 0 if not w else 2 if not e else 1
+        cob = ef(((0x200, 0x201, 0x202), (0x208, 0x209, 0x20a), (0x210, 0x211, 0x212))[row][col]).copy()
+        base = under.get((x, y), M.g[y][x])
+        c0 = ef(0x209); lum = c0.astype(int).sum(-1); mortar_l = np.percentile(lum, 22)
+        lc = cob.astype(int).sum(-1); stone = lc > mortar_l
+        # where the lane piece itself shows snow (its edge pieces), keep what lies beneath instead
+        snowy = (cob.astype(int).min(-1) > 200)
+        tt = ((y - y0) * 16 / float(Hp) - 0.45) / 0.55
+        lab, n = label(stone)
+        drop = np.zeros((16, 16), bool)
+        for i in range(1, n + 1):
+            if tt > 0 and rnd('cs', x, y, i) < tt * 0.95: drop |= binary_dilation(lab == i)
+        out = cob.copy(); out[drop | snowy] = base[drop | snowy]
+        M.ground(x, y, out, 'cobble')
 
-def main(outdir):
-    os.makedirs(outdir, exist_ok=True)
-    M = compose(); img = M.render()
-    bad = audit(M); print('audit:', len(bad), bad[:12])
-    Image.fromarray(img).save(os.path.join(outdir, 'mirroh_v3.png'))
-    Image.fromarray(img).resize((W * 32, H * 32), 0).save(os.path.join(outdir, 'mirroh_v3_2x.png'))
-    return M
-
-if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/mirroh')

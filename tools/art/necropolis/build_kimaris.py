@@ -340,7 +340,8 @@ def anim_code():
 def lake_warp():
     """The lake's sealed arch: a warp up to the chamber (the arch's cell stays solid until the Trial opens it)."""
     j = os.path.join(C, 'data/maps/NecropolisLake/map.json'); m = json.load(open(j))
-    m['warp_events'] = [{'x': 21, 'y': 4, 'elevation': 3, 'dest_map': MAPID, 'dest_warp_id': '0'}]
+    arch = {'x': 21, 'y': 4, 'elevation': 3, 'dest_map': MAPID, 'dest_warp_id': '0'}
+    m['warp_events'] = [arch] + [w for w in m['warp_events'] if (w['x'], w['y']) != (21, 4)]
     json.dump(m, open(j, 'w'), indent=2); open(j, 'a').write('\n')
 
 def test_entrance():
