@@ -333,7 +333,7 @@ def fence(M, x0, x1, y, gaps=()):
         M.place([[(gloom(img, 0.2), a)]], x, y, 'fence')
 
 def barrels(M, x, y):
-    M.place(cut('c33', 12, 15, 1, 1), x, y, 'thing', fn=gloom)
+    M.place(cut('c33', 12, 15, 1, 1, ground=(0x8, 0x9)), x, y, 'thing', fn=gloom)
 
 def ice_sheet(M, x0, y0, w, h):
     """Opal Village's reflecting ice in its brick rim (Ghost Grey, coloured), laid as ground: its back wall with the
