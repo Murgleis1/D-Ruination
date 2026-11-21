@@ -169,21 +169,39 @@ def cauldron(ramp):
 
 # the four cauldrons (user 2026-11-21): a square round the circle's centre, each brew and its smoke its own colour;
 # (name, brew, the bowl's centre as an offset from the circle's centre in pixels, animation phase in frames)
-CAULDRONS = [('ul', 'white', (-42, -42), 0), ('ur', 'crimson', (42, -42), 2),
-             ('ll', 'blue', (-42, 42), 4), ('lr', 'green', (42, 42), 6)]
+# (name, brew, which corner (x, y signs), animation phase in frames). Each stands out along its diagonal until the
+# nearest pixel of its bowl, legs or shadow is GAP pixels outside the ring (user 2026-11-21: all four the same
+# distance from the circle; centring the bowls alone left the upper pair's legs 1.4 px from the ring and the
+# lower pair's rims 4.2 px, the cauldron not being the same shape top and bottom).
+CAULDRONS = [('ul', 'white', (-1, -1), 0), ('ur', 'crimson', (1, -1), 2),
+             ('ll', 'blue', (-1, 1), 4), ('lr', 'green', (1, 1), 6)]
+RING_OUT, GAP = 37.5, 6
+# Kimaris stands on the very top of the Wraith skull at the circle's centre (user 2026-11-21): cell (8, 6), his
+# feet on the skull's crown; the player meets him on the skull itself, (8, 7)
+KIMARIS = (8, 6)
 
 def main():
     img, coll = room(); H, W = coll.shape
     under = img.copy()
     walk = {(x, y) for y in range(H) for x in range(W) if coll[y, x] == 0}
     walk |= {(x, y) for x in (7, 8, 9) for y in (12, 13, 14)}            # the stair down
+    walk |= {(7, 7), (8, 7), (9, 7), (7, 6), (9, 6)}                       # the old sigil's block, the skull now
+    walk.discard(KIMARIS)                                                  # (Kimaris stands on its crown)
     pots = []
-    for name, brw, (dx, dy), phase in CAULDRONS:
+    for name, brw, (sx, sy), phase in CAULDRONS:
         frames, legs = cauldron(BREWS[brw])
         body = np.concatenate([frames[0][32:], legs], 0)[..., 3] > 0       # the bowl and legs (rows 32-63)
         ys, xs = np.where(body); bcx, bcy = (xs.min() + xs.max() + 1) / 2, 32 + (ys.min() + ys.max() + 1) / 2
-        px, py = int(round(CENTRE[0] + dx - bcx)), int(round(CENTRE[1] + dy - bcy))   # the 48x64 picture's top left
         yy, xx = np.mgrid[0:16, 0:48]; sh = ((xx - 24) / 22.0) ** 2 + ((yy - 12) / 5.0) ** 2 < 1
+        foot = np.zeros((64, 48), bool); foot[32:] = body; foot[48:] |= sh     # what you see of it on the floor
+        FY, FX = np.where(foot)
+        def gap(tx, ty):
+            px, py = int(CENTRE[0] + sx * tx - bcx + 0.5), int(CENTRE[1] + sy * ty - bcy + 0.5)
+            return px, py, np.hypot(FX + px + 0.5 - CENTRE[0], FY + py + 0.5 - CENTRE[1]).min() - RING_OUT
+        # whole-pixel offsets, the same out sideways as up or down (within a pixel), the gap closest to GAP
+        best = min(((abs(gap(tx, ty)[2] - GAP), abs(tx - ty), tx, ty) for tx in range(30, 70) for ty in range(30, 70)
+                    if abs(tx - ty) <= 1))
+        px, py, near = gap(best[2], best[3]); near += RING_OUT
         sub = under[py + 48:py + 64, px:px + 48]; sub[sh] = (sub[sh] * 0.55).astype(np.uint8)   # a soft shadow
         a = legs[..., 3] > 0; sub[a] = legs[..., :3][a]                    # the legs (static, under the player)
         x0, x1, y0, y1 = px + xs.min(), px + xs.max() + 1, py + 32 + ys.min(), py + 32 + ys.max() + 1
@@ -192,14 +210,16 @@ def main():
                 ox = min(x1, cx * 16 + 16) - max(x0, cx * 16); oy = min(y1, cy * 16 + 16) - max(y0, cy * 16)
                 if ox >= 5 and oy >= 5: walk.discard((cx, cy))
         pots.append(dict(name=name, brew=brw, frames=frames, px=px, py=py, phase=phase))
-        print(name, brw, 'picture at', (px, py), 'bowl centre', (px + bcx, py + bcy))
+        print(name, brw, 'picture at', (px, py), 'bowl centre', (px + bcx, py + bcy), 'gap %.1f' % (near - RING_OUT))
     stairs = (8, 13); seen = {stairs}; q = [stairs]                       # Kimaris must still be reachable
     while q:
         x, y = q.pop()
         for d in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             n = (x + d[0], y + d[1])
             if n in walk and n not in seen: seen.add(n); q.append(n)
-    assert (8, 9) in seen, 'the way from the stair to Kimaris is blocked'
+    assert (KIMARIS[0], KIMARIS[1] + 1) in seen, 'the way from the stair to Kimaris is blocked'
+    assert (8, 3) in seen, 'the way to the barred door behind Kimaris is blocked'
+    cut = sorted(walk - seen); assert not cut, 'floor cut off by the cauldrons: %s' % cut
     beh = lambda x, y: MB_SOUTH_ARROW_WARP if (x, y) == STAIR else MB_NORMAL
     r = IT.build(under, W, H, walk=walk, beh=beh, tries=400)
     # their top layers (brew, rim and smoke): tiles of their own so each frame can be copied over them; two
@@ -250,7 +270,7 @@ def main():
     if os.path.isdir(old):
         import shutil; shutil.rmtree(old)
     json.dump([{k: p[k] for k in ('name', 'first', 'n', 'phase')} for p in pots], open(os.path.join(ad, 'cauldrons.json'), 'w'), indent=1)
-    objs = [{'graphics_id': 'OBJ_EVENT_GFX_KIMARIS', 'x': 8, 'y': 8, 'elevation': 3,
+    objs = [{'graphics_id': 'OBJ_EVENT_GFX_KIMARIS', 'x': KIMARIS[0], 'y': KIMARIS[1], 'elevation': 3,
              'movement_type': 'MOVEMENT_TYPE_FACE_DOWN', 'movement_range_x': 0, 'movement_range_y': 0,
              'trainer_type': 'TRAINER_TYPE_NONE', 'trainer_sight_or_berry_tree_id': '0',
              'script': 'KimarisChamber_EventScript_Kimaris', 'flag': '0'}]
@@ -266,7 +286,7 @@ def main():
     open(os.path.join(d, 'scripts.pory'), 'w').write(
         'mapscripts KimarisChamber_MapScripts {}\n\n'
         'script KimarisChamber_EventScript_Kimaris {\n    lock\n    faceplayer\n'
-        '    msgbox("(Kimaris Langerin waits on the sigil.\\nThe Trial is not written yet.)")\n    release\n}\n')
+        '    msgbox("(Kimaris Langerin waits atop the skull.\\nThe Trial is not written yet.)")\n    release\n}\n')
     anim_code()
     lake_warp()
     test_entrance()

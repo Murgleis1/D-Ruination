@@ -1466,13 +1466,13 @@ static void TilesetAnim_KimarisChamber(u16 timer)
     if (timer % 8 == 0)
     {
         AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_UL[(timer / 8 + 0) % 9],
-                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(296)), 18 * TILE_SIZE_4BPP);
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(293)), 17 * TILE_SIZE_4BPP);
         AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_UR[(timer / 8 + 2) % 9],
-                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(314)), 17 * TILE_SIZE_4BPP);
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(310)), 18 * TILE_SIZE_4BPP);
         AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_LL[(timer / 8 + 4) % 9],
-                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(331)), 23 * TILE_SIZE_4BPP);
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(328)), 22 * TILE_SIZE_4BPP);
         AppendTilesetAnimToBuffer(sTilesetAnims_KimarisChamber_LR[(timer / 8 + 6) % 9],
-                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(354)), 20 * TILE_SIZE_4BPP);
+                                  (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(350)), 20 * TILE_SIZE_4BPP);
     }
 }
 

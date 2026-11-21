@@ -16,4 +16,4 @@ KimarisChamber_EventScript_Kimaris::
 
 KimarisChamber_EventScript_Kimaris_Text_0:
 # 6 "data/maps/KimarisChamber/scripts.pory"
-	.string "(Kimaris Langerin waits on the sigil.\nThe Trial is not written yet.)$"
+	.string "(Kimaris Langerin waits atop the skull.\nThe Trial is not written yet.)$"

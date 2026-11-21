@@ -3,6 +3,6 @@ mapscripts KimarisChamber_MapScripts {}
 script KimarisChamber_EventScript_Kimaris {
     lock
     faceplayer
-    msgbox("(Kimaris Langerin waits on the sigil.\nThe Trial is not written yet.)")
+    msgbox("(Kimaris Langerin waits atop the skull.\nThe Trial is not written yet.)")
     release
 }

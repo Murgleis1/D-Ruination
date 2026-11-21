@@ -208,7 +208,7 @@ Chapter 1 is the template: once its foundations (mechanics, maps, buildings, NPC
     - **The room:** a violet-stone hall; a gold-ringed dark summoning circle with a skull sigil in its middle (Kimaris's place); skull niches and gold skull banners on the back wall, either side of a barred door; a cyan spectral window; candelabra, barrels, an urn, bookcases, a desk with an open tome. The way in is the stair at its foot, so the player climbs up into it from the lake's sealed arch.
     - **Port budget:** self-contained, needing nothing from Fantasma's primary. It is 100 metatiles, 201 tiles and 7 palettes (Fantasma's slots 6-12), so it fits as its own secondary tileset under ours.
     - Needs the Fantasma team's permission and credit, like the rest.
-    - **Four boiling cauldrons (user 2026-11-21):** they stand on the corners of a square round the circle's centre (bowl centres 42 px out each way; lower ones clear of the stair), each brew and its smoke its own colour:
+    - **Four boiling cauldrons (user 2026-11-21):** they stand on the corners of a square round the circle's centre. Each stands out along its diagonal (the same distance sideways as up or down) until the nearest edge of its bowl, legs or shadow is **6 px outside the ring, all four alike** (user 2026-11-21: centring the bowls alone left the upper pair 1.4 px from the ring and the lower pair 4.2 px). As built, the upper pair are 5.8 px out and the lower pair 6.3 px, the closest whole pixels. The floor stays connected: the stair, Kimaris and the barred door can all be reached, which the build checks, each brew and its smoke its own colour:
       - upper left: white/grey;
       - upper right: bloody crimson;
       - lower left: dark blue;
@@ -217,7 +217,7 @@ Chapter 1 is the template: once its foundations (mechanics, maps, buildings, NPC
     - **House Langerin's copper (user 2026-11-21):** the two banners and the summoning circle's ring are copper. At the circle's centre is **the Wraith badge's symbol** (the Trial 1 stamp on the Trainer Card), inlaid in copper in place of Fantasma's old sigil.
     - **Built and walked (2026-11-21):** `MAP_KIMARIS_CHAMBER` (17x15), built by `tools/art/necropolis/build_kimaris.py`.
       - Tileset: its own pair, 11 palettes, 374 tiles, 151 metatiles. The cauldrons' tiles (78) are played by `InitTilesetAnim_KimarisChamber` in `src/tileset_anims.c`, a frame every 8 frames as in MonoMyth (`assets/necropolis_reference/kimaris_chamber_cauldrons.gif`).
-      - Kimaris stands on the sigil (8, 8), facing the stair (placeholder line, no battle yet).
+      - Kimaris stands on the very top of the Wraith skull, (8, 6) (user 2026-11-21), facing the stair. The player meets him on the skull's lower half, (8, 7). The old sigil's solid block is floor again. Placeholder line, no battle yet.
       - The stair foot (8, 14) is a south arrow warp down to the lake's arch (21, 4). The lake's arch warps up here; it stays solid until the Trial script opens it.
       - The barred door behind Kimaris has no warp yet (the secret way down, late game).
       - Walked in the emulator: arriving, up to Kimaris, round the cauldron, talking to him, and down the stair to the lake (`assets/necropolis_reference/ingame_kimaris_chamber.png`, `ingame_kimaris_cauldron.gif`).
