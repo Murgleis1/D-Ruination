@@ -125,6 +125,69 @@ def main_v2(out):
     d.rectangle([lx, ly + 260, lx + 14, ly + 274], fill=(200, 200, 205)); d.text((lx + 22, ly + 260), 'stone stairs', fill=(230, 230, 230), font=f)
     im.save(out)
 
+def main_v3(out):
+    """v3 (user 2026-11-22: a tad longer before it splits): v2 with 20 rows more below the fork (40x124): a rocky defile
+    with rock arches and a frozen stream under a log bridge, between terraces II and the high meadow."""
+    W, H = 40, 124; Y = lambda y: y + 20 if y >= 44 else y
+    im = Image.new('RGB', (W * S + 20 + 330, H * S + 40), (30, 30, 36)); d = ImageDraw.Draw(im)
+    try: f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 11)
+    except Exception: f = ImageFont.load_default()
+    d.text((10, 8), 'ROUTE 13 v3 (40x124): v2 + a rocky defile and frozen stream below the fork', fill=(230, 230, 230), font=f)
+    box(d, 0, 0, W - 1, H - 1, C['snow3']); box(d, 0, 40, W - 1, H - 1, C['snow2']); box(d, 0, 96, W - 1, H - 1, C['snow'])
+    def terr(y0, n, x0, x1, gap, step=1):                            # (contour walls stepping up, a stair through)
+        for k in range(n):
+            y = y0 - k * 2 * step
+            for x in range(x0, x1 + 1):
+                if not (gap[0] <= x <= gap[1]): box(d, x, y, x, y, C['cliff'])
+            box(d, gap[0], y, gap[1], y, (200, 200, 205))
+    # foot + the first forest
+    box(d, 0, 121, W - 1, H - 1, C['wall']); box(d, 19, 122, 20, 123, (20, 20, 26))
+    box(d, 0, 98, 13, 120, C['pine']); box(d, 27, 96, W - 1, 120, C['pine']); box(d, 14, 112, 17, 117, C['pine'])
+    box(d, 16, 104, 23, 110, C['snow']); box(d, 18, 105, 22, 109, C['grass']); label(d, 15.5, 102.6, 'forest clearing', f, (250, 250, 250))
+    box(d, 4, 106, 8, 109, C['snow']); label(d, 3.2, 105, 'glade', f, (250, 250, 250))
+    # first terraces
+    terr(95, 4, 0, W - 1, (18, 20)); label(d, 22, 89.2, 'terraces I: 4 tiers, stone stair', f, (260, 260, 260))
+    box(d, 2, 86, 8, 89, C['grass']); box(d, 30, 84, 35, 88, C['grass'])
+    # the high meadow and the tarn
+    ell(d, 5, 72, 16, 80, C['ice']); label(d, 7.5, 75.5, 'frozen tarn', f)
+    box(d, 24, 70, 30, 75, C['grass']); box(d, 20, 78, 22, 79, C['rock']); box(d, 31, 78, 33, 79, C['rock'])
+    label(d, 22, 80.3, 'high meadow: boulders, rock arches,', f); label(d, 22, 81.3, 'frozen puddles', f)
+    box(d, 0, 64, 3, 83, C['pine']); box(d, 35, 64, W - 1, 83, C['pine'])
+    # NEW: the rocky defile (rows 44-63): the pass narrows between rock outcrops and arches; a frozen stream runs
+    # across it under a log bridge; grass pockets and boulders in its corners
+    box(d, 0, 44, 9, 63, C['cliff']); box(d, 30, 44, W - 1, 63, C['cliff'])
+    box(d, 10, 46, 12, 50, C['rock']); box(d, 27, 52, 29, 57, C['rock']); box(d, 10, 57, 13, 61, C['rock'])
+    for (x, y) in ((14, 45), (24, 47), (16, 59), (23, 61)): box(d, x, y, x + 1, y + 1, C['rock'])
+    box(d, 0, 53, W - 1, 54, C['ice']); box(d, 18, 53, 21, 54, C['sign'])
+    label(d, 22.3, 52.0, 'frozen stream, log bridge', f, (240, 240, 240))
+    box(d, 13, 47, 17, 50, C['grass']); box(d, 22, 57, 26, 61, C['grass'])
+    label(d, 10.3, 44.2, 'the defile: rock arches, boulders', f, (240, 240, 240))
+    # second terraces (switchback stairs)
+    terr(43, 3, 0, 23, (6, 8)); terr(43, 3, 24, W - 1, (30, 32), step=1)
+    label(d, 9.5, 37.3, 'terraces II: switchback stairs', f, (240, 240, 240))
+    # the fork plateau
+    ell(d, 12, 26, 28, 34, C['snow']); box(d, 19, 28, 19, 29, C['shrine']); box(d, 22, 31, 22, 31, C['sign'])
+    label(d, 26.5, 26.4, 'THE FORK: waystone + sign', f, (240, 240, 240))
+    # branches
+    path(d, [(21, 30), (27, 25), (30, 18), (32, 10), (33, 3), (33, 0)], C['cobble'], 2)
+    box(d, 27, 12, 36, 20, C['pine']); box(d, 36, 0, W - 1, 30, C['pine']); box(d, 28, 4, 31, 8, C['grass'])
+    label(d, 24, 21.5, 'pilgrim road through', f, (240, 240, 240)); label(d, 24, 22.5, 'a pinewood to HQ', f, (240, 240, 240))
+    path(d, [(18, 30), (13, 26), (10, 20), (8, 12), (8, 0)], C['trail'], 2)
+    terr(22, 6, 0, 12, (7, 9)); box(d, 0, 0, 2, 30, C['pine'])
+    label(d, 0.5, 4, 'steep terraces,', f, (240, 240, 240)); label(d, 0.5, 5, 'stairs: Mt. Mirroh', f, (240, 240, 240))
+    pts = [(14, 0), (27, 0), (24, 10), (20, 22)]
+    d.polygon([(10 + x * S, 30 + y * S) for x, y in pts], fill=C['pine']); label(d, 16, 6, 'the spur', f, (230, 230, 230))
+    box(d, 7, 0, 10, 0, C['exitc']); box(d, 32, 0, 35, 0, C['exitc'])
+    lx = W * S + 30; ly = 40
+    for i, (k, t) in enumerate((('snow', 'light snow (low)'), ('snow2', 'snow'), ('snow3', 'deep snow (high)'), ('pine', 'pine forest (solid)'),
+                                ('cliff', 'terrace rock walls (tiers)'), ('rock', 'boulders / rock arches'),
+                                ('grass', "tall grass (MonoMyth's ice grass)"), ('ice', 'frozen tarn'), ('trail', 'rough trail'),
+                                ('cobble', 'Templar pilgrim road'), ('shrine', 'Templar waystone'), ('exitc', 'exit (closed for now)'))):
+        d.rectangle([lx, ly + i * 20, lx + 14, ly + i * 20 + 14], fill=C[k]); d.text((lx + 22, ly + i * 20), t, fill=(230, 230, 230), font=f)
+    d.rectangle([lx, ly + 260, lx + 14, ly + 274], fill=(200, 200, 205)); d.text((lx + 22, ly + 260), 'stone stairs', fill=(230, 230, 230), font=f)
+    im.save(out)
+
 if __name__ == '__main__':
     if sys.argv[1:2] == ['v2']: main_v2(sys.argv[2])
+    elif sys.argv[1:2] == ['v3']: main_v3(sys.argv[2])
     else: main(sys.argv[1] if len(sys.argv) > 1 else '/tmp/route13_sketch.png')
