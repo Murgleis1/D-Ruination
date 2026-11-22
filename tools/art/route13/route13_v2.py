@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ART = os.path.join(HERE, '..'
 REPO = os.path.abspath(os.path.join(ART, '..', '..')); C = os.path.join(REPO, 'codebase')
 for p in (os.path.join(ART, 'mirroh'), ART, HERE, os.path.join(REPO, 'tools', 'monomyth')): sys.path.insert(0, p)
 import mirroh_mock as mm
-W, H = 40, 124
+W, H = 40, 129                 # (124 rows of route, then 5 of Mirroh behind its wall: scenery)
 mm.W, mm.H = W, H
 import mirroh_v3 as v3
 from mirroh_v3 import rnd, vnoise, _seg_dist, thick, snow_on, cobbles
@@ -129,6 +129,13 @@ def compose():
         if x in (19, 20): continue
         K.put(x, 122, uc(22 + x % 2, 0), 'wall', True); K.put(x, 123, uc(22 + x % 2, 1), 'wall', True)
     for x in (19, 20): K.put(x, 123, uc(x - 6, 9), 'passage', False)          # (the gatehouse's dark doorway)
+    # behind the wall (user-facing: the camera shows what lies south of it): the north-west gatehouse's copper roof and
+    # towers right below the passage, Upper Mirroh's wall-walk and snow either side (the built Upper Mirroh's rows 1-5,
+    # its gatehouse doorway x 13-14 under the passage x 19-20); scenery only, never walked
+    for y in range(124, H):
+        for x in range(W):
+            ux = x - 6
+            K.put(x, y, uc(ux if ux >= 0 else ux % 3, y - 123), 'behind', True)
 
     # --- the lifted climbs
     paste_r22(K, 57, 74, TERR1[0])                    # stair (its 72-74), ice-grass meadow, stair (57-60)

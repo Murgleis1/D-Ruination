@@ -181,7 +181,8 @@
     "MirrohSnowyHouse",
     "MirrohCottage",
     "MirrohTownhouse",
-    "MirrohSpecialtyShop"
+    "MirrohSpecialtyShop",
+    "Route13"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

@@ -206,7 +206,7 @@ def build_halls():
     MB.write(r, 'MirrohSouthGatehouse', 'LAYOUT_MIRROH_GATEHOUSE', ('mirroh_gatehouse_tiles', 'MirrohGatehouseTiles'),
              ('mirroh_gatehouse', 'MirrohGatehouse'), border=[void] * 4, mapj=
              hall('MAP_MIRROH_SOUTH_GATEHOUSE', 'MirrohSouthGatehouse', ('MAP_MIRROH_GATE', 0), ('MAP_MIRROH_LOWER', 0), True))
-    j = hall('MAP_MIRROH_NW_GATEHOUSE', 'MirrohNWGatehouse', ('MAP_MIRROH_UPPER', 0), None, False)
+    j = hall('MAP_MIRROH_NW_GATEHOUSE', 'MirrohNWGatehouse', ('MAP_MIRROH_UPPER', 0), ('MAP_ROUTE13', 0), True)   # (its top doorway: up to Route 13, user 2026-11-22)
     md = os.path.join(C, 'data/maps/MirrohNWGatehouse'); os.makedirs(md, exist_ok=True)
     json.dump(j, open(os.path.join(md, 'map.json'), 'w'), indent=2); open(os.path.join(md, 'map.json'), 'a').write('\n')
     import imgtiles as IT

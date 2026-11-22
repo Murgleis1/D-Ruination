@@ -71,7 +71,8 @@ Remaining (proposed order; re-reviewed with the user 2026-11-22). The way to the
 Mirroh's north-west gatehouse (region map, column 4): Mirroh -> **Route 13** -> **Templar Headquarters ("Templar
 Citadel")** -> **Mt. Mirroh** -> **Mirroh Peak**. Routes 14 (Mt. Mirroh east to Pierra's Manor) and 15 (Templar HQ east
 to the Ivy River) are later chapters.
-1. Route 13: from the north-west gatehouse (its hallway's "road closed" turn-back opens onto it) up to Templar HQ.
+1. ~~Route 13~~: built and walked 2026-11-22 (40x129; forks to Templar HQ and Mt. Mirroh; stage 2: two trainers on the
+   switchback ascent).
 2. Templar Headquarters: Crown's gothic cathedral on its moat island with timber chalets, alpine snow, perhaps an
    outer wall (bible 16.10 art plan). In Chapter 1 the way to the mountain passes it; Loulan recurs there.
 3. Mt. Mirroh (the climb: Beat 8a, the tortured Beads cultist) and Mirroh Peak (Beats 8b-8c: Baradus, Eden,
