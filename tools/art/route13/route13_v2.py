@@ -177,39 +177,59 @@ def compose():
     # cobbles carry on to their HQ, the wilds of Mt. Mirroh are an unpaved trail breaking off them)
     road_ne = lane(((19.5, 33.4), (19.8, 31), (21.5, 29), (24, 27), (27.5, 23), (30, 17), (31.5, 11), (32.5, 5), (33, -1)), 1.25, 'ne', 0.3)
     trail = lane(((18.5, 30.5), (15, 27), (11, 22), (9, 16), (8.5, 8), (8.5, -1)), 1.0, 'nw', 0.3)
-    spur = {(x, y) for y in range(0, 26) for x in range(W) if 13 + y * 0.28 <= x <= 27 - y * 0.30 and (x, y) not in plateau}
+    spur = {(x, y) for y in range(0, 26) for x in range(W) if max(14, 13 + y * 0.28) <= x <= 27 - y * 0.30 and (x, y) not in plateau}
     upper = {(x, y) for y in range(0, FORK[1] + 1) for x in range(W)}
-    openu = plateau | road_ne | trail | blob(31, 6, 2.5, 2.0, 'g6') | blob(6, 18, 2.0, 2.5, 'g5') \
-        | {(x, y) for y in range(0, 24) for x in range(4, 13) if y % 4 != 1}                 # (the steep terraces' ledges)
-    openu = {c for c in openu if c not in spur} | {c for c in road_ne | trail}
-    forest(K, upper - openu - {(x, y) for y in range(0, 24) for x in range(4, 13)}, 'uf')
-    # steep terraces up to Mt. Mirroh: a rock wall every fourth row, each running unbroken from the trees on the left
-    # to the trees on the right (user 2026-11-22: stubs and gaps by the stairs looked wrong; no way round either),
-    # the stone stair (x 8-9) its only way through
-    for y in range(1, 24, 4):
-        x0 = 4
-        while x0 > 0 and not K.solid[y, x0 - 1]: x0 -= 1
-        x1 = 12
-        while x1 < W - 1 and not K.solid[y, x1 + 1]: x1 += 1
-        for x in range(x0, x1 + 1):
-            if x in (8, 9): continue
-            K.put(x, y, ef(0x105 if x == x0 else 0x107 if x == x1 else 0x106), 'cliff', True)
-        K.ids(8, y, [[0x47, 0xe1]], 'stairs', solid=False, beh=0x4F)
+    ZONE = {(x, y) for y in range(0, 24) for x in range(3, 14)}                 # (the switchback terraces)
+    openu = plateau | road_ne | blob(31, 6, 2.5, 2.0, 'g6') \
+        | ZONE
+    openu = ({c for c in openu if c not in spur} | road_ne | {c for c in trail if c[1] >= 24}) - {c for c in trail if c[1] < 24 and c not in ZONE}
+    forest(K, upper - openu - ZONE, 'uf')
+    # the switchback climb to Mt. Mirroh (user 2026-11-22: the stairs should curve into one another, level by level,
+    # so it feels like an ascent): six contour walls that jog a row up or down as MonoMyth's do (a climbing jog: the
+    # lower run ends 0x107 and the upper starts 0x10d in the same column; a falling jog: 0x10e then 0x105), each
+    # running unbroken across the zone (x 3-13) between the trees; their stairs alternate right, left, right, left,
+    # right, then the top: you climb, walk the ledge to its far end, climb again
+    WALLS = [  # (runs: (x0, x1, row)), the stair's x
+        ([(3, 7, 21), (7, 13, 20)], 11), ([(3, 9, 17), (9, 13, 16)], 4), ([(3, 6, 12), (6, 13, 13)], 11),
+        ([(3, 8, 9), (8, 13, 8)], 4), ([(3, 5, 4), (5, 13, 5)], 10), ([(3, 6, 2), (6, 13, 1)], 8)]
+    landings = []
+    for runs, sx in WALLS:
+        for i, (x0, x1, y) in enumerate(runs):
+            for x in range(x0, x1 + 1):
+                m = 0x106
+                if i == 0 and x == x1 and len(runs) > 1:
+                    m = 0x107 if runs[1][2] < y else 0x10e                       # (this run ends where the next begins)
+                if i == 1 and x == x0:
+                    m = 0x10d if y < runs[0][2] else 0x105
+                K.put(x, y, ef(m), 'cliff', True)
+        (sy,) = [y for (x0, x1, y) in runs if x0 < sx and sx + 1 < x1 + (1 if x1 == 13 else 0) and x0 <= sx <= x1 - 1] or [runs[-1][2]]
+        K.ids(sx, sy, [[0x47, 0xe1]], 'stairs', solid=False, beh=0x4F); landings.append((sx, sy))
+    # ledge life: a trodden landing above each stair, grass, a boulder, rocks and small pines against the walls
+    land = set()
+    for (sx, sy) in landings:
+        for yy in (sy - 2, sy - 1):
+            for xx in (sx, sx + 1):
+                if 0 <= yy and K.tag[yy, xx] == 'snow': land.add((xx, yy))
+    r1.icy_track(K, {c for c in land if (c[0], c[1] + 1) in land or (c[0], c[1] - 1) in land})
+    grass(K, {(x, y) for y in (18, 19) for x in range(5, 9)}); grass(K, {(x, y) for y in (10, 11) for x in range(8, 12)})
+    boulder(K, 6, 14); boulder(K, 10, 2)
+    for (x, y) in ((12, 22), (3, 6), (13, 11), (3, 15)): pine(K, x, y, False)
+    for (x, y) in ((9, 6), (5, 22), (12, 17)): rock(K, x, y)
     cob = thick({c for c in road_lo | road_ne if K.tag[c[1], c[0]] in ('snow',)})
     cobbles(K, cob)
     for (x, y) in cob: K.solid[y, x] = False; K.beh[y, x] = MB_NORMAL
     wi, wm = r1.waystone(); K.overlay(wi, wm, 18 * 16, 26 * 16, 'waystone')
     sgn = mm.cut('c31', 23, 20, 1, 1)[0][0]
     if sgn: K.overlay(sgn[0], sgn[1], 23 * 16, 30 * 16, 'sign')
-    grass(K, blob(31, 6, 2.5, 2.0, 'g6') - road_ne); grass(K, blob(6, 18, 2.0, 2.5, 'g5') - trail)
+    grass(K, blob(31, 6, 2.5, 2.0, 'g6') - road_ne)
     # the wild trail's look (user 2026-11-22: show the difference at the fork): Elderflower's trodden icy track in
     # staggered patches from the plateau up to the first stone stair, a few rocks along its edges
     seg = set()
-    for (x, y0, y1) in ((16, 27, 30), (13, 24, 26), (8, 18, 20), (8, 14, 16), (8, 10, 12)):   # (between the walls, in line with the stairs)
+    for (x, y0, y1) in ((16, 27, 30), (13, 24, 26)):                     # (on the plateau, toward the first stair)
         seg |= {(xx, y) for y in range(y0, y1 + 1) for xx in (x, x + 1)}
     seg = {c for c in seg if K.tag[c[1], c[0]] == 'snow'}
     r1.icy_track(K, seg)
-    for (x, y) in ((15, 25), (18, 29), (11, 25), (11, 19)): rock(K, x, y)
+    for (x, y) in ((15, 25), (18, 29), (11, 25)): rock(K, x, y)
     return K, notes
 
 def reach(K, start):
