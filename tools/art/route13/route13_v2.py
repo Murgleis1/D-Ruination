@@ -173,8 +173,10 @@ def compose():
 
     # --- the fork: a snowy plateau above the central stair (R22's x 18-19 -> 19-20 here); waystone and signpost
     plateau = blob(20, 28.5, 7.5, 4.2, 'plat', 0.2)
-    road_ne = lane(((21, 30), (24, 27), (27.5, 23), (30, 17), (31.5, 11), (32.5, 5), (33, -1)), 1.25, 'ne', 0.4)
-    trail = lane(((19, 30), (15, 27), (11, 22), (9, 16), (8.5, 8), (8.5, -1)), 1.0, 'nw', 0.3)
+    # (user 2026-11-22: the paved road starts at the top of the stairs, so the fork shows the difference: the Templars'
+    # cobbles carry on to their HQ, the wilds of Mt. Mirroh are an unpaved trail breaking off them)
+    road_ne = lane(((19.5, 33.4), (19.8, 31), (21.5, 29), (24, 27), (27.5, 23), (30, 17), (31.5, 11), (32.5, 5), (33, -1)), 1.25, 'ne', 0.3)
+    trail = lane(((18.5, 30.5), (15, 27), (11, 22), (9, 16), (8.5, 8), (8.5, -1)), 1.0, 'nw', 0.3)
     spur = {(x, y) for y in range(0, 26) for x in range(W) if 13 + y * 0.28 <= x <= 27 - y * 0.30 and (x, y) not in plateau}
     upper = {(x, y) for y in range(0, FORK[1] + 1) for x in range(W)}
     openu = plateau | road_ne | trail | blob(31, 6, 2.5, 2.0, 'g6') | blob(6, 18, 2.0, 2.5, 'g5') \
@@ -194,6 +196,14 @@ def compose():
     sgn = mm.cut('c31', 23, 20, 1, 1)[0][0]
     if sgn: K.overlay(sgn[0], sgn[1], 23 * 16, 30 * 16, 'sign')
     grass(K, blob(31, 6, 2.5, 2.0, 'g6') - road_ne); grass(K, blob(6, 18, 2.0, 2.5, 'g5') - trail)
+    # the wild trail's look (user 2026-11-22: show the difference at the fork): Elderflower's trodden icy track in
+    # staggered patches from the plateau up to the first stone stair, a few rocks along its edges
+    seg = set()
+    for (x, y0, y1) in ((16, 27, 30), (13, 24, 26), (10, 19, 22), (8, 16, 18)):
+        seg |= {(xx, y) for y in range(y0, y1 + 1) for xx in (x, x + 1)}
+    seg = {c for c in seg if K.tag[c[1], c[0]] == 'snow'}
+    r1.icy_track(K, seg)
+    for (x, y) in ((15, 25), (18, 29), (12, 21), (11, 25)): rock(K, x, y)
     return K, notes
 
 def reach(K, start):
