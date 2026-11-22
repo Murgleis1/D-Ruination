@@ -183,12 +183,18 @@ def compose():
         | {(x, y) for y in range(0, 24) for x in range(4, 13) if y % 4 != 1}                 # (the steep terraces' ledges)
     openu = {c for c in openu if c not in spur} | {c for c in road_ne | trail}
     forest(K, upper - openu - {(x, y) for y in range(0, 24) for x in range(4, 13)}, 'uf')
-    # steep terraces up to Mt. Mirroh: rock walls every fourth row, a stone stair through each
+    # steep terraces up to Mt. Mirroh: a rock wall every fourth row, each running unbroken from the trees on the left
+    # to the trees on the right (user 2026-11-22: stubs and gaps by the stairs looked wrong; no way round either),
+    # the stone stair (x 8-9) its only way through
     for y in range(1, 24, 4):
-        for x in range(4, 13):
-            if (x, y) in trail or x in (8, 9):
-                K.ids(8, y, [[0x47, 0xe1]], 'stairs', solid=False, beh=0x4F)
-            else: K.put(x, y, ef(0x105 if x == 4 else 0x107 if x == 12 else 0x106), 'cliff', True)
+        x0 = 4
+        while x0 > 0 and not K.solid[y, x0 - 1]: x0 -= 1
+        x1 = 12
+        while x1 < W - 1 and not K.solid[y, x1 + 1]: x1 += 1
+        for x in range(x0, x1 + 1):
+            if x in (8, 9): continue
+            K.put(x, y, ef(0x105 if x == x0 else 0x107 if x == x1 else 0x106), 'cliff', True)
+        K.ids(8, y, [[0x47, 0xe1]], 'stairs', solid=False, beh=0x4F)
     cob = thick({c for c in road_lo | road_ne if K.tag[c[1], c[0]] in ('snow',)})
     cobbles(K, cob)
     for (x, y) in cob: K.solid[y, x] = False; K.beh[y, x] = MB_NORMAL
@@ -199,11 +205,11 @@ def compose():
     # the wild trail's look (user 2026-11-22: show the difference at the fork): Elderflower's trodden icy track in
     # staggered patches from the plateau up to the first stone stair, a few rocks along its edges
     seg = set()
-    for (x, y0, y1) in ((16, 27, 30), (13, 24, 26), (10, 19, 22), (8, 16, 18)):
+    for (x, y0, y1) in ((16, 27, 30), (13, 24, 26), (8, 18, 20), (8, 14, 16), (8, 10, 12)):   # (between the walls, in line with the stairs)
         seg |= {(xx, y) for y in range(y0, y1 + 1) for xx in (x, x + 1)}
     seg = {c for c in seg if K.tag[c[1], c[0]] == 'snow'}
     r1.icy_track(K, seg)
-    for (x, y) in ((15, 25), (18, 29), (12, 21), (11, 25)): rock(K, x, y)
+    for (x, y) in ((15, 25), (18, 29), (11, 25), (11, 19)): rock(K, x, y)
     return K, notes
 
 def reach(K, start):
