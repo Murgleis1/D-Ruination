@@ -148,7 +148,7 @@ def build_upper(M):
     y0, y1 = 0, 39
     bot, mid = layers(M, y0, y1)
     walk = walkable(M, y0, y1, range(0, 34))
-    nw = {(13, 10), (14, 10)}                 # (the gate's last row, as the south one's)
+    nw = {(13, 9), (14, 9)}                   # (the doorway's last row, as the south one's: the ground under it paved)
     necro = {(43, 9), (44, 9), (45, 9)}; walk |= nw | necro
     down = {(x, 33) for x in (14, 15, 16, 43, 44, 45)}
     beh = lambda x, y: MB_DOOR if (x, y) in nw | necro else MB_SOUTH_ARROW_WARP if (x, y) in down else MB_NORMAL

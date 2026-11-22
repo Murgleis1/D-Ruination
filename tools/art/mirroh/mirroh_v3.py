@@ -634,7 +634,7 @@ def compose():
     WAYS = {2: [((15, 32), (15, 27), (12, 30)), ((44, 32), (44, 28), (46, 27)), ((15, 27), (22, 22), (37, 20)),
                 ((44, 28), (40, 22), (37, 20)), ((15, 27), (15, 12)), ((22, 22), (20, 32))],
             3: [((37, 14), (31, 13)), ((37, 14), (40, 11), (44, 10))]}
-    KEEP = {2: [(12, 12), (17, 25), (13, 11), (19, 11), (49, 11)],            # pines, lamps: stand in snow
+    KEEP = {2: [(9, 13), (17, 25), (11, 11), (17, 11), (49, 11)],            # pines, lamps: stand in snow
             3: [(36, 2), (38, 4), (36, 6), (38, 8), (36, 10), (40, 12), (43, 13), (47, 12), (48, 10), (38, 11),
                 (45, 12)]}
     for l, base in ((2, 0.2), (3, 0.42)):
@@ -687,6 +687,10 @@ def compose():
     stair(M, 37, 15)                                                 # square -> sacred terrace
     gatehouse(M, 24, 50, style='cathedral', far_mat=True, tone=lambda i: copper_tone(i))   # south, from Hollow Hill
     gatehouse(M, 7, 4, style='cathedral')                            # north-west, to the mountain
+    # (user 2026-11-21: its door looked raised, its base course running on under the portcullis.) As at the south
+    # gatehouse, the ground runs in under the opening: the square's paving over the base course there (x 12-15),
+    # the door itself the doorway's last row (13-14, 9)
+    for x in range(12, 16): M.ground(x, 10, ef(0x275), 'pave')
     necro_gate(M, 39, 0)                                             # north-east, to the Necropolis
 
     # --- L3: the chapel, its graveyard loose among small pines on the snow, the way to the Necropolis gate
@@ -698,7 +702,7 @@ def compose():
     mm.tavern(M, 9, 22)
     langerin(M, 43, 21); mm.gargoyle(M, 41, 24); mm.gargoyle(M, 50, 24)
     for x, y in ((24, 30), (36, 30)): bench(M, x, y)
-    for x, y in ((12, 12), (17, 25)): mm.pine(M, x, y, False)
+    for x, y in ((9, 13), (17, 25)): mm.pine(M, x, y, False)
     # --- L1: cottages west, the market east (Crown's shop and a townhouse), barrels, a bench
     # (all four under the terrace, their doors on row 43 opening onto the street; user 2026-11-21)
     mm.c33_house(M, 'long', 27, 38)                                  # top centre, on the gate's axis
@@ -726,7 +730,7 @@ def compose():
     # --- lamps: at every stair's foot, the gates, the Tavern's and Langerin's doors, along the street
     stone_pass(M)
     for x, y in ((13, 37), (17, 37), (42, 37), (46, 37), (35, 12), (39, 12), (25, 42), (35, 42), (27, 57), (34, 57),
-                 (13, 11), (19, 11), (49, 11), (19, 28), (47, 27), (12, 42), (46, 42)):
+                 (11, 11), (17, 11), (49, 11), (19, 28), (47, 27), (12, 42), (46, 42)):
         if M.free(x, y, 1, 2, ground=('snow', 'pave', 'cobble')): mm.lamp(M, x, y)
         else: print('no room for a lamp at', x, y)
     seam_fade(M)
