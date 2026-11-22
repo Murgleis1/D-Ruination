@@ -196,8 +196,8 @@ def room_cottage():
 
 def room_snowy():
     img, solid = SOURCES['snowy'](); img = exact_map(img, WOOD)
-    floor_from(img, solid, [(x, y) for x in (1, 2) for y in (7, 8)], lambda x, y: (x + 2, y))   # (the low table out)
-    bed(img, solid, 20, 7)                                           # (the bed in its corner, clear of the lamp)
+    bed(img, solid, 10 * 16 - 2 - 24, 5)                            # (the bed on the open right side, flush to its wall,
+                                                                     #  clear of the desk's stool; user 2026-11-22)
     solid[:, 0] = True; solid[:, -1] = True                          # (the walls' edges: never walkable)
     return img, solid, [(5, 9)]
 
