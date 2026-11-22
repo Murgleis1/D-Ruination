@@ -26,6 +26,12 @@ placed as whole units on a clear footprint; dense woods use the source tileset's
 complete trees. **Terrain changes gradually**, the way MonoMyth's and Crown's routes do it at their boundaries: one
 ground shade reaches into the next in patches with proper edge pieces, and tree kinds mix before they change.
 
+Town rule (user 2026-11-21, a core design tenet): **buildings in a town must be easy to get into and out of.** Every
+door opens onto wide open ground that joins the street directly. Never make the player squeeze between a building and
+a wall, a fence or a line of props to reach a door. GBA doors face south, so put buildings where the ground in front
+of them is open: with the street running along their fronts, not with their backs to it. Check this in the mock
+before building.
+
 How each area is done in stage 1: mock it first, get the user's approval, build it, verify it in the emulator,
 add a bible note (`20_chapter1_build.md`), then commit and push.
 

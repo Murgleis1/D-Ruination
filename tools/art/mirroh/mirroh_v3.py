@@ -624,7 +624,7 @@ def compose():
     # against the walls, the parapets and round the buildings, thinning out into the open in ragged tongues and
     # islands, and swept clear along the ways people walk (stair to door to gate); deeper on L3 (uphill). The
     # reflecting ice sits in a drift of its own in the square.
-    BOULDERS = ((26, 25), (34, 27), (17, 45))
+    BOULDERS = ((26, 25), (34, 27), (49, 40))
     icef = lambda x, y: recolour(full('gg', 0x282 if (x, y) in BOULDERS else 0x34b), GG_ICE)
     def pool(cx, cy, rx, ry, seed):                     # (the ice in a rounded, uneven shape, two cells thick or more)
         return thick({(x, y) for y in range(cy - ry - 1, cy + ry + 2) for x in range(cx - rx - 1, cx + rx + 2)
@@ -663,16 +663,19 @@ def compose():
                 w = min(_seg_dist((x, y), a, b) for a, b in zip(pts, pts[1:]))
                 if w < half + 0.7 * (vnoise(x, y, 3.0, seed) - 0.5): out.add((x, y))
         return out
-    C = lane(((10, 41), (20, 40.5), (30, 41.5), (40, 40.5), (50, 41)), 1.25, 'st')   # the street under the wall
-    C |= lane(((15, 37), (15, 41)), 1.3, 'w1') | lane(((44, 37), (44, 41)), 1.3, 'w2')   # to the stairs up
-    C |= lane(((30.5, 41), (30.5, 46)), 1.1, 'gt')                   # to the south gatehouse's back
-    C |= lane(((10, 41), (9, 46)), 1.2, 'w3') | lane(((50, 41), (51, 47)), 1.2, 'w4')    # the cottages, the market
-    C |= {c for c in rect(29, 43, 32, 46) if ((c[0] - 30.5) / 2.2) ** 2 + ((c[1] - 46) / 2.4) ** 2 < 1}  # (its foot)
+    # (user 2026-11-21) A town's buildings must be easy to get into: open ground before every door, straight onto
+    # the street, never a squeeze between a house and a wall or a fence. The houses had their doors toward the south
+    # wall, a thin strip from it, while the ground under the terrace stood empty. Now all four stand up under the
+    # terrace (doors on row 43), the street runs along in front of them, and the stairs come straight down to it:
+    # the long townhouse at the top centre on the gate's axis, the lane from the south gate running up to its door.
+    C = lane(((5, 45.4), (14, 45.2), (23, 44.8), (30.5, 44.6), (38, 44.8), (47, 45.2), (54, 45.4)), 1.6, 'st')   # (wide enough never to neck)
+    C |= lane(((15, 37), (15, 45)), 1.3, 'w1') | lane(((44, 37), (44, 45)), 1.3, 'w2')   # the stairs come down to it
+    C |= {c for c in rect(29, 44, 32, 46) if ((c[0] - 30.5) / 2.2) ** 2 + ((c[1] - 46) / 2.4) ** 2 < 1}  # (the gate's foot)
     C = thick(C & lv(1)) | (rect(30, 45, 31, 46))
     cobbles(M, C)
     # a small frozen pond by the cottages (the same ice, its snow drifting onto it)
-    pond = pool(18, 46, 2, 1, 'pond'); pondyard = {c for c in rect(14, 43, 22, 49)
-                                                 if ((c[0] - 18) / 4.6) ** 2 + ((c[1] - 46) / 3.4) ** 2 < 1.15} | pond
+    pond = pool(50, 40, 2, 1, 'pond'); pondyard = {c for c in rect(46, 37, 55, 43)
+                                                 if ((c[0] - 50) / 4.6) ** 2 + ((c[1] - 40) / 3.2) ** 2 < 1.15} | pond
     snow_on(M, thick(pondyard - pond), icef, pondyard, 'snow')
     for c in pond: M.gtag[c[1], c[0]] = 'ice'
     # --- L0 (outside): the cobbled way up from Hollow Hill to the south gatehouse
@@ -697,13 +700,14 @@ def compose():
     for x, y in ((24, 30), (36, 30)): bench(M, x, y)
     for x, y in ((12, 12), (17, 25)): mm.pine(M, x, y, False)
     # --- L1: cottages west, the market east (Crown's shop and a townhouse), barrels, a bench
-    mm.ef_house(M, 4, 43); mm.c33_house(M, 'small', 9, 43)
-    mm.c33_house(M, 'shop', 49, 43); mm.c33_house(M, 'long', 41, 43)
-    mm.barrels(M, 54, 46); mm.barrels(M, 48, 48); mm.barrels(M, 54, 47); bench(M, 26, 44)
-    for x, y in ((20, 43), (4, 33), (55, 34)): mm.pine(M, x, y, False)
+    # (all four under the terrace, their doors on row 43 opening onto the street; user 2026-11-21)
+    mm.c33_house(M, 'long', 27, 38)                                  # top centre, on the gate's axis
+    mm.c33_house(M, 'small', 19, 38); mm.c33_house(M, 'shop', 37, 39)   # flanking it, inside the stairs
+    mm.ef_house(M, 6, 39)                                            # the far west (the pond the far east)
+    mm.barrels(M, 42, 41); mm.barrels(M, 42, 42); bench(M, 22, 48)
+    for x, y in ((4, 33), (55, 34), (8, 47), (19, 47), (41, 47), (52, 47)): mm.pine(M, x, y, False)
     for x, y in ((4, 2), (54, 6), (4, 19), (54, 23)): mm.pine(M, x, y, True)
     for x, y in ((6, 11), (55, 15), (5, 27)): rock(M, x, y)
-    fence(M, 4, 14, 49, gaps=(9,)); fence(M, 41, 54, 49, gaps=(47,))
     # --- L0: the flanks. Nobody gets round Mirroh (user 2026-11-21): the three columns either side of the walls,
     # from the map's top down to the city wall's foot, are closed by the massif's own pinewood and rock (every
     # cell a tree, a boulder or a rock ridge; Elderflower's pines and its rock ledges 105/106/107)
@@ -721,8 +725,8 @@ def compose():
         if M.free(x, y, 1, 1): rock(M, x, y)
     # --- lamps: at every stair's foot, the gates, the Tavern's and Langerin's doors, along the street
     stone_pass(M)
-    for x, y in ((13, 37), (17, 37), (42, 37), (46, 37), (35, 12), (39, 12), (28, 41), (35, 41), (27, 57), (34, 57),
-                 (13, 11), (19, 11), (49, 11), (19, 28), (47, 27), (7, 41), (52, 41)):
+    for x, y in ((13, 37), (17, 37), (42, 37), (46, 37), (35, 12), (39, 12), (25, 42), (35, 42), (27, 57), (34, 57),
+                 (13, 11), (19, 11), (49, 11), (19, 28), (47, 27), (12, 42), (46, 42)):
         if M.free(x, y, 1, 2, ground=('snow', 'pave', 'cobble')): mm.lamp(M, x, y)
         else: print('no room for a lamp at', x, y)
     seam_fade(M)
