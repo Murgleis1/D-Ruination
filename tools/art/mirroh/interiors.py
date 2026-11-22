@@ -122,6 +122,21 @@ def banner():
     m = binary_fill_holes(binary_closing(m, np.ones((3, 3), bool)))
     out = np.zeros((32, 16, 4), np.uint8); out[..., :3] = cell; out[..., 3] = np.where(m, 255, 0); return out
 
+BED = os.path.join(REPO, 'assets', 'crown_reference', 'pieces', 'bed_inn.png')
+# (Crown's inn, map 7.8, its bed at (5, 4-5): crown_pieces.cut(7, 8, 4, 4, 3, 2, full=floor 676), trimmed to its frame)
+
+def floor_from(img, solid, cells, src):
+    """Clear furniture off cells: each (x, y) takes the floor of src(x, y) (a cell with the same plank/tile phase)."""
+    for (x, y) in cells:
+        sx, sy = src(x, y); paste_cells(img, img.copy(), sx, sy, 1, 1, x, y); solid[y, x] = False
+
+def bed(img, solid, px, cy):
+    """A bed (user 2026-11-22: homes need beds), head up, its frame's left edge at pixel px, rows cy..cy+1; the cells
+    it covers solid."""
+    b = np.asarray(Image.open(BED).convert('RGBA'))
+    put(img, b, px, cy * 16)
+    for x in range(px // 16, (px + b.shape[1] - 1) // 16 + 1): solid[cy:cy + 2, x] = True
+
 def put(dst, rgba, px, py):
     h, w = rgba.shape[:2]; a = rgba[..., 3] > 0
     dst[py:py + h, px:px + w][a] = rgba[..., :3][a]
@@ -165,6 +180,8 @@ def room_townhouse():
     # place of the sofa, the rug under the big table in copper, the whole room in dark walnut
     img, solid = SOURCES['townhouse'](); img = exact_map(img, WOOD); img, solid = crop(img, solid, 5, 4, 19, 14)
     tav, _ = SOURCES['tavern'](); paste_cells(img, tav, 4, 0, 3, 3, 7, 0); solid[0:3, 7:10] = True
+    floor_from(img, solid, [(x, y) for x in (1, 2, 3) for y in (5, 6)], lambda x, y: (3 if x % 2 else 2, 8 + y % 2))   # (same plank phase)
+    bed(img, solid, 17, 5)                                           # (the bed, against the left wall)
     rug = sorted({tuple(int(v) for v in c) for c in img[4 * 16 + 8:8 * 16 - 8, 4 * 16 + 8:8 * 16 - 8].reshape(-1, 3)
                   if abs(int(c[0]) - int(c[2])) < 30 and int(c[2]) >= int(c[0])}, key=lum)    # (its greys, not the oak)
     img = region_map(img, (4, 4, 7, 7), dict(zip(rug, [tuple(c) for c in ramp_colours(rug, COPPER[1:5])])))
@@ -173,10 +190,15 @@ def room_townhouse():
 
 def room_cottage():
     img, solid = SOURCES['cottage'](); img, solid = crop(img, solid, 1, 0, 12, 8)
+    floor_from(img, solid, [(4, 5), (4, 6), (6, 5), (6, 6)], lambda x, y: (2, y))   # (no candelabra; user 2026-11-22)
+    bed(img, solid, 17, 4)                                           # (the bed, against the left wall)
     return img, solid, [(6 - 1, 7)]
 
 def room_snowy():
     img, solid = SOURCES['snowy'](); img = exact_map(img, WOOD)
+    floor_from(img, solid, [(x, y) for x in (1, 2) for y in (7, 8)], lambda x, y: (x + 2, y))   # (the low table out)
+    bed(img, solid, 20, 7)                                           # (the bed in its corner, clear of the lamp)
+    solid[:, 0] = True; solid[:, -1] = True                          # (the walls' edges: never walkable)
     return img, solid, [(5, 9)]
 
 ROOMS = {'tavern': room_tavern, 'chapel': room_chapel, 'langerin': room_langerin, 'shop': room_shop,
