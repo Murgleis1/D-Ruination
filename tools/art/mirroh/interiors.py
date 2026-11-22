@@ -91,6 +91,20 @@ def colder(img, keep=None, k=0.5, dark=0.86):
     if keep is not None: out[keep] = f[keep]
     return np.clip(out, 0, 255).astype(np.uint8)
 
+def ramp_colours(colours, ramp):
+    """The ramp colour each of these colours takes by its lightness (as ramp_map)."""
+    ls = [lum(c) for c in colours]; lo, hi = min(ls), max(ls)
+    return [ramp[int(round((0 if hi == lo else (l - lo) / (hi - lo)) * (len(ramp) - 1)))] for l in ls]
+
+def region_map(img, cells, table):
+    """exact_map only inside a block of cells (x0, y0, x1, y1), for colours the rest of the room shares."""
+    x0, y0, x1, y1 = cells; out = img.copy()
+    out[y0 * 16:(y1 + 1) * 16, x0 * 16:(x1 + 1) * 16] = exact_map(img[y0 * 16:(y1 + 1) * 16, x0 * 16:(x1 + 1) * 16], table)
+    return out
+
+WALNUT = {(142, 96, 58): (104, 62, 42), (114, 76, 48): (84, 48, 34), (78, 52, 34): (56, 32, 26), (104, 68, 44): (74, 42, 30),
+          (62, 44, 34): (44, 26, 22), (176, 132, 88): (140, 92, 64), (198, 158, 110): (168, 120, 86)}   # (Pelluca's oak, darker)
+
 def crop(img, solid, x0, y0, x1, y1):
     return img[y0 * 16:(y1 + 1) * 16, x0 * 16:(x1 + 1) * 16].copy(), solid[y0:y1 + 1, x0:x1 + 1].copy()
 
@@ -142,10 +156,19 @@ def room_langerin():
 
 def room_shop():
     img, solid = SOURCES['shop'](); img, solid = crop(img, solid, 18, 5, 29, 14)
+    img = region_map(img, (4, 4, 8, 6), {(104, 56, 88): COPPER[1], (160, 64, 104): COPPER[2], (200, 88, 80): COPPER[3],
+                                        (216, 112, 104): COPPER[4]})     # (its rug in copper; user 2026-11-21)
     return img, solid, [(24 - 18, 14 - 5)]
 
 def room_townhouse():
+    # (user 2026-11-21: make it unlike the snowy house inside) the wealthier home: a lit hearth on the back wall in
+    # place of the sofa, the rug under the big table in copper, the whole room in dark walnut
     img, solid = SOURCES['townhouse'](); img = exact_map(img, WOOD); img, solid = crop(img, solid, 5, 4, 19, 14)
+    tav, _ = SOURCES['tavern'](); paste_cells(img, tav, 4, 0, 3, 3, 7, 0); solid[0:3, 7:10] = True
+    rug = sorted({tuple(int(v) for v in c) for c in img[4 * 16 + 8:8 * 16 - 8, 4 * 16 + 8:8 * 16 - 8].reshape(-1, 3)
+                  if abs(int(c[0]) - int(c[2])) < 30 and int(c[2]) >= int(c[0])}, key=lum)    # (its greys, not the oak)
+    img = region_map(img, (4, 4, 7, 7), dict(zip(rug, [tuple(c) for c in ramp_colours(rug, COPPER[1:5])])))
+    img = exact_map(img, WALNUT)
     return img, solid, [(10 - 5, 13 - 4)]
 
 def room_cottage():
