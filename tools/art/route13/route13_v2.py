@@ -119,6 +119,18 @@ def paste_r22(K, sy0, sy1, dy0, dx=1):
 # ------------------------------------------------------------------ the composition (rows from the top)
 FOOT, FOREST, TERR1, MEADOW, DEFILE, FORK = (121, 123), (99, 120), (81, 98), (66, 80), (34, 65), (24, 33)
 
+def gate_ground():
+    """The north-west gatehouse's top four rows (Upper Mirroh's 0-3, its x 7-20) as Mirroh draws it, and which of
+    their pixels are the ground showing through (round the spires, above the roof's slopes)."""
+    outs = []
+    for g in (ef(0xed), np.full((16, 16, 3), (255, 0, 255), np.uint8)):
+        M = mm.Map()
+        for y in range(0, 12):
+            for x in range(0, 24): M.ground(x, y, g, 'snow')
+        v3.gatehouse(M, 7, 4, style='cathedral')
+        outs.append(M.render()[0:4 * 16, 7 * 16:21 * 16].copy())
+    return outs[0], (outs[0] != outs[1]).any(-1)
+
 def compose():
     K = Canvas(); notes = []
     # --- the foot: Mirroh's north wall (its top, from the built Upper Mirroh), the road's passage at x 19-20
@@ -137,12 +149,21 @@ def compose():
     # (Upper's top row is its unreachable edge: slate paving round the spires and over the roof's peak, and a cell of it
     # between each tower and the wall. Here that row is Route 13's snow: the spires and roof cut out onto it by the
     # paving's own pixels, as Mirroh's pieces are; the wall-walk closes the two gaps.)
-    pave = uc(13, 0)
-    for x in range(13, 27):
-        c = uc(x - 6, 0); m = (c == pave).all(-1); snowc = ef(0xed); c[m] = snowc[m]
-        K.put(x, 122, c, 'snow' if m.all() else 'wall', not m.all())
-    for x in (13, 26):
-        K.put(x, 122, uc(22 + x % 2, 0), 'wall', True); K.put(x, 123, uc(22 + x % 2, 1), 'wall', True)
+    # (user 2026-11-22: right of the roof's peak the ground was Upper Mirroh's dusted slate paving, left of it plain
+    # snow: only pixels matching one plain paving cell had been swapped.) What shows round the spires and above the
+    # roof's slopes, rows 122-125 (Upper's 0-3), is the ground behind the gatehouse: outside the city, Route 13's
+    # snow. Found exactly: the gatehouse drawn twice by Mirroh's own gatehouse() in a scratch map, once on snow and
+    # once on magenta; every pixel that differs is ground showing through, and takes the snow. (The building keeps its
+    # built colours.)
+    A, bg = gate_ground()
+    snowc = ef(0xed)
+    for y in range(122, 126):
+        for x in range(13, 27):
+            c = uc(x - 6, y - 122); m = bg[(y - 122) * 16:(y - 121) * 16, (x - 13) * 16:(x - 12) * 16]
+            c[m] = snowc[m]
+            if x in (13, 26) and y in (122, 123):                     # (the wall-walk runs on to the tower, behind its spire)
+                w = uc(22 + x % 2, y - 122); c[m] = w[m]; m = np.zeros_like(m)
+            K.put(x, y, c, 'snow' if m.all() else 'wall', not m.all())
     # (user 2026-11-22, twice: a doorway drawn into the roof's peak left the player standing on the roof. MonoMyth's
     # own gatehouses entered from a route to their north (Route 14, Route 28, New Old Bay City, South Edelweiss) and
     # Old Pueblo's house draw no door at all: the warp is the route's own ground, its last row before the building's
