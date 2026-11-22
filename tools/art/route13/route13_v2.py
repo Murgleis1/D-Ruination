@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ART = os.path.join(HERE, '..'
 REPO = os.path.abspath(os.path.join(ART, '..', '..')); C = os.path.join(REPO, 'codebase')
 for p in (os.path.join(ART, 'mirroh'), ART, HERE, os.path.join(REPO, 'tools', 'monomyth')): sys.path.insert(0, p)
 import mirroh_mock as mm
-W, H = 40, 129                 # (124 rows of route, then 5 of Mirroh behind its wall: scenery)
+W, H = 40, 128                 # (122 rows of route; from row 122, Mirroh's wall and its north-west gatehouse)
 mm.W, mm.H = W, H
 import mirroh_v3 as v3
 from mirroh_v3 import rnd, vnoise, _seg_dist, thick, snow_on, cobbles
@@ -125,23 +125,45 @@ def compose():
     sys.path.insert(0, ART); import render_built as RB
     RB.main('MirrohUpper', '/tmp/_r13_upper.png'); U = np.asarray(Image.open('/tmp/_r13_upper.png').convert('RGB'))
     uc = lambda x, y: U[y * 16:y * 16 + 16, x * 16:x * 16 + 16].copy()
-    for x in range(W):
-        if x in (19, 20): continue
-        K.put(x, 122, uc(22 + x % 2, 0), 'wall', True); K.put(x, 123, uc(22 + x % 2, 1), 'wall', True)
-    for x in (19, 20): K.put(x, 123, uc(x - 6, 9), 'passage', False)          # (the gatehouse's dark doorway)
-    # behind the wall (user-facing: the camera shows what lies south of it): the north-west gatehouse's copper roof and
-    # towers right below the passage, Upper Mirroh's wall-walk and snow either side (the built Upper Mirroh's rows 1-5,
-    # its gatehouse doorway x 13-14 under the passage x 19-20); scenery only, never walked
-    for y in range(124, H):
+    # (user 2026-11-22: the wall ran in front of the gatehouse, as if the gatehouse stood behind it, and the way out was
+    # a hole in the wall-walk above a roof.) The gatehouse is built INTO the wall: Upper Mirroh's top six rows as built
+    # (its x shifted 6 so its gatehouse is under the road): the wall either side, the gatehouse's spired towers and
+    # copper roof in the gap; the way in is a dark doorway cut into the top of its roof where the road meets it (the
+    # Game Boy way to show a building's north door).
+    for y in range(122, H):
         for x in range(W):
             ux = x - 6
-            K.put(x, y, uc(ux if ux >= 0 else ux % 3, y - 123), 'behind', True)
+            K.put(x, y, uc(ux if ux >= 0 else ux % 3, y - 122), 'wall', True)
+    # (Upper's top row is its unreachable edge: slate paving round the spires and over the roof's peak, and a cell of it
+    # between each tower and the wall. Here that row is Route 13's snow: the spires and roof cut out onto it by the
+    # paving's own pixels, as Mirroh's pieces are; the wall-walk closes the two gaps.)
+    pave = uc(13, 0)
+    for x in range(13, 27):
+        c = uc(x - 6, 0); m = (c == pave).all(-1); snowc = ef(0xed); c[m] = snowc[m]
+        K.put(x, 122, c, 'snow' if m.all() else 'wall', not m.all())
+    for x in (13, 26):
+        K.put(x, 122, uc(22 + x % 2, 0), 'wall', True); K.put(x, 123, uc(22 + x % 2, 1), 'wall', True)
+    for x in (19, 20):
+        K.put(x, 122, ef(0xed), 'snow', False)                        # (the road's last step, on the snow before it)
+        K.put(x, 123, uc(x - 6, 9), 'passage', False)                 # (the doorway, the portcullis's dark arch)
 
     # --- the lifted climbs
     paste_r22(K, 57, 74, TERR1[0])                    # stair (its 72-74), ice-grass meadow, stair (57-60)
     paste_r22(K, 15, 46, DEFILE[0])                   # the defile (its 25-46) and the central stairway (15-24)
-    for y in list(range(*[TERR1[0], TERR1[1] + 1])) + list(range(DEFILE[0], DEFILE[1] + 1)):
-        for x in (0, W - 1): K.put(x, y, ef(0xe8 if (x + y) % 2 else 0xed), 'woodfill', True)
+    # (the two columns either side of the pasted map, x 0 and 39: small pines stacked, as the flanks are -- not the
+    # rock-and-snow fill they were, whose snow cells were invisible walls)
+    for (y0, y1) in (TERR1, DEFILE):
+        for y in range(y0, y1 + 1, 2):
+            for x in (0, W - 1):
+                if y + 1 <= y1: K.ids(x, y, SMALL_PINE, 'tree')
+                else: K.put(x, y, ef(0xe8), 'rock', True)
+    # the seams (user 2026-11-22 review): where a paste starts or ends, MonoMyth's trees and a boulder lost their other
+    # halves. Top of terraces I (its row 57 -> 81, x 1-9): the bottoms of its forest, no tops -> a hedge of small pines
+    # on the meadow's edge, whole. Top of the stairway (its row 15 -> 34): a boulder's bottom (x 11-12), the feet of two
+    # walls that ran up off the paste (x 14, 25) -> snow, and the pine that stood before the x-14 wall stands clear.
+    for x in range(1, 10): K.ids(x, 80, SMALL_PINE, 'tree')
+    for x in (11, 12, 14, 25): K.put(x, 34, ef(0xed), 'snow', False)
+    K.ids(14, 35, [[0x109]], 'tree')
 
     # --- the forest out of Mirroh: the road through a clearing up to terraces I's stair (its x 11-12 -> 12-13 here)
     road_lo = lane(((19.5, 122), (19.5, 116), (17.5, 111), (15, 106), (13, 102), (12.5, 99)), 1.3, 'r1', 0.4)
@@ -154,29 +176,45 @@ def compose():
 
     # --- the high meadow: the tarn, ice grass, boulders, rock arches, a frozen puddle; pine flanks
     mo = {(x, y) for y in range(MEADOW[0], MEADOW[1] + 1) for x in range(W)}
+    # the tarn's outflow (user 2026-11-22, the stream moved here off the defile): out of the tarn's east shore, two cells
+    # wide, falling a row every few columns as it runs east across the flat meadow and out through the treeline; the
+    # trail crosses it on a log deck at x 19-21. Still water freezes hard (the tarn: walkable ice); the outflow keeps
+    # moving under a skin of thin, darker ice you can't stand on -- so the deck is the way over. Where it leaves the map
+    # through the treeline, a boulder on each bank closes the bank to the edge (no walking out to the map's edge).
+    stream = set()
+    for x in range(13, W):
+        r = 72 if x < 18 else 73 if x < 25 else 74 if x < 32 else 75
+        stream |= {(x, r), (x, r + 1)}
+    stream |= {(17, 74), (24, 75), (31, 76)}                          # (each fall's corner, so the ice runs on)
+    bank = {(x + dx, y + dy) for (x, y) in stream for dx in (-2, -1, 0, 1, 2) for dy in (-2, -1, 0, 1, 2)
+            if 0 <= x + dx < W and MEADOW[0] <= y + dy <= MEADOW[1]}
     flank = {(x, y) for (x, y) in mo if x < 3 + int(2 * vnoise(x, y, 4, 'mf')) or x > 36 - int(2 * vnoise(x, y, 4, 'mg'))}
+    flank -= bank
     forest(K, flank, 'mf')
-    pond = thick({c for c in blob(10, 72, 4.2, 2.6, 'tarn', 0.3) if c not in flank})
-    yard = {c for c in blob(10, 72, 6.2, 4.4, 'tyard', 0.1) if c not in flank and MEADOW[0] <= c[1] <= MEADOW[1]}
-    icef = lambda x, y: mm.recolour(mm.full('gg', 0x34b), mm.GG_ICE)
+    pond = thick({c for c in blob(10, 72, 4.2, 2.6, 'tarn', 0.3) if c not in flank}) | stream
+    yard = ({c for c in blob(10, 72, 6.2, 4.4, 'tyard', 0.1) if c not in flank and MEADOW[0] <= c[1] <= MEADOW[1]}) | bank
+    tarn = pond - stream
+    ICE = mm.recolour(mm.full('gg', 0x34b), mm.GG_ICE); THIN = np.clip(ICE.astype(int) * [0.78, 0.86, 1.0], 0, 255).astype(np.uint8)
+    thin = stream - tarn
+    near = lambda x, y: any((x + dx, y + dy) in thin for dx in (-1, 0, 1) for dy in (-1, 0, 1))
+    icef = lambda x, y: (THIN if (x, y) in thin or ((x, y) not in pond and near(x, y)) else ICE).copy()   # (a drift shows the ice it lies on)
     snow_on(K, thick(yard - pond), icef, yard, 'snow')
-    for (x, y) in pond: K.tag[y, x] = 'ice'; K.beh[y, x] = MB_ICE
+    for (x, y) in tarn: K.tag[y, x] = 'ice'; K.beh[y, x] = MB_ICE
+    for (x, y) in stream - tarn: K.tag[y, x] = 'stream'; K.solid[y, x] = True; K.beh[y, x] = MB_NORMAL
+    for (bx, by) in ((W - 2, 73), (W - 2, 77)): K.ids(bx, by, BOULDER, 'rock')
+    for y in (73, 74):                                                # (the deck: two rows of logs, x 19-21)
+        for i, m in enumerate((0x350, 0x351, 0x352)):                  # (the logs over the ice, not over snow)
+            t = ef(m).copy(); bg = (t == ef(0xed)).all(-1); t[bg] = THIN[bg]
+            K.put(19 + i, y, t, 'bridge', False)
     grass(K, {c for c in blob(27, 70, 3.4, 2.4, 'mg1') if c not in flank})
-    grass(K, {c for c in blob(20, 77, 2.6, 1.6, 'mg2') if c not in flank})
-    for (x, y) in ((22, 67), (31, 75)): boulder(K, x, y)
+    grass(K, {c for c in blob(21, 78, 2.6, 1.4, 'mg2') if c not in flank})
+    for (x, y) in ((22, 67), (31, 78)): boulder(K, x, y)
     for (x, y) in ((16, 68), (29, 66)): arch(K, x, y)
-    for (x, y) in ((18, 73), (33, 72), (6, 78)): pine(K, x, y, False)
-    for (x, y) in ((24, 74), (13, 79)): rock(K, x, y)
+    for (x, y) in ((16, 69), (33, 71), (6, 78)): pine(K, x, y, False)
+    for (x, y) in ((25, 71), (13, 79)): rock(K, x, y)
 
-    # --- the defile's frozen stream (R22's open row 40 -> 59 here), the log deck over it on the way up
-    sy = DEFILE[0] + 40 - 15
-    for y in (sy, sy + 1):
-        for x in range(W):
-            if not K.solid[y, x] and K.tag[y, x] in ('r22', 'r22grass', 'snow'):
-                t = mm.recolour(mm.full('gg', 0x34b), mm.GG_ICE).astype(int); t = np.clip(t * [0.78, 0.86, 1.0], 0, 255).astype(np.uint8)
-                K.put(x, y, t, 'stream', True)
-    for y in (sy, sy + 1):                                            # (the deck: two rows of logs, x 19-21)
-        K.ids(19, y, [[0x350, 0x351, 0x352]], 'bridge', solid=False)
+    # (the defile is MonoMyth's ledges at three heights: no water across it. user 2026-11-22: a stream ran flat over
+    # all three and through both cliff faces. It is now the tarn's outflow, across the flat meadow -- see above.)
 
     # --- the fork: a snowy plateau above the central stair (R22's x 18-19 -> 19-20 here); waystone and signpost
     plateau = blob(20, 28.5, 7.5, 4.2, 'plat', 0.2)
@@ -212,12 +250,6 @@ def compose():
         (sy,) = [y for (x0, x1, y) in runs if x0 < sx and sx + 1 < x1 + (1 if x1 == 13 else 0) and x0 <= sx <= x1 - 1] or [runs[-1][2]]
         K.ids(sx, sy, [[0x47, 0xe1]], 'stairs', solid=False, beh=0x4F); landings.append((sx, sy))
     # ledge life: a trodden landing above each stair, grass, a boulder, rocks and small pines against the walls
-    land = set()
-    for (sx, sy) in landings:
-        for yy in (sy - 2, sy - 1):
-            for xx in (sx, sx + 1):
-                if 0 <= yy and K.tag[yy, xx] == 'snow': land.add((xx, yy))
-    r1.icy_track(K, {c for c in land if (c[0], c[1] + 1) in land or (c[0], c[1] - 1) in land})
     grass(K, {(x, y) for y in (18, 19) for x in range(5, 9)}); grass(K, {(x, y) for y in (10, 11) for x in range(8, 12)})
     boulder(K, 6, 14); boulder(K, 10, 2)
     for (x, y) in ((12, 22), (3, 6), (13, 11), (3, 15)): pine(K, x, y, False)
@@ -231,11 +263,6 @@ def compose():
     grass(K, blob(31, 6, 2.5, 2.0, 'g6') - road_ne)
     # the wild trail's look (user 2026-11-22: show the difference at the fork): Elderflower's trodden icy track in
     # staggered patches from the plateau up to the first stone stair, a few rocks along its edges
-    seg = set()
-    for (x, y0, y1) in ((16, 27, 30), (13, 24, 26)):                     # (on the plateau, toward the first stair)
-        seg |= {(xx, y) for y in range(y0, y1 + 1) for xx in (x, x + 1)}
-    seg = {c for c in seg if K.tag[c[1], c[0]] == 'snow'}
-    r1.icy_track(K, seg)
     for (x, y) in ((15, 25), (18, 29), (11, 25)): rock(K, x, y)
     return K, notes
 

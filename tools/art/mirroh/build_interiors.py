@@ -15,7 +15,8 @@ C = I.C
 MB_NORMAL, MB_SOUTH_ARROW_WARP, MB_COUNTER = 0x00, 0x65, 0x80
 # the bar you talk to the staff across (Pelluca's Tavern's row 4, behaviour 0x80; the shop's counters come with its
 # shopkeepers in stage 2)
-COUNTERS = {'tavern': {(x, 4) for x in range(13)}}
+COUNTERS = {'tavern': {(x, 4) for x in range(13)},
+            'shop': {(1, 4), (2, 4), (3, 4), (8, 3), (9, 3), (10, 3)}}   # (its two keepers' counters)
 
 # room: (map name, map id, exterior map, the exterior door cells, the interior exit each door brings you to)
 DOORS = {

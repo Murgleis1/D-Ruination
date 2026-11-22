@@ -576,14 +576,19 @@ def flanks(M):
         y = 0; k = 0
         while y <= 56:
             left = 56 - y + 1
-            if left >= 3 and (rnd('fl', side, k) < 0.72 or left in (3,)):
+            # (user 2026-11-22 review: the one-row "rock ridges" read as slabs of cliff stacked in the trees, cliff with
+            # nothing to be a cliff of. All pinewood now: the three-row band; two rows left over take small pines
+            # across, one row left over buried rocks.)
+            if left >= 3:
                 pine(M, big_x, y, True)
                 pine(M, small_x, y, False)
                 M.ground(small_x, y + 2, ef(0xe8), 'rock')     # (a snow-buried rock: solid)
                 y += 3
+            elif left == 2:
+                for dx in range(3): pine(M, xs + dx, y, False)
+                y += 2
             else:
-                for dx, m in enumerate((0x105, 0x106, 0x107)):
-                    M.ground(xs + dx, y, ef(m), 'rock')
+                for dx in range(3): M.ground(xs + dx, y, ef(0xe8), 'rock')
                 y += 1
             k += 1
 
@@ -599,12 +604,15 @@ def flanks_apron(M):
         y = 57; k = 0
         while y < SEAM:
             left = SEAM - y
-            if left >= 3 and (rnd('fa', side, k) < 0.72 or left == 3):
+            if left >= 3:                                  # (all pinewood, as flanks())
                 pine(M, big_x, y, True); pine(M, small_x, y, False)
                 M.ground(small_x, y + 2, ef(0xe8), 'rock')
                 y += 3
+            elif left == 2:
+                for dx in range(3): pine(M, xs + dx, y, False)
+                y += 2
             else:
-                for dx, m in enumerate((0x105, 0x106, 0x107)): M.ground(xs + dx, y, ef(m), 'rock')
+                for dx in range(3): M.ground(xs + dx, y, ef(0xe8), 'rock')
                 y += 1
             k += 1
 
@@ -674,8 +682,11 @@ def compose():
     C = thick(C & lv(1)) | (rect(30, 45, 31, 46))
     cobbles(M, C)
     # a small frozen pond by the cottages (the same ice, its snow drifting onto it)
-    pond = pool(50, 40, 2, 1, 'pond'); pondyard = {c for c in rect(46, 37, 55, 43)
-                                                 if ((c[0] - 50) / 4.6) ** 2 + ((c[1] - 40) / 3.2) ** 2 < 1.15} | pond
+    # (user 2026-11-22 review: at 5x3 its drifts left a square of ice. The space is small -- the stair lane at x 44-46,
+    # the town wall at 56, the upper wall's foot at row 37, the street at 44 -- so the pond is laid out by hand: five
+    # across with its corners cut, and two cells of snow bank all round it (the wall stands over the bank's top row).)
+    pond = {(x, 39) for x in range(50, 53)} | {(x, 40) for x in range(49, 54)} | {(x, 41) for x in range(50, 53)}
+    pondyard = {(x, y) for y in range(37, 44) for x in range(47, 56)} - {(47, 37), (55, 37), (47, 43), (55, 43)}
     snow_on(M, thick(pondyard - pond), icef, pondyard, 'snow')
     for c in pond: M.gtag[c[1], c[0]] = 'ice'
     # --- L0 (outside): the cobbled way up from Hollow Hill to the south gatehouse

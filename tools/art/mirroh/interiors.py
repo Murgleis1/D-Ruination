@@ -169,11 +169,51 @@ def room_langerin():
     img = exact_map(img, {c: tuple(int(v * 0.72) for v in c) for c in floor})   # (a darker, stately oak)
     return img, solid, [(4, 16), (5, 16), (6, 16)]
 
+def move_mat(img, solid, row, to_row, dx_px=0):
+    """The exit mat off the black below the floor onto the floor's bottom row (user 2026-11-22 review: in the Crown rooms
+    it sat out on the black, where the other rooms lay it on the floor). Its pixels (the non-black ones in its row)
+    move up, shifted dx_px across; the row it leaves is black and solid."""
+    strip = img[row * 16:row * 16 + 16].copy(); m = strip.any(-1)
+    img[row * 16:row * 16 + 16] = 0; solid[row, :] = True
+    ys, xs = np.nonzero(m); dst = img[to_row * 16:to_row * 16 + 16]
+    dst[ys, xs + dx_px] = strip[ys, xs]
+
+def counter(img, solid, x0, y, w, wood=None):
+    """A free-standing run of the Mirroh Tavern's bar, w cells at row y from x0: its end piece at both ends (the left
+    one mirrored), its plain middle between, and its lip (the shadow under the front edge) on the row below. The
+    cells are solid; build_interiors marks them MB_COUNTER, so a keeper behind it is spoken to across it."""
+    tav, _ = room_tavern()[:2]
+    cell = lambda cx, cy: tav[cy * 16:cy * 16 + 16, cx * 16:cx * 16 + 16]
+    end, mid, bg = cell(12, 4).astype(int), cell(6, 4), cell(13, 4).astype(int)
+    keep = np.abs(end - bg).sum(-1).max(0) > 24                          # (the end piece's counter columns, not its floor)
+    lip = cell(7, 5)[:5].copy()
+    if wood:                                                         # (in the room's own wood, by lightness)
+        cols = sorted({tuple(int(v) for v in c) for a in (end[:, keep], mid, lip) for c in np.asarray(a).reshape(-1, 3)}, key=lum)
+        tab = dict(zip(cols, [tuple(c) for c in ramp_colours(cols, wood)]))
+        end, mid, lip = (exact_map(np.asarray(a, np.uint8), tab).astype(int) for a in (end, mid, lip))
+    for i in range(w):
+        x = x0 + i; c = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]
+        if i == w - 1: c[:, keep] = end[:, keep]
+        elif i == 0: c[:, keep[::-1]] = end[:, ::-1][:, keep[::-1]]
+        else: c[:] = mid
+        img[(y + 1) * 16:(y + 1) * 16 + 5, x * 16:x * 16 + 16] = lip
+        solid[y, x] = True
+
 def room_shop():
     img, solid = SOURCES['shop'](); img, solid = crop(img, solid, 18, 5, 29, 14)
     img = region_map(img, (4, 4, 8, 6), {(104, 56, 88): COPPER[1], (160, 64, 104): COPPER[2], (200, 88, 80): COPPER[3],
                                         (216, 112, 104): COPPER[4]})     # (its rug in copper; user 2026-11-21)
-    return img, solid, [(24 - 18, 14 - 5)]
+    # the counters for the specialty shop's two keepers (stage 2: the dealer, the Egg salesman), runs of the Tavern's
+    # bar in place of the two writing desks: the dealer's at row 4 (x 1-3, he stands at row 3), the Egg salesman's at
+    # row 3 (x 8-10, he stands at row 2); the desks' floor laid back first (the marble's own phase)
+    d = img[4 * 16:6 * 16, 1 * 16:4 * 16].reshape(-1, 3)              # (the desks' wood, warm browns, for the counters)
+    wood = sorted({tuple(int(v) for v in c) for c in d if int(c[0]) > int(c[1]) > int(c[2]) and int(c[0]) - int(c[2]) > 40}, key=lum)
+    floor_from(img, solid, [(x, y) for x in (1, 2, 3) for y in (4, 5)], lambda x, y: (x, 6 if y == 4 else 3))
+    floor_from(img, solid, [(x, y) for x in (9, 10) for y in (2, 3)], lambda x, y: (3 if x % 2 else 2, 3 if y == 3 else 5))
+    counter(img, solid, 1, 4, 3, wood); counter(img, solid, 8, 3, 3, wood)
+    paste_cells(img, img.copy(), 10, 7, 1, 2, 4, 2); solid[2:4, 4] = True   # (a bust closes the way round behind the dealer)
+    move_mat(img, solid, 9, 8)                                       # (onto the floor, between the candelabra)
+    return img, solid, [(6, 8)]
 
 def room_townhouse():
     # (user 2026-11-21: make it unlike the snowy house inside) the wealthier home: a lit hearth on the back wall in
@@ -192,7 +232,8 @@ def room_cottage():
     img, solid = SOURCES['cottage'](); img, solid = crop(img, solid, 1, 0, 12, 8)
     floor_from(img, solid, [(4, 5), (4, 6), (6, 5), (6, 6)], lambda x, y: (2, y))   # (no candelabra; user 2026-11-22)
     bed(img, solid, 17, 4)                                           # (the bed, against the left wall)
-    return img, solid, [(6 - 1, 7)]
+    move_mat(img, solid, 7, 6)
+    return img, solid, [(5, 6)]
 
 def room_snowy():
     img, solid = SOURCES['snowy'](); img = exact_map(img, WOOD)
