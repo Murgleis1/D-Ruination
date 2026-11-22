@@ -67,9 +67,19 @@ Done (each has a note in `bible/20_chapter1_build.md`):
 - Kimaris's chamber (`KimarisChamber`): built and walked, 2026-11-21. Fantasma's room, four MonoMyth cauldrons,
   copper, Mirroh stone.
 
-Remaining (proposed order):
-1. Mt. Mirroh and Mirroh Peak (next session).
-   The base game's Mirroh maps are still on old tilesets.
-2. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
+Remaining (proposed order; re-reviewed with the user 2026-11-22). The way to the chapter's climax runs north from
+Mirroh's north-west gatehouse (region map, column 4): Mirroh -> **Route 13** -> **Templar Headquarters ("Templar
+Citadel")** -> **Mt. Mirroh** -> **Mirroh Peak**. Routes 14 (Mt. Mirroh east to Pierra's Manor) and 15 (Templar HQ east
+to the Ivy River) are later chapters.
+1. Route 13: from the north-west gatehouse (its hallway's "road closed" turn-back opens onto it) up to Templar HQ.
+2. Templar Headquarters: Crown's gothic cathedral on its moat island with timber chalets, alpine snow, perhaps an
+   outer wall (bible 16.10 art plan). In Chapter 1 the way to the mountain passes it; Loulan recurs there.
+3. Mt. Mirroh (the climb: Beat 8a, the tortured Beads cultist) and Mirroh Peak (Beats 8b-8c: Baradus, Eden,
+   Kimaris). The base game's maps (`MtMirrohExterior`, `MirrohPeak`, the caves `MirrohInterior_*`) are DM-era, on old
+   tilesets: rebuild or replace.
+4. The Ancient Cormoria slip (Beat 8e): one small scripted zone. A new map: DM's `AncientMirroh` maps are DM's window
+   into *our* era (bible 01), not Cormor's.
+5. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them (closed for now).
+Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest); Route 11's east beach.
 
 Update this list as areas are finished.
