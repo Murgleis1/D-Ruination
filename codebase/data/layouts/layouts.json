@@ -6225,7 +6225,7 @@
       "id": "LAYOUT_NECROPOLIS_GROUNDS",
       "name": "NecropolisGrounds_Layout",
       "width": 44,
-      "height": 50,
+      "height": 59,
       "primary_tileset": "gTileset_NecropolisGroundsTiles",
       "secondary_tileset": "gTileset_NecropolisGrounds",
       "border_filepath": "data/layouts/NecropolisGrounds/border.bin",

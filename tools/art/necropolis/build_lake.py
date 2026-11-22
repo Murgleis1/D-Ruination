@@ -95,7 +95,7 @@ def main():
             'show_map_name': True, 'battle_scene': 'MAP_BATTLE_SCENE_NORMAL', 'connections': None,
             'object_events': objs,
             'warp_events': [{'x': 21, 'y': 4, 'elevation': 3, 'dest_map': 'MAP_KIMARIS_CHAMBER', 'dest_warp_id': '0'}] +
-                           [{'x': x, 'y': y, 'elevation': 3, 'dest_map': 'MAP_NECROPOLIS_GROUNDS', 'dest_warp_id': '4'} for (x, y) in mats],
+                           [{'x': x, 'y': y, 'elevation': 3, 'dest_map': 'MAP_NECROPOLIS_GROUNDS', 'dest_warp_id': '5'} for (x, y) in mats],   # (5: the grounds' grand entrance, after its five foot warps)
             'coord_events': [], 'bg_events': []}
     void = int(r['grid'][H - 1, W - 1] & 0x3FF)                       # (the margin's far corner: pure void)
     assert (img[-16:, -16:] == np.array(LM.F.VOID)).all()

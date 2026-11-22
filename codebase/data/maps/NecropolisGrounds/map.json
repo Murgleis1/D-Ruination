@@ -16,29 +16,36 @@
   "object_events": [],
   "warp_events": [
     {
-      "x": 20,
-      "y": 49,
+      "x": 21,
+      "y": 53,
       "elevation": 3,
       "dest_map": "MAP_MIRROH_UPPER",
       "dest_warp_id": "8"
     },
     {
-      "x": 21,
-      "y": 49,
+      "x": 22,
+      "y": 53,
       "elevation": 3,
       "dest_map": "MAP_MIRROH_UPPER",
       "dest_warp_id": "9"
     },
     {
-      "x": 22,
-      "y": 49,
+      "x": 23,
+      "y": 53,
       "elevation": 3,
       "dest_map": "MAP_MIRROH_UPPER",
       "dest_warp_id": "10"
     },
     {
-      "x": 23,
-      "y": 49,
+      "x": 20,
+      "y": 53,
+      "elevation": 3,
+      "dest_map": "MAP_MIRROH_UPPER",
+      "dest_warp_id": "8"
+    },
+    {
+      "x": 24,
+      "y": 53,
       "elevation": 3,
       "dest_map": "MAP_MIRROH_UPPER",
       "dest_warp_id": "10"

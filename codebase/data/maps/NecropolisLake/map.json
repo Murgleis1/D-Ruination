@@ -80,21 +80,21 @@
       "y": 31,
       "elevation": 3,
       "dest_map": "MAP_NECROPOLIS_GROUNDS",
-      "dest_warp_id": "4"
+      "dest_warp_id": "5"
     },
     {
       "x": 21,
       "y": 31,
       "elevation": 3,
       "dest_map": "MAP_NECROPOLIS_GROUNDS",
-      "dest_warp_id": "4"
+      "dest_warp_id": "5"
     },
     {
       "x": 22,
       "y": 31,
       "elevation": 3,
       "dest_map": "MAP_NECROPOLIS_GROUNDS",
-      "dest_warp_id": "4"
+      "dest_warp_id": "5"
     }
   ],
   "coord_events": [],
