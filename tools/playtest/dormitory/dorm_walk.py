@@ -34,7 +34,7 @@ assert go(g, 'PellucaDormitory2F', (1, 5)); g.run(10, 'DOWN'); settle(); snap('b
 assert go(g, 'PellucaDormitory1F', (5, 3)); g.tap('UP'); g.run(10); g.tap('A'); g.run(60); snap('brass plate'); close()
 assert go(g, 'PellucaDormitory1F', (4, 3))
 g.run(10, 'UP'); g.run(12); snap('his door opening'); settle(150); snap("Osrid's room")
-assert go(g, 'PellucaDormitoryOsridRoom', (5, 9)) or True
+assert go(g, 'PellucaDormitoryOsridRoom', (5, 8)) or True   # (the warp on the mat's top half since 2026-11-22)
 step(g, 'DOWN'); settle(); snap('back out of his room')
 assert go(g, 'PellucaDormitory1F', (9, 13)); step(g, 'DOWN'); settle(); snap('outside again')
 W = 240 * 4; S = Image.new('RGB', (W, 160 * ((len(shots) + 3) // 4)))

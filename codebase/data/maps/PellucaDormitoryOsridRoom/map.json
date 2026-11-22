@@ -17,7 +17,7 @@
   "warp_events": [
     {
       "x": 5,
-      "y": 9,
+      "y": 8,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_DORMITORY_1F",
       "dest_warp_id": "2"

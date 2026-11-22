@@ -1558,3 +1558,41 @@ script PellucaCity_EventScript_DrWestGate {
 movement PellucaCity_Movement_DrWestGateBack {
     walk_right
 }
+
+// ============ Pelluca's later-chapter exits, closed for Chapter 1 (user 2026-11-22) ============
+// The north road (to the Ivy River) and the east road (to Hoya Delta) lead to later chapters. A Templar guard stands
+// in each road; a line of triggers spans the rest of the opening (the north gap is six cells wide, x 36-41, row 3;
+// the east one five, rows 24-28 at x 74, the top row being the walk behind the treetops) and turns the player back.
+// Their own variable (VAR_TEMP_2): the west gate's VAR_TEMP_1 is set once the shrine is awakened, which would switch
+// these off with it. Lift them when those chapters open.
+script PellucaCity_EventScript_RoadGuardNorth {
+    speakername("Templar")
+    msgbox(format("Halt. The road north to the Ivy River is closed by order of the Templar Order."), MSGBOX_NPC)
+    end
+}
+
+script PellucaCity_EventScript_RoadClosedNorth {
+    lockall
+    speakername("Templar")
+    msgbox(format("Halt. The road north to the Ivy River is closed by order of the Templar Order. Turn back."))
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down))
+    waitmovement(0)
+    releaseall
+}
+
+script PellucaCity_EventScript_RoadGuardEast {
+    speakername("Templar")
+    msgbox(format("Halt. The road east to Hoya Delta is closed by order of the Templar Order."), MSGBOX_NPC)
+    end
+}
+
+script PellucaCity_EventScript_RoadClosedEast {
+    lockall
+    speakername("Templar")
+    msgbox(format("Halt. The road east to Hoya Delta is closed by order of the Templar Order. Turn back."))
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left))
+    waitmovement(0)
+    releaseall
+}

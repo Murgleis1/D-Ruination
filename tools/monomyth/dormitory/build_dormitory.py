@@ -213,11 +213,11 @@ def build(rows, warps):
 
 ROOMS = {
     'PellucaDormitory1F': build(CM.floor1(), {(1, 0): (193, MB_NON_ANIMATED_DOOR, WARP_E0),
-                                              (9, 14): (214, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),
+                                              (9, 13): (204, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),   # (the warp on the mat's top half, the floor's last row, as MonoMyth's own houses; user 2026-11-22)
     # the upstairs flight descends southward: an arrow warp (press Down on it). A stair-top
     # MB_NON_ANIMATED_DOOR would walk an arriving player one tile south, straight back down the stairs.
     'PellucaDormitory2F': build(CM.floor2(), {(1, 5): (193, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),
-    'PellucaDormitoryOsridRoom': build(CM.osrid_room(), {(5, 9): (214, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),
+    'PellucaDormitoryOsridRoom': build(CM.osrid_room(), {(5, 8): (204, MB_SOUTH_ARROW_WARP, FLOOR_E3)}),   # (as 1F)
 }
 # the stair below the 2F warp leads off the map: keep the player on the landing
 ROOMS['PellucaDormitory2F'][6, 1] = (ROOMS['PellucaDormitory2F'][6, 1] & 0x3FF) | (WALL << 10)

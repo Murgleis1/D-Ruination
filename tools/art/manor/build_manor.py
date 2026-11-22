@@ -17,6 +17,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', 'academy'))
 import imgtiles as IT
 import manor_mock as MM
+import matlift as ML                                   # (the exit mat onto the floor: user 2026-11-22)
 
 MB_SOUTH_ARROW_WARP = 0x65
 NAME, LAYOUT, MAP = 'PellucaUmbraManor', 'LAYOUT_PELLUCA_UMBRA_MANOR', 'MAP_PELLUCA_UMBRA_MANOR'
@@ -44,6 +45,7 @@ def cells():
 def main():
     img, _ = MM.compose(); W, H = MM.W, MM.H
     walk, mats = cells()
+    mats, walk = ML.lift(img, walk, mats)                                 # (mat and warps under the floor: up onto it)
     # 109 colours: merging only one GBA step left 15 palettes; rare colours (under 300 px: the paintings, the desk,
     # the hearth stone's flecks) also merge at two steps -> 12 (the change is not visible)
     r = IT.build(img, W, H, walk=walk, beh=lambda x, y: MB_SOUTH_ARROW_WARP if (x, y) in mats else 0, merge=16, rare=300, tries=2000)

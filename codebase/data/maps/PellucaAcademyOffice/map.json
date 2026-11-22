@@ -17,14 +17,14 @@
   "warp_events": [
     {
       "x": 5,
-      "y": 9,
+      "y": 8,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_ACADEMY_HALL",
       "dest_warp_id": "1"
     },
     {
       "x": 6,
-      "y": 9,
+      "y": 8,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_ACADEMY_HALL",
       "dest_warp_id": "1"

@@ -17,21 +17,21 @@
   "warp_events": [
     {
       "x": 5,
-      "y": 8,
+      "y": 7,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_CITY",
       "dest_warp_id": "9"
     },
     {
       "x": 4,
-      "y": 8,
+      "y": 7,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_CITY",
       "dest_warp_id": "9"
     },
     {
       "x": 6,
-      "y": 8,
+      "y": 7,
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_CITY",
       "dest_warp_id": "9"

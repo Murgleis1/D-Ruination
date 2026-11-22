@@ -14,6 +14,7 @@ os.environ.setdefault('ODYSSEY_ROM', '/home/claude/crown/Crown.gba')
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..'))
 import imgtiles as IT
 import classroom_mock, office_mock, library_mock, lounge_mock
+import matlift as ML                                   # (the exit mat onto the floor: user 2026-11-22)
 
 MB_SOUTH_ARROW_WARP = 0x65
 HALL = 'MAP_PELLUCA_ACADEMY_HALL'
@@ -64,6 +65,9 @@ def main():
     after_l, after_m = 'LAYOUT_PELLUCA_ACADEMY_HALL', 'PellucaAcademyHall'
     for key, name, lid, prim, sec, fn in ROOMS:
         img, W, H, walk, mats = fn()
+        my = max(y for _, y in mats)
+        if my == H - 1: mats, walk = ML.lift(img, walk, mats)              # (mat and warps under the floor: up onto it)
+        else: ML.move_row(img, my + 1, my)                                 # (the lounge: its warps on the floor, its mat drawn under)
         r = IT.build(img, W, H, walk=walk, beh=lambda x, y: MB_SOUTH_ARROW_WARP if (x, y) in mats else 0)
         bad = IT.check(r)
         warps = [{'x': x, 'y': y, 'elevation': 0, 'dest_map': HALL, 'dest_warp_id': str(HALL_WARP[key])} for x, y in sorted(mats)]

@@ -14,6 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(HERE, '..', 'academy'))
 import imgtiles as IT
 import houses_mock as HM
+import matlift as ML                                   # (the exit mat onto the floor: user 2026-11-22)
 
 MB_SOUTH_ARROW_WARP = 0x65
 PRIM, SEC = ('pelluca_houses_tiles', 'PellucaHousesTiles'), ('pelluca_houses', 'PellucaHouses')
@@ -46,7 +47,7 @@ def main():
                 if (xx, y) not in solid: walk.add((ox + xx, y))
         mx = [xx for xx in range(r.W) if r.g[r.H - 1][xx]]
         mats[k] = [(ox + xx, r.H - 1) for xx in mx]
-        walk |= set(mats[k])
+        lifted, walk = ML.lift(img, walk, mats[k], ox, ox + r.W); mats[k] = sorted(lifted)
     allmats = {c for v in mats.values() for c in v}
     R = IT.build(img, x, Hmax, walk=walk, beh=lambda cx, cy: MB_SOUTH_ARROW_WARP if (cx, cy) in allmats else 0)
     bad = IT.check(R)
