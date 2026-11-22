@@ -1,7 +1,7 @@
 """Build Route 13 (mock v2 approved by the user 2026-11-22) into the game from tools/art/route13/route13_v2.py's
 composition: its pixels, collision and behaviours go to tools/art/mapbuild.py as a map with its own tileset pair.
 
-Connections: its foot's passage (x 19-20, row 123: south arrow warps) leads down into Mirroh's north-west gatehouse
+Connections: its foot's passage (x 19-20, row 122, the road's last cells at the gatehouse roof's peak: south arrow warps) leads down into Mirroh's north-west gatehouse
 hall, whose top doorway (4-5, 1) now leads up here (tools/art/mirroh/build_mirroh.py, the NW hall's north_open).
 Its two top exits (Mt. Mirroh, x 7-10; Templar HQ, x 32-34) stay closed until those maps exist.
 The border: Elderflower's small pines (1x2) repeated, so the camera shows woods past the edges, never open snow.
@@ -14,7 +14,7 @@ import route13_v2 as V
 import mapbuild as MB
 C = V.C
 MB_SOUTH_ARROW_WARP = 0x65
-PASSAGE = [(19, 123), (20, 123)]
+PASSAGE = [(19, 122), (20, 122)]   # (the road's last two cells at the roof's peak: MonoMyth's north-door convention)
 
 def main():
     K, _ = V.compose()

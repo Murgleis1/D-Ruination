@@ -17,14 +17,14 @@
   "warp_events": [
     {
       "x": 19,
-      "y": 123,
+      "y": 122,
       "elevation": 3,
       "dest_map": "MAP_MIRROH_NW_GATEHOUSE",
       "dest_warp_id": "2"
     },
     {
       "x": 20,
-      "y": 123,
+      "y": 122,
       "elevation": 3,
       "dest_map": "MAP_MIRROH_NW_GATEHOUSE",
       "dest_warp_id": "3"

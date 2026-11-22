@@ -143,9 +143,13 @@ def compose():
         K.put(x, 122, c, 'snow' if m.all() else 'wall', not m.all())
     for x in (13, 26):
         K.put(x, 122, uc(22 + x % 2, 0), 'wall', True); K.put(x, 123, uc(22 + x % 2, 1), 'wall', True)
+    # (user 2026-11-22, twice: a doorway drawn into the roof's peak left the player standing on the roof. MonoMyth's
+    # own gatehouses entered from a route to their north (Route 14, Route 28, New Old Bay City, South Edelweiss) and
+    # Old Pueblo's house draw no door at all: the warp is the route's own ground, its last row before the building's
+    # top edge, and you walk south off it into the building. So: the roof as built, and the passage is the road's last
+    # two cells on the snow at the roof's peak.)
     for x in (19, 20):
-        K.put(x, 122, ef(0xed), 'snow', False)                        # (the road's last step, on the snow before it)
-        K.put(x, 123, uc(x - 6, 9), 'passage', False)                 # (the doorway, the portcullis's dark arch)
+        K.put(x, 122, ef(0xed), 'passage', False)                     # (the road's last step: the warp)
 
     # --- the lifted climbs
     paste_r22(K, 57, 74, TERR1[0])                    # stair (its 72-74), ice-grass meadow, stair (57-60)
@@ -277,7 +281,7 @@ def reach(K, start):
 
 def main(out):
     K, notes = compose()
-    R = reach(K, (19, 123))
+    R = reach(K, (19, 122))
     for name, c in (('fork', (20, 29)), ('Mt. Mirroh exit', (8, 0)), ('Templar HQ exit', (33, 0)), ('glade', (5, 104)),
                     ('tarn shore', (10, 76)), ('top of terraces I', (12, 81))):
         print('%-18s %s %s' % (name, c, 'REACHED' if c in R else 'not reached'))
