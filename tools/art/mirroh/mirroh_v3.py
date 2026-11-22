@@ -587,6 +587,27 @@ def flanks(M):
                 y += 1
             k += 1
 
+def flanks_apron(M):
+    """Close the apron before the south gate too (user 2026-11-21: you could walk off both edges there). The same
+    three-column pinewood strips carry on from the wall's foot (row 57) down to Hollow Hill's forest at the seam,
+    in bands of their own (so the bands above, shared with Lower Mirroh, stay as they are): a big pine with a small
+    one and a buried rock beside it (three rows), or a rock ridge right across (one row). The seam fade keeps the
+    snow round their feet as the floor turns to Hollow Hill's."""
+    for side, xs in (('w', 0), ('e', 57)):
+        big_x = xs if side == 'w' else xs + 1
+        small_x = xs + 2 if side == 'w' else xs
+        y = 57; k = 0
+        while y < SEAM:
+            left = SEAM - y
+            if left >= 3 and (rnd('fa', side, k) < 0.72 or left == 3):
+                pine(M, big_x, y, True); pine(M, small_x, y, False)
+                M.ground(small_x, y + 2, ef(0xe8), 'rock')
+                y += 3
+            else:
+                for dx, m in enumerate((0x105, 0x106, 0x107)): M.ground(xs + dx, y, ef(m), 'rock')
+                y += 1
+            k += 1
+
 def pine(M, x, y, big):
     for dy in range(3 if big else 2):
         for dx in range(2 if big else 1): M.ground(x + dx, y + dy, ef(0xed), 'snow')
@@ -687,6 +708,7 @@ def compose():
     # from the map's top down to the city wall's foot, are closed by the massif's own pinewood and rock (every
     # cell a tree, a boulder or a rock ridge; Elderflower's pines and its rock ledges 105/106/107)
     flanks(M)
+    flanks_apron(M)
     north_wall(M)
     # --- L0: the slope outside, pines in clumps, rocks under the snow
     for x0, y0 in ((0, 2), (57, 4), (0, 15), (57, 18), (0, 28), (57, 31), (0, 41), (57, 44), (1, 56), (54, 56),
@@ -735,6 +757,10 @@ def seam_fade(M, top=56):
                 bases[(x, y)] = ((y - y0) * 16 + 12, x * 16 + 8)
     for (cy, cx) in bases.values():
         f = f + 0.75 * np.exp(-(((yy - cy) / 14.0) ** 2 + ((xx - cx) / 20.0) ** 2))
+    # the snow drifts deep against the flanks' pinewood (flanks_apron) and thins out toward the lane, so its edge
+    # curves down along the trees instead of meeting them in a straight line
+    into = np.minimum(np.maximum(xx - 3 * 16, 0), np.maximum(57 * 16 - xx, 0))
+    f = f + 0.95 * np.exp(-(into / 26.0) ** 2) * (0.75 + 0.5 * pnoise(18.0, 'sd'))
     from scipy.ndimage import binary_opening, binary_closing
     snow = binary_closing(binary_opening(f > 0.5, np.ones((3, 3), bool)), np.ones((3, 3), bool)); snow[:12] = True
     lab, n = label(snow)                                          # no crumbs of snow or floor

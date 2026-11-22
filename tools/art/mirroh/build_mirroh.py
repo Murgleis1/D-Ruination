@@ -115,9 +115,16 @@ def build_gate(M):
     coords = [{'type': 'trigger', 'x': x, 'y': y1 - y0 - 1, 'elevation': 3, 'var': 'VAR_TEMP_1', 'var_value': '0',
                'script': 'MirrohGate_EventScript_ToHollowHill%d' % (x - mm.HHX)} for x in range(28, 32)]
     j = mapj('MAP_MIRROH_GATE', 'MirrohGate', warps=warps, coords=coords)
-    s = snow_cell(r, M, y0)
+    # the border: beyond the map's edges, Hollow Hill's bone wood (user 2026-11-21: past the apron's pinewood the
+    # camera showed endless snow, as if the land went on). Its fill repeats every 2x2 cells; the engine takes border
+    # block (x & 1) + 2 * (y & 1) for map cell (x, y) (fieldmap.c GetBorderBlockAt, coordinates offset by 7), so the
+    # wood beyond the edges runs on in step with the wood in the map.
+    gb = r['grid'] & 0x3FF; ye = (gb.shape[0] - 1) & ~1                  # (an even row of the wood, at the bottom)
+    wood = [int(gb[ye, 0]), int(gb[ye, 1]), int(gb[ye - 1, 0]), int(gb[ye - 1, 1])]
+    edges = (0, 1, gb.shape[1] - 2, gb.shape[1] - 1)                    # (the tree pairs that meet the border)
+    assert all(int(gb[y, x]) == wood[(x & 1) + 2 * (y & 1)] for y in range(ye - 7, ye + 1) for x in edges), 'the wood is out of step at an edge'
     MB.write(r, 'MirrohGate', 'LAYOUT_MIRROH_GATE', ('mirroh_gate_tiles', 'MirrohGateTiles'),
-             ('mirroh_gate', 'MirrohGate'), j, border=[s] * 4)
+             ('mirroh_gate', 'MirrohGate'), j, border=wood)
     open(os.path.join(C, 'data/maps/MirrohGate/scripts.pory'), 'w').write('mapscripts MirrohGate_MapScripts {}\n' + ''.join(
         '\nscript MirrohGate_EventScript_ToHollowHill%d {\n    setvar(VAR_TEMP_1, 1)\n    warp(MAP_HOLLOW_HILL, %d, 1)\n}\n' % (hx, hx) for hx in range(16, 20)))
     return r
