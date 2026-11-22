@@ -6142,6 +6142,76 @@
       "blockdata_filepath": "data/layouts/PellucaAcademyHall/map.bin"
     },
     {
+      "id": "LAYOUT_MIRROH_SPECIALTY_SHOP",
+      "name": "MirrohSpecialtyShop_Layout",
+      "width": 12,
+      "height": 10,
+      "primary_tileset": "gTileset_MirrohIntShopTiles",
+      "secondary_tileset": "gTileset_MirrohIntShop",
+      "border_filepath": "data/layouts/MirrohSpecialtyShop/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohSpecialtyShop/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_TOWNHOUSE",
+      "name": "MirrohTownhouse_Layout",
+      "width": 15,
+      "height": 11,
+      "primary_tileset": "gTileset_MirrohIntTownhouseTiles",
+      "secondary_tileset": "gTileset_MirrohIntTownhouse",
+      "border_filepath": "data/layouts/MirrohTownhouse/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohTownhouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_COTTAGE",
+      "name": "MirrohCottage_Layout",
+      "width": 12,
+      "height": 9,
+      "primary_tileset": "gTileset_MirrohIntCottageTiles",
+      "secondary_tileset": "gTileset_MirrohIntCottage",
+      "border_filepath": "data/layouts/MirrohCottage/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohCottage/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_SNOWY_HOUSE",
+      "name": "MirrohSnowyHouse_Layout",
+      "width": 11,
+      "height": 11,
+      "primary_tileset": "gTileset_MirrohIntSnowyTiles",
+      "secondary_tileset": "gTileset_MirrohIntSnowy",
+      "border_filepath": "data/layouts/MirrohSnowyHouse/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohSnowyHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_CHAPEL",
+      "name": "MirrohChapel_Layout",
+      "width": 17,
+      "height": 21,
+      "primary_tileset": "gTileset_MirrohIntChapelTiles",
+      "secondary_tileset": "gTileset_MirrohIntChapel",
+      "border_filepath": "data/layouts/MirrohChapel/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohChapel/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_LANGERIN_HALL",
+      "name": "MirrohLangerinHall_Layout",
+      "width": 11,
+      "height": 18,
+      "primary_tileset": "gTileset_MirrohIntLangerinTiles",
+      "secondary_tileset": "gTileset_MirrohIntLangerin",
+      "border_filepath": "data/layouts/MirrohLangerinHall/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohLangerinHall/map.bin"
+    },
+    {
+      "id": "LAYOUT_MIRROH_TAVERN",
+      "name": "MirrohTavern_Layout",
+      "width": 14,
+      "height": 12,
+      "primary_tileset": "gTileset_MirrohIntTavernTiles",
+      "secondary_tileset": "gTileset_MirrohIntTavern",
+      "border_filepath": "data/layouts/MirrohTavern/border.bin",
+      "blockdata_filepath": "data/layouts/MirrohTavern/map.bin"
+    },
+    {
       "id": "LAYOUT_NECROPOLIS_GROUNDS",
       "name": "NecropolisGrounds_Layout",
       "width": 44,

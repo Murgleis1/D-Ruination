@@ -70,6 +70,34 @@
       "elevation": 3,
       "dest_map": "MAP_MIRROH_UPPER",
       "dest_warp_id": "7"
+    },
+    {
+      "x": 9,
+      "y": 16,
+      "elevation": 3,
+      "dest_map": "MAP_MIRROH_SNOWY_HOUSE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 21,
+      "y": 16,
+      "elevation": 3,
+      "dest_map": "MAP_MIRROH_COTTAGE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 28,
+      "y": 16,
+      "elevation": 3,
+      "dest_map": "MAP_MIRROH_TOWNHOUSE",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 39,
+      "y": 16,
+      "elevation": 3,
+      "dest_map": "MAP_MIRROH_SPECIALTY_SHOP",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],

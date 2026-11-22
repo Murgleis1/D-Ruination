@@ -1228,6 +1228,160 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_MirrohIntShop =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MirrohIntShop,
+    .palettes = gTilesetPalettes_MirrohIntShop,
+    .metatiles = gMetatiles_MirrohIntShop,
+    .metatileAttributes = gMetatileAttributes_MirrohIntShop,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntShopTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MirrohIntShopTiles,
+    .palettes = gTilesetPalettes_MirrohIntShopTiles,
+    .metatiles = gMetatiles_MirrohIntShopTiles,
+    .metatileAttributes = gMetatileAttributes_MirrohIntShopTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntTownhouse =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MirrohIntTownhouse,
+    .palettes = gTilesetPalettes_MirrohIntTownhouse,
+    .metatiles = gMetatiles_MirrohIntTownhouse,
+    .metatileAttributes = gMetatileAttributes_MirrohIntTownhouse,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntTownhouseTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MirrohIntTownhouseTiles,
+    .palettes = gTilesetPalettes_MirrohIntTownhouseTiles,
+    .metatiles = gMetatiles_MirrohIntTownhouseTiles,
+    .metatileAttributes = gMetatileAttributes_MirrohIntTownhouseTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntCottage =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MirrohIntCottage,
+    .palettes = gTilesetPalettes_MirrohIntCottage,
+    .metatiles = gMetatiles_MirrohIntCottage,
+    .metatileAttributes = gMetatileAttributes_MirrohIntCottage,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntCottageTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MirrohIntCottageTiles,
+    .palettes = gTilesetPalettes_MirrohIntCottageTiles,
+    .metatiles = gMetatiles_MirrohIntCottageTiles,
+    .metatileAttributes = gMetatileAttributes_MirrohIntCottageTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntSnowy =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MirrohIntSnowy,
+    .palettes = gTilesetPalettes_MirrohIntSnowy,
+    .metatiles = gMetatiles_MirrohIntSnowy,
+    .metatileAttributes = gMetatileAttributes_MirrohIntSnowy,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntSnowyTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MirrohIntSnowyTiles,
+    .palettes = gTilesetPalettes_MirrohIntSnowyTiles,
+    .metatiles = gMetatiles_MirrohIntSnowyTiles,
+    .metatileAttributes = gMetatileAttributes_MirrohIntSnowyTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntChapel =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MirrohIntChapel,
+    .palettes = gTilesetPalettes_MirrohIntChapel,
+    .metatiles = gMetatiles_MirrohIntChapel,
+    .metatileAttributes = gMetatileAttributes_MirrohIntChapel,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntChapelTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MirrohIntChapelTiles,
+    .palettes = gTilesetPalettes_MirrohIntChapelTiles,
+    .metatiles = gMetatiles_MirrohIntChapelTiles,
+    .metatileAttributes = gMetatileAttributes_MirrohIntChapelTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntLangerin =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MirrohIntLangerin,
+    .palettes = gTilesetPalettes_MirrohIntLangerin,
+    .metatiles = gMetatiles_MirrohIntLangerin,
+    .metatileAttributes = gMetatileAttributes_MirrohIntLangerin,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntLangerinTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MirrohIntLangerinTiles,
+    .palettes = gTilesetPalettes_MirrohIntLangerinTiles,
+    .metatiles = gMetatiles_MirrohIntLangerinTiles,
+    .metatileAttributes = gMetatileAttributes_MirrohIntLangerinTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntTavern =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MirrohIntTavern,
+    .palettes = gTilesetPalettes_MirrohIntTavern,
+    .metatiles = gMetatiles_MirrohIntTavern,
+    .metatileAttributes = gMetatileAttributes_MirrohIntTavern,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MirrohIntTavernTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MirrohIntTavernTiles,
+    .palettes = gTilesetPalettes_MirrohIntTavernTiles,
+    .metatiles = gMetatiles_MirrohIntTavernTiles,
+    .metatileAttributes = gMetatileAttributes_MirrohIntTavernTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_NecropolisGrounds =
 {
     .isCompressed = TRUE,

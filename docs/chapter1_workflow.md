@@ -59,6 +59,8 @@ Done (each has a note in `bible/20_chapter1_build.md`):
   quest (user). Next: the Mirroh area.
 - Mirroh: built and walked, 2026-11-21, as three maps (`MirrohGate`, `MirrohLower`, `MirrohUpper`) and two
   gatehouse hallways. Reached from Hollow Hill's way north by a short fade.
+  Interiors built and walked 2026-11-22: the Tavern (respawn point), the chapel, House Langerin's hall, the specialty
+  shop and three homes (each with a bed). Homes need beds (user 2026-11-22).
 - Mirroh Necropolis grounds (`NecropolisGrounds`): built and walked, 2026-11-21. Reached from Mirroh's skull gate.
 - The Trial lake (`NecropolisLake`): built and walked, 2026-11-21. Reached from the grounds' grand entrance. Its
   frozen bank and its bonfires (unlit, and lit with an animated ghost flame for the Trial script to switch on) are done.
@@ -66,7 +68,7 @@ Done (each has a note in `bible/20_chapter1_build.md`):
   copper, Mirroh stone.
 
 Remaining (proposed order):
-1. Mirroh's interiors (next session), then Mt. Mirroh and Mirroh Peak (the one after).
+1. Mt. Mirroh and Mirroh Peak (next session).
    The base game's Mirroh maps are still on old tilesets.
 2. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them.
 

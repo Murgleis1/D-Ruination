@@ -174,7 +174,14 @@
     "MirrohSouthGatehouse",
     "MirrohNWGatehouse",
     "MirrohGate",
-    "NecropolisGrounds"
+    "NecropolisGrounds",
+    "MirrohTavern",
+    "MirrohLangerinHall",
+    "MirrohChapel",
+    "MirrohSnowyHouse",
+    "MirrohCottage",
+    "MirrohTownhouse",
+    "MirrohSpecialtyShop"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

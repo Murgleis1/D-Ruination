@@ -135,14 +135,27 @@ def build_lower(M):
     walk = walkable(M, y0, y1, range(34, 51))
     back = {(30, 46 - y0), (31, 46 - y0)}                                # the south gatehouse's back
     up = {(x, 34 - y0) for x in (14, 15, 16, 43, 44, 45)}                # the stairs' tops: up to the square
-    beh = lambda x, y: MB_SOUTH_ARROW_WARP if (x, y) in back else MB_NORTH_ARROW_WARP if (x, y) in up else MB_NORMAL
+    hd, hw = house_doors('MAP_MIRROH_LOWER'); walk |= hd                   # (the three homes and the shop)
+    beh = lambda x, y: (MB_SOUTH_ARROW_WARP if (x, y) in back else MB_NORTH_ARROW_WARP if (x, y) in up
+                        else MB_DOOR if (x, y) in hd else MB_NORMAL)
     r = MB.build(bot, mid, None, len(M.g[0]), y1 - y0, walk, beh)
     warps = [W3(x, y, 'MAP_MIRROH_SOUTH_GATEHOUSE', 2) for (x, y) in sorted(back)]
     warps += [W3(x, y, 'MAP_MIRROH_UPPER', 2 + i) for i, (x, y) in enumerate(sorted(up))]
+    assert len(warps) == 8; warps += hw
     j = mapj('MAP_MIRROH_LOWER', 'MirrohLower', warps=warps)
     s = snow_cell(r, M, y0)
     MB.write(r, 'MirrohLower', 'LAYOUT_MIRROH_LOWER', ('mirroh_lower_tiles', 'MirrohLowerTiles'), ('mirroh_lower', 'MirrohLower'), j, border=[s] * 4)
     return r
+
+def house_doors(ext):
+    """The interiors' doors on this map (build_interiors.DOORS, in its order): cells, and their warps appended after
+    the map's own (so the warp ids other maps use stay put)."""
+    import build_interiors as BI
+    cells, warps = set(), []
+    for k, (name, mid, e, cs, to) in BI.DOORS.items():
+        if e != ext: continue
+        for i, (x, y) in enumerate(cs): cells.add((x, y)); warps.append(W3(x, y, mid, to[i]))
+    return cells, warps
 
 def build_upper(M):
     y0, y1 = 0, 39
@@ -151,11 +164,13 @@ def build_upper(M):
     nw = {(13, 9), (14, 9)}                   # (the doorway's last row, as the south one's: the ground under it paved)
     necro = {(43, 9), (44, 9), (45, 9)}; walk |= nw | necro
     down = {(x, 33) for x in (14, 15, 16, 43, 44, 45)}
-    beh = lambda x, y: MB_DOOR if (x, y) in nw | necro else MB_SOUTH_ARROW_WARP if (x, y) in down else MB_NORMAL
+    hd, hw = house_doors('MAP_MIRROH_UPPER'); walk |= hd                   # (the Tavern, the chapel, House Langerin)
+    beh = lambda x, y: MB_DOOR if (x, y) in nw | necro | hd else MB_SOUTH_ARROW_WARP if (x, y) in down else MB_NORMAL
     r = MB.build(bot, mid, None, len(M.g[0]), y1 - y0, walk, beh)
     warps = [W3(x, y, 'MAP_MIRROH_NW_GATEHOUSE', 0) for (x, y) in sorted(nw)]
     warps += [W3(x, y, 'MAP_MIRROH_LOWER', 2 + i) for i, (x, y) in enumerate(sorted(down))]
     warps += [W3(x, y, NECRO_MAP, i) for i, (x, y) in enumerate(sorted(necro))]      # (to the grounds' foot, x 20-22)
+    assert len(warps) == 11; warps += hw
     j = mapj('MAP_MIRROH_UPPER', 'MirrohUpper', warps=warps)
     s = snow_cell(r, M, y0)
     MB.write(r, 'MirrohUpper', 'LAYOUT_MIRROH_UPPER', ('mirroh_upper_tiles', 'MirrohUpperTiles'), ('mirroh_upper', 'MirrohUpper'), j, border=[s] * 4)

@@ -1,0 +1,33 @@
+// Mirroh's Tavern (Pelluca's Seaside Tavern room, recoloured to Mirroh's colder palette; build_interiors.py).
+// Core staff (bible Section 4): healer, barkeep (Mirroh's stock below, a first pass: [OPEN]), Sage, Caretaker.
+
+mapscripts MirrohTavern_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        setrespawn(HEAL_LOCATION_MIRROH)
+    }
+}
+
+script MirrohTavern_EventScript_Barkeep {
+    lock
+    faceplayer
+    speakername("Barkeep")
+    message(format("Cold out there. Stock up before you go."))
+    waitmessage
+    pokemart(MirrohTavern_Stock)
+    speakername("Barkeep")
+    msgbox(format("Keep warm."))
+    closemessage
+    release
+    end
+}
+
+mart MirrohTavern_Stock {
+    ITEM_POTION
+    ITEM_SUPER_POTION
+    ITEM_POKE_BALL
+    ITEM_ANTIDOTE
+    ITEM_PARALYZE_HEAL
+    ITEM_BURN_HEAL
+    ITEM_ICE_HEAL
+    ITEM_AWAKENING
+}
