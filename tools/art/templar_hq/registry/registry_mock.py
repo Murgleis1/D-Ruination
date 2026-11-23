@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.join(HERE, '..', 'study')); sys.path.insert(0, os.pat
 from cutter import load, cell, cut, T
 import study_mock as SM
 import hall_mock as HM
-W, H = 16, 12
+W, H = 16, 13
 GFX = os.path.join(REPO, 'codebase', 'graphics', 'pokemon')
 
 def sprite(path, frame=0, size=32):
@@ -56,7 +56,7 @@ def pieces():
     P['strawsmall'] = cut(st, 2, 3, 1, 1, stfl)
     barfl = [(x, y) for x in (8, 9, 10, 11) for y in (5, 6, 7)] + [(x, 2) for x in (8, 9, 10)]
     c = cut(bar, 4, 2, 14, 3, barfl)[14:42]                  # (its top and front face; the stools left out)
-    c = c[:, list(range(0, 20)) + [100] * (8 * T - 40) + list(range(204, 224))]   # (shortened to 8 tiles)
+    c = c[:, list(range(0, 20)) + [100] * (10 * T - 40) + list(range(204, 224))]  # (shortened to 10 tiles)
     HM.tone(c); P['counter'] = c
     warm = {tuple(p) for x, y in barfl for p in cell(bar, x, y).reshape(-1, 3) if p[0] > p[2] + 6}
     P['stool'] = cut(bar, 4, 6, 1, 1, barfl, bgcols=[(6, warm)])   # (grey stool; the bar's floor is warm brown)
@@ -71,7 +71,8 @@ def pieces():
     P['rufflet_l'] = rl; P['rufflet_r'] = rl[:, ::-1].copy()
     P['egg'] = sprite(os.path.join(GFX, 'egg', 'icon.png'), 0)
     P['braviary'] = np.array(Image.open(os.path.join(HERE, '..', 'yard', 'braviary_down.png')).convert('RGBA')).astype(int)
-    P['map'] = wall_map()
+    import parchment_map as PMAP
+    P['map'] = PMAP.scroll(80, 53)                            # (user's illustrated map, as parchment, hung as a scroll)
     return P, c79
 
 def put(img, p, x, y):
@@ -79,37 +80,41 @@ def put(img, p, x, y):
     h, w = p.shape[:2]; m = p[..., 3] > 0
     img[y:y + h, x:x + w][m] = p[..., :3][m]
 
+def centre(p):
+    ys, xs = np.nonzero(p[..., 3] > 0); return (ys.min() + ys.max()) / 2, (xs.min() + xs.max()) / 2
+
 def main(out):
     P, c79 = pieces()
     img = np.zeros((H * T, W * T, 3), int)
-    for x in range(1, W - 1):
+    for x in range(1, W - 1):                                 # wall: wallpaper rows 0-2, panelling row 3
         img[0:2 * T, x * T:(x + 1) * T] = c79[0:2 * T, 3 * T:4 * T]
-        img[2 * T:3 * T, x * T:(x + 1) * T] = cell(c79, 3, 2)
-        for y in range(3, H - 1):
-            src = (5, 3) if y == 3 else (1, 4) if x == 1 else (3, 6)
+        img[2 * T:3 * T, x * T:(x + 1) * T] = c79[T:2 * T, 3 * T:4 * T]
+        img[3 * T:4 * T, x * T:(x + 1) * T] = cell(c79, 3, 2)
+        for y in range(4, H - 1):
+            src = (5, 3) if y == 4 else (1, 4) if x == 1 else (3, 6)
             img[y * T:(y + 1) * T, x * T:(x + 1) * T] = cell(c79, *src)
     rows = np.arange(H * T)[:, None].repeat(W * T, 1)
-    SM.recolour(img, SM.WALL, rows < 2 * T)
+    SM.recolour(img, SM.WALL, rows < 3 * T)
     img[(H - 1) * T:H * T, 7 * T:9 * T] = c79[8 * T:9 * T, 4 * T:6 * T]
     SM.recolour(img, SM.MAT, rows >= (H - 1) * T)
-    # back wall
-    mp = P['map']; put(img, mp, 8 * T - mp.shape[1] // 2, 0)
-    put(img, P['cabinet'], 1 * T, 3 * T - 37); put(img, P['cabinet'], 2 * T, 3 * T - 37)   # (feet on the floor line)
-    SM.paste(img, P['bookcase'], 3, 2); SM.paste(img, P['bookcase'], 11, 2); SM.paste(img, P['bookcase'], 13, 2)
-    # the counter
-    put(img, P['counter'], 4 * T, 5 * T - 12)
-    # west: the Raptora liaison's desk
-    SM.paste(img, P['desk'], 2, 6); SM.paste(img, P['chairL'], 3, 8)
+    # the staff wall: the map between two ledger bookcases, the counter before them
+    mp = P['map']; put(img, mp, 8 * T - mp.shape[1] // 2, 1)
+    SM.paste(img, P['bookcase'], 3, 3); SM.paste(img, P['bookcase'], 11, 3)
+    put(img, P['counter'], 3 * T, 6 * T - 6)
+    # west corner: House Raptora's liaison, at a desk against the wall
+    SM.paste(img, P['desk'], 1, 3); SM.paste(img, P['chairL'], 1, 5)
     # east: the nursery
-    SM.paste(img, P['strawbed'], 13, 5); put(img, P['braviary'], 13 * T, 5 * T - 10)
-    SM.paste(img, P['nest'], 12, 8)
-    put(img, P['egg'], 12 * T + 1, 8 * T - 6); put(img, P['egg'], 13 * T - 3, 8 * T - 2)
-    put(img, P['rufflet'], 11 * T - 8, 9 * T - 14); put(img, P['rufflet_l'], 14 * T - 8, 9 * T - 12)
-    put(img, P['rufflet_r'], 11 * T - 6, 6 * T - 14)
+    SM.paste(img, P['strawbed'], 13, 4); put(img, P['braviary'], 13 * T, 4 * T - 10)
+    SM.paste(img, P['nest'], 13, 8)
+    ny, nx = centre(P['nest']); ey, ex = centre(P['egg'])
+    for dx in (-5, 5):                                        # (two eggs sitting in the middle of the straw)
+        put(img, P['egg'], int(13 * T + nx - ex + dx), int(8 * T + ny - ey - 3))
+    put(img, P['rufflet_r'], 11 * T + 4, 9 * T - 14); put(img, P['rufflet'], 14 * T - 4, 10 * T - 10)
+    put(img, P['rufflet_l'], 12 * T + 2, 6 * T + 6)
     SM.paste(img, P['strawsmall'], 14, 7)
     # by the door
-    for x in (4, 5, 6): SM.paste(img, P['stool'], x, 10)
-    SM.paste(img, P['candelabra'], 1, 9)
+    for x in (3, 4, 5): SM.paste(img, P['stool'], x, 11)
+    SM.paste(img, P['candelabra'], 1, 10)
     o = Image.fromarray(img.astype(np.uint8)); o.save(out)
     o.resize((W * T * 3, H * T * 3), Image.NEAREST).save(out.replace('.png', '_3x.png'))
 
