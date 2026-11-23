@@ -6162,6 +6162,66 @@
       "blockdata_filepath": "data/layouts/TemplarCitadel/map.bin"
     },
     {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL_STOREHOUSE",
+      "name": "TemplarCathedralStorehouse_Layout",
+      "width": 16,
+      "height": 11,
+      "primary_tileset": "gTileset_TemplarCathStorehouseTiles",
+      "secondary_tileset": "gTileset_TemplarCathStorehouse",
+      "border_filepath": "data/layouts/TemplarCathedralStorehouse/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedralStorehouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL_KITCHEN",
+      "name": "TemplarCathedralKitchen_Layout",
+      "width": 18,
+      "height": 12,
+      "primary_tileset": "gTileset_TemplarCathKitchenTiles",
+      "secondary_tileset": "gTileset_TemplarCathKitchen",
+      "border_filepath": "data/layouts/TemplarCathedralKitchen/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedralKitchen/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL_REGISTRY",
+      "name": "TemplarCathedralRegistry_Layout",
+      "width": 20,
+      "height": 12,
+      "primary_tileset": "gTileset_TemplarCathRegistryTiles",
+      "secondary_tileset": "gTileset_TemplarCathRegistry",
+      "border_filepath": "data/layouts/TemplarCathedralRegistry/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedralRegistry/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL_DORMITORY",
+      "name": "TemplarCathedralDormitory_Layout",
+      "width": 14,
+      "height": 15,
+      "primary_tileset": "gTileset_TemplarCathDormTiles",
+      "secondary_tileset": "gTileset_TemplarCathDorm",
+      "border_filepath": "data/layouts/TemplarCathedralDormitory/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedralDormitory/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL_BISHOPS_HALL",
+      "name": "TemplarCathedralBishopsHall_Layout",
+      "width": 18,
+      "height": 12,
+      "primary_tileset": "gTileset_TemplarCathBishopsTiles",
+      "secondary_tileset": "gTileset_TemplarCathBishops",
+      "border_filepath": "data/layouts/TemplarCathedralBishopsHall/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedralBishopsHall/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL_STUDY",
+      "name": "TemplarCathedralStudy_Layout",
+      "width": 14,
+      "height": 11,
+      "primary_tileset": "gTileset_TemplarCathStudyTiles",
+      "secondary_tileset": "gTileset_TemplarCathStudy",
+      "border_filepath": "data/layouts/TemplarCathedralStudy/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedralStudy/map.bin"
+    },
+    {
       "id": "LAYOUT_TEMPLAR_CATHEDRAL",
       "name": "TemplarCathedral_Layout",
       "width": 21,

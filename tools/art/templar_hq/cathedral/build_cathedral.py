@@ -116,8 +116,129 @@ script TemplarCathedral_EventScript_SanctumGrille {
 '''
     return write_room('nave', img, walk, beh, mapj('nave', warps, bgs=bgs), pory)
 
+# ------------------------------------------------------------------ the offices
+# room: (mock module, wall rows, the mat's columns on the black bottom row, extra doors {cell: (dest map, warp id)})
+OFFICE_SPEC = {
+    'study':      ('study_mock', 3, (6, 7), {}),
+    'bishops':    ('hall_mock', 3, (8, 9), {(2, 2): ('MAP_TEMPLAR_CATHEDRAL_DORMITORY', 0)}),
+    'dorm':       ('dorm_mock', 3, (6, 7), {}),
+    'registry':   ('registry_mock', 4, (9, 10), {}),
+    'kitchen':    ('kitchen_mock', 3, (8, 9), {}),
+    'storehouse': ('store_mock', 3, (7, 8), {}),
+}
+COVER = 48                               # (a piece covering this many pixels of a cell makes it solid)
+
+def bird_sprites():
+    """The registry's birds (they become objects): {key: array} as registry_mock draws them."""
+    import registry_mock as R
+    from PIL import Image as I_
+    rl = R.sprite(os.path.join(R.GFX, 'rufflet', 'overworld.png'), 4)
+    return {'braviary': np.array(I_.open(os.path.join(TQ, 'yard', 'braviary_down.png')).convert('RGBA')).astype(int),
+            'braviary_l': np.array(I_.open(os.path.join(TQ, 'yard', 'braviary_left.png')).convert('RGBA')).astype(int),
+            'rufflet': R.sprite(os.path.join(R.GFX, 'rufflet', 'overworld.png'), 0), 'rufflet_l': rl, 'rufflet_r': rl[:, ::-1].copy()}
+
+def capture(key):
+    """Run a room's mock, recording every piece it places (and keeping the birds out of the picture)."""
+    import importlib, study_mock as SM
+    modname = OFFICE_SPEC[key][0]; mod = importlib.import_module(modname)
+    rec, birds = [], []
+    sprites = bird_sprites() if key == 'registry' else {}
+    o_paste = SM.paste
+    def paste(img, p, tx, ty, dy=0):
+        rec.append((p, tx * 16, ty * 16 + dy)); o_paste(img, p, tx, ty, dy)
+    SM.paste = paste
+    o_put = getattr(mod, 'put', None)
+    if o_put:
+        def put(img, p, x, y):
+            for k, sp in sprites.items():
+                if p.shape == sp.shape and np.array_equal(p, sp): birds.append((k, x, y)); return
+            rec.append((p, x, y)); o_put(img, p, x, y)
+        mod.put = put
+    try:
+        out = os.path.join(SCR, key + '_mock.png'); mod.main(out)
+    finally:
+        SM.paste = o_paste
+        if o_put: mod.put = o_put
+    # which recorded pieces are walkable: compare to the module's own pieces by identity of content
+    P = None
+    return np.array(Image.open(out).convert('RGB')).astype(int), rec, birds
+
+def office(key):
+    modname, wall_rows, matcols, extra = OFFICE_SPEC[key]
+    img, rec, birds = capture(key)
+    H, W = img.shape[0] // 16, img.shape[1] // 16
+    # the mat: off the black bottom row onto the last floor row; the black row dropped
+    strip = img[(H - 1) * 16:H * 16].copy(); m = strip.any(-1)
+    ys, xs = np.nonzero(m); img[(H - 2) * 16 + ys, xs] = strip[ys, xs]
+    img = img[:(H - 1) * 16]; H -= 1
+    solid = np.zeros((H, W), bool); solid[:wall_rows] = True; solid[:, 0] = True; solid[:, W - 1] = True
+    import study_mock as SM
+    walk_arrays = []
+    if key == 'registry':                                         # (the loose straw piles are walked over)
+        import registry_mock as R
+        walk_arrays.append(R.pieces()[0]['strawsmall'])
+    for p, x, y in rec:
+        a = p[..., 3] > 0
+        if any(p.shape == w.shape and np.array_equal(p, w) for w in walk_arrays): continue
+        cov = np.zeros((H + 4, W + 4))
+        ys_, xs_ = np.nonzero(a)
+        for yy, xx in zip(ys_ + y, xs_ + x):
+            if 0 <= yy < H * 16 and 0 <= xx < W * 16: cov[yy // 16, xx // 16] += 1
+        solid |= cov[:H, :W] >= COVER
+    exits = [(x, H - 1) for x in matcols]
+    for c in exits: solid[c[1], c[0]] = False
+    for (x, y) in extra: solid[y, x] = False
+    walk = {(x, y) for y in range(H) for x in range(W) if not solid[y, x]}
+    beh = lambda x, y: MB_SOUTH_ARROW_WARP if (x, y) in exits else MB_DOOR if (x, y) in extra else MB_NORMAL
+    if key == 'dorm':
+        warps = [W3(x, y, ROOMS['bishops'][1], 2) for (x, y) in exits]          # (back to the hall's door: its warp 2)
+    else:
+        warps = [W3(x, y, 'MAP_TEMPLAR_CATHEDRAL', NAVE_DOOR_WARP[key]) for (x, y) in exits]
+    warps += [W3(x, y, d, wid) for (x, y), (d, wid) in extra.items()]
+    objs = []
+    for k, x, y in birds:
+        cx, cy = (x + 8) // 16, (y + 31) // 16
+        sp = 'BRAVIARY' if k.startswith('braviary') else 'RUFFLET'
+        mv = ('MOVEMENT_TYPE_FACE_LEFT' if k.endswith('_l') else 'MOVEMENT_TYPE_FACE_RIGHT' if k.endswith('_r') else 'MOVEMENT_TYPE_FACE_DOWN') \
+            if sp == 'BRAVIARY' else 'MOVEMENT_TYPE_WANDER_AROUND'
+        objs.append({'graphics_id': 'OBJ_EVENT_GFX_SPECIES(%s)' % sp, 'x': int(cx), 'y': int(cy), 'elevation': 3,
+                     'movement_type': mv, 'movement_range_x': 1 if sp == 'RUFFLET' else 0,
+                     'movement_range_y': 1 if sp == 'RUFFLET' else 0, 'trainer_type': 'TRAINER_TYPE_NONE',
+                     'trainer_sight_or_berry_tree_id': '0', 'script': 'TemplarCathedralRegistry_EventScript_' + sp.capitalize(),
+                     'flag': '0'})
+    name = ROOMS[key][0]
+    pory = 'mapscripts %s_MapScripts {}\n' % name
+    if key == 'registry':
+        pory += """
+script TemplarCathedralRegistry_EventScript_Braviary {
+    lock
+    faceplayer
+    playmoncry(SPECIES_BRAVIARY, CRY_MODE_NORMAL)
+    msgbox(format("Braviary: Kreeaw!"))
+    waitmoncry
+    release
+    end
+}
+
+script TemplarCathedralRegistry_EventScript_Rufflet {
+    lock
+    faceplayer
+    playmoncry(SPECIES_RUFFLET, CRY_MODE_NORMAL)
+    msgbox(format("Rufflet: Ruff!"))
+    waitmoncry
+    release
+    end
+}
+"""
+    np.save(os.path.join(SCR, key + '_solid.npy'), solid)
+    import tilequant as TQN
+    img, _ = TQN.quantise(img, n=13)
+    return write_room(key, img, walk, beh, mapj(key, warps, objs), pory)
+
 def main(which):
     if 'nave' in which: build_nave()
+    for k in OFFICE_SPEC:
+        if k in which or 'offices' in which: office(k)
 
 if __name__ == '__main__':
-    main(sys.argv[1:] or ['nave'])
+    main(sys.argv[1:] or ['nave', 'offices'])

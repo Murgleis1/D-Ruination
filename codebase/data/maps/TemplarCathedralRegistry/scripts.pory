@@ -1,0 +1,21 @@
+mapscripts TemplarCathedralRegistry_MapScripts {}
+
+script TemplarCathedralRegistry_EventScript_Braviary {
+    lock
+    faceplayer
+    playmoncry(SPECIES_BRAVIARY, CRY_MODE_NORMAL)
+    msgbox(format("Braviary: Kreeaw!"))
+    waitmoncry
+    release
+    end
+}
+
+script TemplarCathedralRegistry_EventScript_Rufflet {
+    lock
+    faceplayer
+    playmoncry(SPECIES_RUFFLET, CRY_MODE_NORMAL)
+    msgbox(format("Rufflet: Ruff!"))
+    waitmoncry
+    release
+    end
+}

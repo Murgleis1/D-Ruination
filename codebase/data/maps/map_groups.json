@@ -184,7 +184,13 @@
     "MirrohSpecialtyShop",
     "Route13",
     "TemplarCitadel",
-    "TemplarCathedral"
+    "TemplarCathedral",
+    "TemplarCathedralStudy",
+    "TemplarCathedralBishopsHall",
+    "TemplarCathedralDormitory",
+    "TemplarCathedralRegistry",
+    "TemplarCathedralKitchen",
+    "TemplarCathedralStorehouse"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",
