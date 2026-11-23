@@ -1,4 +1,4 @@
-"""The Citadel's barracks and armoury, mocks v1 (floor plans v1, plans.py; user 2026-11-23: barracks "build the mock",
+"""The Citadel's barracks and armoury, mocks v2 (v1 rejected by the user 2026-11-23); originally v1 (floor plans v1, plans.py; user 2026-11-23: barracks "build the mock",
 with the prop sheet's sword banners and Crown's wall swords; armoury approved). Both on the Citadel Tavern's shell
 (tavern.py: the cream plank floor, the dark grey wood walls), so the courtyard's houses match inside.
 Each room() returns (picture, solid, exits): the exit mat on the last floor row, as everywhere.
@@ -51,32 +51,39 @@ def common():
     return P, Q
 
 def barracks():
-    P, Q = common(); R = Room(16, 13)
-    R.wall(Q['banner_swords'], 4 * T + 2, 0); R.wall(Q['banner_shield'], 7 * T + 2, 0); R.wall(Q['banner_swords'], 10 * T + 2, 0)
-    R.wall(Q['banner_swords'], 1 * T + 2, 0); R.wall(Q['banner_swords'], 13 * T + 2, 0)
-    for y in (2, 5, 8):                                           # (three beds down each side, heads north)
-        R.put(P['bed'], 1 * T, y * T + 4); R.put(P['bed'], 13 * T, y * T + 4)
-    R.put(Q['helmet'], 4 * T, 2 * T + 4); R.put(Q['helmet'], 11 * T, 2 * T + 4)
-    R.put(Q['stand_l'], 6 * T, 2 * T); R.put(Q['stand_r'], 9 * T - 6, 2 * T)        # (the weapon stands, at the head)
-    R.put(Q['sword'], 7 * T, 4 * T)                                                  # (a sword laid across them)
-    R.put(Q['board'], 6 * T + 8, 6 * T + 8)                                          # (the drill table)
-    R.put(Q['kegs'], 4 * T, 9 * T); R.put(Q['kegs'], 11 * T - 6, 9 * T)
-    R.put(P['desk'], 8 * T, 8 * T); R.put(P['chairL'], 9 * T, 10 * T)               # (the sergeant's desk)
+    """v2 (user 2026-11-23: four small bedrooms, two beds each, off a central corridor; a common room by the door)."""
+    import study_mock as SM
+    P, Q = common(); R = Room(16, 14)
+    SP, _ = SM.pieces(); bed, chest = SP['bed'], SP['chest']          # (the compact bed: white sheets, a blue frame)
+    for x0, x1 in ((1, 6), (9, 14)):                                   # (the partitions: between the bedrooms, and
+        for row in (5, 9):                                             #  between them and the common room)
+            R.put(props.partition(x1 - x0 + 1), x0 * T, row * T)
+    for y in (2, 6):                                                   # (the bedrooms: two beds, a chest between)
+        for bx, cx in ((2, 3), (11, 12)):
+            R.put(bed, bx * T, y * T); R.put(chest, cx * T, y * T); R.put(bed, (bx + 2) * T, y * T)
+    R.wall(Q['banner_swords'], 7 * T + 2, 0)                          # (over the corridor's head)
+    tv = R.tv
+    R.img[10 * T:12 * T, 1 * T:5 * T] = tv[7 * T:9 * T, 0:4 * T]     # (the common room: the Tavern's table and stools)
+    R.solid[10:12, 1:5] = True
+    R.put(Q['helmet'], 11 * T, 10 * T); R.put(Q['kegs'], 13 * T, 10 * T)
+    for x in (10, 12): R.wall(Q['sword'], x * T + 2, 9 * T + 6)         # (the weapon wall: blades on the partition)
     ex = R.mat(7)
     for c in ex: R.solid[c[1], c[0]] = False
     return R.img.astype(np.uint8), R.solid, ex
 
 def armoury():
+    """v2 (user 2026-11-23: keep the forge and fireplace; a working smithy, no desk, no tree stands)."""
     P, Q = common(); R = Room(14, 11)
     hearth = R.tv[0:3 * T, 4 * T:7 * T]                                              # (the Tavern's hearth: the forge)
     R.img[0:3 * T, 5 * T:8 * T] = hearth; R.solid[0:3, 5:8] = True
     R.wall(Q['banner_swords'], 1 * T + 2, 0); R.wall(Q['banner_shield'], 11 * T + 2, 0)
-    R.put(Q['anvil'], 6 * T, 3 * T + 4)                                               # (before the forge)
-    R.put(Q['board'], 9 * T, 3 * T + 6); R.put(Q['sword'], 9 * T + 6, 3 * T + 2, solid=False)   # (the workbench)
-    R.put(Q['kegs'], 2 * T, 3 * T)                                                    # (coal)
-    for x in (3, 5, 8, 10): R.put(Q['helmet'], x * T, 5 * T + 4)                      # (a row of helmet stands)
-    R.put(Q['stand_l'], 1 * T, 4 * T); R.put(Q['stand_r'], 12 * T - 6, 4 * T)        # (clear of the desk)
-    R.put(P['desk'], 1 * T, 7 * T); R.put(P['chairL'], 2 * T, 9 * T)                 # (the quartermaster)
+    for x in (3, 8):                                                                   # (swords mounted either side)
+        for y in (6, 17): R.wall(Q['sword'], x * T + 2, y)
+    R.put(Q['anvil'], 6 * T, 3 * T); R.put(Q['tub'], 4 * T, 3 * T); R.put(Q['kegs'], 8 * T, 3 * T)
+    for y in (3, 5, 7):                                                                # (helms along both side walls)
+        R.put(Q['helmet'], 1 * T - 2, y * T); R.put(Q['helmet'], 11 * T + 4, y * T)
+    for x in (3, 8):                                                                   # (workbenches of finished blades)
+        R.put(Q['bench'], x * T, 6 * T); R.wall(Q['sword'], x * T + 2, 6 * T + 1)
     ex = R.mat(6)
     for c in ex: R.solid[c[1], c[0]] = False
     return R.img.astype(np.uint8), R.solid, ex
