@@ -99,8 +99,9 @@ def rug(c79, w, h):
     repeated, corners and borders kept."""
     r = c79[4 * T:6 * T, 3 * T:7 * T].copy()
     r[:, T:3 * T] = r[:, 12:13]
-    cols = list(range(0, 12)) + [12] * (w * T - 24) + list(range(52, 64))
-    rows = list(range(0, 12)) + [16] * (h * T - 24) + list(range(20, 32))
+    cw, ch = min(12, w * T // 2), min(12, h * T // 2)        # (borders shrink for small rugs: a one-tile mat)
+    cols = list(range(0, cw)) + [12] * (w * T - 2 * cw) + list(range(64 - cw, 64))
+    rows = list(range(0, ch)) + [16] * (h * T - 2 * ch) + list(range(32 - ch, 32))
     out = r[rows][:, cols]
     recolour(out, RUG); return out
 
