@@ -19,6 +19,8 @@ script PellucaReflection_Cutscene {
     waitmovement(0)
     delay(40)
     msgbox(format("A sealed letter. Plain wax, no crest."), MSGBOX_SIGN)
+    // The letter and the reply read on parchment, in MonoMyth's blackletter (user 2026-11-23)
+    special(DrParchmentOn)
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
     msgbox(format("Nomad Alban,\pThe surgeon's report from Sevii reached my desk a week before your commander's did. A commander proud of his decisions does not take a week to report them.\pBurns to the face and neck, taken holding a beach that needed twice the men. Commander Surge split his forces across two fronts, and you paid for his folly."))
     showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
@@ -37,6 +39,7 @@ script PellucaReflection_Cutscene {
     msgbox(format("Received and acknowledged. I will be aboard the Veluza when she sails.\pIt... will be good to be home again."))
     hideportrait
     closemessage
+    special(DrParchmentOff)
     // "Then burn this.": the letter goes into the lamp (sound, no narration)
     delay(30)
     playse(SE_M_EMBER)

@@ -253,6 +253,10 @@ $(FONTGFXDIR)/short_narrow.latfont: $(FONTGFXDIR)/latin_short_narrow.png
 $(FONTGFXDIR)/short_narrower.latfont: $(FONTGFXDIR)/latin_short_narrower.png
 	$(GFX) $< $@
 
+# Dreamstone: MonoMyth's blackletter (credit MonoMyth), for letters on parchment
+$(FONTGFXDIR)/blackletter.latfont: $(FONTGFXDIR)/latin_blackletter.png
+	$(GFX) $< $@
+
 $(FONTGFXDIR)/small.hwjpnfont: $(FONTGFXDIR)/japanese_small.png
 	$(GFX) $< $@
 

@@ -548,6 +548,8 @@ gSpecials::
 	def_special DrIcePathReset
 	def_special DrPlayEchoCry
 	def_special DrEndEchoCry
+	def_special DrParchmentOn
+	def_special DrParchmentOff
 	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint

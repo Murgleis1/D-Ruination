@@ -94,10 +94,18 @@ const struct TilesPal *GetWindowFrameTilesPal(u8 id)
         return &sWindowFrames[id];
 }
 
+// Dreamstone (user 2026-11-23): letters read on screen (Cadmus's letter, Osrid's reply) show on parchment in
+// MonoMyth's blackletter. While gDrParchmentMode is set the message box takes the parchment palette and messages
+// print in FONT_BLACKLETTER, re-wrapped to its widths, with no speaker name (the portrait says who wrote it).
+EWRAM_DATA bool8 gDrParchmentMode = FALSE;
+
+void DrParchmentOn(void)  { gDrParchmentMode = TRUE; }
+void DrParchmentOff(void) { gDrParchmentMode = FALSE; }
+
 void LoadMessageBoxGfx(u8 windowId, u16 destOffset, u8 palOffset)
 {
     LoadBgTiles(GetWindowAttribute(windowId, WINDOW_BG), gMessageBox_Gfx, 0x1C0, destOffset);
-    LoadPalette(GetOverworldTextboxPalettePtr(), palOffset, PLTT_SIZE_4BPP);
+    LoadPalette(gDrParchmentMode ? gParchmentBox_Pal : GetOverworldTextboxPalettePtr(), palOffset, PLTT_SIZE_4BPP);
 }
 
 void LoadSignBoxGfx(u8 windowId, u16 destOffset, u8 palOffset)

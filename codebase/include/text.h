@@ -23,6 +23,7 @@ enum {
     FONT_SHORT_NARROW,
     FONT_BW_SUMMARY_SCREEN,
     FONT_SHORT_NARROWER,
+    FONT_BLACKLETTER, // Dreamstone: MonoMyth's blackletter, letters on parchment (fontId is 4 bits: 15 is the last)
 };
 
 // Return values for font functions

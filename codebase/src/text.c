@@ -29,6 +29,7 @@ static u16 FontFunc_Narrower(struct TextPrinter *);
 static u16 FontFunc_SmallNarrower(struct TextPrinter *);
 static u16 FontFunc_ShortNarrow(struct TextPrinter *);
 static u16 FontFunc_ShortNarrower(struct TextPrinter *);
+static u16 FontFunc_Blackletter(struct TextPrinter *);
 static void DecompressGlyph_Small(u16, bool32);
 static void DecompressGlyph_Normal(u16, bool32);
 static void DecompressGlyph_Short(u16, bool32);
@@ -39,6 +40,7 @@ static void DecompressGlyph_Narrower(u16, bool32);
 static void DecompressGlyph_SmallNarrower(u16, bool32);
 static void DecompressGlyph_ShortNarrow(u16, bool32);
 static void DecompressGlyph_ShortNarrower(u16, bool32);
+static void DecompressGlyph_Blackletter(u16, bool32);
 static u32 GetGlyphWidth_Small(u16, bool32);
 static u32 GetGlyphWidth_Normal(u16, bool32);
 static u32 GetGlyphWidth_Short(u16, bool32);
@@ -48,6 +50,7 @@ static u32 GetGlyphWidth_Narrower(u16, bool32);
 static u32 GetGlyphWidth_SmallNarrower(u16, bool32);
 static u32 GetGlyphWidth_ShortNarrow(u16, bool32);
 static u32 GetGlyphWidth_ShortNarrower(u16, bool32);
+static u32 GetGlyphWidth_Blackletter(u16, bool32);
 
 static EWRAM_DATA struct TextPrinter sTempTextPrinter = {0};
 static EWRAM_DATA struct TextPrinter sTextPrinters[WINDOWS_MAX] = {0};
@@ -109,6 +112,7 @@ static const struct GlyphWidthFunc sGlyphWidthFuncs[] =
     { FONT_SHORT_NARROW,   GetGlyphWidth_ShortNarrow },
     { FONT_BW_SUMMARY_SCREEN, GetGlyphWidth_Short },
     { FONT_SHORT_NARROWER, GetGlyphWidth_ShortNarrower },
+    { FONT_BLACKLETTER,    GetGlyphWidth_Blackletter },
 };
 
 struct
@@ -287,6 +291,16 @@ static const struct FontInfo sFontInfos[] =
         .bgColor = 1,
         .shadowColor = 3,
     },
+    [FONT_BLACKLETTER] = {
+        .fontFunction = FontFunc_Blackletter,
+        .maxLetterWidth = 8,
+        .maxLetterHeight = 16,
+        .letterSpacing = 0,
+        .lineSpacing = 0,
+        .fgColor = 2,
+        .bgColor = 1,
+        .shadowColor = 3,
+    },
 };
 
 static const u8 sMenuCursorDimensions[][2] =
@@ -306,6 +320,7 @@ static const u8 sMenuCursorDimensions[][2] =
     [FONT_SHORT_NARROW]   = { 8,  14 },
     [FONT_BW_SUMMARY_SCREEN] = { 8,  14 },
     [FONT_SHORT_NARROWER] = { 8,  14 },
+    [FONT_BLACKLETTER]    = { 8,  15 },
 };
 
 static const u16 sFontBoldJapaneseGlyphs[] = INCBIN_U16("graphics/fonts/bold.hwjpnfont");
@@ -844,6 +859,18 @@ static u16 FontFunc_SmallNarrow(struct TextPrinter *textPrinter)
     return RenderText(textPrinter);
 }
 
+static u16 FontFunc_Blackletter(struct TextPrinter *textPrinter)
+{
+    struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
+
+    if (subStruct->hasFontIdBeenSet == FALSE)
+    {
+        subStruct->fontId = FONT_BLACKLETTER;
+        subStruct->hasFontIdBeenSet = TRUE;
+    }
+    return RenderText(textPrinter);
+}
+
 static u16 FontFunc_Narrower(struct TextPrinter *textPrinter)
 {
     struct TextPrinterSubStruct *subStruct = (struct TextPrinterSubStruct *)(&textPrinter->subStructFields);
@@ -1316,6 +1343,9 @@ static u16 RenderText(struct TextPrinter *textPrinter)
             break;
         case FONT_SHORT_NARROWER:
             DecompressGlyph_ShortNarrower(currChar, textPrinter->japanese);
+            break;
+        case FONT_BLACKLETTER:
+            DecompressGlyph_Blackletter(currChar, textPrinter->japanese);
             break;
         case FONT_BRAILLE:
             break;
@@ -2151,6 +2181,40 @@ static void DecompressGlyph_Narrower(u16 glyphId, bool32 isJapanese)
     }
 }
 
+// Dreamstone: MonoMyth's blackletter has Latin glyphs only (240 of them); anything else falls back to the normal font.
+static void DecompressGlyph_Blackletter(u16 glyphId, bool32 isJapanese)
+{
+    const u16 *glyphs;
+
+    if (isJapanese == TRUE || glyphId >= 240)
+    {
+        DecompressGlyph_Normal(glyphId, isJapanese);
+        return;
+    }
+    glyphs = gFontBlackletterLatinGlyphs + (0x20 * glyphId);
+    gCurGlyph.width = gFontBlackletterLatinGlyphWidths[glyphId];
+    if (gCurGlyph.width <= 8)
+    {
+        DecompressGlyphTile(glyphs, gCurGlyph.gfxBufferTop);
+        DecompressGlyphTile(glyphs + 0x10, gCurGlyph.gfxBufferBottom);
+    }
+    else
+    {
+        DecompressGlyphTile(glyphs, gCurGlyph.gfxBufferTop);
+        DecompressGlyphTile(glyphs + 0x8, gCurGlyph.gfxBufferTop + 8);
+        DecompressGlyphTile(glyphs + 0x10, gCurGlyph.gfxBufferBottom);
+        DecompressGlyphTile(glyphs + 0x18, gCurGlyph.gfxBufferBottom + 8);
+    }
+    gCurGlyph.height = 15;
+}
+
+static u32 GetGlyphWidth_Blackletter(u16 glyphId, bool32 isJapanese)
+{
+    if (isJapanese == TRUE || glyphId >= 240)
+        return GetGlyphWidth_Normal(glyphId, isJapanese);
+    return gFontBlackletterLatinGlyphWidths[glyphId];
+}
+
 static u32 GetGlyphWidth_Narrower(u16 glyphId, bool32 isJapanese)
 {
     if (isJapanese == TRUE)
@@ -2305,6 +2369,7 @@ static const s8 sNarrowerFontIds[] =
     [FONT_SMALL_NARROWER] = -1,
     [FONT_SHORT_NARROW] = FONT_SHORT_NARROWER,
     [FONT_SHORT_NARROWER] = -1,
+    [FONT_BLACKLETTER] = -1,
 };
 
 // If the narrowest font ID doesn't fit the text, we still return that

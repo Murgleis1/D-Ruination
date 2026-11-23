@@ -24,59 +24,63 @@ PellucaReflection_Cutscene::
 	delay 40
 # 21 "data/maps/PellucaReflection/scripts.pory"
 	msgbox PellucaReflection_Cutscene_Text_0, MSGBOX_SIGN
-# 22 "data/maps/PellucaReflection/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
 # 23 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_1
+	special DrParchmentOn
 # 24 "data/maps/PellucaReflection/scripts.pory"
-	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
-# 25 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_2
-# 26 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
-# 27 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_3
-# 28 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_4
-# 29 "data/maps/PellucaReflection/scripts.pory"
+# 25 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_1
+# 26 "data/maps/PellucaReflection/scripts.pory"
 	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
+# 27 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_2
+# 28 "data/maps/PellucaReflection/scripts.pory"
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL
+# 29 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_3
 # 30 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_5
+	msgbox PellucaReflection_Cutscene_Text_4
 # 31 "data/maps/PellucaReflection/scripts.pory"
-	hideportrait
+	showportrait PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE
 # 32 "data/maps/PellucaReflection/scripts.pory"
-	closemessage
+	msgbox PellucaReflection_Cutscene_Text_5
 # 33 "data/maps/PellucaReflection/scripts.pory"
-	special DrDoPlayerNaming
-# 34 "data/maps/PellucaReflection/scripts.pory"
-	waitstate
-# 35 "data/maps/PellucaReflection/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
-# 36 "data/maps/PellucaReflection/scripts.pory"
-	special DrSetPrinceNameplate
-# 37 "data/maps/PellucaReflection/scripts.pory"
-	msgbox PellucaReflection_Cutscene_Text_6
-# 38 "data/maps/PellucaReflection/scripts.pory"
 	hideportrait
-# 39 "data/maps/PellucaReflection/scripts.pory"
+# 34 "data/maps/PellucaReflection/scripts.pory"
 	closemessage
-# 41 "data/maps/PellucaReflection/scripts.pory"
-	delay 30
-# 42 "data/maps/PellucaReflection/scripts.pory"
-	playse SE_M_EMBER
-# 43 "data/maps/PellucaReflection/scripts.pory"
-	waitse
-# 44 "data/maps/PellucaReflection/scripts.pory"
-	delay 40
-# 45 "data/maps/PellucaReflection/scripts.pory"
-	fadescreen FADE_TO_BLACK
-# 46 "data/maps/PellucaReflection/scripts.pory"
-	setvar VAR_UNUSED_0x404E, 1
-# 47 "data/maps/PellucaReflection/scripts.pory"
-	warp MAP_PELLUCA_CITY, 44, 52
-# 48 "data/maps/PellucaReflection/scripts.pory"
+# 35 "data/maps/PellucaReflection/scripts.pory"
+	special DrDoPlayerNaming
+# 36 "data/maps/PellucaReflection/scripts.pory"
 	waitstate
+# 37 "data/maps/PellucaReflection/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 38 "data/maps/PellucaReflection/scripts.pory"
+	special DrSetPrinceNameplate
+# 39 "data/maps/PellucaReflection/scripts.pory"
+	msgbox PellucaReflection_Cutscene_Text_6
+# 40 "data/maps/PellucaReflection/scripts.pory"
+	hideportrait
+# 41 "data/maps/PellucaReflection/scripts.pory"
+	closemessage
+# 42 "data/maps/PellucaReflection/scripts.pory"
+	special DrParchmentOff
+# 44 "data/maps/PellucaReflection/scripts.pory"
+	delay 30
+# 45 "data/maps/PellucaReflection/scripts.pory"
+	playse SE_M_EMBER
+# 46 "data/maps/PellucaReflection/scripts.pory"
+	waitse
+# 47 "data/maps/PellucaReflection/scripts.pory"
+	delay 40
+# 48 "data/maps/PellucaReflection/scripts.pory"
+	fadescreen FADE_TO_BLACK
 # 49 "data/maps/PellucaReflection/scripts.pory"
+	setvar VAR_UNUSED_0x404E, 1
+# 50 "data/maps/PellucaReflection/scripts.pory"
+	warp MAP_PELLUCA_CITY, 44, 52
+# 51 "data/maps/PellucaReflection/scripts.pory"
+	waitstate
+# 52 "data/maps/PellucaReflection/scripts.pory"
 	releaseall
 	end
 
@@ -92,7 +96,7 @@ PellucaReflection_Cutscene_Text_0:
 	.string "A sealed letter. Plain wax, no crest.$"
 
 PellucaReflection_Cutscene_Text_1:
-# 23 "data/maps/PellucaReflection/scripts.pory"
+# 25 "data/maps/PellucaReflection/scripts.pory"
 	.string "Nomad Alban,\p"
 	.string "The surgeon's report from Sevii reached\n"
 	.string "my desk a week before your commander's\l"
@@ -105,7 +109,7 @@ PellucaReflection_Cutscene_Text_1:
 	.string "folly.$"
 
 PellucaReflection_Cutscene_Text_2:
-# 25 "data/maps/PellucaReflection/scripts.pory"
+# 27 "data/maps/PellucaReflection/scripts.pory"
 	.string "The Commander has since been invited\n"
 	.string "to explain his judgement to people who\l"
 	.string "outrank us both. He will be explaining it\l"
@@ -113,7 +117,7 @@ PellucaReflection_Cutscene_Text_2:
 	.string "never seen daylight.$"
 
 PellucaReflection_Cutscene_Text_3:
-# 27 "data/maps/PellucaReflection/scripts.pory"
+# 29 "data/maps/PellucaReflection/scripts.pory"
 	.string "I am told the army gave you a rare\n"
 	.string "mending mask from the Athanto kingdom\l"
 	.string "while your burns heal. Such masks\l"
@@ -141,7 +145,7 @@ PellucaReflection_Cutscene_Text_3:
 	.string "of Education.$"
 
 PellucaReflection_Cutscene_Text_4:
-# 28 "data/maps/PellucaReflection/scripts.pory"
+# 30 "data/maps/PellucaReflection/scripts.pory"
 	.string "Your immediate orders are as follows.\n"
 	.string "The Pale Veluza waits in the harbor\l"
 	.string "south of your barracks. You are to\l"
@@ -156,14 +160,14 @@ PellucaReflection_Cutscene_Text_4:
 	.string "is truly you.$"
 
 PellucaReflection_Cutscene_Text_5:
-# 30 "data/maps/PellucaReflection/scripts.pory"
+# 32 "data/maps/PellucaReflection/scripts.pory"
 	.string "Then burn this. These days, too many\n"
 	.string "people in Cormoria read letters never\l"
 	.string "meant for them.\p"
 	.string "C.$"
 
 PellucaReflection_Cutscene_Text_6:
-# 37 "data/maps/PellucaReflection/scripts.pory"
+# 39 "data/maps/PellucaReflection/scripts.pory"
 	.string "Received and acknowledged. I will be\n"
 	.string "aboard the Veluza when she sails.\p"
 	.string "It... will be good to be home again.$"

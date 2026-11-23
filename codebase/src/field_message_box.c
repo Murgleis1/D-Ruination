@@ -144,6 +144,16 @@ extern int GetDialogFramePlateWidth();
 
 static void ExpandStringAndStartDrawFieldMessage(const u8 *str, bool32 allowSkippingDelayWithButtonPress)
 {
+    if (gDrParchmentMode) {
+        // A letter on parchment: no speaker name; the script wrapped the text for the normal font, so re-wrap it
+        // for the blackletter (same width, two lines per page; its paragraph breaks kept).
+        StringExpandPlaceholders(gStringVar4, str);
+        StripLineBreaks(gStringVar4);
+        BreakStringAutomatic(gStringVar4, 208, 2, FONT_BLACKLETTER);
+        AddTextPrinterForMessage(allowSkippingDelayWithButtonPress);
+        CreateTask_DrawFieldMessage();
+        return;
+    }
     if (SPEAKER_NAME_INLINE && gSpeakerName != NULL && !FlagGet(FLAG_SUPPRESS_SPEAKER_NAME)) {
         // MonoMyth style: "Name: text" at the start of the message, no nameplate.
         // User 2026-11-16: name a speaker only when they start talking. While the same person
