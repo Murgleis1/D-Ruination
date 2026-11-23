@@ -6162,6 +6162,16 @@
       "blockdata_filepath": "data/layouts/TemplarCitadel/map.bin"
     },
     {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL_SANCTUM",
+      "name": "TemplarCathedralSanctum_Layout",
+      "width": 17,
+      "height": 15,
+      "primary_tileset": "gTileset_TemplarCathSanctumTiles",
+      "secondary_tileset": "gTileset_TemplarCathSanctum",
+      "border_filepath": "data/layouts/TemplarCathedralSanctum/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedralSanctum/map.bin"
+    },
+    {
       "id": "LAYOUT_TEMPLAR_CATHEDRAL_STOREHOUSE",
       "name": "TemplarCathedralStorehouse_Layout",
       "width": 16,

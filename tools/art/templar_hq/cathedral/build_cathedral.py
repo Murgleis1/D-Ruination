@@ -25,11 +25,13 @@ ROOMS = {'nave': ('TemplarCathedral', 'MAP_TEMPLAR_CATHEDRAL'),
          'dorm': ('TemplarCathedralDormitory', 'MAP_TEMPLAR_CATHEDRAL_DORMITORY'),
          'registry': ('TemplarCathedralRegistry', 'MAP_TEMPLAR_CATHEDRAL_REGISTRY'),
          'kitchen': ('TemplarCathedralKitchen', 'MAP_TEMPLAR_CATHEDRAL_KITCHEN'),
-         'storehouse': ('TemplarCathedralStorehouse', 'MAP_TEMPLAR_CATHEDRAL_STOREHOUSE')}
+         'storehouse': ('TemplarCathedralStorehouse', 'MAP_TEMPLAR_CATHEDRAL_STOREHOUSE'),
+         'sanctum': ('TemplarCathedralSanctum', 'MAP_TEMPLAR_CATHEDRAL_SANCTUM')}
 OFFICES = ['study', 'bishops', 'registry', 'kitchen', 'storehouse']
 NAVE_EXITS = [(x, y) for y, row in enumerate(NG.GRID) for x, c in enumerate(row) if c == 'E']
 # the nave's warps: its exits first (0..), then a door per office, in OFFICES order
 NAVE_DOOR_WARP = {k: len(NAVE_EXITS) + i for i, k in enumerate(OFFICES)}
+NAVE_GRILLE_WARP = len(NAVE_EXITS) + len(OFFICES)     # (on the sealed grille's solid cell: unusable until it opens)
 
 def mapj(key, warps, objs=(), bgs=(), music='MUS_DR_MM_ROUTE15'):
     name, mid = ROOMS[key]
@@ -104,6 +106,7 @@ def build_nave():
     warps = [W3(x, y, 'MAP_TEMPLAR_CITADEL', 0) for (x, y) in NAVE_EXITS]
     warps += [W3(*NG.DOORS[k], ROOMS[k][1], 0) for k in OFFICES]
     gx, gy = NG.SANCTUM_GRILLE
+    warps.append(W3(gx, gy, ROOMS['sanctum'][1], 1))
     bgs = [{'type': 'sign', 'x': gx, 'y': gy, 'elevation': 3, 'player_facing_dir': 'BG_EVENT_PLAYER_FACING_NORTH',
             'script': 'TemplarCathedral_EventScript_SanctumGrille'}]
     pory = '''mapscripts TemplarCathedral_MapScripts {}
@@ -235,10 +238,23 @@ script TemplarCathedralRegistry_EventScript_Rufflet {
     img, _ = TQN.quantise(img, n=13)
     return write_room(key, img, walk, beh, mapj(key, warps, objs), pory)
 
+def build_sanctum():
+    """The Sanctum (approved mock; sealed: reached only once the grille opens, after Ambrose is beaten)."""
+    import sanctum_grid as SG, tilequant as TQN
+    img = np.array(Image.open(os.path.join(TQ, 'sanctum', 'sanctum_mock.png')).convert('RGB')).astype(int)
+    G = SG.GRID; H, W = len(G), len(G[0])
+    walk = {(x, y) for y in range(H) for x in range(W) if G[y][x] in '.E'}
+    beh = lambda x, y: MB_SOUTH_ARROW_WARP if G[y][x] == 'E' else MB_NORMAL
+    exits = [(x, y) for y in range(H) for x in range(W) if G[y][x] == 'E']
+    warps = [W3(x, y, 'MAP_TEMPLAR_CATHEDRAL', NAVE_GRILLE_WARP) for (x, y) in exits]
+    img, _ = TQN.quantise(img, n=13)
+    return write_room('sanctum', img, walk, beh, mapj('sanctum', warps), 'mapscripts TemplarCathedralSanctum_MapScripts {}\n')
+
 def main(which):
     if 'nave' in which: build_nave()
+    if 'sanctum' in which: build_sanctum()
     for k in OFFICE_SPEC:
         if k in which or 'offices' in which: office(k)
 
 if __name__ == '__main__':
-    main(sys.argv[1:] or ['nave', 'offices'])
+    main(sys.argv[1:] or ['nave', 'offices', 'sanctum'])

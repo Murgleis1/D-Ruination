@@ -190,7 +190,8 @@
     "TemplarCathedralDormitory",
     "TemplarCathedralRegistry",
     "TemplarCathedralKitchen",
-    "TemplarCathedralStorehouse"
+    "TemplarCathedralStorehouse",
+    "TemplarCathedralSanctum"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_TemplarCathSanctum =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarCathSanctum,
+    .palettes = gTilesetPalettes_TemplarCathSanctum,
+    .metatiles = gMetatiles_TemplarCathSanctum,
+    .metatileAttributes = gMetatileAttributes_TemplarCathSanctum,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCathSanctumTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_TemplarCathSanctumTiles,
+    .palettes = gTilesetPalettes_TemplarCathSanctumTiles,
+    .metatiles = gMetatiles_TemplarCathSanctumTiles,
+    .metatileAttributes = gMetatileAttributes_TemplarCathSanctumTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_TemplarCathStorehouse =
 {
     .isCompressed = TRUE,
