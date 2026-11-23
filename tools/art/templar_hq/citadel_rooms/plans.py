@@ -31,6 +31,26 @@ ARMOURY = (14, 11, [       # v2 (user 2026-11-23: keep the forge and fireplace; 
  (4, 6, 6, 1, (150, 110, 70), 'WORKBENCHES (finished blades)'),
  (7, 10, 2, 1, (70, 100, 180), 'door'),
 ])
+BARRACKS3 = (21, 13, [     # v3 (user 2026-11-23: built from the user's station barracks reference, right half;
+ (0, 0, 21, 2, (190, 180, 150), ''),                 #  no jail; floor in the houses' cream, its grey stone walls kept)
+ (7, 0, 1, 7, (20, 20, 20), 'wall'), (15, 0, 1, 7, (20, 20, 20), 'wall'),
+ (7, 9, 1, 3, (20, 20, 20), ''), (15, 9, 1, 3, (20, 20, 20), ''),
+ (7, 5, 1, 2, (120, 120, 130), 'stub'), (15, 5, 1, 2, (120, 120, 130), 'stub'),
+ (1, 0, 6, 2, (175, 170, 160), 'BRIEFING ROOM'),
+ (3, 0, 2, 3, (120, 80, 50), 'bookshelf'), (5, 1, 2, 2, (130, 90, 60), 'desk+ledger'), (6, 3, 1, 1, (200, 90, 60), 'chair'),
+ (1, 2, 2, 3, (160, 160, 175), 'books table'), (3, 4, 1, 1, (200, 90, 60), 'chair'),
+ (2, 6, 4, 1, (200, 90, 60), 'chairs'), (2, 7, 4, 3, (160, 160, 175), 'BRIEFING TABLE'), (2, 10, 4, 1, (200, 90, 60), 'chairs'),
+ (1, 8, 1, 1, (200, 90, 60), 'head'),
+ (8, 0, 7, 2, (175, 170, 160), 'BUNK HALL   banner'),
+ (8, 2, 1, 2, (90, 120, 170), 'bed'), (10, 2, 1, 2, (90, 120, 170), 'bed'), (12, 2, 1, 2, (90, 120, 170), 'bed'), (14, 2, 1, 2, (90, 120, 170), 'bed'),
+ (8, 5, 1, 2, (90, 120, 170), 'bed'), (10, 5, 1, 2, (90, 120, 170), 'bed'), (12, 5, 1, 2, (90, 120, 170), 'bed'), (14, 5, 1, 2, (90, 120, 170), 'bed'),
+ (8, 9, 2, 3, (150, 110, 70), 'lockers'), (13, 9, 2, 3, (150, 110, 70), 'lockers'),
+ (10, 11, 3, 1, (70, 100, 180), 'DOOR (3 wide)'),
+ (16, 0, 4, 2, (175, 170, 160), 'GEAR + DUTY'),
+ (16, 1, 2, 2, (160, 160, 170), 'swords+banner'), (18, 2, 1, 1, (150, 150, 160), 'helm'), (19, 2, 1, 1, (150, 150, 160), 'helm'),
+ (16, 4, 1, 3, (130, 90, 60), 'duty desk'), (17, 5, 1, 1, (200, 90, 60), 'chair'),
+ (18, 9, 2, 1, (120, 90, 60), 'kegs'), (16, 9, 1, 3, (170, 140, 90), 'sack'), (17, 11, 1, 1, (200, 170, 60), 'crate'),
+])
 WATCH = (14, 11, [         # v1 (user 2026-11-23: the east house a watch house, not a second Braviary mews)
  (0, 0, 14, 2, (190, 180, 150), 'wall (grey wood)'),
  (1, 0, 3, 2, (200, 170, 110), 'DISPATCH BOARD'), (6, 0, 2, 2, (200, 200, 210), 'banner'),
@@ -55,6 +75,9 @@ def draw(spec, title):
     for y in range(H + 1): d.line((0, y * T, W * T, y * T), fill=(150, 140, 120))
     return im
 def main(out):
+    if out.endswith('barracks3.png'):
+        im = draw(BARRACKS3, 'BARRACKS v3 21x13: briefing room | bunk hall | gear + duty (corridor rows 7-8)')
+        d = ImageDraw.Draw(im); d.text((8 * T + 4, 7 * T + 10), 'CORRIDOR: the doorways at x 7 and x 15', fill=(90, 70, 50)); im.save(out); return
     if out.endswith('watch.png'):
         draw(WATCH, 'WATCH HOUSE v1 14x11: the command post for Route 15').save(out); return
     a = draw(BARRACKS, 'BARRACKS v2 16x14: four bedrooms, two beds each'); b = draw(ARMOURY, 'ARMOURY v2 14x11: a working smithy')
