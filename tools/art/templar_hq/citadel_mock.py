@@ -121,10 +121,10 @@ def compose():
     for x in range(37, W): M.ground(x, 14, ef(0x106), 'cliff')
     for x in range(37, W): M.ground(x, 18, ef(0x106), 'cliff')
     # --- the church's terrace (x 11-27), its crenellated front wall (rows 18-21), the stair on the axis (x 18-20)
-    mm.terrace_wall(M, 11, 27, 18, stairs=(18,))
+    mm.terrace_wall(M, 12, 26, 18, stairs=(18,))      # (x 12-26: a lane each side down from the ledges, user's access rule)
     M.ground(21, 17, fx(M.g[17][17]), 'wall')
     for y in range(5, 18):
-        M.ground(11, y, ef(0x291), 'wall'); M.ground(27, y, fx(ef(0x291)), 'wall')
+        M.ground(12, y, ef(0x291), 'wall'); M.ground(26, y, fx(ef(0x291)), 'wall')
     # --- the curtain wall (x 3-35, rows 31-34), its open arch on the axis
     mm.city_wall(M, 3, 35, 31)
     for y in range(31, 35):
@@ -148,18 +148,17 @@ def compose():
     ways |= {(x, y) for x in range(17, 22) for y in range(16, 31)}                       # (the axis, the stair)
     ways |= {(x, y) for x in range(12, 27) for y in range(22, 31)}                       # (the fountain square)
     ways |= {(x, y) for x in range(5, 10) for y in range(11, 21)} | mirror_cells({(x, y) for x in range(5, 10) for y in range(11, 21)})   # (ledge doors, stairs, down to the square)
-    ways |= {(x, y) for x in range(6, 9) for y in range(28, 31)} | mirror_cells({(x, y) for x in range(6, 9) for y in range(28, 31)})    # (the Tavern's door and its twin's)
+    ways |= {(x, y) for x in range(5, 8) for y in range(28, 31)} | mirror_cells({(x, y) for x in range(5, 8) for y in range(28, 31)})    # (the Tavern's door and its twin's)
+    ways |= {(x, y) for x in range(9, 13) for y in range(14, 31)} | mirror_cells({(x, y) for x in range(9, 13) for y in range(14, 31)})  # (the streets down from the ledges)
     ways |= {(x, y) for x in range(9, 18) for y in range(19, 22)} | mirror_cells({(x, y) for x in range(9, 18) for y in range(19, 22)})
     ways |= {(x, y) for x in range(22, 37) for y in range(14, 19)}                       # (to the cleft)
     ways |= {(x, y) for x in range(15, 24) for y in range(15, 18)}                       # (before the church door)
     def patch(rects):
         return {(x, y) for (x0, y0, x1, y1) in rects for y in range(y0, y1 + 1) for x in range(x0, x1 + 1)}
     S = set()
-    S |= patch([(12, 6, 15, 8), (12, 9, 14, 12), (13, 13, 15, 15)])                       # (the terrace, west of the church)
-    S |= patch([(23, 5, 26, 7), (24, 8, 26, 11), (23, 12, 25, 13)])                       # (the terrace, east: not a mirror)
+    S |= patch([(13, 6, 15, 8), (13, 9, 14, 12), (13, 13, 15, 15)])                       # (the terrace, west of the church)
+    S |= patch([(23, 5, 25, 7), (24, 8, 25, 11), (23, 12, 25, 13)])                       # (the terrace, east: not a mirror)
     S |= patch([(3, 5, 4, 9), (9, 5, 10, 7)]) | patch([(34, 5, 35, 8), (28, 9, 29, 12), (28, 5, 30, 6)])   # (the ledges round the houses)
-    S |= patch([(3, 14, 6, 17), (3, 18, 4, 20)])                                         # (under the west ledge)
-    S |= patch([(32, 19, 35, 21), (34, 22, 35, 23)])                                     # (east, above the Tavern's twin)
     S |= patch([(3, 29, 5, 30), (9, 29, 15, 30)]) | patch([(23, 29, 28, 30), (33, 29, 35, 30)])   # (along the curtain wall's foot)
     cells = {(x, y) for y in range(5, 31) for x in range(3, 36) if M.gtag[y, x] == 'pave'}
     S = v3.thick({c for c in S if c in cells and c not in ways})
@@ -175,10 +174,30 @@ def compose():
     # --- the houses (dark deep grey wood), mirrored pairs: the Tavern and its twin; the ledge houses, half a tile over
     tav = chalet(5, 24, 7, 7)
     flip = lambda b: [[None if c is None else (c[0][:, ::-1], c[1][:, ::-1]) for c in r][::-1] for r in b]
-    M.place(tav, 4, 22, 'house', check=False); M.place(flip(tav), 28, 22, 'house', check=False)
+    M.place(tav, 3, 22, 'house', check=False); M.place(flip(tav), 29, 22, 'house', check=False)   # (x 3-9 / 29-35: a street x 10-12 beside each)
     small = house_rgba(chalet(11, 14, 5, 6))
     M.place(block_from_rgba(small, 6, 6), 4, 7, 'house', check=False)                      # (pixels 72-152: door centred on x 7.0)
     M.place(block_from_rgba(small.transpose(Image.FLIP_LEFT_RIGHT), 6, 6), 29, 7, 'house', check=False)   # (472-552: door on 32.0)
+    # --- the west pocket: the sparring ground (user 2026-11-22): a railed yard (x 3-8, rows 16-21; Crown's rail fence in
+    # the houses' grey wood, the hollow wall its west side), its gate on the east to the street, MonoMyth's (Old Bay)
+    # target stands along its north rail; the landing before the ledge stair (x 5-8, rows 14-15) and the street (x 9-12)
+    # left open
+    YD = os.path.join(HERE, 'yard')
+    PC = os.path.join(REPO, 'assets', 'route11_reference', 'pieces')
+    gw = lambda im: Image.fromarray(np.dstack([grey_wood(np.array(im.convert('RGBA'))[..., :3]), np.array(im.convert('RGBA'))[..., 3]]))
+    rail = gw(Image.open(os.path.join(PC, 'crown_fence_row.png')))
+    M.place(block_from_rgba(rail, 6, 1), 3, 16, 'fence', check=False)
+    M.place(block_from_rgba(rail, 6, 1), 3, 21, 'fence', check=False)
+    post = rail.crop((80, 0, 96, 16))                                   # (the rail's end post: Crown's fence column is empty)
+    for y in (17, 18): M.place(block_from_rgba(post, 1, 1), 8, y, 'fence', check=False)   # (the east side; the gate, rows 19-20, open)
+    tgt = Image.open(os.path.join(YD, 'target.png'))                       # (their own warm wood: they must read as targets)
+    for x in (3, 6): M.place(block_from_rgba(tgt, 2, 2), x, 17, 'target', check=False)
+    # --- the east pocket: the Braviary landing ground (user 2026-11-22; the Templars run the Braviary mounts): a round
+    # stone pad inlaid with Arceus's golden wheel (x 30-34, rows 16-20), hay by the wall for the birds, the mews up its
+    # stair; Braviaries moving about on it (overworld objects, stage 2: user)
+    M.place(block_from_rgba(os.path.join(YD, 'pad.png'), 5, 5), 30, 16, 'pad', check=False)
+    M.place(block_from_rgba(os.path.join(PC, 'odyssey_hay_big.png'), 2, 2), 34, 20, 'hay', check=False)   # (the quiet corner by the wall,
+    M.place(block_from_rgba(os.path.join(PC, 'odyssey_pitchfork.png'), 1, 2), 33, 20, 'hay', check=False) #  clear of the cleft's mouth)
     # --- pines outside the walls only: loose clusters of big and small with gaps (Elderflower), never rows
     for (x, y) in sorted(top, key=lambda c: (c[1], c[0])):
         if rnd('bp', x, y) < 0.42 and M.free(x, y, 2, 3) and all((x + i, y + j) in top for i in (0, 1) for j in (0, 1, 2)):
@@ -191,11 +210,14 @@ def compose():
 def main(out):
     M = compose(); img = Image.fromarray(M.render()).convert('RGBA')
     t = templar()
-    for (x, y) in ((16, 35), (22, 35), (18, 23), (20, 23), (12, 26), (26, 26), (37, 16), (19, 18)):
+    for (x, y) in ((16, 35), (22, 35), (18, 23), (20, 23), (11, 26), (27, 26), (37, 16), (19, 18), (5, 19), (6, 19)):
         img.alpha_composite(t, (x * 16, y * 16 + 16 - t.size[1]))
+    YD = os.path.join(HERE, 'yard')
+    for (x, y, f) in ((32, 18, 'down'), (29, 15, 'left')):                       # (Braviaries on the landing ground)
+        b = Image.open(os.path.join(YD, 'braviary_%s.png' % f)); img.alpha_composite(b, (x * 16 - 8, y * 16 + 16 - b.size[1]))
     img.convert('RGB').save(out)
     img.convert('RGB').resize((W * 32, H * 32), Image.NEAREST).save(out.replace('.png', '_2x.png'))
     print('mock', out)
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v4.png')
+    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v5.png')
