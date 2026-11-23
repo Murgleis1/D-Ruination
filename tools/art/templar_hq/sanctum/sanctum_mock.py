@@ -1,7 +1,7 @@
 """The Sanctum (user 2026-11-22: a holy library at the top of the cathedral's cross tower, a lost repository of
 knowledge and secret tomes, where the player communes with Arceus and faces their shadow self; unlocked by defeating
-Ambrose). Source: Fantasma's castle library (its mapsec 1, layout s001_b68c, 17x15; credit the Fantasma team, with
-permission before release): three arched alcoves of books along the back wall, chests of drawers, lecterns with
+Ambrose). Source: Fantasma's castle library (its mapsec 1, layout s001_b68c, 17x15; Fantasma's art is public assets,
+no credit needed: user 2026-11-22): three arched alcoves of books along the back wall, chests of drawers, lecterns with
 open tomes, a writing desk, candelabras, and a glowing circle in the floor (where the shadow self rises); the stair
 down at its foot. Recoloured to the cathedral's own: its violet stone to the church's cream ramp by lightness, its
 skull banners to the Order's blue with Arceus's golden wheel, the circle's cold cyan to the church's gold and glass

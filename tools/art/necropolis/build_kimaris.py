@@ -2,7 +2,7 @@
 
 The room is Fantasma's summoning room (its mapsec 1, layout s001_b8b0, 17x15; the user: "actually perfect for the
 Kimaris fight"), drawn by tools/fantasma/fsread.py and cut into its own tileset pair by academy/imgtiles.py.
-Credit: Fantasma (permission to be asked).
+Fantasma's art is public assets: no permission or credit needed (user 2026-11-22).
 
 Round the summoning circle stand **four boiling cauldrons** (user 2026-11-21), on the corners of a square about
 the circle's centre, each brew and its smoke its own colour: upper left white/grey, upper right bloody crimson,

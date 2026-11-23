@@ -2,7 +2,7 @@
 
 Source: `Fantasma_Part_I_rc_Water.gba` (user upload 2026-11-21; header `FANTASMA` / `BFTE`). This is a
 pokeemerald-expansion hack. Everything here is extracted from it for study. Before shipping any of it,
-get the Fantasma team's OK and credit them.
+~~get the Fantasma team's OK and credit them~~ -- not needed: Fantasma's art is public assets (user 2026-11-22): no permission or credit needed.
 
 Extraction tools: `tools/fantasma/` (see its README).
 
