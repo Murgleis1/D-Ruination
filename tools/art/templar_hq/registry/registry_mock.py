@@ -5,7 +5,12 @@ nave at the bottom centre (row 11, x 7-8). The study's room materials.
 - Back wall: the map of Cormoria (the game's own parchment region map, tools/region_map, scaled into a wooden frame)
   in the middle; ledger shelves either side (Crown 7.9's bookcases); at the west end the dispatch cabinets, two tall
   cabinets of pigeonholed orders for every Tavern (Odyssey 11.8's).
-- The registrar's counter across the room (MonoMyth's bar counter, shortened, in Crown's wood): behind it, staff only.
+- v3 (user 2026-11-23: no long counter in an aviary; after rooms for keeping Pokemon, aviary_references.png: the
+  animals' places line the back wall, straw on the floor, feed in a corner, work space small and to the side):
+  four roost stalls along the back wall (MonoMyth's stable: partitions, a hay rack each), a Braviary on straw in each,
+  the parchment map between them; nests with eggs, Rufflet chicks and loose straw across the floor; the feed store
+  in the south-east corner (MonoMyth's round bale, Odyssey 30.0's bales and barrels); two small desks to the side,
+  the registrar's by the door and House Raptora's liaison's in the south-west corner. The text below is v1/v2.
 - West: House Raptora's liaison's desk (MonoMyth's writing desk, a chair before it), watching the logs.
 - The nursery is the whole room, their place (user: more of them, spread west to east): four Braviaries each resting
   on a bed of straw, three straw nests with seven eggs, Rufflet chicks among them, straw for feed, both sides of the
@@ -24,7 +29,7 @@ sys.path.insert(0, os.path.join(HERE, '..', 'study')); sys.path.insert(0, os.pat
 from cutter import load, cell, cut, T
 import study_mock as SM
 import hall_mock as HM
-W, H = 16, 13
+W, H = 20, 13
 GFX = os.path.join(REPO, 'codebase', 'graphics', 'pokemon')
 
 def sprite(path, frame=0, size=32):
@@ -54,6 +59,16 @@ def pieces():
     P['strawbed'] = cut(st, 1, 5, 2, 2, stfl)
     P['nest'] = cut(st, 13, 7, 2, 2, stfl)
     P['strawsmall'] = cut(st, 2, 3, 1, 1, stfl)
+    # the stall pieces (MonoMyth's stable 87f35f4) and the feed store (its round bale; Odyssey 30.0's bales, barrels)
+    stfl2 = [(x, y) for x in (5, 8, 10, 11) for y in (6, 7, 8)] + [(4, 3), (5, 3), (7, 3), (8, 3), (10, 3), (11, 3), (4, 4), (5, 4)]
+    wallc = {tuple(p) for x in (4, 5, 7, 8, 10, 11) for p in cell(st, x, 0).reshape(-1, 3)} | {tuple(p) for p in st[0:24, 208:224].reshape(-1, 3)}
+    P['rack'] = cut(st, 4, 1, 2, 2, stfl2, bgcols=[(1, wallc)])
+    P['post'] = cut(st, 3, 0, 1, 7, stfl2 + [(4, 5), (5, 5), (2, 6)], bgcols=[(0, wallc), (1, wallc)])[2 * T:]
+    b = cut(st, 0, 1, 2, 2, stfl2 + [(1, 3), (0, 3)], bgcols=[(1, wallc)]); b[:, :12, 3] = 0   # (the pitchfork off)
+    P['bale'] = b
+    o3 = load(os.path.join(HERE, 'ody_300.png'))
+    ofl3 = [(x, y) for x in (3, 4, 10, 11) for y in (5, 6, 7)]
+    P['sqbale'] = cut(o3, 0, 2, 1, 1, ofl3); P['barrel'] = cut(o3, 5, 4, 1, 1, ofl3)
     barfl = [(x, y) for x in (8, 9, 10, 11) for y in (5, 6, 7)] + [(x, 2) for x in (8, 9, 10)]
     c = cut(bar, 4, 2, 14, 3, barfl)[14:42]                  # (its top and front face; the stools left out)
     c = c[:, list(range(0, 20)) + [100] * (10 * T - 40) + list(range(204, 224))]  # (shortened to 10 tiles)
@@ -96,16 +111,8 @@ def main(out):
             img[y * T:(y + 1) * T, x * T:(x + 1) * T] = cell(c79, *src)
     rows = np.arange(H * T)[:, None].repeat(W * T, 1)
     SM.recolour(img, SM.WALL, rows < 3 * T)
-    img[(H - 1) * T:H * T, 7 * T:9 * T] = c79[8 * T:9 * T, 4 * T:6 * T]
+    img[(H - 1) * T:H * T, 9 * T:11 * T] = c79[8 * T:9 * T, 4 * T:6 * T]
     SM.recolour(img, SM.MAT, rows >= (H - 1) * T)
-    # the staff wall: the map between two ledger bookcases, the counter before them
-    mp = P['map']; put(img, mp, 8 * T - mp.shape[1] // 2, 1)
-    SM.paste(img, P['bookcase'], 3, 3); SM.paste(img, P['bookcase'], 11, 3)
-    put(img, P['counter'], 3 * T, 6 * T - 6)
-    # west corner: House Raptora's liaison, at a desk against the wall
-    SM.paste(img, P['desk'], 1, 3); SM.paste(img, P['chairL'], 1, 5)
-    # east: the nursery, their place (user 2026-11-23: more of them): three Braviaries each on a bed of straw, two
-    # nests with five eggs, Rufflet chicks among them, feed straw; the walkway from the door (x 7-8) left clear
     def bed(x, y, bird):
         SM.paste(img, P['strawbed'], x, y); put(img, bird, x * T, y * T - 10)
     def nest(x, y, n):
@@ -113,20 +120,25 @@ def main(out):
         ny, nx = centre(P['nest']); ey, ex = centre(P['egg'])
         offs = {2: [(-5, 0), (5, 0)], 3: [(-7, 1), (0, -3), (7, 1)]}[n]
         for dx, dy in offs: put(img, P['egg'], int(x * T + nx - ex + dx), int(y * T + ny - ey - 3 + dy))
-    # spread across the whole room, west to east (user 2026-11-23), both sides of the walkway (x 7-8)
-    bed(13, 4, P['braviary'])                                 # (east, by the ledgers)
-    bed(1, 8, P['braviary'])                                  # (west wall)
-    nest(4, 8, 3)
-    bed(3, 10, P['braviary_l'])
-    nest(10, 8, 2); nest(13, 7, 2)
-    bed(11, 10, P['braviary_l'])
-    SM.paste(img, P['strawsmall'], 6, 10); SM.paste(img, P['strawsmall'], 14, 10); SM.paste(img, P['strawsmall'], 1, 10)
-    put(img, P['rufflet_r'], 5 * T + 6, 10 * T - 12)
-    put(img, P['rufflet_l'], 9 * T + 4, 10 * T - 10)
-    put(img, P['rufflet'], 13 * T + 8, 11 * T - 12)
-    put(img, P['rufflet_l'], 2 * T + 6, 7 * T - 4)
-    # by the door: two stools for Templars waiting their turn (no candle: the room is full of straw)
-    for x in (5, 9): SM.paste(img, P['stool'], x, 11)
+    # the back wall: four roost stalls (MonoMyth's stable): partitions, a hay rack each on the wall, a Braviary on
+    # straw in each; the parchment map in the middle
+    mp = P['map']; put(img, mp, 10 * T - mp.shape[1] // 2, 1)
+    for x in (1, 4, 14, 17): SM.paste(img, P['rack'], x, 2)
+    for x in (3, 6, 13, 16): SM.paste(img, P['post'], x, 2)
+    bed(1, 4, P['braviary']); bed(4, 4, P['braviary_l']); bed(14, 4, P['braviary']); bed(17, 4, P['braviary_l'])
+    # the floor: nests with eggs, Rufflet chicks, loose straw, across the room
+    nest(7, 6, 3); nest(11, 7, 2); nest(3, 7, 2)
+    for (x, y) in ((9, 5), (13, 7), (6, 8), (15, 6), (1, 7), (10, 9)): SM.paste(img, P['strawsmall'], x, y)
+    put(img, P['rufflet_r'], 5 * T + 4, 6 * T - 6); put(img, P['rufflet'], 9 * T + 8, 7 * T - 4)
+    put(img, P['rufflet_l'], 13 * T + 6, 8 * T + 2); put(img, P['rufflet_r'], 4 * T + 6, 10 * T - 4)
+    # the feed store, south-east corner
+    SM.paste(img, P['bale'], 17, 9)
+    for (x, y) in ((16, 10), (15, 11), (16, 11)): SM.paste(img, P['sqbale'], x, y)
+    SM.paste(img, P['barrel'], 18, 11); SM.paste(img, P['barrel'], 14, 11)
+    # the desks, small and to the side: the registrar's by the door (east of it), Raptora's liaison's in the
+    # south-west corner
+    SM.paste(img, P['desk'], 11, 9); SM.paste(img, P['chairL'], 12, 11)
+    SM.paste(img, P['desk'], 1, 9); SM.paste(img, P['chairL'], 1, 11)
     o = Image.fromarray(img.astype(np.uint8)); o.save(out)
     o.resize((W * T * 3, H * T * 3), Image.NEAREST).save(out.replace('.png', '_3x.png'))
 
