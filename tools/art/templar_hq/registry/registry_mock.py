@@ -7,11 +7,11 @@ nave at the bottom centre (row 11, x 7-8). The study's room materials.
   cabinets of pigeonholed orders for every Tavern (Odyssey 11.8's).
 - The registrar's counter across the room (MonoMyth's bar counter, shortened, in Crown's wood): behind it, staff only.
 - West: House Raptora's liaison's desk (MonoMyth's writing desk, a chair before it), watching the logs.
-- East, the nursery, their place (user: more of them): three Braviaries each resting on a bed of straw, two straw
-  nests with five eggs, Rufflet chicks among them, straw for feed (MonoMyth's stable straw; the game's own Rufflet and Braviary overworld sprites and the Egg's
+- The nursery is the whole room, their place (user: more of them, spread west to east): four Braviaries each resting
+  on a bed of straw, three straw nests with seven eggs, Rufflet chicks among them, straw for feed, both sides of the
+  walkway (MonoMyth's stable straw; the game's own Rufflet and Braviary overworld sprites and the Egg's
   icon). No candle on this side (hay).
-- By the door: three stools where Templars wait their turn (MonoMyth's bar stools); a candelabra in the south-west
-  corner.
+- By the door: two stools where Templars wait their turn (MonoMyth's bar stools); no candle (the straw).
 (Plan changes: the dispatch rack stands against the back wall instead of along the west side, so nothing stands
 loose in the room; no source has a bird perch, so the Braviary rests on straw.)
 Credits: Pokemon Crown, MonoMyth, Odyssey.  Usage: python3 registry_mock.py OUT.png"""
@@ -113,17 +113,20 @@ def main(out):
         ny, nx = centre(P['nest']); ey, ex = centre(P['egg'])
         offs = {2: [(-5, 0), (5, 0)], 3: [(-7, 1), (0, -3), (7, 1)]}[n]
         for dx, dy in offs: put(img, P['egg'], int(x * T + nx - ex + dx), int(y * T + ny - ey - 3 + dy))
-    bed(13, 4, P['braviary'])
-    nest(11, 7, 3); nest(13, 7, 2)
-    bed(10, 9, P['braviary_l'])
-    bed(13, 10, P['braviary'])
-    SM.paste(img, P['strawsmall'], 9, 8); SM.paste(img, P['strawsmall'], 12, 11)
-    put(img, P['rufflet_l'], 12 * T + 2, 5 * T + 6)
-    put(img, P['rufflet_r'], 9 * T + 2, 7 * T - 10)
-    put(img, P['rufflet_r'], 11 * T - 6, 11 * T - 10)                   # (by the feed straw, clear of the birds)
-    # by the door
-    for x in (3, 4, 5): SM.paste(img, P['stool'], x, 11)
-    SM.paste(img, P['candelabra'], 1, 10)
+    # spread across the whole room, west to east (user 2026-11-23), both sides of the walkway (x 7-8)
+    bed(13, 4, P['braviary'])                                 # (east, by the ledgers)
+    bed(1, 8, P['braviary'])                                  # (west wall)
+    nest(4, 8, 3)
+    bed(3, 10, P['braviary_l'])
+    nest(10, 8, 2); nest(13, 7, 2)
+    bed(11, 10, P['braviary_l'])
+    SM.paste(img, P['strawsmall'], 6, 10); SM.paste(img, P['strawsmall'], 14, 10); SM.paste(img, P['strawsmall'], 1, 10)
+    put(img, P['rufflet_r'], 5 * T + 6, 10 * T - 12)
+    put(img, P['rufflet_l'], 9 * T + 4, 10 * T - 10)
+    put(img, P['rufflet'], 13 * T + 8, 11 * T - 12)
+    put(img, P['rufflet_l'], 2 * T + 6, 7 * T - 4)
+    # by the door: two stools for Templars waiting their turn (no candle: the room is full of straw)
+    for x in (5, 9): SM.paste(img, P['stool'], x, 11)
     o = Image.fromarray(img.astype(np.uint8)); o.save(out)
     o.resize((W * T * 3, H * T * 3), Image.NEAREST).save(out.replace('.png', '_3x.png'))
 
