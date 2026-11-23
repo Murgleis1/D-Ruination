@@ -182,7 +182,8 @@
     "MirrohCottage",
     "MirrohTownhouse",
     "MirrohSpecialtyShop",
-    "Route13"
+    "Route13",
+    "TemplarCitadel"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

@@ -6152,6 +6152,16 @@
       "blockdata_filepath": "data/layouts/Route13/map.bin"
     },
     {
+      "id": "LAYOUT_TEMPLAR_CITADEL",
+      "name": "TemplarCitadel_Layout",
+      "width": 40,
+      "height": 40,
+      "primary_tileset": "gTileset_TemplarCitadelTiles",
+      "secondary_tileset": "gTileset_TemplarCitadel",
+      "border_filepath": "data/layouts/TemplarCitadel/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCitadel/map.bin"
+    },
+    {
       "id": "LAYOUT_MIRROH_SPECIALTY_SHOP",
       "name": "MirrohSpecialtyShop_Layout",
       "width": 12,

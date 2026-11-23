@@ -175,7 +175,9 @@ def compose():
     M.place(block_from_rgba(os.path.join(FT, 'fountain.png'), 5, 4), 17, 24, 'fountain', check=False)
     for (x, y, f) in ((13, 22, 'left'), (13, 27, 'left'), (23, 22, 'right'), (23, 27, 'right')):
         M.place(block_from_rgba(os.path.join(FT, 'statue_%s.png' % f), 3, 3), x, y, 'statue', check=False)
-    for (x, y) in ((16, 22), (22, 22), (16, 29), (22, 29)): mm.lamp(M, x, y)
+    # (no lamps at the stair's foot: with the statues and the fountain they closed the stair off from the square, at
+    # x 16/22 or 17/21 alike; the terrace wall's pillars frame it. The arch's pair stays.)
+    for (x, y) in ((16, 29), (22, 29)): mm.lamp(M, x, y)
     # --- the houses (dark deep grey wood), mirrored pairs: the Tavern and its twin; the ledge houses, half a tile over
     tav = chalet(5, 24, 7, 7)
     flip = lambda b: [[None if c is None else (c[0][:, ::-1], c[1][:, ::-1]) for c in r][::-1] for r in b]

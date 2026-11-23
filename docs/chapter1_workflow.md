@@ -73,7 +73,7 @@ Citadel")** -> **Mt. Mirroh** -> **Mirroh Peak**. Routes 14 (Mt. Mirroh east to 
 to the Ivy River) are later chapters.
 1. ~~Route 13~~: built and walked 2026-11-22 (40x128; forks to Templar HQ and Mt. Mirroh; stage 2: two trainers on the
    switchback ascent).
-2. Templar Headquarters (in progress 2026-11-22: zone plan v2, the church cut from Pokémon Empire's Arceus church; required before Mt. Mirroh, the first Ambrose meeting; interior two levels, cathedral + offices, the Sanctum above). Was: Crown's gothic cathedral on its moat island with timber chalets, alpine snow, perhaps an
+2. Templar Headquarters: courtyard BUILT and walked 2026-11-22 (`TemplarCitadel`, a fade from Route 13's NE exit; the doors shut until the interiors exist; next: the interiors). (Was in progress 2026-11-22: zone plan v2, the church cut from Pokémon Empire's Arceus church; required before Mt. Mirroh, the first Ambrose meeting; interior two levels, cathedral + offices, the Sanctum above). Was: Crown's gothic cathedral on its moat island with timber chalets, alpine snow, perhaps an
    outer wall (bible 16.10 art plan). In Chapter 1 the way to the mountain passes it; Loulan recurs there.
 3. Mt. Mirroh (the climb: Beat 8a, the tortured Beads cultist) and Mirroh Peak (Beats 8b-8c: Baradus, Eden,
    Kimaris). The base game's maps (`MtMirrohExterior`, `MirrohPeak`, the caves `MirrohInterior_*`) are DM-era, on old

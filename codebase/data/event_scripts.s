@@ -1291,6 +1291,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/HollowHill/scripts.inc"
 	.include "data/maps/PellucaAcademyHall/scripts.inc"
 	.include "data/maps/Route13/scripts.inc"
+	.include "data/maps/TemplarCitadel/scripts.inc"
 	.include "data/maps/MirrohSpecialtyShop/scripts.inc"
 	.include "data/maps/MirrohTownhouse/scripts.inc"
 	.include "data/maps/MirrohCottage/scripts.inc"

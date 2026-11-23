@@ -1,0 +1,23 @@
+mapscripts TemplarCitadel_MapScripts {}
+
+script TemplarCitadel_EventScript_ToRoute13_18 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_ROUTE13, 32, 1)
+}
+
+script TemplarCitadel_EventScript_ToRoute13_19 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_ROUTE13, 33, 1)
+}
+
+script TemplarCitadel_EventScript_ToRoute13_20 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_ROUTE13, 34, 1)
+}
+
+// The line of Templar guards across the cleft east to Route 15 (user 2026-11-22). Route 15's chapter opens it.
+script TemplarCitadel_EventScript_Route15Guard {
+    speakername("Templar")
+    msgbox(format("There's been an incident on Route 15. We're observing the situation.\pUntil something changes, nobody is allowed in or out that way."), MSGBOX_NPC)
+    end
+}

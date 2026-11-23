@@ -1,1 +1,16 @@
 mapscripts Route13_MapScripts {}
+
+script Route13_EventScript_ToCitadel32 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_TEMPLAR_CITADEL, 18, 38)
+}
+
+script Route13_EventScript_ToCitadel33 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_TEMPLAR_CITADEL, 19, 38)
+}
+
+script Route13_EventScript_ToCitadel34 {
+    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
+    warp(MAP_TEMPLAR_CITADEL, 20, 38)
+}
