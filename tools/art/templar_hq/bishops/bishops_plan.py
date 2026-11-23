@@ -6,7 +6,7 @@
    scroll racks); discussion and mingling east (a long table with chairs, a sitting corner); the dormitory's door in
    the north wall, west end, past the records. One subtle clue (user): on one clerk's desk, a letter the player can
    read, hinting at the cult-aligned bishops (wording in the story stage).
-2. The dormitory (through the hall's north-west door): one shared sleeping room. 14x10: four beds along the north
+2. The dormitory (through the hall's north-west door): one shared sleeping room. 20x10 (user: six bishops): six beds along the north
    wall (heads to the wall), a bedside stand and a footlocker at each, two wardrobes, a washstand, a small shrine,
    candle stands; the door at the bottom (row 9).
 Usage: python3 bishops_plan.py OUT.png"""
@@ -30,16 +30,18 @@ HALL = (18, 13, [
  (6, 10, 1, 1, (150, 150, 150), 'bust'), (11, 10, 1, 1, (150, 150, 150), 'bust'),
  (8, 12, 2, 1, (70, 100, 180), 'door from nave'),
 ])
-DORM = (14, 10, [
- (0, 0, 14, 2, (190, 180, 150), 'back wall'), (0, 2, 14, 1, (150, 120, 90), 'panelling'),
- (2, 2, 1, 2, (200, 200, 220), 'bed'), (5, 2, 1, 2, (200, 200, 220), 'bed'), (8, 2, 1, 2, (200, 200, 220), 'bed'), (11, 2, 1, 2, (200, 200, 220), 'bed'),
- (2, 4, 1, 1, (120, 80, 50), 'ftlk'), (5, 4, 1, 1, (120, 80, 50), 'ftlk'), (8, 4, 1, 1, (120, 80, 50), 'ftlk'), (11, 4, 1, 1, (120, 80, 50), 'ftlk'),
- (3, 3, 1, 1, (160, 140, 100), 'std'), (6, 3, 1, 1, (160, 140, 100), 'std'), (9, 3, 1, 1, (160, 140, 100), 'std'), (12, 3, 1, 1, (160, 140, 100), 'std'),
- (1, 6, 1, 2, (120, 80, 50), 'wardrobe'), (12, 6, 1, 2, (120, 80, 50), 'wardrobe'),
- (3, 7, 2, 1, (170, 190, 210), 'washstand'),
- (9, 7, 2, 1, (220, 210, 170), 'small shrine'),
- (1, 8, 1, 1, (220, 190, 90), 'cnd'), (12, 8, 1, 1, (220, 190, 90), 'cnd'),
- (6, 9, 2, 1, (70, 100, 180), 'door to hall'),
+DORM = (20, 10, [
+ (0, 0, 20, 2, (190, 180, 150), 'back wall'), (0, 2, 20, 1, (150, 120, 90), 'panelling'),
+ (2, 2, 1, 2, (200, 200, 220), 'bed'), (3, 3, 1, 1, (160, 140, 100), 'std'), (2, 4, 1, 1, (120, 80, 50), 'ftlk'),
+ (5, 2, 1, 2, (200, 200, 220), 'bed'), (6, 3, 1, 1, (160, 140, 100), 'std'), (5, 4, 1, 1, (120, 80, 50), 'ftlk'),
+ (8, 2, 1, 2, (200, 200, 220), 'bed'), (9, 3, 1, 1, (160, 140, 100), 'std'), (8, 4, 1, 1, (120, 80, 50), 'ftlk'),
+ (11, 2, 1, 2, (200, 200, 220), 'bed'), (12, 3, 1, 1, (160, 140, 100), 'std'), (11, 4, 1, 1, (120, 80, 50), 'ftlk'),
+ (14, 2, 1, 2, (200, 200, 220), 'bed'), (15, 3, 1, 1, (160, 140, 100), 'std'), (14, 4, 1, 1, (120, 80, 50), 'ftlk'),
+ (17, 2, 1, 2, (200, 200, 220), 'bed'), (18, 3, 1, 1, (160, 140, 100), 'std'), (17, 4, 1, 1, (120, 80, 50), 'ftlk'),
+ (1, 6, 1, 2, (120, 80, 50), 'wardrobe'), (18, 6, 1, 2, (120, 80, 50), 'wardrobe'),
+ (4, 7, 2, 1, (170, 190, 210), 'washstand'), (14, 7, 2, 1, (220, 210, 170), 'small shrine'),
+ (1, 8, 1, 1, (220, 190, 90), 'cnd'), (18, 8, 1, 1, (220, 190, 90), 'cnd'),
+ (9, 9, 2, 1, (70, 100, 180), 'door to hall'),
 ])
 def draw(spec, title):
     W, H, Z = spec
@@ -54,7 +56,7 @@ def draw(spec, title):
     for y in range(H + 1): d.line((0, y * T, W * T, y * T), fill=(150, 140, 120))
     return im
 def main(out):
-    a = draw(HALL, 'STUDY HALL 18x13  (* = the desk with the letter)'); b = draw(DORM, 'DORMITORY 14x10')
+    a = draw(HALL, 'STUDY HALL 18x13  (* = the desk with the letter)'); b = draw(DORM, 'DORMITORY 20x10 (six beds)')
     im = Image.new('RGB', (a.size[0] + b.size[0] + 16, max(a.size[1], b.size[1])), (60, 60, 60))
     im.paste(a, (0, 0)); im.paste(b, (a.size[0] + 16, 0)); im.save(out)
 if __name__ == '__main__':
