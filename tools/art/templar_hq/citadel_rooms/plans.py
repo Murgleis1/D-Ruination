@@ -31,6 +31,18 @@ ARMOURY = (14, 11, [       # v2 (user 2026-11-23: keep the forge and fireplace; 
  (4, 6, 6, 1, (150, 110, 70), 'WORKBENCHES (finished blades)'),
  (7, 10, 2, 1, (70, 100, 180), 'door'),
 ])
+WATCH = (14, 11, [         # v1 (user 2026-11-23: the east house a watch house, not a second Braviary mews)
+ (0, 0, 14, 2, (190, 180, 150), 'wall (grey wood)'),
+ (1, 0, 3, 2, (200, 170, 110), 'DISPATCH BOARD'), (6, 0, 2, 2, (200, 200, 210), 'banner'),
+ (10, 0, 3, 2, (215, 195, 150), 'MAP OF THE PASS'),
+ (1, 2, 2, 1, (120, 80, 50), 'report cabinet'), (3, 2, 1, 1, (150, 120, 80), 'scrolls'),
+ (12, 2, 1, 2, (150, 150, 160), 'helms'),
+ (6, 3, 2, 1, (60, 90, 160), 'CAPTAIN (stands)'),
+ (5, 4, 4, 2, (150, 110, 70), 'MAP TABLE (route 15 laid out)'),
+ (1, 5, 2, 1, (130, 90, 60), 'scribe desk'), (1, 6, 1, 1, (60, 90, 160), 'scribe'),
+ (11, 5, 2, 2, (110, 100, 90), 'runners bench'), (12, 7, 1, 1, (90, 90, 100), 'horn+lantern'),
+ (6, 10, 2, 1, (70, 100, 180), 'door'),
+])
 def draw(spec, title):
     W, H, Z = spec
     im = Image.new('RGB', (W * T, H * T + 18), (225, 215, 190)); d = ImageDraw.Draw(im)
@@ -43,6 +55,8 @@ def draw(spec, title):
     for y in range(H + 1): d.line((0, y * T, W * T, y * T), fill=(150, 140, 120))
     return im
 def main(out):
+    if out.endswith('watch.png'):
+        draw(WATCH, 'WATCH HOUSE v1 14x11: the command post for Route 15').save(out); return
     a = draw(BARRACKS, 'BARRACKS v2 16x14: four bedrooms, two beds each'); b = draw(ARMOURY, 'ARMOURY v2 14x11: a working smithy')
     im = Image.new('RGB', (a.size[0] + b.size[0] + 16, max(a.size[1], b.size[1])), (60, 60, 60)); im.paste(a, (0, 0)); im.paste(b, (a.size[0] + 16, 0)); im.save(out)
 if __name__ == '__main__':
