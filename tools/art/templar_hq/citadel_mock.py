@@ -216,7 +216,8 @@ def compose():
 def main(out):
     M = compose(); img = Image.fromarray(M.render()).convert('RGBA')
     t = templar()
-    for (x, y) in ((16, 36), (22, 36), (18, 23), (20, 23), (11, 26), (27, 26), (37, 16), (19, 18), (5, 19), (6, 19)):
+    for (x, y) in ((16, 36), (22, 36), (18, 23), (20, 23), (11, 26), (27, 26), (19, 18), (5, 19), (6, 19),
+                   (36, 15), (36, 16), (36, 17)):                    # (a line of guards across the cleft to Route 15: user)
         img.alpha_composite(t, (x * 16, y * 16 + 16 - t.size[1]))
     YD = os.path.join(HERE, 'yard')
     for (x, y, f) in ((31, 18, 'down'), (35, 20, 'left')):                       # (Braviaries on the landing ground)
@@ -226,4 +227,4 @@ def main(out):
     print('mock', out)
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v6.png')
+    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v7.png')
