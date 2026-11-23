@@ -84,3 +84,11 @@ to the Ivy River) are later chapters.
 Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest); Route 11's east beach.
 
 Update this list as areas are finished.
+
+## ROM space
+
+- 2026-11-23: the ROM is at 95.75% (32,126,720 of 33,554,432 bytes; about 1.36 MB free) after the Templar cathedral.
+- **User 2026-11-23:** unused maps may be deleted to make room (e.g. Dreamstone Mysteries' other cities that nothing of
+  ours uses so far). When space runs short: list the candidates (unused maps, their tilesets and music, the bytes each
+  frees, after checking no kept map, script, warp, heal location or region-map entry points at them), show the list,
+  then delete and clear their references.
