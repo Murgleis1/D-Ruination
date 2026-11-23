@@ -55,5 +55,60 @@ def main(out):
         box(d, lx, 26 + i * 1.4, lx + 1, 26 + i * 1.4 + 0.9, c); label(d, lx + 1.6, 26 + i * 1.4 - 0.05, n, f, (230, 230, 230))
     im.save(out)
 
+def main_v2(out):
+    """v2 (user 2026-11-22): the Citadel stands in a STONE HOLLOW of the Mirroh mountains, an open courtyard before
+    the church with Templars standing in it; the ground stony with touches of snow (Fort Elderflower's paving); the
+    church is Pokemon Empire's Arceus church, its front building only, 7x13 at native size, drawn here as it is."""
+    W, H = 40, 40
+    im = Image.new('RGB', (W * S + 20 + 330, H * S + 40), (30, 30, 36)); d = ImageDraw.Draw(im)
+    try: f = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 11)
+    except Exception: f = ImageFont.load_default()
+    d.text((10, 8), 'TEMPLAR CITADEL (40x40), zone plan v2: a courtyard in a stone hollow', fill=(230, 230, 230), font=f)
+    stone = (128, 128, 140); stone2 = (110, 110, 124); rockc = (84, 82, 92); wood = (150, 105, 70); roost = (170, 150, 120)
+    yard = (150, 150, 162); tmpl = (230, 200, 80)
+    box(d, 0, 0, W - 1, H - 1, stone)
+    for (x0, y0, x1, y1) in ((4, 30, 6, 31), (31, 18, 34, 19), (9, 16, 11, 17), (25, 27, 27, 28), (13, 29, 14, 30)):
+        box(d, x0, y0, x1, y1, C['snow'])                                  # (touches of snow on the stone)
+    # the hollow's rock walls (terraced cliffs), the massif rising behind
+    box(d, 0, 0, W - 1, 2, rockc); box(d, 0, 0, 3, H - 1, rockc); box(d, W - 4, 0, W - 1, H - 1, rockc)
+    box(d, 4, 3, 7, 5, stone2); box(d, 32, 3, 35, 5, stone2)               # (a ledge step at the back corners)
+    label(d, 12, 0.8, 'the massif: the hollow\'s rock walls rise all round', f, (230, 230, 230))
+    # the mouth: curtain wall with its open arch, two guards; the pilgrim road down to Route 13
+    box(d, 4, 33, W - 5, 34, C['wall']); box(d, 17, 32, 22, 35, C['gate']); box(d, 18, 33, 21, 34, (20, 20, 26))
+    for gx in (16, 23): box(d, gx, 35, gx, 35, tmpl)
+    box(d, 0, 35, 16, H - 1, rockc); box(d, 23, 35, W - 1, H - 1, rockc)
+    path(d, [(19.5, H), (19.5, 35)], C['cobble'], 4); box(d, 18, H - 1, 21, H - 1, C['exitc'])
+    label(d, 23.5, 36.2, 'curtain wall, open arch, 2 guards', f, (240, 240, 240)); label(d, 23.5, 38.2, 'from Route 13 (pilgrim road)', f, (240, 240, 240))
+    # the courtyard: the cobbled way to the church door, the Arceus statue, Templars standing about
+    path(d, [(19.5, 32), (19.5, 19)], C['cobble'], 3)
+    box(d, 17, 24, 22, 27, yard); box(d, 19, 25, 20, 26, (236, 232, 214)); label(d, 13.2, 23.0, 'Arceus statue', f)
+    for (tx, ty) in ((15, 22), (24, 22), (14, 28), (25, 29), (11, 25)): box(d, tx, ty, tx, ty, tmpl)
+    label(d, W + 0.3, 9.4, 'gold squares: Templars standing', f, (240, 240, 240)); label(d, W + 0.3, 10.4, 'in the courtyard (stage 2)', f, (240, 240, 240))
+    # the church, as drawn, on a narrow frozen moat with a causeway to its door
+    box(d, 14, 3, 25, 17, C['ice']); box(d, 18, 16, 21, 18, C['cobble'])
+    ch = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'church', 'front_arceus.png')).convert('RGBA')
+    ch = ch.resize((ch.size[0] * S // 16, ch.size[1] * S // 16), Image.LANCZOS)
+    im.paste(ch, (10 + 16 * S, 30 + 3 * S + S // 2), ch)
+    label(d, W + 0.3, 4.4, 'the church (7x13), on a frozen', f, (240, 240, 240)); label(d, W + 0.3, 5.4, 'moat; its door at the foot.', f, (240, 240, 240)); label(d, W + 0.3, 6.4, 'Inside, Loulan leads you', f, (240, 240, 240)); label(d, W + 0.3, 7.4, 'to Ambrose at its heart.', f, (240, 240, 240))
+    # west: the Tavern and the barracks, doors onto the courtyard
+    box(d, 5, 19, 10, 23, wood); box(d, 7, 23, 8, 23, (20, 20, 26)); label(d, 5.6, 20.6, 'Tavern', f, (240, 240, 240))
+    box(d, 5, 8, 10, 12, wood); box(d, 7, 12, 8, 12, (20, 20, 26)); label(d, 5.3, 9.6, 'barracks', f, (240, 240, 240))
+    path(d, [(7.5, 24), (7.5, 30), (17, 30)], C['cobble'], 2); path(d, [(7.5, 13), (7.5, 24)], C['cobble'], 2)
+    # east: the Braviary roost up on a ledge (stairs), the training yard below
+    box(d, 28, 6, 35, 12, stone2); box(d, 29, 7, 34, 11, roost); box(d, 30, 13, 31, 13, C['trail'])
+    label(d, 29.3, 8.2, 'Braviary', f); label(d, 29.3, 9.2, 'roost', f); label(d, 29.3, 10.2, '(on a ledge)', f)
+    box(d, 27, 21, 34, 28, yard); label(d, 27.6, 22.2, 'training yard', f)
+    path(d, [(22, 30), (30.5, 30), (30.5, 28.5)], C['cobble'], 2); path(d, [(30.5, 21), (30.5, 13.5)], C['cobble'], 2)
+    # east: the cleft to Route 15 (a later chapter: a Templar turns you back)
+    box(d, W - 4, 15, W - 1, 17, stone); path(d, [(35, 16), (W, 16)], C['cobble'], 2); box(d, W - 1, 15, W - 1, 17, C['exitc'])
+    box(d, 35, 15, 35, 15, tmpl); label(d, W + 0.3, 15.4, '-> Route 15 (later chapter:', f, (240, 240, 240)); label(d, W + 0.3, 16.4, '   a Templar turns you back)', f, (240, 240, 240))
+    lx = W + 0.6
+    for i, (n, c) in enumerate((('stone paving', stone), ('snow touches', C['snow']), ('rock (hollow walls)', rockc), ('ledge', stone2),
+                                ('cobbled way', C['cobble']), ('frozen moat', C['ice']), ('curtain wall / gate', C['wall']),
+                                ('timber building', wood), ('Braviary roost', roost), ('yard', yard), ('Templar', tmpl), ('exit', C['exitc']))):
+        box(d, lx, 21 + i * 1.4, lx + 1, 21 + i * 1.4 + 0.9, c); label(d, lx + 1.6, 21 + i * 1.4 - 0.05, n, f, (230, 230, 230))
+    im.save(out)
+
 if __name__ == '__main__':
+    if len(sys.argv) > 2 and sys.argv[2] == 'v2': main_v2(sys.argv[1]); sys.exit()
     main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/templar_hq_sketch_v1.png')

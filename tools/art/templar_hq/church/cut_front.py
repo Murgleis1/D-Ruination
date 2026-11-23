@@ -83,6 +83,17 @@ Wf = out.shape[1]
 for (x, y), v in fix.items():
     for xx in (x, Wf - 1 - x):
         out[y, xx] = 0 if v is None else v
+# the great dome's top edge (user 2026-11-22: "the dark lines of the upper part are missing ... on both sides of the
+# back"): where the hall was cut away, the dome's pale rim met the sky with no outline. Every empty cell above (or
+# beside, toward the outside) the rim takes the art's dark outline, as the rim's own stretch at x 24-34 has.
+Hf = out.shape[0]
+for y in range(56, 74):
+    for x in range(0, 40):
+        for xx, side in ((x, 1), (Wf - 1 - x, -1)):
+            if out[y, xx, 3]: continue
+            nbs = [(xx, y + 1), (xx + side, y)]
+            if any(0 <= b < Hf and 0 <= a2 < Wf and out[b, a2, 3] and tuple(out[b, a2, :3]) != OUTLINE for a2, b in nbs):
+                out[y, xx] = OUTL
 # pinholes: a transparent pixel walled in on three or more sides takes its neighbours' commonest colour
 from collections import Counter
 for _ in range(3):
