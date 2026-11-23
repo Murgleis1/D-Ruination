@@ -63,7 +63,9 @@ def nave_picture():
     N.main(os.path.join(SCR, 'nave_base.png'), with_ambrose=False)
     subprocess.run([sys.executable, os.path.join(TQ, 'glass', 'arceus_glass.py'), os.path.join(SCR, 'nave_base.png'),
                     os.path.join(SCR, 'nave_game.png')], check=True, capture_output=True)
-    return np.array(Image.open(os.path.join(SCR, 'nave_game.png')).convert('RGB')).astype(int)
+    img = np.array(Image.open(os.path.join(SCR, 'nave_game.png')).convert('RGB')).astype(int)
+    img[12 * 16:13 * 16, 15 * 16:16 * 16] = img[12 * 16:13 * 16, 13 * 16:14 * 16]   # (the piano's bench out: it closed
+    return img                                                                         #  the only way to the study door)
 
 def gba_legal(img, keep=(), n=60):
     """Make a picture fit the GBA's colour rules: every colour in keep stays exactly (the stained-glass Arceus's

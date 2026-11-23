@@ -2,7 +2,9 @@
 over it). Read from the room picture by hand (2026-11-23): '#' solid, '.' floor, 'D' a door (its warp), 'E' the exit
 (the carpet's last row; south-arrow warps back out to the courtyard). The brick at row 8 and at the foot of the
 west and east doors is the floor in the walls' shadow (Empire's brick floor), so the chancel doors are reached from
-it. The Sanctum's gold grille (2,7) stays solid: sealed (a sign there says so)."""
+it. The Sanctum's gold grille (2,7) stays solid: sealed (a sign there says so). The piano's bench (15,12) is taken out of the room (it closed the only corridor to the study door; the floor
+cell two to its left drawn there instead), and column 17 beside the piano is floor.
+"""
 GRID = """
 #####################
 #####################
@@ -13,10 +15,10 @@ GRID = """
 #####################
 ##################D##
 ##.#.....###.....#.##
-##..#....###..####.##
-##..###...#...####.##
-##..###.......####.##
-###.......#....#..###
+##..#....###..###..##
+##..###...#...###..##
+##..###.......###..##
+###.......#.......###
 ######..#####..######
 ######..#####..######
 ######..#####..######
