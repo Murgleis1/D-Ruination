@@ -1,0 +1,35 @@
+// The Citadel's Tavern (Pelluca's Seaside Tavern room in the Citadel's colours; citadel_rooms/build_houses.py).
+// Core staff (bible Section 4): healer, barkeep (the Citadel's stock below, a first pass: [OPEN]), Sage, Caretaker.
+
+mapscripts TemplarCitadelTavern_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        setrespawn(HEAL_LOCATION_TEMPLAR_HQ)
+    }
+}
+
+script TemplarCitadelTavern_EventScript_Barkeep {
+    lock
+    faceplayer
+    speakername("Barkeep")
+    message(format("Mountain air works up a hunger. Need anything for the road?"))
+    waitmessage
+    pokemart(TemplarCitadelTavern_Stock)
+    speakername("Barkeep")
+    msgbox(format("Arceus keep you."))
+    closemessage
+    release
+    end
+}
+
+mart TemplarCitadelTavern_Stock {
+    ITEM_POTION
+    ITEM_SUPER_POTION
+    ITEM_POKE_BALL
+    ITEM_GREAT_BALL
+    ITEM_ANTIDOTE
+    ITEM_PARALYZE_HEAL
+    ITEM_BURN_HEAL
+    ITEM_ICE_HEAL
+    ITEM_AWAKENING
+    ITEM_REPEL
+}

@@ -153,7 +153,7 @@ def compose():
     ways |= {(x, y) for x in range(17, 22) for y in range(16, 31)}                       # (the axis, the stair)
     ways |= {(x, y) for x in range(12, 27) for y in range(22, 31)}                       # (the fountain square)
     ways |= {(x, y) for x in range(5, 10) for y in range(11, 21)} | mirror_cells({(x, y) for x in range(5, 10) for y in range(11, 21)})   # (ledge doors, stairs, down to the square)
-    ways |= {(x, y) for x in range(5, 8) for y in range(28, 31)} | mirror_cells({(x, y) for x in range(5, 8) for y in range(28, 31)})    # (the Tavern's door and its twin's)
+    ways |= {(x, y) for x in range(4, 8) for y in range(28, 31)} | mirror_cells({(x, y) for x in range(4, 8) for y in range(28, 31)})    # (the Tavern's door, x 4, and its twin's: open ground before them, 2026-11-23)
     ways |= {(x, y) for x in range(9, 13) for y in range(14, 31)} | mirror_cells({(x, y) for x in range(9, 13) for y in range(14, 31)})  # (the streets down from the ledges)
     ways |= {(x, y) for x in range(9, 18) for y in range(19, 22)} | mirror_cells({(x, y) for x in range(9, 18) for y in range(19, 22)})
     ways |= {(x, y) for x in range(22, 37) for y in range(14, 19)}                       # (to the cleft)

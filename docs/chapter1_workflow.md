@@ -73,7 +73,7 @@ Citadel")** -> **Mt. Mirroh** -> **Mirroh Peak**. Routes 14 (Mt. Mirroh east to 
 to the Ivy River) are later chapters.
 1. ~~Route 13~~: built and walked 2026-11-22 (40x128; forks to Templar HQ and Mt. Mirroh; stage 2: two trainers on the
    switchback ascent).
-2. Templar Headquarters: courtyard BUILT and walked 2026-11-22 (`TemplarCitadel`, a fade from Route 13's NE exit). **The cathedral BUILT and walked 2026-11-23** (`TemplarCathedral` the nave; the study, the bishops' hall and dormitory, the Braviary registry, the kitchen, the storehouse; the Sanctum built, sealed; `tools/art/templar_hq/cathedral/build_cathedral.py`; walk `tools/playtest/cathedral_walk.py`). Next: the Citadel's other buildings (the Tavern, the barracks, the armoury, the Braviary mews), whose doors stay shut until then. (Was in progress 2026-11-22: zone plan v2, the church cut from Pokémon Empire's Arceus church; required before Mt. Mirroh, the first Ambrose meeting; interior two levels, cathedral + offices, the Sanctum above). Was: Crown's gothic cathedral on its moat island with timber chalets, alpine snow, perhaps an
+2. Templar Headquarters: courtyard BUILT and walked 2026-11-22 (`TemplarCitadel`, a fade from Route 13's NE exit). **The four courtyard houses BUILT and walked 2026-11-23** (the Tavern with its staff and heal point, the barracks, the armoury, the watch house; `citadel_rooms/build_houses.py`; walk `tools/playtest/citadel_houses_walk.py`). **The cathedral BUILT and walked 2026-11-23** (`TemplarCathedral` the nave; the study, the bishops' hall and dormitory, the Braviary registry, the kitchen, the storehouse; the Sanctum built, sealed; `tools/art/templar_hq/cathedral/build_cathedral.py`; walk `tools/playtest/cathedral_walk.py`). Next: the Citadel's other buildings (the Tavern, the barracks, the armoury, the Braviary mews), whose doors stay shut until then. (Was in progress 2026-11-22: zone plan v2, the church cut from Pokémon Empire's Arceus church; required before Mt. Mirroh, the first Ambrose meeting; interior two levels, cathedral + offices, the Sanctum above). Was: Crown's gothic cathedral on its moat island with timber chalets, alpine snow, perhaps an
    outer wall (bible 16.10 art plan). In Chapter 1 the way to the mountain passes it; Loulan recurs there.
 3. Mt. Mirroh (the climb: Beat 8a, the tortured Beads cultist) and Mirroh Peak (Beats 8b-8c: Baradus, Eden,
    Kimaris). The base game's maps (`MtMirrohExterior`, `MirrohPeak`, the caves `MirrohInterior_*`) are DM-era, on old
@@ -92,3 +92,6 @@ Update this list as areas are finished.
   ours uses so far). When space runs short: list the candidates (unused maps, their tilesets and music, the bytes each
   frees, after checking no kept map, script, warp, heal location or region-map entry points at them), show the list,
   then delete and clear their references.
+
+## Dialogue audit (user 2026-11-23)
+Once the next few phases of Chapter 1 are further along, the user wants **another full sweep audit and analysis of all of Chapter 1's dialogue and everything else**. Flag this when those phases land.

@@ -191,7 +191,11 @@
     "TemplarCathedralRegistry",
     "TemplarCathedralKitchen",
     "TemplarCathedralStorehouse",
-    "TemplarCathedralSanctum"
+    "TemplarCathedralSanctum",
+    "TemplarCitadelTavern",
+    "TemplarCitadelBarracks",
+    "TemplarCitadelArmoury",
+    "TemplarCitadelWatchHouse"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

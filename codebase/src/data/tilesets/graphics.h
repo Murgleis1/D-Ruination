@@ -2349,6 +2349,182 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_TemplarCitWatch[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_watch/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitWatch[] = INCBIN_U32("data/tilesets/secondary/templar_cit_watch/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarCitWatchTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_watch_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitWatchTiles[] = INCBIN_U32("data/tilesets/primary/templar_cit_watch_tiles/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarCitArmoury[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_armoury/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitArmoury[] = INCBIN_U32("data/tilesets/secondary/templar_cit_armoury/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarCitArmouryTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_armoury_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitArmouryTiles[] = INCBIN_U32("data/tilesets/primary/templar_cit_armoury_tiles/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarCitBarracks[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_barracks/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitBarracks[] = INCBIN_U32("data/tilesets/secondary/templar_cit_barracks/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarCitBarracksTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_barracks_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitBarracksTiles[] = INCBIN_U32("data/tilesets/primary/templar_cit_barracks_tiles/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarCitTavern[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/templar_cit_tavern/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitTavern[] = INCBIN_U32("data/tilesets/secondary/templar_cit_tavern/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_TemplarCitTavernTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/templar_cit_tavern_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_TemplarCitTavernTiles[] = INCBIN_U32("data/tilesets/primary/templar_cit_tavern_tiles/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_TemplarCathSanctum[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/templar_cath_sanctum/palettes/00.gbapal"),

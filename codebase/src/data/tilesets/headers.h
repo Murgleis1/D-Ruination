@@ -1228,6 +1228,94 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_TemplarCitWatch =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarCitWatch,
+    .palettes = gTilesetPalettes_TemplarCitWatch,
+    .metatiles = gMetatiles_TemplarCitWatch,
+    .metatileAttributes = gMetatileAttributes_TemplarCitWatch,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCitWatchTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_TemplarCitWatchTiles,
+    .palettes = gTilesetPalettes_TemplarCitWatchTiles,
+    .metatiles = gMetatiles_TemplarCitWatchTiles,
+    .metatileAttributes = gMetatileAttributes_TemplarCitWatchTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCitArmoury =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarCitArmoury,
+    .palettes = gTilesetPalettes_TemplarCitArmoury,
+    .metatiles = gMetatiles_TemplarCitArmoury,
+    .metatileAttributes = gMetatileAttributes_TemplarCitArmoury,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCitArmouryTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_TemplarCitArmouryTiles,
+    .palettes = gTilesetPalettes_TemplarCitArmouryTiles,
+    .metatiles = gMetatiles_TemplarCitArmouryTiles,
+    .metatileAttributes = gMetatileAttributes_TemplarCitArmouryTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCitBarracks =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarCitBarracks,
+    .palettes = gTilesetPalettes_TemplarCitBarracks,
+    .metatiles = gMetatiles_TemplarCitBarracks,
+    .metatileAttributes = gMetatileAttributes_TemplarCitBarracks,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCitBarracksTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_TemplarCitBarracksTiles,
+    .palettes = gTilesetPalettes_TemplarCitBarracksTiles,
+    .metatiles = gMetatiles_TemplarCitBarracksTiles,
+    .metatileAttributes = gMetatileAttributes_TemplarCitBarracksTiles,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCitTavern =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_TemplarCitTavern,
+    .palettes = gTilesetPalettes_TemplarCitTavern,
+    .metatiles = gMetatiles_TemplarCitTavern,
+    .metatileAttributes = gMetatileAttributes_TemplarCitTavern,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_TemplarCitTavernTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_TemplarCitTavernTiles,
+    .palettes = gTilesetPalettes_TemplarCitTavernTiles,
+    .metatiles = gMetatiles_TemplarCitTavernTiles,
+    .metatileAttributes = gMetatileAttributes_TemplarCitTavernTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_TemplarCathSanctum =
 {
     .isCompressed = TRUE,

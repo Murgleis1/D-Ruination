@@ -6162,6 +6162,46 @@
       "blockdata_filepath": "data/layouts/TemplarCitadel/map.bin"
     },
     {
+      "id": "LAYOUT_TEMPLAR_CITADEL_WATCH_HOUSE",
+      "name": "TemplarCitadelWatchHouse_Layout",
+      "width": 14,
+      "height": 11,
+      "primary_tileset": "gTileset_TemplarCitWatchTiles",
+      "secondary_tileset": "gTileset_TemplarCitWatch",
+      "border_filepath": "data/layouts/TemplarCitadelWatchHouse/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCitadelWatchHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CITADEL_ARMOURY",
+      "name": "TemplarCitadelArmoury_Layout",
+      "width": 14,
+      "height": 11,
+      "primary_tileset": "gTileset_TemplarCitArmouryTiles",
+      "secondary_tileset": "gTileset_TemplarCitArmoury",
+      "border_filepath": "data/layouts/TemplarCitadelArmoury/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCitadelArmoury/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CITADEL_BARRACKS",
+      "name": "TemplarCitadelBarracks_Layout",
+      "width": 21,
+      "height": 13,
+      "primary_tileset": "gTileset_TemplarCitBarracksTiles",
+      "secondary_tileset": "gTileset_TemplarCitBarracks",
+      "border_filepath": "data/layouts/TemplarCitadelBarracks/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCitadelBarracks/map.bin"
+    },
+    {
+      "id": "LAYOUT_TEMPLAR_CITADEL_TAVERN",
+      "name": "TemplarCitadelTavern_Layout",
+      "width": 14,
+      "height": 12,
+      "primary_tileset": "gTileset_TemplarCitTavernTiles",
+      "secondary_tileset": "gTileset_TemplarCitTavern",
+      "border_filepath": "data/layouts/TemplarCitadelTavern/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCitadelTavern/map.bin"
+    },
+    {
       "id": "LAYOUT_TEMPLAR_CATHEDRAL_SANCTUM",
       "name": "TemplarCathedralSanctum_Layout",
       "width": 17,

@@ -10,8 +10,9 @@ Hollow Hill's way north fades into Mirroh Gate: triggers on Route 13's top row (
 (x 18-20), and on the Citadel's bottom row back to Route 13's row 1.
 Collision: paving and stairs walked on (the landing pad too); cliffs, walls, parapets, buildings, statues, the
 fountain, lamps, fences and targets solid; outside the curtain wall only the road and the guards' apron are walked on
-(the snow and pines beyond are the mountain). The church door (19,17) leads into the nave (MAP_TEMPLAR_CATHEDRAL, cathedral/build_cathedral.py); the houses'
-doors stay shut until their interiors exist.
+(the snow and pines beyond are the mountain). The church door (19,17) leads into the nave (MAP_TEMPLAR_CATHEDRAL, cathedral/build_cathedral.py); the four
+houses' doors (2026-11-23) into the Tavern, the barracks, the armoury and the watch house (citadel_rooms/build_houses.py,
+whose HOUSES holds their door cells; their warps follow the church's, in that order).
 The line of Templar guards across the cleft to Route 15 (user 2026-11-22) goes in now as objects, since they are the
 barrier: "an incident on Route 15 ... nobody is allowed in or out". The courtyard's other Templars are stage 2.
 Usage: python3 tools/art/templar_hq/build_citadel.py   (then rebuild Route 13: build_route13.py; then make)
@@ -21,6 +22,8 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..'))
 import citadel_mock as CM
+sys.path.insert(0, os.path.join(HERE, 'citadel_rooms'))
+import build_houses as BH
 import mapbuild as MB
 C = MB.C
 NAME, LAYOUT, MAPID = 'TemplarCitadel', 'LAYOUT_TEMPLAR_CITADEL', 'MAP_TEMPLAR_CITADEL'
@@ -38,8 +41,10 @@ def main():
             for img, a in M.obj[y][x]: mid[s][a] = img[a]; ma[s] |= a
     walk = {(x, y) for y in range(H) for x in range(W)
             if M.gtag[y, x] in ('pave', 'stairs') and M.otag[y, x] in (None, 'pad')}
-    walk |= {CHURCH_DOOR}
-    beh = lambda x, y: MB_DOOR if (x, y) == CHURCH_DOOR else 0
+    house_doors = [(c, BH.HOUSES[k][1], BH.entry_warp(k)[i]) for k in BH.HOUSES for i, c in enumerate(BH.HOUSES[k][2])]
+    doors = {CHURCH_DOOR} | {c for c, _, _ in house_doors}
+    walk |= doors
+    beh = lambda x, y: MB_DOOR if (x, y) in doors else 0
     r = MB.build(bot, (mid, ma), None, W, H, walk, beh)
     # the border: Elderflower's small pines (top on even rows, foot on odd), as Route 13's, so the mountain goes on
     def find(m):
@@ -59,7 +64,9 @@ def main():
             'connections': None,
             'object_events': [T(x, y, 'TemplarCitadel_EventScript_Route15Guard', 'MOVEMENT_TYPE_FACE_LEFT') for (x, y) in GUARDS],
             'warp_events': [{'x': CHURCH_DOOR[0], 'y': CHURCH_DOOR[1], 'elevation': 3, 'dest_map': 'MAP_TEMPLAR_CATHEDRAL',
-                             'dest_warp_id': '1'}],                 # (warp 0; into the nave, onto the middle of its mat)
+                             'dest_warp_id': '1'}]                  # (warp 0; into the nave, onto the middle of its mat)
+                           + [{'x': c[0], 'y': c[1], 'elevation': 3, 'dest_map': mid, 'dest_warp_id': str(w)}
+                              for c, mid, w in house_doors],        # (warps 1..: the houses, build_houses.HOUSES order)
             'coord_events': [{'type': 'trigger', 'x': x, 'y': H - 1, 'elevation': 3, 'var': 'VAR_TEMP_1', 'var_value': '0',
                               'script': 'TemplarCitadel_EventScript_ToRoute13_%d' % x} for x in (18, 19, 20)],
             'bg_events': []}
