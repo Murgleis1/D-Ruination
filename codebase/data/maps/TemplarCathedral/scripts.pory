@@ -1,0 +1,7 @@
+mapscripts TemplarCathedral_MapScripts {}
+
+// The gold grille over the stair up to the Sanctum (sealed until Ambrose is beaten; the Sanctum is built, unreached).
+script TemplarCathedral_EventScript_SanctumGrille {
+    msgbox(format("A gilded grille bars a narrow stair leading up.\pIt is locked."), MSGBOX_SIGN)
+    end
+}

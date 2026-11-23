@@ -6162,6 +6162,16 @@
       "blockdata_filepath": "data/layouts/TemplarCitadel/map.bin"
     },
     {
+      "id": "LAYOUT_TEMPLAR_CATHEDRAL",
+      "name": "TemplarCathedral_Layout",
+      "width": 21,
+      "height": 36,
+      "primary_tileset": "gTileset_TemplarCathNaveTiles",
+      "secondary_tileset": "gTileset_TemplarCathNave",
+      "border_filepath": "data/layouts/TemplarCathedral/border.bin",
+      "blockdata_filepath": "data/layouts/TemplarCathedral/map.bin"
+    },
+    {
       "id": "LAYOUT_MIRROH_SPECIALTY_SHOP",
       "name": "MirrohSpecialtyShop_Layout",
       "width": 12,

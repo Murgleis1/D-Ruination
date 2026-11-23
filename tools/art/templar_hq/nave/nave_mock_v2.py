@@ -18,7 +18,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..', '..', '..'))
 SRC = os.path.join(REPO, 'assets/templar_hq_reference/empire/empire_church_interior_native.png')
 
-def main(out):
+def main(out, with_ambrose=True):
+    """with_ambrose=False: the room alone, for the game (Ambrose is an object there)."""
     a = np.array(Image.open(SRC).convert('RGB')).astype(int)
     H, W = a.shape[0] // 16, a.shape[1] // 16
     # floor: brick and mortar (and their wall-shadowed tones) -> cream stone; wall-top wood -> stone
@@ -67,7 +68,8 @@ def main(out):
     am = Image.open(os.path.join(REPO, 'codebase/graphics/object_events/pics/people/ambrose.png'))
     aa = np.array(am.convert('RGBA')); idx = np.array(am); aa[idx == 0, 3] = 0
     fw = 32 if aa.shape[1] % 32 == 0 and aa.shape[1] >= 96 else 16
-    spr = Image.fromarray(aa[:, :fw]); im.alpha_composite(spr, (12 * 16 + 8 - fw // 2, 10 * 16 + 16 - spr.size[1]))
+    spr = Image.fromarray(aa[:, :fw])
+    if with_ambrose: im.alpha_composite(spr, (12 * 16 + 8 - fw // 2, 10 * 16 + 16 - spr.size[1]))
     im = im.crop((2 * 16, 0, 23 * 16, 36 * 16))
     im.convert('RGB').save(out); im.convert('RGB').resize((im.size[0] * 2, im.size[1] * 2), Image.NEAREST).save(out.replace('.png', '_2x.png'))
     print('nave mock v2', im.size, 'ambrose frame', fw, aa.shape)

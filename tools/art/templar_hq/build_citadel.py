@@ -10,7 +10,8 @@ Hollow Hill's way north fades into Mirroh Gate: triggers on Route 13's top row (
 (x 18-20), and on the Citadel's bottom row back to Route 13's row 1.
 Collision: paving and stairs walked on (the landing pad too); cliffs, walls, parapets, buildings, statues, the
 fountain, lamps, fences and targets solid; outside the curtain wall only the road and the guards' apron are walked on
-(the snow and pines beyond are the mountain). The doors stay shut until the interiors exist (stage 1, next).
+(the snow and pines beyond are the mountain). The church door (19,17) leads into the nave (MAP_TEMPLAR_CATHEDRAL, cathedral/build_cathedral.py); the houses'
+doors stay shut until their interiors exist.
 The line of Templar guards across the cleft to Route 15 (user 2026-11-22) goes in now as objects, since they are the
 barrier: "an incident on Route 15 ... nobody is allowed in or out". The courtyard's other Templars are stage 2.
 Usage: python3 tools/art/templar_hq/build_citadel.py   (then rebuild Route 13: build_route13.py; then make)
@@ -25,6 +26,8 @@ C = MB.C
 NAME, LAYOUT, MAPID = 'TemplarCitadel', 'LAYOUT_TEMPLAR_CITADEL', 'MAP_TEMPLAR_CITADEL'
 ROUTE13_OFFSET = 14
 GUARDS = [(36, 15), (36, 16), (36, 17)]
+CHURCH_DOOR = (19, 17)          # (the church front's doorway; into the nave, user 2026-11-23: build the interiors)
+MB_DOOR = 0x60
 
 def main():
     M = CM.compose(); W, H = CM.W, CM.H
@@ -35,7 +38,8 @@ def main():
             for img, a in M.obj[y][x]: mid[s][a] = img[a]; ma[s] |= a
     walk = {(x, y) for y in range(H) for x in range(W)
             if M.gtag[y, x] in ('pave', 'stairs') and M.otag[y, x] in (None, 'pad')}
-    beh = lambda x, y: 0
+    walk |= {CHURCH_DOOR}
+    beh = lambda x, y: MB_DOOR if (x, y) == CHURCH_DOOR else 0
     r = MB.build(bot, (mid, ma), None, W, H, walk, beh)
     # the border: Elderflower's small pines (top on even rows, foot on odd), as Route 13's, so the mountain goes on
     def find(m):
@@ -54,7 +58,8 @@ def main():
             'show_map_name': True, 'battle_scene': 'MAP_BATTLE_SCENE_NORMAL',
             'connections': None,
             'object_events': [T(x, y, 'TemplarCitadel_EventScript_Route15Guard', 'MOVEMENT_TYPE_FACE_LEFT') for (x, y) in GUARDS],
-            'warp_events': [],
+            'warp_events': [{'x': CHURCH_DOOR[0], 'y': CHURCH_DOOR[1], 'elevation': 3, 'dest_map': 'MAP_TEMPLAR_CATHEDRAL',
+                             'dest_warp_id': '1'}],                 # (warp 0; into the nave, onto the middle of its mat)
             'coord_events': [{'type': 'trigger', 'x': x, 'y': H - 1, 'elevation': 3, 'var': 'VAR_TEMP_1', 'var_value': '0',
                               'script': 'TemplarCitadel_EventScript_ToRoute13_%d' % x} for x in (18, 19, 20)],
             'bg_events': []}

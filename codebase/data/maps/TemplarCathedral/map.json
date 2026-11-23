@@ -1,0 +1,86 @@
+{
+  "id": "MAP_TEMPLAR_CATHEDRAL",
+  "name": "TemplarCathedral",
+  "layout": "LAYOUT_TEMPLAR_CATHEDRAL",
+  "music": "MUS_DR_MM_ROUTE15",
+  "region_map_section": "MAPSEC_DR_TEMPLAR_HQ",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_INDOOR",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 9,
+      "y": 35,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CITADEL",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 10,
+      "y": 35,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CITADEL",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 11,
+      "y": 35,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CITADEL",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 18,
+      "y": 7,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CATHEDRAL_STUDY",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 2,
+      "y": 20,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CATHEDRAL_BISHOPS_HALL",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 18,
+      "y": 20,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CATHEDRAL_REGISTRY",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 1,
+      "y": 21,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CATHEDRAL_KITCHEN",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 19,
+      "y": 21,
+      "elevation": 3,
+      "dest_map": "MAP_TEMPLAR_CATHEDRAL_STOREHOUSE",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "sign",
+      "x": 2,
+      "y": 7,
+      "elevation": 3,
+      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
+      "script": "TemplarCathedral_EventScript_SanctumGrille"
+    }
+  ]
+}
