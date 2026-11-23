@@ -78,6 +78,7 @@ def pieces():
     floors = [(x, y) for y in (4, 5, 6, 7) for x in range(3, 9)]
     orefs = floors + [(3, 1), (4, 1), (1, 1), (3, 0), (4, 0)]
     P['bureau'] = cut(off, 5, 1, 2, 2, orefs)
+    P['bureau'][23:29, 15:21, 3] = 255                        # (a patch of its base matched MonoMyth's floor: filled back)
     d = cut(off, 7, 1, 2, 3, orefs)[:2 * T + 4]
     d[0:12, T:2 * T, 3] = 0                                   # (the wall picture above MonoMyth's desk)
     d[2 * T:, :, 3] = np.where(d[2 * T:, :, :3].sum(-1) < 200, 255, 0)   # (only the dark leg rail of row 3)

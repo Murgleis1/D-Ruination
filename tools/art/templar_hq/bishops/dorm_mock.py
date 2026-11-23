@@ -10,7 +10,9 @@ bottom centre (row 15, x 6-7).
   table, dark wood) with chairs either side, for reading and the evening meal.
 - At the head on the axis: the Arceus wheel on the wall, an altar (Crown 9.3's cream table) between candelabras, as
   in the study hall.
-- By the door: one wardrobe for the six (Fantasma's drawer cabinet) and a washstand (MonoMyth's white stand).
+- Against the back wall, in the bays between the beds and the altar: the robes chest (MonoMyth's bureau in Crown's
+  wood, as in Ambrose's study) west, the washstand (MonoMyth's white stand) east; the floor by the door is left clear
+  (user 2026-11-23: Fantasma's drawer cabinet standing there "doesn't fit").
 Credits: Odyssey, Pokemon Crown, MonoMyth; Fantasma's art is public.  Usage: python3 dorm_mock.py OUT.png"""
 import os, sys
 import numpy as np
@@ -60,8 +62,8 @@ def main(out):
     SM.paste(img, P['longtable'], 6, 6)
     for y in range(6, 10):
         SM.paste(img, P['chairW'], 5, y); SM.paste(img, P['chairE'], 8, y)
-    SM.paste(img, P['drawers'], 3, 13)
-    SM.paste(img, P['washstand'], 10, 13)
+    SM.paste(img, P['bureau'], 3, 2)                          # (the robes chest, against the wall, as in the study)
+    SM.paste(img, P['washstand'], 10, 2)                      # (in the matching bay across the altar)
     o = Image.fromarray(img.astype(np.uint8)); o.save(out)
     o.resize((W * T * 3, H * T * 3), Image.NEAREST).save(out.replace('.png', '_3x.png'))
 
