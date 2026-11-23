@@ -1,14 +1,17 @@
-"""The bishops' dormitory, mock v1, to the approved floor plan (bishops_plan.py; user 2026-11-23: one shared sleeping
-room, six bishops).  20x10 tiles: wall rows 0-1 (cream), panelling row 2, cream marble rows 3-8, the door back to the
-study hall at the bottom (row 9, x 9-10).
-- Six beds along the north wall, heads to the wall (Crown 1.18's: white sheets, a blue frame), at x 2, 5, 8, 11, 14,
-  17, rows 3-4; a bedside stand at each bed's head (Crown 7.9's small chest) and a footlocker at its foot (Crown
-  9.3's chest of drawers); each bed reached from the tile right of its foot.
-- The aisle (row 6) runs the room's length; the door's walkway runs up to it.
-- Below the aisle: a wardrobe at each end (Crown 9.3's), with a candelabra beside it in the corner (Crown 18.1); a
-  stone washbasin west (MonoMyth's); a small shrine east (Fantasma's lectern with its holy book between candelabras),
-  under nothing but the room's quiet.
-Credits: Pokemon Crown, MonoMyth; Fantasma's art is public.  Usage: python3 dorm_mock.py OUT.png"""
+"""The bishops' dormitory, mock v2 (user 2026-11-23: v1's beds, chests and drawers "looks really awkward"; redesign
+after other games' multi-bed rooms, `assets/templar_hq_reference/dorm_references.png`: MonoMyth's inn 87ed300 and hut
+87f6e98, Odyssey 11.8. Their rule: beds grouped and bare, one shared set of furniture; no bed has its own stand or
+footlocker. User's pick: beds down both sides, monastery style).
+14x16 tiles: wall rows 0-1 (cream), panelling row 2, cream marble rows 3-14, the door back to the study hall at the
+bottom centre (row 15, x 6-7).
+- Six beds, three down each side, heads north, end to end as in Odyssey 11.8 (Odyssey's bed: a wooden headboard, a
+  blue quilt): x 1-2 and 11-12, rows 3-6, 7-10, 11-14.
+- The centre aisle: a long blue-and-gold rug from the door to the head; on it one shared table (MonoMyth's long
+  table, dark wood) with chairs either side, for reading and the evening meal.
+- At the head on the axis: the Arceus wheel on the wall, an altar (Crown 9.3's cream table) between candelabras, as
+  in the study hall.
+- By the door: one wardrobe for the six (Fantasma's drawer cabinet) and a washstand (MonoMyth's white stand).
+Credits: Odyssey, Pokemon Crown, MonoMyth; Fantasma's art is public.  Usage: python3 dorm_mock.py OUT.png"""
 import os, sys
 import numpy as np
 from PIL import Image
@@ -17,28 +20,22 @@ sys.path.insert(0, os.path.join(HERE, '..', 'study'))
 from cutter import load, cell, cut, T
 import study_mock as SM
 import hall_mock as HM
-W, H = 20, 10
-BEDS = (2, 5, 8, 11, 14, 17)
+W, H = 14, 16
 
 def pieces():
     P, c79 = HM.pieces()
-    c93 = load(os.path.join(HERE, '..', 'study', 'cr_93.png'))
-    junk = [(x, 11) for x in (2, 3, 8, 9)]                  # (the plain cells of that bottom row)
-    P['footlocker'] = cut(c93, 5, 11, 1, 1, junk)
-    P['wardrobe'] = cut(c93, 6, 11, 1, 1, junk)
-    m18 = load(os.path.join(HERE, 'mm_8822718.png'))
-    mfl = [(x, y) for x in (1, 2, 9, 10) for y in (9, 10)] + [(0, 10), (11, 10), (4, 10), (7, 10)]
+    o = load(os.path.join(HERE, 'ody_118.png'))
+    fl = [(x, y) for x in (1, 2, 3, 4, 5, 6) for y in (7, 8)] + [(6, 3), (6, 4), (6, 5), (6, 6)]
+    bed = cut(o, 7, 5, 2, 4, fl)
+    foot = bed[56:]; foot[(foot[..., 0] > foot[..., 2] + 10), 3] = 0     # (Odyssey's floor under the quilt's hem)
+    P['bed'] = bed
     cab = load(os.path.join(HERE, '..', 'study', 'mm_cabin.png'))
-    wallcols = {tuple(p) for p in cab[0:32, 16:24].reshape(-1, 3)} | {tuple(p) for p in cab[0:16, 56:64].reshape(-1, 3)}   # (bare planks only)
+    wallcols = {tuple(p) for p in cab[0:32, 16:24].reshape(-1, 3)} | {tuple(p) for p in cab[0:16, 56:64].reshape(-1, 3)}
     fl_cab = [(x, y) for x in range(5, 9) for y in (3, 4, 5)]
-    P['washstand'] = cut(cab, 4, 1, 1, 2, fl_cab + [(6, 2), (9, 2), (10, 2), (1, 3), (2, 3)], bgcols=[(1, wallcols)])
-    w = P['washstand']; low = w[25:]; r, g, b_ = low[..., 0], low[..., 1], low[..., 2]
-    low[(r > 150) & (r > b_ + 50) & (g > 100), 3] = 0          # (the cabin's light planks below the stand)
-    foot = w[27:]; foot[(.3 * foot[..., 0] + .59 * foot[..., 1] + .11 * foot[..., 2]) > 90, 3] = 0   # (the cabin's white stand with its jug)
-    fl = load(os.path.join(HERE, 'fantasma_library.png'))
-    ffl = [(x, y) for x in (4, 5, 10, 11) for y in (8, 9)] + [(3, 6), (4, 6), (11, 6), (12, 6), (4, 10), (11, 10)]
-    fcol = HM.cool({tuple(p) for x, y in ffl for p in cell(fl, x, y).reshape(-1, 3)})
-    P['lectern'] = cut(fl, 4, 7, 1, 1, ffl, bgcols=[(7, fcol)])
+    w = cut(cab, 4, 1, 1, 2, fl_cab + [(6, 2), (9, 2), (10, 2), (1, 3), (2, 3)], bgcols=[(1, wallcols)])
+    low = w[25:]; low[(low[..., 0] > 150) & (low[..., 0] > low[..., 2] + 50) & (low[..., 1] > 100), 3] = 0
+    foot = w[27:]; foot[(.3 * foot[..., 0] + .59 * foot[..., 1] + .11 * foot[..., 2]) > 90, 3] = 0
+    P['washstand'] = w
     return P, c79
 
 def main(out):
@@ -52,15 +49,19 @@ def main(out):
             img[y * T:(y + 1) * T, x * T:(x + 1) * T] = cell(c79, *src)
     rows = np.arange(H * T)[:, None].repeat(W * T, 1)
     SM.recolour(img, SM.WALL, rows < 2 * T)
-    img[(H - 1) * T:H * T, 9 * T:11 * T] = c79[8 * T:9 * T, 4 * T:6 * T]
+    img[(H - 1) * T:H * T, 6 * T:8 * T] = c79[8 * T:9 * T, 4 * T:6 * T]
     SM.recolour(img, SM.MAT, rows >= (H - 1) * T)
-    for x in BEDS:
-        SM.paste(img, P['bed'], x, 3); SM.paste(img, P['chest'], x + 1, 3); SM.paste(img, P['footlocker'], x, 5)
-    SM.paste(img, P['wardrobe'], 1, 6); SM.paste(img, P['wardrobe'], 18, 6)
-    SM.paste(img, P['candelabra'], 1, 7); SM.paste(img, P['candelabra'], 18, 7)
-    SM.paste(img, P['washstand'], 1, 2)                       # (in the north-west corner, against the panelling)
-    img = HM.emblem(img, 10 * T, 18)                          # (the Arceus wheel over the door's axis)
-    SM.paste(img, P['candelabra'], 14, 6); SM.paste(img, P['lectern'], 15, 7); SM.paste(img, P['candelabra'], 16, 6)
+    img[4 * T:15 * T, 5 * T:9 * T] = SM.rug(c79, 4, 11)                 # the aisle rug
+    img = HM.emblem(img, 7 * T, 18)
+    SM.paste(img, P['altar'], 6, 2)
+    SM.paste(img, P['candelabra'], 5, 2); SM.paste(img, P['candelabra'], 8, 2)
+    for y in (3, 7, 11):
+        SM.paste(img, P['bed'], 1, y); SM.paste(img, P['bed'], 11, y)
+    SM.paste(img, P['longtable'], 6, 6)
+    for y in range(6, 10):
+        SM.paste(img, P['chairW'], 5, y); SM.paste(img, P['chairE'], 8, y)
+    SM.paste(img, P['drawers'], 3, 13)
+    SM.paste(img, P['washstand'], 10, 13)
     o = Image.fromarray(img.astype(np.uint8)); o.save(out)
     o.resize((W * T * 3, H * T * 3), Image.NEAREST).save(out.replace('.png', '_3x.png'))
 
