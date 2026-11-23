@@ -132,9 +132,14 @@ def compose():
     for side, x in ((0, 17), (1, 21)):
         for k, m in enumerate([0x2a3, 0x222, 0x22a, 0x307]):
             t = ef(m); M.ground(x, 31 + k, fx(t) if side == 0 else t, 'wall')
-    M.place([[(ef(0x21b), np.ones((16, 16), bool))] * 3, [(ef(0x223), np.ones((16, 16), bool))] * 3], 18, 31, 'lintel', check=False)
+    # (user 2026-11-22: the wall's top carried across the gap read as a broken wall floating over it: an open gateway,
+    # the wall ending in a round tower each side, nothing across)
+    apron = {(x, y) for x in range(15, 24) for y in (35, 36)}           # (user: the guards stood in the trees: a paved apron for them)
     for y in range(35, H):
-        for x in range(W): M.ground(x, y, PAVE if 18 <= x <= 20 else SNOW, 'pave' if 18 <= x <= 20 else 'snow')
+        for x in range(W):
+            on = 18 <= x <= 20 or (x, y) in apron
+            M.ground(x, y, PAVE if on else SNOW, 'pave' if on else 'snow')
+    nopine = {(x + dx, y + dy) for (x, y) in apron | {(x, y) for x in range(18, 21) for y in range(35, H)} for dx in (-1, 0, 1) for dy in (-1, 0, 1)}
     # --- the ledges (west x 3-10, east x 28-35), their faces on row 13, their inner sides x 11 / 27
     for (x0, x1, xe, side) in ((3, 10, 11, 0), (28, 35, 27, 1)):
         for x in range(x0, x1 + 1): M.ground(x, 13, ef(0x106), 'cliff')
@@ -195,29 +200,30 @@ def compose():
     # --- the east pocket: the Braviary landing ground (user 2026-11-22; the Templars run the Braviary mounts): a round
     # stone pad inlaid with Arceus's golden wheel (x 30-34, rows 16-20), hay by the wall for the birds, the mews up its
     # stair; Braviaries moving about on it (overworld objects, stage 2: user)
-    M.place(block_from_rgba(os.path.join(YD, 'pad.png'), 5, 5), 30, 16, 'pad', check=False)
-    M.place(block_from_rgba(os.path.join(PC, 'odyssey_hay_big.png'), 2, 2), 34, 20, 'hay', check=False)   # (the quiet corner by the wall,
-    M.place(block_from_rgba(os.path.join(PC, 'odyssey_pitchfork.png'), 1, 2), 33, 20, 'hay', check=False) #  clear of the cleft's mouth)
+    # (user 2026-11-22: centred in the open square, not squeezed against the hay: the pocket is x 27-35, rows 14-21, so
+    # the pad stands at x 29-33 and half a tile down, rows 15.5-20.5; the hay gone, the ground left clear)
+    padc = Image.new('RGBA', (80, 96), (0, 0, 0, 0)); padc.alpha_composite(Image.open(os.path.join(YD, 'pad.png')), (0, 8))
+    M.place(block_from_rgba(padc, 5, 6), 29, 15, 'pad', check=False)
     # --- pines outside the walls only: loose clusters of big and small with gaps (Elderflower), never rows
     for (x, y) in sorted(top, key=lambda c: (c[1], c[0])):
-        if rnd('bp', x, y) < 0.42 and M.free(x, y, 2, 3) and all((x + i, y + j) in top for i in (0, 1) for j in (0, 1, 2)):
+        if rnd('bp', x, y) < 0.42 and M.free(x, y, 2, 3) and all((x + i, y + j) in top and (x + i, y + j) not in nopine for i in (0, 1) for j in (0, 1, 2)):
             mm.pine(M, x, y, True)
     for (x, y) in sorted(top, key=lambda c: (c[1], c[0])):
-        if rnd('lp', x, y) < 0.35 and M.free(x, y, 1, 2) and all((x, y + k) in top for k in (0, 1)):
+        if rnd('lp', x, y) < 0.35 and M.free(x, y, 1, 2) and all((x, y + k) in top and (x, y + k) not in nopine for k in (0, 1)):
             mm.pine(M, x, y, False)
     return M
 
 def main(out):
     M = compose(); img = Image.fromarray(M.render()).convert('RGBA')
     t = templar()
-    for (x, y) in ((16, 35), (22, 35), (18, 23), (20, 23), (11, 26), (27, 26), (37, 16), (19, 18), (5, 19), (6, 19)):
+    for (x, y) in ((16, 36), (22, 36), (18, 23), (20, 23), (11, 26), (27, 26), (37, 16), (19, 18), (5, 19), (6, 19)):
         img.alpha_composite(t, (x * 16, y * 16 + 16 - t.size[1]))
     YD = os.path.join(HERE, 'yard')
-    for (x, y, f) in ((32, 18, 'down'), (29, 15, 'left')):                       # (Braviaries on the landing ground)
+    for (x, y, f) in ((31, 18, 'down'), (35, 20, 'left')):                       # (Braviaries on the landing ground)
         b = Image.open(os.path.join(YD, 'braviary_%s.png' % f)); img.alpha_composite(b, (x * 16 - 8, y * 16 + 16 - b.size[1]))
     img.convert('RGB').save(out)
     img.convert('RGB').resize((W * 32, H * 32), Image.NEAREST).save(out.replace('.png', '_2x.png'))
     print('mock', out)
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v5.png')
+    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v6.png')
