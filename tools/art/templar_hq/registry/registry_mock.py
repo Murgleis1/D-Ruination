@@ -7,8 +7,8 @@ nave at the bottom centre (row 11, x 7-8). The study's room materials.
   cabinets of pigeonholed orders for every Tavern (Odyssey 11.8's).
 - The registrar's counter across the room (MonoMyth's bar counter, shortened, in Crown's wood): behind it, staff only.
 - West: House Raptora's liaison's desk (MonoMyth's writing desk, a chair before it), watching the logs.
-- East, the nursery: a Braviary resting on a bed of straw, a straw nest with two eggs, Rufflet chicks about it, a
-  little straw for feed (MonoMyth's stable straw; the game's own Rufflet and Braviary overworld sprites and the Egg's
+- East, the nursery, their place (user: more of them): three Braviaries each resting on a bed of straw, two straw
+  nests with five eggs, Rufflet chicks among them, straw for feed (MonoMyth's stable straw; the game's own Rufflet and Braviary overworld sprites and the Egg's
   icon). No candle on this side (hay).
 - By the door: three stools where Templars wait their turn (MonoMyth's bar stools); a candelabra in the south-west
   corner.
@@ -70,6 +70,7 @@ def pieces():
     rl = sprite(os.path.join(GFX, 'rufflet', 'overworld.png'), 4)   # (frames: 0-1 down, 2-3 up, 4-5 left)
     P['rufflet_l'] = rl; P['rufflet_r'] = rl[:, ::-1].copy()
     P['egg'] = sprite(os.path.join(GFX, 'egg', 'icon.png'), 0)
+    P['braviary_l'] = np.array(Image.open(os.path.join(HERE, '..', 'yard', 'braviary_left.png')).convert('RGBA')).astype(int)
     P['braviary'] = np.array(Image.open(os.path.join(HERE, '..', 'yard', 'braviary_down.png')).convert('RGBA')).astype(int)
     import parchment_map as PMAP
     P['map'] = PMAP.scroll(80, 53)                            # (user's illustrated map, as parchment, hung as a scroll)
@@ -103,15 +104,23 @@ def main(out):
     put(img, P['counter'], 3 * T, 6 * T - 6)
     # west corner: House Raptora's liaison, at a desk against the wall
     SM.paste(img, P['desk'], 1, 3); SM.paste(img, P['chairL'], 1, 5)
-    # east: the nursery
-    SM.paste(img, P['strawbed'], 13, 4); put(img, P['braviary'], 13 * T, 4 * T - 10)
-    SM.paste(img, P['nest'], 13, 8)
-    ny, nx = centre(P['nest']); ey, ex = centre(P['egg'])
-    for dx in (-5, 5):                                        # (two eggs sitting in the middle of the straw)
-        put(img, P['egg'], int(13 * T + nx - ex + dx), int(8 * T + ny - ey - 3))
-    put(img, P['rufflet_r'], 11 * T + 4, 9 * T - 14); put(img, P['rufflet'], 14 * T - 4, 10 * T - 10)
-    put(img, P['rufflet_l'], 12 * T + 2, 6 * T + 6)
-    SM.paste(img, P['strawsmall'], 14, 7)
+    # east: the nursery, their place (user 2026-11-23: more of them): three Braviaries each on a bed of straw, two
+    # nests with five eggs, Rufflet chicks among them, feed straw; the walkway from the door (x 7-8) left clear
+    def bed(x, y, bird):
+        SM.paste(img, P['strawbed'], x, y); put(img, bird, x * T, y * T - 10)
+    def nest(x, y, n):
+        SM.paste(img, P['nest'], x, y)
+        ny, nx = centre(P['nest']); ey, ex = centre(P['egg'])
+        offs = {2: [(-5, 0), (5, 0)], 3: [(-7, 1), (0, -3), (7, 1)]}[n]
+        for dx, dy in offs: put(img, P['egg'], int(x * T + nx - ex + dx), int(y * T + ny - ey - 3 + dy))
+    bed(13, 4, P['braviary'])
+    nest(11, 7, 3); nest(13, 7, 2)
+    bed(10, 9, P['braviary_l'])
+    bed(13, 10, P['braviary'])
+    SM.paste(img, P['strawsmall'], 9, 8); SM.paste(img, P['strawsmall'], 12, 11)
+    put(img, P['rufflet_l'], 12 * T + 2, 5 * T + 6)
+    put(img, P['rufflet_r'], 9 * T + 2, 7 * T - 10)
+    put(img, P['rufflet_r'], 11 * T - 6, 11 * T - 10)                   # (by the feed straw, clear of the birds)
     # by the door
     for x in (3, 4, 5): SM.paste(img, P['stool'], x, 11)
     SM.paste(img, P['candelabra'], 1, 10)
