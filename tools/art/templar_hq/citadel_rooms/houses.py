@@ -88,8 +88,23 @@ def armoury():
     for c in ex: R.solid[c[1], c[0]] = False
     return R.img.astype(np.uint8), R.solid, ex
 
+def watch():
+    """v1 (user 2026-11-23: the upper-east house is a watch house, the command post for the Route 15 incident; plan v1)."""
+    import study_mock as SM, hall_mock as HM
+    P, Q = common(); R = Room(14, 11)
+    SP, _ = SM.pieces(); HP, _ = HM.pieces()
+    R.wall(Q['board_d'], 1 * T + 4, 2); R.wall(Q['banner_shield'], 6 * T + 2, 0); R.wall(Q['pass_map'], 10 * T + 2, 3)
+    R.put(SP['bureau'], 1 * T, 2 * T); R.put(HP['scrolls'], 3 * T, 2 * T)             # (the reports: a cabinet, scrolls)
+    R.put(Q['helmet'], 12 * T - 4, 2 * T); R.put(Q['helmet'], 12 * T - 4, 4 * T)
+    R.put(Q['map_table'], 5 * T, 4 * T)                                                 # (the captain stands at (6-7,3))
+    R.put(SP['desk'], 1 * T, 5 * T - 4); R.put(HP['chairE'], 3 * T, 6 * T)              # (the scribe's desk, a chair beside)
+    R.put(Q['bench'], 10 * T + 8, 7 * T); R.wall(Q['lantern_horn'], 10 * T + 8, 7 * T)          # (the runners' bench, horn and lantern)
+    ex = R.mat(6)
+    for c in ex: R.solid[c[1], c[0]] = False
+    return R.img.astype(np.uint8), R.solid, ex
+
 if __name__ == '__main__':
-    for n, f in (('barracks', barracks), ('armoury', armoury)):
+    for n, f in (('barracks', barracks), ('armoury', armoury), ('watch', watch)):
         img, solid, ex = f(); H, W = solid.shape
         Image.fromarray(img).resize((W * 48, H * 48), Image.NEAREST).save('/home/claude/scratch/%s_v1.png' % n)
         print(n, W, H, ex)

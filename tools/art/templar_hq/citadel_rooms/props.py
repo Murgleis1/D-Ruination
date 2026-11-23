@@ -15,7 +15,7 @@ def _cut(x0, y0, x1, y1):
 def pieces():
     return {'banner_swords': _cut(96, 0, 128, 36), 'banner_shield': _cut(96, 46, 128, 80),
             'helmet': _cut(0, 48, 32, 80), 'rack': _cut(160, 64, 224, 112), 'kegs': _cut(224, 64, 256, 96),
-            'sword': _cut(34, 54, 64, 70), 'board': _cut(176, 113, 224, 128), 'anvil': anvil(), 'tub': tub(), 'bench': bench()}
+            'sword': _cut(34, 54, 64, 70), 'board': _cut(176, 113, 224, 128), 'anvil': anvil(), 'tub': tub(), 'bench': bench(), 'board_d': dispatch_board(), 'pass_map': pass_map(), 'map_table': map_table(), 'lantern_horn': lantern_horn()}
 
 def tub():
     """A smith's quench tub, wooden staves and dark water, 16x16 (drawn here)."""
@@ -60,6 +60,83 @@ def bench(w=2):
     for x0 in (2, W - 5):
         for y in range(11, 16):
             for x in range(x0, x0 + 3): px(x, y, O if x in (x0, x0 + 2) or y == 15 else L)
+    return a
+
+def _canvas(h, w):
+    a = np.zeros((h, w, 4), int)
+    def px(x, y, c):
+        if 0 <= y < h and 0 <= x < w: a[y, x, :3] = c; a[y, x, 3] = 255
+    def rect(x0, y0, x1, y1, c):
+        for y in range(y0, y1):
+            for x in range(x0, x1): px(x, y, c)
+    return a, px, rect
+
+INK, PAPER, PAPER2, PIN, PIN2 = (52, 40, 32), (236, 224, 192), (214, 198, 160), (184, 48, 40), (48, 80, 160)
+
+def dispatch_board():
+    """The watch's dispatch board, 48x28, for the wall: a dark grey-wood frame, cork, orders and reports pinned up (drawn here)."""
+    a, px, rect = _canvas(28, 48)
+    rect(0, 0, 48, 28, (40, 40, 48)); rect(2, 2, 46, 26, (150, 112, 72))
+    for y in range(2, 26):
+        for x in range(2, 46):
+            if (x * 7 + y * 13) % 11 == 0: px(x, y, (128, 94, 60))
+    for x0, y0, w, h in ((4, 4, 10, 12), (16, 3, 12, 9), (30, 5, 13, 10), (6, 17, 12, 7), (21, 14, 9, 11), (33, 17, 10, 7)):
+        rect(x0, y0, x0 + w, y0 + h, PAPER); rect(x0, y0 + h - 1, x0 + w, y0 + h, PAPER2)
+        for ly in range(y0 + 3, y0 + h - 2, 2): rect(x0 + 2, ly, x0 + w - 2 - (ly % 3), ly + 1, INK)
+        px(x0 + w // 2, y0 + 1, PIN if (x0 // 3) % 2 else PIN2)
+    return a
+
+def pass_map():
+    """A sketched map of the pass to Route 15, 44x28, pinned to the wall: paper, ink peaks, the trail, a red mark (drawn here)."""
+    a, px, rect = _canvas(28, 44)
+    rect(0, 0, 44, 28, PAPER); rect(0, 26, 44, 28, PAPER2); rect(42, 0, 44, 28, PAPER2)
+    for x in range(44): px(x, 0, PAPER2)
+    for cx, cy in ((7, 8), (13, 6), (30, 7), (36, 10), (9, 19), (34, 20), (19, 5)):      # (peaks, as in the registry map's ink)
+        for d in range(4): px(cx - d, cy + d, INK); px(cx + d, cy + d, INK)
+    path = [(2, 14), (6, 14), (10, 13), (14, 14), (18, 15), (22, 14), (26, 13), (30, 14), (34, 15), (38, 14), (41, 13)]
+    for (x0, y0), (x1, y1) in zip(path, path[1:]):
+        for t in range(0, 8):
+            x = x0 + (x1 - x0) * t // 8; y = y0 + (y1 - y0) * t // 8
+            if t % 2 == 0: px(x, y, (120, 70, 40))
+    for d in range(-2, 3): px(30 + d, 13 + d, PIN); px(30 + d, 13 - d, PIN)           # (where the trouble is)
+    rect(1, 1, 3, 3, INK); px(2, 2, PAPER)                                                # (the Citadel, west)
+    px(21, 1, PIN); px(4, 24, PIN2)
+    return a
+
+def map_table():
+    """The watch's map table, 64x32: a long plank table with Route 15 spread across it, markers on it (drawn here)."""
+    a, px, rect = _canvas(32, 64)
+    O, T1, T2, T3, L = (40, 28, 20), (150, 104, 64), (128, 86, 52), (176, 128, 80), (96, 64, 40)
+    rect(1, 1, 63, 23, T1)
+    for y in range(1, 23, 4): rect(1, y, 63, y + 1, T2)
+    rect(1, 1, 63, 2, T3); rect(0, 0, 64, 1, O); rect(0, 23, 64, 25, O); rect(0, 0, 1, 25, O); rect(63, 0, 64, 25, O)
+    rect(1, 21, 63, 23, T2)
+    for x0 in (3, 58):
+        rect(x0, 25, x0 + 3, 31, L); rect(x0, 25, x0 + 1, 31, O); rect(x0 + 2, 25, x0 + 3, 31, O); rect(x0, 31, x0 + 3, 32, O)
+    m = pass_map()                                                                          # (the sheet spread on it)
+    sheet = m[2:22, 2:42]; sh, sw = sheet.shape[:2]
+    a[2:2 + sh, 12:12 + sw][sheet[..., 3] > 0] = sheet[sheet[..., 3] > 0]
+    rect(13, 22, 12 + sw + 1, 23, PAPER2)
+    for x, y, c in ((18, 6, PIN2), (24, 9, PIN2), (40, 12, PIN), (44, 8, PIN), (30, 16, PIN2)):   # (markers: the watch's posts)
+        rect(x, y, x + 2, y + 3, c); px(x, y + 3, O); px(x + 1, y + 3, O)
+    rect(54, 5, 61, 13, PAPER); rect(55, 7, 60, 8, INK); rect(55, 9, 59, 10, INK); rect(55, 11, 60, 12, INK)   # (a report)
+    rect(4, 8, 9, 9, (200, 190, 170)); rect(5, 5, 6, 9, (90, 70, 50))                                    # (a quill)
+    return a
+
+def lantern_horn():
+    """A signal horn and a lantern, 32x16, set on the runners' bench (drawn here)."""
+    a, px, rect = _canvas(16, 32)
+    O, IR, GL, GL2 = (32, 32, 40), (72, 72, 84), (248, 208, 96), (232, 152, 48)
+    rect(4, 2, 12, 3, O); rect(7, 0, 9, 2, O)                                                 # (the lantern)
+    rect(4, 3, 12, 12, O); rect(5, 4, 11, 11, GL); rect(7, 5, 9, 9, (255, 240, 176)); rect(5, 9, 11, 11, GL2)
+    rect(7, 4, 9, 11, IR) if False else None
+    rect(3, 12, 13, 14, O)
+    HC, HC2, HB = (226, 210, 170), (190, 168, 120), (120, 84, 48)                             # (the horn, lying on its side)
+    for i, x in enumerate(range(16, 31)):
+        r = 1 + i // 4
+        for y in range(10 - r, 11 + r): px(x, y, HC if y < 10 else HC2)
+        px(x, 10 - r - 1, O); px(x, 11 + r, O)
+    rect(30, 5, 31, 16, O); rect(19, 8, 21, 13, HB); rect(25, 6, 27, 15, HB); rect(15, 9, 16, 12, O)
     return a
 
 def anvil():
