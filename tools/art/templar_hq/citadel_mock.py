@@ -62,100 +62,109 @@ def statue_block():
     can.alpha_composite(fig, ((48 - fig.size[0]) // 2, 47 - fig.size[1]))
     return block_from_rgba(can, 3, 4)
 
+GREY_WOOD = [(22, 22, 26), (34, 34, 40), (46, 46, 52), (60, 60, 66), (76, 76, 82), (94, 94, 98), (114, 113, 116)]
+def grey_wood(img):
+    """(user 2026-11-22: the homes in a dark, deep grey wood, so they stand out) Crown's timber, its shingles and its
+    climbing vines to a deep grey ramp by lightness; glass, plaster, lanterns and stone keep their colours."""
+    a = img.astype(int); r, g, b = a[..., 0], a[..., 1], a[..., 2]
+    lum = .30 * r + .59 * g + .11 * b
+    wood = ((r > b + 6) & (r >= g - 6) & (lum < 175)) | ((g > r + 8) & (g > b + 8))      # (browns, the darkest too; the vines' greens)
+    t = np.clip(lum / 160.0, 0, 1)
+    ramp = np.array(GREY_WOOD)
+    out = a.copy(); out[wood] = ramp[np.clip((t[wood] * (len(ramp) - 1)).round().astype(int), 0, len(ramp) - 1)]
+    return out.astype(np.uint8)
+
 def chalet(sx, sy, w, h):
-    return mm.cut('c32', sx, sy, w, h)
+    b = mm.cut('c32', sx, sy, w, h)
+    return [[None if c is None else (grey_wood(c[0]), c[1]) for c in row] for row in b]
 
 def compose():
+    """v3 (user 2026-11-22: study MonoMyth's and Crown's town squares for the vibe and the homes' layout; the homes in
+    dark deep grey wood). What those squares share (Watercress Port, Chamomile, Wood Avens, Crown's harbour town): one
+    strong axis, built symmetrically; the main building raised on a terrace with a centred stair, its fountain in front;
+    the square framed (lamps at its corners and flanking the stair, evergreens in pairs), nothing scattered; the houses
+    in mirrored pairs facing the square. Here the axis is column 19 (pixel 312): the church on its terrace, the stair,
+    the fountain square and its four statues, the arch, the road down to Route 13, all centred on it."""
     M = mm.Map()
     for y in range(H):
         for x in range(W): M.ground(x, y, PAVE, 'pave')
-    # --- the hollow's rock walls (user: a stone hollow): the mountain above (snow, pines) and its faces dropping into the
-    # hollow, tall on the north (three rows of Elderflower's cliff face stacked, as MonoMyth's Route 22 builds its high
-    # walls), one column on each side; boulders along their feet
+    # --- the hollow: the mountain above (snow, pines), a tall north face, a face down each side
     top = {(x, y) for y in range(H) for x in range(W) if y <= 1 or x <= 1 or x >= 38 or y >= 35}
     for (x, y) in top: M.ground(x, y, SNOW, 'snow')
     for y in (2, 3, 4):
-        for x in range(2, 38):
-            m = 0x106
-            if x == 2: m = 0x105
-            if x == 37: m = 0x107
-            M.ground(x, y, ef(m), 'cliff')
-    for y in range(5, 35):                                             # (down to the curtain wall's foot)
+        for x in range(2, 38): M.ground(x, y, ef(0x105 if x == 2 else 0x107 if x == 37 else 0x106), 'cliff')
+    for y in range(5, 35):
         M.ground(2, y, ef(0xfd), 'cliff'); M.ground(37, y, ef(0xff), 'cliff')
-    # the cleft east to Route 15 (rows 15-17): the east wall broken through, the stone out to the edge
+    # the cleft east to Route 15 (rows 15-17)
     for y in range(15, 18):
         for x in range(37, W): M.ground(x, y, PAVE, 'pave')
     M.ground(37, 14, ef(0x107), 'cliff')
     for x in range(38, W): M.ground(x, 14, ef(0x106), 'cliff')
-    # --- the curtain wall across the mouth (rows 31-34) with its open arch (x 18-21)
+    # --- the church's terrace (x 11-27, rows 5-17), its crenellated front wall (rows 18-21) with the stair on the axis
+    mm.terrace_wall(M, 11, 27, 18, stairs=(18,))
+    M.ground(21, 17, fx(M.g[17][17]), 'wall')                          # (the stair's right pillar: Elderflower's snowy one, mirrored from its left)
+    for y in range(5, 18):                                             # (its sides: parapets, the paving shaded inside)
+        M.ground(11, y, ef(0x291), 'wall'); M.ground(27, y, fx(ef(0x291)), 'wall')
+    # --- the curtain wall across the mouth (rows 31-34), its open arch on the axis (x 18-20)
     mm.city_wall(M, 3, 36, 31)
     for y in range(31, 35):
-        for x in range(18, 22): M.ground(x, y, PAVE, 'pave')
-    for side, x in ((0, 17), (1, 22)):                                  # (round towers either side of the arch)
+        for x in range(18, 21): M.ground(x, y, PAVE, 'pave')
+    for side, x in ((0, 17), (1, 21)):
         for k, m in enumerate([0x2a3, 0x222, 0x22a, 0x307]):
             t = ef(m); M.ground(x, 31 + k, fx(t) if side == 0 else t, 'wall')
-    lintel = [[(ef(m), np.ones((16, 16), bool)) for m in (0x21b,) * 4], [(ef(0x223), np.ones((16, 16), bool))] * 4]
-    M.place(lintel, 18, 31, 'lintel', check=False)
-    # --- the pilgrim road: up from Route 13 through the arch to the church
-    road = {(x, y) for x in range(18, 22) for y in range(18, H)}
-    # (user 2026-11-22: the stone-on-stone mix looked unnatural: one stone surface, the way is the paving itself)
+    M.place([[(ef(0x21b), np.ones((16, 16), bool))] * 3, [(ef(0x223), np.ones((16, 16), bool))] * 3], 18, 31, 'lintel', check=False)
+    # outside: the road on the axis down through the snow and pines
     for y in range(35, H):
-        for x in range(W):
-            if (x, y) not in road: M.ground(x, y, SNOW, 'snow')
-            elif y >= 35: M.ground(x, y, PAVE, 'pave')
-    # snow (user: stone with touches of snow, less than Mirroh): Mirroh's own pass, lighter (base 0.0 to Mirroh's
-    # 0.2): ragged drifts a little deeper toward the walls, the ways swept (the processional way, every door), the
-    # paving round the drifts dusted so they fade into the stone
+        for x in range(W): M.ground(x, y, PAVE if 18 <= x <= 20 else SNOW, 'pave' if 18 <= x <= 20 else 'snow')
+    # --- snow: a few ragged drifts in corners and along walls' feet, mirrored left and right
     cells = {(x, y) for y in range(5, 31) for x in range(3, 37) if M.gtag[y, x] == 'pave'}
-    ways = [((19.5, 34), (19.5, 17)), ((12, 24.5), (27, 24.5)), ((8, 28), (16, 28)), ((8.5, 13), (8.5, 20), (16, 22)), ((32.5, 13), (32.5, 20)),
-            ((24, 25), (31, 22)), ((36, 16), (24, 16), (22, 17)), ((7, 21), (7, 14))]
-    # (user 2026-11-22: touches of winter, not a second stone: a few ragged drifts, each in a corner or along a wall's
-    # foot where snow gathers; none in the open, none on the ways)
     S = set()
-    for (cx, cy, rx, ry, sd) in ((4.2, 6.0, 1.8, 1.3, 'd1'), (11.5, 5.6, 2.2, 0.9, 'd2'), (26.0, 5.6, 1.6, 0.9, 'd3'),
-                                 (35.4, 21.0, 1.1, 2.2, 'd4'), (4.0, 29.4, 2.0, 1.0, 'd5'), (34.8, 29.4, 1.8, 1.0, 'd6'),
-                                 (3.8, 17.5, 0.9, 1.8, 'd7')):
-        S |= {(x, y) for y in range(int(cy - ry) - 2, int(cy + ry) + 3) for x in range(int(cx - rx) - 2, int(cx + rx) + 3)
-              if (x, y) in cells and ((x - cx) / (rx + .5)) ** 2 + ((y - cy) / (ry + .5)) ** 2 < 1 + 0.35 * (v3.vnoise(x, y, 1.7, sd) - 0.5)}
+    for (cx, cy, rx, ry, sd) in ((4.2, 6.0, 1.6, 1.2, 'd1'), (4.0, 29.4, 1.8, 1.0, 'd5'), (8.5, 21.6, 1.6, 0.8, 'd8')):
+        for (ccx, sd2) in ((cx, sd), (38.0 - cx + 0.0, sd + 'm')):
+            S |= {(x, y) for y in range(int(cy - ry) - 2, int(cy + ry) + 3) for x in range(int(ccx - rx) - 2, int(ccx + rx) + 3)
+                  if (x, y) in cells and ((x - ccx) / (rx + .5)) ** 2 + ((y - cy) / (ry + .5)) ** 2 < 1 + 0.35 * (v3.vnoise(x, y, 1.7, sd2) - 0.5)}
+    for (x, y) in [(x, y) for x in (13, 14, 24, 25) for y in (5, 6)]: S.add((x, y))       # (the terrace's back corners)
     S = v3.thick(S)
     v3.snow_on(M, S, lambda x, y: PAVE, cells, 'pave')
-    # (no dusting: user 2026-11-22, the specks read as a second stone)
-    # --- the church at the courtyard's head, on the stone (no moat: user's courtyard; 7 wide it needs none)
+    # --- the church on its terrace, its door on the axis at the terrace's front (row 17)
     M.place(block_from_rgba(os.path.join(HERE, 'church', 'front_arceus.png'), 7, 13), 16, 5, 'church', check=False)
-    # --- the fountain square (user 2026-11-22: a fountain in place of the big statue; Arceus's overworld sprite
-    # reskinned as worn stone statues on the square's four corners, the left pair facing left, the right pair right):
-    # Crown 3.0's tiered fountain in the middle (x 18-21, rows 23-26), the statues on plinths at the corners
+    # evergreens in pairs on the terrace's snowy back corners
+    for x in (13, 24): mm.pine(M, x, 5, False)
+    # --- the fountain square (rows 22-30, x 13-25): Crown 3.0's fountain on the axis, the four worn statues on its
+    # corners, the left pair facing left and the right pair right; lamps flanking the stair and the arch
     FT = os.path.join(HERE, 'fountain')
-    M.place(block_from_rgba(os.path.join(FT, 'fountain.png'), 4, 4), 18, 23, 'fountain', check=False)
-    for (x, y, f) in ((14, 20, 'left'), (14, 27, 'left'), (23, 20, 'right'), (23, 27, 'right')):
+    M.place(block_from_rgba(os.path.join(FT, 'fountain.png'), 5, 4), 17, 24, 'fountain', check=False)
+    for (x, y, f) in ((13, 22, 'left'), (13, 27, 'left'), (23, 22, 'right'), (23, 27, 'right')):
         M.place(block_from_rgba(os.path.join(FT, 'statue_%s.png' % f), 3, 3), x, y, 'statue', check=False)
-    # --- west: the Tavern (Crown 3.2's green-roofed inn) and the barracks (a timber chalet); east: the roost's mews
-    M.place(chalet(5, 24, 7, 7), 5, 21, 'house', check=False)
-    M.place(chalet(11, 14, 5, 6), 6, 7, 'house', check=False)
-    M.place(chalet(28, 25, 5, 7), 30, 5, 'house', check=False)
-    # the roost's ledge: a step up (its face on row 12, a stair at x 32-33; its west side at x 28)
-    for x in range(28, 37): M.ground(x, 12, ef(0x106), 'cliff')
-    for y in range(5, 12): M.ground(28, y, ef(0xff), 'cliff')
-    M.ground(28, 12, ef(0x105), 'cliff')
-    for k, m in enumerate((0x47, 0xe1)): M.ground(32 + k, 12, ef(m), 'stairs')
-    # (the training yard: open stone east of the square, no fences: user 2026-11-22, too many random things)
-    # --- lamps along the way, snow drifting against the walls
-    for (x, y) in ((17, 18), (22, 18)): mm.lamp(M, x, y)
-    # --- pines on the mountain above the walls only (whole trees; never in the courtyard)
+    for (x, y) in ((16, 22), (22, 22), (16, 29), (22, 29)): mm.lamp(M, x, y)       # (the stair's foot; the arch)
+    # --- the houses in mirrored pairs facing the square (dark deep grey wood): the Tavern west, the barracks east
+    # (the long inn and its mirror), the hall of the Order's guests west and the Braviary mews east up on ledges
+    tav = chalet(5, 24, 7, 7)
+    M.place(tav, 4, 22, 'house', check=False)
+    M.place([row[::-1] for row in [[None if c is None else (c[0][:, ::-1], c[1][:, ::-1]) for c in r] for r in tav]], 28, 22, 'house', check=False)
+    small = chalet(11, 14, 5, 6)
+    M.place(small, 4, 7, 'house', check=False)
+    M.place([row[::-1] for row in [[None if c is None else (c[0][:, ::-1], c[1][:, ::-1]) for c in r] for r in small]], 30, 7, 'house', check=False)
+    # the two ledges they stand on (west x 3-10, east x 29-36), a stair down from each toward the square
+    for (x0, x1, sx, side) in ((3, 10, 6, 0), (29, 36, 32, 1)):
+        for x in range(x0, x1 + 1): M.ground(x, 13, ef(0x106), 'cliff')
+        xe = x1 if side == 0 else x0
+        for y in range(5, 13): M.ground(xe, y, ef(0xfd if side == 0 else 0xff), 'cliff')
+        M.ground(xe, 13, ef(0x107 if side == 0 else 0x105), 'cliff')
+        for k, m in enumerate((0x47, 0xe1)): M.ground(sx + k, 13, ef(m), 'stairs')
+    # --- pines on the mountain above the walls only
     for (x, y) in sorted(top):
         if M.free(x, y, 1, 2) and all((x, y + k) in top for k in (0, 1)) and rnd('sp', x, y) < 0.8: mm.pine(M, x, y, False)
-    # boulders at the walls' feet, here and there
-    for (x, y) in ((3, 11), (36, 9), (3, 24), (36, 22), (10, 5), (27, 5)): mm.M_rock(M, x, y) if hasattr(mm, 'M_rock') else v3.rock(M, x, y)
     return M
 
 def main(out):
     M = compose(); img = Image.fromarray(M.render()).convert('RGBA')
     t = templar()
-    for (x, y) in ((17, 35), (22, 35), (12, 23), (27, 23), (12, 28), (28, 27), (38, 16), (19, 19)):
+    for (x, y) in ((16, 35), (22, 35), (18, 23), (20, 23), (12, 26), (26, 26), (38, 16), (19, 18)):
         img.alpha_composite(t, (x * 16, y * 16 + 16 - t.size[1]))
     img.convert('RGB').save(out)
     img.convert('RGB').resize((W * 32, H * 32), Image.NEAREST).save(out.replace('.png', '_2x.png'))
     print('mock', out)
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v2.png')
+    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v3.png')
