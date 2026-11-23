@@ -144,7 +144,7 @@ def compose():
     M.place([row[::-1] for row in [[None if c is None else (c[0][:, ::-1], c[1][:, ::-1]) for c in r] for r in tav]], 28, 22, 'house', check=False)
     small = chalet(11, 14, 5, 6)
     M.place(small, 4, 7, 'house', check=False)
-    M.place([row[::-1] for row in [[None if c is None else (c[0][:, ::-1], c[1][:, ::-1]) for c in r] for r in small]], 30, 7, 'house', check=False)
+    M.place([row[::-1] for row in [[None if c is None else (c[0][:, ::-1], c[1][:, ::-1]) for c in r] for r in small]], 31, 7, 'house', check=False)   # (centred on its ledge, x 30-36: the mirror of the west one at 4 in 3-9)
     # the two ledges they stand on (west x 3-10, east x 29-36), a stair down from each toward the square
     for (x0, x1, sx, side) in ((3, 10, 6, 0), (29, 36, 32, 1)):
         for x in range(x0, x1 + 1): M.ground(x, 13, ef(0x106), 'cliff')
