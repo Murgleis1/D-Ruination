@@ -97,26 +97,38 @@ def compose():
     lintel = [[(ef(m), np.ones((16, 16), bool)) for m in (0x21b,) * 4], [(ef(0x223), np.ones((16, 16), bool))] * 4]
     M.place(lintel, 18, 31, 'lintel', check=False)
     # --- the pilgrim road: up from Route 13 through the arch to the church
-    road = {(x, y) for x in range(18, 22) for y in range(18, H)} | \
-           {(x, y) for x in range(16, 24) for y in range(23, 29) if not (x in (16, 23) and y in (23, 28))}
-    for (x, y) in road: M.ground(x, y, ef(0x209), 'cobble')            # (the plain cobble: no snowy edges on stone)
+    road = {(x, y) for x in range(18, 22) for y in range(18, H)}
+    # (user 2026-11-22: the stone-on-stone mix looked unnatural: one stone surface, the way is the paving itself)
     for y in range(35, H):
         for x in range(W):
             if (x, y) not in road: M.ground(x, y, SNOW, 'snow')
+            elif y >= 35: M.ground(x, y, PAVE, 'pave')
     # snow (user: stone with touches of snow, less than Mirroh): Mirroh's own pass, lighter (base 0.0 to Mirroh's
     # 0.2): ragged drifts a little deeper toward the walls, the ways swept (the processional way, every door), the
     # paving round the drifts dusted so they fade into the stone
     cells = {(x, y) for y in range(5, 31) for x in range(3, 37) if M.gtag[y, x] == 'pave'}
-    ways = [((19.5, 34), (19.5, 17)), ((8, 28), (16, 28)), ((8.5, 13), (8.5, 20), (16, 22)), ((32.5, 13), (32.5, 20)),
+    ways = [((19.5, 34), (19.5, 17)), ((12, 24.5), (27, 24.5)), ((8, 28), (16, 28)), ((8.5, 13), (8.5, 20), (16, 22)), ((32.5, 13), (32.5, 20)),
             ((24, 25), (31, 22)), ((36, 16), (24, 16), (22, 17)), ((7, 21), (7, 14))]
-    S, F = v3.snow_field(9, cells, ways, [], -0.08)
-    S = v3.clean_snow(S, cells)
+    # (user 2026-11-22: touches of winter, not a second stone: a few ragged drifts, each in a corner or along a wall's
+    # foot where snow gathers; none in the open, none on the ways)
+    S = set()
+    for (cx, cy, rx, ry, sd) in ((4.2, 6.0, 1.8, 1.3, 'd1'), (11.5, 5.6, 2.2, 0.9, 'd2'), (26.0, 5.6, 1.6, 0.9, 'd3'),
+                                 (35.4, 21.0, 1.1, 2.2, 'd4'), (4.0, 29.4, 2.0, 1.0, 'd5'), (34.8, 29.4, 1.8, 1.0, 'd6'),
+                                 (3.8, 17.5, 0.9, 1.8, 'd7')):
+        S |= {(x, y) for y in range(int(cy - ry) - 2, int(cy + ry) + 3) for x in range(int(cx - rx) - 2, int(cx + rx) + 3)
+              if (x, y) in cells and ((x - cx) / (rx + .5)) ** 2 + ((y - cy) / (ry + .5)) ** 2 < 1 + 0.35 * (v3.vnoise(x, y, 1.7, sd) - 0.5)}
+    S = v3.thick(S)
     v3.snow_on(M, S, lambda x, y: PAVE, cells, 'pave')
-    v3.dust(M, S, cells, F, ways, 9)
+    # (no dusting: user 2026-11-22, the specks read as a second stone)
     # --- the church at the courtyard's head, on the stone (no moat: user's courtyard; 7 wide it needs none)
     M.place(block_from_rgba(os.path.join(HERE, 'church', 'front_arceus.png'), 7, 13), 16, 5, 'church', check=False)
-    # --- the statue in its cobbled round
-    M.place(statue_block(), 18, 24, 'statue', check=False)
+    # --- the fountain square (user 2026-11-22: a fountain in place of the big statue; Arceus's overworld sprite
+    # reskinned as worn stone statues on the square's four corners, the left pair facing left, the right pair right):
+    # Crown 3.0's tiered fountain in the middle (x 18-21, rows 23-26), the statues on plinths at the corners
+    FT = os.path.join(HERE, 'fountain')
+    M.place(block_from_rgba(os.path.join(FT, 'fountain.png'), 4, 4), 18, 23, 'fountain', check=False)
+    for (x, y, f) in ((14, 20, 'left'), (14, 27, 'left'), (23, 20, 'right'), (23, 27, 'right')):
+        M.place(block_from_rgba(os.path.join(FT, 'statue_%s.png' % f), 3, 3), x, y, 'statue', check=False)
     # --- west: the Tavern (Crown 3.2's green-roofed inn) and the barracks (a timber chalet); east: the roost's mews
     M.place(chalet(5, 24, 7, 7), 5, 21, 'house', check=False)
     M.place(chalet(11, 14, 5, 6), 6, 7, 'house', check=False)
@@ -126,13 +138,9 @@ def compose():
     for y in range(5, 12): M.ground(28, y, ef(0xff), 'cliff')
     M.ground(28, 12, ef(0x105), 'cliff')
     for k, m in enumerate((0x47, 0xe1)): M.ground(32 + k, 12, ef(m), 'stairs')
-    # the training yard (x 27-34, rows 21-28), fenced north and south
-    v3.fence(M, 27, 35, 21, gaps=(30, 31)); v3.fence(M, 27, 35, 28)
+    # (the training yard: open stone east of the square, no fences: user 2026-11-22, too many random things)
     # --- lamps along the way, snow drifting against the walls
-    for (x, y) in ((17, 18), (22, 18), (15, 29), (24, 29)): mm.lamp(M, x, y)
-    # --- courtyard life: benches facing the statue, barrels by the barracks
-    for (x, y) in ((15, 25), (24, 25)): v3.bench(M, x, y)
-    for (x, y) in ((11, 11), (12, 11), (11, 12)): mm.barrels(M, x, y)
+    for (x, y) in ((17, 18), (22, 18)): mm.lamp(M, x, y)
     # --- pines on the mountain above the walls only (whole trees; never in the courtyard)
     for (x, y) in sorted(top):
         if M.free(x, y, 1, 2) and all((x, y + k) in top for k in (0, 1)) and rnd('sp', x, y) < 0.8: mm.pine(M, x, y, False)
@@ -143,11 +151,11 @@ def compose():
 def main(out):
     M = compose(); img = Image.fromarray(M.render()).convert('RGBA')
     t = templar()
-    for (x, y) in ((17, 35), (22, 35), (14, 21), (25, 21), (13, 27), (26, 26), (38, 16), (19, 19)):
+    for (x, y) in ((17, 35), (22, 35), (12, 23), (27, 23), (12, 28), (28, 27), (38, 16), (19, 19)):
         img.alpha_composite(t, (x * 16, y * 16 + 16 - t.size[1]))
     img.convert('RGB').save(out)
     img.convert('RGB').resize((W * 32, H * 32), Image.NEAREST).save(out.replace('.png', '_2x.png'))
     print('mock', out)
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v1.png')
+    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/citadel_mock_v2.png')
