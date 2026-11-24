@@ -1330,6 +1330,7 @@ EventScript_VsSeekerChargingDone::
 	.include "data/maps/PellucaHouse3/scripts.inc"
 	.include "data/maps/PellucaHouse4/scripts.inc"
 	.include "data/maps/PellucaHouse5/scripts.inc"
+	.include "data/maps/Route11Farmhouse/scripts.inc"
 
 	.include "data/maps/HoyaRiverSouth/scripts.inc"
 

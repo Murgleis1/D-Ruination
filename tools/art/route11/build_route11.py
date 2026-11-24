@@ -46,6 +46,8 @@ def _pelluca_collision():
 PCOL = _pelluca_collision()
 
 # ------------------------------------------------------------------ what each cell is
+DOOR, MB_NON_ANIMATED_DOOR = (55, 14), 0x60             # (the cottage's doorway: into the farmhouse, 2026-11-24)
+
 def classify(M):
     """-> grid of (primary id or None), collision byte, behaviour."""
     H, W = R.H, R.W
@@ -72,6 +74,7 @@ def classify(M):
             elif tag == 'stairs': beh[y, x] = MB_ROCK_STAIRS
             elif c == WATER: beh[y, x] = MB_POND_WATER
             elif c == WALK and (g == 'sand' or (isinstance(g, tuple) and g[0] == 'img')): beh[y, x] = MB_SAND
+    x, y = DOOR; col[y, x] = WALK; beh[y, x] = MB_NON_ANIMATED_DOOR      # (the farmhouse's door: build_farmhouse.py)
     return prim, col, beh
 
 # ------------------------------------------------------------------ the tiles

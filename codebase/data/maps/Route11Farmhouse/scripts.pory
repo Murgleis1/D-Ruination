@@ -1,0 +1,5 @@
+// ============ DREAMSTONE RUINATION - Route 11: the farmhouse ============
+// Built by tools/art/route11/build_farmhouse.py from farmhouse_mock.py, variant B (user 2026-11-24).
+// Stage 1 (the look). Who lives here, NPCs and dialogue come in stage 2.
+
+mapscripts Route11Farmhouse_MapScripts {}

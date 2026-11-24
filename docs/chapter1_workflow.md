@@ -89,6 +89,7 @@ Update this list as areas are finished.
 - 2026-11-23: the ROM is at 95.75% (32,126,720 of 33,554,432 bytes; about 1.36 MB free) after the Templar cathedral.
 - 2026-11-24: 95.82% after Mirroh Peak's backdrop and deleting 15 unused Dreamstone Mysteries maps (bible: Mirroh Base Camp, Pelluca's old gym/mart/restaurant etc.).
 - 2026-11-24: 95.93% after the Ancient Cormoria slip (new map AncientCormoriaSlip, its own tilesets: 1015 of 1023 tiles, 255 of them its backdrop).
+- 2026-11-24: 95.95% after Route 11's farmhouse interior (Route11Farmhouse).
 - **User 2026-11-23:** unused maps may be deleted to make room (e.g. Dreamstone Mysteries' other cities that nothing of
   ours uses so far). When space runs short: list the candidates (unused maps, their tilesets and music, the bytes each
   frees, after checking no kept map, script, warp, heal location or region-map entry points at them), show the list,

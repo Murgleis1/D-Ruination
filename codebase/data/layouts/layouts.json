@@ -6382,6 +6382,16 @@
       "blockdata_filepath": "data/layouts/PellucaHouse5/map.bin"
     },
     {
+      "id": "LAYOUT_ROUTE11_FARMHOUSE",
+      "name": "Route11Farmhouse_Layout",
+      "width": 13,
+      "height": 10,
+      "primary_tileset": "gTileset_Route11FarmhouseTiles",
+      "secondary_tileset": "gTileset_Route11Farmhouse",
+      "border_filepath": "data/layouts/Route11Farmhouse/border.bin",
+      "blockdata_filepath": "data/layouts/Route11Farmhouse/map.bin"
+    },
+    {
       "id": "LAYOUT_PELLUCA_UMBRA_LAB",
       "name": "PellucaUmbraLab_Layout",
       "width": 12,
