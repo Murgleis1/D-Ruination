@@ -5206,8 +5206,8 @@
       "name": "MirrohInterior_1F_Layout",
       "width": 60,
       "height": 60,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_CaveAlt",
+      "primary_tileset": "gTileset_MtMirrohCaveTiles",
+      "secondary_tileset": "gTileset_MtMirrohCave",
       "border_filepath": "data/layouts/MirrohInterior_1F/border.bin",
       "blockdata_filepath": "data/layouts/MirrohInterior_1F/map.bin"
     },

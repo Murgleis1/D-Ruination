@@ -11,6 +11,7 @@ FLOORS = (0x86ddcc, 0x86dde8)
 PROPS = set(range(0x232, 0x247)) | set(range(0x248, 0x27d)) | {0x280, 0x281, 0x282, 0x283, 0x288, 0x289, 0x28a, 0x28b} \
     | set(range(0x290, 0x2a5)) | {0x202, 0x20a, 0x203, 0x206, 0x207, 0x229, 0x22f, 0x247, 0x2ad, 0x2ae, 0x2af, 0x2d4,
        0x2d5, 0x2d6, 0x2d7, 0x2df, 0x2e6, 0x2e7, 0x2eb, 0x2ec, 0x2fb, 0x2fc, 0x201, 0x2c5, 0x2c6}
+LIPS = {0x2BD, 0x2BE, 0x2BF, 0x2C0, 0x2C1, 0x2C2, 0x2C3, 0x2C4}
 N8 = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
 WEIGHT = [1, 3, 1, 3, 3, 1, 3, 1]
 
@@ -56,6 +57,7 @@ class Vocab:
                 for x in range(1, W - 1):
                     m = c[y * W + x] & 0x3FF
                     if m in PROPS or self.side[m] != cls[(x, y)]: continue
+                    if cls[(x, y)] == 'R' and m in LIPS: continue      # (the Grotto's ledge lines: drawn by hand here)
                     for k in keys(get, x, y): self.samples[k][m] += 1
     def pick_at(self, get, x, y, rnd):
         """the Grotto's tile for the cell's surroundings, at the most specific key it has seen; level used returned."""

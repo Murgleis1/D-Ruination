@@ -9,11 +9,7 @@ raw`
     .set LOCALID_GRUNT2, 10        
 `
 
-mapscripts MirrohInterior_1F_MapScripts{
-    MAP_SCRIPT_ON_FRAME_TABLE[
-        VAR_TEMP_0, 0: MirrohInterior_1F_EventScript_NurseQuest_End
-    ]
-}
+mapscripts MirrohInterior_1F_MapScripts {}
 
 
 //entry

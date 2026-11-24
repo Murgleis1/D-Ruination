@@ -46,7 +46,7 @@ r(18, 10, 18, 20, '~'); at([(18, 15)], '=')                               # stre
 r(19, 10, 22, 13, '.'); r(19, 13, 21, 19, '.')                            # the east cave
 at([(21, 16)], '#')
 r(17, 20, 23, 22, '.'); r(18, 19, 22, 20, '.')                             # the rest stop (nurse), at stream 2's foot
-at([(18, 20)], '~')
+at([(18, 20)], '#')                     # stream 2 runs into the rock above the rest stop
 r(24, 19, 28, 28, '.'); r(23, 22, 24, 23, '.')                             # the way-in hall
 at([(26, 23)], '#')
 at([(27, 29)], 'E')

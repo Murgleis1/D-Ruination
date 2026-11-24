@@ -1,6 +1,6 @@
-"""Mt. Mirroh 1F walked (2026-11-23), re-routed: in from the exterior; across the bridges; up the new stair (A) onto the
-upper level; down the new stair (B) into the top band; the torture spot clear of boulders; the rubble where the Shard
-lies; out onto the Peak and back; the ledge back down; out to the exterior."""
+"""Mt. Mirroh 1F walked (2026-11-23), re-drawn in Glittering Grotto's grammar (plan_1f.py): in from the exterior at the
+way in; the rest stop; bridge 2, the middle cave, bridge 1, the west cave; stair A onto the upper level; stair B into
+the top band; the rubble's text; the torture chamber; out onto the Peak and back; the ledge down; out to the exterior."""
 import sys, gzip
 sys.path.insert(0, '/home/claude/scratch/dorm')
 from walklib import GBA, go, where
@@ -65,28 +65,29 @@ class Grid(_Grid):
         if m == 'MirrohInterior_1F': self.objs -= {(6, 8), (6, 9)}
 walklib.Grid = Grid
 go(g, 'Route13', (8, 1), log=lambda *a: None); press('UP', wait=200)
-r = go(g, X, (13, 11), log=lambda *a: None); press('UP', wait=200); p = where(g); shot('into 1F'); m1 = p[1]
-set_flag(g, 0x274)  # FLAG_MIRROH_INT_SOMBER_GRUNTS
-check('into 1F at its foot', r and p[0] in ((55, 56), (55, 57)), p)
-r = go(g, F, (33, 17), log=lambda *a: None); shot('across the bridges, under stair A'); check('across both bridges to stair A', r, where(g))
-r = go(g, F, (33, 13), log=lambda *a: None); shot('up stair A'); check('up stair A onto the upper level', r, where(g))
-r = go(g, F, (46, 8), log=lambda *a: None); shot('the upper level, east'); check('along the upper level to stair B', r, where(g))
-r = go(g, F, (46, 4), log=lambda *a: None); shot('down stair B'); check('down stair B into the top band', r, where(g))
-r = go(g, F, (54, 4), log=lambda *a: None); shot('the torture spot (boulders gone)'); check('the old boulder spot is open', r, where(g))
-r = go(g, F, (3, 11), log=lambda *a: None); press('DOWN', wait=10); g.run(6, 'A'); g.run(90); shot('the rubble'); g.run(6, 'A'); g.run(90); shot('the rubble, 2')
+r = go(g, X, (13, 11), log=lambda *a: None); press('UP', wait=200); g.run(120); p = where(g); shot('the way in'); m1 = p[1]
+check('into 1F at the way in', r and p[0] in ((55, 58), (55, 57)), p)
+r = go(g, F, (41, 41), log=lambda *a: None); shot('the rest stop'); check('the rest stop', r, where(g))
+r = go(g, F, (33, 30), log=lambda *a: None); shot('over bridge 2, the middle cave'); check('over bridge 2', r, where(g))
+r = go(g, F, (17, 26), log=lambda *a: None); shot('over bridge 1, the west cave'); check('over bridge 1', r, where(g))
+r = go(g, F, (10, 15), log=lambda *a: None); shot('up stair A'); check('up stair A onto the upper level', r, where(g))
+r = go(g, F, (38, 7), log=lambda *a: None); shot('up stair B'); check('up stair B into the top band', r, where(g))
+r = go(g, F, (4, 3), log=lambda *a: None); press('UP', wait=10); g.run(6, 'A'); g.run(90); shot('the rubble'); g.run(6, 'A'); g.run(90); shot('the rubble, 2')
 check('west along the top band to the rubble', r, where(g))
 for _ in range(4): g.run(6, 'B'); g.run(30)
+r = go(g, F, (50, 6), log=lambda *a: None); shot('the torture chamber'); check('east to the torture chamber', r, where(g))
 r = go(g, F, (54, 2), log=lambda *a: None); press('UP', wait=30); press('UP', wait=200); p = where(g); shot('onto the Peak')
-check('the old Lily Pond exit leads onto the Peak', r and p[1] != m1, p); mp = p[1]
-press('UP', wait=200); p = where(g)                    # the Peak's cave mouth is north of where it sets you down
+check('the exit leads onto the Peak', r and p[1] != m1, p); mp = p[1]
+press('UP', wait=200); p = where(g)
 if p[1] == mp: press('UP', wait=200); p = where(g)
-shot('back into 1F'); check('the Peak leads back to 1F', mp != m1 and p[1] == m1 and p[0][0] == 54 and p[0][1] <= 3, p)
-r = go(g, F, (53, 9), log=lambda *a: None); press('DOWN', wait=60); p = where(g); shot('the ledge down')
-check('the ledge hops back down to the main cave', r and p[0] == (53, 11), p)
-r = go(g, F, (55, 57), log=lambda *a: None); p = where(g)
+g.run(120); shot('back into 1F'); check('the Peak leads back to 1F', mp != m1 and p[1] == m1 and p[0] in ((54, 1), (54, 2)), p)
+press('DOWN', wait=40)
+r = go(g, F, (52, 9), log=lambda *a: None); press('DOWN', wait=60); p = where(g); shot('the ledge down')
+check('the ledge hops down to the east passage', r and p[0] == (52, 11), p)
+r = go(g, F, (55, 57), log=lambda *a: None); press('DOWN', wait=60); p = where(g)
 if p[1] == m1: press('DOWN', wait=200); p = where(g)
 shot('out to the exterior'); check('out to the exterior cave mouth', p[1] != m1 and p[0][0] == 13, p)
-print('wild battles run from:', BATTLES[0]); print('ALL OK' if ok_all else 'PROBLEM')
+print('ALL OK' if ok_all else 'PROBLEM')
 S = Image.new('RGB', (240 * 4, 172 * ((len(shots) + 3) // 4))); dr = ImageDraw.Draw(S)
 for i, (n, f) in enumerate(shots):
     S.paste(Image.fromarray(f), ((i % 4) * 240, (i // 4) * 172 + 12)); dr.text(((i % 4) * 240 + 2, (i // 4) * 172), n, fill=(255, 255, 0))
