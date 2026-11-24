@@ -343,22 +343,39 @@ def compose(seed=7):
             done = True; break
         if not done: break
     # walkable patches: glassy ice and snow, in the open
-    for _ in range(40):
-        x, y = drnd.randrange(2, W - 6), drnd.randrange(2, H - 6)
-        rx, ry = drnd.uniform(1.4, 2.6), drnd.uniform(0.9, 1.5)
-        cells_ = [(x + i, y + j) for j in range(-2, 3) for i in range(-3, 4)
-                  if ((i * S) / (rx * S)) ** 2 + ((j * S) / (ry * S)) ** 2 <= 1.6]
-        def fine(c):
-            return (0 <= c[0] < W and 0 <= c[1] < H and ids.get(c) == mt.FLOOR and G[c[1], c[0]] in '.,;' and c not in PATCH
-                    and c not in DRESS and all(cls(c[0] + a_, c[1] + b2) == 'F' for a_ in (-1, 0, 1) for b2 in (-1, 0, 1)))
-        if not all(fine(c) for c in cells_): continue
-        for (cx_, cy_) in cells_:
-            b = img[blk(cx_, cy_)]; yy, xx = np.mgrid[0:S, 0:S]
-            d = (((cx_ * S + xx) - x * S) / (rx * S)) ** 2 + (((cy_ * S + yy) - y * S) / (ry * S)) ** 2
-            m = d <= 1; sheen = ((cx_ * S + xx + cy_ * S + yy) % 11 < 2)
-            b[m] = (b[m] * 0.45 + np.array([170, 214, 244]) * 0.55).astype(np.uint8); b[m & sheen] = (236, 248, 255)
-            b[(d > 0.86) & m] = (128, 176, 222)
-            DRESS_DECOR.add((cx_, cy_))
+    # one sheet of glassy ice, placed (user 2026-11-24: the random patch by the torture chamber was "awkwardly
+    # positioned"; "move [it] to [the open stretch of the top band] ... an icy pattern looks better there"):
+    # long and low along the gallery, its sheen in diagonal streaks, a few white cracks across it
+    for (x, y, rx, ry) in [(29.5, 4.6, 6.2, 1.7)]:
+        crng = random.Random(seed + 31)
+        cracks = []
+        for _ in range(5):
+            px, py = (x + crng.uniform(-rx * 0.7, rx * 0.7)) * S, (y + crng.uniform(-ry * 0.5, ry * 0.5)) * S
+            pts = [(px, py)]
+            for _ in range(crng.randint(3, 6)):
+                px += crng.uniform(-9, 9); py += crng.uniform(-5, 5); pts.append((px, py))
+            cracks.append(pts)
+        for cy_ in range(int(y - ry) - 1, int(y + ry) + 2):
+            for cx_ in range(int(x - rx) - 1, int(x + rx) + 2):
+                if not (0 <= cx_ < W and 0 <= cy_ < H) or cls(cx_, cy_) != 'F' or (cx_, cy_) in DRESS: continue
+                b = img[blk(cx_, cy_)]; yy, xx = np.mgrid[0:S, 0:S]
+                X, Y = cx_ * S + xx, cy_ * S + yy
+                d = ((X - x * S) / (rx * S)) ** 2 + ((Y - y * S) / (ry * S)) ** 2
+                m = d <= 1
+                if not m.any(): continue
+                sheen = ((X + Y) % 13 < 2) | ((X + Y) % 29 == 7)
+                b[m] = (b[m] * 0.40 + np.array([168, 212, 244]) * 0.60).astype(np.uint8)
+                b[m & sheen] = (232, 246, 255)
+                b[(d > 0.88) & m] = (124, 172, 220); b[(d > 0.97) & m] = (98, 146, 200)
+                DRESS_DECOR.add((cx_, cy_))
+        # the cracks, drawn over the sheet's own pixels only
+        from PIL import Image as _I, ImageDraw as _D
+        lay = _I.new('L', (W * S, H * S), 0); dr = _D.Draw(lay)
+        for pts in cracks: dr.line(pts, fill=255, width=1)
+        cm = np.array(lay) > 0
+        X, Y = np.mgrid[0:H * S, 0:W * S][1], np.mgrid[0:H * S, 0:W * S][0]
+        inside = ((X - x * S) / (rx * S)) ** 2 + ((Y - y * S) / (ry * S)) ** 2 <= 0.85
+        img[cm & inside] = (246, 252, 255)
     # ---- floor detail (study 2026-11-24: Crown's caves wear trodden trails through their floors; Barbed Cave strews
     # loose stones along its walls; the Grotto's crystal floors glitter)
     from scipy.ndimage import gaussian_filter, binary_dilation
