@@ -77,10 +77,15 @@ to the Ivy River) are later chapters.
    outer wall (bible 16.10 art plan). In Chapter 1 the way to the mountain passes it; Loulan recurs there.
 3. Mt. Mirroh and Mirroh Peak (in progress 2026-11-23; **the exterior BUILT and walked**, `tools/playtest/mt_mirroh_exterior_walk.py`; **1F BUILT and walked, approved 2026-11-24** (Mt. Thunder construction, Grotto glass-ice crystals, crystal maze, formations), `tools/playtest/mt_mirroh_1f_walk.py`; **the Peak BUILT and walked 2026-11-24** with MonoMyth's bastion backdrop behind its summit, `tools/playtest/mt_mirroh_peak_walk.py`; then B1F): **an expansion of Dreamstone Mysteries' Mt. Mirroh** (user): the exterior climb (dojo removed), 1F (hikers, trainers, the torture scene by the exit up to the Peak, the Shard under rubble at the old Peak exit; 2F removed), the Peak (the cardinal, Baradus, Eden, Kimaris; summit ruins). B1F: Alaric's sealed Ting-Lu ritual site, made now, reached later by a ladder beside the exterior's cave mouth under a Rock Smash rock. Art: Route 13's, MonoMyth's Mt. Thunder, DM's snow, Crown's if any. The base game's maps (`MtMirrohExterior`, `MirrohPeak`, the caves `MirrohInterior_*`) are DM-era, on old
    tilesets: rebuild or replace.
-4. The Ancient Cormoria slip (Beat 8e): one small scripted zone. A new map: DM's `AncientMirroh` maps are DM's window
-   into *our* era (bible 01), not Cormor's.
+4. ~~The Ancient Cormoria slip (Beat 8e)~~: BUILT and walked 2026-11-24 (`AncientCormoriaSlip`, its own tilesets and
+   the ancient backdrop; walk `tools/playtest/ancient_cormoria_slip_walk.py` on a test ROM, as nothing leads in until
+   stage 3's script). Approved ("It is perfect now"). DM's `AncientMirroh` cluster kept for a later chapter.
 5. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them (closed for now).
-Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest); Route 11's east beach.
+Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest); Route 11's east beach;
+Hollow Hill's webbed rocks and cobwebbed trees (user 2026-11-24).
+Also done 2026-11-24: Route 11's farmhouse interior (`Route11Farmhouse`, door (55, 14); walk
+`tools/playtest/route11_farmhouse_walk.py`). Note: `build_route11.py`'s `write_map()` is stale (it rewrites Pelluca's
+gate events and Route 11's connections); do not re-run it as is.
 
 Update this list as areas are finished.
 
