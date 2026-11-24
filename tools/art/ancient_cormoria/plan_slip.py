@@ -81,7 +81,7 @@ HOUSES = []                                               # (v2's cliff homes, M
 # and sand-worn looking version of this skeleton"): the skeleton of a Tyrantrum, Lazarus's statue of one (its
 # conservation-centre town, header 0xfaa648, metatiles 0x288-0x2a3) worn to bone and half buried in drifted sand,
 # turned to face east over the canyon; 64x64 px at pixel (px, py); scenery (the mesa is not walked)
-TYRANTRUM = dict(px=102, py=326, flip=True)                # (user 2026-11-24: moved to the mesa's east edge, over the plain)
+TYRANTRUM = dict(px=90, py=326, flip=True)                 # (user 2026-11-24: by the mesa's east edge, over the plain; then 12 px back from it)
 # the east: the canyon's wall
 r(44, 19, 49, 31, '#'); r(43, 22, 43, 31, '#')
 # the oasis: a pool in the sand south of the river, palms and green round it
