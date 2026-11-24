@@ -111,6 +111,14 @@ def compose(seed=11):
                 sm = ('out', 0x27B) if cls(x - 1, y) != 'W' else ('out', 0x27E) if cls(x + 1, y) != 'W' else ('out', 0x27C)
             if sm in (('pok', 0x2F), ('pok', 0x37)): sm = ('out', 0x29C)   # (the Peak of Kings' blank flank pieces: its stacked rock)
             ids[(x, y)] = sm; img[blk(x, y)] = V.meta(sm)
+    # ---- the summit's shoulders (rows 10-16) drawn as mirror images, west onto east (user 2026-11-24, on the east
+    # shoulder: "this doesn't look right": its learned tiles came out as a Peak of Kings diagonal and a slope piece where
+    # the west has plain band ends; the summit is symmetric about x 24.5, so its rock is drawn once and mirrored)
+    for y in range(10, 17):
+        for x in range(25, W):
+            mx = W - 1 - x
+            if G[y, x] == '#' and G[y, mx] == '#':
+                img[blk(x, y)] = img[blk(mx, y)][:, ::-1]; ids[(x, y)] = ids[(mx, y)]
     # ---- the sky (and the black of the Peak of Kings' edge pieces: sky behind them)
     sky = sky_px(); sky_a = np.zeros((H * S, W * S), bool)      # (sky_a: where the sky shows: a backdrop goes there)
     for y in range(35):
