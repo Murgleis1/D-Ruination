@@ -24,9 +24,10 @@ DOJO = {(x, y) for x in range(33, 49) for y in range(4, 12)}
 LOWER_MOUTH = [(11, 64), (11, 65)]
 CAVE = (13, 10)
 # the secret way down to B1F, Alaric's ritual site (user 2026-11-23: right by the main entrance into the mountain): a
-# ladder hole in the ice in the corner left of the cave mouth, under a Rock Smash rock (an object, placed by the build;
+# ladder hole in the ice west of the cave mouth, above two rocks, under a Rock Smash rock (an object, placed by the build;
 # Rock Smash comes later in the game, so in Chapter 1 the rock stays)
-SECRET = (11, 11)
+SECRET = (9, 13)        # (user 2026-11-23, marked on a screenshot: the open ice above the two rocks, west of the mouth)
+DRILL = [(15, 10), (16, 10), (15, 11), (16, 11)]   # (Dreamstone Mysteries' drilling machine by the mouth: gone, user)
 MB_TALL_GRASS = 0x02
 EFG = mm.EF_GROUND
 BIG, SMALL, ROCK = [[0xe9, 0xea], [0xf1, 0xf2], [0xf9, 0xfa]], [[0x109], [0x111]], [[0xe8]]
@@ -67,10 +68,13 @@ def compose():
         c = cell_of(dm, x, y).astype(int)
         blue = ((c[..., 2] - c[..., 0] > 30) & (c.sum(-1) > 450)).sum(); white = (c.min(-1) > 230).sum()
         return blue > white
-    on_ice = {(x, y) for (x, y) in tree if cells[(x, y)][2] == 'MB_MOUNTAIN_TOP'}
-    for y in range(H - 1, -1, -1):                          # (the top of a pine whose foot stands on the ice)
-        for x in range(W):
-            if (x, y) in tree and (x, y + 1) in on_ice and cells.get((x - 1, y), [1, 0, ''])[2] != 'MB_NORMAL': on_ice.add((x, y))
+    def corner_ice(x, y):                                  # (DM's ground at the cell's top corners: ice or snow)
+        c = cell_of(dm, x, y).astype(int); k = np.concatenate([c[:3, :3].reshape(-1, 3), c[:3, -3:].reshape(-1, 3)])
+        return ((k[:, 2] - k[:, 0] > 30) & (k.sum(-1) > 450)).mean() > 0.5
+    base = {(x, y) for (x, y) in tree if cells[(x, y)][2] == 'MB_MOUNTAIN_TOP'}
+    on_ice = base | {(x, y) for (x, y) in tree if (x, y + 1) in base}                       # (a pine's top over its foot)
+    on_ice |= {(x, y) for (x, y) in tree if corner_ice(x, y) and cells[(x, y)][2] != 'MB_MOUNTAIN_TOP' and
+               any(cells.get(n, [1, 0, ''])[2] == 'MB_MOUNTAIN_TOP' for n in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)))}
     tree |= DOJO
     for x in range(W):                                              # (the top edge closed: pinewood)
         if not solid[0, x]: tree |= {(x, 0)}
@@ -110,7 +114,8 @@ def compose():
         else: place(ROCK, x, y)                                         # (no bare cells in a wood: they read as ground)
     # trees standing on DM's ice: Elderflower's plain snow left round them (its two commonest colours) shows the ice
     from scipy.ndimage import label as _label
-    efsnow = {tuple(c) for m_ in (0xed, 0xee) for c in mm.full('ef', m_).reshape(-1, 3)}
+    t0 = mm.full('ef', 0xed).reshape(-1, 3); cols_, cnt_ = np.unique(t0, axis=0, return_counts=True)
+    efsnow = {tuple(c) for c in cols_[np.argsort(-cnt_)[:2]]}     # (its plain snow's two colours only)
     for (x, y) in on_ice:
         reg = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]
         icec = ground_near(x, y, plain_ice, ICE)
@@ -155,6 +160,9 @@ def compose():
             n = (x + d, y); v = cells.get(n)
             if v and v[0] == 1 and n not in tree and n not in LOWER_MOUTH and v[2] == 'MB_MOUNTAIN_TOP' and v[5] - v[3] > 40: break
         img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell_of(dm, *n); solid[y, x] = True; beh[y, x] = 0
+    # the drilling machine: gone; the band and the ice beside it carry on (DM's own cells, and their collision)
+    for (x, y) in DRILL:
+        n = (14, y); img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell_of(dm, *n); solid[y, x] = cells[n][0] != 0; beh[y, x] = 0
     # the ladder hole: Dreamstone Mysteries' own (its 1F's ladder at (38, 45)), cut from its cave floor onto the ice
     one = np.array(Image.open(os.path.join(REPO, 'assets', 'mt_mirroh_reference', 'dm_1f.png')).convert('RGB'))
     lad = cell_of(one, 38, 45).astype(int); flo = cell_of(one, 37, 45).astype(int)
