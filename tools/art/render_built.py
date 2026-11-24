@@ -4,7 +4,7 @@ import os, sys, json, struct, re
 import numpy as np
 from PIL import Image
 C = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'codebase'))
-HDR = open(C + '/src/data/tilesets/headers.h').read(); GR = open(C + '/src/data/tilesets/graphics.h').read()
+HDR = open(C + '/src/data/tilesets/headers.h').read(); GR = open(C + '/src/data/tilesets/graphics.h').read() + open(C + '/src/graphics.c').read()
 MT = open(C + '/src/data/tilesets/metatiles.h').read()
 def tileset(sym):
     m = re.search(r'const struct Tileset ' + sym + r'\s*=\s*\{(.*?)\};', HDR, re.S).group(1)
