@@ -14,3 +14,13 @@ script Route13_EventScript_ToCitadel34 {
     setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
     warp(MAP_TEMPLAR_CITADEL, 20, 38)
 }
+
+script Route13_EventScript_ToMtMirroh8 {
+    setvar(VAR_TEMP_1, 1)
+    warp(MAP_MT_MIRROH_EXTERIOR, 38, 78)
+}
+
+script Route13_EventScript_ToMtMirroh9 {
+    setvar(VAR_TEMP_1, 1)
+    warp(MAP_MT_MIRROH_EXTERIOR, 39, 78)
+}

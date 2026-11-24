@@ -47,13 +47,9 @@
       "y": 69,
       "elevation": 0,
       "dest_map": "MAP_MT_MIRROH_EXTERIOR",
-      "dest_warp_id": "2"
+      "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-
-  ]
+  "coord_events": [],
+  "bg_events": []
 }

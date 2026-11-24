@@ -57,6 +57,24 @@
       "var": "VAR_TEMP_1",
       "var_value": "0",
       "script": "Route13_EventScript_ToCitadel34"
+    },
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "Route13_EventScript_ToMtMirroh8"
+    },
+    {
+      "type": "trigger",
+      "x": 9,
+      "y": 0,
+      "elevation": 3,
+      "var": "VAR_TEMP_1",
+      "var_value": "0",
+      "script": "Route13_EventScript_ToMtMirroh9"
     }
   ],
   "bg_events": []

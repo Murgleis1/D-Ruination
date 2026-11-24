@@ -4,7 +4,7 @@ composition: its pixels, collision and behaviours go to tools/art/mapbuild.py as
 Connections: its foot's passage (x 19-20, row 122, the road's last cells at the gatehouse roof's peak: south arrow warps) leads down into Mirroh's north-west gatehouse
 hall, whose top doorway (4-5, 1) now leads up here (tools/art/mirroh/build_mirroh.py, the NW hall's north_open).
 Its north-east exit (x 32-34) fades into the Templar Citadel (triggers on its top row, as Hollow Hill's way north into
-Mirroh Gate: the Citadel has its own primary tileset, which a connection would draw with Route 13's); the Mt. Mirroh exit (x 7-10) lies outside the Citadel's span and stays closed until Mt. Mirroh exists.
+Mirroh Gate: the Citadel has its own primary tileset, which a connection would draw with Route 13's); the Mt. Mirroh exit (its stair's top, x 8-9) fades onto Mt. Mirroh's exterior foot path (x 38-39; 2026-11-23, tools/art/mt_mirroh/build_exterior.py).
 The border: Elderflower's small pines (1x2) repeated, so the camera shows woods past the edges, never open snow.
 Usage: python3 tools/art/route13/build_route13.py   (then rebuild Mirroh's halls: build_mirroh.py; then make)
 """
@@ -41,7 +41,9 @@ def main():
             'warp_events': [{'x': x, 'y': y, 'elevation': 3, 'dest_map': 'MAP_MIRROH_NW_GATEHOUSE', 'dest_warp_id': str(2 + i)}
                             for i, (x, y) in enumerate(PASSAGE)],
             'coord_events': [{'type': 'trigger', 'x': x, 'y': 0, 'elevation': 3, 'var': 'VAR_TEMP_1', 'var_value': '0',
-                              'script': 'Route13_EventScript_ToCitadel%d' % x} for x in (32, 33, 34)],
+                              'script': 'Route13_EventScript_ToCitadel%d' % x} for x in (32, 33, 34)]
+                           + [{'type': 'trigger', 'x': x, 'y': 0, 'elevation': 3, 'var': 'VAR_TEMP_1', 'var_value': '0',
+                               'script': 'Route13_EventScript_ToMtMirroh%d' % x} for x in (8, 9)],
             'bg_events': []}
     MB.write(r, 'Route13', 'LAYOUT_ROUTE13', ('route13_tiles', 'Route13Tiles'), ('route13', 'Route13'), mapj,
              border=[top, top, foot, foot])
@@ -51,6 +53,9 @@ def main():
     sc = 'mapscripts Route13_MapScripts {}\n'
     for x in (32, 33, 34):
         sc += '\nscript Route13_EventScript_ToCitadel%d {\n    setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)\n    warp(MAP_TEMPLAR_CITADEL, %d, 38)\n}\n' % (x, x - 14)
+    # its north-west exit fades onto Mt. Mirroh's exterior, at the foot of its valley (x 38-39)
+    for x in (8, 9):
+        sc += '\nscript Route13_EventScript_ToMtMirroh%d {\n    setvar(VAR_TEMP_1, 1)\n    warp(MAP_MT_MIRROH_EXTERIOR, %d, 78)\n}\n' % (x, x + 30)
     open(os.path.join(d, 'scripts.pory'), 'w').write(sc)
     print('Route 13 built:', W, 'x', H)
 

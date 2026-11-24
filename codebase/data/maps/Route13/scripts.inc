@@ -25,3 +25,19 @@ Route13_EventScript_ToCitadel34::
 	warp MAP_TEMPLAR_CITADEL, 20, 38
 	return
 
+
+Route13_EventScript_ToMtMirroh8::
+# 19 "data/maps/Route13/scripts.pory"
+	setvar VAR_TEMP_1, 1
+# 20 "data/maps/Route13/scripts.pory"
+	warp MAP_MT_MIRROH_EXTERIOR, 38, 78
+	return
+
+
+Route13_EventScript_ToMtMirroh9::
+# 24 "data/maps/Route13/scripts.pory"
+	setvar VAR_TEMP_1, 1
+# 25 "data/maps/Route13/scripts.pory"
+	warp MAP_MT_MIRROH_EXTERIOR, 39, 78
+	return
+
