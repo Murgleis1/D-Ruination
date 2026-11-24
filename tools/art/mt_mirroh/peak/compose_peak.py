@@ -111,13 +111,13 @@ def compose(seed=11):
                 sm = ('out', 0x27B) if cls(x - 1, y) != 'W' else ('out', 0x27E) if cls(x + 1, y) != 'W' else ('out', 0x27C)
             ids[(x, y)] = sm; img[blk(x, y)] = V.meta(sm)
     # ---- the sky (and the black of the Peak of Kings' edge pieces: sky behind them)
-    sky = sky_px(); skyrow = lambda y: np.tile(sky[y * S:y * S + S], (1, 1, 1))
+    sky = sky_px(); sky_a = np.zeros((H * S, W * S), bool)      # (sky_a: where the sky shows: a backdrop goes there)
     for y in range(35):
         for x in range(W):
-            if cls(x, y) == 'K': img[blk(x, y)] = sky[y * S:y * S + S]
+            if cls(x, y) == 'K': img[blk(x, y)] = sky[y * S:y * S + S]; sky_a[blk(x, y)] = True
             else:
                 b = img[blk(x, y)]; k = (b.astype(int).sum(-1) == 0)
-                if k.any(): b[k] = sky[y * S:y * S + S][k]
+                if k.any(): b[k] = sky[y * S:y * S + S][k]; sky_a[blk(x, y)] |= k
     for i, (cx, cy) in enumerate(((2, 3), (38, 6), (5, 12), (41, 15), (0, 21), (44, 25))):
         rgb, a = cloud_stamp(i % 3)
         reg = img[cy * S:cy * S + CLOUD_H * S, cx * S:cx * S + CLOUD_W * S]
@@ -251,7 +251,7 @@ def compose(seed=11):
             if ch == '~': beh[y, x] = 0x15
     x, y = MOUTH_1F; solid[y, x] = False; beh[y, x] = 0x60          # (MB_NON_ANIMATED_DOOR: the way into 1F)
     flat = img.copy(); flat[top_a] = top[top_a]
-    return dict(bottom=img, top=top, top_a=top_a, flat=flat, solid=solid, beh=beh, elev=elev, ids=ids, dress=dress, missed=getattr(V, 'missed', 0))
+    return dict(sky_a=sky_a, bottom=img, top=top, top_a=top_a, flat=flat, solid=solid, beh=beh, elev=elev, ids=ids, dress=dress, missed=getattr(V, 'missed', 0))
 
 if __name__ == '__main__':
     r = compose(); print('unseen patterns:', r['missed'])
