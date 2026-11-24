@@ -10,7 +10,7 @@ FLOORS = (0x86ddcc, 0x86dde8)
 # props (not rock, not plain floor): crystals small and large, carts, the bucket, signs, ladders, stairs, exit mat, rocks
 PROPS = set(range(0x232, 0x247)) | set(range(0x248, 0x27d)) | {0x280, 0x281, 0x282, 0x283, 0x288, 0x289, 0x28a, 0x28b} \
     | set(range(0x290, 0x2a5)) | {0x202, 0x20a, 0x203, 0x206, 0x207, 0x229, 0x22f, 0x247, 0x2ad, 0x2ae, 0x2af, 0x2d4,
-       0x2d5, 0x2d6, 0x2d7, 0x2df, 0x2e6, 0x2e7, 0x2eb, 0x2ec, 0x2fb, 0x2fc, 0x201}
+       0x2d5, 0x2d6, 0x2d7, 0x2df, 0x2e6, 0x2e7, 0x2eb, 0x2ec, 0x2fb, 0x2fc, 0x201, 0x2c5, 0x2c6}
 N8 = [(-1, -1), (0, -1), (1, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
 WEIGHT = [1, 3, 1, 3, 3, 1, 3, 1]
 
@@ -21,6 +21,14 @@ def norm(key):
     for d, (a, b) in ((1, (2, 4)), (3, (2, 5)), (6, (4, 7)), (8, (5, 7))):
         if not (k[a] == me and k[b] == me): k[d] = me
     return ''.join(k)
+
+def keys(get, x, y):
+    """three keys, most specific first: the 3x5 window (two rows up and down: the Grotto's faces are two rows tall),
+    the 3x3 with the cells two above and below, the 3x3 (corner diagonals normalised)."""
+    k9 = norm(get(x, y) + ''.join(get(x + dx, y + dy) for dx, dy in N8))
+    k11 = k9 + get(x, y - 2) + get(x, y + 2)
+    k15 = k11 + ''.join(get(x + dx, y + dy) for dy in (-2, 2) for dx in (-1, 1))
+    return k15, k11, k9
 
 class Vocab:
     def __init__(self):
@@ -34,12 +42,28 @@ class Vocab:
                 for x in range(W):
                     v = c[y * W + x]; m = v & 0x3FF
                     cls[(x, y)] = 'R' if ((v >> 10) & 3) and m not in PROPS else 'O'
+            get = lambda x, y: cls.get((x, y), 'R')
+            self.cls = getattr(self, 'cls', []) + [(cls, c, W, H)]
+        # each tile's own side: floor tiles are mostly walkable in the Grotto, rock tiles mostly not; a cell only
+        # learns tiles of its own side (the Grotto has a few walkable-looking blocked cells and the reverse)
+        side = collections.defaultdict(collections.Counter)
+        for cls, c, W, H in self.cls:
+            for (x, y), k in cls.items(): side[c[y * W + x] & 0x3FF][k] += 1
+        self.side = {m: cnt.most_common(1)[0][0] for m, cnt in side.items()}
+        for cls, c, W, H in self.cls:
+            get = lambda x, y: cls.get((x, y), 'R')
             for y in range(1, H - 1):
                 for x in range(1, W - 1):
                     m = c[y * W + x] & 0x3FF
-                    if m in PROPS: continue
-                    key = cls[(x, y)] + ''.join(cls[(x + dx, y + dy)] for dx, dy in N8)
-                    self.samples[norm(key)][m] += 1
+                    if m in PROPS or self.side[m] != cls[(x, y)]: continue
+                    for k in keys(get, x, y): self.samples[k][m] += 1
+    def pick_at(self, get, x, y, rnd):
+        """the Grotto's tile for the cell's surroundings, at the most specific key it has seen; level used returned."""
+        for lvl, k in enumerate(keys(get, x, y)):
+            if k in self.samples:
+                cnt = self.samples[k]; ids = list(cnt)
+                return rnd.choices(ids, [cnt[i] for i in ids])[0], lvl
+        return self.pick(keys(get, x, y)[2], rnd), 3
     def pick(self, key, rnd):
         """the Grotto's tile for an R/O pattern (self + 8 neighbours); nearest pattern if never seen."""
         key = norm(key)

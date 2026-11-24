@@ -49,15 +49,15 @@ STAIR = {(x, y) for y in range(H) for x in range(W) if mt(x, y) == 0x363}
 ICE = {(x, y) for y in range(H) for x in range(W) if beh(x, y) == 0x20}
 BRIDGE = {(x, y) for y in range(H) for x in range(W) if 0x393 <= mt(x, y) <= 0x39D}
 LEDGE = {(x, y) for y in range(H) for x in range(W) if beh(x, y) == 0x3B}
-ROCKS = {(x, y) for y in range(H) for x in range(W) if mt(x, y) in (0x37D, 0x37E) and col(x, y)}
+ROCKS = {(x, y) for y in range(H) for x in range(W) if mt(x, y) in (0x37D, 0x37E) and col(x, y)
+         and any((x + dx, y + dy) in OPEN for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
 LIPS = {(x, y) for y in range(H) for x in range(W) if mt(x, y) == 0x379 and (x, y) in OPEN
         and y > 0 and (x, y - 1) in OPEN and el(x, y - 1) not in (0, 15) and el(x, y - 1) != el(x, y)}
 EXIT_S, EXIT_N = (55, 57), (54, 1)
 def cls(x, y):
     if not (0 <= x < W and 0 <= y < H): return 'R'
     p = (x, y)
-    if p in LEDGE: return 'R'
-    return 'O' if (p in OPEN or p in STAIR or p in BRIDGE or p in ROCKS or p in (EXIT_S, EXIT_N)) else 'R'
+    return 'O' if (p in OPEN or p in STAIR or p in BRIDGE or p in (EXIT_S, EXIT_N)) else 'R'
 
 # ---- colours: the Grotto's indigo to glacier blue (A: deep ice); bright gems frosted -------------------------------
 _cc = {}
@@ -66,7 +66,7 @@ def ice(c):
     if c in _cc: return _cc[c]
     h, s, v = colorsys.rgb_to_hsv(*(np.array(c) / 255))
     if s > 0.45 and v > 0.6: r = colorsys.hsv_to_rgb(0.55 + 0.05 * np.sin(h * 6.28), min(1, s * 0.5), min(1, v * 1.05))
-    else: r = colorsys.hsv_to_rgb(0.585, min(1, s * 0.9 + 0.1), min(1, v * 1.35 + 0.05))
+    else: r = colorsys.hsv_to_rgb(0.595, min(1, s * 0.85 + 0.18), min(1, v * 1.25 + 0.04))
     _cc[c] = tuple(int(round(x * 255)) for x in r); return _cc[c]
 _fc = {}
 def ice_floor(c):
@@ -75,7 +75,7 @@ def ice_floor(c):
     if c in _fc: return _fc[c]
     h, s, v = colorsys.hsv_to_rgb(*(0, 0, 0)) if False else colorsys.rgb_to_hsv(*(np.array(c) / 255))
     if s > 0.45 and v > 0.6: r = colorsys.hsv_to_rgb(0.53, min(1, s * 0.35), 1.0)
-    else: r = colorsys.hsv_to_rgb(0.575, min(1, s * 0.55 + 0.12), min(1, v * 1.6 + 0.16))
+    else: r = colorsys.hsv_to_rgb(0.565, min(1, s * 0.45 + 0.10), min(1, v * 1.5 + 0.28))
     _fc[c] = tuple(int(round(x * 255)) for x in r); return _fc[c]
 def recolour(img, role):
     out = img.copy()
@@ -99,18 +99,61 @@ def glass(rgb, a, bg, tint=(205, 238, 255), keep=0.0):
     out[edge] = (52, 92, 150); out[glint] = (250, 254, 255)
     return out.astype(np.uint8)
 
+def thin_cells():
+    """rock cells in no 2x2 block of rock (out of the map counts as rock): walls one tile thick, which the Grotto's
+    masses cannot draw."""
+    R = lambda x, y: cls(x, y) == 'R'
+    cov = set()
+    for y in range(-1, H):
+        for x in range(-1, W):
+            b = [(x, y), (x + 1, y), (x, y + 1), (x + 1, y + 1)]
+            if all(R(*p) for p in b): cov.update(b)
+    return {(x, y) for y in range(H) for x in range(W) if R(x, y) and (x, y) not in cov}
+def height(x, y, dx, dy):
+    """the floor's level beyond a thin wall (past stairs and bridges)"""
+    for k in range(1, 3):
+        p = (x + dx * k, y + dy * k)
+        if cls(*p) != 'O': return None
+        e = el(*p)
+        if e not in (0, 15): return e
+    return None
+def thin_tile(x, y, rnd):
+    """a one-tile wall drawn as the Grotto would: a face where the floor beyond it is higher, a rim where lower,
+    a boulder where level (returns (tile, prop))."""
+    O = lambda a, b: cls(a, b) == 'O'
+    if O(x, y - 1) and O(x, y + 1):
+        n, s_ = height(x, y, 0, -1), height(x, y, 0, 1)
+        lw, le = O(x - 1, y), O(x + 1, y)
+        if n and s_ and n > s_: return (0x220 if lw else 0x231 if le else rnd.choice([0x221] * 4 + [0x2ED, 0x2D1, 0x2CD, 0x2D0, 0x2D3])), None
+        if n and s_ and n < s_: return (0x210 if lw else 0x212 if le else 0x211), None
+        return 0x200, 0x202
+    if O(x - 1, y) and O(x + 1, y):
+        w, e = height(x, y, -1, 0), height(x, y, 1, 0)
+        if w and e and w > e: return rnd.choice([0x21A] * 4 + [0x285, 0x28D]), None
+        if w and e and w < e: return 0x218, None
+        return 0x200, 0x202
+    if all(O(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))): return 0x200, 0x202
+    return None, None
+
 def main(out):
-    V = gg.Vocab(); rnd = random.Random(11)
+    V = gg.Vocab(); rnd = random.Random(11); THIN = thin_cells(); PROPS_AT = {}
     base = np.zeros((H * 16, W * 16, 3), np.uint8); ROLE = np.zeros((H * 16, W * 16), bool)
     for y in range(H):
         for x in range(W):
             key = cls(x, y) + ''.join(cls(x + dx, y + dy) for dx, dy in gg.N8)
-            m = 0x219 if key == 'R' * 9 else V.pick(key, rnd)
+            m = 0x219 if key == 'R' * 9 else V.pick_at(cls, x, y, rnd)[0]
+            if (x, y) in THIN:
+                t, prop = thin_tile(x, y, rnd)
+                if t is not None: m = t
+                if prop: PROPS_AT[(x, y)] = prop; m = prop
             base[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = V.meta(m)
-            if m in (0x200, 0x2F5, 0x2F6, 0x2C2, 0x2C0, 0x2BE): ROLE[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = True
-            elif m != 0x219:                           # an edge: its floor pixels are the floor tile's, where the rock's differ
-                t = V.meta(m); f = V.meta(0x200); r = V.meta(0x219)
-                ROLE[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = (t == f).all(2) & ~(t == r).all(2) | ((t == f).all(2) & (key[0] == 'O'))
+            if m in (0x202, 0x20A): ROLE[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = (V.meta(m) == V.meta(0x200)).all(2)
+            elif V.side.get(m) == 'O': ROLE[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = True
+            elif m != 0x219:                           # a rock edge: its floor pixels are the floor tile's (and no rock top's)
+                t = V.meta(m); f = V.meta(0x200)
+                fl = (t == f).all(2)
+                for r in (0x219, 0x214, 0x211, 0x213, 0x215): fl &= ~(t == V.meta(r)).all(2)
+                ROLE[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = fl
     # stairs and lips (the Grotto's), before the recolour
     for (x, y) in STAIR: base[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = V.meta(0x207)
     for (x, y) in LIPS | LEDGE:
