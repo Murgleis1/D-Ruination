@@ -116,13 +116,20 @@ def compose():
                 a = keep[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16]; rgb = big[dy * 16:dy * 16 + 16, dx * 16:dx * 16 + 16]
                 reg = img[(y + dy) * 16:(y + dy) * 16 + 16, (x + dx) * 16:(x + dx) * 16 + 16]; reg[a] = rgb[a]
                 used.add((x + dx, y + dy))
+    _fb, _sn = mm.full('ef', 0xfb), mm.full('ef', 0xed)
+    SHRUB = (_fb, np.abs(_fb.astype(int) - _sn.astype(int)).sum(-1) > 30)   # (Elderflower's snow-laden shrub, off its snow)
+    lone_shrub = []
     for (x, y) in sorted(tree, key=lambda c: (c[1], c[0])):
         if (x + y * 3) % 2 == 0 and all((x + i, y + j) in tree and (x + i, y + j) not in used for i in (0, 1) for j in (0, 1, 2)):
             place(BIG, x, y)
     for (x, y) in sorted(tree, key=lambda c: (c[1], c[0])):
         if (x, y) in used: continue
         if (x, y + 1) in tree and (x, y + 1) not in used: place(SMALL, x, y)
-        else: place(ROCK, x, y)                                         # (no bare cells in a wood: they read as ground)
+        else:
+            # (fix 2026-11-24: Elderflower's rock cut away to nothing, so these cells were drawn as bare ground and
+            # still solid: invisible walls. Each is a snow-laden shrub now: the same collision, seen. Opening them
+            # instead could break Dreamstone Mysteries' one-tree-wide hedges and open ways it never had)
+            reg = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]; reg[SHRUB[1]] = SHRUB[0][SHRUB[1]]; used.add((x, y)); lone_shrub.append((x, y))
     # trees standing on DM's ice: Elderflower's plain snow left round them (its two commonest colours) shows the ice
     from scipy.ndimage import label as _label
     t0 = mm.full('ef', 0xed).reshape(-1, 3); cols_, cnt_ = np.unique(t0, axis=0, return_counts=True)
@@ -186,6 +193,7 @@ def compose():
     from scipy.ndimage import binary_fill_holes
     m = binary_fill_holes(m)
     x, y = SECRET; reg = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]; reg[m] = lad[m]
+    print('lone wood cells (shrubs):', len(lone_shrub))
     return img, solid, beh
 
 WATER = {tuple(map(int, k.split(','))) for k, v in D['cells'].items() if v[2] in ('MB_OCEAN_WATER', 'MB_WATERFALL', 'MB_AQUASTEP_JUMP')}

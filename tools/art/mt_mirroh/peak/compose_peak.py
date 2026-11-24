@@ -183,9 +183,8 @@ def compose(seed=11):
     for (x, y) in foot:
         if (x, y) in used: continue
         if (x, y + 1) in tree and (x, y + 1) not in used: place(SMALL, x, y); used |= {(x, y), (x, y + 1)}
-        elif any(G[y + dy, x + dx] in '.g' for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)) if 0 <= x + dx < W and 0 <= y + dy < H):
-            G[y, x] = '.'; used.add((x, y))                         # (a lone cell at the wood's edge: open snow, not a wall)
-        else: place('shrub', x, y); used.add((x, y))                # (a lone cell inside the wood: a snow-laden shrub)
+        else: place('shrub', x, y); used.add((x, y))                # (a lone cell: a snow-laden shrub; never opened, so
+                                                                    #  Dreamstone Mysteries' hedges of single trees still close)
     # ---- the cave mouths: a dark arch cut up through the band's two rows (as 1F's own exit to the Peak), icicles
     # hanging in it; Winterlily Hollow's choked with a snowy boulder and stones (Chapter 1: closed)
     def arch(x, y, blocked):
