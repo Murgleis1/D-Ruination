@@ -99,12 +99,16 @@ smooth()
 # and snowy boulders ('C') in a seeded maze; rooms on odd columns and rows, every room reachable, open to the east
 # passage's head (north, by the ledge's foot), the hall (south) and bridge 2 (west, room (21, 15)).
 import random as _r
-MX0, MX1, MY0, MY1 = 21, 28, 9, 19
+# (user 2026-11-24: "the crystal maze needs to go up a little further": it now starts at block row 7, under the nook
+# by the ledge's foot; its north-west corner stays rock, two tiles from the upper level)
+MX0, MX1, MY0, MY1 = 21, 28, 7, 19
+INMAZE = lambda x, y: MX0 <= x <= MX1 and MY0 <= y <= MY1 and not (y <= 8 and x <= 22)
 for y in range(MY0, MY1 + 1):
-    for x in range(MX0, MX1 + 1): B[y, x] = 'C'
-rooms = [(x, y) for x in range(MX0, MX1 + 1, 2) for y in range(MY0, MY1 + 1, 2)]
+    for x in range(MX0, MX1 + 1):
+        if INMAZE(x, y): B[y, x] = 'C'
+rooms = [(x, y) for x in range(MX0, MX1 + 1, 2) for y in range(MY0, MY1 + 1, 2) if INMAZE(x, y)]
 for x, y in rooms: B[y, x] = '.'
-rnd = _r.Random(23); seen = {rooms[0]}; stack = [rooms[0]]
+rnd = _r.Random(23); start = (21, 15); seen = {start}; stack = [start]
 while stack:
     x, y = stack[-1]
     nb = [(x + dx, y + dy) for dx, dy in ((2, 0), (-2, 0), (0, 2), (0, -2)) if (x + dx, y + dy) in rooms and (x + dx, y + dy) not in seen]
@@ -112,9 +116,9 @@ while stack:
     nx, ny = rnd.choice(nb); B[(y + ny) // 2, (x + nx) // 2] = '.'; seen.add((nx, ny)); stack.append((nx, ny))
 for x, y in rnd.sample([p for p in rooms], 4):                       # a few loops, so it is a maze, not a corridor
     for dx, dy in ((1, 0), (0, 1)):
-        if MX0 <= x + dx <= MX1 and MY0 <= y + dy <= MY1 and B[y + dy, x + dx] == 'C' and (x + 2 * dx, y + 2 * dy) in rooms:
+        if INMAZE(x + dx, y + dy) and B[y + dy, x + dx] == 'C' and (x + 2 * dx, y + 2 * dy) in rooms:
             B[y + dy, x + dx] = '.'; break
-B[MY0 - 1, 25] = '.'; B[MY1 + 1, MX0:MX1 + 1] = '.'                  # open north (the passage's head) and south (the hall)
+B[MY0 - 1, 25] = '.'; B[MY1 + 1, MX0:MX1 + 1] = '.'                  # open north (the nook) and south (the hall)
 
 LEVEL = {'.': 3, ',': 4, ';': 5, 'A': 0, 'B': 0, '=': 3, 'X': 5, 'E': 3, 'R': 5, '|': 3, 'r': 3}
 
@@ -162,7 +166,8 @@ RIDGES = [
     # the hall: a ridge splitting off the camp's south side, a spur by the way in
     (48, 49, 53, 49), (48, 50, 48, 53), (56, 52, 56, 55),
 ]
-for x0, y0, x1, y1 in RIDGES: G[y0:y1 + 1, x0:x1 + 1] = '#'
+# (user 2026-11-24: the one-tile ridges looked like "weird rock cliff awkward pairings": no longer walls. Each line
+# is now a formation of boulders, great ice crystals, rocks and stalagmites laid along it by the composer)
 SPOTS = {'rubble: the Shard': (4, 2), 'torture spot (8a)': (50, 5), 'exit to the Peak': (54, 1), 'stair A': (10, 16),
          'stair B': (38, 8), 'ledge (one-way down)': (52, 10), 'rest stop (nurse)': (40, 44), 'way in': (55, 58),
          'bridge 1': (21, 27), 'bridge 2': (37, 31), 'big ice crystal': (30, 12)}

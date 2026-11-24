@@ -10,29 +10,6 @@ raw`
 `
 
 mapscripts MirrohInterior_1F_MapScripts {}
-script MirrohInterior_1F_EventScript_NurseQuest_Main{
-    msgbox(format("I was taking these Chanseys up to Winterlily Hollow to help the Nurse Joy there, but there was a cave-in and one of the Chanseys got lost!\pWe can't go through these caves alone - the Pokémon are too fierce.\pPlease find Chansey for us!"))
-    release
-
-    startquest(QUEST_MIRROH_NURSE_CHANSEY)
-    setvar(VAR_MIRROH_NURSE_CHANSEY_QUEST, 1)
-    setflag(FLAG_MIRROH_NURSE_QUEST_START)
-    releaseall
-    end
-}
-script MirrohInterior_1F_EventScript_NurseQuest_MissingChansey{
-    lockall
-    faceplayer
-    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
-    msgbox(format("seyy!!!\pChansey looks so relieved...\nIt's about to cry!\pIt must have been really scared,\nstuck all alone in here.\p...\pChansey stretches out a hand..."))
-    call(Common_EventScript_OutOfCenterPartyHeal)
-    msgbox(format("Thank you Chansey!\pYou don't need to worry any more.\nLet's go back to Nurse Joy!"))
-    release
-    setflag(FLAG_MIRROH_NURSE_QUEST_CHANSEYGET)
-    clearflag(FLAG_HIDE_MIRROH_LAST_CHANSEY)
-    setvar(VAR_MIRROH_NURSE_CHANSEY_QUEST, 2)    
-    warp(MAP_MIRROH_INTERIOR_1F, 42, 46)
-}
 script MirrohInterior_1F_EventScript_NurseQuest_End{
     if (var(VAR_MIRROH_NURSE_CHANSEY_QUEST) == 2){
         

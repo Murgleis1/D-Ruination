@@ -240,10 +240,36 @@ def compose(seed=7):
             if c in keep or not walkable(*c) or G[c[1], c[0]] not in '.,;' or ids.get(c) != mt.FLOOR or c in PATCH: return False
             if 42 <= c[0] <= 57 and 10 <= c[1] <= 39: return False     # the crystal maze and its nook: dressed already
         return True
+    def fat():
+        """the floor a two-by-two body can move over: the 2x2 windows of open floor, joined where they overlap;
+        returns (number of their groups, the cells they cover). A piece that splits a group or leaves any cell
+        uncovered has squeezed a way down to one tile (user 2026-11-24: a pocket that looked sealed off)."""
+        win = {}
+        for y in range(H - 1):
+            for x in range(W - 1):
+                if all(walkable(x + i, y + j) and G[y + j, x + i] in '.,;' for i in (0, 1) for j in (0, 1)): win[(x, y)] = None
+        comp = 0; cover = set()
+        for w0 in win:
+            if win[w0] is not None: continue
+            comp += 1; st = [w0]; win[w0] = comp
+            while st:
+                x, y = st.pop()
+                for i in (0, 1):
+                    for j in (0, 1): cover.add((x + i, y + j))
+                for dx in (-1, 0, 1):
+                    for dy in (-1, 0, 1):
+                        n = (x + dx, y + dy)
+                        if n in win and win[n] is None: win[n] = comp; st.append(n)
+        return comp, cover
+    FAT = [fat()]
     def still_connected(cells):
         for c in cells: DRESS.add(c)
         reach = bfs((55, 57)); opened = all_open()
         good = opened <= set(reach) | {p for p in opened if G[p[1], p[0]] in 'AB'}
+        if good:
+            comp, cover = fat()
+            good = comp <= FAT[0][0] and (FAT[0][1] - set(cells)) <= cover
+            if good: FAT[0] = (comp, cover)
         if not good:
             for c in cells: DRESS.discard(c)
         return good
@@ -264,8 +290,26 @@ def compose(seed=7):
         g = C1.glass(t, a, img[blk(x, y)], TINT[drnd.choice(['white', 'blue'])]); mid[blk(x, y)][a] = g[a]; mid_a[blk(x, y)] |= a
     KINDS = [('crystal', 2, 2, place_crystal, 4), ('boulder', 2, 2, place_boulder, 3), ('rock', 1, 1, lambda x, y: place_one(x, y, 0x205), 3),
              ('stalagmite', 1, 1, lambda x, y: place_one(x, y, 0x20F), 3), ('chunk', 1, 1, place_chunk, 3)]
+    # formations along the plan's lines (they were one-tile ridges; user 2026-11-24: "do something different than these
+    # weird rock cliff awkward pairings"): chains of big snowy boulders and great ice crystals, with rocks and
+    # stalagmites filling the odd tile, as Crown and Mt. Thunder heap theirs
+    frnd = random.Random(seed + 21); placed = 0
+    for (x0, y0, x1, y1) in P.RIDGES:
+        horiz = y0 == y1
+        line = [(x, y0) for x in range(x0, x1 + 1)] if horiz else [(x0, y) for y in range(y0, y1 + 1)]
+        i = 0
+        while i < len(line):
+            x, y = line[i]
+            if i + 1 < len(line):
+                ax, ay = (x, y - 1) if horiz else (x, y)
+                cells = [(ax + a_, ay + b2) for a_ in (0, 1) for b2 in (0, 1)]
+                if ok_to_fill(cells) and still_connected(cells):
+                    (place_crystal if frnd.random() < 0.45 else place_boulder)(ax, ay); placed += 1; i += 2; continue
+            if ok_to_fill([(x, y)]) and still_connected([(x, y)]):
+                place_one(x, y, frnd.choice([0x205, 0x205, 0x20F])); placed += 1
+            i += 1
     cands = [(x, y) for y in range(H) for x in range(W) if (x, y) not in keep and walkable(x, y) and G[y, x] in '.,;']
-    drnd.shuffle(cands); groups = 0; placed = 0
+    drnd.shuffle(cands); groups = 0
     for cx, cy in cands:
         if groups >= 34: break
         if not any(cls(cx + dx, cy + dy) == 'W' for dx in (-1, 0, 1) for dy in (-1, 0, 1)): continue   # by a wall, as Mt. Thunder sets them
@@ -356,7 +400,7 @@ def compose(seed=7):
             if not fm[y * S, x * S] or hallsnow[y * S, x * S]: continue
             v = tm[y * S:(y + 1) * S, x * S:(x + 1) * S].mean()
             lvl = 0 if v < 0.38 else 1 if v < 0.55 else 2 if v < 0.75 else 3
-            if lvl:
+            if lvl and False:                             # (the trail read as stepped squares; left out)
                 k = (0.07, 0.13, 0.19)[lvl - 1]; b = img[blk(x, y)]
                 b[:] = (b * (1 - k) + np.array([112, 152, 192]) * k).astype(np.uint8)
     # loose stones at the walls' feet (walkable decoration)
