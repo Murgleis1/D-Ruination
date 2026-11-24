@@ -23,6 +23,10 @@ BASE = os.path.join(REPO, 'assets', 'mt_mirroh_reference', 'dm_exterior.png')
 DOJO = {(x, y) for x in range(33, 49) for y in range(4, 12)}
 LOWER_MOUTH = [(11, 64), (11, 65)]
 CAVE = (13, 10)
+# the secret way down to B1F, Alaric's ritual site (user 2026-11-23: right by the main entrance into the mountain): a
+# ladder hole in the ice in the corner left of the cave mouth, under a Rock Smash rock (an object, placed by the build;
+# Rock Smash comes later in the game, so in Chapter 1 the rock stays)
+SECRET = (11, 11)
 MB_TALL_GRASS = 0x02
 EFG = mm.EF_GROUND
 BIG, SMALL, ROCK = [[0xe9, 0xea], [0xf1, 0xf2], [0xf9, 0xfa]], [[0x109], [0x111]], [[0xe8]]
@@ -53,7 +57,20 @@ def compose():
     def greens(x, y):
         c = cell_of(dm, x, y).astype(int); return int(((c[..., 1] - c[..., 0] > 20) & (c[..., 1] >= c[..., 2] - 10)).sum())
     tree = {(x, y) for (x, y), v in cells.items() if v[0] != 0 and (v[4] - v[5] > 5 or greens(x, y) >= 24)}   # (a pine's snowy top too)
+    def nearest_ground_kind(x, y):
+        for r in range(1, 8):
+            for n in ((x, y + r), (x - r, y), (x + r, y), (x, y - r)):
+                v = cells.get(n)
+                if v and v[0] == 0 and n not in tree: return v[2]
+        return 'MB_NORMAL'
+    def ice_bg(x, y):                                       # (what DM drew round its tree: light-blue ice or white snow)
+        c = cell_of(dm, x, y).astype(int)
+        blue = ((c[..., 2] - c[..., 0] > 30) & (c.sum(-1) > 450)).sum(); white = (c.min(-1) > 230).sum()
+        return blue > white
     on_ice = {(x, y) for (x, y) in tree if cells[(x, y)][2] == 'MB_MOUNTAIN_TOP'}
+    for y in range(H - 1, -1, -1):                          # (the top of a pine whose foot stands on the ice)
+        for x in range(W):
+            if (x, y) in tree and (x, y + 1) in on_ice and cells.get((x - 1, y), [1, 0, ''])[2] != 'MB_NORMAL': on_ice.add((x, y))
     tree |= DOJO
     for x in range(W):                                              # (the top edge closed: pinewood)
         if not solid[0, x]: tree |= {(x, 0)}
@@ -92,13 +109,15 @@ def compose():
         if (x, y + 1) in tree and (x, y + 1) not in used: place(SMALL, x, y)
         else: place(ROCK, x, y)                                         # (no bare cells in a wood: they read as ground)
     # trees standing on DM's ice: Elderflower's plain snow left round them (its two commonest colours) shows the ice
-    t0 = mm.full('ef', 0xed).reshape(-1, 3); cols, cnt = np.unique(t0, axis=0, return_counts=True)
-    ground2 = [tuple(c) for c in cols[np.argsort(-cnt)[:2]]]
+    from scipy.ndimage import label as _label
+    efsnow = {tuple(c) for m_ in (0xed, 0xee) for c in mm.full('ef', m_).reshape(-1, 3)}
     for (x, y) in on_ice:
         reg = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]
-        m = np.zeros((16, 16), bool)
-        for c in ground2: m |= (reg == c).all(-1)
-        reg[m] = ICE[m]
+        icec = ground_near(x, y, plain_ice, ICE)
+        sn = np.array([[tuple(c) in efsnow for c in row] for row in reg])
+        lb, n = _label(sn)                                          # (the snow round the tree: it reaches the cell's
+        edge = set(lb[0]) | set(lb[:, 0]) | set(lb[:, -1]); edge.discard(0)   #  top or sides; the tree's own snow does not)
+        for k in edge: reg[lb == k] = icec[lb == k]
     # DM's little green shrubs on open ground: gone (Route 13's woods have none); its plain ground under them
     for (x, y), (col, el, b, r, g, bl) in cells.items():
         if col == 0 and g - bl > 5 and g - r > 10 and b != 'MB_TALL_GRASS' and (x, y) not in tree:
@@ -136,6 +155,13 @@ def compose():
             n = (x + d, y); v = cells.get(n)
             if v and v[0] == 1 and n not in tree and n not in LOWER_MOUTH and v[2] == 'MB_MOUNTAIN_TOP' and v[5] - v[3] > 40: break
         img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell_of(dm, *n); solid[y, x] = True; beh[y, x] = 0
+    # the ladder hole: Dreamstone Mysteries' own (its 1F's ladder at (38, 45)), cut from its cave floor onto the ice
+    one = np.array(Image.open(os.path.join(REPO, 'assets', 'mt_mirroh_reference', 'dm_1f.png')).convert('RGB'))
+    lad = cell_of(one, 38, 45).astype(int); flo = cell_of(one, 37, 45).astype(int)
+    m = (np.abs(lad - flo).sum(-1) > 24)
+    from scipy.ndimage import binary_fill_holes
+    m = binary_fill_holes(m)
+    x, y = SECRET; reg = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]; reg[m] = lad[m]
     return img, solid, beh
 
 def reach(solid, start):
