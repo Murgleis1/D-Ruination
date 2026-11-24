@@ -73,7 +73,26 @@ for x, y, ch in [
         (23, 25, '.'), (23, 26, '.'), (28, 21, '#'), (24, 27, '#'), (17, 23, '.'), (18, 23, '.')]:
     B[y, x] = ch
 
-LEVEL = {'.': 3, ',': 4, ';': 5, 'A': 0, 'B': 0, '=': 3, 'X': 5, 'E': 3, 'R': 5}
+# ---- smoothing (user 2026-11-23: "a lot of broken looking cliffs"): no one-block stubs of rock poking into a cave
+# (rock with floor on three sides) and no one-block nicks into the rock (floor with rock on three sides); Mt. Thunder's
+# walls run long and turn cleanly. The crystal islands and the plinth stay (they are props, not cliffs).
+KEEP = {(15, 6), (26, 2), (11, 1), (7, 10), (13, 15), (27, 9), (26, 23)}
+def smooth():
+    for _ in range(4):
+        changed = False
+        for y in range(1, BW - 1):
+            for x in range(1, BW - 1):
+                if (x, y) in KEEP: continue
+                c = B[y, x]; n4 = [B[y - 1, x], B[y + 1, x], B[y, x - 1], B[y, x + 1]]
+                if c == '#':
+                    fl = [v for v in n4 if v in '.,;']
+                    if len(fl) >= 3 and len(set(fl)) == 1: B[y, x] = fl[0]; changed = True
+                elif c in '.,;':
+                    if sum(v == '#' for v in n4) >= 3 and all(v in '#' + c for v in n4): B[y, x] = '#'; changed = True
+        if not changed: break
+smooth()
+
+LEVEL = {'.': 3, ',': 4, ';': 5, 'A': 0, 'B': 0, '=': 3, 'X': 5, 'E': 3, 'R': 5, '|': 3, 'r': 3}
 
 def upscale():
     G = np.repeat(np.repeat(B, 2, 0), 2, 1)
@@ -90,12 +109,28 @@ def upscale():
                 G[2 * y:2 * y + 2, 2 * x:2 * x + 2] = ';'; G[2 * y, 2 * x] = 'R'
     return G
 G = upscale()
+
+# ---- the two crossings as ravines (user 2026-11-23: "why not do wider bodies of water then make bridge like this" -
+# Mt. Thunder's plank bridge with rails, spanning cliff to cliff): a frozen river four tiles wide in a ravine, a cliff
+# two tiles thick on each side ('|'), rock across both ends (the river runs under the rock); the bridge three rows tall:
+# rails above and below ('r', solid), the walkway between ('=', the only way across), its posts on the cliffs.
+RAVINES = [dict(x0=18, y0=20, y1=37, path=27), dict(x0=34, y0=20, y1=39, path=31)]
+for R in RAVINES:
+    x0 = R['x0']
+    G[R['y0'] - 2:R['y1'] + 3, x0:x0 + 8] = '#'                       # rock round the ends
+    G[R['y0']:R['y1'] + 1, x0:x0 + 2] = '|'; G[R['y0']:R['y1'] + 1, x0 + 6:x0 + 8] = '|'
+    G[R['y0']:R['y1'] + 1, x0 + 2:x0 + 6] = '~'
+    G[R['path'] - 1, x0:x0 + 8] = 'r'; G[R['path'] + 1, x0:x0 + 8] = 'r'; G[R['path'], x0:x0 + 8] = '='
+# the caves beside the ravines (cell coordinates): the east cave widened into the rock east of it
+G[22:40, 42:48] = np.where(G[22:40, 42:48] == '#', '.', G[22:40, 42:48]); G[20:22, 44:48] = '.'
+G[38:40, 42:48] = '.'
+G[32:34, 48:50] = '#'                                                # keep the east cave and the east passage apart
 SPOTS = {'rubble: the Shard': (4, 2), 'torture spot (8a)': (50, 5), 'exit to the Peak': (54, 1), 'stair A': (10, 16),
-         'stair B': (38, 8), 'ledge (one-way down)': (52, 10), 'rest stop (nurse)': (40, 41), 'way in': (55, 58),
-         'bridge 1': (20, 26), 'bridge 2': (36, 30), 'big ice crystal': (30, 12)}
+         'stair B': (38, 8), 'ledge (one-way down)': (52, 10), 'rest stop (nurse)': (40, 44), 'way in': (55, 58),
+         'bridge 1': (21, 27), 'bridge 2': (37, 31), 'big ice crystal': (30, 12)}
 
 def check():
-    walk = lambda ch: ch not in '#~v'
+    walk = lambda ch: ch not in '#~v|r'
     start = (55, 57); seen = {start}; q = deque([start])
     while q:
         x, y = q.popleft(); e = LEVEL.get(G[y, x], 3)
@@ -113,11 +148,13 @@ def check():
     probs = [n for n, p in SPOTS.items() if G[p[1], p[0]] not in '#~' and p not in seen and G[p[1], p[0]] not in 'vR']
     steps = [((x, y), (x + dx, y + dy)) for y in range(H - 1) for x in range(W - 1) for dx, dy in ((1, 0), (0, 1))
              if G[y, x] in '.,;' and G[y + dy, x + dx] in '.,;' and G[y, x] != G[y + dy, x + dx]]
+    # the caves must not touch a ravine's water or the outside of its walls except through the bridge
+
     return probs, steps, seen
 
 def picture(out):
     from PIL import Image, ImageDraw
-    COL = {'#': (34, 44, 70), '.': (150, 196, 228), ',': (110, 200, 150), ';': (236, 200, 120), '~': (60, 120, 200),
+    COL = {'|': (70, 80, 110), 'r': (120, 90, 60), '#': (34, 44, 70), '.': (150, 196, 228), ',': (110, 200, 150), ';': (236, 200, 120), '~': (60, 120, 200),
            '=': (150, 110, 80), 'A': (255, 255, 255), 'B': (255, 255, 255), 'v': (255, 120, 60), 'X': (10, 10, 10),
            'E': (10, 10, 10), 'R': (240, 220, 40)}
     S = 14; im = Image.new('RGB', (W * S, H * S + 110), (20, 22, 30)); d = ImageDraw.Draw(im)

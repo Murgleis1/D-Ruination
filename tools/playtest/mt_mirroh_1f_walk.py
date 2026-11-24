@@ -67,7 +67,7 @@ walklib.Grid = Grid
 go(g, 'Route13', (8, 1), log=lambda *a: None); press('UP', wait=200)
 r = go(g, X, (13, 11), log=lambda *a: None); press('UP', wait=200); g.run(120); p = where(g); shot('the way in'); m1 = p[1]
 check('into 1F at the way in', r and p[0] in ((55, 58), (55, 57)), p)
-r = go(g, F, (41, 41), log=lambda *a: None); shot('the rest stop'); check('the rest stop', r, where(g))
+r = go(g, F, (41, 43), log=lambda *a: None); shot('the rest stop'); check('the rest stop', r, where(g))
 r = go(g, F, (33, 30), log=lambda *a: None); shot('over bridge 2, the middle cave'); check('over bridge 2', r, where(g))
 r = go(g, F, (17, 26), log=lambda *a: None); shot('over bridge 1, the west cave'); check('over bridge 1', r, where(g))
 r = go(g, F, (10, 15), log=lambda *a: None); shot('up stair A'); check('up stair A onto the upper level', r, where(g))

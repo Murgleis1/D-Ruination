@@ -1,5 +1,5 @@
-"""Build Mt. Mirroh 1F into the game from the approved plan and its art (plan_1f.py, compose_1f.py; user 2026-11-23):
-MonoMyth's Glittering Grotto made icy, on its own tileset pair (tools/art/mapbuild.py). Keeps the map id and name.
+"""Build Mt. Mirroh 1F into the game from the approved plan and its art (plan_1f.py; compose_1f_mt.py, the second
+pass: Mt. Thunder's construction with the Grotto's glass-ice crystals; user 2026-11-23), on its own tileset pair (tools/art/mapbuild.py). Keeps the map id and name.
 
 Cells: rock solid; three levels (3 lower caves, 4 upper level, 5 top band), stairs at level 0; the frozen streams are
 water (a later Surf crosses them; the bridges are the way in Chapter 1); the ledge jumps south; the great ice
@@ -13,6 +13,7 @@ import os, sys, json, re
 import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..', '..'))
 import compose_1f as CF
+import compose_1f_mt as CM
 import mapbuild as MB
 import tilequant as TQN
 C = MB.C
@@ -20,7 +21,7 @@ NAME, LAYOUT = 'MirrohInterior_1F', 'LAYOUT_MIRROH_INTERIOR_1F'
 W = H = 60
 
 def main():
-    r = CF.compose()
+    r = CM.compose()
     under = r['bottom'].copy(); under[r['mid_a']] = r['mid'][r['mid_a']]          # ground + props (under the player)
     both = np.concatenate([r['flat'], under], 0).astype(int)
     q, _ = TQN.quantise(both, n=13); q = q.astype(np.uint8)
