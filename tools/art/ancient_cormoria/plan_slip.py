@@ -15,8 +15,12 @@ its floor, a river from the mesa, the cliff homes of a people long gone, and in 
 The player arrives in a ring of dreamstone obelisks on sand turned pink by their power (south); walks north through
 the rib cage of the great skeleton; crosses the dunes and the canyon floor; crosses the river by a rope bridge below the
 falls; climbs past the cliff dwellings to the mesa's top, where an altar in a second ring of obelisks stands on the
-rim over the sunset (the resonance: where the slip ends). The sky behind the rim: MonoMyth's bastion backdrop in its
-own sunset colours (the Peak's sky, ages earlier: the same mountains).
+rim over the sunset. **The story (user 2026-11-24):** the slip sets the player down at the bottom of the map, aligned
+with an ancient altar; to return to their own time they make their way to the northernmost point, where a different
+altar stands; touching the Dreamstone Shard to it snaps them back to their time, and teleports them **and Kimaris
+(who was pulled in with them)** to Kimaris's chamber in the Necropolis, where they fought him for the Trial. The sky behind the rim: MonoMyth's bastion backdrop in its
+own sunset colours (the Peak's sky, ages earlier: the same mountains); reworked (user 2026-11-24): more clouds, a
+deep sunset, larger mountains, very ominous against a blood-red ancient sky.
 
 Cells (50 x 56): 'K' sky, '#' red-rock cliff, 'm' mesa top, '.' sand, 'r' rippled dune, 'p' pink crystal sand,
 '~' river, 'F' falls, 'B' rope bridge, 'S' stairs / ladder, 'O' dreamstone obelisk, 'A' the altar, 'D' a cliff
@@ -96,11 +100,12 @@ for (cx, cy, rx, ry) in ((10, 48, 5, 2.2), (39, 46, 5, 2.0), (12, 38, 4, 1.6), (
     ell(cx, cy, rx, ry, 'r', only='.')
 ell(25, 50, 6, 3.0, 'p', only='.r')
 for (x, y) in ((21, 48), (29, 48), (20, 50), (30, 50), (22, 52), (28, 52)): G[y, x] = 'O'
-ARRIVE = (25, 50)
+r(24, 51, 25, 52, 'A')                                   # the arrival altar (user 2026-11-24: the slip sets the player down
+ARRIVE = (24, 50)                                        #  at the bottom of the map, aligned with an ancient altar)
 G[H - 1, :] = '#'
-SPOTS = {'arrival (the obelisk ring)': ARRIVE, 'under the ribs': (25, 44), 'the skull': (40, 45),
+SPOTS = {'arrival (south altar)': ARRIVE, 'under the ribs': (25, 44), 'the skull': (40, 45),
          'up the step': (24, 33), 'the oasis': (38, 31), 'the rope bridge': (24, 26), 'cliff homes (ladder)': (9, 21),
-         'carved panels': (41, 24), 'the mesa stair': (24, 18), 'the altar on the rim': (24, 11)}
+         'carved panels': (41, 24), 'the mesa stair': (24, 18), 'north altar (the way home)': (24, 11)}
 
 def check():
     walk = lambda ch: ch in '.rpmSBgRA'
