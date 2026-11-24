@@ -162,10 +162,22 @@ def compose(seed=7):
         for j in (0, 1):
             for i in (0, 1): img[blk(2 * bx + i, 2 * by + j)] = floor
         (boulder if rkind.random() < 0.6 else (lambda a, b: crystal(a, b, rkind.randrange(9))))(bx, by)
+    MZS = set(MAZE)
     for n, (bx, by) in enumerate(MAZE):
         r = rkind.random()
-        if r < 0.62: crystal(bx, by, n)
+        if r < 0.7: crystal(bx, by, n)
         else: boulder(bx, by)
+    # between neighbouring crystals of a maze wall, a smaller shard at their feet, so the wall reads as one hedge
+    for (bx, by) in MAZE:
+        if (bx + 1, by) in MZS:
+            x, y = 2 * bx + 1, 2 * by + 1
+            t = small[(bx * 7 + by) % len(small)]; a = ~(t == f200).all(2) & (t.max(2) > 110)
+            xs_ = np.nonzero(a.any(0))[0]
+            if len(xs_):
+                sh = S // 2
+                g = C1.glass(t, a, img[y * S:(y + 1) * S, x * S + sh:x * S + sh + S], TINT['white'])
+                reg = mid[y * S:(y + 1) * S, x * S + sh:x * S + sh + S]; ra = mid_a[y * S:(y + 1) * S, x * S + sh:x * S + sh + S]
+                reg[a] = g[a]; ra |= a
     # small props in floor corners: glass ice chunks, and Mt. Thunder's snowy boulders and stalagmites
     small = [GV.meta(m) for m in gg.SMALL_CRYSTALS]; f200 = GV.meta(0x200)
     MTPROPS = [0x205, 0x205, 0x20F]
@@ -303,6 +315,70 @@ def compose(seed=7):
             b[m] = (b[m] * 0.45 + np.array([170, 214, 244]) * 0.55).astype(np.uint8); b[m & sheen] = (236, 248, 255)
             b[(d > 0.86) & m] = (128, 176, 222)
             DRESS_DECOR.add((cx_, cy_))
+    # ---- floor detail (study 2026-11-24: Crown's caves wear trodden trails through their floors; Barbed Cave strews
+    # loose stones along its walls; the Grotto's crystal floors glitter)
+    from scipy.ndimage import gaussian_filter, binary_dilation
+    from scipy import ndimage as nd
+    # the trail follows the middle of the floor (a path weighted away from the walls), not the shortest corners
+    import heapq
+    openm = np.array([[walkable(x, y) for x in range(W)] for y in range(H)])
+    dwall = nd.distance_transform_edt(openm)
+    def centre_path(a, b_):
+        dist = {a: 0}; prev = {a: None}; pq = [(0, a)]
+        while pq:
+            d0, p = heapq.heappop(pq)
+            if p == b_: break
+            if d0 > dist[p]: continue
+            x, y = p; e = LV.get(G[y, x], 3)
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                n = (x + dx, y + dy)
+                if not walkable(*n): continue
+                ne = LV.get(G[n[1], n[0]], 3)
+                if e and ne and e != ne: continue
+                c = d0 + 1 + 3.0 / (0.6 + dwall[n[1], n[0]])
+                if c < dist.get(n, 1e9): dist[n] = c; prev[n] = p; heapq.heappush(pq, (c, n))
+        out = []; p = b_
+        while p is not None and p in prev: out.append(p); p = prev[p]
+        return out
+    trail = np.zeros((H, W), float)
+    for a, b_ in zip(ROUTE, ROUTE[1:]):
+        for (x, y) in centre_path(a, b_): trail[y, x] = 1
+    tm = gaussian_filter(np.kron(trail, np.ones((S, S))), 9)
+    tm = tm / max(1e-6, tm.max()) + (gaussian_filter(np.random.default_rng(seed + 3).random(tm.shape), 4) - 0.5) * 0.8
+    fm = np.zeros((H * S, W * S), bool)
+    for y in range(H):
+        for x in range(W):
+            if ids.get((x, y)) == mt.FLOOR and G[y, x] in '.,;' and (x, y) not in PATCH: fm[blk(x, y)] = True
+    hallsnow = np.zeros_like(fm); hallsnow[44 * S:, 45 * S:] = True
+    # (per cell, three strengths: the floor keeps to a few tiles, the GBA's 1024 are finite)
+    for y in range(H):
+        for x in range(W):
+            if not fm[y * S, x * S] or hallsnow[y * S, x * S]: continue
+            v = tm[y * S:(y + 1) * S, x * S:(x + 1) * S].mean()
+            lvl = 0 if v < 0.38 else 1 if v < 0.55 else 2 if v < 0.75 else 3
+            if lvl:
+                k = (0.07, 0.13, 0.19)[lvl - 1]; b = img[blk(x, y)]
+                b[:] = (b * (1 - k) + np.array([112, 152, 192]) * k).astype(np.uint8)
+    # loose stones at the walls' feet (walkable decoration)
+    srnd = random.Random(seed + 4)
+    STONES = [[(srnd.randint(1, 12), srnd.randint(0, 5), srnd.choice((2, 3))) for _ in range(srnd.randint(1, 3))] for _ in range(4)]
+    for y in range(1, H):
+        for x in range(W):
+            if not (fm[y * S, x * S] and cls(x, y - 1) == 'W') or srnd.random() > 0.35: continue
+            for (ox, oy, w_) in STONES[srnd.randrange(4)]:
+                px, py = x * S + ox, y * S + oy
+                img[py:py + 2, px:px + w_] = (84, 100, 132); img[py, px:px + w_] = (206, 222, 238); img[py + 2, px:px + w_] = (150, 176, 204)
+    # the crystal maze's floor glitters (frost stars) and takes a cold tint
+    mz = np.zeros_like(fm); mz[16 * S:40 * S, 42 * S:58 * S] = True; mz &= fm
+    img[mz] = (img[mz] * 0.86 + np.array([150, 200, 240]) * 0.14).astype(np.uint8)
+    GL = [[(srnd.randrange(1, 15), srnd.randrange(1, 15), srnd.random() < 0.3) for _ in range(srnd.randint(1, 3))] for _ in range(4)]
+    for y in range(16, 40):
+        for x in range(42, 58):
+            if not fm[y * S, x * S]: continue
+            for (ox, oy, star) in GL[srnd.randrange(4)]:
+                Y, X = y * S + oy, x * S + ox
+                if star: img[Y - 1:Y + 2, X] = (236, 250, 255); img[Y, X - 1:X + 2] = (236, 250, 255)
+                img[Y, X] = (255, 255, 255)
     # the rubble (frosted stones, the Shard's glint)
     x, y = C1.RUBBLE; b = np.zeros((S, S, 3), np.uint8); a = np.zeros((S, S), bool); yy, xx = np.mgrid[0:S, 0:S]
     for cx, cy, rx, ry in ((4, 11, 3.6, 2.6), (11, 11.5, 3.6, 2.6), (7.5, 8, 3.8, 2.8), (2.5, 6.5, 2.2, 1.8), (12.5, 6, 2.4, 1.9), (8, 4.2, 2.6, 2.0)):

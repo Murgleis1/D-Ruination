@@ -10,30 +10,6 @@ raw`
 `
 
 mapscripts MirrohInterior_1F_MapScripts {}
-script MirrohInterior_1F_EventScript_NurseQuest_Trigger2{
-    if (flag(FLAG_MIRROH_NURSE_QUEST_START)) {end}    
-    lockall
-    call(MirrohInterior_1F_EventScript_NurseQuest_Exclamation)
-
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left *5))
-    waitmovement(0)
-    goto(MirrohInterior_1F_EventScript_NurseQuest_Main)
-}
-
-
-
-
-
-
-script MirrohInterior_1F_EventScript_NurseQuest_Exclamation{
-    applymovement(LOCALID_NURSE, moves(jump_in_place_right emote_exclamation_mark))
-    waitmovement(0)
-    delay(20)
-
-    msgbox(format("Hey! Are you a trainer? I need your help!"))
-    release
-    return
-}
 script MirrohInterior_1F_EventScript_NurseQuest_Main{
     msgbox(format("I was taking these Chanseys up to Winterlily Hollow to help the Nurse Joy there, but there was a cave-in and one of the Chanseys got lost!\pWe can't go through these caves alone - the Pokémon are too fierce.\pPlease find Chansey for us!"))
     release
