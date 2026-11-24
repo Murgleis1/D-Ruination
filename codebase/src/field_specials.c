@@ -956,8 +956,8 @@ void CableCarWarp(void)
 {
     if (gSpecialVar_0x8004 != 0)
         SetWarpDestination(MAP_GROUP(PELLUCA_CABLE_CAR_STATION), MAP_NUM(PELLUCA_CABLE_CAR_STATION), WARP_ID_NONE, 6, 4);
-    else
-        SetWarpDestination(MAP_GROUP(MIRROH_BASE_CAMP_CABLE_CAR_STATION), MAP_NUM(MIRROH_BASE_CAMP_CABLE_CAR_STATION), WARP_ID_NONE, 6, 4);
+    else // (Dreamstone Mysteries' Mirroh Base Camp station was deleted 2026-11-24: its cable car is out of use)
+        SetWarpDestination(MAP_GROUP(PELLUCA_CABLE_CAR_STATION), MAP_NUM(PELLUCA_CABLE_CAR_STATION), WARP_ID_NONE, 6, 4);
 }
 
 void SetHiddenItemFlag(void)

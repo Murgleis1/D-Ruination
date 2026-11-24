@@ -143,7 +143,6 @@ Debug_EventScript_Script_1::
 	end
 
 Debug_EventScript_Script_2::
-	call PellucaFishery_EventScript_WarpToFlood
 	release
 	end
 

@@ -1334,44 +1334,31 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/maps/RangerInstituteBiome/scripts.inc"
 
-	.include "data/maps/PellucaCityHouses/scripts.inc"
 
-	.include "data/maps/PellucaCityRestaurant/scripts.inc"
 
-	.include "data/maps/PellucaCityGym/scripts.inc"
 
 	.include "data/maps/Route7/scripts.inc"
 
-	.include "data/maps/MirrohBaseCamp/scripts.inc"
 
-	.include "data/maps/PellucaFishery/scripts.inc"
 
 	.include "data/maps/PellucaCityPokemonCenter/scripts.inc"
 	.include "data/maps/PellucaDormitory1F/scripts.inc"
 	.include "data/maps/PellucaDormitory2F/scripts.inc"
 	.include "data/maps/PellucaDormitoryOsridRoom/scripts.inc"
 
-	.include "data/maps/PellucaCityPokemart/scripts.inc"
 
 	.include "data/maps/PellucaCableCarStation/scripts.inc"
 
-	.include "data/maps/MirrohBaseCampCableCarStation/scripts.inc"
 
-	.include "data/maps/MirrohBaseCamp_PokemonCenter/scripts.inc"
 
-	.include "data/maps/MirrohBaseCamp_Houses/scripts.inc"
 
-	.include "data/maps/MirrohBaseCampGym/scripts.inc"
 
-	.include "data/maps/MirrohBaseCamp_Graveyard/scripts.inc"
 
 	.include "data/maps/MtMirrohExterior/scripts.inc"
 
-	.include "data/maps/MirrohFightingDojo/scripts.inc"
 
 	.include "data/maps/MirrohInterior_1F/scripts.inc"
 
-	.include "data/maps/MirrohInterior_2F/scripts.inc"
 
 	.include "data/maps/MirrohPeak/scripts.inc"
 
@@ -1427,7 +1414,6 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/maps/IvyRiver_ZarudeForest/scripts.inc"
 
-	.include "data/maps/PellucaCityGym_B1F/scripts.inc"
 
 	.include "data/maps/IvyRiver_Sharpedo/scripts.inc"
 
@@ -1535,7 +1521,6 @@ EventScript_VsSeekerChargingDone::
 
 	.include "data/maps/DoroaTown_GameCorner/scripts.inc"
 
-	.include "data/maps/PellucaCity_GameCorner/scripts.inc"
 
 	.include "data/maps/TheOtherHouse/scripts.inc"
 
