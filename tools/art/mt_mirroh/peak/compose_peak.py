@@ -118,30 +118,46 @@ def compose(seed=11):
             if cls(x, y) == 'K': img[blk(x, y)] = sky[y * S:y * S + S]; sky_a[blk(x, y)] = True
             else:
                 b = img[blk(x, y)]; k = (b.astype(int).sum(-1) == 0)
-                if k.any(): b[k] = sky[y * S:y * S + S][k]; sky_a[blk(x, y)] |= k
+                if k.any():                                             # (the Peak of Kings' black corners: rock here;
+                    b[k] = V.meta(('out', 0x29C))[k]                     #  the mountain's outline is cut round below)
     # the plateau's rim onto the sky (its north half): its steps rounded off into a smooth oval (the summit's outline
     # blurred and re-cut; only ever cut back toward the sky, never grown), then a snowy lip along it: a rounded white
     # crest just inside the edge and its shade
     from scipy.ndimage import gaussian_filter, distance_transform_edt
-    top_rows = 17 * S
-    land = np.ones((top_rows, W * S), bool)
-    for y in range(17):
+    # (user 2026-11-24, on the summit's shoulders: "you gotta fix this too": where the oval met the flanks' stepped
+    # rock, a rounded snow corner sat against square rock stubs with sky between. Now the whole mountain's outline
+    # against the sky, snow and rock alike, is rounded the same way, and its rock edge outlined)
+    top_rows = 35 * S
+    land = ~sky_a[:top_rows].copy()
+    for y in range(35):
         for x in range(W):
             if cls(x, y) == 'K': land[y * S:y * S + S, x * S:x * S + S] = False
     round_ = gaussian_filter(land.astype(float), 6.0) > 0.5
     cut = land & ~round_
-    snowy = np.zeros_like(land)
-    for y in range(17):
+    snowy = np.zeros_like(land); rocky = np.zeros_like(land)
+    for y in range(35):
         for x in range(W):
             if G[y, x] in '.' and cls(x, y) != 'K': snowy[y * S:y * S + S, x * S:x * S + S] = True
-    cut &= snowy                                                        # (rock and ruins keep their own edges)
+            if G[y, x] == '#': rocky[y * S:y * S + S, x * S:x * S + S] = True
+    cut &= snowy | rocky                                                # (the ruins keep their own edges)
     skyfull = np.tile(sky[:top_rows], (1, W, 1))
     sub = img[:top_rows]; sub[cut] = skyfull[cut]; sky_a[:top_rows] |= cut
     land2 = land & ~cut
     dist = distance_transform_edt(land2)
     rim = snowy & land2
-    for d, col in ((1, (250, 253, 255)), (2, (250, 253, 255)), (3, (220, 236, 250)), (4, (196, 218, 240))):
-        m = rim & (dist > d - 1) & (dist <= d); sub[m] = col
+    # (user 2026-11-24: the edges "need to look more like stone rather than white on the back and side edges"): the
+    # rim a band of Mt. Thunder's own rock (its stacked-rock tile's texture) with a dark outline against the sky,
+    # snow drifted onto it from inside (a soft shade where it meets the snowfield)
+    rock = np.tile(V.meta(('out', 0x29C)), (top_rows // S + 1, W, 1))[:top_rows, :W * S].astype(int)
+    lum = rock.mean(-1); rock[lum > 170] = (104, 116, 146); rock[(lum > 140) & (lum <= 170)] = (86, 98, 128)   # (its crest's snow: stone)
+    for d in range(1, 12):
+        m = rim & (dist > d - 1) & (dist <= d)
+        if d == 1: sub[m] = (34, 42, 64)
+        elif d <= 9: sub[m] = (rock[m] * (0.82 if d == 2 else 1.0)).astype(np.uint8)
+        elif d == 10: sub[m] = (236, 244, 252)                         # (a lip of snow on the stone, then its shade)
+        else: sub[m] = (214, 230, 246)
+    edge = rocky & land2 & (dist <= 1); sub[edge] = (34, 42, 64)                 # (the rock's own outline on the sky)
+    edge2 = rocky & land2 & (dist > 1) & (dist <= 2); sub[edge2] = (sub[edge2] * 0.8).astype(np.uint8)
     for i, (cx, cy) in enumerate(((2, 3), (38, 6), (5, 12), (41, 15), (0, 21), (44, 25))):
         rgb, a = cloud_stamp(i % 3)
         reg = img[cy * S:cy * S + CLOUD_H * S, cx * S:cx * S + CLOUD_W * S]
