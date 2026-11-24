@@ -11,6 +11,7 @@
 #include "rotating_gate.h"
 #include "sprite.h"
 #include "text.h"
+#include "constants/layouts.h"
 
 //EWRAM_DATA bool8 gUnusedBikeCameraAheadPanback = FALSE;   //  Old EWRAM variable that was never set to anything other than false
 
@@ -39,6 +40,28 @@ static s16 sHorizontalCameraPan;
 static s16 sVerticalCameraPan;
 static bool8 sBikeCameraPanFlag;
 static void (*sFieldCameraPanningCallback)(void);
+
+// Map backdrops (Dreamstone Ruination): a picture behind a map's sky, on BG3, sliding a fraction of the camera's vertical
+// movement (parallax). A map with a backdrop draws its metatiles' bottom layer nowhere: its art is built into the middle
+// layer (BG2) with its sky transparent, so BG3 is free for the backdrop. The backdrop's tiles and palette are part of
+// the map's own tileset; its 32x32 tilemap is listed here. Mirroh Peak: MonoMyth's bastion-top backdrop, recoloured
+// (tools/art/mt_mirroh/peak/backdrop.py, build_peak.py).
+struct MapBackdrop
+{
+    u16 layoutId;
+    const u16 *tilemap;
+};
+
+static const u16 sBackdrop_MirrohPeak[] = INCBIN_U16("data/tilesets/secondary/mt_mirroh_peak/backdrop.bin");
+
+static const struct MapBackdrop sMapBackdrops[] =
+{
+    {LAYOUT_MIRROH_PEAK, sBackdrop_MirrohPeak},
+};
+
+static EWRAM_DATA const u16 *sBackdropTilemap = NULL;
+static EWRAM_DATA s32 sBackdropBaseY = 0;
+static EWRAM_DATA u16 sBackdropBaseTotal = 0;
 
 COMMON_DATA struct CameraObject gFieldCamera = {0};
 COMMON_DATA u16 gTotalCameraPixelOffsetY = 0;
@@ -82,8 +105,24 @@ void FieldUpdateBgTilemapScroll(void)
     SetGpuReg(REG_OFFSET_BG1VOFS, r4);
     SetGpuReg(REG_OFFSET_BG2HOFS, r5);
     SetGpuReg(REG_OFFSET_BG2VOFS, r4);
-    SetGpuReg(REG_OFFSET_BG3HOFS, r5);
-    SetGpuReg(REG_OFFSET_BG3VOFS, r4);
+    if (sBackdropTilemap != NULL)
+    {
+        // the screen's top row in map pixels; the backdrop's top on screen = 8 - (that + 8) * 0.15 (backdrop.py)
+        s32 camY = sBackdropBaseY + (s16)(sBackdropBaseTotal - gTotalCameraPixelOffsetY) - 104 + sVerticalCameraPan;
+        s32 top;
+        if (camY < -8)
+            camY = -8;
+        if (camY > 640)
+            camY = 640;
+        top = 8 - ((camY + 8) * 3) / 20;
+        SetGpuReg(REG_OFFSET_BG3HOFS, 8);
+        SetGpuReg(REG_OFFSET_BG3VOFS, (u16)(-top) & 0x1FF);
+    }
+    else
+    {
+        SetGpuReg(REG_OFFSET_BG3HOFS, r5);
+        SetGpuReg(REG_OFFSET_BG3VOFS, r4);
+    }
 }
 
 void GetCameraOffsetWithPan(s16 *x, s16 *y)
@@ -92,8 +131,27 @@ void GetCameraOffsetWithPan(s16 *x, s16 *y)
     *y = sFieldCameraOffset.yPixelOffset + sVerticalCameraPan + 8;
 }
 
+static const u16 *GetMapBackdrop(void)
+{
+    u32 i;
+    for (i = 0; i < ARRAY_COUNT(sMapBackdrops); i++)
+    {
+        if (sMapBackdrops[i].layoutId == gMapHeader.mapLayoutId)
+            return sMapBackdrops[i].tilemap;
+    }
+    return NULL;
+}
+
 void DrawWholeMapView(void)
 {
+    sBackdropTilemap = GetMapBackdrop();
+    if (sBackdropTilemap != NULL)
+    {
+        CpuCopy16(sBackdropTilemap, gOverworldTilemapBuffer_Bg3, BG_SCREEN_SIZE);
+        ScheduleBgCopyTilemapToVram(3);
+        sBackdropBaseY = gSaveBlock1Ptr->pos.y * 16;
+        sBackdropBaseTotal = gTotalCameraPixelOffsetY;
+    }
     DrawWholeMapViewInternal(gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y, gMapHeader.mapLayout);
     sFieldCameraOffset.copyBGToVRAM = TRUE;
 }
@@ -245,11 +303,15 @@ static void DrawMetatileAt(const struct MapLayout *mapLayout, u16 offset, int x,
 
 static void DrawMetatile(const u16 *tiles, u16 offset)
 {
-    // Triple-layer metatile: bottom -> BG3, middle -> BG2, top -> BG1 (covers objects).
-    gOverworldTilemapBuffer_Bg3[offset] = tiles[0];
-    gOverworldTilemapBuffer_Bg3[offset + 1] = tiles[1];
-    gOverworldTilemapBuffer_Bg3[offset + 0x20] = tiles[2];
-    gOverworldTilemapBuffer_Bg3[offset + 0x21] = tiles[3];
+    // Triple-layer metatile: bottom -> BG3, middle -> BG2, top -> BG1 (covers objects). (A map with a backdrop keeps
+    // BG3 for it: its metatiles' bottom layer is not drawn.)
+    if (sBackdropTilemap == NULL)
+    {
+        gOverworldTilemapBuffer_Bg3[offset] = tiles[0];
+        gOverworldTilemapBuffer_Bg3[offset + 1] = tiles[1];
+        gOverworldTilemapBuffer_Bg3[offset + 0x20] = tiles[2];
+        gOverworldTilemapBuffer_Bg3[offset + 0x21] = tiles[3];
+    }
 
     gOverworldTilemapBuffer_Bg2[offset] = tiles[4];
     gOverworldTilemapBuffer_Bg2[offset + 1] = tiles[5];
