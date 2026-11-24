@@ -119,15 +119,29 @@ def compose(seed=11):
             else:
                 b = img[blk(x, y)]; k = (b.astype(int).sum(-1) == 0)
                 if k.any(): b[k] = sky[y * S:y * S + S][k]; sky_a[blk(x, y)] |= k
-    # the plateau's north edge: a snowy lip onto the sky (a rounded white crest, its shade under it), no wall behind
-    for y in range(1, 35):
+    # the plateau's rim onto the sky (its north half): its steps rounded off into a smooth oval (the summit's outline
+    # blurred and re-cut; only ever cut back toward the sky, never grown), then a snowy lip along it: a rounded white
+    # crest just inside the edge and its shade
+    from scipy.ndimage import gaussian_filter, distance_transform_edt
+    top_rows = 17 * S
+    land = np.ones((top_rows, W * S), bool)
+    for y in range(17):
         for x in range(W):
-            if cls(x, y) != 'K' and cls(x, y - 1) == 'K' and G[y, x] in '.QH':
-                b = img[blk(x, y)]
-                for px in range(S):
-                    t = 1 + ((x * 16 + px) * 7 % 5 == 0)
-                    b[0:t, px] = sky[y * S:y * S + t, px]; sky_a[y * S:y * S + t, x * S + px] = True
-                    b[t:t + 2, px] = (250, 253, 255); b[t + 2, px] = (214, 232, 248); b[t + 3, px] = (184, 210, 236)
+            if cls(x, y) == 'K': land[y * S:y * S + S, x * S:x * S + S] = False
+    round_ = gaussian_filter(land.astype(float), 6.0) > 0.5
+    cut = land & ~round_
+    snowy = np.zeros_like(land)
+    for y in range(17):
+        for x in range(W):
+            if G[y, x] in '.' and cls(x, y) != 'K': snowy[y * S:y * S + S, x * S:x * S + S] = True
+    cut &= snowy                                                        # (rock and ruins keep their own edges)
+    skyfull = np.tile(sky[:top_rows], (1, W, 1))
+    sub = img[:top_rows]; sub[cut] = skyfull[cut]; sky_a[:top_rows] |= cut
+    land2 = land & ~cut
+    dist = distance_transform_edt(land2)
+    rim = snowy & land2
+    for d, col in ((1, (250, 253, 255)), (2, (250, 253, 255)), (3, (220, 236, 250)), (4, (196, 218, 240))):
+        m = rim & (dist > d - 1) & (dist <= d); sub[m] = col
     for i, (cx, cy) in enumerate(((2, 3), (38, 6), (5, 12), (41, 15), (0, 21), (44, 25))):
         rgb, a = cloud_stamp(i % 3)
         reg = img[cy * S:cy * S + CLOUD_H * S, cx * S:cx * S + CLOUD_W * S]
@@ -219,9 +233,11 @@ def compose(seed=11):
     for (x, y) in P.SPOTS.values():
         for dx in (-1, 0, 1):
             for dy in (-1, 0, 1): clear.add((x + dx, y + dy))
-    for y in range(11, 15):
-        for x in range(19, 31): clear.add((x, y))                     # (the stage in the middle of the plateau)
-    for x in range(P.PLATEAU[0], P.PLATEAU[2] + 1): clear.add((x, P.PLATEAU[1]))   # (the north edge: a clear lookout)
+    for y in range(11, 16):
+        for x in range(20, 30): clear.add((x, y))                     # (the stage in the middle of the plateau)
+    for y in range(P.PLATEAU[1], P.PLATEAU[3] + 1):                   # (the rim onto the sky: a clear lookout all round)
+        for x in range(W):
+            if G[y, x] == '.' and any(cls(x + dx, y + dy) == 'K' for dx in (-1, 0, 1) for dy in (-1, 0, 1)): clear.add((x, y))
     def h(x, y, k): return ((x * 73856093) ^ (y * 19349663) ^ (k * 83492791)) % 1000 / 1000.0
     dress = {}
     def walkable(): return {(x, y) for y in range(H) for x in range(W) if G[y, x] in '.gSE' and dress.get((x, y), (0, 0))[1] == 0}

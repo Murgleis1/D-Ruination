@@ -1,7 +1,7 @@
 """Mirroh Peak walked (2026-11-24; plan v2, Mt. Thunder style): out of 1F's exit onto the Peak at the cave mouth;
 across Dreamstone Mysteries' foot and up its stairs; Winterlily Hollow's mouth is closed (nothing happens walking at
 it); up the band onto the middle climb, up its three stairs, past the stream; up the summit's four ledges by their
-switchback stairs; onto the plateau: the stage, the shrine, the lookout on its north edge and the two ruined huts; back down to the mouth and into 1F."""
+switchback stairs; onto the summit: the stage, the shrine, the lookout on its rim; the two ruined huts on the ledge below; back down to the mouth and into 1F."""
 import sys, gzip
 sys.path.insert(0, '/home/claude/scratch/dorm')
 from walklib import GBA, go, where
@@ -41,13 +41,13 @@ r = go(g, P, (22, 69), log=lambda *a: None); shot('up the foot'); check('up the 
 r = go(g, P, (22, 66), log=lambda *a: None); shot('onto the middle climb'); check('up the band onto the middle climb', r, where(g))
 r = go(g, P, (40, 50), log=lambda *a: None); shot('the middle climb'); check('up the middle climb', r, where(g))
 r = go(g, P, (40, 35), log=lambda *a: None); shot('the top of the climb'); check('to the foot of the summit', r, where(g))
-r = go(g, P, (8, 29), log=lambda *a: None); shot('the summit ledges'); check('up the summit ledges', r, where(g))
-r = go(g, P, (24, 14), log=lambda *a: None); shot('onto the plateau'); check('onto the plateau', r, where(g))
-r = go(g, P, (25, 12), log=lambda *a: None); shot('the stage'); check('the stage (8b-8c)', r, where(g))
-r = go(g, P, (25, 11), log=lambda *a: None); press('UP', wait=30); shot('the shrine'); check('before the shrine (the cardinal)', r, where(g))
-r = go(g, P, (19, 7), log=lambda *a: None); press('UP', wait=30); shot('the lookout'); check('the north edge, a lookout', r, where(g))
-r = go(g, P, (17, 14), log=lambda *a: None); press('UP', wait=30); shot('a ruined hut'); check('before the west hut', r, where(g))
-r = go(g, P, (32, 14), log=lambda *a: None); press('UP', wait=30); shot('the other hut'); check('before the east hut', r, where(g))
+r = go(g, P, (8, 31), log=lambda *a: None); shot('the summit ledges'); check('up the summit ledges', r, where(g))
+r = go(g, P, (24, 15), log=lambda *a: None); shot('onto the plateau'); check('onto the plateau', r, where(g))
+r = go(g, P, (25, 14), log=lambda *a: None); shot('the stage'); check('the stage (8b-8c)', r, where(g))
+r = go(g, P, (25, 12), log=lambda *a: None); press('UP', wait=30); shot('the shrine'); check('before the shrine (the cardinal)', r, where(g))
+r = go(g, P, (21, 9), log=lambda *a: None); press('UP', wait=30); shot('the lookout'); check('the north edge, a lookout', r, where(g))
+r = go(g, P, (18, 22), log=lambda *a: None); press('UP', wait=30); shot('a ruined hut'); check('before the west hut', r, where(g))
+r = go(g, P, (31, 22), log=lambda *a: None); press('UP', wait=30); shot('the other hut'); check('before the east hut', r, where(g))
 r = go(g, P, (26, 102), log=lambda *a: None); press('UP', wait=200); g.run(120); p = where(g); shot('back into 1F')
 check('back down to the mouth and into 1F', r and p[1] == m1 and p[0] in ((54, 1), (54, 2)), p)
 print('ALL OK' if ok_all else 'PROBLEM')

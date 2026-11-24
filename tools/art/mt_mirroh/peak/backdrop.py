@@ -43,7 +43,7 @@ def backdrop():
     assert not left, left
     return out
 
-def view(full, sky_a, bd, px, py, fy=0.15, y0=-8):
+def view(full, sky_a, bd, px, py, fy=0.15, y0=-8, lift=-8):
     """the 240x160 screen centred on the player at cell (px, py), the backdrop behind the sky"""
     H, W = sky_a.shape
     cx = min(max(px * 16 + 8 - 120, 0), W - 240); cy = min(max(py * 16 + 8 - 80, -8), H - 160)
@@ -51,7 +51,8 @@ def view(full, sky_a, bd, px, py, fy=0.15, y0=-8):
     ys, ye = max(cy, 0), cy + 160
     scr[ys - cy:, :] = full[ys:ye, cx:cx + 240]; m[ys - cy:, :] = sky_a[ys:ye, cx:cx + 240]
     m[:ys - cy, :] = True                                             # (above the map's top edge: sky too)
-    top = int(round(-(cy - y0) * fy))                                  # (the backdrop's top on screen)
+    top = int(round(-(cy - y0) * fy)) - lift                           # (the backdrop's top on screen: let down a little so the
+    #  peaks stand clear in the sky above the rim)
     sky = np.zeros((160, 240, 3), np.uint8)
     for y in range(160):
         by = y - top
@@ -66,8 +67,8 @@ def main(outdir):
     import compose_peak as CP
     bd = backdrop(); Image.fromarray(bd).save(os.path.join(outdir, 'peak_backdrop_v1.png'))
     r = CP.compose()
-    spots = [((19, 7), 'the lookout, west of the shrine'), ((30, 7), 'the lookout, east'), ((25, 12), 'the stage, before the shrine'),
-             ((15, 9), 'the plateau, its west side'), ((12, 18), 'the first ledge, west'), ((37, 23), 'the second ledge, east')]
+    spots = [((21, 9), 'the rim, west of the shrine'), ((28, 9), 'the rim, east'), ((25, 14), 'the stage, before the shrine'),
+             ((18, 12), 'the summit, its west end'), ((18, 22), 'the huts on the first ledge'), ((37, 27), 'the second ledge, east')]
     sh = Image.new('RGB', (3 * 480 + 20, 2 * (320 + 22)), (24, 24, 30)); d = ImageDraw.Draw(sh)
     for i, ((x, y), n) in enumerate(spots):
         s = view(r['flat'], r['sky_a'], bd, x, y)
