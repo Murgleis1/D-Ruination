@@ -10,16 +10,6 @@ raw`
 `
 
 mapscripts MirrohInterior_1F_MapScripts {}
-
-script MirrohInterior_1F_EventScript_NurseQuest_Trigger0{
-    if (flag(FLAG_MIRROH_NURSE_QUEST_START)) {end}
-    lockall
-    call(MirrohInterior_1F_EventScript_NurseQuest_Exclamation)
-
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down *2 walk_left *5))
-    waitmovement(0)
-    goto(MirrohInterior_1F_EventScript_NurseQuest_Main)
-}
 script MirrohInterior_1F_EventScript_NurseQuest_Trigger1{
     if (flag(FLAG_MIRROH_NURSE_QUEST_START)) {end}    
     lockall

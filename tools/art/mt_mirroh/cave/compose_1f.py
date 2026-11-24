@@ -24,7 +24,7 @@ WATER, BRIDGE, LEDGE, STAIRS = cells('~'), cells('='), cells('v'), cells('A') | 
 EXIT_N, EXIT_S, RUBBLE = (54, 1), (55, 58), (4, 2)
 # rock islands inside the caves that become great ice crystals (block coordinates in the plan, 2x2 cells each)
 CRYSTAL_BLOCKS = {(15, 6): 'white', (26, 2): 'white', (11, 1): 'blue', (7, 10): 'blue', (13, 15): 'white',
-                  (27, 9): 'blue', (26, 23): 'white'}
+                  (26, 23): 'white'}
 CRYSTAL_CELLS = {(2 * bx + i, 2 * by + j) for (bx, by) in CRYSTAL_BLOCKS for i in (0, 1) for j in (0, 1)}
 LEVEL = {'.': 3, ',': 4, ';': 5, 'A': 0, 'B': 0, '=': 3, '~': 3, 'X': 5, 'E': 3, 'R': 5, 'v': 5, '#': 0}
 

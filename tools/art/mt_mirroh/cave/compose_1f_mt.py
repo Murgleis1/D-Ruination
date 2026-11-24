@@ -20,6 +20,7 @@ def cls(x, y):
     if p in C1.CRYSTAL_CELLS: return 'F'
     if p in (C1.EXIT_N, C1.EXIT_S): return 'W'
     ch = G[y, x]
+    if ch == 'C': return 'F'
     if ch in '#v|': return 'W'
     if ch in 'AB': return 'S'
     if ch == '~': return 'A'
@@ -37,8 +38,15 @@ def compose(seed=7):
     ids = {}
     for y in range(H):
         for x in range(W):
-            key = cls(x, y) + ''.join(cls(x + dx, y + dy) for dx, dy in mt.N8)
-            m = V.pick(key)
+            me = cls(x, y)
+            nb = [cls(x + dx, y + dy) for dx, dy in mt.N8]
+            if me == 'W': nb = ['W' if c == 'S' else c for c in nb]
+            m = V.pick(me + ''.join(nb))
+            if me == 'W' and m in (0x200, 0x201, 0x202, 0x203):
+                # Mt. Thunder's diagonal slope caps (its mountain faces) read as stumps on a cave wall's end: round the
+                # band off with its own band ends instead (0x20B open to the west, 0x20C open to the east)
+                e, w_ = cls(x + 1, y), cls(x - 1, y)
+                m = 0x20C if e != 'W' else 0x20B if w_ != 'W' else mt.BAND
             if cls(x, y) == 'S': m = 0x21C if cls(x - 1, y) != 'S' else 0x21D
             ids[(x, y)] = m; img[blk(x, y)] = V.meta(m)
     floor = V.meta(mt.FLOOR)
@@ -112,6 +120,52 @@ def compose(seed=7):
         for yy in range(rgb.shape[0]):
             Y = y0 + yy; lay, la = (mid, mid_a) if Y >= foot else (top, top_a); row = a[yy]
             lay[Y, x0:x0 + rgb.shape[1]][row] = g[yy][row]; la[Y, x0:x0 + rgb.shape[1]] |= row
+    # the crystal maze ('C' blocks) and the cliffs' free ends (blocks of rock with one rock neighbour): great ice
+    # crystals, Mt. Thunder's big snowy boulders, or clusters of ice chunks, so no band just stops in the open
+    BOULDER = [[0x200, 0x202], [0x210, 0x212]]
+    def rockb(bx, by):
+        if not (0 <= bx < 30 and 0 <= by < 30): return True
+        return all(G[2 * by + j, 2 * bx + i] in '#AB' for i in (0, 1) for j in (0, 1))
+    def openb(bx, by):
+        return 0 <= bx < 30 and 0 <= by < 30 and all(G[2 * by + j, 2 * bx + i] in '.,;C' for i in (0, 1) for j in (0, 1))
+    TIPS = []
+    for by in range(30):
+        for bx in range(30):
+            if not all(G[2 * by + j, 2 * bx + i] == '#' for i in (0, 1) for j in (0, 1)) or (bx, by) in C1.CRYSTAL_BLOCKS: continue
+            nr = [rockb(bx + dx, by + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+            no = [openb(bx + dx, by + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))]
+            if sum(nr) == 1 and sum(no) >= 2: TIPS.append((bx, by))
+    MAZE = sorted({(x // 2, y // 2) for y in range(H) for x in range(W) if G[y, x] == 'C'})
+    rkind = random.Random(seed + 5)
+    def put_sprite(rgb, a, X0, Y0, foot):
+        for yy in range(rgb.shape[0]):
+            Y = Y0 + yy; lay, la = (mid, mid_a) if Y >= foot else (top, top_a); row = a[yy]
+            if not (0 <= Y < H * S): continue
+            lay[Y, X0:X0 + rgb.shape[1]][row] = rgb[yy][row]; la[Y, X0:X0 + rgb.shape[1]] |= row
+    def boulder(bx, by):
+        for j in (0, 1):
+            for i in (0, 1):
+                x, y = 2 * bx + i, 2 * by + j; img[blk(x, y)] = floor
+                t = V.meta(BOULDER[j][i]); a = ~(t == floor).all(2); mid[blk(x, y)][a] = t[a]; mid_a[blk(x, y)] |= a
+    def crystal(bx, by, k):
+        rgb, a = sprites[k % len(sprites)]
+        X0, Y0 = 2 * bx * S - S // 2, 2 * by * S + 2 * S - rgb.shape[0]
+        g = C1.glass(rgb, a, img[Y0:Y0 + rgb.shape[0], X0:X0 + rgb.shape[1]], TINT[rkind.choice(['white', 'white', 'blue'])])
+        put_sprite(g, a, X0, Y0, 2 * by * S)
+    def cluster(bx, by):
+        for (i, j) in ((0, 0), (1, 0), (0, 1), (1, 1)):
+            x, y = 2 * bx + i, 2 * by + j
+            t = small[rkind.randrange(len(small))]; a = ~(t == f200).all(2)
+            g = C1.glass(t, a, img[blk(x, y)], TINT[rkind.choice(['white', 'blue'])]); mid[blk(x, y)][a] = g[a]; mid_a[blk(x, y)] |= a
+    small = [GV.meta(m) for m in gg.SMALL_CRYSTALS]; f200 = GV.meta(0x200)
+    for (bx, by) in TIPS:
+        for j in (0, 1):
+            for i in (0, 1): img[blk(2 * bx + i, 2 * by + j)] = floor
+        (boulder if rkind.random() < 0.6 else (lambda a, b: crystal(a, b, rkind.randrange(9))))(bx, by)
+    for n, (bx, by) in enumerate(MAZE):
+        r = rkind.random()
+        if r < 0.62: crystal(bx, by, n)
+        else: boulder(bx, by)
     # small props in floor corners: glass ice chunks, and Mt. Thunder's snowy boulders and stalagmites
     small = [GV.meta(m) for m in gg.SMALL_CRYSTALS]; f200 = GV.meta(0x200)
     MTPROPS = [0x205, 0x205, 0x20F]
@@ -126,7 +180,8 @@ def compose(seed=7):
             if corner(x, y) and rnd.random() < 0.5 and all(abs(x - sx) + abs(y - sy) > 3 for sx, sy in spots):
                 if any(abs(x - a) + abs(y - b) < 3 for a, b in chunks): continue
                 if rnd.random() < 0.6:
-                    t = small[rnd.randrange(len(small))]; a = ~(t == f200).all(2)
+                    t = small[rnd.randrange(len(small))]
+                    a = ~(t == f200).all(2) & (t.max(2) > 110)          # the crystal only (not the Grotto's dark floor)
                     g = C1.glass(t, a, img[blk(x, y)], TINT[rnd.choice(['white', 'white', 'blue'])])
                 else:
                     t = V.meta(rnd.choice(MTPROPS)); a = ~(t == floor).all(2); g = t
@@ -167,13 +222,13 @@ def compose(seed=7):
     for y in range(H):
         for x in range(W):
             ch = G[y, x]; elev[y, x] = LEVEL.get(ch, 3)
-            solid[y, x] = ch in '#Rv|r~' and ch != '~' or (x, y) in C1.CRYSTAL_CELLS or (x, y) in chunks
+            solid[y, x] = ch in '#Rv|rC' or (x, y) in C1.CRYSTAL_CELLS or (x, y) in chunks
             if ch == '~': beh[y, x] = C1.MB_OCEAN_WATER
             if ch == 'v': beh[y, x] = C1.MB_JUMP_SOUTH
     xn, yn = C1.EXIT_N; solid[yn, xn - 1] = solid[yn, xn + 1] = True
     solid[yn, xn] = False; beh[yn, xn] = C1.MB_NORTH_ARROW_WARP; elev[yn, xn] = 5
     xs, ys = C1.EXIT_S; solid[ys, xs] = False; beh[ys, xs] = C1.MB_SOUTH_ARROW_WARP; elev[ys, xs] = 3
-    return dict(solid=solid, beh=beh, elev=elev, bottom=img, mid=mid, mid_a=mid_a, top=top, top_a=top_a, flat=flat, chunks=chunks, ids=ids, missed=getattr(V, 'missed', 0))
+    return dict(TIPS=TIPS, solid=solid, beh=beh, elev=elev, bottom=img, mid=mid, mid_a=mid_a, top=top, top_a=top_a, flat=flat, chunks=chunks, ids=ids, missed=getattr(V, 'missed', 0))
 
 if __name__ == '__main__':
     r = compose(); print('unseen patterns:', r['missed'])

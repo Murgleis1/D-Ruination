@@ -90,7 +90,31 @@ def smooth():
                 elif c in '.,;':
                     if sum(v == '#' for v in n4) >= 3 and all(v in '#' + c for v in n4): B[y, x] = '#'; changed = True
         if not changed: break
+B[1, 4:6] = ';'                        # (a two-block lump hanging from the gallery's north wall: gone)
 smooth()
+
+# ---- the crystal maze (user 2026-11-23: the long thin wall between the east cave and the east passage "needs to be
+# something completely different with better more interesting rocks or a lot of crystals like a whole mini maze of
+# them"): the east cave and the east passage become one field, blocks x 21-28, y 9-19, walled by great ice crystals
+# and snowy boulders ('C') in a seeded maze; rooms on odd columns and rows, every room reachable, open to the east
+# passage's head (north, by the ledge's foot), the hall (south) and bridge 2 (west, room (21, 15)).
+import random as _r
+MX0, MX1, MY0, MY1 = 21, 28, 9, 19
+for y in range(MY0, MY1 + 1):
+    for x in range(MX0, MX1 + 1): B[y, x] = 'C'
+rooms = [(x, y) for x in range(MX0, MX1 + 1, 2) for y in range(MY0, MY1 + 1, 2)]
+for x, y in rooms: B[y, x] = '.'
+rnd = _r.Random(23); seen = {rooms[0]}; stack = [rooms[0]]
+while stack:
+    x, y = stack[-1]
+    nb = [(x + dx, y + dy) for dx, dy in ((2, 0), (-2, 0), (0, 2), (0, -2)) if (x + dx, y + dy) in rooms and (x + dx, y + dy) not in seen]
+    if not nb: stack.pop(); continue
+    nx, ny = rnd.choice(nb); B[(y + ny) // 2, (x + nx) // 2] = '.'; seen.add((nx, ny)); stack.append((nx, ny))
+for x, y in rnd.sample([p for p in rooms], 4):                       # a few loops, so it is a maze, not a corridor
+    for dx, dy in ((1, 0), (0, 1)):
+        if MX0 <= x + dx <= MX1 and MY0 <= y + dy <= MY1 and B[y + dy, x + dx] == 'C' and (x + 2 * dx, y + 2 * dy) in rooms:
+            B[y + dy, x + dx] = '.'; break
+B[MY0 - 1, 25] = '.'; B[MY1 + 1, MX0:MX1 + 1] = '.'                  # open north (the passage's head) and south (the hall)
 
 LEVEL = {'.': 3, ',': 4, ';': 5, 'A': 0, 'B': 0, '=': 3, 'X': 5, 'E': 3, 'R': 5, '|': 3, 'r': 3}
 
@@ -121,16 +145,12 @@ for R in RAVINES:
     G[R['y0']:R['y1'] + 1, x0:x0 + 2] = '|'; G[R['y0']:R['y1'] + 1, x0 + 6:x0 + 8] = '|'
     G[R['y0']:R['y1'] + 1, x0 + 2:x0 + 6] = '~'
     G[R['path'] - 1, x0:x0 + 8] = 'r'; G[R['path'] + 1, x0:x0 + 8] = 'r'; G[R['path'], x0:x0 + 8] = '='
-# the caves beside the ravines (cell coordinates): the east cave widened into the rock east of it
-G[22:40, 42:48] = np.where(G[22:40, 42:48] == '#', '.', G[22:40, 42:48]); G[20:22, 44:48] = '.'
-G[38:40, 42:48] = '.'
-G[32:34, 48:50] = '#'                                                # keep the east cave and the east passage apart
 SPOTS = {'rubble: the Shard': (4, 2), 'torture spot (8a)': (50, 5), 'exit to the Peak': (54, 1), 'stair A': (10, 16),
          'stair B': (38, 8), 'ledge (one-way down)': (52, 10), 'rest stop (nurse)': (40, 44), 'way in': (55, 58),
          'bridge 1': (21, 27), 'bridge 2': (37, 31), 'big ice crystal': (30, 12)}
 
 def check():
-    walk = lambda ch: ch not in '#~v|r'
+    walk = lambda ch: ch not in '#~v|rC'
     start = (55, 57); seen = {start}; q = deque([start])
     while q:
         x, y = q.popleft(); e = LEVEL.get(G[y, x], 3)
@@ -154,7 +174,7 @@ def check():
 
 def picture(out):
     from PIL import Image, ImageDraw
-    COL = {'|': (70, 80, 110), 'r': (120, 90, 60), '#': (34, 44, 70), '.': (150, 196, 228), ',': (110, 200, 150), ';': (236, 200, 120), '~': (60, 120, 200),
+    COL = {'C': (190, 230, 255), '|': (70, 80, 110), 'r': (120, 90, 60), '#': (34, 44, 70), '.': (150, 196, 228), ',': (110, 200, 150), ';': (236, 200, 120), '~': (60, 120, 200),
            '=': (150, 110, 80), 'A': (255, 255, 255), 'B': (255, 255, 255), 'v': (255, 120, 60), 'X': (10, 10, 10),
            'E': (10, 10, 10), 'R': (240, 220, 40)}
     S = 14; im = Image.new('RGB', (W * S, H * S + 110), (20, 22, 30)); d = ImageDraw.Draw(im)
