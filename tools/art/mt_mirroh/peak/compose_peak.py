@@ -109,6 +109,7 @@ def compose(seed=11):
                 # (Mt. Thunder caps a band's end with a pine or a cairn standing in it; on its own, that half-pine
                 # reads as a stump: its own rounded band ends instead)
                 sm = ('out', 0x27B) if cls(x - 1, y) != 'W' else ('out', 0x27E) if cls(x + 1, y) != 'W' else ('out', 0x27C)
+            if sm in (('pok', 0x2F), ('pok', 0x37)): sm = ('out', 0x29C)   # (the Peak of Kings' blank flank pieces: its stacked rock)
             ids[(x, y)] = sm; img[blk(x, y)] = V.meta(sm)
     # ---- the sky (and the black of the Peak of Kings' edge pieces: sky behind them)
     sky = sky_px(); sky_a = np.zeros((H * S, W * S), bool)      # (sky_a: where the sky shows: a backdrop goes there)
@@ -118,6 +119,15 @@ def compose(seed=11):
             else:
                 b = img[blk(x, y)]; k = (b.astype(int).sum(-1) == 0)
                 if k.any(): b[k] = sky[y * S:y * S + S][k]; sky_a[blk(x, y)] |= k
+    # the plateau's north edge: a snowy lip onto the sky (a rounded white crest, its shade under it), no wall behind
+    for y in range(1, 35):
+        for x in range(W):
+            if cls(x, y) != 'K' and cls(x, y - 1) == 'K' and G[y, x] in '.QH':
+                b = img[blk(x, y)]
+                for px in range(S):
+                    t = 1 + ((x * 16 + px) * 7 % 5 == 0)
+                    b[0:t, px] = sky[y * S:y * S + t, px]; sky_a[y * S:y * S + t, x * S + px] = True
+                    b[t:t + 2, px] = (250, 253, 255); b[t + 2, px] = (214, 232, 248); b[t + 3, px] = (184, 210, 236)
     for i, (cx, cy) in enumerate(((2, 3), (38, 6), (5, 12), (41, 15), (0, 21), (44, 25))):
         rgb, a = cloud_stamp(i % 3)
         reg = img[cy * S:cy * S + CLOUD_H * S, cx * S:cx * S + CLOUD_W * S]
@@ -181,9 +191,9 @@ def compose(seed=11):
     arch(*MOUTH_1F, False); arch(*MOUTH_WL, True)
     # ---- the ruins (Crown stone, snowed over: ruins.py)
     import ruins
-    for n, (hx, hy) in enumerate(((16, 5), (30, 5))):
+    for n, (hx, hy) in enumerate(P.HUTS):
         rgb, a = ruins.hut(30 + n); img[hy * S:hy * S + 4 * S, hx * S:hx * S + 4 * S][a] = rgb[a]
-    rgb, a = ruins.shrine(); img[4 * S:8 * S, 23 * S:27 * S][a] = rgb[a]
+    rgb, a = ruins.shrine(); qx, qy = P.SHRINE; img[qy * S:qy * S + 4 * S, qx * S:qx * S + 4 * S][a] = rgb[a]
     # ---- dressing, as Mt. Thunder and the Peak of Kings dress theirs: at the foot of the bands and against their
     # ends, never on a stair or its approach, never closing a way: on the summit and its ledges the Peak of Kings'
     # cairns (some with their purple cloth), snowy boulders and purple flowers; on the climb and the foot Mt. Thunder's
@@ -209,8 +219,9 @@ def compose(seed=11):
     for (x, y) in P.SPOTS.values():
         for dx in (-1, 0, 1):
             for dy in (-1, 0, 1): clear.add((x + dx, y + dy))
-    for y in range(8, 14):
-        for x in range(18, 32): clear.add((x, y))                     # (the stage in the middle of the plateau)
+    for y in range(11, 15):
+        for x in range(19, 31): clear.add((x, y))                     # (the stage in the middle of the plateau)
+    for x in range(P.PLATEAU[0], P.PLATEAU[2] + 1): clear.add((x, P.PLATEAU[1]))   # (the north edge: a clear lookout)
     def h(x, y, k): return ((x * 73856093) ^ (y * 19349663) ^ (k * 83492791)) % 1000 / 1000.0
     dress = {}
     def walkable(): return {(x, y) for y in range(H) for x in range(W) if G[y, x] in '.gSE' and dress.get((x, y), (0, 0))[1] == 0}

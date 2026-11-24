@@ -66,8 +66,8 @@ def main(outdir):
     import compose_peak as CP
     bd = backdrop(); Image.fromarray(bd).save(os.path.join(outdir, 'peak_backdrop_v1.png'))
     r = CP.compose()
-    spots = [((20, 4), 'top of the plateau, by the huts'), ((15, 9), 'the plateau, its west side'), ((12, 17), 'the first ledge, west'),
-             ((37, 21), 'the second ledge, east'), ((8, 27), 'the third ledge, west'), ((40, 33), 'the last ledge, east')]
+    spots = [((19, 7), 'the lookout, west of the shrine'), ((30, 7), 'the lookout, east'), ((25, 12), 'the stage, before the shrine'),
+             ((15, 9), 'the plateau, its west side'), ((12, 18), 'the first ledge, west'), ((37, 23), 'the second ledge, east')]
     sh = Image.new('RGB', (3 * 480 + 20, 2 * (320 + 22)), (24, 24, 30)); d = ImageDraw.Draw(sh)
     for i, ((x, y), n) in enumerate(spots):
         s = view(r['flat'], r['sky_a'], bd, x, y)

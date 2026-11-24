@@ -20,19 +20,25 @@ def r(x0, y0, x1, y1, ch): G[y0:y1 + 1, x0:x1 + 1] = ch
 # ---- sky round the summit pyramid ------------------------------------------------------------------------------
 r(0, 0, W - 1, 34, 'K')
 # ---- the summit (Peak of Kings-like; art v1 review 2026-11-24: its body stacked rock, as the Peak of Kings'): a
-# plateau with sheer sides, then the mountain's flanks stepping out a tile a row (as the Peak of Kings'); three-row ledges across
-# them between two-row bands, stairs switching sides
-def L_(y): return 14 if y < 10 else max(0, 14 - (y - 9))
+# plateau with sheer sides, then the mountain's flanks stepping out a tile a row (as the Peak of Kings'); three-row ledges
+# across them between two-row bands, stairs switching sides. The plateau's north edge pulled back to row 7 (user
+# 2026-11-24: "scale the north part of the walkable peak and ruins back a bit so you can see more of the mountains in
+# the backdrop as you approach the edge"): seven rows of sky above it, its north edge an open lookout
+PLATEAU = (14, 7, 35, 14)                               # (x0, y0, x1, y1): the ruins, the shrine, the stage for 8b-8c
+def L_(y): return 12 if y < 12 else max(0, 12 - (y - 11))     # (the plateau's sides two tiles of rock)
 def R_(y): return W - 1 - L_(y)
-for y in range(3, 35): r(L_(y), y, R_(y), y, '#')
-r(15, 4, 34, 13, '.')                                   # the plateau: the ruins, the shrine, the stage for 8b-8c
-TERR = [(16, 18), (21, 23), (26, 28), (31, 33)]         # (top row, bottom row) of each ledge; bands between, two rows
+for y in range(7, 35): r(L_(y), y, R_(y), y, '#')
+r(*PLATEAU, '.')                                        # (its north edge a snowy lip straight onto the sky: no wall behind)
+TERR = [(17, 19), (22, 24), (27, 29), (32, 33)]         # (top row, bottom row) of each ledge; bands between, two rows
 for (t0, t1) in TERR:
     for y in range(t0, t1 + 1): r(L_(y) + 1, y, R_(y) - 1, y, '.')
-r(24, 14, 25, 15, 'S')                                  # up onto the plateau, in the middle
-r(12, 19, 13, 20, 'S'); r(36, 24, 37, 25, 'S'); r(8, 29, 9, 30, 'S'); r(40, 34, 41, 34, 'S')   # switchbacks
-# the ruins: two huts and the broken shrine (north middle), the stage left open in the middle and south
-r(16, 5, 19, 8, 'H'); r(30, 5, 33, 8, 'H'); r(23, 4, 26, 7, 'Q')   # (the shrine: Crown's portal, 4x4)
+r(24, 15, 25, 16, 'S')                                  # up onto the plateau, in the middle
+r(12, 20, 13, 21, 'S'); r(36, 25, 37, 26, 'S'); r(8, 30, 9, 31, 'S'); r(40, 34, 41, 34, 'S')   # switchbacks
+# the ruins: the broken shrine at the north edge's middle, against the sky (the cardinal's place, the stage before it);
+# the two huts in the plateau's south corners, either side of the way up; the north edge either side of the shrine open
+SHRINE, HUTS = (23, 7), ((15, 10), (31, 10))            # (top-left cells; each 4x4)
+r(SHRINE[0], SHRINE[1], SHRINE[0] + 3, SHRINE[1] + 3, 'Q')
+for (hx, hy) in HUTS: r(hx, hy, hx + 3, hy + 3, 'H')
 # ---- the middle climb: snow terraces across the mountain, cut by stepped bands (they rise and fall a row or two
 # along their length, as Mt. Thunder's do), stairs in them, part-bands making alcoves, a frozen stream falling
 # through the bands at the west edge into a pond, ice grass and pines
@@ -85,8 +91,8 @@ for y in range(68, H):
 G[78, 40] = 'W'                                           # Winterlily Hollow's mouth: kept, blocked in Chapter 1
 
 LEVEL = {'.': 3, 'g': 3, 'S': 0, 'E': 3, 'H': 3, 'Q': 3}
-SPOTS = {'from 1F': (26, 102), 'Winterlily (blocked)': (40, 79), 'summit stage': (25, 10), 'cardinal (shrine)': (25, 8),
-         'ruined hut': (18, 9), 'ruined hut ': (31, 9), 'stairs to the plateau': (24, 15), 'down onto the foot': (22, 67)}
+SPOTS = {'from 1F': (26, 102), 'Winterlily (blocked)': (40, 79), 'summit stage': (25, 12), 'cardinal (shrine)': (25, 11),
+         'ruined hut': (17, 14), 'ruined hut ': (32, 14), 'stairs to the plateau': (24, 16), 'lookout west': (19, 7), 'lookout east': (30, 7), 'down onto the foot': (22, 67)}
 
 def check():
     walk = lambda ch: ch in '.gSE'
