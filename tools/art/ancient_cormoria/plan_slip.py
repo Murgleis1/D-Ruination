@@ -45,6 +45,13 @@ r(0, 0, W - 1, 6, 'K')
 # ---- the mesa (north): its top an oval on the rim over the sunset, the altar in a ring of obelisks; its face below
 MESA = {7: (19, 30), 8: (17, 32), 9: (16, 33), 10: (15, 34), 11: (15, 34), 12: (15, 34), 13: (16, 33)}
 for y, (x0, x1) in MESA.items(): r(x0, y, x1, y, 'm')
+# (the mesa rises into the sky: round it, below its rim, only the sky to either side down to the canyon's walls at
+# row 14; a band of rock round the oval's sides)
+for y in range(7, 14):
+    x0, x1 = MESA[y]
+    for x in range(W):
+        if x < x0 - 1 - (y - 7) // 2 or x > x1 + 1 + (y - 7) // 2: G[y, x] = 'K'
+        elif G[y, x] == '#' and not (x0 <= x <= x1): G[y, x] = '#'
 for (x, y) in ((20, 8), (29, 8), (17, 10), (32, 10), (18, 12), (31, 12)): G[y, x] = 'O'
 r(24, 9, 25, 10, 'A')
 r(24, 14, 25, 18, 'S')                                   # (the stair cut up the mesa's face, rows 14-18)
@@ -63,17 +70,18 @@ for (ax, ay), (bx, by) in zip(river, river[1:]):
 for y in range(23, 30):                                  # the rope bridge below the falls
     for x in (24, 25):
         if G[y, x] == '~': G[y, x] = 'B'
-# the west wall: the cliff homes of a people long gone, in tiers, with ladders (ruins: closed by fallen rock)
+# the west wall: a mesa with the adobe homes of a people long gone on its top (scenery; MonoMyth's canyon pueblo
+# houses, their doorways walled up)
 r(1, 19, 8, 31, '#')
-for (x0, y0) in ((2, 19), (5, 19), (2, 23), (5, 23)): r(x0, y0, x0 + 2, y0 + 1, 'D')
-for y in (21, 25): G[y, 8] = 'S'
-# the east wall: a carved face, panels of the old people's figures; the oasis below it
+r(2, 19, 5, 23, 'D'); r(3, 25, 6, 29, 'D')
+# the east wall: plain rock; the carved panels (the old people's figures, MonoMyth's 2x2 alcoves) are in the south
+# faces the player climbs past: the mesa's face either side of its ladder, and the step's face
 r(42, 19, 48, 31, '#')
-for y in (21, 24, 27, 30): G[y, 42] = 'P'
 ell(36, 29, 3.0, 1.6, 'o', only='.'); ell(36, 29, 4.4, 2.6, 'g', only='.')
 for (x, y) in ((32, 28), (40, 30), (31, 31), (12, 21), (15, 30), (38, 21)): G[y, x] = 'T'
 # ---- the step down to the dunes: a red-rock band across the canyon (rows 32-33), stairs in it
 r(1, 32, 48, 33, '#'); r(24, 32, 25, 33, 'S'); r(10, 32, 11, 33, 'S')
+for (x, y) in ((19, 17), (29, 17), (16, 32), (33, 32)): r(x, y, x + 1, y + 1, 'P')   # (carved panels, 2x2)
 # ---- the dune field (rows 34-54), widening south
 for y in range(34, 55):
     w = 22 if y < 50 else 22 - (y - 49) * 3
@@ -85,11 +93,20 @@ for (x, y, h) in ((7, 46, 3), (14, 36, 2), (32, 36, 2), (44, 46, 3), (16, 50, 2)
 # arching over the way (the path runs under them), a forelimb's claw bones before the skull, the tail tip west
 r(37, 40, 42, 44, 'X')
 spine = [(36, 42), (34, 43), (31, 43), (28, 42), (25, 42), (22, 42), (19, 43), (16, 43), (13, 42), (10, 41), (7, 41), (5, 40)]
-for (x, y) in spine:
-    if G[y, x] == '.': G[y, x] = 'x'
+for (ax, ay), (bx, by) in zip(spine, spine[1:]):         # (the whole length of it, cell by cell)
+    n = max(abs(bx - ax), abs(by - ay))
+    for t in range(n + 1):
+        x, y = int(round(ax + (bx - ax) * t / n)), int(round(ay + (by - ay) * t / n))
+        if G[y, x] == '.': G[y, x] = 'x'
+SPINE_CELLS = {(x, y) for y in range(H) for x in range(W) if G[y, x] == 'x'}
 G[42, 24] = G[42, 25] = '.'                              # (the way: between two vertebrae)
-for x in (21, 23, 26, 28):                               # the ribs over the way (walked under)
-    for y in (43, 44, 45): G[y, x] = 'R'
+# the ribs over the way: two great arches of bone the path runs under (their crowns over the path, walked under; their
+# feet in the sand either side, solid)
+ARCHES = [dict(y=44, x0=22, x1=27), dict(y=46, x0=21, x1=28)]
+for A in ARCHES:
+    for x in range(A['x0'] + 1, A['x1']): G[A['y'], x] = 'R'
+    for x in (A['x0'], A['x1']):
+        for y in (A['y'], A['y'] + 1): G[y, x] = 'x'
 for x in (14, 17, 31, 33):                               # the ribs either side, standing in the sand (solid)
     for y in (44, 45): G[y, x] = 'x'
 for (x, y) in ((34, 47), (35, 48), (37, 47)): G[y, x] = 'x'   # (a forelimb's claw)
@@ -104,8 +121,8 @@ r(24, 51, 25, 52, 'A')                                   # the arrival altar (us
 ARRIVE = (24, 50)                                        #  at the bottom of the map, aligned with an ancient altar)
 G[H - 1, :] = '#'
 SPOTS = {'arrival (south altar)': ARRIVE, 'under the ribs': (25, 44), 'the skull': (40, 45),
-         'up the step': (24, 33), 'the oasis': (38, 31), 'the rope bridge': (24, 26), 'cliff homes (ladder)': (9, 21),
-         'carved panels': (41, 24), 'the mesa stair': (24, 18), 'north altar (the way home)': (24, 11)}
+         'up the step': (24, 33), 'the oasis': (38, 31), 'the rope bridge': (24, 26), 'cliff homes': (9, 22),
+         'carved panels': (20, 19), 'the mesa stair': (24, 18), 'north altar (the way home)': (24, 11)}
 
 def check():
     walk = lambda ch: ch in '.rpmSBgRA'
