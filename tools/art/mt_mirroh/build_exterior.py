@@ -7,7 +7,7 @@ Ways in and out:
     (Route 13's own triggers: tools/art/route13/build_route13.py); no map connection (each has its own primary);
   - warp 0: the cave mouth (13, 10) into 1F (its warp 3; 1F's way out (55, 57) points back here, warp 0);
   - warp 1: the secret ladder (9, 13) down to B1F (its warp 0; B1F's way up points back here), under a Rock Smash rock.
-Objects: Dreamstone Mysteries' three Strength boulders by the cave mouth; the Rock Smash rock on the ladder. Its other
+Objects: the Rock Smash rock on the ladder (Dreamstone Mysteries' Strength boulders by the cave mouth removed, user). Its other
 people and items are stage 2 and 6 (left out here). Signs: the one by the cave mouth.
 Usage: python3 tools/art/mt_mirroh/build_exterior.py   (then build_route13.py; then make)
 """
@@ -37,7 +37,7 @@ def main():
         return int(beh[y, x])
     r = MB.build(img, None, None, W, H, walk, b)
     j = json.load(open(os.path.join(C, 'data/maps', NAME, 'map.json')))
-    keep_objs = [o for o in j['object_events'] if o['graphics_id'] == 'OBJ_EVENT_GFX_PUSHABLE_BOULDER']
+    keep_objs = []                       # (DM's Strength boulders by the mouth: gone, user 2026-11-23)
     rock = {'graphics_id': 'OBJ_EVENT_GFX_BREAKABLE_ROCK', 'x': E.SECRET[0], 'y': E.SECRET[1], 'elevation': 3,
             'movement_type': 'MOVEMENT_TYPE_LOOK_AROUND', 'movement_range_x': 0, 'movement_range_y': 0,
             'trainer_type': 'TRAINER_TYPE_NONE', 'trainer_sight_or_berry_tree_id': '0', 'script': 'EventScript_RockSmash', 'flag': '0'}
