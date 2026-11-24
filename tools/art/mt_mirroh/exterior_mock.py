@@ -27,6 +27,17 @@ CAVE = (13, 10)
 # ladder hole in the ice west of the cave mouth, above two rocks, under a Rock Smash rock (an object, placed by the build;
 # Rock Smash comes later in the game, so in Chapter 1 the rock stays)
 SECRET = (9, 13)        # (user 2026-11-23, marked on a screenshot: the open ice above the two rocks, west of the mouth)
+# (user 2026-11-23: "you need a bridge right here, otherwise it's impossible to get through the route without something
+# like Surf"): from the foot you drop down a ledge onto the river's east bank, and the way on is across the river. A
+# plank bridge, Dreamstone Mysteries' own (its upper crossing, (22-25, 32-33)), copied across at rows 55-56.
+BRIDGE = [(x, y) for x in range(16, 20) for y in (55, 56)]
+BRIDGE_SRC = (22, 32)
+# the ledge from the foot down to that bank (31-33, 52) is one-way (Dreamstone Mysteries' own, kept): so the way back
+# to the foot (and Route 13) is a stair cut into the ice band just north of the foot, (37, 45), Dreamstone Mysteries'
+# own band stair (its (13, 15)), up onto the plateau above the meadow
+LEDGE = [(31, 52), (32, 52), (33, 52)]
+BACK_STAIR, STAIR_SRC = (37, 45), (13, 15)
+MB_JUMP_SOUTH = 0x3B
 DRILL = [(15, 10), (16, 10), (15, 11), (16, 11)]   # (Dreamstone Mysteries' drilling machine by the mouth: gone, user)
 MB_TALL_GRASS = 0x02
 EFG = mm.EF_GROUND
@@ -163,6 +174,11 @@ def compose():
     # the drilling machine: gone; the band and the ice beside it carry on (DM's own cells, and their collision)
     for (x, y) in DRILL:
         n = (14, y); img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell_of(dm, *n); solid[y, x] = cells[n][0] != 0; beh[y, x] = 0
+    for (x, y) in BRIDGE:
+        n = (BRIDGE_SRC[0] + x - 16, BRIDGE_SRC[1] + y - 55)
+        img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell_of(dm, *n); solid[y, x] = False; beh[y, x] = 0
+    for (x, y) in LEDGE: solid[y, x] = False; beh[y, x] = MB_JUMP_SOUTH       # (DM's ledge, its behaviour kept)
+    x, y = BACK_STAIR; img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = cell_of(dm, *STAIR_SRC); solid[y, x] = False; beh[y, x] = 0
     # the ladder hole: Dreamstone Mysteries' own (its 1F's ladder at (38, 45)), cut from its cave floor onto the ice
     one = np.array(Image.open(os.path.join(REPO, 'assets', 'mt_mirroh_reference', 'dm_1f.png')).convert('RGB'))
     lad = cell_of(one, 38, 45).astype(int); flo = cell_of(one, 37, 45).astype(int)
@@ -172,6 +188,8 @@ def compose():
     x, y = SECRET; reg = img[y * 16:y * 16 + 16, x * 16:x * 16 + 16]; reg[m] = lad[m]
     return img, solid, beh
 
+WATER = {tuple(map(int, k.split(','))) for k, v in D['cells'].items() if v[2] in ('MB_OCEAN_WATER', 'MB_WATERFALL', 'MB_AQUASTEP_JUMP')}
+
 def reach(solid, start):
     from collections import deque
     seen = {start}; q = deque([start])
@@ -179,12 +197,18 @@ def reach(solid, start):
         x, y = q.popleft()
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             n = (x + dx, y + dy)
-            if 0 <= n[0] < W and 0 <= n[1] < H and n not in seen and not solid[n[1], n[0]]: seen.add(n); q.append(n)
+            if not (0 <= n[0] < W and 0 <= n[1] < H) or n in seen or solid[n[1], n[0]] or (n in WATER and n not in BRIDGE): continue
+            if n in LEDGE:                                      # (a ledge: only jumped down, landing past it)
+                if dy != 1: continue
+                n = (n[0], n[1] + 1)
+                if n in seen or solid[n[1], n[0]]: continue
+            seen.add(n); q.append(n)
     return seen
 
 def main(out):
     img, solid, beh = compose()
     R0 = reach(solid, (38, H - 1))
+    print('back to the foot from the cave:', (38, H - 1) in reach(solid, (13, 11)))
     print('cave mouth reached', any((CAVE[0] + dx, CAVE[1] + dy) in R0 for dx in (-1, 0, 1) for dy in (0, 1)), '| cells reached', len(R0))
     Image.fromarray(img).save(out)
     np.savez_compressed(out.replace('.png', '.npz'), solid=solid, beh=beh)
