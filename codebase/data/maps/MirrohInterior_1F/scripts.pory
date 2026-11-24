@@ -1,12 +1,12 @@
 raw`
     .set LOCALID_NURSE, 1
     .set LOCALID_ROBBER, 2
-    .set LOCALID_CH1, 24
-    .set LOCALID_CH2, 25
-    .set LOCALID_CH3, 26        
-    .set LOCALID_CHANSEY_LAST, 32
-    .set LOCALID_GRUNT1, 29
-    .set LOCALID_GRUNT2, 17        
+    .set LOCALID_CH1, 12
+    .set LOCALID_CH2, 13
+    .set LOCALID_CH3, 14        
+    .set LOCALID_CHANSEY_LAST, 20
+    .set LOCALID_GRUNT1, 17
+    .set LOCALID_GRUNT2, 10        
 `
 
 mapscripts MirrohInterior_1F_MapScripts{
@@ -433,4 +433,9 @@ script MirrohInterior_1F_SomberGrunts_Trigger{
 
     releaseall
     end
+}
+// The old Peak exit, caved in: the Shard lies under these rocks (the Sword Cult overlooked it). Giving the Shard
+// is the items / story stage's job; for now the pile only describes itself.
+script MirrohInterior_1F_EventScript_Rubble {
+    msgbox("A small pile of rubble.\pSomething glints faintly between\nthe stones.")
 }

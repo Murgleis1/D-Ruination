@@ -42,7 +42,7 @@ def main():
             'movement_type': 'MOVEMENT_TYPE_LOOK_AROUND', 'movement_range_x': 0, 'movement_range_y': 0,
             'trainer_type': 'TRAINER_TYPE_NONE', 'trainer_sight_or_berry_tree_id': '0', 'script': 'EventScript_RockSmash', 'flag': '0'}
     j.update({'weather': 'WEATHER_SNOW', 'connections': None, 'object_events': keep_objs + [rock],
-              'warp_events': [{'x': E.CAVE[0], 'y': E.CAVE[1], 'elevation': 3, 'dest_map': 'MAP_MIRROH_INTERIOR_1F', 'dest_warp_id': '3'},
+              'warp_events': [{'x': E.CAVE[0], 'y': E.CAVE[1], 'elevation': 3, 'dest_map': 'MAP_MIRROH_INTERIOR_1F', 'dest_warp_id': '0'},
                               {'x': E.SECRET[0], 'y': E.SECRET[1], 'elevation': 3, 'dest_map': 'MAP_MIRROH_INTERIOR_B1F', 'dest_warp_id': '0'}],
               'coord_events': [{'type': 'trigger', 'x': x, 'y': y, 'elevation': 3, 'var': 'VAR_TEMP_1', 'var_value': '0',
                                 'script': 'MtMirrohExterior_EventScript_ToRoute13_%d' % x} for (x, y) in FOOT],
@@ -59,7 +59,7 @@ def main():
             sc += 'script MtMirrohExterior_EventScript_ToRoute13_%d {\n    setvar(VAR_TEMP_1, 1)\n    warp(MAP_ROUTE13, %d, 1)\n}\n' % (x, x - 30)
         open(sp, 'w').write(sc)
     # 1F's way out (55, 57) and B1F's way up lead back to the cave mouth (warp 0) and the ladder (warp 1)
-    for m, idx, wid in (('MirrohInterior_1F', 3, '0'), ('MirrohInterior_B1F', 0, '1')):
+    for m, idx, wid in (('MirrohInterior_1F', 0, '0'), ('MirrohInterior_B1F', 0, '1')):
         p = os.path.join(C, 'data/maps', m, 'map.json'); mj = json.load(open(p))
         mj['warp_events'][idx]['dest_warp_id'] = wid; mj['warp_events'][idx]['dest_map'] = MAPID
         json.dump(mj, open(p, 'w'), indent=2); open(p, 'a').write('\n')

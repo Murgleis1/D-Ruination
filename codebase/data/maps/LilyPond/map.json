@@ -73,13 +73,9 @@
       "y": 16,
       "elevation": 0,
       "dest_map": "MAP_MIRROH_INTERIOR_1F",
-      "dest_warp_id": "5"
+      "dest_warp_id": "1"
     }
   ],
-  "coord_events": [
-
-  ],
-  "bg_events": [
-
-  ]
+  "coord_events": [],
+  "bg_events": []
 }
