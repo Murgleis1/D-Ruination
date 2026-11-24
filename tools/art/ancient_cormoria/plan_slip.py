@@ -76,7 +76,12 @@ for y in range(BRIDGE['y0'], BRIDGE['y1'] + 1):
     if G[y, 24] != '~': G[y, 24] = G[y, 25] = '.'
 # the west: the cliff homes of a people long gone on a mesa over the river (its face over the water)
 r(0, 19, 10, 26, '#')                                     # (its rock top 19-24, face 25-26 over the river)
-HOUSES = [dict(x=1, y=19, src=0), dict(x=6, y=19, src=1)]  # (4x5 each: MonoMyth's canyon pueblo, doorways walled up)
+HOUSES = []                                               # (v2's cliff homes, MonoMyth's pueblo: gone, user 2026-11-24)
+# on the west mesa, where the cliff homes stood (user 2026-11-24: "replace the adobe buildings with a partly sand buried
+# and sand-worn looking version of this skeleton"): the skeleton of a Tyrantrum, Lazarus's statue of one (its
+# conservation-centre town, header 0xfaa648, metatiles 0x288-0x2a3) worn to bone and half buried in drifted sand,
+# turned to face east over the canyon; 64x64 px at pixel (px, py); scenery (the mesa is not walked)
+TYRANTRUM = dict(px=50, py=326, flip=True)
 # the east: the canyon's wall
 r(44, 19, 49, 31, '#'); r(43, 22, 43, 31, '#')
 # the oasis: a pool in the sand south of the river, palms and green round it

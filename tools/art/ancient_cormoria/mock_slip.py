@@ -31,7 +31,7 @@ def view(flat, sky_a, bd, px, py):
 
 SPOTS = [((24, 50), 'arrival: the south altar'), ((24, 45), 'under the ribs'), ((35, 43), 'the skull and the spine'),
          ((24, 37), 'up the step'), ((37, 27), 'the oasis'), ((24, 25), 'the rope bridge'),
-         ((39, 21), 'the falls'), ((7, 23), 'the cliff homes'), ((24, 18), 'the mesa ladder'),
+         ((39, 21), 'the falls'), ((7, 23), 'the Tyrantrum on the west mesa'), ((24, 18), 'the mesa ladder'),
          ((24, 12), 'up the neck to the summit'), ((24, 6), 'the north altar'), ((20, 7), 'the summit, west rim')]
 
 def main(outdir, tag='v2'):

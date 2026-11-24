@@ -43,6 +43,7 @@ def busy():
     for L in P.LADDERS: box(L['x'] - 1, L['y'] - 2, L['x'] + 2, L['y'] + 2)
     box(22, P.BRIDGE['y0'] - 1, 27, P.BRIDGE['y1'] + 1)
     for h in P.HOUSES: box(h['x'] - 1, h['y'] - 1, h['x'] + 4, h['y'] + 5)
+    box(0, 19, 10, 24)                                     # (the Tyrantrum and its drift)
     for (x, y) in P.PANELS: box(x - 1, y - 1, x + 2, y + 2)
     sx, sy = P.SKULL; box(sx - 1, sy - 2, sx + 6, sy + 5)
     for (x, y) in P.spine_cells(): box(x, y - 1, x, y)
@@ -128,6 +129,61 @@ def obelisk():
     for y in (8, 19, 29):                                  # weathering: chips out of its edges
         rgb[y, 8 - (4 if y < 16 else 5)] = SANDSTONE[3]; rgb[y + 1, 7 + (4 if y < 16 else 5)] = SANDSTONE[4]
     return rgb, a
+
+LAZARUS = os.path.normpath(os.path.join(HERE, '..', '..', '..', 'assets', 'lazarus_reference', 'tyrantrum_statue_clean.npz'))
+BONE_OF = {(248, 248, 224): (255, 246, 222), (144, 144, 136): (232, 214, 178), (112, 112, 96): (200, 170, 128),
+           (72, 56, 56): (122, 76, 58), (56, 56, 56): (62, 30, 30)}
+def tyrantrum():
+    """Lazarus's Tyrantrum statue (cut from its metatiles' upper layers: lazarus_reference/tyrantrum_statue_cut.png)
+    made a sand-worn skeleton: its grey stone turned to sun-bleached bone in the canyon's warm shades; sand-scoured
+    (chips knocked out of its edges, cracks across the larger bones); sand dusted on the faces that look up; its
+    plinth and the bottom of its coiled tail under a drift (compose() draws the drift). Returns (rgb, a) 64x64."""
+    d = np.load(LAZARUS); rgb, a = d['rgb'].copy(), d['a'].copy()
+    if P.TYRANTRUM['flip']: rgb, a = rgb[:, ::-1].copy(), a[:, ::-1].copy()
+    out = rgb.copy()
+    for k, v in BONE_OF.items(): out[(rgb == k).all(-1)] = v
+    rnd = random.Random(9); H_, W_ = a.shape
+    edge = a & ~(np.roll(a, 1, 0) & np.roll(a, -1, 0) & np.roll(a, 1, 1) & np.roll(a, -1, 1))
+    ys, xs = np.nonzero(edge & (np.arange(H_)[:, None] < 44))
+    for i in rnd.sample(range(len(ys)), len(ys) // 9): a[ys[i], xs[i]] = False          # (scoured edges)
+    light = a & (rgb == (248, 248, 224)).all(-1)
+    for _ in range(5):                                     # cracks: short dark runs across the bleached bone
+        ys, xs = np.nonzero(light)
+        if not len(ys): break
+        i = rnd.randrange(len(ys)); y, x = ys[i], xs[i]
+        for t in range(rnd.randint(2, 4)):
+            if 0 <= y < H_ and 0 <= x < W_ and a[y, x]: out[y, x] = BONE_OF[(112, 112, 96)]
+            y += 1; x += rnd.choice((-1, 0, 1))
+    up = a & ~np.roll(a, 1, 0)                             # sand on what faces up, and in the hollows of the ribs
+    sand = T.corpus().meta[0x24B]
+    for (y, x) in zip(*np.nonzero(a)):
+        top = up[y, x] or (y > 0 and up[y - 1, x])
+        if (top and not edge[y, x] and rnd.random() < 0.22) or (out[y, x] == BONE_OF[(72, 56, 56)]).all() and rnd.random() < 0.12:
+            out[y, x] = sand[y % 16, x % 16]
+    return out, a
+
+def drift(img, mounds, floor_rows):
+    """a drift of the canyon's sand heaped against something: mounds (cx, cy, rx, ry) run together, each crest
+    wandering, the top edge dithered into the rock as MonoMyth's sand patches are, the lower slope in the ripples'
+    shade, a dark lip where it meets the rock; only on the rows given"""
+    H_, W_ = img.shape[:2]; yy, xx = np.mgrid[0:H_, 0:W_]
+    inside = np.zeros((H_, W_), bool); rim = np.zeros((H_, W_), bool); mid = np.full((H_, W_), 1e9)
+    chk = (xx + yy) % 2 == 0
+    for (cx, cy, rx, ry) in mounds:
+        u = (xx - cx) / rx; w = np.sqrt(np.clip(1 - u ** 2, 0, 1))
+        crest = cy - ry * w * (1 + 0.18 * np.sin(u * 5.0 + 1.3) + 0.08 * np.sin(u * 11.0))
+        foot = cy + ry * 0.55 * w
+        inside |= (np.abs(u) <= 1) & (yy >= crest) & (yy <= foot)
+        rim |= (np.abs(u) <= 1) & (yy >= crest - 2) & (yy < crest) & chk
+        mid = np.where(np.abs(u) <= 1, np.minimum(mid, (crest + foot) / 2 + 2), mid)
+    m = (inside | rim) & (yy >= floor_rows[0] * S) & (yy < (floor_rows[1] + 1) * S)
+    plain = np.tile(T.corpus().meta[0x24B], (H_ // S + 1, W_ // S + 1, 1))[:H_, :W_]
+    rip = np.tile(T.corpus().meta[0x251], (H_ // S + 1, W_ // S + 1, 1))[:H_, :W_]
+    lower = yy > mid
+    img[m & ~lower] = plain[m & ~lower]; img[m & lower] = rip[m & lower]
+    lip = m & ~np.roll(m, -1, 0) & lower
+    img[lip] = (196, 128, 92); img[np.roll(lip, 1, 0) & ~m] = (120, 64, 52)
+    return m
 
 def stairs(rows=3):
     """steps cut down through the cliff, 32 wide and 48 tall (the rock top's last row and the face's two rows) (user
@@ -218,6 +274,11 @@ def compose():
         while y1 + 1 < H and P.G[y1 + 1, L['x']] == '#': y1 += 1
         img[(L['y'] - 1) * S:(y1 + 1) * S, L['x'] * S:(L['x'] + 2) * S] = stairs(y1 - L['y'] + 2)
     for k, (x, y) in enumerate(P.PANELS): img[y * S:(y + 2) * S, x * S:(x + 2) * S] = PS.panel(k)
+    # ---- the Tyrantrum on the west mesa: the skeleton, then the drift heaped over its plinth and its tail's coil
+    if getattr(P, 'TYRANTRUM', None):
+        tx, ty = P.TYRANTRUM['px'], P.TYRANTRUM['py']
+        rgb, a = tyrantrum(); sub_ = img[ty:ty + 64, tx:tx + 64]; sub_[a] = rgb[a]
+        drift(img, [(tx + 30, ty + 64, 52, 13), (tx + 50, ty + 62, 22, 20)], (19, 24))   # (banked up under the jaw)
     # ---- the pink crystal sand round the arrival, soft-edged, gems glinting in it
     pm = pink_mask(H * S, W * S) & np.isin(np.repeat(np.repeat(cls, S, 0), S, 1), ['F', 'r'])
     img[pm] = PS.pink_sand(img[pm][None])[0]
