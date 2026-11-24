@@ -15,7 +15,8 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
 SRC = os.path.join(REPO, 'assets', 'mt_mirroh_reference', 'backdrop_bastion_flipped_src.png')
-BH, BW = 136, 256
+SRC_H, TOPPAD, BW = 136, 24, 256
+BH = SRC_H + TOPPAD                  # (v2: the sky carried up 24 px more, fading into its top colour: no edge in it)
 SKY_TOP, SKY_UP, SKY_HI, SKY, SKY_LOW = (52, 6, 14), (84, 12, 20), (122, 20, 24), (164, 30, 28), (204, 56, 34)
 CLOUD_LIT, CLOUD_HI, HALO, SUN = (232, 92, 44), (248, 136, 66), (255, 188, 108), (255, 234, 188)
 NEAR, NEAR_DARK, RIDGE, FAR, FAR_EDGE = (30, 8, 14), (20, 4, 10), (72, 18, 24), (56, 14, 22), (88, 22, 28)
@@ -30,7 +31,7 @@ def ridge(rng, n, peaks):
     """a mountain skyline: heights (rows from the top) across n columns, from a few great peaks and jagged noise"""
     h = np.full(n, 140.0)
     for (px, py, w) in peaks:
-        x = np.arange(n); h = np.minimum(h, py + np.abs(x - px) * (BH - py) / w)
+        x = np.arange(n); h = np.minimum(h, py + np.abs(x - px) * (SRC_H - py) / w)
     # jag it: midpoint-displaced noise, steeper where high
     noise = np.zeros(n); step = 32; amp = 7.0
     pts = {0: 0.0, n - 1: 0.0}
@@ -43,13 +44,13 @@ def ridge(rng, n, peaks):
     return h + noise
 
 def backdrop():
-    a = np.array(Image.open(SRC).convert('RGB'))[:BH]
+    a = np.array(Image.open(SRC).convert('RGB'))[:SRC_H]
     out = a.copy()
     for k, v in RECOLOUR.items(): out[(a == k).all(-1)] = v
-    sky = np.zeros((BH, BW), bool)
+    sky = np.zeros((SRC_H, BW), bool)
     for c in SKYCOLS - {SUN, HALO}: sky |= (out == c).all(-1)
     rng = random.Random(7)
-    yy, xx = np.mgrid[0:BH, 0:BW]
+    yy, xx = np.mgrid[0:SRC_H, 0:BW]
     # more clouds: long dark streaks across the upper sky, lit from below
     for (cx, cy, rx, ry) in ((40, 14, 46, 3.2), (150, 9, 60, 2.6), (220, 22, 40, 3.0), (96, 28, 34, 2.4), (20, 36, 30, 2.2),
                              (190, 40, 36, 2.6), (128, 18, 26, 2.0)):
@@ -66,22 +67,35 @@ def backdrop():
     h = ridge(rng, BW, PEAKS)
     for k in range(3):                                                           # (extra fine jags)
         h += np.array([rng.uniform(-1.2, 1.2) for _ in range(BW)])
-    top = np.clip(h, 0, BH).astype(int)
+    top = np.clip(h, 0, SRC_H).astype(int)
     behind = (yy >= top[None, :]) & (sky | (out == SUN).all(-1) | (out == HALO).all(-1))
     out[behind] = FAR
     for x in range(1, BW - 1):
         toward = -1 if x > sunx else 1                                           # (the neighbour on the sun's side)
         if top[x + toward] > top[x]:                                             # (a slope facing the sun)
-            for y in range(top[x], min(BH, top[x] + 2 + (top[x + toward] - top[x]) // 2)):
+            for y in range(top[x], min(SRC_H, top[x] + 2 + (top[x + toward] - top[x]) // 2)):
                 if behind[y, x]: out[y, x] = FAR_EDGE
-        elif 0 <= top[x] < BH and behind[top[x], x]: out[top[x], x] = FAR_EDGE
+        elif 0 <= top[x] < SRC_H and behind[top[x], x]: out[top[x], x] = FAR_EDGE
     for (px, py, w) in PEAKS:                                                    # (ridge lines down from the peaks)
         x = px; y = int(top[px]) + 1; d = -1 if px > sunx else 1
-        while y < BH - 1 and 0 < x < BW - 1:
+        while y < SRC_H - 1 and 0 < x < BW - 1:
             if behind[y, x]: out[y, x] = FAR_EDGE
             if behind[y, x - d]: out[y, x - d] = NEAR
             y += 1
             if rng.random() < 0.55: x += d
+    # v2 (user 2026-11-24, mock v1: "Is the sky above right here supposed to be a cut off thing?"): the sky carried
+    # up TOPPAD px over the old top, its clouds thinning into the deep maroon of the top (the colour the screen shows
+    # above the picture), dithered, a few last streaks reaching up: no edge anywhere in it
+    pad = np.zeros((TOPPAD, BW, 3), np.uint8); pad[:] = SKY_TOP
+    py_, px_ = np.mgrid[0:TOPPAD, 0:BW]
+    t = py_ / float(TOPPAD - 1)                                                  # (0 at the top, 1 at the old top)
+    dith = ((px_ + py_) % 2 == 0) & (t > 0.35) | ((px_ % 2 == 0) & (py_ % 2 == 0) & (t > 0.15))
+    pad[dith | (t > 0.7)] = SKY_UP
+    for (cx, cy, rx) in ((60, 19, 50), (176, 15, 40), (236, 20, 22), (118, 9, 26)):
+        wob = (np.sin(px_ / 6.0 + cx) * 0.8).astype(int)
+        m = (py_ == cy + wob) & (abs(px_ - cx) <= rx); pad[m] = SKY_HI
+        pad[(py_ == cy + wob + 1) & (abs(px_ - cx) <= rx - 6)] = SKY_UP
+    out = np.concatenate([pad, out], 0)
     cols = {tuple(int(v) for v in c) for c in out.reshape(-1, 3)}
     assert len(cols) <= 15, len(cols)
     return out

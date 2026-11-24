@@ -1,163 +1,193 @@
-"""The first slip into Ancient Cormoria (Beat 8e), plan v1 (user 2026-11-24: "proceed with a new design for our first
-foray into Ancient Cormoria. You can study the first one with all the sand and stuff, but it needs to be remade into
-something more visually arresting. Study the desert areas of Sandwell from Monomyth and others ... There's this big
-monster skeleton buried in the desert we can use as part of the landscape ... get as many good visual ideas as you
-can and come up with something cool").
+"""The first slip into Ancient Cormoria (Beat 8e), plan v3: the approved layout (plan v1/v2, plan_slip_v1.py) rebuilt in
+MonoMyth's own shapes after mock v1's review (user 2026-11-24: "There's a lot of broken looking weird things ... I
+think you need to re-analyze all the stuff you can on various desert reference maps and see what looks normal versus
+not"; "The cliffs, oasis, etc. all need more work"; "the arches you have don't line up perfectly").
 
-Studied (assets/ancient_cormoria_reference/moodboard_v1.png): Dreamstone Mysteries' Ancient Mirroh (a sandy canyon of
-channels and plateaus round a jade tower); MonoMyth's Sandwell desert (dune bands, palms, cacti, darker sand), the
-canyon north-east of Sandwell where Santana is fought (a desert graveyard ring, the giant skull and bone spikes in the
-sand), its red-rock canyon country (cliff pueblos, rippled dunes, a river with falls and rope bridges, mesas, a
-carved amphitheatre wall), its oasis and its pink crystal-sand basin.
+The story and the route are unchanged (plan_slip_v1.py has them): arrival at the south altar in a ring of dreamstone
+obelisks on pink sand; north under the dragon's ribs, past its skull and spine across the dunes; up the step; over the
+river by the rope bridge below the falls; up the mesa's ladder to the north altar on the rim over the blood-red sky.
 
-The place: Mirroh, ages before the Empire, before the mountain froze: a red-rock canyon under a hot sky, the dunes in
-its floor, a river from the mesa, the cliff homes of a people long gone, and in the sand the bones of a colossal dragon.
-The player arrives in a ring of dreamstone obelisks on sand turned pink by their power (south); walks north through
-the rib cage of the great skeleton; crosses the dunes and the canyon floor; crosses the river by a rope bridge below the
-falls; climbs past the cliff dwellings to the mesa's top, where an altar in a second ring of obelisks stands on the
-rim over the sunset. **The story (user 2026-11-24):** the slip sets the player down at the bottom of the map, aligned
-with an ancient altar; to return to their own time they make their way to the northernmost point, where a different
-altar stands; touching the Dreamstone Shard to it snaps them back to their time, and teleports them **and Kimaris
-(who was pulled in with them)** to Kimaris's chamber in the Necropolis, where they fought him for the Trial. The sky behind the rim: MonoMyth's bastion backdrop in its
-own sunset colours (the Peak's sky, ages earlier: the same mountains); reworked (user 2026-11-24): more clouds, a
-deep sunset, larger mountains, very ominous against a blood-red ancient sky.
+What changed, from the study of MonoMyth's canyon maps (tilesolve.py; seam heat maps in
+assets/ancient_cormoria_reference/):
+  * every wall is a rock mass seen from above (its rock top, 'W') with a face of two banded rows on its south side
+    (upper 'U' over lower 'L'), as MonoMyth's are; a tall wall (the falls') is two bands (U L U L);
+  * the plan is only terrain classes; the solver (tilesolve.solve) picks the tiles, so each cell's tile agrees with
+    its neighbours the way MonoMyth's do; any neighbourhood MonoMyth never shows is reported and the shape changed;
+  * dunes are organic fields of ripples at least three rows deep (never rectangles); outcrops in the dunes are whole
+    small mesas (top, two face rows), not 2-wide stubs;
+  * the river keeps MonoMyth's stepped banks; the falls are four wide, fed by a spring pool on the wall's top;
+  * the oasis is a real pool in the sand with its own banks, palms and green round it;
+  * the rib cage: three identical ribs, each the same width, their feet in the same two columns, evenly spaced.
 
-Cells (50 x 56): 'K' sky, '#' red-rock cliff, 'm' mesa top, '.' sand, 'r' rippled dune, 'p' pink crystal sand,
-'~' river, 'F' falls, 'B' rope bridge, 'S' stairs / ladder, 'O' dreamstone obelisk, 'A' the altar, 'D' a cliff
-dwelling (ruin, closed), 'P' carved panels in the cliff, 'X' the skull, 'x' spine and bones, 'R' a rib arching over
-(walked under), 'T' palm, 'c' cactus, 'o' oasis pool, 'g' oasis grass.
-Usage: python3 plan_slip.py [OUT.png]"""
-import os, sys
+Terrain letters: 'K' sky (the ancient backdrop), '#' red rock (its class from its depth: L, U, W), '.' sand, 'r'
+rippled dune, '~' water. Set pieces are listed separately (LADDERS, BRIDGE, FALLS, HOUSES, PANELS, OBELISKS, ALTARS,
+SKULL, SPINE, RIBS, RIB_STUBS, CLAW, PALMS, CACTI, OASIS_GREEN, PINK). Usage: python3 plan_slip.py [OUT.png]"""
+import os, sys, math, random
 import numpy as np
 from collections import deque
 HERE = os.path.dirname(os.path.abspath(__file__))
 W, H = 50, 56
 G = np.full((H, W), '.', dtype='<U1')
 def r(x0, y0, x1, y1, ch): G[y0:y1 + 1, x0:x1 + 1] = ch
-def ell(cx, cy, rx, ry, ch, only=None):
-    for y in range(max(0, int(cy - ry) - 1), min(H, int(cy + ry) + 2)):
-        for x in range(max(0, int(cx - rx) - 1), min(W, int(cx + rx) + 2)):
-            if ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1 and (only is None or G[y, x] in only): G[y, x] = ch
+def blob(cx, cy, rx, ry, ch, only=None, seed=0, wob=0.18):
+    """an organic patch: an ellipse whose radius wanders with the angle (no 1-cell spurs: smoothed after)"""
+    rnd = random.Random(seed); ph = [rnd.uniform(0, 6.28) for _ in range(3)]
+    for y in range(max(0, int(cy - ry) - 2), min(H, int(cy + ry) + 3)):
+        for x in range(max(0, int(cx - rx) - 2), min(W, int(cx + rx) + 3)):
+            a = math.atan2((y - cy) / ry, (x - cx) / rx)
+            k = 1 + wob * (math.sin(2 * a + ph[0]) + 0.6 * math.sin(3 * a + ph[1]) + 0.4 * math.sin(5 * a + ph[2])) / 2
+            if ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 <= k * k and (only is None or G[y, x] in only): G[y, x] = ch
 
-# ---- the frame: red rock all round; the sky above the mesa's rim
+# ---- the sky and the mesa: the land north of row 13 is only the mesa's oval, rising into the sky
 r(0, 0, W - 1, H - 1, '#')
-r(0, 0, W - 1, 6, 'K')
-# ---- the mesa (north): its top an oval on the rim over the sunset, the altar in a ring of obelisks; its face below
-MESA = {7: (19, 30), 8: (17, 32), 9: (16, 33), 10: (15, 34), 11: (15, 34), 12: (15, 34), 13: (16, 33)}
-for y, (x0, x1) in MESA.items(): r(x0, y, x1, y, 'm')
-# (the mesa rises into the sky: round it, below its rim, only the sky to either side down to the canyon's walls at
-# row 14; a band of rock round the oval's sides)
-for y in range(7, 14):
-    x0, x1 = MESA[y]
+# (mock v2: the summit made a small crown out in the sky, joined to the wall by a narrow neck, so that standing at
+# the altar the sky shows above and on both sides of it, as the Peak's summit was made (user, the Peak: "scale the
+# north part ... back so you can see more of the mountains in the backdrop as you approach the edge"))
+MESA_OVAL = (24.5, 6.0, 5.8, 4.0)                         # (cx, cy, rx, ry in cells; the rim is drawn on it, pixel-smooth)
+NECK = (21.5, 27.5, 8.5)                                  # (u from, u to, v from: the neck down to the wall)
+def in_land(u, v):
+    cx, cy, rx, ry = MESA_OVAL
+    return (((u - cx) / rx) ** 2 + ((v - cy) / ry) ** 2 <= 1) | ((NECK[0] <= u) & (u <= NECK[1]) & (v >= NECK[2]))
+for y in range(0, 13):
     for x in range(W):
-        if x < x0 - 1 - (y - 7) // 2 or x > x1 + 1 + (y - 7) // 2: G[y, x] = 'K'
-        elif G[y, x] == '#' and not (x0 <= x <= x1): G[y, x] = '#'
-for (x, y) in ((20, 8), (29, 8), (17, 10), (32, 10), (18, 12), (31, 12)): G[y, x] = 'O'
-r(24, 9, 25, 10, 'A')
-r(24, 14, 25, 18, 'S')                                   # (the stair cut up the mesa's face, rows 14-18)
-# ---- the river plain (rows 19-31): the river from the falls in the mesa's east face, west across the plain
-r(9, 19, 41, 31, '.')
-FALLS = [(40, y) for y in range(15, 19)] + [(41, y) for y in range(15, 19)]
-for (x, y) in FALLS: G[y, x] = 'F'
-river = [(41, 19), (40, 21), (37, 22), (33, 23), (29, 24), (26, 25), (22, 25), (18, 26), (14, 26), (10, 27), (6, 27), (2, 28), (0, 28)]
-for (ax, ay), (bx, by) in zip(river, river[1:]):
-    n = max(abs(bx - ax), abs(by - ay)) * 2 + 1
-    for t in np.linspace(0, 1, n):
-        x, y = int(round(ax + (bx - ax) * t)), int(round(ay + (by - ay) * t))
-        for dy in (0, 1, 2):
-            for dx in (-1, 0, 1):
-                if 0 <= x + dx < W and 0 <= y + dy < H and G[y + dy, x + dx] in '.#': G[y + dy, x + dx] = '~'
-for y in range(23, 30):                                  # the rope bridge below the falls
-    for x in (24, 25):
-        if G[y, x] == '~': G[y, x] = 'B'
-# the west wall: a mesa with the adobe homes of a people long gone on its top (scenery; MonoMyth's canyon pueblo
-# houses, their doorways walled up)
-r(1, 19, 8, 31, '#')
-r(2, 19, 5, 23, 'D'); r(3, 25, 6, 29, 'D')
-# the east wall: plain rock; the carved panels (the old people's figures, MonoMyth's 2x2 alcoves) are in the south
-# faces the player climbs past: the mesa's face either side of its ladder, and the step's face
-r(42, 19, 48, 31, '#')
-ell(36, 29, 3.0, 1.6, 'o', only='.'); ell(36, 29, 4.4, 2.6, 'g', only='.')
-for (x, y) in ((32, 28), (40, 30), (31, 31), (12, 21), (15, 30), (38, 21)): G[y, x] = 'T'
-# ---- the step down to the dunes: a red-rock band across the canyon (rows 32-33), stairs in it
-r(1, 32, 48, 33, '#'); r(24, 32, 25, 33, 'S'); r(10, 32, 11, 33, 'S')
-for (x, y) in ((19, 17), (29, 17), (16, 32), (33, 32)): r(x, y, x + 1, y + 1, 'P')   # (carved panels, 2x2)
-# ---- the dune field (rows 34-54), widening south
-for y in range(34, 55):
-    w = 22 if y < 50 else 22 - (y - 49) * 3
-    for x in range(25 - w, 25 + w + 1):
-        if 0 < x < W - 1: G[y, x] = '.'
-# sandstone hoodoos standing in the dunes (2x2 / 2x3 pillars)
-for (x, y, h) in ((7, 46, 3), (14, 36, 2), (32, 36, 2), (44, 46, 3), (16, 50, 2), (35, 51, 2), (41, 38, 2)): r(x, y, x + 1, y + h - 1, '#')
-# the colossal dragon in the sand: its skull east (facing west), its spine curving west along the dunes, its ribs
-# arching over the way (the path runs under them), a forelimb's claw bones before the skull, the tail tip west
-r(37, 40, 42, 44, 'X')
-spine = [(36, 42), (34, 43), (31, 43), (28, 42), (25, 42), (22, 42), (19, 43), (16, 43), (13, 42), (10, 41), (7, 41), (5, 40)]
-for (ax, ay), (bx, by) in zip(spine, spine[1:]):         # (the whole length of it, cell by cell)
-    n = max(abs(bx - ax), abs(by - ay))
-    for t in range(n + 1):
-        x, y = int(round(ax + (bx - ax) * t / n)), int(round(ay + (by - ay) * t / n))
-        if G[y, x] == '.': G[y, x] = 'x'
-SPINE_CELLS = {(x, y) for y in range(H) for x in range(W) if G[y, x] == 'x'}
-G[42, 24] = G[42, 25] = '.'                              # (the way: between two vertebrae)
-# the ribs over the way: two great arches of bone the path runs under (their crowns over the path, walked under; their
-# feet in the sand either side, solid)
-ARCHES = [dict(y=44, x0=22, x1=27), dict(y=46, x0=21, x1=28)]
-for A in ARCHES:
-    for x in range(A['x0'] + 1, A['x1']): G[A['y'], x] = 'R'
-    for x in (A['x0'], A['x1']):
-        for y in (A['y'], A['y'] + 1): G[y, x] = 'x'
-for x in (14, 17, 31, 33):                               # the ribs either side, standing in the sand (solid)
-    for y in (44, 45): G[y, x] = 'x'
-for (x, y) in ((34, 47), (35, 48), (37, 47)): G[y, x] = 'x'   # (a forelimb's claw)
-for (x, y) in ((9, 38), (39, 49), (6, 51), (43, 41), (20, 37), (29, 38)): G[y, x] = 'c'
-for (x, y) in ((11, 45), (29, 52), (40, 35)): G[y, x] = 'T'
-# rippled dunes; pink crystal sand round the arrival ring (the obelisks' power soaked into it)
-for (cx, cy, rx, ry) in ((10, 48, 5, 2.2), (39, 46, 5, 2.0), (12, 38, 4, 1.6), (36, 37, 4, 1.4), (24, 38, 5, 1.4)):
-    ell(cx, cy, rx, ry, 'r', only='.')
-ell(25, 50, 6, 3.0, 'p', only='.r')
-for (x, y) in ((21, 48), (29, 48), (20, 50), (30, 50), (22, 52), (28, 52)): G[y, x] = 'O'
-r(24, 51, 25, 52, 'A')                                   # the arrival altar (user 2026-11-24: the slip sets the player down
-ARRIVE = (24, 50)                                        #  at the bottom of the map, aligned with an ancient altar)
-G[H - 1, :] = '#'
-SPOTS = {'arrival (south altar)': ARRIVE, 'under the ribs': (25, 44), 'the skull': (40, 45),
-         'up the step': (24, 33), 'the oasis': (38, 31), 'the rope bridge': (24, 26), 'cliff homes': (9, 22),
-         'carved panels': (20, 19), 'the mesa stair': (24, 18), 'north altar (the way home)': (24, 11)}
+        if not any(in_land(x + dx, y + dy) for dx in (-0.5, 0.5) for dy in (-0.5, 0.5)): G[y, x] = 'K'
+# its top: a plaza of sand to the rim (the rim painted round it against the sky), the north altar at its heart in a
+# ring of obelisks; the rock of the wall below it
+for y in range(0, 13):
+    for x in range(W):
+        if G[y, x] == '#': G[y, x] = '.'
+r(23, 13, 26, 15, '.')                                    # (the way cut down through the rock to the ladder's head)
+# ---- the north wall (rows 13-18): rock top, its face rows 17-18; a bulge south east of the ladder (face 18-19)
+r(30, 19, 36, 19, '#')
+# the spring on the wall's top and the falls (four wide) over its face into the pool below
+r(39, 15, 42, 16, '~')                                    # (a spring under a little face of its own, rows 13-14)
+FALLS = dict(x0=39, x1=42, top=17, rows=2)                # (a0 at the upper face, a1 at the lower; foam a2 below)
+# ---- the river plain (rows 19-31)
+r(11, 19, 43, 31, '.')
+# the pool under the falls; the river, its banks stepping as MonoMyth's do, west under the cliff homes and off the map
+r(37, 19, 43, 21, '~')
+RIVER = [(36, 21, 3), (34, 22, 3), (31, 23, 3), (27, 23, 3), (22, 24, 3), (18, 25, 3), (14, 26, 3), (11, 27, 3)]
+for i, (x, y, w) in enumerate(RIVER):
+    xe = RIVER[i - 1][0] if i else 37
+    r(x, y, xe, y + w - 1, '~')
+r(0, 27, 11, 29, '~'); r(0, 29, 10, 30, '.')                # (off the map's west edge; a sand bank under it)
+BRIDGE = dict(x=24, y0=23, y1=27)                         # (its north end on the bank, deck over the water, south end)
+for y in range(BRIDGE['y0'], BRIDGE['y1'] + 1):
+    if G[y, 24] != '~': G[y, 24] = G[y, 25] = '.'
+# the west: the cliff homes of a people long gone on a mesa over the river (its face over the water)
+r(0, 19, 10, 26, '#')                                     # (its rock top 19-24, face 25-26 over the river)
+HOUSES = [dict(x=1, y=19, src=0), dict(x=6, y=19, src=1)]  # (4x5 each: MonoMyth's canyon pueblo, doorways walled up)
+# the east: the canyon's wall
+r(44, 19, 49, 31, '#'); r(43, 22, 43, 31, '#')
+# the oasis: a pool in the sand south of the river, palms and green round it
+r(38, 26, 41, 28, '~')                                    # (a pool east of the river: MonoMyth's pools are square-cut)
+OASIS_GREEN = [(38, 29), (40, 29), (39, 30), (36, 27), (42, 25), (39, 25), (35, 28), (36, 30)]   # (flowers, grass)
+PALMS = [(37, 26), (42, 27), (37, 29), (41, 30), (13, 21), (31, 28)]
+# ripples on the plain
+blob(18, 21, 4.5, 1.6, 'r', only='.', seed=1); blob(31, 20.5, 3.6, 1.5, 'r', only='.', seed=2)
+blob(16, 30, 4.0, 1.5, 'r', only='.', seed=3)
+# ---- the step down to the dunes (rows 31-34): rock top 31-32, face 33-34; ladders at the way and in the west
+r(0, 31, W - 1, 34, '#')                                  # (rock top 31-32, face 33-34; sand bank row 30 over it)
+LADDERS = [dict(x=24, y=17), dict(x=24, y=33), dict(x=13, y=33)]   # (2 wide; top in the upper face, foot in the lower)
+PANELS = [(18, 17), (29, 17), (15, 33), (33, 33)]                  # (2x2 carved alcoves in the faces)
+# ---- the dune field (rows 35-53), walls either side, the south edge
+r(2, 35, 47, 53, '.')
+for (x0, x1, y0, y1) in ((2, 3, 35, 38), (2, 2, 39, 41), (46, 47, 35, 37), (47, 47, 38, 44), (2, 4, 50, 53),
+                         (45, 47, 49, 53), (5, 6, 53, 53), (42, 44, 53, 53)):
+    r(x0, y0, x1, y1, '#')
+# two outcrops: whole small mesas (rock top over a two-row face)
+r(5, 43, 9, 47, '#'); r(6, 42, 8, 42, '#'); r(4, 45, 4, 47, '#')
+r(41, 46, 45, 50, '#'); r(42, 45, 44, 45, '#')
+# the walls' feet step out a row here and there (MonoMyth's are never ruled straight for long)
+r(14, 19, 16, 19, '#')
+for (x0, x1) in ((10, 17), (27, 31), (39, 44)): r(x0, 35, x1, 35, '#')
+# rippled dune fields: organic, three rows deep or more
+blob(14, 37, 5.0, 1.7, 'r', only='.', seed=4); blob(35, 37, 4.5, 1.6, 'r', only='.', seed=5)
+blob(11, 50, 5.0, 2.0, 'r', only='.', seed=6); blob(38, 52, 4.0, 1.5, 'r', only='.', seed=7)
+blob(16, 45, 3.0, 1.5, 'r', only='.', seed=8); blob(35, 47, 3.2, 1.5, 'r', only='.', seed=9)
+# ---- the dragon: the skull east (facing west), the spine west along the dunes (broken where the way crosses it), three
+# identical ribs arching over the way just south of it, rib stubs standing either side, a forelimb's claw
+SKULL = (37, 39)                                          # (6x5 cells from its top-left)
+SPINE = [(36, 41), (33, 41), (30, 40), (27, 40), (22, 40), (18, 41), (14, 41), (10, 40), (7, 39), (5, 38)]
+SPINE_GAP = {(23, 40), (24, 40), (25, 40), (26, 40)}
+RIBS = [dict(y=43), dict(y=45), dict(y=47)]               # (each: feet at x 21 and 28, rows y and y+1; span 22-27)
+RIB_X = (21, 28)
+RIB_STUBS = [(15, 43), (18, 43), (31, 43), (34, 43)]
+CLAW = [(33, 45), (34, 46), (36, 45)]
+CACTI = [(9, 37), (40, 35), (20, 36), (29, 37), (44, 42), (6, 50), (39, 51), (13, 23), (34, 29)]
+# ---- the arrival: pink crystal sand (painted soft, round the ring), the obelisks, the south altar
+PINK = dict(cx=24.5, cy=51.0, rx=7.0, ry=3.6)
+OBELISKS_SOUTH = [(19, 49), (30, 49), (18, 51), (31, 51), (20, 53), (29, 53)]
+OBELISKS_NORTH = [(21, 5), (28, 5), (21, 8), (28, 8)]
+ALTARS = [dict(x=24, y=4, north=True), dict(x=24, y=51, north=False)]
+ARRIVE = (24, 50)
+
+def load():
+    """the plan as normalize_plan.py left it (MonoMyth-normal), if it has been run"""
+    f = os.path.join(HERE, 'plan_normal.npy')
+    if os.path.exists(f): G[:] = np.load(f)
+
+# ---- the terrain classes for the solver
+def classes():
+    """K sky (left out of the solve, rock to its neighbours' eyes), W/U/L rock by depth, F sand, r ripples, A water"""
+    out = np.full((H, W), 'F', dtype='<U1')
+    for y in range(H):
+        for x in range(W):
+            ch = G[y, x]
+            if ch == 'K': out[y, x] = 'K'
+            elif ch == '#':
+                d = 1
+                while y + d < H and G[y + d, x] == '#': d += 1
+                out[y, x] = 'L' if d == 1 and y + d < H else 'U' if d == 2 and y + d < H else 'W'
+            elif ch == '~': out[y, x] = 'A'
+            elif ch == 'r': out[y, x] = 'r'
+    # the falls' wall: rows 17-18 are the face either side of the falls; the falls' cells are water
+    for x in range(FALLS['x0'], FALLS['x1'] + 1):
+        for y in range(FALLS['top'], FALLS['top'] + FALLS['rows']): out[y, x] = 'A'
+    return out
+
+EXTRA_SOLID = set()                                       # (props compose_slip scatters that stand in the way)
+def solid():
+    """cells the player cannot walk"""
+    s = np.isin(G, ['#', '~', 'K'])
+    for (x, y) in EXTRA_SOLID: s[y, x] = True
+    for L in LADDERS:                                     # (and the rock top over its head, up to the ground above)
+        for x in (L['x'], L['x'] + 1):
+            s[L['y'], x] = s[L['y'] + 1, x] = False
+            y = L['y'] - 1
+            while y >= 0 and G[y, x] == '#': s[y, x] = False; y -= 1
+    for y in range(BRIDGE['y0'], BRIDGE['y1'] + 1): s[y, 24] = s[y, 25] = False
+    for R in RIBS:
+        for x in RIB_X: s[R['y'], x] = s[R['y'] + 1, x] = True
+    for (x, y) in RIB_STUBS: s[y, x] = True
+    for (x, y) in CLAW + CACTI + PALMS + OBELISKS_SOUTH + OBELISKS_NORTH: s[y, x] = True
+    sx, sy = SKULL; s[sy:sy + 5, sx:sx + 6] = True
+    for (x, y) in spine_cells(): s[y, x] = True
+    for A in ALTARS: s[A['y']:A['y'] + 2, A['x']:A['x'] + 2] = True
+    return s
+
+def spine_cells():
+    out = set()
+    for (ax, ay), (bx, by) in zip(SPINE, SPINE[1:]):
+        n = max(abs(bx - ax), abs(by - ay))
+        for t in range(n + 1):
+            out.add((int(round(ax + (bx - ax) * t / n)), int(round(ay + (by - ay) * t / n))))
+    return out - SPINE_GAP
+
+SPOTS = {'arrival (south altar)': ARRIVE, 'under the ribs': (24, 45), 'the skull': (38, 45), 'up the step': (24, 35),
+         'the oasis': (39, 30), 'the rope bridge': (24, 25), 'the mesa ladder': (24, 19), 'north altar': (24, 6)}
 
 def check():
-    walk = lambda ch: ch in '.rpmSBgRA'
-    start = ARRIVE; seen = {start}; q = deque([start])
+    s = solid(); seen = {ARRIVE}; q = deque([ARRIVE])
     while q:
         x, y = q.popleft()
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             nx, ny = x + dx, y + dy
-            if 0 <= nx < W and 0 <= ny < H and (nx, ny) not in seen and walk(G[ny, nx]): seen.add((nx, ny)); q.append((nx, ny))
+            if 0 <= nx < W and 0 <= ny < H and (nx, ny) not in seen and not s[ny, nx]: seen.add((nx, ny)); q.append((nx, ny))
     return seen
-
-COL = {'K': (232, 150, 90), '#': (150, 72, 52), 'm': (196, 112, 78), '.': (236, 206, 140), 'r': (222, 186, 118),
-       'p': (240, 180, 196), '~': (60, 150, 210), 'F': (200, 232, 250), 'B': (140, 96, 56), 'S': (250, 210, 100),
-       'O': (120, 70, 200), 'A': (250, 240, 255), 'D': (120, 56, 40), 'P': (90, 40, 30), 'X': (250, 250, 240),
-       'x': (220, 216, 200), 'R': (190, 186, 170), 'T': (60, 150, 70), 'c': (90, 170, 80), 'o': (40, 120, 200), 'g': (130, 200, 140)}
-LEG = [('red-rock cliff', '#'), ('mesa top', 'm'), ('sand', '.'), ('rippled dune', 'r'), ('pink crystal sand', 'p'),
-       ('river / falls', '~'), ('rope bridge', 'B'), ('stairs, ladders', 'S'), ('dreamstone obelisk', 'O'),
-       ('the altar', 'A'), ('cliff dwelling (ruin)', 'D'), ('carved panels', 'P'), ('the skull', 'X'),
-       ('spine, bones', 'x'), ('rib (walked under)', 'R'), ('palm / cactus', 'T'), ('oasis', 'o'), ('sky (backdrop)', 'K')]
-
-def picture(out):
-    from PIL import Image, ImageDraw
-    S = 10; im = Image.new('RGB', (W * S + 280, H * S), (24, 22, 28)); d = ImageDraw.Draw(im)
-    for y in range(H):
-        for x in range(W): d.rectangle((x * S, y * S, x * S + S - 1, y * S + S - 1), fill=COL[G[y, x]])
-    for n, (x, y) in SPOTS.items():
-        d.ellipse((x * S - 4, y * S - 4, x * S + S + 3, y * S + S + 3), outline=(255, 0, 255), width=2)
-        d.line((x * S + S, y * S + 4, W * S + 6, y * S + 4), fill=(255, 0, 255)); d.text((W * S + 10, y * S - 2), n, fill=(255, 220, 255))
-    for i, (n, ch) in enumerate(LEG):
-        x, y = W * S + 10, 330 + i * 12
-        d.rectangle((x, y, x + 10, y + 10), fill=COL[ch], outline=(200, 200, 200)); d.text((x + 16, y), n, fill=(230, 230, 230))
-    im.save(out)
 
 if __name__ == '__main__':
     seen = check()
-    miss = [n for n, p in SPOTS.items() if p not in seen]
-    print('walkable from the arrival:', len(seen), '| spots unreachable:', miss)
-    if len(sys.argv) > 1: picture(sys.argv[1])
+    print('walkable from the arrival:', len(seen), '| unreachable:', [n for n, p in SPOTS.items() if p not in seen])
+    c = classes()
+    for y in range(H): print('%2d ' % y + ''.join(c[y]))
