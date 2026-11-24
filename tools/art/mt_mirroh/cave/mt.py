@@ -28,7 +28,7 @@ def norm(key):
 
 class Vocab:
     def __init__(self):
-        self.samples = collections.defaultdict(collections.Counter); self.ts = None
+        self.samples = collections.defaultdict(collections.Counter); self.ts = None; self._wl = {}
         for a in MAPS:
             img, c, ts, L = MR.render(a); self.ts = self.ts or ts; W, H = L['w'], L['h']
             sa, pa = off(L['secondary']['attr']), off(L['primary']['attr'])
@@ -59,8 +59,16 @@ class Vocab:
                 for x in range(1, W - 1):
                     k, m, isprop = cls[(x, y)]
                     if isprop: continue
+                    if k == 'W' and not self.wall_like(m): continue     # (flagstone landings, torches: not wall)
                     key = norm(k + ''.join(get(x + dx, y + dy) for dx, dy in N8))
                     self.samples[key][m] += 1
+    def wall_like(self, m):
+        if m not in self._wl:
+            import numpy as np
+            t = self.ts.meta(m).astype(int); lum = t.mean(2)
+            warm = ((t[:, :, 0] > t[:, :, 2] + 40) & (t[:, :, 0] > 120)).mean()
+            self._wl[m] = lum.mean() < 150 and warm < 0.02
+        return self._wl[m]
     def pick(self, key):
         key = norm(key)
         if key not in self.samples:

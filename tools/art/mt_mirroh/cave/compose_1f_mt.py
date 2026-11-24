@@ -186,6 +186,123 @@ def compose(seed=7):
                 else:
                     t = V.meta(rnd.choice(MTPROPS)); a = ~(t == floor).all(2); g = t
                 mid[blk(x, y)][a] = g[a]; mid_a[blk(x, y)] |= a; chunks.add((x, y))
+    # ---- dressing (user 2026-11-24: "way too much open space overall everywhere"): groups of rocks, ice crystals and
+    # stalagmites across the open floors (solid), and patches of glassy ice and snow (walkable). A corridor along the
+    # route is kept clear (the shortest way between its stops, a tile either side), and after every piece every open
+    # cell must still be reachable, so nothing walls off a pocket.
+    from collections import deque
+    def walkable(x, y):
+        if not (0 <= x < W and 0 <= y < H): return False
+        ch = G[y, x]
+        return ch in '.,;AB=' and (x, y) not in C1.CRYSTAL_CELLS and (x, y) not in chunks and (x, y) not in DRESS
+    LV = dict(C1.LEVEL, **{'=': 3})
+    def bfs(start, goal=None):
+        prev = {start: None}; q = deque([start])
+        while q:
+            p = q.popleft()
+            if p == goal: break
+            x, y = p; e = LV.get(G[y, x], 3)
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                n = (x + dx, y + dy)
+                if n in prev or not walkable(*n): continue
+                ne = LV.get(G[n[1], n[0]], 3)
+                if e and ne and e != ne: continue
+                prev[n] = p; q.append(n)
+        return prev
+    DRESS = set(); DRESS_DECOR = set()
+    ROUTE = [(55, 57), (41, 43), (42, 31), (33, 31), (26, 27), (17, 27), (10, 18), (10, 15), (38, 10), (38, 7), (4, 3),
+             (50, 6), (54, 2)]
+    keep = set()
+    for a, b_ in zip(ROUTE, ROUTE[1:]):
+        prev = bfs(a, b_); p = b_
+        while p:
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1): keep.add((p[0] + dx, p[1] + dy))
+            p = prev[p]
+    for sx, sy in P.SPOTS.values():
+        for dx in range(-2, 3):
+            for dy in range(-2, 3): keep.add((sx + dx, sy + dy))
+    all_open = lambda: {(x, y) for y in range(H) for x in range(W) if walkable(x, y)}
+    def ok_to_fill(cells):
+        for c in cells:
+            if c in keep or not walkable(*c) or G[c[1], c[0]] not in '.,;' or ids.get(c) != mt.FLOOR or c in PATCH: return False
+            if 42 <= c[0] <= 57 and 10 <= c[1] <= 39: return False     # the crystal maze and its nook: dressed already
+        return True
+    def still_connected(cells):
+        for c in cells: DRESS.add(c)
+        reach = bfs((55, 57)); opened = all_open()
+        good = opened <= set(reach) | {p for p in opened if G[p[1], p[0]] in 'AB'}
+        if not good:
+            for c in cells: DRESS.discard(c)
+        return good
+    drnd = random.Random(seed + 11)
+    def place_boulder(x, y):
+        for j in (0, 1):
+            for i in (0, 1):
+                t = V.meta(BOULDER[j][i]); a = ~(t == floor).all(2); mid[blk(x + i, y + j)][a] = t[a]; mid_a[blk(x + i, y + j)] |= a
+    def place_crystal(x, y):
+        rgb, a = sprites[drnd.randrange(len(sprites))]
+        X0, Y0 = x * S - S // 2, (y + 2) * S - rgb.shape[0]
+        g = C1.glass(rgb, a, img[Y0:Y0 + rgb.shape[0], X0:X0 + rgb.shape[1]], TINT[drnd.choice(['white', 'white', 'blue'])])
+        put_sprite(g, a, X0, Y0, y * S)
+    def place_one(x, y, m):
+        t = V.meta(m); a = ~(t == floor).all(2); mid[blk(x, y)][a] = t[a]; mid_a[blk(x, y)] |= a
+    def place_chunk(x, y):
+        t = small[drnd.randrange(len(small))]; a = ~(t == f200).all(2) & (t.max(2) > 110)
+        g = C1.glass(t, a, img[blk(x, y)], TINT[drnd.choice(['white', 'blue'])]); mid[blk(x, y)][a] = g[a]; mid_a[blk(x, y)] |= a
+    KINDS = [('crystal', 2, 2, place_crystal, 4), ('boulder', 2, 2, place_boulder, 3), ('rock', 1, 1, lambda x, y: place_one(x, y, 0x205), 3),
+             ('stalagmite', 1, 1, lambda x, y: place_one(x, y, 0x20F), 3), ('chunk', 1, 1, place_chunk, 3)]
+    cands = [(x, y) for y in range(H) for x in range(W) if (x, y) not in keep and walkable(x, y) and G[y, x] in '.,;']
+    drnd.shuffle(cands); groups = 0; placed = 0
+    for cx, cy in cands:
+        if groups >= 34: break
+        if not any(cls(cx + dx, cy + dy) == 'W' for dx in (-1, 0, 1) for dy in (-1, 0, 1)): continue   # by a wall, as Mt. Thunder sets them
+        if any(abs(cx - a) + abs(cy - b_) < 4 for a, b_ in DRESS): continue
+        n = 0
+        for _ in range(drnd.randint(2, 4)):
+            kind = drnd.choices(KINDS, [k[4] for k in KINDS])[0]
+            x, y = cx + drnd.randint(-1, 1), cy + drnd.randint(-1, 1)
+            cells = [(x + i, y + j) for i in range(kind[1]) for j in range(kind[2])]
+            if not ok_to_fill(cells) or any(abs(c[0] - d[0]) <= 0 and abs(c[1] - d[1]) <= 0 for c in cells for d in DRESS): continue
+            if not still_connected(cells): continue
+            kind[3](x, y); n += 1; placed += 1
+        if n: groups += 1
+    # centrepieces where the floor is still widest: a great crystal with boulders or rocks round it
+    from scipy import ndimage as nd
+    for _ in range(10):
+        openm = np.zeros((H, W), bool)
+        for y in range(H):
+            for x in range(W): openm[y, x] = walkable(x, y) and G[y, x] in '.,;'
+        dist = nd.distance_transform_cdt(np.pad(openm, 1), metric='chessboard')[1:-1, 1:-1]
+        cand = sorted(((dist[y, x], (x, y)) for y in range(H) for x in range(W) if dist[y, x] >= 3 and (x, y) not in keep
+                       and not (42 <= x <= 57 and 10 <= y <= 39)), reverse=True)
+        done = False
+        for _d, (cx, cy) in cand:
+            cells = [(cx, cy), (cx + 1, cy), (cx, cy + 1), (cx + 1, cy + 1)]
+            if not ok_to_fill(cells) or not still_connected(cells): continue
+            place_crystal(cx, cy); placed += 1
+            for (ox, oy, m) in ((-1, 1, 0x205), (2, 1, 0x20F), (2, 0, 0x205)):
+                c = (cx + ox, cy + oy)
+                if ok_to_fill([c]) and still_connected([c]): place_one(c[0], c[1], m); placed += 1
+            done = True; break
+        if not done: break
+    # walkable patches: glassy ice and snow, in the open
+    for _ in range(40):
+        x, y = drnd.randrange(2, W - 6), drnd.randrange(2, H - 6)
+        rx, ry = drnd.uniform(1.4, 2.6), drnd.uniform(0.9, 1.5)
+        cells_ = [(x + i, y + j) for j in range(-2, 3) for i in range(-3, 4)
+                  if ((i * S) / (rx * S)) ** 2 + ((j * S) / (ry * S)) ** 2 <= 1.6]
+        def fine(c):
+            return (0 <= c[0] < W and 0 <= c[1] < H and ids.get(c) == mt.FLOOR and G[c[1], c[0]] in '.,;' and c not in PATCH
+                    and c not in DRESS and all(cls(c[0] + a_, c[1] + b2) == 'F' for a_ in (-1, 0, 1) for b2 in (-1, 0, 1)))
+        if not all(fine(c) for c in cells_): continue
+        for (cx_, cy_) in cells_:
+            b = img[blk(cx_, cy_)]; yy, xx = np.mgrid[0:S, 0:S]
+            d = (((cx_ * S + xx) - x * S) / (rx * S)) ** 2 + (((cy_ * S + yy) - y * S) / (ry * S)) ** 2
+            m = d <= 1; sheen = ((cx_ * S + xx + cy_ * S + yy) % 11 < 2)
+            b[m] = (b[m] * 0.45 + np.array([170, 214, 244]) * 0.55).astype(np.uint8); b[m & sheen] = (236, 248, 255)
+            b[(d > 0.86) & m] = (128, 176, 222)
+            DRESS_DECOR.add((cx_, cy_))
     # the rubble (frosted stones, the Shard's glint)
     x, y = C1.RUBBLE; b = np.zeros((S, S, 3), np.uint8); a = np.zeros((S, S), bool); yy, xx = np.mgrid[0:S, 0:S]
     for cx, cy, rx, ry in ((4, 11, 3.6, 2.6), (11, 11.5, 3.6, 2.6), (7.5, 8, 3.8, 2.8), (2.5, 6.5, 2.2, 1.8), (12.5, 6, 2.4, 1.9), (8, 4.2, 2.6, 2.0)):
@@ -222,13 +339,13 @@ def compose(seed=7):
     for y in range(H):
         for x in range(W):
             ch = G[y, x]; elev[y, x] = LEVEL.get(ch, 3)
-            solid[y, x] = ch in '#Rv|rC' or (x, y) in C1.CRYSTAL_CELLS or (x, y) in chunks
+            solid[y, x] = ch in '#Rv|rC' or (x, y) in C1.CRYSTAL_CELLS or (x, y) in chunks or (x, y) in DRESS
             if ch == '~': beh[y, x] = C1.MB_OCEAN_WATER
             if ch == 'v': beh[y, x] = C1.MB_JUMP_SOUTH
     xn, yn = C1.EXIT_N; solid[yn, xn - 1] = solid[yn, xn + 1] = True
     solid[yn, xn] = False; beh[yn, xn] = C1.MB_NORTH_ARROW_WARP; elev[yn, xn] = 5
     xs, ys = C1.EXIT_S; solid[ys, xs] = False; beh[ys, xs] = C1.MB_SOUTH_ARROW_WARP; elev[ys, xs] = 3
-    return dict(TIPS=TIPS, solid=solid, beh=beh, elev=elev, bottom=img, mid=mid, mid_a=mid_a, top=top, top_a=top_a, flat=flat, chunks=chunks, ids=ids, missed=getattr(V, 'missed', 0))
+    return dict(DRESS=DRESS, placed=placed, TIPS=TIPS, solid=solid, beh=beh, elev=elev, bottom=img, mid=mid, mid_a=mid_a, top=top, top_a=top_a, flat=flat, chunks=chunks, ids=ids, missed=getattr(V, 'missed', 0))
 
 if __name__ == '__main__':
     r = compose(); print('unseen patterns:', r['missed'])

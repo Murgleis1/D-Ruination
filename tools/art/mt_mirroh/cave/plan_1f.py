@@ -145,6 +145,24 @@ for R in RAVINES:
     G[R['y0']:R['y1'] + 1, x0:x0 + 2] = '|'; G[R['y0']:R['y1'] + 1, x0 + 6:x0 + 8] = '|'
     G[R['y0']:R['y1'] + 1, x0 + 2:x0 + 6] = '~'
     G[R['path'] - 1, x0:x0 + 8] = 'r'; G[R['path'] + 1, x0:x0 + 8] = 'r'; G[R['path'], x0:x0 + 8] = '='
+# ---- ridges (user 2026-11-24: "way too much open space overall everywhere"; "study Mt. Thunder and other interior
+# mountain maps across Crown, MonoMyth and Odyssey"): measured, those caves keep almost no open floor wider than seven
+# tiles (about 1% of it; this floor had 9%), dividing their rooms with one-tile rock ridges into terraces, alcoves
+# and zigzags (assets/mt_mirroh_reference/cave_study_sheet.png). One-tile ridges here, as Mt. Thunder draws them,
+# each leaving the route a gap of at least two tiles (cell coordinates, inclusive).
+RIDGES = [
+    # the west cave: a terrace across its north-west, an alcove south-west, a spur from the south wall
+    (2, 24, 8, 24), (6, 25, 6, 28), (2, 31, 9, 31), (13, 30, 13, 35), (13, 20, 13, 22),
+    # the middle cave: an alcove north (behind a ridge), a spur south
+    (26, 22, 29, 22), (30, 34, 33, 34), (29, 28, 29, 30),
+    # the upper level: a zigzag of spurs from its north and south walls
+    (18, 10, 18, 12), (24, 13, 24, 15), (36, 10, 36, 12), (12, 13, 12, 15),
+    # the top band: spurs from either wall, so the gallery winds
+    (11, 2, 11, 3), (17, 4, 17, 5), (30, 2, 30, 3), (37, 4, 37, 5), (43, 2, 43, 4),
+    # the hall: a ridge splitting off the camp's south side, a spur by the way in
+    (48, 49, 53, 49), (48, 50, 48, 53), (56, 52, 56, 55),
+]
+for x0, y0, x1, y1 in RIDGES: G[y0:y1 + 1, x0:x1 + 1] = '#'
 SPOTS = {'rubble: the Shard': (4, 2), 'torture spot (8a)': (50, 5), 'exit to the Peak': (54, 1), 'stair A': (10, 16),
          'stair B': (38, 8), 'ledge (one-way down)': (52, 10), 'rest stop (nurse)': (40, 44), 'way in': (55, 58),
          'bridge 1': (21, 27), 'bridge 2': (37, 31), 'big ice crystal': (30, 12)}
