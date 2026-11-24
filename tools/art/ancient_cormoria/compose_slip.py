@@ -129,6 +129,26 @@ def obelisk():
         rgb[y, 8 - (4 if y < 16 else 5)] = SANDSTONE[3]; rgb[y + 1, 7 + (4 if y < 16 else 5)] = SANDSTONE[4]
     return rgb, a
 
+def stairs(rows=3):
+    """steps cut down through the cliff, 32 wide and 48 tall (the rock top's last row and the face's two rows) (user
+    2026-11-24, on mock v2's rope ladders: "replace it with actual stairs like you have inside of Mt. Mirroh or other
+    maps"): six steps as MonoMyth's stone stairs are drawn (broad light treads, a narrow riser in shade under each, a
+    bright nosing on each tread's front), in the canyon's sandstone; the cut's two cheeks in the face's shade"""
+    TREAD, NOSE, RISER, SHADE = (236, 186, 136), (252, 214, 166), (196, 136, 100), (150, 92, 74)
+    CHEEK, CHEEK_D, EDGE = (184, 120, 92), (150, 90, 72), (96, 48, 44)
+    Hh = rows * 16; out = np.zeros((Hh, 32, 3), np.uint8)
+    rnd = random.Random(4)
+    for y in range(Hh):
+        r = y % 8
+        c = NOSE if r == 0 else TREAD if r <= 4 else RISER if r <= 6 else SHADE
+        out[y, :] = c
+        if r in (1, 2, 3, 4):                                # (grain in the treads)
+            for x in range(4, 28):
+                if rnd.random() < 0.06: out[y, x] = RISER if rnd.random() < 0.5 else NOSE
+    out[:, 0:3] = CHEEK; out[:, 29:32] = CHEEK_D; out[:, 3] = EDGE; out[:, 28] = EDGE
+    for y in range(0, Hh, 8): out[y + 7, 0:3] = CHEEK_D; out[y + 7, 29:32] = EDGE      # (the cheeks' courses)
+    return out
+
 def pink_mask(Hp, Wp):
     """the pink sand: a soft round field round the arrival ring, its edge dithered into the sand as MonoMyth's darker
     sand patches are (a checkerboard thinning out), its outline wandering"""
@@ -193,7 +213,10 @@ def compose():
     # ---- the rope bridge, the rope ladders, the carved panels
     n = P.BRIDGE['y1'] - P.BRIDGE['y0'] + 1
     img[P.BRIDGE['y0'] * S:(P.BRIDGE['y1'] + 1) * S, 24 * S:26 * S] = PS.bridge(n)
-    for L in P.LADDERS: img[L['y'] * S:(L['y'] + 2) * S, L['x'] * S:(L['x'] + 2) * S] = PS.ladder(2, 2)
+    for L in P.LADDERS:                                    # (from the rock top's last row down through the face to the ground)
+        y1 = L['y']
+        while y1 + 1 < H and P.G[y1 + 1, L['x']] == '#': y1 += 1
+        img[(L['y'] - 1) * S:(y1 + 1) * S, L['x'] * S:(L['x'] + 2) * S] = stairs(y1 - L['y'] + 2)
     for k, (x, y) in enumerate(P.PANELS): img[y * S:(y + 2) * S, x * S:(x + 2) * S] = PS.panel(k)
     # ---- the pink crystal sand round the arrival, soft-edged, gems glinting in it
     pm = pink_mask(H * S, W * S) & np.isin(np.repeat(np.repeat(cls, S, 0), S, 1), ['F', 'r'])

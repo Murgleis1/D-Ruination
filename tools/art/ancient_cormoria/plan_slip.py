@@ -88,7 +88,7 @@ blob(18, 21, 4.5, 1.6, 'r', only='.', seed=1); blob(31, 20.5, 3.6, 1.5, 'r', onl
 blob(16, 30, 4.0, 1.5, 'r', only='.', seed=3)
 # ---- the step down to the dunes (rows 31-34): rock top 31-32, face 33-34; ladders at the way and in the west
 r(0, 31, W - 1, 34, '#')                                  # (rock top 31-32, face 33-34; sand bank row 30 over it)
-LADDERS = [dict(x=24, y=17), dict(x=24, y=33), dict(x=13, y=33)]   # (2 wide; top in the upper face, foot in the lower)
+LADDERS = [dict(x=24, y=17), dict(x=24, y=33), dict(x=13, y=33)]   # (stairs cut in the face (v2: were rope ladders); 2 wide; from the rock top's last row to the ground)
 PANELS = [(18, 17), (29, 17), (15, 33), (33, 33)]                  # (2x2 carved alcoves in the faces)
 # ---- the dune field (rows 35-53), walls either side, the south edge
 r(2, 35, 47, 53, '.')
@@ -153,7 +153,8 @@ def solid():
     for (x, y) in EXTRA_SOLID: s[y, x] = True
     for L in LADDERS:                                     # (and the rock top over its head, up to the ground above)
         for x in (L['x'], L['x'] + 1):
-            s[L['y'], x] = s[L['y'] + 1, x] = False
+            y = L['y']
+            while y < H and G[y, x] == '#': s[y, x] = False; y += 1      # (down the face to the ground)
             y = L['y'] - 1
             while y >= 0 and G[y, x] == '#': s[y, x] = False; y -= 1
     for y in range(BRIDGE['y0'], BRIDGE['y1'] + 1): s[y, 24] = s[y, 25] = False
