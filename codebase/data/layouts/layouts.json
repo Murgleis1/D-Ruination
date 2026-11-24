@@ -5226,8 +5226,8 @@
       "name": "MirrohPeak_Layout",
       "width": 50,
       "height": 110,
-      "primary_tileset": "gTileset_Snow",
-      "secondary_tileset": "gTileset_SnowCableCar",
+      "primary_tileset": "gTileset_MtMirrohPeakTiles",
+      "secondary_tileset": "gTileset_MtMirrohPeak",
       "border_filepath": "data/layouts/MirrohPeak/border.bin",
       "blockdata_filepath": "data/layouts/MirrohPeak/map.bin"
     },

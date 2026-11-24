@@ -19,18 +19,20 @@ def r(x0, y0, x1, y1, ch): G[y0:y1 + 1, x0:x1 + 1] = ch
 
 # ---- sky round the summit pyramid ------------------------------------------------------------------------------
 r(0, 0, W - 1, 34, 'K')
-# ---- the summit (Peak of Kings-like): a plateau, then terraces widening downward, stairs switching sides ---------
+# ---- the summit (Peak of Kings-like; art v1 review 2026-11-24: its body stacked rock, as the Peak of Kings'): a
+# plateau with sheer sides, then the mountain's flanks stepping out a tile a row (as the Peak of Kings'); three-row ledges across
+# them between two-row bands, stairs switching sides
+def L_(y): return 14 if y < 10 else max(0, 14 - (y - 9))
+def R_(y): return W - 1 - L_(y)
+for y in range(3, 35): r(L_(y), y, R_(y), y, '#')
 r(15, 4, 34, 13, '.')                                   # the plateau: the ruins, the shrine, the stage for 8b-8c
-r(14, 3, 35, 3, '#'); r(14, 4, 14, 14, '#'); r(35, 4, 35, 14, '#'); r(14, 14, 35, 14, '#')
-TERR = [  # (top row, bottom row, x0, x1) of each terrace; its band below it runs one wider each side
-    (15, 17, 11, 38), (19, 22, 7, 42), (24, 27, 4, 45), (29, 33, 2, 47)]
-for (t0, t1, x0, x1) in TERR:
-    r(x0 - 1, t0, x0 - 1, t1 + 1, '#'); r(x1 + 1, t0, x1 + 1, t1 + 1, '#')
-    r(x0, t0, x1, t1, '.'); r(x0 - 1, t1 + 1, x1 + 1, t1 + 1, '#')
-r(24, 14, 25, 14, 'S')                                  # up onto the plateau, in the middle
-r(12, 18, 13, 18, 'S'); r(36, 23, 37, 23, 'S'); r(8, 28, 9, 28, 'S'); r(40, 34, 41, 34, 'S')   # switchbacks
+TERR = [(16, 18), (21, 23), (26, 28), (31, 33)]         # (top row, bottom row) of each ledge; bands between, two rows
+for (t0, t1) in TERR:
+    for y in range(t0, t1 + 1): r(L_(y) + 1, y, R_(y) - 1, y, '.')
+r(24, 14, 25, 15, 'S')                                  # up onto the plateau, in the middle
+r(12, 19, 13, 20, 'S'); r(36, 24, 37, 25, 'S'); r(8, 29, 9, 30, 'S'); r(40, 34, 41, 34, 'S')   # switchbacks
 # the ruins: two huts and the broken shrine (north middle), the stage left open in the middle and south
-r(16, 5, 19, 8, 'H'); r(30, 5, 33, 8, 'H'); r(23, 4, 26, 6, 'Q')
+r(16, 5, 19, 8, 'H'); r(30, 5, 33, 8, 'H'); r(23, 4, 26, 7, 'Q')   # (the shrine: Crown's portal, 4x4)
 # ---- the middle climb: snow terraces across the mountain, cut by stepped bands (they rise and fall a row or two
 # along their length, as Mt. Thunder's do), stairs in them, part-bands making alcoves, a frozen stream falling
 # through the bands at the west edge into a pond, ice grass and pines
@@ -47,7 +49,15 @@ band([(27, 36), (40, 36), (40, 38)]); band([(31, 45), (44, 45), (44, 47)]); band
 r(1, 67, W - 2, 67, '#'); r(22, 67, 23, 67, 'S')                                      # down onto DM's foot
 r(1, 35, 1, 66, '#')
 r(2, 35, 3, 60, '~'); r(2, 61, 9, 66, '~')                                            # the stream and its pond
-r(20, 37, 25, 39, 'g'); r(33, 53, 43, 56, 'g'); r(15, 62, 24, 65, 'g'); r(5, 45, 9, 48, 'g'); r(30, 38, 37, 39, 'g')
+def patch(x0, y0, x1, y1, seed):
+    """ice grass in a loose drift (as Mt. Thunder's: rounded, ragged edges), only on open snow"""
+    import random as _r; rr = _r.Random(seed); cx, cy = (x0 + x1) / 2, (y0 + y1) / 2; rx, ry = (x1 - x0) / 2 + .6, (y1 - y0) / 2 + .6
+    for y in range(y0 - 1, y1 + 2):
+        for x in range(x0 - 1, x1 + 2):
+            d = ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2
+            if d <= 0.75 or (d <= 1.25 and rr.random() < 0.55):
+                if G[y, x] == '.': G[y, x] = 'g'
+patch(20, 37, 25, 39, 1); patch(33, 53, 43, 56, 2); patch(15, 62, 24, 65, 3); patch(5, 45, 9, 48, 4); patch(30, 38, 37, 39, 5)
 for x, y in ((44, 37), (7, 36), (14, 45), (24, 45), (46, 54), (27, 54), (44, 63), (30, 64), (16, 37)): r(x, y, x + 1, y + 1, 'T')
 # ---- the foot (rows 68-109): Dreamstone Mysteries' own, kept (user 2026-11-24: "the lower area ... that leads up to
 # the final climb of the mountain is good and just needs a bit of re-tiling"); read from its map, cell by cell:
@@ -75,8 +85,8 @@ for y in range(68, H):
 G[78, 40] = 'W'                                           # Winterlily Hollow's mouth: kept, blocked in Chapter 1
 
 LEVEL = {'.': 3, 'g': 3, 'S': 0, 'E': 3, 'H': 3, 'Q': 3}
-SPOTS = {'from 1F': (26, 102), 'Winterlily (blocked)': (40, 79), 'summit stage': (25, 10), 'cardinal (shrine)': (25, 7),
-         'ruined hut': (18, 9), 'ruined hut ': (31, 9), 'stairs to the plateau': (24, 14), 'down onto the foot': (22, 67)}
+SPOTS = {'from 1F': (26, 102), 'Winterlily (blocked)': (40, 79), 'summit stage': (25, 10), 'cardinal (shrine)': (25, 8),
+         'ruined hut': (18, 9), 'ruined hut ': (31, 9), 'stairs to the plateau': (24, 15), 'down onto the foot': (22, 67)}
 
 def check():
     walk = lambda ch: ch in '.gSE'
