@@ -61,19 +61,35 @@ def compose(seed=7):
     # the bridges: Mt. Thunder's, built as it builds them (posts on the cliffs, rails above and below, the walkway
     # between), its shade on the water below
     COLS = [(0x284, 0x240, 0x248), (0x241, 0x285, 0x249)] + [(0x230, 0x239, 0x238)] * 4 + [(0x232, 0x231, 0x23A), (0x233, 0x286, 0x23B)]
-    fl = V.meta(mt.FLOOR)
+    import colorsys
+    def wood(t):
+        """the bridge's own pixels: the planks, rails and posts (not the pale ground Mt. Thunder draws round them)"""
+        a = np.zeros(t.shape[:2], bool)
+        for yy in range(S):
+            for xx in range(S):
+                r, g, b_ = t[yy, xx] / 255.0; h, sat, v = colorsys.rgb_to_hsv(r, g, b_)
+                a[yy, xx] = not (v > 0.62 and sat < 0.30)
+        return a
     for R in P.RAVINES:
+        lowest = {}; woodmask = np.zeros((H * S, W * S), bool)
         for i, trio in enumerate(COLS):
             for j, m in enumerate(trio):
                 x, y = R['x0'] + i, R['path'] - 1 + j; t = V.meta(m)
-                if 2 <= i < 6 and j != 1:                # the rails over the river: only the wood, the water shows round it
-                    a = ~(t == fl).all(2); img[blk(x, y)][a] = t[a]
-                else: img[blk(x, y)] = t
-        # its shade on the water: soft, fading over a tile and a half below the bridge
-        y0 = (R['path'] + 2) * S
-        for k in range(24):
-            f = 0.70 + 0.30 * (k / 23.0)
-            row = img[y0 + k, (R['x0'] + 2) * S:(R['x0'] + 6) * S]; row[:] = (row * f).astype(np.uint8)
+                a = wood(t)                                     # wood only; through the walkway's gaps, the water in shade
+                if j == 1 and 2 <= i < 6:
+                    b = img[blk(x, y)]; b[~a] = (b[~a] * 0.55).astype(np.uint8)
+                img[blk(x, y)][a] = t[a]; woodmask[blk(x, y)] |= a
+                if 2 <= i < 6:
+                    for xx in range(S):
+                        ys = np.nonzero(a[:, xx])[0]
+                        if len(ys): lowest[x * S + xx] = max(lowest.get(x * S + xx, 0), y * S + ys[-1])
+        # its shadow on the water: straight below the wood, soft, fading over a tile and a half
+        Y0 = min(lowest.values()) - 3                     # one even shadow line under the deck, behind the rail's posts
+        for X in lowest:
+            for k in range(0, 30):
+                Y = Y0 + k
+                if woodmask[Y, X]: continue
+                f = 0.64 + 0.36 * (max(0, k - 4) / 25.0); img[Y, X] = (img[Y, X] * min(1.0, f)).astype(np.uint8)
     # the rest stop: flagstones, rug, candles (as before)
     _, _, MTS, _ = __import__('mm_render').render(0x86d65c)
     PATCH = {(x, y) for y in range(42, 46) for x in range(35, 46) if G[y, x] == '.'} - {(35, 42), (45, 42), (35, 45), (45, 45), (44, 45)}

@@ -11,12 +11,6 @@ raw`
 
 mapscripts MirrohInterior_1F_MapScripts {}
 
-script MirrohInterior_1F_EventScript_Chansey{
-    playmoncry(SPECIES_CHANSEY, CRY_MODE_NORMAL)
-    msgbox(format("Chansey looks stressed!\nMust be worried about its friend."), MSGBOX_NPC)
-    end
-}
-
 script MirrohInterior_1F_EventScript_NurseQuest_Trigger0{
     if (flag(FLAG_MIRROH_NURSE_QUEST_START)) {end}
     lockall
