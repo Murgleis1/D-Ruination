@@ -91,10 +91,8 @@ def backdrop():
     t = py_ / float(TOPPAD - 1)                                                  # (0 at the top, 1 at the old top)
     dith = ((px_ + py_) % 2 == 0) & (t > 0.35) | ((px_ % 2 == 0) & (py_ % 2 == 0) & (t > 0.15))
     pad[dith | (t > 0.7)] = SKY_UP
-    for (cx, cy, rx) in ((60, 19, 50), (176, 15, 40), (236, 20, 22), (118, 9, 26)):
-        wob = (np.sin(px_ / 6.0 + cx) * 0.8).astype(int)
-        m = (py_ == cy + wob) & (abs(px_ - cx) <= rx); pad[m] = SKY_HI
-        pad[(py_ == cy + wob + 1) & (abs(px_ - cx) <= rx - 6)] = SKY_UP
+    for (cx, cy, rx) in ((64, 19, 48), (176, 15, 40), (232, 20, 16), (120, 11, 24)):   # (straight, 8-px aligned: few tiles)
+        m = (py_ == cy) & (px_ >= cx - rx) & (px_ < cx + rx); pad[m] = SKY_HI
     out = np.concatenate([pad, out], 0)
     cols = {tuple(int(v) for v in c) for c in out.reshape(-1, 3)}
     assert len(cols) <= 15, len(cols)

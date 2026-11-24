@@ -5992,6 +5992,16 @@
       "blockdata_filepath": "data/layouts/PellucaAcademyHall/map.bin"
     },
     {
+      "id": "LAYOUT_ANCIENT_CORMORIA_SLIP",
+      "name": "AncientCormoriaSlip_Layout",
+      "width": 50,
+      "height": 56,
+      "primary_tileset": "gTileset_AncientCormoriaSlipTiles",
+      "secondary_tileset": "gTileset_AncientCormoriaSlip",
+      "border_filepath": "data/layouts/AncientCormoriaSlip/border.bin",
+      "blockdata_filepath": "data/layouts/AncientCormoriaSlip/map.bin"
+    },
+    {
       "id": "LAYOUT_ROUTE13",
       "name": "Route13_Layout",
       "width": 40,

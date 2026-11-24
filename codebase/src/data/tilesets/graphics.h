@@ -2349,6 +2349,50 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_AncientCormoriaSlip[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_AncientCormoriaSlip[] = INCBIN_U32("data/tilesets/secondary/ancient_cormoria_slip/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_AncientCormoriaSlipTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/ancient_cormoria_slip_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_AncientCormoriaSlipTiles[] = INCBIN_U32("data/tilesets/primary/ancient_cormoria_slip_tiles/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_MtMirrohPeak[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/mt_mirroh_peak/palettes/00.gbapal"),

@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_AncientCormoriaSlip =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_AncientCormoriaSlip,
+    .palettes = gTilesetPalettes_AncientCormoriaSlip,
+    .metatiles = gMetatiles_AncientCormoriaSlip,
+    .metatileAttributes = gMetatileAttributes_AncientCormoriaSlip,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_AncientCormoriaSlipTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_AncientCormoriaSlipTiles,
+    .palettes = gTilesetPalettes_AncientCormoriaSlipTiles,
+    .metatiles = gMetatiles_AncientCormoriaSlipTiles,
+    .metatileAttributes = gMetatileAttributes_AncientCormoriaSlipTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_MtMirrohPeak =
 {
     .isCompressed = TRUE,

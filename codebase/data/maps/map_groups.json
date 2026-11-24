@@ -181,7 +181,8 @@
     "TemplarCitadelTavern",
     "TemplarCitadelBarracks",
     "TemplarCitadelArmoury",
-    "TemplarCitadelWatchHouse"
+    "TemplarCitadelWatchHouse",
+    "AncientCormoriaSlip"
   ],
   "gMapGroup_Phase4": [
     "WinterlilyHollow",

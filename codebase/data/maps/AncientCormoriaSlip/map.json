@@ -1,0 +1,28 @@
+{
+  "id": "MAP_ANCIENT_CORMORIA_SLIP",
+  "name": "AncientCormoriaSlip",
+  "layout": "LAYOUT_ANCIENT_CORMORIA_SLIP",
+  "music": "MUS_ROUTE113",
+  "region_map_section": "MAPSEC_ANCIENT_CERAM",
+  "requires_flash": false,
+  "weather": "WEATHER_NONE",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": false,
+  "allow_escaping": false,
+  "allow_running": true,
+  "show_map_name": false,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": null,
+  "object_events": [],
+  "warp_events": [
+    {
+      "x": 24,
+      "y": 50,
+      "elevation": 3,
+      "dest_map": "MAP_ANCIENT_CORMORIA_SLIP",
+      "dest_warp_id": "0"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": []
+}

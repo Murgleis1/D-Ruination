@@ -14,9 +14,9 @@ S = 16
 CANYON, DESERT = 0x86daf4, 0x869708
 HOUSE_SRC = [(39, 0, 42, 4), (39, 7, 42, 11)]            # (MonoMyth's canyon pueblo: two houses, 4x5)
 # MonoMyth's canyon props (studied: assets/ancient_cormoria_reference/canyon_props_sheet.png), by what they stand on
-ROCK_PROPS = [0x232, 0x233, 0x234, 0x235, 0x23a, 0x23b, 0x23c, 0x23d, 0x243, 0x245, 0x245, 0x243, 0x21c, 0x21d,
-              0x25f, 0x3bf, 0x3c7]
-SAND_PROPS = [0x241, 0x241, 0x16d, 0x247, 0x230, 0x231, 0x239, 0x22d, 0x266]
+# (fewer kinds than MonoMyth uses, for the tileset's 1024 tiles: build_slip.py)
+ROCK_PROPS = [0x233, 0x235, 0x23a, 0x23c, 0x243, 0x245, 0x245, 0x243, 0x3c7]
+SAND_PROPS = [0x241, 0x241, 0x247, 0x230, 0x239, 0x266]
 RIPPLE_PROPS = [0x247, 0x247, 0x236, 0x237]
 WALKABLE_PROPS = {0x241, 0x16d, 0x247, 0x266}
 
@@ -206,15 +206,17 @@ def stairs(rows=3):
     return out
 
 def pink_mask(Hp, Wp):
-    """the pink sand: a soft round field round the arrival ring, its edge dithered into the sand as MonoMyth's darker
-    sand patches are (a checkerboard thinning out), its outline wandering"""
+    """the pink sand: a soft round field round the arrival ring, its outline wandering, its edge dithered into the
+    sand as MonoMyth's darker sand patches are; the dither decided per 8x8 tile (full, checker, sparse), so the edge
+    is drawn with few tiles (the tileset holds 1024)"""
     pk = P.PINK; yy, xx = np.mgrid[0:Hp, 0:Wp]
     cx, cy = (pk['cx'] + 0.5) * S, (pk['cy'] + 0.5) * S
-    ang = np.arctan2(yy - cy, xx - cx)
+    ty, tx = yy // 8 * 8 + 4, xx // 8 * 8 + 4                 # (each tile's centre)
+    ang = np.arctan2(ty - cy, tx - cx)
     rr = 1 + 0.07 * np.sin(3 * ang + 1.0) + 0.05 * np.sin(5 * ang + 2.0) + 0.03 * np.sin(9 * ang)
-    d = np.sqrt(((xx - cx) / (pk['rx'] * S)) ** 2 + ((yy - cy) / (pk['ry'] * S)) ** 2) / rr
+    d = np.sqrt(((tx - cx) / (pk['rx'] * S)) ** 2 + ((ty - cy) / (pk['ry'] * S)) ** 2) / rr
     chk = (xx + yy) % 2 == 0; chk4 = (xx % 2 == 0) & (yy % 2 == 0)
-    return (d <= 0.86) | ((d <= 0.94) & chk) | ((d <= 1.0) & chk4)
+    return (d <= 0.84) | ((d <= 0.93) & chk) | ((d <= 1.02) & chk4)
 
 def palm():
     """MonoMyth's desert palm (Sandwell's, its map 0x869708 at about cells 4-5, 32-34), cut from its sand; its shadow
@@ -282,10 +284,10 @@ def compose():
     # ---- the pink crystal sand round the arrival, soft-edged, gems glinting in it
     pm = pink_mask(H * S, W * S) & np.isin(np.repeat(np.repeat(cls, S, 0), S, 1), ['F', 'r'])
     img[pm] = PS.pink_sand(img[pm][None])[0]
-    rnd = random.Random(5); ys, xs = np.nonzero(pm)
-    for i in rnd.sample(range(len(ys)), 40):
-        y, x = ys[i], xs[i]
-        if 1 <= y < H * S - 1 and 1 <= x < W * S - 1 and pm[y - 1:y + 2, x - 1:x + 2].all(): PS.gem(img, x, y)
+    for y0 in range(0, H * S, S):                          # (gems on PS.GEMS' four patterns, cell by cell: tiles repeat)
+        for x0 in range(0, W * S, S):
+            if not pm[y0:y0 + S, x0:x0 + S].all(): continue
+            for (gx, gy) in PS.GEMS[((x0 // S) * 7 + (y0 // S) * 3) % len(PS.GEMS)]: PS.gem(img, x0 + gx, y0 + gy)
     # ---- the dragon: the skull, the spine (knuckles, dorsal spikes on the top layer), the ribs, stubs, the claw
     rgb, a = PS.skull(); put(rgb, a, *P.SKULL)
     pts = [(x * S + 8, y * S + 9) for (x, y) in P.SPINE]
@@ -294,13 +296,19 @@ def compose():
         m = int(max(abs(bx - ax), abs(by - ay)))
         for t in range(m): path.append((ax + (bx - ax) * t / m, ay + (by - ay) * t / m))
     yy, xx = np.mgrid[0:H * S, 0:W * S]
-    for k, (px, py) in enumerate(path[::9]):
+    # (knuckles every 8 px on the 8-px grid, their heights on a 4-px grid and three spike lengths: so the spine's
+    # tiles repeat (the tileset holds 1024))
+    snapped = []
+    for (px, py) in path:
+        p8 = (int(round(px / 8.0)) * 8, int(round(py / 4.0)) * 4)
+        if not snapped or p8[0] != snapped[-1][0]: snapped.append(p8)
+    for k, (px, py) in enumerate(snapped):
         cx_, cy_ = int(px) // S, int(py) // S
         if (cx_, cy_) in P.SPINE_GAP: continue
         reg = (slice(max(0, int(py) - 24), int(py) + 6), slice(max(0, int(px) - 8), int(px) + 9))
         Y, X = yy[reg], xx[reg]
         knuckle = ((X - px) / 6.5) ** 2 + ((Y - py) / 4.8) ** 2 <= 1
-        Ln = 8 + (k * 7) % 9
+        Ln = (9, 13, 16)[k % 3]
         spike = (abs(X - px - (py - Y) * 0.15) <= np.maximum(0, (Y - (py - 4 - Ln)) * 0.22)) & (Y <= py - 3) & (Y >= py - 4 - Ln)
         bone = knuckle | spike
         col = np.zeros(X.shape + (3,), np.uint8); col[bone] = PS.BONE[1]

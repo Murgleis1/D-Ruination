@@ -53,10 +53,14 @@ struct MapBackdrop
 };
 
 static const u16 sBackdrop_MirrohPeak[] = INCBIN_U16("data/tilesets/secondary/mt_mirroh_peak/backdrop.bin");
+// The Ancient Cormoria slip (Beat 8e): the same bastion backdrop, ages earlier, under a blood-red sky
+// (tools/art/ancient_cormoria/backdrop_ancient.py, build_slip.py).
+static const u16 sBackdrop_AncientCormoriaSlip[] = INCBIN_U16("data/tilesets/secondary/ancient_cormoria_slip/backdrop.bin");
 
 static const struct MapBackdrop sMapBackdrops[] =
 {
     {LAYOUT_MIRROH_PEAK, sBackdrop_MirrohPeak},
+    {LAYOUT_ANCIENT_CORMORIA_SLIP, sBackdrop_AncientCormoriaSlip},
 };
 
 static EWRAM_DATA const u16 *sBackdropTilemap = NULL;
