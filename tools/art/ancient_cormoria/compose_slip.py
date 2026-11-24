@@ -162,7 +162,7 @@ def tyrantrum():
             out[y, x] = sand[y % 16, x % 16]
     return out, a
 
-def drift(img, mounds, floor_rows):
+def drift(img, mounds, floor_rows, x_max=10 ** 6):
     """a drift of the canyon's sand heaped against something: mounds (cx, cy, rx, ry) run together, each crest
     wandering, the top edge dithered into the rock as MonoMyth's sand patches are, the lower slope in the ripples'
     shade, a dark lip where it meets the rock; only on the rows given"""
@@ -176,7 +176,7 @@ def drift(img, mounds, floor_rows):
         inside |= (np.abs(u) <= 1) & (yy >= crest) & (yy <= foot)
         rim |= (np.abs(u) <= 1) & (yy >= crest - 2) & (yy < crest) & chk
         mid = np.where(np.abs(u) <= 1, np.minimum(mid, (crest + foot) / 2 + 2), mid)
-    m = (inside | rim) & (yy >= floor_rows[0] * S) & (yy < (floor_rows[1] + 1) * S)
+    m = (inside | rim) & (yy >= floor_rows[0] * S) & (yy < (floor_rows[1] + 1) * S) & (xx < x_max)
     plain = np.tile(T.corpus().meta[0x24B], (H_ // S + 1, W_ // S + 1, 1))[:H_, :W_]
     rip = np.tile(T.corpus().meta[0x251], (H_ // S + 1, W_ // S + 1, 1))[:H_, :W_]
     lower = yy > mid
@@ -280,7 +280,7 @@ def compose():
     if getattr(P, 'TYRANTRUM', None):
         tx, ty = P.TYRANTRUM['px'], P.TYRANTRUM['py']
         rgb, a = tyrantrum(); sub_ = img[ty:ty + 64, tx:tx + 64]; sub_[a] = rgb[a]
-        drift(img, [(tx + 30, ty + 64, 52, 13), (tx + 50, ty + 62, 22, 20)], (19, 24))   # (banked up under the jaw)
+        drift(img, [(tx + 26, ty + 64, 48, 13), (tx + 50, ty + 62, 20, 20)], (19, 24), x_max=11 * S - 3)   # (banked up under the jaw; on the mesa)
     # ---- the pink crystal sand round the arrival, soft-edged, gems glinting in it
     pm = pink_mask(H * S, W * S) & np.isin(np.repeat(np.repeat(cls, S, 0), S, 1), ['F', 'r'])
     img[pm] = PS.pink_sand(img[pm][None])[0]
