@@ -52,7 +52,7 @@ def main(outdir, hh=None):
     Image.fromarray(cloud()).save(os.path.join(outdir, 'cloud_fog.png'))
     if hh:
         base = Image.open(hh).convert('RGBA')
-        cx, cy = int(29.5 * 16), 444                              # the knoll's top; the cap's foot ends above row 33
+        cx, cy = int(29.5 * 16), 29 * 16 + 7                   # (as src/dr_knoll_cloud.c places it)                              # the knoll's top; the cap's foot ends above row 33
         crop = (16 * 16, 16 * 16, 44 * 16, 42 * 16)
         n = 24; seq = [compose(base, k, n, cx, cy).crop(crop) for k in range(n)]
         seq = [s.resize((s.width * 2, s.height * 2), Image.NEAREST).convert('RGB') for s in seq]

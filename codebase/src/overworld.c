@@ -1,5 +1,6 @@
 #include "global.h"
 #include "overworld.h"
+#include "dr_knoll_cloud.h"
 #include "battle_pyramid.h"
 #include "battle_setup.h"
 #include "berry.h"
@@ -1555,6 +1556,7 @@ static void OverworldBasic(void)
 {
     ScriptContext_RunScript();
     RunTasks();
+    DrKnollCloud_Update();
     AnimateSprites();
     CameraUpdate();
     UpdateCameraPanning();
