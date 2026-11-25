@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_PellucaHarbour =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_PellucaHarbour,
+    .palettes = gTilesetPalettes_PellucaHarbour,
+    .metatiles = gMetatiles_PellucaHarbour,
+    .metatileAttributes = gMetatileAttributes_PellucaHarbour,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_PellucaHarbourTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_PellucaHarbourTiles,
+    .palettes = gTilesetPalettes_PellucaHarbourTiles,
+    .metatiles = gMetatiles_PellucaHarbourTiles,
+    .metatileAttributes = gMetatileAttributes_PellucaHarbourTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_MtMirrohB1F =
 {
     .isCompressed = TRUE,

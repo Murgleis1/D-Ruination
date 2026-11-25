@@ -1,0 +1,72 @@
+mapscripts PellucaHarbour_MapScripts {
+    MAP_SCRIPT_ON_TRANSITION {
+        setflag(FLAG_VISITED_PELLUCA_CITY)
+    }
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_UNUSED_0x404E, 1: PellucaHarbour_Arrival
+    ]
+}
+
+const LOCALID_HB_VELUZA = 1
+const LOCALID_HB_CADMUS = 2
+
+// The cold open's arrival (moved from PellucaCity with the waterfront, user 2026-11-25). Osrid lands at (40, 21) off
+// the Pale Veluza; Cadmus comes down the great pier from (40, 15); both walk up it; Osrid stops at the shrine to the
+// lost prince (38, 11) while Cadmus goes on along the kerb (row 14) to the lab door (47, 13). The walk is kept clear
+// (tools/art/pelluca/waterfront_mock.py check_walk).
+script PellucaHarbour_Arrival {
+    lockall
+    setvar(VAR_UNUSED_0x404E, 2)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(face_up))
+    waitmovement(0)
+    delay(20)
+    speakername("Dockhand")
+    msgbox(format("A Rainhawk, in a mask? Like something out of the old stories."))
+    speakername("Sailor")
+    msgbox(format("That's the one who held the beach at Sevii. Burned for it, they say."))
+    closemessage
+    delay(30)
+    applymovement(LOCALID_HB_CADMUS, moves(walk_down * 5))
+    waitmovement(0)
+    delay(12)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_SMILE)
+    msgbox(format("Rainhawk Alban. Welcome to Pelluca Valley."))
+    closemessage
+    delay(40)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("And the burns? Are they healing?"))
+    showportrait(PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL)
+    speakername("“Nomad”")
+    msgbox(format("Slowly. The mask helps."))
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Good. Walk with me. We will talk somewhere quieter."))
+    hideportrait
+    closemessage
+    release
+    delay(12)
+    applymovement(LOCALID_HB_CADMUS, moves(walk_up * 6 walk_right * 7 face_left))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_up * 7 walk_left * 2 walk_up * 2 face_up))
+    waitmovement(0)
+    waitmovement(LOCALID_HB_CADMUS)
+    delay(30)
+    msgbox(format("For Prince {PLAYER}, Keerin's Chosen. Wherever you are, come home."), MSGBOX_SIGN)
+    closemessage
+    delay(40)
+    showportrait(PORTRAIT_CADMUS, PORTRAIT_EXPR_NEUTRAL)
+    msgbox(format("Rainhawk."))
+    hideportrait
+    closemessage
+    applymovement(LOCALID_HB_CADMUS, moves(face_up))
+    waitmovement(0)
+    delay(12)
+    playse(SE_EXIT)
+    removeobject(LOCALID_HB_CADMUS)
+    delay(16)
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2 walk_right * 9 face_up))
+    waitmovement(0)
+    delay(12)
+    setflag(FLAG_UNUSED_0x884)
+    warp(MAP_PELLUCA_UMBRA_LAB, 0)
+    waitstate
+    end
+}

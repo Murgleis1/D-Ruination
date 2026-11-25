@@ -494,6 +494,12 @@ const u32 gObjectEventPic_Templar[] = INCBIN_U32("graphics/object_events/pics/pe
 const u16 gObjectEventPal_Templar[] = INCBIN_U16("graphics/object_events/pics/people/templar.gbapal");
 const u32 gObjectEventPic_DrShrine[] = INCBIN_U32("graphics/object_events/pics/misc/dr_shrine.4bpp");
 const u16 gObjectEventPal_DrShrine[] = INCBIN_U16("graphics/object_events/pics/misc/dr_shrine.gbapal");
+const u32 gObjectEventPic_PaleVeluza[] = INCBIN_U32("graphics/object_events/pics/misc/dr_pale_veluza.4bpp");
+const u32 gObjectEventPic_Merchantman[] = INCBIN_U32("graphics/object_events/pics/misc/dr_merchantman.4bpp");
+const u32 gObjectEventPic_FishingSloop[] = INCBIN_U32("graphics/object_events/pics/misc/dr_fishing_sloop.4bpp");
+const u32 gObjectEventPic_WoodenRowboat[] = INCBIN_U32("graphics/object_events/pics/misc/dr_wooden_rowboat.4bpp");
+const u16 gObjectEventPal_DrShips[] = INCBIN_U16("graphics/object_events/pics/misc/dr_ships.gbapal");
+const u16 gObjectEventPal_DrBoats[] = INCBIN_U16("graphics/object_events/pics/misc/dr_boats.gbapal");
 
 //SHUBUBU
 const u32 gObjectEventPic_ShububuNormalRunning[] = INCBIN_U32("graphics/object_events/pics/custom/shububu/walking.4bpp", "graphics/object_events/pics/custom/shububu/running.4bpp");

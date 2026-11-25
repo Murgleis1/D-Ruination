@@ -21,123 +21,6 @@
   ],
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_SS_TIDAL",
-      "x": 44,
-      "y": 54,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_NONE",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_UNUSED_0x884"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_CADMUS",
-      "x": 44,
-      "y": 46,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "FLAG_UNUSED_0x884"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_DR_SHRINE",
-      "x": 43,
-      "y": 44,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "DR_PellucaCity_Shrine",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_OLD_WOMAN",
-      "x": 42,
-      "y": 44,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "DR_PellucaCity_ShrineKeeper",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_SS_TIDAL",
-      "x": 67,
-      "y": 45,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_NONE",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 60,
-      "y": 43,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MR_BRINEYS_BOAT",
-      "x": 60,
-      "y": 45,
-      "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_BOY_2",
-      "x": 52,
-      "y": 38,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "PellucaCity_NPC7",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_MAN_1",
-      "x": 12,
-      "y": 42,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "PellucaCity_NPC6",
-      "flag": "0"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_CYCLING_TRIATHLETE_F",
       "x": 45,
       "y": 28,
@@ -177,19 +60,6 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_TUBER_M",
-      "x": 20,
-      "y": 42,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "PellucaCity_NPC1",
-      "flag": "0"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_4",
       "x": 33,
       "y": 23,
@@ -213,32 +83,6 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "PellucaCity_NPC5",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(LYCANROC)",
-      "x": 13,
-      "y": 42,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_WANDER_AROUND",
-      "movement_range_x": 1,
-      "movement_range_y": 1,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "PellucaCity_Lycanroc",
-      "flag": "0"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(SEALEO)",
-      "x": 22,
-      "y": 44,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "PellucaCity_Sealeo",
       "flag": "0"
     },
     {
@@ -268,19 +112,6 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
-      "x": 51,
-      "y": 40,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "PellucaCity_NPC10",
-      "flag": "0"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_POKE_BALL",
       "x": 11,
       "y": 26,
@@ -305,19 +136,6 @@
       "trainer_sight_or_berry_tree_id": "ITEM_REVIVE",
       "script": "Common_EventScript_FindItem",
       "flag": "FLAG_ITEM_PELLUCA_CITY_C"
-    },
-    {
-      "graphics_id": "OBJ_EVENT_GFX_TMHM_BALL",
-      "x": 58,
-      "y": 38,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "ITEM_TM40",
-      "script": "Common_EventScript_FindItem",
-      "flag": "FLAG_ITEM_PELLUCA_CITY_B"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_SPECIES(PIDGEY)",
@@ -381,18 +199,18 @@
       "dest_warp_id": "0"
     },
     {
-      "x": 47,
-      "y": 44,
-      "elevation": 0,
-      "dest_map": "MAP_PELLUCA_UMBRA_LAB",
-      "dest_warp_id": "0"
+      "x": 24,
+      "y": 36,
+      "elevation": 3,
+      "dest_map": "MAP_PELLUCA_HARBOUR",
+      "dest_warp_id": "2"
     },
     {
-      "x": 28,
-      "y": 43,
-      "elevation": 0,
-      "dest_map": "MAP_PELLUCA_CITY_POKEMON_CENTER",
-      "dest_warp_id": "0"
+      "x": 25,
+      "y": 36,
+      "elevation": 3,
+      "dest_map": "MAP_PELLUCA_HARBOUR",
+      "dest_warp_id": "3"
     },
     {
       "x": 11,
@@ -442,6 +260,27 @@
       "elevation": 0,
       "dest_map": "MAP_PELLUCA_HOUSE_5",
       "dest_warp_id": "0"
+    },
+    {
+      "x": 37,
+      "y": 36,
+      "elevation": 3,
+      "dest_map": "MAP_PELLUCA_HARBOUR",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 38,
+      "y": 36,
+      "elevation": 3,
+      "dest_map": "MAP_PELLUCA_HARBOUR",
+      "dest_warp_id": "5"
+    },
+    {
+      "x": 39,
+      "y": 36,
+      "elevation": 3,
+      "dest_map": "MAP_PELLUCA_HARBOUR",
+      "dest_warp_id": "6"
     }
   ],
   "coord_events": [
@@ -581,43 +420,11 @@
     },
     {
       "type": "sign",
-      "x": 23,
-      "y": 44,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "DR_PellucaCity_SignInn"
-    },
-    {
-      "type": "sign",
-      "x": 24,
-      "y": 44,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "DR_PellucaCity_SignInn"
-    },
-    {
-      "type": "sign",
       "x": 13,
       "y": 23,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
       "script": "DR_PellucaCity_DoorCadmus"
-    },
-    {
-      "type": "sign",
-      "x": 10,
-      "y": 35,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "DR_PellucaCity_CaveSealed"
-    },
-    {
-      "type": "sign",
-      "x": 11,
-      "y": 35,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "DR_PellucaCity_CaveSealed"
     }
   ]
 }

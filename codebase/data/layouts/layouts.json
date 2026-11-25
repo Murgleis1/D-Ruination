@@ -4995,11 +4995,21 @@
       "id": "LAYOUT_PELLUCA_CITY",
       "name": "PellucaCity_Layout",
       "width": 80,
-      "height": 60,
+      "height": 42,
       "primary_tileset": "gTileset_Cormoria",
       "secondary_tileset": "gTileset_PellucaValley",
       "border_filepath": "data/layouts/PellucaCity/border.bin",
       "blockdata_filepath": "data/layouts/PellucaCity/map.bin"
+    },
+    {
+      "id": "LAYOUT_PELLUCA_HARBOUR",
+      "name": "PellucaHarbour_Layout",
+      "width": 80,
+      "height": 33,
+      "primary_tileset": "gTileset_PellucaHarbourTiles",
+      "secondary_tileset": "gTileset_PellucaHarbour",
+      "border_filepath": "data/layouts/PellucaHarbour/border.bin",
+      "blockdata_filepath": "data/layouts/PellucaHarbour/map.bin"
     },
     {
       "id": "LAYOUT_ROUTE11",

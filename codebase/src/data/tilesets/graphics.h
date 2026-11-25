@@ -2349,6 +2349,50 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_PellucaHarbour[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_PellucaHarbour[] = INCBIN_U32("data/tilesets/secondary/pelluca_harbour/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_PellucaHarbourTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_PellucaHarbourTiles[] = INCBIN_U32("data/tilesets/primary/pelluca_harbour_tiles/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_MtMirrohB1F[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/mt_mirroh_b1f/palettes/00.gbapal"),

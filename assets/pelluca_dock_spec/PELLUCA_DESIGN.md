@@ -671,5 +671,11 @@ drafts were previews only and the game still loaded the old Mauville map.
   harbour shows the wall and the town's tree line above. Height: six rows kept (user: right unless too tall; the
   screen is ten rows: from the quay the wall fills the view's top with the tree line just showing over it; taller
   would hide the town altogether and make each stair a long climb).
+- The stairs (user 2026-11-25: "the screen when you go up or down the stairs shows you briefly climbing up or down
+  before flashing black"): each stair's climb is split between the two maps, so its six steps are walked once. Going
+  down from the town: three steps (rows 34-36) in view, the third an arrow warp (south) -> the fade -> the harbour's
+  stair at its fourth step (harbour row 6), facing down, three more steps to the quay. Going up: three steps from the
+  quay, the third (harbour row 6) a north arrow warp -> the town's stair at its third step (row 36), facing up. Both
+  stairs alike (x 24-25 and 37-39), one warp per stair cell.
 - Water: Pelluca's animated water is MonoMyth's (the same as Watercress' pale water, piece 0x6C), so the harbour's
   shallows keep the animation; the deep water needs its own frames (MonoMyth's), wired the same way. The sealed cave door moves to the wall's foot on the beach.

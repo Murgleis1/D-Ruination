@@ -88,13 +88,13 @@ FLOWERS = [(35, 36, '2bf'), (36, 36, '2c7'), (40, 36, '2bf'), (41, 36, '2c7')]
 CRATES = [(33, 36, '2c9'), (34, 36, '2cc'), (33, 37, '2cc'), (36, 52, '2cc'), (40, 52, '2c9'), (51, 40, '2cc'),
           (66, 51, '2c9'), (70, 36, '2cc'), (70, 37, '2c9'), (58, 38, '2cc'), (66, 38, '2c9'), (54, 36, '2c9')]
 LAMPS = []
-IRON_LAMPS = [(58, 40), (62, 40), (69, 40)]               # Pelluca's harbour lamp (base cell; its top above)
-BARRELS = [(56, 38), (60, 38), (64, 38), (69, 38), (66, 39), (53, 37), (71, 39), (34, 38), (41, 53)]
-BARREL_STACKS = [(57, 37), (61, 37), (65, 37), (70, 37), (33, 37)]
+IRON_LAMPS = [(58, 41), (62, 41), (69, 41)]               # Pelluca's harbour lamp (base cell; its top above)
+BARRELS = [(56, 38), (60, 38), (64, 38), (69, 38), (66, 39), (53, 37), (34, 38), (41, 53)]
+BARREL_STACKS = [(57, 37), (61, 37), (65, 37), (70, 37), (33, 37), (58, 36)]
 CRATES_SMALL = [(55, 39), (59, 39), (63, 39), (68, 39), (52, 40), (37, 52)]
 SACKS = [(57, 39), (61, 39), (60, 39), (65, 39), (70, 39)]
-ROPES = [(50, 41), (64, 41), (37, 50), (67, 51)]
-NETS = [(53, 46), (65, 50)]
+ROPES = [(53, 47), (64, 41), (37, 50), (67, 51)]
+NETS = [(53, 46), (65, 46)]
 # v3 (user 2026-11-25: "your current placement patterns of some of these new NPCs look like they obstruct that path";
 # "Fix everything"): the shrine to the lost prince stands on the main axis at the great pier's root, where every
 # arrival walks straight toward it, in a little bay of its own (an iron candle stand either side, its keeper beside
@@ -159,6 +159,8 @@ def basin(x, y):
     return x <= 72 and y <= lim
 
 # --------------------------------------------------------------------------------------------------- composition
+SNAP = {}
+DRAW_SHRINE = True
 def compose(town):
     img = np.array(town.convert('RGB')).copy()
     STONE_CELLS = set()
@@ -261,6 +263,7 @@ def compose(town):
         for x in range(lx0, lx1 + 1):
             c = base[blk(x, y)]; m = (c != ref).any(-1)
             t = img[blk(x, y + dy)]; t[m] = c[m]; img[blk(x, y + dy)] = t
+    SNAP['ground'] = img.copy(); SNAP['land'] = land.copy()
     # 9. quay furniture
     for (x, y, m) in FLOWERS + CRATES + LAMPS:
         t = wc(m); cur = img[blk(x, y)]; pav = wc('2b7'); d = (t != pav).any(-1); cur[d] = t[d]; img[blk(x, y)] = cur   # (props over the deepened stone)
@@ -401,7 +404,7 @@ def compose(town):
         else: Y0 = y * S
         sub = img[Y0:Y0 + m.shape[0], x * S:x * S + m.shape[1]]; sub[m] = rgb[m]
     PEOPLE = list(PEOPLE_AT)
-    for (gfx, x, y, f) in [('dr_shrine', *SHRINE, 'D')] + PEOPLE + SCENE:
+    for (gfx, x, y, f) in ([('dr_shrine', *SHRINE, 'D')] if DRAW_SHRINE else []) + PEOPLE + SCENE:
         path = os.path.join(C, 'graphics/object_events/pics/%s/%s.png' % ('misc' if gfx == 'dr_shrine' else 'people', gfx))
         sp = Image.open(path); pal = sp.getpalette(); a = np.array(sp)
         if gfx != 'dr_shrine':

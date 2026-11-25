@@ -77,7 +77,7 @@ PellucaReflection_Cutscene::
 # 49 "data/maps/PellucaReflection/scripts.pory"
 	setvar VAR_UNUSED_0x404E, 1
 # 50 "data/maps/PellucaReflection/scripts.pory"
-	warp MAP_PELLUCA_CITY, 44, 52
+	warp MAP_PELLUCA_HARBOUR, 40, 21
 # 51 "data/maps/PellucaReflection/scripts.pory"
 	waitstate
 # 52 "data/maps/PellucaReflection/scripts.pory"

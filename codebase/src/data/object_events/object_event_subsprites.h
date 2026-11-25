@@ -2895,3 +2895,30 @@ static const struct SubspriteTable sOamTables_48x48[] = {
     SUBSPRITE_TABLE_ENTRY(sOamTable_48x48_Grass2), // long grass
     SUBSPRITE_TABLE_ENTRY(sOamTable_48x48_Grass1) // long grass priority 1
 };
+// Dreamstone Ruination: Pelluca Harbour's vessels (tools/art/pelluca/make_harbour_ships.py). Each is drawn 8 px left of
+// its anchor cell's centre. A 128x64 ship is two rows of two 64x32 subsprites (its png stores the quarters stacked).
+static const struct Subsprite sOamTable_DrShip128x64[] = {
+    {.x = -72, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0,  .priority = 2},
+    {.x =  -8, .y = -32, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 32, .priority = 2},
+    {.x = -72, .y =   0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 64, .priority = 2},
+    {.x =  -8, .y =   0, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 96, .priority = 2},
+};
+static const struct SubspriteTable sOamTables_DrShip128x64[] = {
+    {ARRAY_COUNT(sOamTable_DrShip128x64), sOamTable_DrShip128x64}, {ARRAY_COUNT(sOamTable_DrShip128x64), sOamTable_DrShip128x64},
+    {ARRAY_COUNT(sOamTable_DrShip128x64), sOamTable_DrShip128x64}, {ARRAY_COUNT(sOamTable_DrShip128x64), sOamTable_DrShip128x64},
+    {ARRAY_COUNT(sOamTable_DrShip128x64), sOamTable_DrShip128x64}, {ARRAY_COUNT(sOamTable_DrShip128x64), sOamTable_DrShip128x64},
+};
+static const struct Subsprite sOamTable_DrBoat64x64[] = {
+    {.x = -40, .y = -32, .shape = SPRITE_SHAPE(64x64), .size = SPRITE_SIZE(64x64), .tileOffset = 0, .priority = 2},
+};
+static const struct SubspriteTable sOamTables_DrBoat64x64[] = {
+    {1, sOamTable_DrBoat64x64}, {1, sOamTable_DrBoat64x64}, {1, sOamTable_DrBoat64x64},
+    {1, sOamTable_DrBoat64x64}, {1, sOamTable_DrBoat64x64}, {1, sOamTable_DrBoat64x64},
+};
+static const struct Subsprite sOamTable_DrBoat64x32[] = {
+    {.x = -40, .y = -16, .shape = SPRITE_SHAPE(64x32), .size = SPRITE_SIZE(64x32), .tileOffset = 0, .priority = 2},
+};
+static const struct SubspriteTable sOamTables_DrBoat64x32[] = {
+    {1, sOamTable_DrBoat64x32}, {1, sOamTable_DrBoat64x32}, {1, sOamTable_DrBoat64x32},
+    {1, sOamTable_DrBoat64x32}, {1, sOamTable_DrBoat64x32}, {1, sOamTable_DrBoat64x32},
+};

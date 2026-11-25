@@ -96,6 +96,7 @@ Update this list as areas are finished.
 - 2026-11-24: 95.93% after the Ancient Cormoria slip (new map AncientCormoriaSlip, its own tilesets: 1015 of 1023 tiles, 255 of them its backdrop).
 - 2026-11-24: 95.95% after Route 11's farmhouse interior (Route11Farmhouse).
 - 2026-11-24: 95.98% after Mt. Mirroh B1F, the Blast Crater (MirrohInterior_B1F rebuilt 40x40, its own tilesets: 626 tiles).
+- 2026-11-25: 96.08% after Pelluca Harbour (the waterfront as its own map, 569 tiles; four vessel sprites; PellucaCity cut to 80x42).
 - **User 2026-11-23:** unused maps may be deleted to make room (e.g. Dreamstone Mysteries' other cities that nothing of
   ours uses so far). When space runs short: list the candidates (unused maps, their tilesets and music, the bytes each
   frees, after checking no kept map, script, warp, heal location or region-map entry points at them), show the list,

@@ -300,7 +300,12 @@
 // NOTE: The maximum amount of object events has been expanded from 255 to 65535.
 // Since dynamic graphics ids still require at least 16 free values, the actual limit
 // is 65519, but even considering follower Pokémon, this should be more than enough :)
-#define NUM_OBJ_EVENT_GFX                          285
+#define OBJ_EVENT_GFX_PALE_VELUZA                  285   // Pelluca Harbour (make_harbour_ships.py)
+#define OBJ_EVENT_GFX_MERCHANTMAN                  286
+#define OBJ_EVENT_GFX_FISHING_SLOOP                287
+#define OBJ_EVENT_GFX_WOODEN_ROWBOAT               288
+
+#define NUM_OBJ_EVENT_GFX                          289
 
 
 // These are dynamic object gfx ids.
@@ -447,6 +452,8 @@
 #define OBJ_EVENT_PAL_TAG_AMBROSE               0x112E
 #define OBJ_EVENT_PAL_TAG_TEMPLAR               0x112F
 #define OBJ_EVENT_PAL_TAG_DR_SHRINE             0x1130
+#define OBJ_EVENT_PAL_TAG_DR_SHIPS              0x1131
+#define OBJ_EVENT_PAL_TAG_DR_BOATS              0x1132
 #define OBJ_EVENT_PAL_TAG_SHUBUBU                 0x1125
 #define OBJ_EVENT_PAL_TAG_GUBUKING                0x1126
 #define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1127

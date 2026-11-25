@@ -24,9 +24,6 @@ mapscripts PellucaCity_MapScripts{
     MAP_SCRIPT_ON_TRANSITION {
         setflag(FLAG_VISITED_PELLUCA_CITY)
     }
-    MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_UNUSED_0x404E, 1: DR_PellucaCity_Arrival
-    ]    
 }
 
 script PellucaCity_SetLayout{

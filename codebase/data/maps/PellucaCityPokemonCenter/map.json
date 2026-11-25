@@ -98,15 +98,15 @@
       "x": 6,
       "y": 10,
       "elevation": 0,
-      "dest_map": "MAP_PELLUCA_CITY",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_PELLUCA_HARBOUR",
+      "dest_warp_id": "0"
     },
     {
       "x": 7,
       "y": 10,
       "elevation": 0,
-      "dest_map": "MAP_PELLUCA_CITY",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_PELLUCA_HARBOUR",
+      "dest_warp_id": "0"
     }
   ],
   "coord_events": [],

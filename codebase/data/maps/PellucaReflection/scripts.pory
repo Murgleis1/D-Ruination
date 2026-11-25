@@ -47,7 +47,7 @@ script PellucaReflection_Cutscene {
     delay(40)
     fadescreen(FADE_TO_BLACK)
     setvar(VAR_UNUSED_0x404E, 1)
-    warp(MAP_PELLUCA_CITY, 44, 52)
+    warp(MAP_PELLUCA_HARBOUR, 40, 21)
     waitstate
     releaseall
     end
