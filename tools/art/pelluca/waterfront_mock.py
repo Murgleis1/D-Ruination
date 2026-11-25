@@ -280,6 +280,16 @@ def compose(town):
         snap = img.copy()
         for yy, xx in zip(ys, xs):                       # the turret's own stone from its other side (mirrored)
             img[Y0 + yy, X0 + xx] = snap[Y0 + yy, X0 + (2 * TURRET_CX - xx)]
+    # (user 2026-11-25: a visible foundation edge between the turret and the stone it sits on) a plinth course at the
+    # turret's foot, between its outlines: a lit top edge, two rows of dressed blocks, a dark line, a shadow on the quay
+    yb = Y1 - 1; probe = img[yb - 8, X0 - 4:X1 + 16].astype(int).sum(-1)
+    darks = np.nonzero(probe < 200)[0] + X0 - 4
+    xl = darks[0]; xr = next(x for x in darks if x > xl + 20)
+    img[yb - 4, xl + 1:xr] = (184, 188, 204)
+    img[yb - 3:yb - 1, xl + 1:xr] = (128, 130, 150)
+    for x in range(xl + 4, xr - 1, 7): img[yb - 3:yb - 1, x] = (72, 74, 96)
+    img[yb - 1:yb + 1, xl:xr + 1] = (44, 46, 66)
+    sh = img[yb + 1:yb + 3, xl - 1:xr + 3].astype(float) * 0.72; img[yb + 1:yb + 3, xl - 1:xr + 3] = sh.astype(np.uint8)
     SNAP['ground'] = img.copy(); SNAP['land'] = land.copy()
     # 9. quay furniture
     for (x, y, m) in FLOWERS + CRATES + LAMPS:
