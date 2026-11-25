@@ -654,3 +654,14 @@ drafts were previews only and the game still loaded the old Mauville map.
   (38, 41) -> (47, 41) -> the door (47, 40). The lab moves up four rows to the cliff foot (door (47, 44) -> (47, 40)).
   Dock people (stage 2) stand off the walk: sailors and the fisherman at the pier's west side and end, visitors and
   merchants by the sheds, a captain on the east pier, a Templar by the beach stair.
+
+## Two maps: town and harbour (user 2026-11-25)
+- Why: the approved waterfront (~560 unique 8x8 tiles) and the town (~790) together exceed one map's 1,024; the user
+  chose a separate harbour map, and (studying MonoMyth's North/South Edelweiss, two 78x70 maps joined by a map
+  connection where a stair climbs a tall retaining wall) asked that the town stand higher above the beach and dock,
+  its stairs taller, so two maps make sense in scale.
+- Seam plan (`harbour_seam_v1.png`): the lower cliff becomes a wall six rows high (was two), both stairs (x 24-25 and
+  37-39) run its full height. The town map ends just below the wall's foot; the harbour map begins with the town's
+  tree line as backdrop over the same wall, then the quay and beach. Joined like Edelweiss: by a map connection (walk
+  down a stair and you are on the harbour, no fade), the two maps sharing the wall rows so the camera shows the same
+  picture on either side. The sealed cave door moves to the wall's foot on the beach.
