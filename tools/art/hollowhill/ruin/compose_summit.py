@@ -1,15 +1,13 @@
-"""Hollow Hill's summit, art mock v1 (plan B, user 2026-11-25: the summit as its own map; story as proposed).
+"""Hollow Hill's summit, art mock v2 (plan B, user 2026-11-25: the summit as its own map; story as proposed).
 
-The sealed door at the knoll's foot opens (later in the game) on a tunnel climbing inside the knoll; it comes out on
-the summit through a stair sunk in the ground (Odyssey's own, from its haunted forest), at the south end of one axis:
-  arrival stair -> a broken flagstone causeway -> the court: the stele where Phancero was erased, the floor cracked out
-  from it, four empty plinths (the Treasures of Ruin) -> a wide stair -> the terrace -> the temple front cut into the
-  summit's crag (Odyssey 3.43's, same tileset as Hollow Hill), its middle burst open, the breach webbed shut: the
-  guardian's lair. A broken colonnade down both sides of the court (MonoMyth's temple columns, Lazarus' fallen column,
-  in the temple's bone stone). Blood webs thickest on the temple; blood run down the crag; bone pines and dead trees
-  at the margins; the woods far below round the plateau; fog.
-Hollow Hill's own colours (hh_mock.bone): Odyssey's pieces recoloured one for one.
-Credits: Pokemon Odyssey (tileset, temple, stele, stair), MonoMyth (columns, webbing), Lazarus (fallen column).
+v2 (user 2026-11-25: "the temple doesn't look correct. Study the bastion part that leads to the open sky area in
+monomyth"; and a visual audit of the rest): the north half is now MonoMyth's bastion ascent (bastion.py): four flights
+narrowing up the axis between massive stone tiers, columns and knight statues flanking each flight, to the arcade at
+the top, its middle arch burst open from inside and webbed shut: the guardian's lair. South of it, as before: the
+court with the stele where Phancero was erased, the paving cracked out from it, four empty plinths, a broken
+colonnade, and the stair sunk in the ground that the tunnel from the sealed door climbs out of.
+Credits: MonoMyth (the bastion, columns, webbing), Pokemon Odyssey (tileset, stele, stair, pines), Lazarus (fallen
+column).
 Usage: python3 compose_summit.py OUTDIR"""
 import os, sys, random, math
 import numpy as np
@@ -22,37 +20,28 @@ sys.path.insert(0, os.path.join(ROOT, 'tools/art/ancient_cormoria')); sys.path.i
 import hh_mock as hh
 
 S = 16
-W, H = 41, 42
-AX = 20                                        # the axis (one cell: the temple, the stele, the stairs are odd widths)
+W, H = 43, 49
+AX = 20 + 1                                    # the axis (one cell)
 hh.W, hh.H = W, H                              # (hh_mock's shape helpers read these)
 ody = hh.ody
+import bastion as BA
+BX, BY = AX - BA.CX, 1                         # the bastion's cut: cells BX..BX+26, rows BY..BY+27
+DOOR = (AX, BY + BA.ARCADE_ROW)                # the burst arch (the lair's door; the player steps in from below)
+COURT_TOP = BY + BA.CH                         # the court's first row below the bastion's floor
 
-# ------------------------------------------------------------------------------------------------- the ground
 def levels():
-    P1 = hh.clean(hh.rrect(5, 5, 35, 38, 5))         # the summit plateau
-    P2 = hh.clean(hh.rrect(9, 5, 31, 18, 3))         # the terrace before the temple
-    CR = hh.clean(hh.rrect(12, 5, 28, 11, 2))        # the crag the temple is cut into
-    E = hh.cheb_depth(P1, 3) + hh.cheb_depth(P2, 2) + hh.cheb_depth(CR, 2)
-    return E, (P1, P2, CR)
+    yy, xx = np.mgrid[0:H, 0:W]
+    P1 = ((xx >= BX - 3) & (xx <= BX + BA.CW + 2) & (yy >= BY) & (yy <= COURT_TOP + 2)) | \
+         (np.abs((xx - AX) / 17.0) ** 3 + np.abs((yy - 36.5) / 9.6) ** 3 <= 1)
+    P1 = hh.clean(P1)
+    return hh.cheb_depth(P1, 3), (P1,)
 
-# Odyssey 3.43's temple front (x 7..15, y 3..7), its accidents taken out (the dead tree, the vine): columns 0 edge,
-# 1 panel, 2 pilaster, 3-5 the tablet and steps, 6 pilaster, 7 panel, 8 edge
-TEMPLE9 = [[0x2b1, 0x2b2, 0x2b3, 0x2dd, 0x2f1, 0x2de, 0x2b7, 0x2f1, None],
-           [0x2b9, 0x2ba, 0x2bb, 0x2bc, 0x2bd, 0x2be, 0x2bf, 0x2f1, None],
-           [0x2c0, 0x2c1, 0x2c2, 0x2c3, 0x2c4, 0x2c5, 0x2c6, 0x2c7, 0x2d8],
-           [0x2c8, 0x2c9, 0x2ca, 0x2cb, 0x30b, 0x2cd, 0x2ce, 0x2cf, 0x2d9],
-           [0x2d0, 0x2d1, 0x2d2, 0x2d3, 0x2d4, 0x2d5, 0x2d6, 0x2d7, 0x2da]]
-SEQ = [0, 1, 2, 1, 2, 3, 4, 5, 6, 7, 6, 7, 8]       # widened to 13: a bay more each side, symmetric
-TEMPLE = [[row[c] for c in SEQ] for row in TEMPLE9]
-TW = len(SEQ)
-TX, TY = AX - TW // 2, 7                            # the temple front: cells TX..TX+12, rows 7..11 (its steps on 11)
-STAIR = (AX - 2, 17, 5)                             # the wide stair (x0, top row, width), two bands
-PLINTHS = [(AX - 5, 22), (AX + 4, 22), (AX - 5, 29), (AX + 4, 29)]   # 2x2 each, symmetric about the axis
-STELE = (AX, 25)                                    # 2e5 over 2ed
-ARRIVE = (AX - 2, 34)                               # the sunk stair the tunnel climbs out of (5 wide, 2 rows)
-COLS = [(AX - 9, y) for y in (21, 24, 27, 30)] + [(AX + 9, y) for y in (21, 24, 27, 30)]   # the colonnade (foot cells)
-STANDING = {(AX - 9, 21), (AX + 9, 24), (AX - 9, 27), (AX + 9, 30), (AX + 9, 21)}
-FALLEN = {(AX - 9, 30): +1}                         # lying in toward the court
+PLINTHS = [(AX - 5, 31), (AX + 4, 31), (AX - 5, 37), (AX + 4, 37)]   # 2x2 each, symmetric about the axis
+STELE = (AX, 34)                                    # 2e5 over 2ed
+ARRIVE = (AX - 2, 41)                               # the sunk stair the tunnel climbs out of (5 wide, 2 rows)
+COLS = [(AX - 10, y) for y in (30, 33, 36, 39)] + [(AX + 10, y) for y in (30, 33, 36, 39)]
+STANDING = {(AX - 10, 30), (AX + 10, 33), (AX - 10, 36), (AX + 10, 39), (AX + 10, 30)}
+FALLEN = {(AX - 10, 39): +1}
 
 def faces(E):
     F = {}
@@ -90,12 +79,7 @@ def piece(m):
 
 # ------------------------------------------------------------------------------- the temple's stone (bone) ramp
 def stone_ramp():
-    cs = set()
-    for row in TEMPLE:
-        for m in row:
-            if m and m not in (0x2f1, 0x2dd, 0x2de): cs |= {tuple(c) for c in ody(m).reshape(-1, 3).tolist()}
-    cs = [c for c in cs if not (c[1] > c[0] + 10)]                    # (no vine greens)
-    return sorted(cs, key=lambda c: -(0.3 * c[0] + 0.55 * c[1] + 0.15 * c[2]))
+    return list(BA.BONE_RAMP)                       # (the bastion's own bone stone: the columns and plinths match it)
 RAMP = None
 def to_bone(rgb, a=None):
     """MonoMyth's / Lazarus' stone mapped by lightness onto the temple's own bone stone; greens -> Hollow Hill's weeds"""
@@ -120,30 +104,36 @@ def columns():
 # --------------------------------------------------------------------------------------------- the flagstones
 FLAGS = [0x2fc, 0x301] * 9 + [0x305, 0x306]  # Odyssey's paving, whole slabs (the last two with a broken stone)
 def flag_cells(rnd):
-    """the paving, cell by cell: the apron before the temple, the court's square round the stele and the plinths, the
-    causeway; broken away at its edges and in holes (never on the axis' walking line)"""
+    """the court's paving, cell by cell: a square round the stele and the plinths, the axis down to the sunk stair;
+    broken away at its edges and in holes (never on the axis' walking line)"""
     on = set()
-    for x in range(AX - 3, AX + 4):
-        for y in range(12, 17): on.add((x, y))                                  # the apron
-    for x in range(AX - 6, AX + 7):
-        for y in range(20, 32): on.add((x, y))                                  # the court
+    for x in range(AX - 7, AX + 8):
+        for y in range(COURT_TOP, COURT_TOP + 12): on.add((x, y))
     for x in range(AX - 2, AX + 3):
-        for y in range(19, 34): on.add((x, y))                                  # the axis (stair foot to causeway)
-    for (x, y) in list(on):                                                     # ragged edges
+        for y in range(COURT_TOP, ARRIVE[1]): on.add((x, y))
+    for (x, y) in list(on):
         edge = any((x + dx, y + dy) not in on for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
-        if edge and abs(x - AX) > 1 and rnd.random() < 0.45: on.discard((x, y))
-    for _ in range(16):                                                         # holes, a slab or two
-        x, y = rnd.randint(AX - 6, AX + 6), rnd.randint(13, 33)
-        if abs(x - AX) <= 1: continue
+        corner = abs(x - AX) >= 5 and (y - COURT_TOP >= 9 or y - COURT_TOP <= 0)
+        if y == COURT_TOP and abs(x - AX) <= 5: continue                       # (it runs on from the bastion's floor)
+        if (edge and abs(x - AX) > 2 and rnd.random() < 0.4) or (corner and rnd.random() < 0.5): on.discard((x, y))
+    for _ in range(12):
+        x, y = rnd.randint(AX - 7, AX + 7), rnd.randint(COURT_TOP + 1, COURT_TOP + 11)
+        if abs(x - AX) <= 2: continue
         for c in ((x, y), (x + rnd.choice((0, 1)), y)): on.discard(c)
     return on
+
+_B = {}
+def floor_cell(x, y):
+    """the bastion's own paving (its floor below the last flight), carried on into the court"""
+    b = BA.paving(); r = (y - COURT_TOP) % 2; c = (x - BX) % BA.CW
+    return b[r * S:r * S + S, c * S:c * S + S]
 
 def lay_flags(img, on, F, rnd):
     """slabs on the cells; each edge broken irregularly (a pixel noise line), outlined, the floor shadowed below"""
     m = np.zeros((H * S, W * S), bool)
     for (x, y) in on:
         if (x, y) in F: continue
-        cellput(img, x, y, ody(rnd.choice(FLAGS))); m[y * S:y * S + S, x * S:x * S + S] = True
+        cellput(img, x, y, floor_cell(x, y)); m[y * S:y * S + S, x * S:x * S + S] = True
     keep = m.copy()                                                             # chew the outer edges
     yy, xx = np.nonzero(m)
     for Y, X in zip(yy, xx):
@@ -201,42 +191,58 @@ def plinth(seed, broken=False):
             if x < 27: rgb[y, x] = DD
     return rgb, a
 
-def temple(cv, rnd):
-    """the front, its middle burst open from inside: a jagged dark breach where the carved tablet stood; the cornice's
-    broken gap kept (the crag shows through)"""
-    T = np.zeros((5 * S, TW * S, 3), np.uint8); A = np.zeros((5 * S, TW * S), bool)
-    for r, row in enumerate(TEMPLE):
-        for c, m in enumerate(row):
-            if m is None or m in (0x2f1, 0x2dd, 0x2de): continue
-            rgb, a = piece(m); T[r * S:r * S + S, c * S:c * S + S][a] = rgb[a]; A[r * S:r * S + S, c * S:c * S + S] |= a
-    # vines back on two panels (Odyssey's own: its 2c7/2cf vine variants 307/30f)
-    for c in (1, 11):
-        for r, m in ((2, 0x307), (3, 0x30f)):
-            if rnd.random() < 0.8: rgb, a = piece(m); T[r * S:r * S + S, c * S:c * S + S][a] = rgb[a]
-    mid = TW // 2
-    bx0, bx1, by0, by1 = mid * S - 10, mid * S + S + 10, 2 * S - 8, 4 * S + 2
-    void = np.array((16, 12, 20))
-    for y in range(by0, by1):
-        taper = max(0, (by0 + 12 - y)) // 2
-        jl, jr = rnd.randint(-2, 2), rnd.randint(-2, 2)
-        T[y, bx0 + taper + jl:bx1 - taper + jr] = void; A[y, bx0 + taper + jl:bx1 - taper + jr] = True
-    vd = (T == void).all(-1)
-    rim = ~vd & A & (np.roll(vd, 1, 1) | np.roll(vd, -1, 1) | np.roll(vd, 1, 0) | np.roll(vd, -1, 0))
-    T[rim] = (58, 50, 64)
-    cv.put(T, A, TX * S, TY * S, foot=(TY + 4) * S + 4)
-    return (AX, TY + 4)                                                        # the lair's door: the breach's foot
+def breach(cv, rnd, B5):
+    """the bastion's arcade: its middle arch burst open from inside, a ragged hole broken out brick by brick up into the
+    wall above (its edges stepping with the courses), the wall's thickness lit inside its top; its stones (MonoMyth's
+    own rubble) thrown down onto the landing; blood soaked into the landing's stones below it"""
+    X, Y = DOOR[0] * S + 8, DOOR[1] * S + S - 3              # the hole's foot, centred on the axis
+    HT, HW = 46, 22
+    void, thick, rim = np.array((14, 10, 18)), np.array(BA.BONE_RAMP[5]), np.array(BA.BONE_RAMP[7])
+    img = cv.img; mask = np.zeros(img.shape[:2], bool)
+    for band in range(0, HT, 4):                              # a course of bricks at a time, from the foot up
+        h = band / HT; w = HW * (1 - h ** 2.2) ** 0.5
+        w = int(round((w + rnd.choice((-4, 0, 0, 4))) / 4) * 4)
+        if w <= 0: continue
+        off = rnd.choice((-4, 0, 0, 4)) if band > 8 else 0
+        for yy in range(Y - band - 4, Y - band):
+            mask[yy, X - w + off:X + w + off] = True
+    cv.mid[mask] = void; cv.mid_a[mask] = True
+    above = np.zeros_like(mask); above[:-1] = mask[1:]                    # the top edge: the wall's thickness, lit
+    top = mask & ~np.roll(mask, 3, 0)
+    cv.mid[top] = thick
+    edge = ~mask & (np.roll(mask, 1, 0) | np.roll(mask, -1, 0) | np.roll(mask, 1, 1) | np.roll(mask, -1, 1))
+    cv.mid[edge] = rim; cv.mid_a[edge] = True
+    # the thrown-down stones: a spill of broken blocks, each lit on top, dark at its foot, outlined
+    R_ = BA.BONE_RAMP; yy, xx = np.mgrid[0:img.shape[0], 0:img.shape[1]]
+    for k in range(14):
+        cx = X + rnd.gauss(0, 15); cy = Y + 7 + abs(rnd.gauss(0, 7))
+        if abs(cx - X) < 6 and cy < Y + 10: cx += rnd.choice((-9, 9))          # (the door cell's foot kept clear)
+        rx, ry = rnd.uniform(4, 7.5), rnd.uniform(3, 5)
+        x0, x1, y0, y1 = int(cx - rx - 2), int(cx + rx + 3), int(cy - ry - 2), int(cy + ry + 3)
+        sub = (((xx[y0:y1, x0:x1] - cx) / rx) ** 2 + ((yy[y0:y1, x0:x1] - cy) / ry) ** 2) <= 1
+        sub &= ~((np.abs(xx[y0:y1, x0:x1] - cx) + np.abs(yy[y0:y1, x0:x1] - cy) * 0.6) > rx * 0.95)   # (faceted)
+        reg = cv.img[y0:y1, x0:x1]
+        reg[sub] = R_[3]
+        hi = sub & (yy[y0:y1, x0:x1] < cy - ry * 0.25); reg[hi] = R_[1]
+        lo = sub & (yy[y0:y1, x0:x1] > cy + ry * 0.4); reg[lo] = R_[5]
+        e = sub & ~(np.roll(sub, 1, 0) & np.roll(sub, -1, 0) & np.roll(sub, 1, 1) & np.roll(sub, -1, 1)); reg[e] = R_[7]
+    g = np.random.default_rng(3)
+    for k in range(80):
+        px = int(X + g.normal(0, 10)); py = int(Y + 4 + abs(g.normal(0, 7)))
+        if not mask[py, px]: cv.img[py, px] = hh.BLOOD[int(g.integers(0, 2))]
 
-def webs(cv, door, rnd):
-    """the guardian's: the net across the breach; webs packed in the corners where the temple meets the crag; sheets
-    hung between neighbouring columns down the colonnade; one torn orb between the stair's foot columns"""
+def webs(cv, rnd):
+    """the guardian's: the net across the breach; webs in the corners where the arcade meets the columns and statues;
+    round webs between the columns and the tiers up the flights; sheets in the court's colonnade"""
     L = np.zeros((H * S, W * S, 4), np.uint8); g = np.random.default_rng(rnd.randint(0, 99999))
     net = hh.web('web_net'); nh, nw = net.shape[:2]
-    X = door[0] * S + 8 - nw // 2; Y = (TY + 2) * S - 10
+    X = DOOR[0] * S + 8 - nw // 2; Y = (DOOR[1] - 1) * S - 2
     sl = L[Y:Y + nh, X:X + nw]; mm = net[..., 3] > 0; sl[mm] = net[mm]
-    for C, R, anc in ((((TX) * S + 2, (TY + 2) * S + 4), 15, [((TX - 1) * S, TY * S + 6), ((TX + 1) * S, (TY + 1) * S)]),
-                      (((TX + TW) * S - 2, (TY + 2) * S + 4), 15, [((TX + TW + 1) * S, TY * S + 6), ((TX + TW - 1) * S, (TY + 1) * S)])):
-        hh.orb(L, C, R, anc, g, torn=0.3)
-    for x, ys in ((AX - 9, (21, 24)), (AX + 9, (24, 27)), (AX + 9, (21, 24))):
+    for (cx, cy, R) in ((BX + 7, BY + 10, 13), (BX + 19, BY + 9, 12), (BX + 4, BY + 15, 15), (BX + 22, BY + 16, 13),
+                        (BX + 1, BY + 20, 14)):
+        C = (cx * S + 8, cy * S + 8)
+        hh.orb(L, C, R, [(C[0] - R - 4, C[1] - R), (C[0] + R + 4, C[1] - R + 3)], g, torn=0.35)
+    for x, ys in ((AX - 10, (30, 33)), (AX + 10, (33, 36)), (AX + 10, (30, 33))):
         top_a = (x * S + 8, (ys[0] + 1) * S - 34); top_b = (x * S + 8, (ys[1] + 1) * S - 34)
         C = (x * S + 8 + (5 if x < AX else -5), (top_a[1] + top_b[1]) // 2 + 4)
         hh.orb(L, C, 17, [top_a, top_b, (x * S + 8, top_b[1] + 26)], g, torn=0.35)
@@ -253,15 +259,20 @@ def webbed_rock(seed):
     m = (L[..., 3] > 0) & a; rgb[m] = L[..., :3][m]
     return rgb, a
 
+def blob(rnd, x0, y0, n):
+    """an organic patch of n cells grown from (x0, y0)"""
+    cells = {(x0, y0)}
+    while len(cells) < n:
+        x, y = rnd.choice(sorted(cells)); d = rnd.choice(((1, 0), (-1, 0), (0, 1), (0, -1), (1, 0), (-1, 0)))
+        cells.add((x + d[0], y + d[1]))
+    return cells
+
 # ------------------------------------------------------------------------------------------------- compose
 def compose(seed=7):
     rnd = random.Random(seed)
-    E, (P1, P2, CR) = levels(); F = faces(E)
-    x0, y0, w = STAIR
-    for i in range(w):
-        for b in range(2):
-            assert F.get((x0 + i, y0 + b)) == 0x2f1, ('stair not on a straight edge', x0 + i, y0 + b, F.get((x0 + i, y0 + b)))
-            F[x0 + i, y0 + b] = 0x339 if b == 0 else 0x338
+    E, (P1,) = levels(); F = faces(E)
+    inb = lambda x, y: BX <= x < BX + BA.CW and BY <= y < BY + BA.CH
+    for k in [k for k in F if inb(*k)]: del F[k]
     for (x, y), v in list(F.items()):
         if v == 0x2f1 and rnd.random() < 0.10: F[x, y] = rnd.choice([0x2df, 0x2e7])
     img = np.zeros((H * S, W * S, 3), np.uint8)
@@ -269,26 +280,29 @@ def compose(seed=7):
         for x in range(W):
             cellput(img, x, y, ody(F[x, y]) if (x, y) in F else hh.TEAL)
     class _M: pass
-    M = _M(); M.face = F; hh.DOOR = (AX - 1, TY + 4)
-    img = hh.blood(M, img, seed=21, n=14)
-    on = flag_cells(rnd); fm = lay_flags(img, on, F, rnd); cracks(img, fm, rnd)
+    M = _M(); M.face = F; hh.DOOR = (AX - 1, H - 1)
+    img = hh.blood(M, img, seed=21, n=6)
+    on = flag_cells(rnd); fm = lay_flags(img, on, F, rnd)
     cv = Canvas(img)
     used = np.zeros((H, W), object)
-    for (x, y) in F: used[y, x] = 'stair' if F[x, y] in (0x338, 0x339) else 'cliff'
-    # the woods far below, all round the plateau (Odyssey's pines, two cells wide, each over the one below)
+    for (x, y) in F: used[y, x] = 'cliff'
+    # the woods far below, all round: Odyssey's pines, darkened and greyed (they are far down, in the fog)
     for y in range(H):
         for x in range(W):
             if E[y, x] == 0:
                 pair = (0x289, 0x28a) if (y % 2) else (0x283, 0x284)
-                rgb, a = piece(pair[x % 2]); cv.put(rgb, a, x * S, y * S, layer='bottom'); used[y, x] = 'woods'
-    door = temple(cv, rnd)
-    for r in range(5):
-        for c in range(TW):
-            if TEMPLE[r][c] is not None: used[TY + r, TX + c] = 'temple'
-    used[door[1], door[0]] = 'door'
-    for dx, dy, m in ((-2, 1, 0x2fd), (2, 1, 0x305), (-3, 2, 0x2fe)):           # stones spilled from the breach
-        X, Y = door[0] + dx, door[1] + dy
-        rgb, a = piece(m); cv.put(rgb, a, X * S, Y * S, foot=Y * S + 6); used[Y, X] = 'rubble'
+                rgb, a = piece(pair[x % 2]); cellput(cv.img, x, y, hh.TEAL); cv.put(rgb, a, x * S, y * S, layer='bottom'); used[y, x] = 'woods'
+                c = cv.img[y * S:y * S + S, x * S:x * S + S].astype(float)
+                cv.img[y * S:y * S + S, x * S:x * S + S] = (c * 0.55 + np.array((70, 70, 84)) * 0.45).astype(np.uint8)
+    # the bastion
+    brgb, bwalk = BA.bastion()
+    cv.img[BY * S:(BY + BA.CH) * S, BX * S:(BX + BA.CW) * S] = brgb
+    for y in range(BA.CH):
+        for x in range(BA.CW): used[BY + y, BX + x] = 'bwalk' if bwalk[y, x] else 'bastion'
+    used[DOOR[1], DOOR[0]] = 'door'
+    # the court's paving meets the bastion's floor; the cracks run out from the stele over both
+    fm[COURT_TOP * S - 2 * S:COURT_TOP * S, :] |= False
+    cracks(cv.img, fm, rnd)
     for i, m in enumerate((0x2e5, 0x2ed)):
         rgb, a = piece(m); cv.put(rgb, a, STELE[0] * S, (STELE[1] + i) * S, foot=(STELE[1] + 1) * S + 10); used[STELE[1] + i, STELE[0]] = 'stele'
     for k, (px, py) in enumerate(PLINTHS):
@@ -298,9 +312,10 @@ def compose(seed=7):
     ax, ay = ARRIVE
     for dx, (t, b) in enumerate(((0x330, 0x332), (0x32c, 0x333), (0x32c, 0x333), (0x32c, 0x334), (0x330, 0x331))):
         for dy, m in enumerate((t, b)):
-            cv.put(ody(m), np.ones((16, 16), bool), (ax + dx) * S, (ay + dy) * S, layer='bottom')
+            cv.put((to_bone(ody(m)) * 0.86).astype(np.uint8), np.ones((16, 16), bool), (ax + dx) * S, (ay + dy) * S, layer='bottom')
             used[ay + dy, ax + dx] = 'arrive' if 1 <= dx <= 3 else 'plinth'
     B5, V1 = columns(); parts = B5.column_parts()
+    breach(cv, rnd, B5)
     for (x, y) in COLS:
         if (x, y) in FALLEN:
             rgb, a = B5.laz_fallen(2, rnd); X = x * S + 10
@@ -310,50 +325,43 @@ def compose(seed=7):
         else:
             rgb, a = B5.column(3 if (x, y) in STANDING else rnd.choice((1, 2)), (x, y) not in STANDING, rnd, parts)
         cv.put(rgb, a, x * S, (y + 1) * S - rgb.shape[0], foot=(y + 1) * S - 5); used[y, x] = 'column'
-    for (x, y, h_) in ((AX - 4, 19, 2), (AX + 4, 19, 3), (TX - 2, TY + 6, 2), (TX + TW + 1, TY + 6, 1)):
-        rgb, a = B5.column(h_, h_ < 3, rnd, parts); cv.put(rgb, a, x * S, (y + 1) * S - rgb.shape[0], foot=(y + 1) * S - 5); used[y, x] = 'column'
-    rgb, a = B5.laz_fallen(2, rnd); cv.put(rgb, a, (TX + TW - 3) * S, (TY + 7) * S + 2, foot=(TY + 8) * S); used[TY + 7, TX + TW - 3] = used[TY + 7, TX + TW - 2] = 'column'
-    for k, (x, y) in enumerate(((TX - 1, TY + 5), (TX + TW, TY + 5), (TX - 3, TY + 8), (AX + 7, 33), (AX - 8, 32))):
-        if used[y, x] == 0: rgb, a = webbed_rock(k); cv.put(rgb, a, x * S, y * S); used[y, x] = 'rock'
+    for k, (x, y) in enumerate(((AX - 8, 41), (AX + 8, 42), (AX - 13, 33), (AX + 13, 37), (AX + 6, 29))):
+        if used[y, x] == 0 and E[y, x] == 3: rgb, a = webbed_rock(k); cv.put(rgb, a, x * S, y * S); used[y, x] = 'rock'
     def tree(x, y, kind):
         ids = ((0x2a0,), (0x2a8,)) if kind == 'dead' else ((0x281, 0x282), (0x289, 0x28a), (0x291, 0x292))
         hgt, wid = len(ids), len(ids[0])
-        if any(used[y + dy, x + dx] != 0 for dy in range(hgt) for dx in range(wid)) or \
+        if any(used[y + dy, x + dx] != 0 or E[y + dy, x + dx] != 3 for dy in range(hgt) for dx in range(wid)) or \
            any(fm[(y + dy) * S + 8, (x + dx) * S + 8] for dy in range(hgt) for dx in range(wid)): return False
         for dy, row in enumerate(ids):
             for dx, m in enumerate(row):
                 rgb, a = piece(m); cv.put(rgb, a, (x + dx) * S, (y + dy) * S, foot=(y + hgt - 1) * S + 4); used[y + dy, x + dx] = 'tree'
         return True
-    for x, y, k in ((9, 9, 'pine'), (30, 9, 'pine'), (8, 22, 'pine'), (31, 27, 'pine'), (8, 30, 'pine'),
-                    (12, 13, 'dead'), (28, 14, 'dead'), (14, 33, 'dead'), (27, 20, 'dead'), (30, 33, 'dead')):
+    for x, y, k in ((7, 33, 'pine'), (33, 32, 'pine'), (9, 38, 'pine'), (31, 39, 'pine'),
+                    (12, 30, 'dead'), (30, 29, 'dead'), (13, 41, 'dead'), (28, 42, 'dead'), (34, 36, 'dead')):
         if not tree(x, y, k): print('no room for', k, x, y)
-    for x, y in ((13, 26), (27, 25), (10, 34), (29, 12), (11, 15)):
+    for x, y in ((14, 35), (28, 34), (11, 42), (32, 30), (26, 41)):
         if used[y, x] == 0 and not fm[y * S + 8, x * S + 8]:
             rgb, a = piece(0x290); cv.put(rgb, a, x * S, y * S, layer='bottom'); used[y, x] = 'grass'
-    for x0_, y0_, x1_, y1_ in ((8, 25, 10, 28), (30, 22, 32, 25), (10, 11, 12, 13), (29, 15, 31, 16), (25, 33, 28, 34)):
-        for y in range(y0_, y1_ + 1):
-            for x in range(x0_, x1_ + 1):
-                if used[y, x] == 0 and E[y, x] == E[y0_, x0_] and not fm[y * S:y * S + S, x * S:x * S + S].any():
-                    rgb, a = piece(0x2b8); cv.put(rgb, a, x * S, y * S, layer='bottom'); used[y, x] = 'grass'
-    webs(cv, door, rnd)
-    return cv, E, F, used, door, fm
+    for (x0, y0, n) in ((8, 35, 7), (33, 34, 6), (15, 42, 5), (25, 43, 4)):
+        for (x, y) in blob(rnd, x0, y0, n):
+            if 0 <= x < W and 0 <= y < H and used[y, x] == 0 and E[y, x] == 3 and not fm[y * S:y * S + S, x * S:x * S + S].any():
+                rgb, a = piece(0x2b8); cv.put(rgb, a, x * S, y * S, layer='bottom'); used[y, x] = 'grass'
+    webs(cv, rnd)
+    return cv, E, F, used, DOOR, fm
 
 def walk_check(E, used, door):
     ok = np.zeros((H, W), bool)
     for y in range(H):
-        for x in range(W): ok[y, x] = used[y, x] in (0, 'stair', 'grass', 'arrive', 'door') and E[y, x] > 0
+        for x in range(W): ok[y, x] = used[y, x] in ('bwalk', 'door', 'grass', 'arrive') or (used[y, x] == 0 and E[y, x] == 3)
     start = (AX, ARRIVE[1] + 1); seen = {start}; todo = [start]
     while todo:
         x, y = todo.pop()
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             xx, yy = x + dx, y + dy
             if not (0 <= xx < W and 0 <= yy < H) or (xx, yy) in seen or not ok[yy, xx]: continue
-            special = {used[y, x], used[yy, xx]}
-            if 'stair' in special and dx: continue
-            if not special & {'stair', 'arrive', 'door'} and E[yy, xx] != E[y, x]: continue
             seen.add((xx, yy)); todo.append((xx, yy))
-    need = {'the door': door, 'terrace': (AX, TY + 6), 'court': (AX, 22), 'plinth NW': (PLINTHS[0][0], PLINTHS[0][1] + 2),
-            'colonnade W': (AX - 9, 26), 'colonnade E': (AX + 9, 26)}
+    need = {'the door': door, 'top landing': (AX, BY + 6), 'court': (AX, COURT_TOP + 1), 'plinth NW': (PLINTHS[0][0], PLINTHS[0][1] + 2),
+            'colonnade W': (AX - 10, 35), 'colonnade E': (AX + 10, 35)}
     return [k for k, p in need.items() if p not in seen], seen
 
 def main(outdir):
@@ -361,9 +369,9 @@ def main(outdir):
     img = cv.flat()
     miss, seen = walk_check(E, used, door)
     os.makedirs(outdir, exist_ok=True)
-    Image.fromarray(img).save(os.path.join(outdir, 'summit_mock_v1_clear.png'))
+    Image.fromarray(img).save(os.path.join(outdir, 'summit_mock_v2_clear.png'))
     fg = hh.fog(img, seed=5, amount=0.30)
-    Image.fromarray(fg).save(os.path.join(outdir, 'summit_mock_v1.png'))
+    Image.fromarray(fg).save(os.path.join(outdir, 'summit_mock_v2.png'))
     dbg = img.copy()
     for (x, y) in seen: dbg[y * S + 6:y * S + 10, x * S + 6:x * S + 10] = (0, 255, 0)
     Image.fromarray(dbg).save(os.path.join(outdir, 'summit_walk_debug.png'))
