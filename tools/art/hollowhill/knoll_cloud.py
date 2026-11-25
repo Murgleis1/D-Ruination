@@ -21,19 +21,30 @@ def cloud():
     for i, c in FOG.items(): out[a == i, :3] = c; out[a == i, 3] = 255
     return out
 
-# (centre x, centre y relative to the knoll's top centre, flip: 0 none, 1 mirrored, 2 upside down, 3 both, drift)
-CAP = [(-62, -38, 0, 1), (2, -50, 1, -1), (64, -36, 2, 1),
-       (-92, 0, 3, -1), (-30, -10, 0, 1), (34, -6, 1, -1), (94, 4, 2, 1),
-       (-64, 32, 1, 1), (0, 30, 3, -1), (62, 32, 0, -1),
-       (-4, -24, 2, 1), (-24, 14, 3, -1), (26, 12, 0, 1)]                    # (filling the holes between them)
+# packed close (user 2026-11-25: "bring the clouds more packed together and swirl extremely slowly in a circular
+# pattern"): a still heart, an inner ring of 4 turning one way, an outer ring of 8 turning the other, on ellipses (the
+# hill seen from above and in front). Each ring's copies alternate two flips, so after a quarter turn the cap looks
+# as it began: the swirl loops seamlessly. Its speed in the game: a quarter turn in about 40 seconds.
+RINGS = [(0, 0, 1, [0]),                                      # (x radius, y radius, turn direction, flips round it)
+         (22, 14, 1, [1, 2]),
+         (46, 33, -1, [0, 3])]
+CY = 8                                                        # (the cap's heart, below the knoll's top centre)
+
+def placements(phase):
+    """(x, y, flip) of each copy at phase 0..1 (one loop: a quarter turn)"""
+    out = []
+    for rx, ry, d, flips in RINGS:
+        n = 1 if rx == 0 else (4 if rx < 30 else 8)
+        for j in range(n):
+            a = 2 * math.pi * j / n + d * (math.pi / 2) * phase + (0.4 if n == 8 else 0)
+            out.append((rx * math.cos(a), CY + ry * math.sin(a), flips[j % len(flips)], math.sin(a)))
+    return sorted(out, key=lambda p: p[3])                    # (the far side drawn first)
 
 def compose(base, k, n, cx, cy):
     c = cloud(); out = base.copy()
     pics = [Image.fromarray(c), Image.fromarray(c[:, ::-1].copy()), Image.fromarray(c[::-1].copy()), Image.fromarray(c[::-1, ::-1].copy())]
-    for i, (dx, dy, fl, s) in enumerate(CAP):
-        ph = 2 * math.pi * k / n + i * 0.9
-        x = int(round(cx + dx + s * 3 * math.sin(ph) - 32)); y = int(round(cy + dy + 1.2 * math.cos(ph) - 32))
-        out.alpha_composite(pics[fl], (x, y))
+    for x, y, fl, _ in placements(k / n):
+        out.alpha_composite(pics[fl], (int(round(cx + x - 32)), int(round(cy + y - 32))))
     return out
 
 def main(outdir, hh=None):
@@ -41,11 +52,11 @@ def main(outdir, hh=None):
     Image.fromarray(cloud()).save(os.path.join(outdir, 'cloud_fog.png'))
     if hh:
         base = Image.open(hh).convert('RGBA')
-        cx, cy = int(29.5 * 16), 448                              # the knoll's top; the cap's foot ends above row 33
+        cx, cy = int(29.5 * 16), 444                              # the knoll's top; the cap's foot ends above row 33
         crop = (16 * 16, 16 * 16, 44 * 16, 42 * 16)
-        n = 12; seq = [compose(base, k, n, cx, cy).crop(crop) for k in range(n)]
+        n = 24; seq = [compose(base, k, n, cx, cy).crop(crop) for k in range(n)]
         seq = [s.resize((s.width * 2, s.height * 2), Image.NEAREST).convert('RGB') for s in seq]
-        seq[0].save(os.path.join(outdir, 'knoll_cloud.gif'), save_all=True, append_images=seq[1:], duration=250, loop=0)
+        seq[0].save(os.path.join(outdir, 'knoll_cloud.gif'), save_all=True, append_images=seq[1:], duration=300, loop=0)
         seq[0].save(os.path.join(outdir, 'knoll_cloud_still.png'))
         compose(base, 0, n, cx, cy).convert('RGB').save(os.path.join(outdir, 'knoll_cloud_full.png'))
     print(outdir)
