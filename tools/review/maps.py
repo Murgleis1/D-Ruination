@@ -1,0 +1,15 @@
+CH1 = {
+ 'Pelluca: town and harbour': ['PellucaReflection', 'PellucaCity', 'PellucaHarbour'],
+ 'Pelluca: interiors': ['PellucaUmbraLab', 'PellucaTemplarMonastery', 'PellucaIcePath', 'PellucaCityPokemonCenter', 'PellucaDormitory1F',
+                        'PellucaDormitory2F', 'PellucaDormitoryOsridRoom', 'PellucaTemplarHall', 'PellucaAcademyHall', 'PellucaAcademyOffice',
+                        'PellucaAcademyLibrary', 'PellucaAcademyClassroom', 'PellucaAcademyLounge', 'PellucaUmbraManor',
+                        'PellucaHouse1', 'PellucaHouse2', 'PellucaHouse3', 'PellucaHouse4', 'PellucaHouse5'],
+ 'Route 11 and Hollow Hill': ['Route11', 'Route11Farmhouse', 'HollowHill', 'HollowHillSummit'],
+ 'Mirroh': ['MirrohGate', 'MirrohSouthGatehouse', 'MirrohLower', 'MirrohUpper', 'MirrohNWGatehouse', 'MirrohTavern', 'MirrohLangerinHall',
+            'MirrohChapel', 'MirrohSnowyHouse', 'MirrohCottage', 'MirrohTownhouse', 'MirrohSpecialtyShop'],
+ 'Necropolis': ['NecropolisGrounds', 'NecropolisLake', 'KimarisChamber'],
+ 'Route 13 and the Templar Citadel': ['Route13', 'TemplarCitadel', 'TemplarCitadelTavern', 'TemplarCitadelBarracks', 'TemplarCitadelArmoury',
+            'TemplarCitadelWatchHouse', 'TemplarCathedral', 'TemplarCathedralStudy', 'TemplarCathedralBishopsHall', 'TemplarCathedralDormitory',
+            'TemplarCathedralRegistry', 'TemplarCathedralKitchen', 'TemplarCathedralStorehouse', 'TemplarCathedralSanctum'],
+ 'Mt. Mirroh': ['MtMirrohExterior', 'MirrohInterior_1F', 'MirrohInterior_B1F', 'MirrohPeak', 'AncientCormoriaSlip'],
+}

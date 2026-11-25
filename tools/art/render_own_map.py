@@ -11,7 +11,7 @@ def ts_dir(sym):
     h = open(os.path.join(C, 'src/data/tilesets/headers.h')).read()
     m = re.search(r'const struct Tileset %s\s*=\s*\{(.*?)\};' % sym, h, re.S)
     tiles_sym = re.search(r'\.tiles\s*=\s*(\w+)', m.group(1)).group(1)
-    g = open(os.path.join(C, 'src/data/tilesets/graphics.h')).read()
+    g = open(os.path.join(C, 'src/data/tilesets/graphics.h')).read() + open(os.path.join(C, 'src/graphics.c')).read()
     p = re.search(r'%s\[\]\s*=\s*INCBIN_U32\("([^"]+)"' % tiles_sym, g).group(1)
     return os.path.join(C, os.path.dirname(p))
 

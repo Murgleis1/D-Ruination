@@ -90,6 +90,14 @@ gate events and Route 11's connections); do not re-run it as is.
 
 Update this list as areas are finished.
 
+**Stage 1 review pass (2026-11-25; `tools/review/`, sheets in `assets/stage1_review/`):** all 60 Chapter 1 maps rendered
+by area; every warp checked to land on an existing map and warp, every object, sign and warp on its map (`check.py`: 0
+problems); every walkable cell no warp or road reaches listed and looked at (`reach.py`): all are pockets out of reach
+by design (wall tops, the holding cell behind its bars, the kitchen's corner behind the stove, the snow behind the
+Citadel's houses and Mirroh's towers, cliff tops on the DM-era exterior), none a trap. Every map edge the player can
+reach on foot leads somewhere or turns the player back (`tools/playtest/pelluca_exits_walk.py`); the west gate's
+rows 31-32 were the one gap, closed. All standing walks pass.
+
 **Build gotcha (2026-11-25):** the Makefile does not track a layout's `map.bin` (it is `.incbin`'d through
 data/layouts/layouts.inc), so a map.bin patched alone is not rebuilt: after changing one, `rm -f
 codebase/build/modern/data/maps.o` before `make` (builders that also rewrite layouts.json or tilesets trigger it anyway).
