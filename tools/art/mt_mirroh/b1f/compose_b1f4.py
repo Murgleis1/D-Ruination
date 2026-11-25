@@ -31,7 +31,7 @@ R = 'assets/rejuvenation/pieces/ruins/%s.png'
 LAV = [(200, 204, 224), (166, 170, 196), (130, 134, 164), (94, 96, 128), (54, 54, 80)]   # (slate: the pillars recoloured)
 
 def terrain():
-    cls = np.full(G.shape, 'F', dtype='<U1'); cls[np.isin(G, ['#', 'w'])] = 'W'; cls[G == 'S'] = 'S'
+    cls = np.full(G.shape, 'F', dtype='<U1'); cls[np.isin(G, ['#', 'w', 'F'])] = 'W'; cls[G == 'S'] = 'S'
     C = MC.corpus(); fixed = {}
     for y in range(1, H - 1):
         for x in range(1, W - 1):
