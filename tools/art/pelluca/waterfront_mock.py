@@ -76,7 +76,8 @@ WY = dict(zip(range(8, 35), [45, 45, 46, 46, 46, 47, 47, 48, 48, 48, 48, 48, 47,
 QUAY = (32, 36, 71, 40)                      # paving rows 36-40; kerb row 41, its face row 42
 # (user 2026-11-25: the quay stands above the beach, so its west side is walled off: the only way between them is the
 # three-wide stair) the quay's west edge, rows 36-40 at x 32, is a solid retaining wall: Watercress' own quay edge
-# (its rim piece, kerb and drop) with sand at its foot in place of water
+# (its rim piece's dark line and kerb, moved flush to the cell's west side, so the quay meets the Tavern with no
+# strip of sand between them and the stair's top lies against stone all the way across)
 SEAWALL = [(32, y) for y in range(36, 41)]
 PIERS = [(35, 7, 53, False), (50, 5, 47, False), (64, 4, 52, False)]   # (left x, width, kerb row, bunting at its root)
 LAB = (44, 40, 49, 44, -4)                   # the lab's cells in the old map, moved up 4
@@ -191,11 +192,13 @@ def compose(town):
             land[y, x] = True
             img[blk(x, y)] = wc('2df' if x == x1 else '2b7')
     sand = cb('279')
-    for (x, y) in SEAWALL:                       # the rim, its water part turned to the sand below the wall
-        t = wc('2dd'); wet = np.zeros(t.shape[:2], bool)
-        for c in [tuple(v) for v in wc('6c').reshape(-1, 3)] + [tuple(v) for v in wc('e0').reshape(-1, 3)]:
-            wet |= (t == c).all(-1)
-        t[wet] = sand[wet]; img[blk(x, y)] = t
+    for (x, y) in SEAWALL:                       # the edge flush against the cell's west side (the Tavern's wall
+        t = wc('2b7')                            # beside it, no strip of sand): the rim's dark line and kerb, then paving
+        e = wc('2dd')[:, 10:16].copy()
+        wet = np.zeros(e.shape[:2], bool)
+        for c in [tuple(v) for v in wc('6c').reshape(-1, 3)] + [tuple(v) for v in wc('e0').reshape(-1, 3)]: wet |= (e == c).all(-1)
+        e[wet] = (64, 72, 104)                   # (its water-side pixels: the dark line)
+        t[:, 0:6] = e; img[blk(x, y)] = t
     pier_cols = {}
     for (px, w, kr, bunt) in PIERS:
         for i in range(w): pier_cols[px + i] = (px, w, kr, bunt, i)
