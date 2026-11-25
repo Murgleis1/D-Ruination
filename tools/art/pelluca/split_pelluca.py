@@ -1,6 +1,6 @@
 """Split Pelluca Valley into the town (PellucaCity, cut to 80 x 42) and the harbour (PellucaHarbour, build_harbour.py)
 (user 2026-11-25). Run after build_harbour.py. Idempotent on a clean checkout of PellucaCity (it reads the 80 x 60 map
-from git, rows 0-35 as built before the split).
+from git at PRE_SPLIT, rows 0-35 as built before the split).
 
 The town: rows 0-33 unchanged; rows 34-39 the retaining wall six courses high (its top course, then its second five
 times; the cave door gone from this side: it is at the wall's foot on the harbour), both stairs its full height; row 36
@@ -21,8 +21,9 @@ STAIRS = {24: 204, 25: 205, 37: 208, 38: 209, 39: 209}
 MB_DEEP_SOUTH_WARP = 0x6E
 PRIM = os.path.join(C, 'data/tilesets/primary/cormoria')
 
+PRE_SPLIT = 'b1b53ecde~1'                    # (the last commit with the 80 x 60 Pelluca)
 def git_bytes(path):
-    return subprocess.run(['git', 'show', 'HEAD:codebase/' + path], cwd=ROOT, capture_output=True, check=True).stdout
+    return subprocess.run(['git', 'show', PRE_SPLIT + ':codebase/' + path], cwd=ROOT, capture_output=True, check=True).stdout
 
 def warp_metatiles():
     """copies of the stair metatiles 204, 205, 208, 209 with the warp behaviour, appended to the Cormoria primary
@@ -110,7 +111,7 @@ def harbour_events():
     ]
     j['warp_events'] = [
         {'x': 28, 'y': 16, 'elevation': 3, 'dest_map': 'MAP_PELLUCA_CITY_POKEMON_CENTER', 'dest_warp_id': '0'},
-        {'x': 47, 'y': 13, 'elevation': 3, 'dest_map': 'MAP_PELLUCA_UMBRA_LAB', 'dest_warp_id': '0'},
+        {'x': 47, 'y': 12, 'elevation': 3, 'dest_map': 'MAP_PELLUCA_UMBRA_LAB', 'dest_warp_id': '0'},
         {'x': 24, 'y': 6, 'elevation': 3, 'dest_map': 'MAP_PELLUCA_CITY', 'dest_warp_id': '1'},
         {'x': 25, 'y': 6, 'elevation': 3, 'dest_map': 'MAP_PELLUCA_CITY', 'dest_warp_id': '2'},
         {'x': 37, 'y': 6, 'elevation': 3, 'dest_map': 'MAP_PELLUCA_CITY', 'dest_warp_id': '10'},
@@ -139,7 +140,7 @@ const LOCALID_HB_CADMUS = 2
 
 // The cold open's arrival (moved from PellucaCity with the waterfront, user 2026-11-25). Osrid lands at (40, 21) off
 // the Pale Veluza; Cadmus comes down the great pier from (40, 15); both walk up it; Osrid stops at the shrine to the
-// lost prince (38, 11) while Cadmus goes on along the kerb (row 14) to the lab door (47, 13). The walk is kept clear
+// lost prince (38, 11) while Cadmus goes on along the kerb (row 14) and up to the lab door (47, 12). The walk is kept clear
 // (tools/art/pelluca/waterfront_mock.py check_walk).
 script PellucaHarbour_Arrival {
     lockall
@@ -183,13 +184,13 @@ script PellucaHarbour_Arrival {
     msgbox(format("Rainhawk."))
     hideportrait
     closemessage
-    applymovement(LOCALID_HB_CADMUS, moves(face_up))
+    applymovement(LOCALID_HB_CADMUS, moves(walk_up face_up))
     waitmovement(0)
     delay(12)
     playse(SE_EXIT)
     removeobject(LOCALID_HB_CADMUS)
     delay(16)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2 walk_right * 9 face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2 walk_right * 9 walk_up face_up))
     waitmovement(0)
     delay(12)
     setflag(FLAG_UNUSED_0x884)

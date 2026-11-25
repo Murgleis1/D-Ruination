@@ -27,7 +27,7 @@ W, H, DY = 80, 33, 27                      # (harbour row = mock row - 27 for th
 STAIRS = [24, 25, 37, 38, 39]
 CAVE = (10, 11)
 MB_SAND, MB_OCEAN, MB_DOOR = 0x21, 0x15, 0x60
-TAVERN_DOOR, LAB_DOOR = (28, 43), (47, 40)        # (mock coordinates)
+TAVERN_DOOR, LAB_DOOR = (28, 43), (47, 39)        # (mock coordinates)
 TOWN_PNG = '/home/claude/scratch/pelluca_now.png'
 
 def wall_rows(town):
@@ -67,7 +67,7 @@ def plan():
     solid = set()
     tx0, ty0, tx1, ty1 = M.TAVERN
     solid |= {(x, y) for x in range(tx0, tx1 + 1) for y in range(ty0, ty1 + 1)} - {TAVERN_DOOR}
-    solid |= {(x, y) for x in range(44, 50) for y in range(36, 41)} - {LAB_DOOR}
+    solid |= {(x, y) for x in range(44, 50) for y in range(36, 40)} - {LAB_DOOR}
     solid |= {(23, 44), (24, 44)}                                        # the INN board
     solid |= set(M.SEAWALL)
     for (x, y, m) in M.FLOWERS + M.CRATES: solid.add((x, y))
@@ -102,6 +102,12 @@ def main():
     # the picture: backdrop, wall, waterfront
     flat = np.concatenate([town[31 * S:34 * S], wall_rows(town), flat_m[36 * S:60 * S]], 0)
     ground = np.concatenate([town[31 * S:34 * S], wall_rows(town), ground_m[36 * S:60 * S]], 0)
+    # the lab's top course stands against the wall's bottom row (its old row 40, cut off its old quay stone)
+    ref = town[38 * S:39 * S, 40 * S:41 * S]
+    for x in range(44, 50):
+        c = town[40 * S:41 * S, x * S:(x + 1) * S]; m = (c != ref).any(-1)
+        for im in (flat, ground):
+            t = im[8 * S:9 * S, x * S:(x + 1) * S]; t[m] = c[m]
     # the top layer: in walkable cells, what the props drew over the ground (on open sand only where a solid thing
     # stands just below: palm fronds over their trunk; the beach's tufts and driftwood stay on the ground)
     top_a = np.zeros(flat.shape[:2], bool)

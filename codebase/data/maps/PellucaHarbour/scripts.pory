@@ -12,7 +12,7 @@ const LOCALID_HB_CADMUS = 2
 
 // The cold open's arrival (moved from PellucaCity with the waterfront, user 2026-11-25). Osrid lands at (40, 21) off
 // the Pale Veluza; Cadmus comes down the great pier from (40, 15); both walk up it; Osrid stops at the shrine to the
-// lost prince (38, 11) while Cadmus goes on along the kerb (row 14) to the lab door (47, 13). The walk is kept clear
+// lost prince (38, 11) while Cadmus goes on along the kerb (row 14) and up to the lab door (47, 12). The walk is kept clear
 // (tools/art/pelluca/waterfront_mock.py check_walk).
 script PellucaHarbour_Arrival {
     lockall
@@ -56,13 +56,13 @@ script PellucaHarbour_Arrival {
     msgbox(format("Rainhawk."))
     hideportrait
     closemessage
-    applymovement(LOCALID_HB_CADMUS, moves(face_up))
+    applymovement(LOCALID_HB_CADMUS, moves(walk_up face_up))
     waitmovement(0)
     delay(12)
     playse(SE_EXIT)
     removeobject(LOCALID_HB_CADMUS)
     delay(16)
-    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2 walk_right * 9 face_up))
+    applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_down * 2 walk_right * 9 walk_up face_up))
     waitmovement(0)
     delay(12)
     setflag(FLAG_UNUSED_0x884)

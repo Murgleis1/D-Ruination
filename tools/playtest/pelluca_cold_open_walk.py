@@ -35,7 +35,7 @@ def check(name, cond, info=''):
 check('lands on the harbour at (40, 21)', path and path[0] == (40, 21), path[:1])
 check('walks up the great pier to the kerb (40, 14)', (40, 14) in path)
 check('stops at the shrine (38, 12)', (38, 12) in path)
-check('goes along the kerb to (47, 14)', (47, 14) in path)
+check('goes along the kerb to (47, 14) and up to the door', (47, 14) in path and (47, 13) in path)
 check('ends in the lab', where(g) and where(g)[1] == LAB, where(g))
 print('path', path)
 print('ALL OK' if ok else 'PROBLEM')

@@ -100,7 +100,7 @@ PellucaHarbour_Arrival::
 # 58 "data/maps/PellucaHarbour/scripts.pory"
 	closemessage
 # 59 "data/maps/PellucaHarbour/scripts.pory"
-	applymovement 2, PellucaHarbour_Arrival_Movement_0
+	applymovement 2, PellucaHarbour_Arrival_Movement_4
 # 60 "data/maps/PellucaHarbour/scripts.pory"
 	waitmovement 0
 # 61 "data/maps/PellucaHarbour/scripts.pory"
@@ -112,7 +112,7 @@ PellucaHarbour_Arrival::
 # 64 "data/maps/PellucaHarbour/scripts.pory"
 	delay 16
 # 65 "data/maps/PellucaHarbour/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, PellucaHarbour_Arrival_Movement_4
+	applymovement OBJ_EVENT_ID_PLAYER, PellucaHarbour_Arrival_Movement_5
 # 66 "data/maps/PellucaHarbour/scripts.pory"
 	waitmovement 0
 # 67 "data/maps/PellucaHarbour/scripts.pory"
@@ -206,8 +206,16 @@ PellucaHarbour_Arrival_Movement_3:
 	face_up
 	step_end
 
-# 65 "data/maps/PellucaHarbour/scripts.pory"
+# 59 "data/maps/PellucaHarbour/scripts.pory"
 PellucaHarbour_Arrival_Movement_4:
+# 59 "data/maps/PellucaHarbour/scripts.pory"
+	walk_up
+# 59 "data/maps/PellucaHarbour/scripts.pory"
+	face_up
+	step_end
+
+# 65 "data/maps/PellucaHarbour/scripts.pory"
+PellucaHarbour_Arrival_Movement_5:
 # 65 "data/maps/PellucaHarbour/scripts.pory"
 	walk_down
 # 65 "data/maps/PellucaHarbour/scripts.pory"
@@ -230,6 +238,8 @@ PellucaHarbour_Arrival_Movement_4:
 	walk_right
 # 65 "data/maps/PellucaHarbour/scripts.pory"
 	walk_right
+# 65 "data/maps/PellucaHarbour/scripts.pory"
+	walk_up
 # 65 "data/maps/PellucaHarbour/scripts.pory"
 	face_up
 	step_end

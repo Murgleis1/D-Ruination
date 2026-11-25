@@ -80,7 +80,8 @@ QUAY = (32, 36, 71, 40)                      # paving rows 36-40; kerb row 41, i
 # strip of sand between them and the stair's top lies against stone all the way across)
 SEAWALL = [(32, y) for y in range(36, 41)]
 PIERS = [(35, 7, 53, False), (50, 5, 47, False), (64, 4, 52, False)]   # (left x, width, kerb row, bunting at its root)
-LAB = (44, 40, 49, 44, -4)                   # the lab's cells in the old map, moved up 4
+LAB = (44, 40, 49, 44, -5)                   # the lab's cells in the old map, moved up 5 (its top course stands
+#   against the wall: user 2026-11-25, 'one row too close to the water... set it back'); its door (47, 39)
 TAVERN = (25, 36, 31, 43)
 STAIRS_DOWN = [(x, y) for x in (32, 33, 34) for y in (41, 42, 43)]   # quay -> beach, three wide
 STALLS = [(55, 'canvas'), (59, 'plum'), (63, 'canvas'), (68, 'canvas')]  # cargo sheds: left cell x, rows 36-38
@@ -111,7 +112,7 @@ def _line(a, b):
 # Cadmus: down the pier to Osrid, back up, along the kerb to the lab door. Osrid: up the pier, to the shrine
 # (stops at (38, 39) facing it), then down to the kerb and along it to the door (47, 40).
 CADMUS_WALK = _line((40, 42), (40, 47)) + _line((40, 41), (40, 47)) + _line((40, 41), (47, 41))
-OSRID_WALK = _line((40, 41), (40, 48)) + _line((38, 41), (40, 41)) + _line((38, 39), (38, 41)) + _line((38, 41), (47, 41)) + [(47, 40)]
+OSRID_WALK = _line((40, 41), (40, 48)) + _line((38, 41), (40, 41)) + _line((38, 39), (38, 41)) + _line((38, 41), (47, 41)) + [(47, 40), (47, 39)]
 ARRIVAL = set(CADMUS_WALK) | set(OSRID_WALK)
 PEOPLE_AT = [('sailor', 36, 47, 'L'), ('sailor', 37, 51, 'D'), ('fisherman', 38, 52, 'D'),       # the great pier, off the walk
              ('gentleman', 54, 40, 'R'), ('woman_2', 55, 40, 'L'),                               # visitors, landed earlier
@@ -135,11 +136,11 @@ def check_walk():
             for xx in (x, x + 2): taken[(xx, yy)] = 'shed post'
     for (x, y, m) in FLOWERS + CRATES: taken[(x, y)] = 'crate/flowers'
     bad = sorted((c, taken[c]) for c in ARRIVAL if c in taken)
-    lab = {(x, y) for x in range(44, 50) for y in range(36, 41)} - {(47, 40)}
+    lab = {(x, y) for x in range(44, 50) for y in range(35, 40)} - {(47, 39)}
     bad += [(c, 'the lab') for c in ARRIVAL if c in lab]
     pier = {(x, y) for x in range(36, 41) for y in range(41, 53)}
     quay = {(x, y) for x in range(33, 72) for y in range(36, 42)}
-    off = [c for c in ARRIVAL if c not in pier | quay and c != (47, 40)]
+    off = [c for c in ARRIVAL if c not in pier | quay and c != (47, 39)]
     bad += [(c, 'not on stone') for c in off]
     clash = {}
     for (g, x, y, f) in PEOPLE_AT:
@@ -455,6 +456,6 @@ if __name__ == '__main__':
         pts = [(x * S + 8 + off, y * S + 8 + off) for (x, y) in cells]
         d.line(pts, fill=col, width=3)
     path([(40, 42), (40, 47), (40, 41), (47, 41)], (240, 140, 40), -2)
-    path([(40, 48), (40, 41), (38, 41), (38, 39), (38, 41), (47, 41), (47, 40)], (40, 120, 240), 2)
+    path([(40, 48), (40, 41), (38, 41), (38, 39), (38, 41), (47, 41), (47, 39)], (40, 120, 240), 2)
     d.rectangle((38 * S + 2, 39 * S + 2, 39 * S - 2, 40 * S - 2), outline=(255, 210, 60), width=2)
     O.crop((24 * S, 33 * S, 52 * S, 54 * S)).resize((28 * 32, 21 * 32), Image.NEAREST).save(os.path.join(out, 'waterfront_mock_v3_walk.png'))
