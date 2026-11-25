@@ -102,6 +102,27 @@ Update this list as areas are finished.
   ours uses so far). When space runs short: list the candidates (unused maps, their tilesets and music, the bytes each
   frees, after checking no kept map, script, warp, heal location or region-map entry points at them), show the list,
   then delete and clear their references.
+- 2026-11-25: 96.24% (32,293,608 bytes) after Hollow Hill's webs v2, sealed door v2 and cloud cap v3.
+- **Where the space goes (measured 2026-11-25 from pokeemerald.map; 30.8 of 32 MiB used; 32 MiB is the GBA's hard
+  limit):** Pokemon cries, every species Gen 1-9, 8.0 MiB; Pokemon battle sprites/icons/palettes 6.7 MiB; Pokemon
+  follower overworld sprites 1.46 MiB; music 3.0 MiB (our 4 imported songs 1.85 of it: A Legend Unfolds 1.2 MiB,
+  MonoMyth Route 15 409 KiB, Crown Pelluca 172 KiB, Old HQ 110 KiB) + instrument samples/voice groups 1.0 MiB; code
+  2.2 MiB; map tilesets 1.9 MiB (ours 10-30 KiB each: Hollow Hill 30, its summit 19, the harbour 13); event scripts
+  and text 1.5 MiB; map layouts, all 646, 1.2 MiB (Dreamstone Mysteries' and ours 0.56 of it); other graphics 1.2 MiB;
+  people/object overworld sprites 0.67 MiB; trainer battle sprites 0.23 MiB; battle backgrounds 0.12 MiB.
+- **The budget (user 2026-11-25: "keep all of it in mind as we progress"):** replacing Emerald's and Dreamstone
+  Mysteries' maps, overworld and trainer sprites and battle backgrounds with ours is roughly break-even if counts and
+  sizes stay alike. What decides whether the whole game fits: (1) **leaving out Pokemon families the game never uses**
+  (include/config/species_enabled.h drops a family's cries, sprites, followers and data: the biggest lever, likely
+  8-10 MiB); (2) **music on shared instruments** (each imported song carrying its own samples costs ~110 KiB-1.2 MiB;
+  30-40 more like that would not fit; re-voiced onto one shared voice group ~30-100 KiB each); (3) **sharing a tileset
+  across an area** rather than one per map where the look allows. Smaller: Emerald's own music and instruments
+  (~2 MiB as ours replace them), the minigames the expansion added (pinball, pachinko, blackjack, derby, mining,
+  ~0.4 MiB), the Colosseum link data, Battle Frontier and contest content.
+- **If space ever runs short (user 2026-11-25):** cut base Emerald material or base Dreamstone Mysteries material to
+  compensate (as above: list candidates and the bytes each frees, check nothing kept points at them, show the list,
+  then cut). **Some Pokemon can go because they would not exist in Empire-era Cormoria** (user): to be listed with the
+  user before any family is disabled.
 
 ## Dialogue audit (user 2026-11-23)
 Once the next few phases of Chapter 1 are further along, the user wants **another full sweep audit and analysis of all of Chapter 1's dialogue and everything else**. Flag this when those phases land.
