@@ -361,13 +361,13 @@ def compose(town):
             img[Y - 2:Y + 3, cx] = (236, 226, 196)                         # the candles
             img[Y - 5:Y - 3, cx] = (255, 200, 90); img[Y - 6, cx] = (255, 244, 200)
     for (x, y) in CANDLES: candle_stand(x, y)
-    br, bm = piece('barrel'); bsr, bsm = piece('barrel_stack'); cr, cm = piece('crate_small')
+    br, bm = piece('barrel'); bsr, bsm = piece('barrel_stack'); cr, cm = piece('crate')
     for (x, y) in BARRELS:
         put(br, bm, x * S, y * S)
     for (x, y) in BARREL_STACKS:
         put(bsr, bsm, x * S, y * S)
     for (x, y) in CRATES_SMALL:
-        put(cr, cm, x * S, y * S + 2); put(cr, cm, x * S + 6, y * S - 4)
+        put(cr, cm, x * S, y * S)                                        # (one full crate in its own cell)
     for k, (x, y) in enumerate(SACKS):
         sack(x * S + (4, 2, 10, 6, 2)[k % 5], y * S + 3)
     for (x, y) in ROPES:

@@ -98,6 +98,17 @@ def main():
     flat_m = M.compose(Image.open(TOWN_PNG))
     ground_m = M.SNAP['ground']
     walk_m, beh_m, solid_m = plan()
+    # (user 2026-11-25: an NPC "smooshed in some tiny crates") no prop may be drawn into a walkable cell unless it is
+    # the top of something standing just below it (the player walks behind it) or the pennants overhead
+    overhead = {(x, y) for x in range(35, 42) for y in range(41, 44)}
+    spill = []
+    for (x, y) in walk_m:
+        sl = (slice(y * S, (y + 1) * S), slice(x * S, (x + 1) * S))
+        if not (flat_m[sl] != ground_m[sl]).any(): continue
+        if (x, y + 1) in solid_m or (x, y) in overhead: continue
+        if beh_m.get((x, y)) == MB_SAND: continue
+        spill.append((x, y))
+    assert not spill, 'props drawn into walkable cells: %s' % sorted(spill)
     pockets = check(walk_m)
     assert not pockets, 'cells walkable but not reachable: %s' % pockets
     bad, clash = M.check_walk(); assert not bad, bad

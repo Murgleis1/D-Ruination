@@ -1525,7 +1525,7 @@ static const u16 *const gTilesetAnims_PellucaHarbour_Water[] = {
     gTilesetAnims_PellucaHarbour_Water_Frame4, gTilesetAnims_PellucaHarbour_Water_Frame5,
     gTilesetAnims_PellucaHarbour_Water_Frame6, gTilesetAnims_PellucaHarbour_Water_Frame7,
 };
-static const u16 sPellucaHarbourWaterRuns[][2] = {{1, 21}, {512, 40}};
+static const u16 sPellucaHarbourWaterRuns[][2] = {{1, 18}, {512, 42}};
 
 static void QueueAnimTiles_PellucaHarbour_Water(u16 timer)
 {
