@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_HollowHillSummit =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_HollowHillSummit,
+    .palettes = gTilesetPalettes_HollowHillSummit,
+    .metatiles = gMetatiles_HollowHillSummit,
+    .metatileAttributes = gMetatileAttributes_HollowHillSummit,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_HollowHillSummitTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_HollowHillSummitTiles,
+    .palettes = gTilesetPalettes_HollowHillSummitTiles,
+    .metatiles = gMetatiles_HollowHillSummitTiles,
+    .metatileAttributes = gMetatileAttributes_HollowHillSummitTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_PellucaHarbour =
 {
     .isCompressed = TRUE,

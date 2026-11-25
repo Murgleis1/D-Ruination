@@ -297,6 +297,9 @@ def compose(seed=7):
     # the bastion
     brgb, bwalk = BA.bastion()
     cv.img[BY * S:(BY + BA.CH) * S, BX * S:(BX + BA.CW) * S] = brgb
+    tm = BA.top_mask()                                       # (its columns' upper drums: over the player)
+    reg = (slice(BY * S, (BY + BA.CH) * S), slice(BX * S, (BX + BA.CW) * S))
+    cv.top[reg][tm] = brgb[tm]; cv.top_a[reg] |= tm
     for y in range(BA.CH):
         for x in range(BA.CW): used[BY + y, BX + x] = 'bwalk' if bwalk[y, x] else 'bastion'
     used[DOOR[1], DOOR[0]] = 'door'

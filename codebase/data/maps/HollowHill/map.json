@@ -20,7 +20,15 @@
     }
   ],
   "object_events": [],
-  "warp_events": [],
+  "warp_events": [
+    {
+      "x": 29,
+      "y": 36,
+      "elevation": 3,
+      "dest_map": "MAP_HOLLOW_HILL_SUMMIT",
+      "dest_warp_id": "1"
+    }
+  ],
   "coord_events": [
     {
       "type": "trigger",

@@ -2349,6 +2349,50 @@ const u16 gTilesetPalettes_AcademyHall[][16] =
 
 const u32 gTilesetTiles_AcademyHall[] = INCBIN_U32("data/tilesets/secondary/academy_hall/tiles.4bpp.lz");
 
+const u16 gTilesetPalettes_HollowHillSummit[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/hollow_hill_summit/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HollowHillSummit[] = INCBIN_U32("data/tilesets/secondary/hollow_hill_summit/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HollowHillSummitTiles[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hollow_hill_summit_tiles/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HollowHillSummitTiles[] = INCBIN_U32("data/tilesets/primary/hollow_hill_summit_tiles/tiles.4bpp.lz");
+
 const u16 gTilesetPalettes_PellucaHarbour[][16] =
 {
     INCBIN_U16("data/tilesets/secondary/pelluca_harbour/palettes/00.gbapal"),

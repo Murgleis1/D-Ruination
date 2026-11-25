@@ -5032,6 +5032,16 @@
       "blockdata_filepath": "data/layouts/HollowHill/map.bin"
     },
     {
+      "id": "LAYOUT_HOLLOW_HILL_SUMMIT",
+      "name": "HollowHillSummit_Layout",
+      "width": 43,
+      "height": 49,
+      "primary_tileset": "gTileset_HollowHillSummitTiles",
+      "secondary_tileset": "gTileset_HollowHillSummit",
+      "border_filepath": "data/layouts/HollowHillSummit/border.bin",
+      "blockdata_filepath": "data/layouts/HollowHillSummit/map.bin"
+    },
+    {
       "id": "LAYOUT_HOYA_RIVER_SOUTH",
       "name": "HoyaRiverSouth_Layout",
       "width": 30,

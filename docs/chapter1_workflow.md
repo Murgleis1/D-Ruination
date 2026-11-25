@@ -81,7 +81,7 @@ to the Ivy River) are later chapters.
    the ancient backdrop; walk `tools/playtest/ancient_cormoria_slip_walk.py` on a test ROM, as nothing leads in until
    stage 3's script). Approved ("It is perfect now"). DM's `AncientMirroh` cluster kept for a later chapter.
 5. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them (closed for now).
-Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest); Route 11's east beach;
+Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest; **built 2026-11-25** as its own summit map, `HollowHillSummit`); Route 11's east beach;
 Hollow Hill's webbed rocks and cobwebbed trees (user 2026-11-24).
 Also done 2026-11-24: Route 11's farmhouse interior (`Route11Farmhouse`, door (55, 14); walk
 `tools/playtest/route11_farmhouse_walk.py`). Note: `build_route11.py`'s `write_map()` is stale (it rewrites Pelluca's
@@ -97,6 +97,7 @@ Update this list as areas are finished.
 - 2026-11-24: 95.95% after Route 11's farmhouse interior (Route11Farmhouse).
 - 2026-11-24: 95.98% after Mt. Mirroh B1F, the Blast Crater (MirrohInterior_B1F rebuilt 40x40, its own tilesets: 626 tiles).
 - 2026-11-25: 96.12% with the harbour's water animated (was 96.08% after Pelluca Harbour (the waterfront as its own map, 569 tiles; four vessel sprites; PellucaCity cut to 80x42)).
+- 2026-11-25: 96.23% after Hollow Hill's summit (new map HollowHillSummit, its own tilesets: 988 tiles).
 - **User 2026-11-23:** unused maps may be deleted to make room (e.g. Dreamstone Mysteries' other cities that nothing of
   ours uses so far). When space runs short: list the candidates (unused maps, their tilesets and music, the bytes each
   frees, after checking no kept map, script, warp, heal location or region-map entry points at them), show the list,

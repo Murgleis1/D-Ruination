@@ -57,3 +57,24 @@ def paving(): bastion(); return _cache['b'][2]
 if __name__ == '__main__':
     from PIL import Image
     r, w = bastion(); Image.fromarray(r).save('/tmp/summit/bastion_bone.png'); print(r.shape)
+
+def top_mask():
+    """the pixels MonoMyth draws on its top layer (entries 8-11 of its triple-layer metatiles): over the player (the
+    columns' upper drums, the statues' heads, the tiers' lips the player walks behind)"""
+    import mm_render as R
+    from romlib import u16, off
+    img, c, ts, L = R.render(0x868f4c); W = L['w']
+    NPM = 512
+    m = np.zeros((CH * 16, CW * 16), bool)
+    for y in range(CH):
+        for x in range(CW):
+            mid = c[(Y0 + y) * W + X0 + x] & 0x3ff
+            base = ts.pmt + mid * 24 if mid < NPM else ts.smt + (mid - NPM) * 24
+            for q in range(8, 12):
+                e = u16(base + q * 2); t = ts.tile(e & 0x3ff)
+                if t is None: continue
+                if (e >> 10) & 1: t = t[:, ::-1]
+                if (e >> 11) & 1: t = t[::-1, :]
+                oy, ox = ((q % 4) // 2) * 8, ((q % 4) % 2) * 8
+                m[y * 16 + oy:y * 16 + oy + 8, x * 16 + ox:x * 16 + ox + 8] |= t != 0
+    return m
