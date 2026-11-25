@@ -158,3 +158,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   (every entry points at one placeholder): its fronts must be read another way (captured in battle in the emulator).
 - **Scale:** Emerald has 289 overworld graphics ids, 137 trainer pics, 98 trainer classes; 4,032 object events across
   all maps use 328 graphics.
+- **Cast list approved (user 2026-11-25: "generally correct"), plus robed cultists from MonoMyth** (user: "you also
+  missed some robed cultists from MonoMyth"). Candidates (MonoMyth overworld numbers; frames in
+  `assets/npc_survey/mm_frames/`, sheet `monomyth_robed_hooded.png`): 217 navy hooded robe with gold trim; 105 and 131
+  grey robes with an eye sigil; 156 brown pointed hood; 84, 89, 90 deep blue hoods; 102 red-hooded figure kneeling;
+  also robed clergy and sages: 68 and 188 white-and-blue robes, 115 blue-robed bearded sage, 116 blonde in blue robes,
+  57 red-robed elder, 141 white-haired green robe. Trainer fronts to pair: MonoMyth #82 (dark hooded figure), #96
+  (staff-bearing robed wanderer), #85 (nun-like), #92 and #93 (robed elders).
