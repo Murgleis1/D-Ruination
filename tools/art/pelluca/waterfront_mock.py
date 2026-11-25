@@ -37,8 +37,36 @@ WC, CB = 0x869C10, 0x869B84
 blk = lambda x, y: (slice(y * S, y * S + S), slice(x * S, x * S + S))
 h = lambda s: int(s, 16)
 
+# v3 (user 2026-11-25: "I like the dock stone itself we currently have, I just want it to be a deeper, richer mix of
+# grey colorings"): Watercress' own stone kept (its bricks, kerb and drop), every colour taken deeper; and each brick
+# given its own grey from a set of six (cool slate, neutral, warm), so the paving reads as weathered stone. A brick's
+# grey follows from where it starts, in a pattern that repeats every 3 x 2 cells (the tile budget stays small).
+STONE_IDS = {0x2b7, 0x2dc, 0x2d4, 0x2dd, 0x2db, 0x2de, 0x2ee, 0x2e5, 0x2e3, 0x2e6, 0x2df, 0x2d5, 0x2d6, 0x2d7, 0x2d3,
+             0x2ff, 0x2f7, 0x2d8, 0x2d0}
+BODY, HIGH = (200, 208, 216), (208, 216, 232)
+DEEP = {(240, 240, 248): (188, 190, 198), (184, 192, 200): (96, 98, 108), (168, 176, 192): (84, 86, 98),
+        (152, 152, 168): (104, 104, 116), (120, 120, 136): (70, 70, 82), (64, 72, 104): (38, 40, 52)}
+BRICK_GREYS = [(138, 140, 150), (126, 128, 138), (148, 146, 148), (118, 118, 126), (142, 136, 132), (130, 126, 126)]
 def wc(m):
-    img, g, ts = MP.grid(WC); return ts.meta(h(m) if isinstance(m, str) else m).copy()
+    img, g, ts = MP.grid(WC); m = h(m) if isinstance(m, str) else m
+    return ts.meta(m).copy()
+def deepen_stone(img, cells):
+    """the quay's and piers' stone (the cells given), deeper; each brick its own grey"""
+    from scipy.ndimage import label
+    mask = np.zeros(img.shape[:2], bool)
+    for (x, y) in cells: mask[y * S:(y + 1) * S, x * S:(x + 1) * S] = True
+    body = mask & ((img == BODY).all(-1) | (img == HIGH).all(-1))
+    lab, n = label(body)
+    out = img.copy()
+    from scipy.ndimage import find_objects
+    for i, sl in enumerate(find_objects(lab)):
+        y0, x0 = sl[0].start, sl[1].start
+        k = ((x0 % 48) // 4 * 7 + (y0 % 32) // 4 * 3) % len(BRICK_GREYS)
+        c = np.array(BRICK_GREYS[k]); comp = lab[sl] == i + 1
+        sub = out[sl]; hi = comp & (img[sl] == HIGH).all(-1); bo = comp & ~hi
+        sub[bo] = c; sub[hi] = np.clip(c + 14, 0, 255)
+    for a_, b_ in DEEP.items(): out[mask & (img == a_).all(-1)] = b_
+    return out
 def cb(m):
     img, g, ts = MP.grid(CB); return ts.meta(h(m) if isinstance(m, str) else m).copy()
 
@@ -128,6 +156,7 @@ def basin(x, y):
 # --------------------------------------------------------------------------------------------------- composition
 def compose(town):
     img = np.array(town.convert('RGB')).copy()
+    STONE_CELLS = set()
     base = img.copy()
     land = np.zeros((H, W), bool)                          # (for the shallows)
     # 1. water everywhere below row 36 outside the kept woods
@@ -178,7 +207,13 @@ def compose(town):
         else:
             img[blk(x, K)] = wc('2de' if x == x0 + 1 else '2ee' if x == x1 else '2dc')
             img[blk(x, K + 1)] = wc('2e5' if x == x0 + 1 else '2e3' if x == x1 else '2d4')
+    for y in range(QUAY[1], K + 2):
+        for x in range(QUAY[0], QUAY[2] + 1): STONE_CELLS.add((x, y))
+    for (px, w, kr, bunt) in PIERS:
+        for x in range(px, px + w):
+            for y in range(K, kr + 2): STONE_CELLS.add((x, y))
     # the stair down onto the beach (Pelluca's own cliff stair, from the west stairs)
+    img = deepen_stone(img, STONE_CELLS - set(STAIRS_DOWN))
     for (x, y) in STAIRS_DOWN: img[blk(x, y)] = base[blk(37 + (x - 32), 35)]; land[y, x] = True
     # 4. the shallows: inside the basin, and two cells out from any land (C, Odyssey)
     from scipy.ndimage import binary_dilation
@@ -215,7 +250,7 @@ def compose(town):
             t = img[blk(x, y + dy)]; t[m] = c[m]; img[blk(x, y + dy)] = t
     # 9. quay furniture
     for (x, y, m) in FLOWERS + CRATES + LAMPS:
-        t = wc(m); cur = img[blk(x, y)]; pav = wc('2b7'); d = (t != pav).any(-1); cur[d] = t[d]; img[blk(x, y)] = cur
+        t = wc(m); cur = img[blk(x, y)]; pav = wc('2b7'); d = (t != pav).any(-1); cur[d] = t[d]; img[blk(x, y)] = cur   # (props over the deepened stone)
     for (x, col) in STALLS:
         a = np.array(Image.open(os.path.join(ROOT, 'assets/crown_reference/pieces/stall_%s.png' % ('red' if col == 'canvas' else 'blue'))).convert('RGBA'))
         rgb = a[..., :3].astype(int); m = a[..., 3] > 0

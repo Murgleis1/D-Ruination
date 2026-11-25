@@ -629,6 +629,10 @@ drafts were previews only and the game still loaded the old Mauville map.
   composition after studying Watercress, Crown's harbour market, Lazarus' autumn harbour (faa2ac), Odyssey 3.1/3.22,
   Port Ginseng (`waterfront_refs.png`). Layouts: `waterfront_layouts_v1.png` (tools/art/pelluca/waterfront_plans.py);
   user: "primarily A with bits of B and C".
+- The stone (user 2026-11-25: "I like the dock stone itself... just want it to be a deeper, richer mix of grey
+  colorings"): Watercress' bricks and kerb kept, every colour deeper, each brick its own grey of six (cool slate,
+  neutral, warm), repeating every 3 x 2 cells so the tile budget stays small (a first try toward Crown's olive castle
+  grey was not wanted).
 - Mock v3 (`waterfront_mock_v3*.png`, tools/art/pelluca/waterfront_mock.py): one quay of Watercress stone (rows 36-40,
   kerb 41, its face 42), three stone piers (the great pier on the main stair's axis x 35-41; a short pier x 50-54; an
   east pier x 64-67), a pale basin inside a reef arm from the east woods, Crown's awnings recoloured as sailcloth cargo
