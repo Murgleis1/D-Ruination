@@ -1247,7 +1247,7 @@ const struct Tileset gTileset_PellucaHarbourTiles =
     .palettes = gTilesetPalettes_PellucaHarbourTiles,
     .metatiles = gMetatiles_PellucaHarbourTiles,
     .metatileAttributes = gMetatileAttributes_PellucaHarbourTiles,
-    .callback = NULL,
+    .callback = InitTilesetAnim_PellucaHarbour,
 };
 
 const struct Tileset gTileset_MtMirrohB1F =

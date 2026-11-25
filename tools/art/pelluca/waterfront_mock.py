@@ -264,6 +264,22 @@ def compose(town):
         for x in range(lx0, lx1 + 1):
             c = base[blk(x, y)]; m = (c != ref).any(-1)
             t = img[blk(x, y + dy)]; t[m] = c[m]; img[blk(x, y + dy)] = t
+    # (user 2026-11-25: no flowers growing on the lab's stone) the plant at the turret's foot becomes the turret's
+    # own stone: each of its pixels takes the turret pixel 16 px above it (repeatedly, until that is stone)
+    X0, X1 = lx0 * S, (lx0 + 2) * S
+    Y0, Y1 = (ly1 - 1 + dy) * S, (ly1 + 1 + dy) * S
+    stone = {tuple(c) for c in img[(ly0 + dy + 1) * S:Y0, X0:X1].reshape(-1, 3).tolist()}
+    row = img[Y0 - 4, X0:X1 + 8]; dark = np.nonzero((row.astype(int).sum(-1) < 150))[0]
+    TURRET_CX = (dark[0] + dark[-1]) // 2 if len(dark) > 1 else 15
+    stone |= {tuple(c) for c in img[blk(52, 38)].reshape(-1, 3).tolist()} | {tuple(c) for c in img[blk(53, 39)].reshape(-1, 3).tolist()}
+    for _ in range(4):
+        sub = img[Y0:Y1, X0:X1]
+        plant = np.array([[tuple(c) not in stone for c in row] for row in sub.tolist()])
+        if not plant.any(): break
+        ys, xs = np.nonzero(plant)
+        snap = img.copy()
+        for yy, xx in zip(ys, xs):                       # the turret's own stone from its other side (mirrored)
+            img[Y0 + yy, X0 + xx] = snap[Y0 + yy, X0 + (2 * TURRET_CX - xx)]
     SNAP['ground'] = img.copy(); SNAP['land'] = land.copy()
     # 9. quay furniture
     for (x, y, m) in FLOWERS + CRATES + LAMPS:

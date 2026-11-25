@@ -10,7 +10,8 @@ stands, palms' trunks, the INN board, rocks, the woods, the wall solid. Top laye
 palm fronds, the pennants, candle flames, crates' upper edges.
 Stairs: row 6 of each stair is MB_NON_ANIMATED_DOOR: stepping onto it going up fades to the town's stair (its row 36);
 arriving on it from the town the player faces south and takes one step down (the climb carries on).
-Doors: the Tavern (28, 16) and the lab (47, 13), non-animated.
+Doors: the Tavern (28, 16) and the lab (47, 12), non-animated.
+Water: MonoMyth's 8-frame water over every water pixel (harbour_water.py).
 Usage: python3 tools/art/pelluca/build_harbour.py   (then make)"""
 import os, sys, json
 import numpy as np
@@ -20,6 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys
 import waterfront_mock as M
 import mapbuild as MB
 import tilequant as TQN
+import harbour_water as HW
 C = MB.C
 S = 16
 NAME, LAYOUT, MAPID = 'PellucaHarbour', 'LAYOUT_PELLUCA_HARBOUR', 'MAP_PELLUCA_HARBOUR'
@@ -137,6 +139,7 @@ def main():
         if (x, y) == (TAVERN_DOOR[0], TAVERN_DOOR[1] - DY) or (x, y) == (LAB_DOOR[0], LAB_DOOR[1] - DY): return MB_DOOR
         return beh_m.get((x, y + DY), 0)
     b = MB.build(under_q, None, (flat_q, top_a), W, H, walk | water, beh)
+    runs = HW.install(b, under, range(9, H))           # MonoMyth's water animation over the waterfront's water
     g = b['grid']
     for y in range(H):
         for x in range(W):
@@ -157,6 +160,7 @@ def main():
         for k in ('warp_events', 'object_events', 'coord_events', 'bg_events'): mapj[k] = []
     MB.write(b, NAME, LAYOUT, ('pelluca_harbour_tiles', 'PellucaHarbourTiles'), ('pelluca_harbour', 'PellucaHarbour'), mapj,
              border=[border] * 4, after_layout='LAYOUT_PELLUCA_CITY', after_map='PellucaCity')
+    HW.wire(runs)
     print('harbour built: tiles', len(b['tiles']), 'metatiles', len(b['meta']), 'palettes', len(b['pals']))
 
 if __name__ == '__main__':

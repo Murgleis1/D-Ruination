@@ -1507,3 +1507,48 @@ void InitTilesetAnim_NecropolisLake(void)
     sSecondaryTilesetAnimCallback = TilesetAnim_NecropolisLake;
 }
 // --- end NecropolisLake ---
+
+// DR: Pelluca Harbour's water (tools/art/pelluca/harbour_water.py): MonoMyth's 8-frame terrain water over every water
+// pixel of the waterfront (the open water, the basin, the water under the piers' and quay's edges and the beach's
+// shore), as on the old Pelluca shore; a new frame every 32 game frames (user: slower waves).
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame0[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/0.4bpp");
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame1[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/1.4bpp");
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame2[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/2.4bpp");
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame3[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/3.4bpp");
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame4[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/4.4bpp");
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame5[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/5.4bpp");
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame6[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/6.4bpp");
+static const u16 gTilesetAnims_PellucaHarbour_Water_Frame7[] = INCBIN_U16("data/tilesets/primary/pelluca_harbour_tiles/anim/water/7.4bpp");
+static const u16 *const gTilesetAnims_PellucaHarbour_Water[] = {
+    gTilesetAnims_PellucaHarbour_Water_Frame0, gTilesetAnims_PellucaHarbour_Water_Frame1,
+    gTilesetAnims_PellucaHarbour_Water_Frame2, gTilesetAnims_PellucaHarbour_Water_Frame3,
+    gTilesetAnims_PellucaHarbour_Water_Frame4, gTilesetAnims_PellucaHarbour_Water_Frame5,
+    gTilesetAnims_PellucaHarbour_Water_Frame6, gTilesetAnims_PellucaHarbour_Water_Frame7,
+};
+static const u16 sPellucaHarbourWaterRuns[][2] = {{1, 16}, {512, 35}};
+
+static void QueueAnimTiles_PellucaHarbour_Water(u16 timer)
+{
+    const u8 *src = (const u8 *)gTilesetAnims_PellucaHarbour_Water[timer % ARRAY_COUNT(gTilesetAnims_PellucaHarbour_Water)];
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sPellucaHarbourWaterRuns); i++)
+    {
+        AppendTilesetAnimToBuffer((const u16 *)src, (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(sPellucaHarbourWaterRuns[i][0])), sPellucaHarbourWaterRuns[i][1] * TILE_SIZE_4BPP);
+        src += sPellucaHarbourWaterRuns[i][1] * TILE_SIZE_4BPP;
+    }
+}
+
+static void TilesetAnim_PellucaHarbour(u16 timer)
+{
+    if (timer % 32 == 0)
+        QueueAnimTiles_PellucaHarbour_Water(timer / 32);
+}
+
+void InitTilesetAnim_PellucaHarbour(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_PellucaHarbour;
+}
+// DR: end Pelluca Harbour's water
