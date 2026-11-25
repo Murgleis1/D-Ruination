@@ -139,3 +139,22 @@ codebase/build/modern/data/maps.o` before `make` (builders that also rewrite lay
 
 ## Dialogue audit (user 2026-11-23)
 Once the next few phases of Chapter 1 are further along, the user wants **another full sweep audit and analysis of all of Chapter 1's dialogue and everything else**. Flag this when those phases land.
+
+## Stage 2 begins: the NPC and trainer cast (user 2026-11-25)
+
+- **Direction (user):** look over every NPC and replace them with proper overworld sprites and trainer front sprites
+  from Crown, MonoMyth, Odyssey and Fantasma; "a good mix of medieval men, women, knights, noblemen, noblewomen,
+  merchants, etc."; **every typical Emerald NPC sprite and trainer type is deleted** as the new set comes in.
+- **Decisions (user 2026-11-25):** Lazarus left out (its people are drawn chunky and big-headed, unlike the others and
+  Emerald); **redress where needed**: where no sprite fits a role as is, recolour and redress the closest body
+  (doublets, tunics, gowns, armour), as for Osrid; **Emerald's own maps and trainers are cut too**, not just
+  redirected (list every dependency first, show it, then cut: the engine's references to Emerald maps — new-game
+  start, heal locations, Battle Frontier, contests, secret bases and the like — come out with them).
+- **Survey (`assets/npc_survey/`, `tools/npc/`):** overworld people: MonoMyth 246 (assets/monomyth_ow), Crown 152
+  (FireRed's cast plus priests, nuns, a plumed knight, witches; assets/crown_reference/npcs_main_table.png), Odyssey
+  264 (Emerald-era, mostly modern), Fantasma 2188 records (people and Pokemon; people mostly modern). Trainer fronts:
+  MonoMyth ~150 (assets/monomyth_reference/trainer_fronts), Fantasma 219 (vanilla-style; a few robes, gowns, a captain,
+  a sage), Odyssey 148 (a loud cartoon style; palettes not yet read right). **Crown's trainer-front table is dummied**
+  (every entry points at one placeholder): its fronts must be read another way (captured in battle in the emulator).
+- **Scale:** Emerald has 289 overworld graphics ids, 137 trainer pics, 98 trainer classes; 4,032 object events across
+  all maps use 328 graphics.
