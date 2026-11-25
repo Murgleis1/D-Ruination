@@ -178,3 +178,6 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   gold waistcoat; light brown hair, medium skin, forest green and cream; blonde, light-tan skin, navy and silver; each
   15 colours. **The fronts are 74 px tall at native size, Emerald's frame is 64x64**: two fits offered (scaled to fit,
   or full detail cropped at the shins). The overworld frames (16x24) fit Emerald's 16x32 as they are.
+- **Fit decided (user 2026-11-25: "the shrinking works"):** trainer fronts taller than Emerald's 64x64 frame are
+  **scaled to fit** (whole body, feet included), not cropped; the standard for every set from now on. The noble boy's
+  three variants are approved as mocked (`assets/npc_survey/noble_boy_v1.png`).
