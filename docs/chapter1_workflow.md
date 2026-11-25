@@ -165,3 +165,8 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   also robed clergy and sages: 68 and 188 white-and-blue robes, 115 blue-robed bearded sage, 116 blonde in blue robes,
   57 red-robed elder, 141 white-haired green robe. Trainer fronts to pair: MonoMyth #82 (dark hooded figure), #96
   (staff-bearing robed wanderer), #85 (nun-like), #92 and #93 (robed elders).
+- **Kept (user 2026-11-25, "I like these at least"):** MonoMyth overworld **188** (white-and-blue robed elder, tall
+  hat), **84, 89, 90** (the three deep blue hoods), **57** (red-robed elder), **116** (blonde in blue robes). The
+  hoods' north-facing frames came out blank in the extraction: check whether MonoMyth has them before import (the
+  extractor reads frame k from images[k-1]; they may use a shorter frame table). **The user will supply a few sprite
+  sets of their own** to go with these.
