@@ -23,6 +23,8 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(HERE, '..', 'academy')); sys.path.insert(0, os.path.join(HERE, '..', 'route11'))
 import hh_mock as HM, kit, imgtiles as IT
+import hh_webs2, hh_door
+hh_webs2.install(); hh_door.install()          # (webs v2 and the sealed door v2, user 2026-11-25)
 from kit import RL
 
 C = RL.C
@@ -75,7 +77,7 @@ def classify(M):
                 c, b = SOLID, MB_NORMAL
                 g = 'S' if u in ('thing:rock', 'thing:burrow') else 'T'
             else:
-                c, b, g = SOLID, MB_NORMAL, 'S'
+                c, b, g = SOLID, MB_NORMAL, ('D' if tag == 'cloud' else 'S')
             col[y, x] = c; beh[y, x] = b; grp[x, y] = g
     return col, beh, grp
 

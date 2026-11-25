@@ -583,15 +583,17 @@ def blood(M, img, seed=13, n=22):
         return c
     PAT = {0x2f1: [drips(0x2f1, k) for k in range(4)], 0x2e8: [drips(0x2e8, k) for k in range(2)]}
     BLOT = {0x2f1: [blot(0x2f1, k) for k in range(2)], 0x2e8: [blot(0x2e8, k + 2) for k in range(1)]}
+    door = lambda x, y: 0 <= y < H and 0 <= x < W and M.used[y, x] in ('door', 'cloud')   # (the slab, the cloud: never painted)
     sites = [(x, y) for (x, y), v in M.face.items() if v in (0x2f1, 0x2e8) and M.face.get((x, y + 1)) == v
-             and M.face.get((x, y - 1)) not in (0x2f1, 0x2e8, 0x2df, 0x2e7)]
+             and M.face.get((x, y - 1)) not in (0x2f1, 0x2e8, 0x2df, 0x2e7) and not door(x, y) and not door(x, y + 1)]
     sites = [sites[i] for i in rng.permutation(len(sites))]
     used = set()
     for x, y in sites[:n]:
         if (x - 1, y) in used or (x + 1, y) in used: continue          # (never two side by side: no fence of drips)
         v = M.face[x, y]; p = PAT[v][int(rng.integers(0, len(PAT[v])))]
         img[y * 16:y * 16 + 32, x * 16:x * 16 + 16] = p; used.add((x, y))
-    cells = [(x, y) for (x, y), v in M.face.items() if v in BLOT and (x, y) not in used and (x, y - 1) not in used]
+    cells = [(x, y) for (x, y), v in M.face.items() if v in BLOT and (x, y) not in used and (x, y - 1) not in used
+             and not door(x, y)]
     for i in rng.permutation(len(cells))[:10]:
         x, y = cells[i]; v = M.face[x, y]
         img[y * 16:y * 16 + 16, x * 16:x * 16 + 16] = BLOT[v][int(rng.integers(0, len(BLOT[v])))]
@@ -599,7 +601,8 @@ def blood(M, img, seed=13, n=22):
     dx0, dy0 = DOOR[0] * 16, DOOR[1] * 16
     for x in range(dx0 - 4, dx0 + 36):
         for yy in range(dy0 - 6, dy0 + 2):
-            if rng.random() < 0.18 and M.face.get((x // 16, yy // 16)) in (0x2f1, 0x2df, 0x2e7): img[yy, x] = BLOOD[int(rng.integers(0, 2))]
+            if rng.random() < 0.18 and M.face.get((x // 16, yy // 16)) in (0x2f1, 0x2df, 0x2e7) and not door(x // 16, yy // 16):
+                img[yy, x] = BLOOD[int(rng.integers(0, 2))]
     return img
 
 # webs (user 2026-11-20): the Webbed Woods' own webbing (MonoMyth), as MonoMyth hangs it, blood red. It lives in the
@@ -788,4 +791,6 @@ def main(outdir):
     return M
 
 if __name__ == '__main__':
-    main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/hollowhill')
+    import hh_mock, hh_webs2, hh_door                     # (installed on the module the others import)
+    hh_webs2.install(); hh_door.install()                 # (webs v2 and the sealed door v2, user 2026-11-25)
+    hh_mock.main(sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/hollowhill')

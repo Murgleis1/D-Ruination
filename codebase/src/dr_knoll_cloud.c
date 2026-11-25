@@ -1,10 +1,8 @@
 // Dreamstone Ruination: the cap of cloud over Hollow Hill's knoll (user 2026-11-25; tools/art/hollowhill/knoll_cloud.py).
-// It hides the knoll's small flat top, so the hill reads as rising into cloud (the summit beyond the sealed door is
-// somewhere up in it). Thirteen sprites sharing one picture (Emerald's own top-down weather cloud, recoloured to the
-// fog's greys): a still heart, an inner ring of 4 turning one way, an outer ring of 8 turning the other, on ellipses;
-// a quarter turn takes 40 seconds (user: "a lot slower and smoother"), positions computed in 1/1024ths of a turn, so
-// each billow creeps a fraction of a pixel a frame. Created whenever the player is on Hollow Hill and the sprites are
-// not there (after a warp, a battle, a connection crossing), destroyed on leaving. Drawn behind every object.
+// It hides the knoll's whole top, so the hill reads as rising into cloud (the summit beyond the sealed door is
+// somewhere up in it): the cloud itself in the map's tiles, and 64x32 billows of Emerald's weather cloud
+// (knoll_cloud.lens_indices) turning round its rim. Created whenever the player is on Hollow Hill and the sprites are not there (after a warp,
+// a battle, crossing from Route 11), destroyed on leaving. Drawn above the map; the player and people always in front of it.
 #include "global.h"
 #include "sprite.h"
 #include "trig.h"
@@ -13,11 +11,10 @@
 #include "fieldmap.h"
 #include "dr_knoll_cloud.h"
 #include "constants/maps.h"
+#include "gpu_regs.h"
 
 #define TAG_KNOLL_CLOUD  0x1140
-#define NUM_CLOUDS       13
-#define QUARTER_FRAMES   2400                 // 40 seconds at 60 fps for a quarter turn
-#define FULL_FRAMES      (QUARTER_FRAMES * 4)
+#define NUM_CLOUDS       26
 #define CENTRE_X         (29 + MAP_OFFSET)    // the knoll's top: cell 29 (+8 px) ...
 #define CENTRE_Y         (29 + MAP_OFFSET)    // ... row 29 (+7 px): the cap's foot ends just above the sealed door's
 #define CENTRE_DX        8                    // row (35), so from the door's forecourt it hangs right overhead
@@ -32,9 +29,9 @@ static const struct SpritePalette sKnollCloudPalette = {sKnollCloudPal, TAG_KNOL
 static const struct OamData sKnollCloudOam = {
     .affineMode = ST_OAM_AFFINE_OFF,
     .objMode = ST_OAM_OBJ_NORMAL,
-    .shape = SPRITE_SHAPE(64x64),
-    .size = SPRITE_SIZE(64x64),
-    .priority = 2,
+    .shape = SPRITE_SHAPE(64x32),
+    .size = SPRITE_SIZE(64x32),
+    .priority = 1,          // (over the tree crowns where it spills off the knoll; the player and people stay in front)
 };
 
 static const union AnimCmd sAnim_Plain[]   = {ANIMCMD_FRAME(0, 30), ANIMCMD_END};
@@ -55,20 +52,31 @@ static const struct SpriteTemplate sKnollCloudTemplate = {
     .callback = SpriteCB_KnollCloud,
 };
 
-// the rings (knoll_cloud.py RINGS): x radius, y radius, turning direction, copies, their two flips, a start angle
-struct KnollRing { u8 rx, ry; s8 dir; u8 count; u8 flips[2]; u16 start; };
-static const struct KnollRing sRings[] = {
-    { 0,  0,  1, 1, {0, 0}, 0},
-    {22, 14,  1, 4, {1, 2}, 0},
-    {46, 33, -1, 8, {0, 3}, 65},            // (0.4 rad)
-};
-#define CY_OFFSET 8
+// v3 (user 2026-11-25: "the WHOLE top area of the hill peak needs clouds"): the knoll's whole top above the door's
+// band is cloud in the map itself (tools/art/hollowhill/hh_door.py, knoll_cloud.under_cells); these billows travel
+// slowly clockwise round its outline (a lap in 160 s), always covering its hard cell edge (knoll_cloud.conveyor_check:
+// the edge never shows, the low door never covered, at most 8 billows on a scanline). Their track:
+#include "data/dr_knoll_cloud_path.h"
+#define NUM_RIM      20
+#define LAP_FRAMES   9600
+// and six more circling inside it over the cloud's middle, clockwise, a turn in 160 s too (on an ellipse 96x40 about
+// a point 16 px above the centre: only where few rim billows cross the same lines; 9 at most on any line in all)
+#define NUM_INNER    6
+#define INNER_RX     48
+#define INNER_RY     20
+#define INNER_CY     (-16)
+#define PATH_LEN     ARRAY_COUNT(sKnollCloudPath)
 
 static EWRAM_DATA u32 sKnollCloudPhase = 0;
 static EWRAM_DATA u8 sKnollCloudIds[NUM_CLOUDS] = {0};
 
-#define sRing   data[0]
 #define sSlot   data[1]
+
+static bool32 OnHollowHill(void)
+{
+    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(HOLLOW_HILL)
+        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(HOLLOW_HILL);
+}
 
 // sine of an angle in 1/1024ths of a turn, Q8 (256 = 1), interpolated between the 256-step table's entries
 static s32 Sin1024(u32 a)
@@ -77,50 +85,45 @@ static s32 Sin1024(u32 a)
     return (gSineTable[i] * (4 - f) + gSineTable[(i + 1) & 0xFF] * f) / 4;
 }
 
-static bool32 OnHollowHill(void)
-{
-    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(HOLLOW_HILL)
-        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(HOLLOW_HILL);
-}
-
 static void SpriteCB_KnollCloud(struct Sprite *sprite)
 {
-    const struct KnollRing *ring = &sRings[sprite->sRing];
-    u32 rot = (sKnollCloudPhase * 256) / QUARTER_FRAMES;                  // 1/1024ths turned so far
-    u32 a = (ring->start + sprite->sSlot * 1024 / ring->count + (ring->dir > 0 ? rot : 1024 * 4 - rot)) & 1023;
-    s32 s = Sin1024(a), c = Sin1024(a + 256);
     s32 sx, sy;
-    sprite->x2 = (ring->rx * c) / 256;
-    sprite->y2 = CY_OFFSET + (ring->ry * s) / 256;
-    // the far side first, the near side over it; all behind every object (the player, people)
-    sprite->subpriority = 250 - (s + 256) / 16;
+    if (sprite->sSlot < NUM_RIM)
+    {
+        u32 i = (sprite->sSlot * PATH_LEN / NUM_RIM + sKnollCloudPhase * PATH_LEN / LAP_FRAMES) % PATH_LEN;
+        sprite->x2 = sKnollCloudPath[i][0];
+        sprite->y2 = sKnollCloudPath[i][1];
+    }
+    else
+    {
+        u32 a = ((sprite->sSlot - NUM_RIM) * 1024 / NUM_INNER + sKnollCloudPhase * 1024 / LAP_FRAMES) & 1023;
+        sprite->x2 = (INNER_RX * Sin1024(a + 256)) / 256;
+        sprite->y2 = INNER_CY + (INNER_RY * Sin1024(a)) / 256;
+    }
+    sprite->subpriority = 240 - (sprite->y2 + 128) / 8;           // (the player and people in front; nearer billows over far)
     sx = sprite->x + sprite->x2 + gSpriteCoordOffsetX;
     sy = sprite->y + sprite->y2 + gSpriteCoordOffsetY;
-    sprite->invisible = (sx < -40 || sx > DISPLAY_WIDTH + 40 || sy < -40 || sy > DISPLAY_HEIGHT + 40);
+    sprite->invisible = (sx < -40 || sx > DISPLAY_WIDTH + 40 || sy < -24 || sy > DISPLAY_HEIGHT + 24);
 }
 
 static void CreateKnollCloud(void)
 {
-    u32 r, j, n = 0;
+    u32 n;
     s16 x = CENTRE_X, y = CENTRE_Y;
     LoadSpriteSheet(&sKnollCloudSheet);
     LoadSpritePalette(&sKnollCloudPalette);
     // (not passed through the weather's palette blend: the fog would wash it to its own pale green)
     SetSpritePosToOffsetMapCoords(&x, &y, CENTRE_DX, CENTRE_DY);
-    for (r = 0; r < ARRAY_COUNT(sRings); r++)
+    for (n = 0; n < NUM_CLOUDS; n++)
     {
-        for (j = 0; j < sRings[r].count && n < NUM_CLOUDS; j++, n++)
-        {
-            u8 id = CreateSprite(&sKnollCloudTemplate, x, y, 250);
-            sKnollCloudIds[n] = id;
-            if (id == MAX_SPRITES)
-                continue;
-            gSprites[id].coordOffsetEnabled = TRUE;
-            gSprites[id].sRing = r;
-            gSprites[id].sSlot = j;
-            StartSpriteAnim(&gSprites[id], sRings[r].flips[j % 2]);
-            SpriteCB_KnollCloud(&gSprites[id]);
-        }
+        u8 id = CreateSprite(&sKnollCloudTemplate, x, y, 240);
+        sKnollCloudIds[n] = id;
+        if (id == MAX_SPRITES)
+            continue;
+        gSprites[id].coordOffsetEnabled = TRUE;
+        gSprites[id].sSlot = n;
+        StartSpriteAnim(&gSprites[id], n % 4);
+        SpriteCB_KnollCloud(&gSprites[id]);
     }
 }
 
@@ -145,11 +148,16 @@ void DrKnollCloud_Update(void)
     {
         if (!loaded)
             CreateKnollCloud();
-        if (++sKnollCloudPhase >= FULL_FRAMES)
+        if (++sKnollCloudPhase >= LAP_FRAMES)
             sKnollCloudPhase = 0;
+        // the cloud and the fog together need more sprite time on a line than Emerald's field leaves (it gives the
+        // H-blank to OAM access, which nothing on this map uses): give it back to the sprites while here
+        if (GetGpuReg(REG_OFFSET_DISPCNT) & DISPCNT_HBLANK_INTERVAL)
+            ClearGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_HBLANK_INTERVAL);
     }
     else if (loaded)
     {
         DestroyKnollCloud();
+        SetGpuRegBits(REG_OFFSET_DISPCNT, DISPCNT_HBLANK_INTERVAL);
     }
 }

@@ -80,3 +80,36 @@ def place(img, origin=(0, 0)):
     X, Y = origin[0] + X0 * 16, origin[1] + Y0 * 16
     img[Y:Y + 64, X:X + 48][a] = d[a][:, :3]
     return img
+
+UNDER = (138, 146, 176)                         # (the slab's light slate: the cloud's shadow)
+
+def flat_top(M):
+    import hh_mock as HM
+    E = M.E; P3 = M.P[2]
+    return [(x, y) for y in range(HM.H) for x in range(HM.W)
+            if P3[y, x] and E[y, x] == E.max() and (x, y) not in M.face and not (X0 <= x < X0 + CW and y >= Y0)]
+
+def install():
+    """hh_mock with the v2 door: compose() lays the slab over the knoll's cells (its old tablets put back to plain face)"""
+    import hh_mock as HM
+    if getattr(HM, '_door2', False): return
+    _compose = HM.compose
+    def compose(seed=5):
+        M = _compose(seed); d = door()
+        for x in range(X0, X0 + CW):
+            if M.face.get((x, 35)) in (0x2ed, 0x2ee): M.face[x, 35] = 0x2f1
+        # the whole top of the knoll, above the door's band, is cloud in the map itself (knoll_cloud.under_cells:
+        # its top and all its upper bands, the slab's top row apart), under the billows that turn round its rim
+        # (src/dr_knoll_cloud.c); user 2026-11-25: "the WHOLE top area of the hill peak needs clouds"
+        import knoll_cloud as KC
+        tex = KC.under_tex()
+        for i, (x, y) in enumerate(KC.under_cells()):
+            t = tex[:, ::-1] if (x + y) % 2 else tex                                # (mirrored on alternate cells)
+            t = t[::-1] if (x * 3 + y) % 4 >= 2 else t
+            M.face.pop((x, y), None); M.ground[y][x] = t.copy(); M.over[y][x] = []; M.used[y, x] = 'cloud'
+        for cy in range(CH):
+            for cx in range(CW):
+                x, y = X0 + cx, Y0 + cy
+                M.over[y][x].append((d[cy * 16:cy * 16 + 16, cx * 16:cx * 16 + 16].copy(), False)); M.used[y, x] = 'door'
+        return M
+    HM.compose = compose; HM._door2 = True

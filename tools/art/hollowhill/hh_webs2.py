@@ -117,7 +117,7 @@ def place_boulders(M):
                     if any(u is not None and u.split(':')[0] in ('cliff', 'stairs', 'door', 'thing', 'road') for u in ring): continue
                     lv = M.E[y:y + 2, x:x + 2]
                     if lv.min() != lv.max() or M.field[y:y + 3, x:x + 3].min() < HM.TOP: continue
-                    b = boulder(k % 2)
+                    b = boulder(0)                                    # (one design, mirrored: tiles are short)
                     if k % 4 >= 2: b = b[:, ::-1].copy()               # (two designs, mirrored: the tiles repeat)
                     snap = (M.used.copy(), [[list(c) for c in r] for r in M.over])
                     for cy in range(2):
