@@ -664,4 +664,12 @@ drafts were previews only and the game still loaded the old Mauville map.
   37-39) run its full height. The town map ends just below the wall's foot; the harbour map begins with the town's
   tree line as backdrop over the same wall, then the quay and beach. Joined like Edelweiss: by a map connection (walk
   down a stair and you are on the harbour, no fade), the two maps sharing the wall rows so the camera shows the same
-  picture on either side. The sealed cave door moves to the wall's foot on the beach.
+  picture on either side. **Corrected 2026-11-25: not a connection.** A map connection draws the neighbour's cells
+  with the current map's tilesets, so it only works when both maps share them (Edelweiss's do; ours cannot: that is
+  the reason for two maps). So the stairs are warps with a short fade (as Route 13 into Mirroh), and each map draws
+  the other's edge in its own tiles: the town shows the wall's foot and a strip of beach and quay below it; the
+  harbour shows the wall and the town's tree line above. Height: six rows kept (user: right unless too tall; the
+  screen is ten rows: from the quay the wall fills the view's top with the tree line just showing over it; taller
+  would hide the town altogether and make each stair a long climb).
+- Water: Pelluca's animated water is MonoMyth's (the same as Watercress' pale water, piece 0x6C), so the harbour's
+  shallows keep the animation; the deep water needs its own frames (MonoMyth's), wired the same way. The sealed cave door moves to the wall's foot on the beach.
