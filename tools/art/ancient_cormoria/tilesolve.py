@@ -183,10 +183,10 @@ def keys_of(cls):
             out[(x, y)] = me + ''.join(nb)
     return out
 
-def solve(cls, fixed=None, free=None):
+def solve(cls, fixed=None, free=None, C=None):
     """cls: (H, W) array of class letters ('-' a cell left out, e.g. under the sky). fixed: {(x, y): metatile}.
     free: cells whose tile does not matter to the solver (left out). Returns (grid of metatiles or -1, report)."""
-    C = corpus(); fixed = fixed or {}; free = free or set()
+    C = C or corpus(); fixed = fixed or {}; free = free or set()
     H, W = cls.shape; keys = keys_of(cls)
     dom, wt, unseen = {}, {}, []
     for y in range(H):
@@ -237,9 +237,9 @@ def solve(cls, fixed=None, free=None):
             out[y, x] = min(sorted(dom[p]), key=score)
     return out, dict(unseen=unseen, conflicts=sorted(conflicts))
 
-def seams(grid):
+def seams(grid, C=None):
     """every neighbouring pair of placed metatiles the corpus never shows: [((x, y), (x2, y2))]"""
-    C = corpus(); H, W = grid.shape; bad = []
+    C = C or corpus(); H, W = grid.shape; bad = []
     for y in range(H):
         for x in range(W):
             a = grid[y, x]
@@ -248,8 +248,8 @@ def seams(grid):
             if y + 1 < H and grid[y + 1, x] >= 0 and (a, grid[y + 1, x]) not in C.V: bad.append(((x, y), (x, y + 1)))
     return bad
 
-def render(grid, S=16):
-    C = corpus(); H, W = grid.shape; img = np.zeros((H * S, W * S, 3), np.uint8)
+def render(grid, S=16, C=None):
+    C = C or corpus(); H, W = grid.shape; img = np.zeros((H * S, W * S, 3), np.uint8)
     for y in range(H):
         for x in range(W):
             if grid[y, x] >= 0: img[y * S:y * S + S, x * S:x * S + S] = C.meta[int(grid[y, x])]
