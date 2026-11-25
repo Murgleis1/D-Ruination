@@ -55,12 +55,67 @@ FLOWERS = [(35, 36, '2bf'), (36, 36, '2c7'), (40, 36, '2bf'), (41, 36, '2c7')]
 CRATES = [(33, 36, '2c9'), (34, 36, '2cc'), (33, 37, '2cc'), (36, 52, '2cc'), (40, 52, '2c9'), (51, 40, '2cc'),
           (66, 51, '2c9'), (70, 36, '2cc'), (70, 37, '2c9'), (58, 38, '2cc'), (66, 38, '2c9'), (54, 36, '2c9')]
 LAMPS = []
-IRON_LAMPS = [(43, 40), (58, 40), (62, 40), (69, 40)]     # Pelluca's harbour lamp (base cell; its top above)
+IRON_LAMPS = [(58, 40), (62, 40), (69, 40)]               # Pelluca's harbour lamp (base cell; its top above)
+BARRELS = [(56, 38), (60, 38), (64, 38), (69, 38), (66, 39), (53, 37), (71, 39), (34, 38), (41, 53)]
+BARREL_STACKS = [(57, 37), (61, 37), (65, 37), (70, 37), (33, 37)]
+CRATES_SMALL = [(55, 39), (59, 39), (63, 39), (68, 39), (52, 40), (37, 52)]
+SACKS = [(57, 39), (61, 39), (60, 39), (65, 39), (70, 39)]
+ROPES = [(50, 41), (64, 41), (37, 50), (67, 51)]
+NETS = [(53, 46), (65, 50)]
+# v3 (user 2026-11-25: "your current placement patterns of some of these new NPCs look like they obstruct that path";
+# "Fix everything"): the shrine to the lost prince stands on the main axis at the great pier's root, where every
+# arrival walks straight toward it, in a little bay of its own (an iron candle stand either side, its keeper beside
+# it); the cold open's walk is laid down cell by cell (ARRIVAL) and nothing stands on it (check_walk()).
+SHRINE = (38, 38)
+CANDLES = [(37, 38), (39, 38)]
+KEEPER = (36, 38)
+OSRID_LANDS = (40, 48)                       # off the Pale Veluza, on the great pier's east side
+CADMUS_WAITS = (40, 42)                      # at the pier's root; walks down 5 to meet him
+def _line(a, b):
+    (x0, y0), (x1, y1) = a, b
+    if x0 == x1: return [(x0, y) for y in range(min(y0, y1), max(y0, y1) + 1)]
+    return [(x, y0) for x in range(min(x0, x1), max(x0, x1) + 1)]
+# Cadmus: down the pier to Osrid, back up, along the kerb to the lab door. Osrid: up the pier, to the shrine
+# (stops at (38, 39) facing it), then down to the kerb and along it to the door (47, 40).
+CADMUS_WALK = _line((40, 42), (40, 47)) + _line((40, 41), (40, 47)) + _line((40, 41), (47, 41))
+OSRID_WALK = _line((40, 41), (40, 48)) + _line((38, 41), (40, 41)) + _line((38, 39), (38, 41)) + _line((38, 41), (47, 41)) + [(47, 40)]
+ARRIVAL = set(CADMUS_WALK) | set(OSRID_WALK)
+PEOPLE_AT = [('sailor', 36, 47, 'L'), ('sailor', 37, 51, 'D'), ('fisherman', 38, 52, 'D'),       # the great pier, off the walk
+             ('gentleman', 54, 40, 'R'), ('woman_2', 55, 40, 'L'),                               # visitors, landed earlier
+             ('hiker', 52, 39, 'R'), ('woman_4', 52, 37, 'D'), ('fat_man', 59, 40, 'D'), ('man_2', 63, 40, 'L'),
+             ('man_4', 66, 41, 'D'), ('expert_m', 66, 46, 'L'), ('sailor', 65, 49, 'L'), ('old_man', 70, 40, 'L'),
+             ('templar', 35, 40, 'D'), ('old_woman', KEEPER[0], KEEPER[1], 'R')]
+SCENE = [('cadmus', CADMUS_WAITS[0], CADMUS_WAITS[1], 'D'), ('osrid', OSRID_LANDS[0], OSRID_LANDS[1], 'U')]
+
+def check_walk():
+    """nothing on the cold open's walk: no person, no cargo, no lamp, no shed, no shrine; every walk cell on stone"""
+    taken = {}
+    for (g, x, y, f) in PEOPLE_AT: taken[(x, y)] = g
+    for lst, n in ((BARRELS, 'barrel'), (CRATES_SMALL, 'crate'), (SACKS, 'sack'), (ROPES, 'rope'), (NETS, 'net'),
+                   (IRON_LAMPS, 'lamp'), (CANDLES, 'candles'), ([SHRINE], 'shrine')):
+        for c in lst: taken[c] = n
+    for (x, y) in BARREL_STACKS: taken[(x, y)] = taken[(x, y + 1)] = 'barrels'
+    for (x, y) in IRON_LAMPS: taken[(x, y - 1)] = 'lamp'
+    taken[(35, 43)] = taken[(41, 43)] = 'pennant pole'
+    for (x, col) in STALLS:
+        for yy in (37, 38):
+            for xx in (x, x + 2): taken[(xx, yy)] = 'shed post'
+    for (x, y, m) in FLOWERS + CRATES: taken[(x, y)] = 'crate/flowers'
+    bad = sorted((c, taken[c]) for c in ARRIVAL if c in taken)
+    lab = {(x, y) for x in range(44, 50) for y in range(36, 41)} - {(47, 40)}
+    bad += [(c, 'the lab') for c in ARRIVAL if c in lab]
+    pier = {(x, y) for x in range(36, 41) for y in range(41, 53)}
+    quay = {(x, y) for x in range(32, 72) for y in range(36, 42)}
+    off = [c for c in ARRIVAL if c not in pier | quay and c != (47, 40)]
+    bad += [(c, 'not on stone') for c in off]
+    clash = {}
+    for (g, x, y, f) in PEOPLE_AT:
+        if (x, y) in taken and taken[(x, y)] != g: clash[(x, y)] = (g, taken[(x, y)])
+    return bad, clash
 ROCKS = [(72, 46), (71, 48), (70, 50), (69, 52), (67, 54), (65, 55), (63, 56), (61, 56), (59, 57),   # the east arm
          (42, 56), (44, 58),                                                                     # west of the mouth
          (8, 49), (10, 51), (12, 53), (4, 47)]                                                   # off the beach's point
 SHIPS = [('veluza', 42, 47), ('merchant', 56, 48), ('sloop', 55, 43), ('rowboat', 30, 47), ('rowboat', 68, 44)]   # (top-left cell)
-SHRINE = (42, 39)
 PALMS = [(9, 38), (11, 37), (10, 42), (16, 37), (18, 39), (14, 44), (21, 41), (23, 38)]
 
 def basin(x, y):
@@ -184,10 +239,10 @@ def compose(town):
             t = img[blk(x, y + dy)]; t[mk] = c[mk]; img[blk(x, y + dy)] = t
     # pennants across the great pier's root: two timber poles, a rope, pennants in Pelluca's plum and cream
     plum = [(144, 104, 152), (120, 88, 128)]; cream = [(236, 226, 196), (214, 200, 170)]
-    for X in (36 * S + 7, 40 * S + 7):
+    for X in (35 * S + 11, 41 * S + 3):                    # (on the pier's kerbs, clear of the walk)
         img[43 * S - 18:44 * S + 6, X:X + 2] = (104, 72, 48); img[43 * S - 18:44 * S + 6, X] = (72, 50, 36)
         img[43 * S - 20:43 * S - 17, X - 1:X + 3] = (64, 72, 104); img[44 * S + 6:44 * S + 8, X - 1:X + 3] = (56, 56, 72)
-    xa, xb = 36 * S + 9, 40 * S + 7; ytop = 43 * S - 16
+    xa, xb = 35 * S + 13, 41 * S + 3; ytop = 43 * S - 16
     for X in range(xa, xb):
         t = (X - xa) / (xb - xa); Y = int(ytop + 6 * 4 * t * (1 - t)); img[Y, X] = (88, 70, 56)
     k = 0
@@ -219,19 +274,28 @@ def compose(town):
         for i in range(0, 16, 3): rgb[1:9, i] = (84, 92, 84)
         for j in range(1, 9, 3): rgb[j, :] = (84, 92, 84)
         rgb[4:6, 6:9] = (200, 120, 70); put(rgb, m, X, Y)
+    def candle_stand(x, y):
+        X, Y = x * S + 5, y * S
+        img[Y + 4:Y + 15, X + 2:X + 4] = (56, 56, 72)                      # the iron stem
+        img[Y + 14:Y + 16, X:X + 6] = (56, 56, 72)                         # its foot
+        img[Y + 3:Y + 5, X - 1:X + 7] = (64, 72, 104)                      # the dish
+        for cx in (X, X + 2, X + 5):
+            img[Y - 2:Y + 3, cx] = (236, 226, 196)                         # the candles
+            img[Y - 5:Y - 3, cx] = (255, 200, 90); img[Y - 6, cx] = (255, 244, 200)
+    for (x, y) in CANDLES: candle_stand(x, y)
     br, bm = piece('barrel'); bsr, bsm = piece('barrel_stack'); cr, cm = piece('crate_small')
-    for (x, y) in [(56, 38), (60, 38), (64, 38), (69, 38), (66, 39), (53, 37), (71, 39), (35, 38), (41, 53)]:
+    for (x, y) in BARRELS:
         put(br, bm, x * S, y * S)
-    for (x, y) in [(57, 37), (61, 37), (65, 37), (70, 37), (33, 38)]:
+    for (x, y) in BARREL_STACKS:
         put(bsr, bsm, x * S, y * S)
-    for (x, y) in [(55, 39), (59, 39), (63, 39), (68, 39), (52, 40), (37, 52)]:
+    for (x, y) in CRATES_SMALL:
         put(cr, cm, x * S, y * S + 2); put(cr, cm, x * S + 6, y * S - 4)
-    for (X, Y) in [(57 * S + 4, 39 * S + 3), (61 * S + 2, 39 * S + 4), (60 * S + 10, 39 * S + 2), (65 * S + 6, 39 * S + 3), (70 * S + 2, 39 * S + 4)]:
-        sack(X, Y)
-    for (X, Y) in [(50 * S + 2, 41 * S + 6), (64 * S + 3, 41 * S + 7), (39 * S + 2, 51 * S + 6), (67 * S + 2, 51 * S + 6)]:
-        rope(X, Y)
-    for (X, Y) in [(53 * S, 46 * S + 2), (65 * S, 50 * S + 4)]:
-        net(X, Y)
+    for k, (x, y) in enumerate(SACKS):
+        sack(x * S + (4, 2, 10, 6, 2)[k % 5], y * S + 3)
+    for (x, y) in ROPES:
+        rope(x * S + 2, y * S + 6)
+    for (x, y) in NETS:
+        net(x * S, y * S + 2)
     # 10. palms (Pelluca's, two cells tall; cut off the old sand)
     palm = base[39 * S:42 * S, 8 * S:10 * S]       # (the palm at (8, 40): two cells wide, its fronds and trunk)
     sand = base[blk(15, 41)]
@@ -288,11 +352,8 @@ def compose(town):
         if kind == 'sloop': Y0 = (y + 4) * S - m.shape[0]
         else: Y0 = y * S
         sub = img[Y0:Y0 + m.shape[0], x * S:x * S + m.shape[1]]; sub[m] = rgb[m]
-    PEOPLE = [('sailor', 40, 49, 'L'), ('sailor', 36, 47, 'R'), ('gentleman', 38, 45, 'U'), ('woman_2', 39, 44, 'U'),
-              ('hiker', 52, 39, 'R'), ('fat_man', 58, 40, 'D'), ('man_2', 62, 39, 'L'), ('expert_m', 66, 46, 'L'),
-              ('sailor', 65, 49, 'L'), ('fisherman', 36, 52, 'L'), ('woman_4', 52, 37, 'D'), ('templar', 33, 39, 'D'),
-              ('man_4', 45, 41, 'R'), ('old_man', 70, 40, 'L')]
-    for (gfx, x, y, f) in [('dr_shrine', *SHRINE, 'D')] + PEOPLE:
+    PEOPLE = list(PEOPLE_AT)
+    for (gfx, x, y, f) in [('dr_shrine', *SHRINE, 'D')] + PEOPLE + SCENE:
         path = os.path.join(C, 'graphics/object_events/pics/%s/%s.png' % ('misc' if gfx == 'dr_shrine' else 'people', gfx))
         sp = Image.open(path); pal = sp.getpalette(); a = np.array(sp)
         if gfx != 'dr_shrine':
@@ -310,6 +371,22 @@ def compose(town):
 if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else '/tmp'
     town = Image.open(sys.argv[2] if len(sys.argv) > 2 else '/home/claude/scratch/pelluca_now.png')
+    bad, clash = check_walk()
+    print('the walk is clear' if not bad else 'BLOCKED: %s' % bad); print('people on things:', clash or 'none')
     img = compose(town)
-    Image.fromarray(img).save(os.path.join(out, 'waterfront_mock_v2_full.png'))
-    Image.fromarray(img[24 * S:, :]).save(os.path.join(out, 'waterfront_mock_v2.png'))
+    Image.fromarray(img).save(os.path.join(out, 'waterfront_mock_v3_full.png'))
+    Image.fromarray(img[24 * S:, :]).save(os.path.join(out, 'waterfront_mock_v3.png'))
+    # the walk drawn over it: Osrid's (blue), Cadmus's (orange), the stop at the shrine (gold)
+    ov = img.copy().astype(float)
+    for (x, y) in ARRIVAL:
+        ov[y * S:(y + 1) * S, x * S:(x + 1) * S] = ov[y * S:(y + 1) * S, x * S:(x + 1) * S] * 0.6 + np.array((255, 255, 255)) * 0.4
+    ov = ov.astype(np.uint8)
+    from PIL import ImageDraw
+    O = Image.fromarray(ov); d = ImageDraw.Draw(O)
+    def path(cells, col, off):
+        pts = [(x * S + 8 + off, y * S + 8 + off) for (x, y) in cells]
+        d.line(pts, fill=col, width=3)
+    path([(40, 42), (40, 47), (40, 41), (47, 41)], (240, 140, 40), -2)
+    path([(40, 48), (40, 41), (38, 41), (38, 39), (38, 41), (47, 41), (47, 40)], (40, 120, 240), 2)
+    d.rectangle((38 * S + 2, 39 * S + 2, 39 * S - 2, 40 * S - 2), outline=(255, 210, 60), width=2)
+    O.crop((24 * S, 33 * S, 52 * S, 54 * S)).resize((28 * 32, 21 * 32), Image.NEAREST).save(os.path.join(out, 'waterfront_mock_v3_walk.png'))

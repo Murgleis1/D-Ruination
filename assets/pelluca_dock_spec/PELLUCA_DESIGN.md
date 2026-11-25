@@ -622,3 +622,28 @@ drafts were previews only and the game still loaded the old Mauville map.
   animating (no garbage; field_door.c returns early).
 - Water is static (no tileset animation callback yet).
 - Build gotcha: make does not notice an edited map.bin; `touch data/maps.s` after editing one.
+
+## Waterfront redesign (2026-11-24/25) -- Watercress' harbour (user: the old dock was "half-assed")
+- Why: Watercress Port (MonoMyth 0x869C10) had been used only as a parts bin (its rocks, fountain; its stone pier
+  wrongly rejected as "modern") and the dock was the cold-open dock's old outline re-skinned. Redesigned as a whole
+  composition after studying Watercress, Crown's harbour market, Lazarus' autumn harbour (faa2ac), Odyssey 3.1/3.22,
+  Port Ginseng (`waterfront_refs.png`). Layouts: `waterfront_layouts_v1.png` (tools/art/pelluca/waterfront_plans.py);
+  user: "primarily A with bits of B and C".
+- Mock v3 (`waterfront_mock_v3*.png`, tools/art/pelluca/waterfront_mock.py): one quay of Watercress stone (rows 36-40,
+  kerb 41, its face 42), three stone piers (the great pier on the main stair's axis x 35-41; a short pier x 50-54; an
+  east pier x 64-67), a pale basin inside a reef arm from the east woods, Crown's awnings recoloured as sailcloth cargo
+  sheds with barrels, crates, sacks, rope and nets, Pelluca's iron harbour lamps, plum-and-cream pennants on timber
+  poles across the great pier's root; the beach in MonoMyth's Cascade sand (no grey surf band), palms in groups, a
+  three-wide stair from the quay down onto it; the beach jetty removed (user).
+- Ships (searched every large sprite in Crown, Odyssey, Lazarus and MonoMyth: Crown's wooden ship is the only large
+  medieval vessel): the Pale Veluza = Crown's ship bleached pale with an ivory sail, berthed east of the great pier;
+  a merchantman = the same hull mirrored, tarred, madder sail, at the east pier; a fishing sloop = Lazarus' sailboat
+  in wood and canvas, at the short pier; Crown's wooden rowboats. 128x64 sprites need subsprite tables in the build.
+- The shrine to the lost prince: on the main axis at the great pier's root (38, 38), iron candle stands either side,
+  its keeper beside it (36, 38): every arrival walks straight toward it.
+- The cold open's walk (laid down in waterfront_mock.py, checked by check_walk(): nothing stands on it): Osrid lands
+  at (40, 48) beside the Pale Veluza; Cadmus waits at (40, 42), walks down 5 to him; both walk up the pier; Osrid
+  stops at (38, 39) facing the shrine while Cadmus goes on along the kerb (row 41) to the lab door; Osrid follows,
+  (38, 41) -> (47, 41) -> the door (47, 40). The lab moves up four rows to the cliff foot (door (47, 44) -> (47, 40)).
+  Dock people (stage 2) stand off the walk: sailors and the fisherman at the pier's west side and end, visitors and
+  merchants by the sheds, a captain on the east pier, a Templar by the beach stair.
