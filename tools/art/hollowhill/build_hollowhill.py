@@ -159,7 +159,9 @@ def build(M):
     def add(idx):
         k = np.ascontiguousarray(idx).tobytes()
         if k in nidx: return nidx[k]
-        assert free_t, 'out of tile numbers'
+        if not free_t:
+            assert '--dry' in sys.argv, 'out of tile numbers'
+            add.over = getattr(add, 'over', 0) + 1; free_t.append(2000 + add.over)   # (a dry run counts how far over)
         i = free_t.pop(0); tiles[i] = idx.copy(); index_tile(i, idx, None); return nidx[k]
     if 512 not in tiles: tiles[512] = np.zeros((8, 8), np.uint8); index_tile(512, tiles[512], None); free_t.remove(512)
     reused = 0
