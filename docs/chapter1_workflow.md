@@ -52,8 +52,8 @@ Done (each has a note in `bible/20_chapter1_build.md`):
 - Route 11 (`Route11`, 90x40: the approved 90x30 picture with five rows of woods and sea above and below, out of
   reach), connected to Pelluca's west road. Its own secondary tileset under Pelluca's primary, built from the
   composer by `tools/art/route11/build_route11.py`. A provisional story gate on Pelluca's west road (open once the
-  shrine is awakened; stage 4 sets the real condition). Music: MonoMyth's Route 15 theme (`MUS_DR_MM_ROUTE15`); Ghost Grey's Route 1 became Hollow Hill's theme (`MUS_DR_HOLLOW_HILL`). Pelluca's theme is now Crown's route theme 292 on piano (`MUS_DR_CROWN_PELLUCA_PIANO`). The east beach has no way
-  down yet (revisit later, user). The west end waits for Hollow Hill.
+  shrine is awakened; stage 4 sets the real condition). Music: MonoMyth's Route 15 theme (`MUS_DR_MM_ROUTE15`); Ghost Grey's Route 1 became Hollow Hill's theme (`MUS_DR_HOLLOW_HILL`). Pelluca's theme is now Crown's route theme 292 on piano (`MUS_DR_CROWN_PELLUCA_PIANO`). The east beach has its own
+  stairs down (x 77-78, 2026-11-25). The west end waits for Hollow Hill.
 - Hollow Hill: built (2026-11-20; mock v8: bone woods, dark stone, blood, red webs; the way north goes over the hill),
   connected to Route 11, thinned fog. Its tileset is nearly full. Later: a ruined structure on the top, the guardian
   quest (user). Next: the Mirroh area.
@@ -81,13 +81,17 @@ to the Ivy River) are later chapters.
    the ancient backdrop; walk `tools/playtest/ancient_cormoria_slip_walk.py` on a test ROM, as nothing leads in until
    stage 3's script). Approved ("It is perfect now"). DM's `AncientMirroh` cluster kept for a later chapter.
 5. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them (closed for now).
-Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest; **built 2026-11-25** as its own summit map, `HollowHillSummit`); Route 11's east beach;
-Hollow Hill's webbed rocks and cobwebbed trees (user 2026-11-24).
+Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest; **built 2026-11-25** as its own summit map, `HollowHillSummit`); Route 11's east beach (**stairs built 2026-11-25**);
+Hollow Hill's webbed rocks and cobwebbed trees (user 2026-11-24; **webs v2 built 2026-11-25**).
 Also done 2026-11-24: Route 11's farmhouse interior (`Route11Farmhouse`, door (55, 14); walk
 `tools/playtest/route11_farmhouse_walk.py`). Note: `build_route11.py`'s `write_map()` is stale (it rewrites Pelluca's
 gate events and Route 11's connections); do not re-run it as is.
 
 Update this list as areas are finished.
+
+**Build gotcha (2026-11-25):** the Makefile does not track a layout's `map.bin` (it is `.incbin`'d through
+data/layouts/layouts.inc), so a map.bin patched alone is not rebuilt: after changing one, `rm -f
+codebase/build/modern/data/maps.o` before `make` (builders that also rewrite layouts.json or tilesets trigger it anyway).
 
 ## ROM space
 

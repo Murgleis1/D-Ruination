@@ -305,6 +305,8 @@ LIP = 20 + OY                  # the coastal cliff's lip row; its two face rows 
 SEA = 26 + OY                  # the waterline row
 COVE_W, COVE_E = 47, 81        # the cove's side walls (their land-edge columns)
 STAIRS = (58, 59)              # stone stairs cut down the coastal cliff to the west beach, just past the bridge
+EAST_STAIRS = (77, 78)         # (and their twin to the east beach, user 2026-11-25; patched in by east_beach_stairs.py: draw them
+                               # here as the west ones if this composer is ever rebuilt)
                                # (user 2026-11-20: the beach holds a trainer, more later): Pelluca's own stairs
                                # (45/46, as in its sea wall), with dark rock cheeks either side.
 
