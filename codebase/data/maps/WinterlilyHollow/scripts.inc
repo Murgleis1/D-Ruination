@@ -355,7 +355,7 @@ WinterlilyHollow_Sneasler_1:
 
 WinterlilyHollow_Sneasler_2:
 # 237 "data//maps/WinterlilyHollow/scripts.pory"
-	warp MAP_MIRROH_INTERIOR_B1F, 16, 68
+	warp MAP_MIRROH_INTERIOR_B1F, 20, 36
 	goto WinterlilyHollow_Sneasler_1
 
 

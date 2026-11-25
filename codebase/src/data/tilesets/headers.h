@@ -1228,6 +1228,28 @@ const struct Tileset gTileset_AcademyHall =
     .callback = NULL,
 };
 
+const struct Tileset gTileset_MtMirrohB1F =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_MtMirrohB1F,
+    .palettes = gTilesetPalettes_MtMirrohB1F,
+    .metatiles = gMetatiles_MtMirrohB1F,
+    .metatileAttributes = gMetatileAttributes_MtMirrohB1F,
+    .callback = NULL,
+};
+
+const struct Tileset gTileset_MtMirrohB1FTiles =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_MtMirrohB1FTiles,
+    .palettes = gTilesetPalettes_MtMirrohB1FTiles,
+    .metatiles = gMetatiles_MtMirrohB1FTiles,
+    .metatileAttributes = gMetatileAttributes_MtMirrohB1FTiles,
+    .callback = NULL,
+};
+
 const struct Tileset gTileset_Route11Farmhouse =
 {
     .isCompressed = TRUE,

@@ -234,7 +234,7 @@ script WinterlilyHollow_Sneasler{
     msgbox(format("Sneasler is digging into the wall...\nThere's a hole!\pFollow Sneasler into the hole?"), MSGBOX_YESNO)
 
     if (var(VAR_RESULT) == 1){
-        warp(MAP_MIRROH_INTERIOR_B1F, 16, 68)
+        warp(MAP_MIRROH_INTERIOR_B1F, 20, 36)
     }
     releaseall
     end
