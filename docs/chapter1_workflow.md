@@ -80,7 +80,8 @@ to the Ivy River) are later chapters.
 4. ~~The Ancient Cormoria slip (Beat 8e)~~: BUILT and walked 2026-11-24 (`AncientCormoriaSlip`, its own tilesets and
    the ancient backdrop; walk `tools/playtest/ancient_cormoria_slip_walk.py` on a test ROM, as nothing leads in until
    stage 3's script). Approved ("It is perfect now"). DM's `AncientMirroh` cluster kept for a later chapter.
-5. Pelluca's other exits (Ivy River, Hoya Delta, Route 10) as far as Chapter 1 uses them (closed for now).
+5. ~~Pelluca's other exits~~ (Ivy River, Hoya Delta: closed, guards; checked 2026-11-25, `tools/playtest/pelluca_exits_walk.py`;
+   the west gate's rows 31-32 closed too). Route 10 has no departure point yet: a later chapter's decision.
 Later, from stage 1 notes: Hollow Hill's ruined structure on its top (the guardian quest; **built 2026-11-25** as its own summit map, `HollowHillSummit`); Route 11's east beach (**stairs built 2026-11-25**);
 Hollow Hill's webbed rocks and cobwebbed trees (user 2026-11-24; **webs v2 built 2026-11-25**).
 Also done 2026-11-24: Route 11's farmhouse interior (`Route11Farmhouse`, door (55, 14); walk

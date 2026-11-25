@@ -1532,6 +1532,8 @@ script DR_PellucaCity_CaveSealed{
 // DR: the west gate (tools/art/route11/build_route11.py). Leaving the Valley for Route 11 is stopped until the story
 // sends Osrid west (bible 20). For now the way opens once the shrine under the church is awakened; stage 4 (the
 // main story) puts the real condition here.
+// (its triggers span all five rows of the west opening, 28-32: rows 31-32, the grass under the road, were open past
+// them until 2026-11-25)
 script PellucaCity_EventScript_DrWestGate {
     if (flag(FLAG_DR_STATUE_AWAKENED)) {
         setvar(VAR_TEMP_1, 1)

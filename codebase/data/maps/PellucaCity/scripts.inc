@@ -2230,96 +2230,96 @@ DR_PellucaCity_CaveSealed::
 
 
 PellucaCity_EventScript_DrWestGate::
-# 1536 "data/maps/PellucaCity/scripts.pory"
+# 1538 "data/maps/PellucaCity/scripts.pory"
 	goto_if_set FLAG_DR_STATUE_AWAKENED, PellucaCity_EventScript_DrWestGate_2
-# 1540 "data/maps/PellucaCity/scripts.pory"
-	lockall
-# 1541 "data/maps/PellucaCity/scripts.pory"
-	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
 # 1542 "data/maps/PellucaCity/scripts.pory"
-	special DrSetPrinceNameplate
+	lockall
 # 1543 "data/maps/PellucaCity/scripts.pory"
+	showportrait PORTRAIT_OSRID, PORTRAIT_EXPR_NEUTRAL
+# 1544 "data/maps/PellucaCity/scripts.pory"
+	special DrSetPrinceNameplate
+# 1545 "data/maps/PellucaCity/scripts.pory"
 	goto_if_set FLAG_DR_CHURCH_BLASTED, PellucaCity_EventScript_DrWestGate_5
-# 1546 "data/maps/PellucaCity/scripts.pory"
+# 1548 "data/maps/PellucaCity/scripts.pory"
 	msgbox PellucaCity_EventScript_DrWestGate_Text_1
 PellucaCity_EventScript_DrWestGate_4:
-# 1548 "data/maps/PellucaCity/scripts.pory"
-	hideportrait
-# 1549 "data/maps/PellucaCity/scripts.pory"
-	closemessage
 # 1550 "data/maps/PellucaCity/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, PellucaCity_Movement_DrWestGateBack
+	hideportrait
 # 1551 "data/maps/PellucaCity/scripts.pory"
-	waitmovement 0
+	closemessage
 # 1552 "data/maps/PellucaCity/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, PellucaCity_Movement_DrWestGateBack
+# 1553 "data/maps/PellucaCity/scripts.pory"
+	waitmovement 0
+# 1554 "data/maps/PellucaCity/scripts.pory"
 	releaseall
 	return
 
 PellucaCity_EventScript_DrWestGate_2:
-# 1537 "data/maps/PellucaCity/scripts.pory"
+# 1539 "data/maps/PellucaCity/scripts.pory"
 	setvar VAR_TEMP_1, 1
 	end
 
 PellucaCity_EventScript_DrWestGate_5:
-# 1544 "data/maps/PellucaCity/scripts.pory"
+# 1546 "data/maps/PellucaCity/scripts.pory"
 	msgbox PellucaCity_EventScript_DrWestGate_Text_0
 	goto PellucaCity_EventScript_DrWestGate_4
 
 
-# 1555 "data/maps/PellucaCity/scripts.pory"
+# 1557 "data/maps/PellucaCity/scripts.pory"
 PellucaCity_Movement_DrWestGateBack:
-# 1556 "data/maps/PellucaCity/scripts.pory"
+# 1558 "data/maps/PellucaCity/scripts.pory"
 	walk_right
 	step_end
 
 PellucaCity_EventScript_RoadGuardNorth::
-# 1566 "data/maps/PellucaCity/scripts.pory"
+# 1568 "data/maps/PellucaCity/scripts.pory"
 	speakername PellucaCity_EventScript_RoadGuardNorth_Text_0
-# 1567 "data/maps/PellucaCity/scripts.pory"
+# 1569 "data/maps/PellucaCity/scripts.pory"
 	msgbox PellucaCity_EventScript_RoadGuardNorth_Text_1, MSGBOX_NPC
 	end
 
 
 PellucaCity_EventScript_RoadClosedNorth::
-# 1572 "data/maps/PellucaCity/scripts.pory"
-	lockall
-# 1573 "data/maps/PellucaCity/scripts.pory"
-	speakername PellucaCity_EventScript_RoadGuardNorth_Text_0
 # 1574 "data/maps/PellucaCity/scripts.pory"
-	msgbox PellucaCity_EventScript_RoadClosedNorth_Text_0
+	lockall
 # 1575 "data/maps/PellucaCity/scripts.pory"
-	closemessage
+	speakername PellucaCity_EventScript_RoadGuardNorth_Text_0
 # 1576 "data/maps/PellucaCity/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, PellucaCity_MayorFight_Trigger_Movement_10
+	msgbox PellucaCity_EventScript_RoadClosedNorth_Text_0
 # 1577 "data/maps/PellucaCity/scripts.pory"
-	waitmovement 0
+	closemessage
 # 1578 "data/maps/PellucaCity/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, PellucaCity_MayorFight_Trigger_Movement_10
+# 1579 "data/maps/PellucaCity/scripts.pory"
+	waitmovement 0
+# 1580 "data/maps/PellucaCity/scripts.pory"
 	releaseall
 	return
 
 
 PellucaCity_EventScript_RoadGuardEast::
-# 1582 "data/maps/PellucaCity/scripts.pory"
+# 1584 "data/maps/PellucaCity/scripts.pory"
 	speakername PellucaCity_EventScript_RoadGuardNorth_Text_0
-# 1583 "data/maps/PellucaCity/scripts.pory"
+# 1585 "data/maps/PellucaCity/scripts.pory"
 	msgbox PellucaCity_EventScript_RoadGuardEast_Text_0, MSGBOX_NPC
 	end
 
 
 PellucaCity_EventScript_RoadClosedEast::
-# 1588 "data/maps/PellucaCity/scripts.pory"
-	lockall
-# 1589 "data/maps/PellucaCity/scripts.pory"
-	speakername PellucaCity_EventScript_RoadGuardNorth_Text_0
 # 1590 "data/maps/PellucaCity/scripts.pory"
-	msgbox PellucaCity_EventScript_RoadClosedEast_Text_0
+	lockall
 # 1591 "data/maps/PellucaCity/scripts.pory"
-	closemessage
+	speakername PellucaCity_EventScript_RoadGuardNorth_Text_0
 # 1592 "data/maps/PellucaCity/scripts.pory"
-	applymovement OBJ_EVENT_ID_PLAYER, PellucaCity_MayorFight_Trigger_Movement_9
+	msgbox PellucaCity_EventScript_RoadClosedEast_Text_0
 # 1593 "data/maps/PellucaCity/scripts.pory"
-	waitmovement 0
+	closemessage
 # 1594 "data/maps/PellucaCity/scripts.pory"
+	applymovement OBJ_EVENT_ID_PLAYER, PellucaCity_MayorFight_Trigger_Movement_9
+# 1595 "data/maps/PellucaCity/scripts.pory"
+	waitmovement 0
+# 1596 "data/maps/PellucaCity/scripts.pory"
 	releaseall
 	return
 
@@ -3982,39 +3982,39 @@ DR_PellucaCity_CaveSealed_Text_0:
 	.string "Umbra.$"
 
 PellucaCity_EventScript_DrWestGate_Text_0:
-# 1544 "data/maps/PellucaCity/scripts.pory"
+# 1546 "data/maps/PellucaCity/scripts.pory"
 	.string "Cadmus told me to meet him at the\n"
 	.string "church.\p"
 	.string "I shouldn't leave the Valley yet.$"
 
 PellucaCity_EventScript_DrWestGate_Text_1:
-# 1546 "data/maps/PellucaCity/scripts.pory"
+# 1548 "data/maps/PellucaCity/scripts.pory"
 	.string "I still have things to take care of here\n"
 	.string "in the Valley.\p"
 	.string "I shouldn't leave just yet.$"
 
 PellucaCity_EventScript_RoadGuardNorth_Text_0:
-# 1566 "data/maps/PellucaCity/scripts.pory"
+# 1568 "data/maps/PellucaCity/scripts.pory"
 	.string "Templar$"
 
 PellucaCity_EventScript_RoadGuardNorth_Text_1:
-# 1567 "data/maps/PellucaCity/scripts.pory"
+# 1569 "data/maps/PellucaCity/scripts.pory"
 	.string "Halt. The road north to the Ivy River is\n"
 	.string "closed by order of the Templar Order.$"
 
 PellucaCity_EventScript_RoadClosedNorth_Text_0:
-# 1574 "data/maps/PellucaCity/scripts.pory"
+# 1576 "data/maps/PellucaCity/scripts.pory"
 	.string "Halt. The road north to the Ivy River is\n"
 	.string "closed by order of the Templar Order.\l"
 	.string "Turn back.$"
 
 PellucaCity_EventScript_RoadGuardEast_Text_0:
-# 1583 "data/maps/PellucaCity/scripts.pory"
+# 1585 "data/maps/PellucaCity/scripts.pory"
 	.string "Halt. The road east to Hoya Delta is\n"
 	.string "closed by order of the Templar Order.$"
 
 PellucaCity_EventScript_RoadClosedEast_Text_0:
-# 1590 "data/maps/PellucaCity/scripts.pory"
+# 1592 "data/maps/PellucaCity/scripts.pory"
 	.string "Halt. The road east to Hoya Delta is\n"
 	.string "closed by order of the Templar Order.\l"
 	.string "Turn back.$"
