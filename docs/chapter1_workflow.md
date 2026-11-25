@@ -170,3 +170,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   hoods' north-facing frames came out blank in the extraction: check whether MonoMyth has them before import (the
   extractor reads frame k from images[k-1]; they may use a shorter frame table). **The user will supply a few sprite
   sets of their own** to go with these.
+- **The user's own sets (user 2026-11-25):** first, a **young nobleman** (Essentials-style front, 2x, and a 4x4 walking
+  sheet, 2x; `tools/npc/noble_boy/src_*.png`): "three variations of this boy with black, light brown and blonde hair
+  plus his overworld sprite (and slightly different shades of skin color) ... a great set of spoiled noble boy
+  trainers for almost the entire game"; "change the color of his outfit a bit for each variation too". Mock v1
+  (`tools/npc/noble_boy/noble_boy.py`, `assets/npc_survey/noble_boy_v1.png`): black hair, fair skin, burgundy coat and
+  gold waistcoat; light brown hair, medium skin, forest green and cream; blonde, light-tan skin, navy and silver; each
+  15 colours. **The fronts are 74 px tall at native size, Emerald's frame is 64x64**: two fits offered (scaled to fit,
+  or full detail cropped at the shins). The overworld frames (16x24) fit Emerald's 16x32 as they are.
