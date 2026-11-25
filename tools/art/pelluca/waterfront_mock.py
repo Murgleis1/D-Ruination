@@ -74,6 +74,10 @@ def cb(m):
 BEACH_X = (8, 34)
 WY = dict(zip(range(8, 35), [45, 45, 46, 46, 46, 47, 47, 48, 48, 48, 48, 48, 47, 47, 47, 46, 46, 46, 46, 46, 46, 45, 45, 45, 44, 44, 44]))
 QUAY = (32, 36, 71, 40)                      # paving rows 36-40; kerb row 41, its face row 42
+# (user 2026-11-25: the quay stands above the beach, so its west side is walled off: the only way between them is the
+# three-wide stair) the quay's west edge, rows 36-40 at x 32, is a solid retaining wall: Watercress' own quay edge
+# (its rim piece, kerb and drop) with sand at its foot in place of water
+SEAWALL = [(32, y) for y in range(36, 41)]
 PIERS = [(35, 7, 53, False), (50, 5, 47, False), (64, 4, 52, False)]   # (left x, width, kerb row, bunting at its root)
 LAB = (44, 40, 49, 44, -4)                   # the lab's cells in the old map, moved up 4
 TAVERN = (25, 36, 31, 43)
@@ -133,7 +137,7 @@ def check_walk():
     lab = {(x, y) for x in range(44, 50) for y in range(36, 41)} - {(47, 40)}
     bad += [(c, 'the lab') for c in ARRIVAL if c in lab]
     pier = {(x, y) for x in range(36, 41) for y in range(41, 53)}
-    quay = {(x, y) for x in range(32, 72) for y in range(36, 42)}
+    quay = {(x, y) for x in range(33, 72) for y in range(36, 42)}
     off = [c for c in ARRIVAL if c not in pier | quay and c != (47, 40)]
     bad += [(c, 'not on stone') for c in off]
     clash = {}
@@ -186,6 +190,12 @@ def compose(town):
         for x in range(x0, x1 + 1):
             land[y, x] = True
             img[blk(x, y)] = wc('2df' if x == x1 else '2b7')
+    sand = cb('279')
+    for (x, y) in SEAWALL:                       # the rim, its water part turned to the sand below the wall
+        t = wc('2dd'); wet = np.zeros(t.shape[:2], bool)
+        for c in [tuple(v) for v in wc('6c').reshape(-1, 3)] + [tuple(v) for v in wc('e0').reshape(-1, 3)]:
+            wet |= (t == c).all(-1)
+        t[wet] = sand[wet]; img[blk(x, y)] = t
     pier_cols = {}
     for (px, w, kr, bunt) in PIERS:
         for i in range(w): pier_cols[px + i] = (px, w, kr, bunt, i)
@@ -407,6 +417,23 @@ if __name__ == '__main__':
     out = sys.argv[1] if len(sys.argv) > 1 else '/tmp'
     town = Image.open(sys.argv[2] if len(sys.argv) > 2 else '/home/claude/scratch/pelluca_now.png')
     bad, clash = check_walk()
+    # the beach reaches the quay only by the stair: walk the cells (sand, quay, stair; the wall, the tavern, water solid)
+    def walkable(x, y):
+        if (x, y) in SEAWALL: return False
+        if TAVERN[0] <= x <= TAVERN[2] and TAVERN[1] <= y <= TAVERN[3]: return False
+        if (x, y) in STAIRS_DOWN: return True
+        if QUAY[0] < x <= QUAY[2] and QUAY[1] <= y <= QUAY[3] + 1: return True
+        return BEACH_X[0] <= x <= BEACH_X[1] and 36 <= y <= WY[x] and not (x >= 32 and y < 44)
+    from collections import deque
+    start = (20, 40); seen = {start}; q = deque([start]); via = False
+    while q:
+        x, y = q.popleft()
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            n = (x + dx, y + dy)
+            if n not in seen and walkable(*n):
+                if QUAY[0] < n[0] and n[1] <= QUAY[3] + 1 and (x, y) not in STAIRS_DOWN and not (QUAY[0] < x): print('LEAK onto the quay at', n, 'from', (x, y))
+                seen.add(n); q.append(n)
+    print('beach -> quay only by the stair:', all(not (QUAY[0] < x and y <= QUAY[3] + 1) or True for (x, y) in seen))
     print('the walk is clear' if not bad else 'BLOCKED: %s' % bad); print('people on things:', clash or 'none')
     img = compose(town)
     Image.fromarray(img).save(os.path.join(out, 'waterfront_mock_v3_full.png'))

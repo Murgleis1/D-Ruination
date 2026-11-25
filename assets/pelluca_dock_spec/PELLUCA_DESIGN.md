@@ -639,6 +639,9 @@ drafts were previews only and the game still loaded the old Mauville map.
   sheds with barrels, crates, sacks, rope and nets, Pelluca's iron harbour lamps, plum-and-cream pennants on timber
   poles across the great pier's root; the beach in MonoMyth's Cascade sand (no grey surf band), palms in groups, a
   three-wide stair from the quay down onto it; the beach jetty removed (user).
+- The quay stands above the beach (user 2026-11-25): its west side (x 32, rows 36-40) is a solid wall, the quay's
+  own edge (the same kerb and drop as along the water) with sand at its foot; the three-wide stair (x 32-34, rows
+  41-43) is the only way between beach and quay (checked: with the stair removed, no quay cell is reachable).
 - Ships (searched every large sprite in Crown, Odyssey, Lazarus and MonoMyth: Crown's wooden ship is the only large
   medieval vessel): the Pale Veluza = Crown's ship bleached pale with an ivory sail, berthed east of the great pier;
   a merchantman = the same hull mirrored, tarred, madder sail, at the east pier; a fishing sloop = Lazarus' sailboat
