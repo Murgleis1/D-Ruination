@@ -18,22 +18,8 @@
   "bg_events": [],
   "warp_events": [
     {
-      "x": 20,
-      "y": 42,
-      "elevation": 3,
-      "dest_map": "MAP_HOLLOW_HILL",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 21,
-      "y": 42,
-      "elevation": 3,
-      "dest_map": "MAP_HOLLOW_HILL",
-      "dest_warp_id": "0"
-    },
-    {
-      "x": 22,
-      "y": 42,
+      "x": 11,
+      "y": 32,
       "elevation": 3,
       "dest_map": "MAP_HOLLOW_HILL",
       "dest_warp_id": "0"

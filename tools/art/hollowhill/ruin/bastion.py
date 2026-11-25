@@ -15,7 +15,18 @@ sys.path.insert(0, os.path.join(ROOT, 'tools/art/mt_mirroh'))
 X0, Y0, CW, CH = 16, 0, 27, 28
 CX = 29 - X0                                   # the axis in the cut (column 13)
 ARCADE_ROW = 4                                 # the row of dark arches (the way on, up into the bastion)
-BONE_RAMP = [(236, 230, 214), (218, 210, 192), (194, 184, 166), (164, 154, 142), (134, 124, 124), (104, 94, 104),
+# the stone (user 2026-11-25: "recolor the ruin tileset to something more like a pale brown or something more
+# interesting than the white-ish color"): a pale brown, its shadows going to Hollow Hill's sinister violet-grey (the
+# cliffs') so the ruin sits in the hill's colours. Alternatives kept for the comparison sheet.
+RAMPS = {'pale_brown': [(232, 214, 186), (214, 192, 160), (192, 168, 136), (166, 142, 114), (138, 116, 96),
+                        (110, 90, 80), (82, 64, 64), (54, 42, 48), (30, 22, 30)],
+         'sandstone': [(238, 214, 168), (222, 192, 142), (200, 166, 116), (172, 138, 94), (142, 110, 78),
+                       (112, 84, 68), (82, 60, 58), (52, 38, 44), (30, 22, 28)],
+         'ashen': [(222, 212, 198), (200, 188, 172), (174, 162, 148), (148, 136, 126), (122, 110, 106),
+                   (96, 84, 88), (70, 60, 68), (46, 38, 48), (26, 20, 28)]}
+RAMP_NAME = os.environ.get('SUMMIT_RAMP', 'pale_brown')
+BONE_RAMP = RAMPS[RAMP_NAME]
+_OLD_BONE = [(236, 230, 214), (218, 210, 192), (194, 184, 166), (164, 154, 142), (134, 124, 124), (104, 94, 104),
              (74, 64, 78), (46, 38, 50), (26, 20, 28)]
 WEEDS = [(64, 60, 44), (96, 92, 64), (128, 122, 86), (160, 154, 112)]
 

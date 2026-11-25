@@ -5035,7 +5035,7 @@
       "id": "LAYOUT_HOLLOW_HILL_SUMMIT",
       "name": "HollowHillSummit_Layout",
       "width": 43,
-      "height": 49,
+      "height": 51,
       "primary_tileset": "gTileset_HollowHillSummitTiles",
       "secondary_tileset": "gTileset_HollowHillSummit",
       "border_filepath": "data/layouts/HollowHillSummit/border.bin",
