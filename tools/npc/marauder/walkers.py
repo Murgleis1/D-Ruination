@@ -1,8 +1,8 @@
 """Marauder walkers, each on its front's own character's walker, dressed to the recoloured fronts (fronts.py):
   Goon (male)   <- MonoMyth 123, the masked bald thug in a tank top (MonoMyth 91's walker): shirt and head top undyed
                    linen as the front, the face cloth oxblood, trousers brown, boots dark
-  Goon (female) <- Fantasma 412, long black hair, pink-purple top (Fantasma 113's walker): top oxblood
-  Chief         <- Fantasma 227, a big short-haired brute in a grey top (the front's biker has no walker of his own;
+  Bandit        <- Fantasma 412, long black hair, pink-purple top (Fantasma 113's walker): top oxblood
+  Marauder      <- Fantasma 227, a big short-haired brute in a grey top (the front's biker has no walker of his own;
                    227 fits the build and the new short crop): hair dark brown, shirt black under a leather vest
                    with the front's grey fur collar, trousers oxblood
 Run: python3 walkers.py -> out/marauder_*_ow.png, /tmp/cult/marauder_walkers_v1.png"""
