@@ -34,6 +34,31 @@ def barkeep():
         t = min(y for y in range(32) if sub[y].any())
         body = sub[t + 11:]
         body[body == 1] = 13
+    # (user 2026-11-26: "can we give him some hair too"): brown hair over his bald crown. Skin slots 2-5 become hair
+    # (14, with 15 on its lower and outer edge) where hair grows: south, the crown (rows t+1..t+4), the temples
+    # (t+5) and sideburns (t+6); north, the whole back of the head down to the nape (t+1..t+8); west, the crown and
+    # the back half of the head behind the ear (t+5..t+8, x 7 and over). His side tufts (6) take the same brown.
+    FACE = {0: 'S', 1: 'N', 2: 'W', 3: 'S', 4: 'S', 5: 'N', 6: 'N', 7: 'W', 8: 'W'}
+    SKIN = (2, 3, 4, 5)
+    for f in range(9):
+        sub = idx[:, f * 16:(f + 1) * 16]
+        t = min(y for y in range(32) if sub[y].any())
+        fac = FACE[f]
+        for y in range(t, t + 9):
+            xs = [x for x in range(16) if sub[y, x] in SKIN]
+            if not xs:
+                continue
+            x0, x1 = min(xs), max(xs)
+            for x in xs:
+                k = y - t
+                grow = (fac == 'S' and (k <= 4 or (k == 5 and (x <= x0 + 1 or x >= x1 - 1))
+                                        or (k == 6 and (x == x0 or x == x1))))
+                grow |= fac == 'N' and k <= 8
+                grow |= fac == 'W' and (k <= 4 or (k <= 8 and x >= 7))
+                if grow:
+                    edge = x in (x0, x1) or (fac == 'S' and k >= 4) or (fac == 'N' and k == 8)
+                    sub[y, x] = 15 if edge else 14
+    pal[14], pal[15], pal[6] = (128, 84, 52), (84, 54, 36), (84, 54, 36)         # brown hair
     pal[10], pal[12], pal[13] = (96, 132, 88), (44, 70, 46), (62, 96, 60)   # waistcoat and trousers: forest green
     return idx, pal
 

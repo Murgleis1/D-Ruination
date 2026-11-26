@@ -505,4 +505,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Approved green** (user: "green is fine for him"): waistcoat and trousers forest green (slots 10, 12), and their
   darkest shade, which was the skin's outline brown (1), moved below the face to a free slot (13) in a darker green
   so no maroon is left. `staff_v3.png`.
+  **Hair added** (user: "can we give him some hair too"): brown hair over his bald crown on free slots 14/15 (his side
+  tufts, slot 6, in the same brown): south the crown, temples and sideburns; north the whole back of the head to the
+  nape; west the crown and the back of the head behind the ear. `staff_v4.png`.
 
