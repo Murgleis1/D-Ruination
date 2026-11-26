@@ -20,6 +20,10 @@ from templar_blue import on_ramp, lum, NAVE      # noqa: E402
 from sword_cult import fit64_phased as fit64, ow9   # noqa: E402
 
 GOLD = [(240, 212, 120), (216, 180, 84), (168, 128, 48)]
+# the helmet and the blade (user 2026-11-25: "The male templar's helmet and blade should be gold colored"; read
+# as his hair and a flame at first): every colour of theirs onto the Order's gold, by brightness
+GOLD_RAMP = [(252, 238, 168), (240, 212, 120), (216, 180, 84), (176, 136, 52), (120, 88, 36), (80, 56, 24)]
+HELM = {(247, 230, 198), (247, 207, 133), (228, 170, 98), (191, 135, 100), (110, 60, 41), (238, 238, 255)}
 CLOTH = [(123, 114, 104), (106, 98, 98), (74, 74, 82), (64, 61, 57), (41, 41, 49)]
 SHIELD_F = {(148, 85, 61): NAVE[2], (110, 60, 41): GOLD[2]}        # face; (105, 59, 42) spokes -> gold
 SHIELD_SPOKE = (105, 59, 42)
@@ -34,7 +38,9 @@ def recolour_front(a):
                 continue
             c = tuple(int(v) for v in a[y, x, :3])
             in_shield = 36 <= x <= 61 and 25 <= y <= 55
-            if in_shield and c == (148, 85, 61):
+            if (y <= 24 and x >= 34 and c in HELM) or (x < 34 and y < 24 and c != (0, 0, 0)):
+                a[y, x, :3] = on_ramp(lum(c), GOLD_RAMP)            # the helmet; the blade
+            elif in_shield and c == (148, 85, 61):
                 a[y, x, :3] = NAVE[2]
             elif in_shield and c in (SHIELD_SPOKE, (110, 60, 41)):
                 a[y, x, :3] = GOLD[1]
@@ -56,7 +62,9 @@ def recolour_ow(a):
             if not a[y, x, 3]:
                 continue
             c = tuple(int(v) for v in a[y, x, :3])
-            if fy >= 17 and c == (148, 85, 61):
+            if fy < 17 and c in HELM:
+                a[y, x, :3] = on_ramp(lum(c), GOLD_RAMP)            # the helmet and the blade
+            elif fy >= 17 and c == (148, 85, 61):
                 a[y, x, :3] = NAVE[2]
             elif fy >= 17 and c == (191, 135, 100):
                 a[y, x, :3] = GOLD[1]

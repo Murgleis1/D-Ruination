@@ -293,3 +293,13 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   front fitted to 64x64 by `fit64_phased` (`tools/npc/sword_cult/sword_cult.py`: nearest sampling at the phase that
   keeps the most coloured pixels; a plain shrink had dropped the staff's one-pixel wood line and left its two
   outlines touching), 15 colours; the overworld as Emerald's 9 frames.
+- **Male Templar v2 (user 2026-11-25: "The male templar's helmet and blade should be gold colored"):** what read as
+  blond hair is his **helmet** and the staff's flame-shaped top a **blade**: both onto the Order's gold ramp by
+  brightness (front: the head's helmet colours and everything of the staff above row 24; overworld: the helmet
+  colours in each frame's head rows). `assets/npc_survey/templar_male_v2.png`.
+- **The Adventurer class (user 2026-11-25):** the Hiker, which "in Empire-era Cormoria he'd simply be called an
+  Adventurer": **Fantasma 0** (19B on the cast board: feathered hat, backpack, walking stick), "more medieval colors
+  (like a red and beige mix of clothes with dark brown leather boots)": the vest and hose red, the shirt sleeves beige
+  linen, the boots (and the hat's shadow) dark brown leather, the neckerchief beige (the reds from row 15 down onto
+  the sleeves' slots; the feather and his cheeks keep the reds), the tan breeches and pack as drawn.
+  `tools/npc/picks/recolour.py`, `assets/npc_survey/adventurer_v1.png`.

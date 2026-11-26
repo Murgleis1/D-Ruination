@@ -49,6 +49,8 @@ EDITS = {
     'FA_14': ('witch', 'the hat and cloak moss green, the hair plum', {
         5: (128, 160, 104), 6: (96, 128, 80), 7: (64, 92, 60), 8: (40, 60, 40), 11: (156, 96, 156), 13: (120, 64, 120),
         12: (80, 40, 80)}),
+    'FA_0': ('Adventurer', 'the vest and hose red, the sleeves beige linen, the boots dark brown leather, the neckerchief beige; the feather red', {
+        5: (200, 76, 64), 6: (150, 50, 46), 9: (236, 222, 190), 10: (196, 176, 140), 11: (96, 64, 40), 4: (64, 44, 30)}),
     'FA_196': ('Revenant', 'a ghost of Hollow Hill: spectral blue; a skull face, rotted hair, the coat in rags', {
         1: (196, 232, 238), 2: (156, 204, 218), 3: (124, 178, 198), 4: (96, 150, 174), 5: (72, 112, 140),
         6: (58, 86, 112), 7: (50, 72, 98), 8: (42, 58, 82), 9: (34, 46, 66), 10: (28, 36, 54), 11: (20, 24, 40),
@@ -252,7 +254,7 @@ def rgba(idx, pal, bg=(110, 110, 125)):
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     tiles = []
-    order = ['FA_138', 'MM_22', 'FA_212', 'MM_89', 'MM_116', 'FA_110', 'MM_30', 'MM_68', 'FA_14', 'FA_196']
+    order = ['FA_138', 'MM_22', 'FA_212', 'MM_89', 'MM_116', 'FA_110', 'MM_30', 'MM_68', 'FA_14', 'FA_196', 'FA_0']
     for name in order:
         idx, pal = load(name)
         before = rgba(idx, pal)
@@ -272,6 +274,14 @@ if __name__ == '__main__':
             p2[k] = c
         if name == 'FA_196':
             idx = revenant_rework(idx)
+        if name == 'FA_0':
+            # the neckerchief (the reds from row 15 down) takes the sleeves' beige; the feather (rows 1-5) and his
+            # cheeks and mouth (rows 9-13, the dark red) keep the reds (user 2026-11-25: "a red and beige mix of
+            # clothes with dark brown leather boots"; the Hiker, in Empire-era Cormoria the Adventurer)
+            low = np.zeros_like(idx, bool); low[15:] = True
+            idx = idx.copy()
+            idx[low & (idx == 12)] = 9
+            idx[low & (idx == 13)] = 10
         if name == 'MM_116':
             idx = merchant_hat(idx)
             before = Image.fromarray(np.array(before)[:, ::-1])   # shown flipped too, to compare like with like
