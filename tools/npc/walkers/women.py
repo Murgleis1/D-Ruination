@@ -110,6 +110,14 @@ def witch():
                (3, '9A88A88A89'), (3, '98 988 899')]               # strands: light streaks at x4, x7, x10
     BACK = [(12, '889'), (12, '889'), (11, '9889'), (11, '98A9'), (11, '98A9'), (11, '9889'), (11, '9889'),
             (12, '9 9')]
+    # (user 2026-11-26: "on her front sprite her hat is completely green ... on the overworld sprite ... you have a
+    # black banner with a star emblem"): MonoMyth 87's dark hat band (5 dark, 6 band) and its yellow star (7) go to the
+    # hat's own greens (band and star to the light green, the band's dark edge to the mid green), on the hat's rows
+    # only (5 and 6 are used again on her body below)
+    for sub in frames(idx):
+        hat = sub[:21]
+        for a, b in ((6, 3), (7, 3), (5, 1)):
+            hat[hat == a] = b
     for f, sub in enumerate(frames(idx)):
         fac = FACING[f]
         if fac == 'N':
