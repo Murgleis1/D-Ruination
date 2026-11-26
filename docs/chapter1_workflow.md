@@ -303,3 +303,19 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   linen, the boots (and the hat's shadow) dark brown leather, the neckerchief beige (the reds from row 15 down onto
   the sleeves' slots; the feather and his cheeks keep the reds), the tan breeches and pack as drawn.
   `tools/npc/picks/recolour.py`, `assets/npc_survey/adventurer_v1.png`.
+- **The male Templar and the Adventurer approved (user 2026-11-25: "I love the completed work you have done now on
+  the male templar and the Adventurer class. Great job").**
+- **The seafolk (user 2026-11-25): Fantasma 94, MonoMyth 67, Fantasma 129** ("make them proper medieval era clothed";
+  "new names that sound less modern than just fisherman or sailor"; "the sailor and the old guy with the anchor
+  probably just need adjusted designs to make them seem more appropriate for an empire era setting"; "The fisherman
+  just needs more of a pointed style witch hat"). Names proposed: **Oarsman** (the flexing sailor: a galley rower),
+  **Bosun** (the old seaman with the anchor and chain: the boatswain kept anchors and rigging), **Angler** (the
+  fisherman; Old English for the fishhook). v1 (`tools/npc/picks/recolour.py`, `assets/npc_survey/seafolk_v1.png`):
+  the Oarsman's sailor cap and its ribbon tails a red knitted cap, the navy square collar a leather jerkin's neck and
+  shoulder, the shirt's navy bands a leather belt, shirt and slops cream linen, the red neckerchief kept (a first
+  pass caught his face shading in the cap's area and reddened it); the Bosun's purple vest oxblood leather (purple is
+  the Empire's), his greys weathered sailcloth, **a knotted headscarf** in the vest's oxblood over his bald crown,
+  tied at the back; the chain, anchor, peg leg and pipe kept; the Angler **a pointed hat**: Fantasma 14's (the witch;
+  her head his width) with four rows cut from its straight crown so the crooked tip fits the frame, five pixels right
+  on his head, brim on his old cap's line, its purples onto his tan and leather browns (a felt hat to match his
+  leather jerkin, once an orange vest), his hood undyed wool, the cooler a wooden crate, the bobber cork-brown.

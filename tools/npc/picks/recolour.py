@@ -51,6 +51,14 @@ EDITS = {
         12: (80, 40, 80)}),
     'FA_0': ('Adventurer', 'the vest and hose red, the sleeves beige linen, the boots dark brown leather, the neckerchief beige; the feather red', {
         5: (200, 76, 64), 6: (150, 50, 46), 9: (236, 222, 190), 10: (196, 176, 140), 11: (96, 64, 40), 4: (64, 44, 30)}),
+    'FA_94': ('Oarsman', 'a red knitted cap, a linen shirt and slops, the sailor collar a leather jerkin\'s neck and shoulder, the shirt\'s bands a leather belt, the red neckerchief kept', {
+        14: (232, 222, 196), 9: (196, 184, 156), 5: (170, 156, 128), 10: (130, 116, 92), 11: (196, 140, 96),
+        6: (150, 100, 62), 7: (104, 66, 42), 8: (60, 40, 28), 12: (210, 78, 62)}),
+    'MM_67': ('Bosun', 'an oxblood leather vest and a knotted headscarf to match, weathered sailcloth shirt and trousers; the iron chain, anchor, peg leg and pipe kept', {
+        8: (150, 70, 56), 14: (100, 44, 40), 9: (220, 208, 180), 4: (206, 192, 160), 7: (176, 160, 128),
+        2: (140, 124, 96), 3: (110, 96, 72), 4: (204, 104, 86)}),
+    'FA_129': ('Angler', 'a tan felt cap with a leather brim, a leather jerkin, a hood of undyed wool, a wooden crate for a seat', {
+        12: (150, 96, 56), 13: (104, 64, 40), 9: (196, 188, 172), 10: (150, 140, 124)}),
     'FA_196': ('Revenant', 'a ghost of Hollow Hill: spectral blue; a skull face, rotted hair, the coat in rags', {
         1: (196, 232, 238), 2: (156, 204, 218), 3: (124, 178, 198), 4: (96, 150, 174), 5: (72, 112, 140),
         6: (58, 86, 112), 7: (50, 72, 98), 8: (42, 58, 82), 9: (34, 46, 66), 10: (28, 36, 54), 11: (20, 24, 40),
@@ -168,6 +176,87 @@ def merchant_hat(idx):
     return idx[:, ::-1].copy()
 
 
+def remap(idx, box, mapping):
+    """Move pixels inside box (x0, y0, x1, y1, inclusive) from one palette slot to another."""
+    x0, y0, x1, y1 = box
+    sub = idx[y0:y1 + 1, x0:x1 + 1]
+    out = sub.copy()
+    for a, b in mapping.items():
+        out[sub == a] = b
+    idx[y0:y1 + 1, x0:x1 + 1] = out
+    return idx
+
+
+def angler_hat(idx):
+    """The Angler's pointed hat (user 2026-11-25: "The fisherman just needs more of a pointed style witch hat"): the
+    hat of Fantasma 14 (the witch; her head is his width), its crown shortened by four rows from its straight middle
+    (rows 8-11) so its crooked tip stays in the frame, set five pixels right on his head with its brim on his old
+    cap's line (row 12); its purples onto his own tan and leather browns by brightness (a felt hat to match his
+    jerkin); what is left of the old cap above the brim cleared."""
+    idx = idx.copy()
+    w, wp = load('FA_14')
+    rows = [2, 3, 4, 5, 6, 7, 12, 13, 14, 15, 16, 17]
+    colour = {5: 7, 6: 8, 7: 12, 8: 13, 15: 15}          # light purple -> tan ... darkest -> leather dark; outline
+    DX = 5
+    top = 12 - len(rows) + 1                              # the brim's last row on his row 12
+    hat = np.zeros((64, 64), bool)
+    for k, sy in enumerate(rows):
+        ty = top + k
+        for sx in range(14, 52):
+            v = w[sy, sx]
+            if v in colour and 0 <= sx + DX < 64:
+                idx[ty, sx + DX] = colour[v]
+                hat[ty, sx + DX] = True
+    for y in range(0, 12):                               # the old cap's leftovers above the brim
+        for x in range(64):
+            if not hat[y, x] and idx[y, x] != 0 and x > 24:
+                idx[y, x] = 0
+    return idx
+
+
+def bosun_scarf(idx):
+    """The Bosun's knotted headscarf (user 2026-11-25: "adjusted designs to make them seem more appropriate for an
+    empire era setting"), over his bald crown (rows 1-6) in the vest's oxblood (slots 8, 14, its light and dark), a
+    highlight in slot 4 (its one pixel merged into 9, a near twin), outlined in black (6), the knot and two short
+    tails at the back of his head (left). His brows, beard and pipe smoke (from x 34) untouched."""
+    idx = idx.copy()
+    idx[idx == 4] = 9
+    L, D, H, O = 8, 14, 4, 6
+    span = {1: (24, 28), 2: (23, 29), 3: (22, 30), 4: (21, 31), 5: (21, 31), 6: (21, 31)}
+    for y, (x0, x1) in span.items():
+        for x in range(x0, x1 + 1):
+            if y == 1 or x in (x0, x1):
+                idx[y, x] = O
+            elif y == 6:
+                idx[y, x] = D
+            elif y in (2, 3) and 25 <= x <= 27:
+                idx[y, x] = H
+            else:
+                idx[y, x] = L
+    for (x, y), v in {(20, 5): O, (20, 6): D, (19, 6): O, (19, 7): D, (18, 7): O, (20, 7): D, (19, 8): D,
+                      (18, 8): O, (20, 8): O, (19, 9): O}.items():
+        idx[y, x] = v
+    return idx
+
+
+def sea_redress(name, idx):
+    """The three seafolk (user 2026-11-25: "make them proper medieval era clothed"; new, less modern names)."""
+    idx = idx.copy()
+    if name == 'FA_94':      # the Oarsman: the sailor cap (and its ribbon tails behind his head) a red knitted cap
+        SKIN = (1, 2, 3, 4, 15)
+        cap = [(x, y) for y in range(2, 7) for x in range(26, 47)]
+        cap += [(x, y) for y in range(7, 14) for x in range(39, 47)]
+        cap += [(x, y) for y in range(7, 12) for x in range(26, 30)]
+        for x, y in cap:
+            v = idx[y, x]
+            if v and v not in SKIN:
+                idx[y, x] = {14: 12, 9: 12, 5: 13, 10: 13, 11: 13}.get(int(v), 7)
+    if name == 'FA_129':     # the Angler: a pointed hat; the cooler (from row 44, right) a wooden crate
+        idx = angler_hat(idx)
+        remap(idx, (33, 44, 63, 63), {14: 7, 9: 7, 10: 8, 6: 8, 5: 4})
+    return idx
+
+
 def revenant_rework(idx):
     """The Revenant (user 2026-11-25: "needs more of a skeletal face and rotting looking hair and his coat should look
     more ragged"). Index roles in Fantasma 196 (light to dark): 1-5 the pale greys (face, wisps), 6-12 the coat's
@@ -254,7 +343,7 @@ def rgba(idx, pal, bg=(110, 110, 125)):
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     tiles = []
-    order = ['FA_138', 'MM_22', 'FA_212', 'MM_89', 'MM_116', 'FA_110', 'MM_30', 'MM_68', 'FA_14', 'FA_196', 'FA_0']
+    order = ['FA_138', 'MM_22', 'FA_212', 'MM_89', 'MM_116', 'FA_110', 'MM_30', 'MM_68', 'FA_14', 'FA_196', 'FA_0', 'FA_94', 'MM_67', 'FA_129']
     for name in order:
         idx, pal = load(name)
         before = rgba(idx, pal)
@@ -274,6 +363,10 @@ if __name__ == '__main__':
             p2[k] = c
         if name == 'FA_196':
             idx = revenant_rework(idx)
+        if name in ('FA_94', 'FA_129'):
+            idx = sea_redress(name, idx)
+        if name == 'MM_67':
+            idx = bosun_scarf(idx)
         if name == 'FA_0':
             # the neckerchief (the reds from row 15 down) takes the sleeves' beige; the feather (rows 1-5) and his
             # cheeks and mouth (rows 9-13, the dark red) keep the reds (user 2026-11-25: "a red and beige mix of
