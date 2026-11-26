@@ -445,3 +445,18 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   20 §16.6 item 8). Front candidates v1 (`tools/npc/marauder/cands.py`, `assets/npc_survey/marauder_cands_v1.png`):
   MonoMyth 39, 6, 37, 112, 91, 79, 138; Fantasma 55, 168, 181, 8, 151; female MonoMyth 38, 123, Fantasma 26, 95,
   113. Crown's fronts are not in it (its front table is dummied; they need capturing in the emulator).
+- **Marauder picks (user 2026-11-26):** the bald thug (MonoMyth 91), the black-clad rogue (Fantasma 113) and the bald
+  brute (Fantasma 151; "get rid of his bike, center him and give him a little hair and more medieval clothing"), as
+  **Marauder Goon (male and female) and Marauder Chief**. v1 (`tools/npc/marauder/fronts.py`, `walkers.py`;
+  `assets/npc_survey/marauder_fronts_v1.png`, `marauder_walkers_v1.png`). The gang's one shared mark is **oxblood**
+  (purple is the Empire's). Goon M: tank top to undyed linen, camo trousers to brown leather, the camo face cloth
+  oxblood; walker **MonoMyth 123** (the same masked bald thug). Goon F: purple top and gloves and the hair streak
+  oxblood, the belt brass; walker **Fantasma 412** (her own: long black hair, pink-purple top). Chief: the motorcycle
+  cut away (everything left of x 19, its handlebar and engine where they meet him, floating outline swept, the cut
+  edge of his legs closed), centred (shifted 9 px), a short dark crop over the crown and temples (the scalp shine
+  with it; slot 7 freed by folding its few fur and buckle pixels into 6 and 5), jeans and wristbands oxblood wool and
+  leather, the leather vest, fur collar and black shirt kept; walker **Fantasma 227** (a big short-haired brute; the
+  biker has no walker of his own), with the front's grey fur collar at the vest's top edge.
+- **Class names are 12 characters at most** (`struct TrainerClass` name[13]): "Marauder Goon" (13) and "Marauder
+  Chief" (14) do not fit as they stand. Open with the user.
+
