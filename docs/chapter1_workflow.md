@@ -484,4 +484,6 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   skinned** (user: "a pale skinned version of this one for one of two commoner women variations"): the skin slots
   1-4 on Fantasma's own fair ramp, the long blue hair and rose dress kept. `tools/npc/townsfolk/women.py`,
   `assets/npc_survey/commoner_woman_a_v1.png`. Two commoner-woman variants in all.
+  **Commoner woman B = Fantasma 48, darker skinned** (user: "and then a darker skinned version of this one"): red
+  hair, green dress and white apron kept, the skin on Fantasma's dark ramp (60's own). `commoner_women_v1.png`.
 
