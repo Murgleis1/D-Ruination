@@ -1,10 +1,11 @@
 """The Marauders (user 2026-11-26): a trainer class of pillagers and thieves who rob travellers and sometimes band into
-gangs to invade towns. Three fronts, from the user's picks on marauder_cands_v1.png:
-  Marauder Goon (male)   <- MonoMyth 91, the bald thug: tank top to an undyed linen shirt, camo trousers to brown
+gangs to invade towns. Three fronts, from the user's picks on marauder_cands_v1.png. Class names (user 2026-11-26): the male goon is a
+**Goon**, the female one a **Bandit**, the chief a **Marauder** (the gang as a whole are the Marauders).
+  Goon (male)            <- MonoMyth 91, the bald thug: tank top to an undyed linen shirt, camo trousers to brown
                             leather, the camo face cloth to the gang's oxblood
-  Marauder Goon (female) <- Fantasma 113, the black-clad rogue: the purple top and gloves oxblood, the pink streak in
+  Bandit (female)        <- Fantasma 113, the black-clad rogue: the purple top and gloves oxblood, the pink streak in
                             her hair oxblood, black kept, the belt brass
-  Marauder Chief         <- Fantasma 151, the bald brute (user: "get rid of his bike, center him and give him a
+  Marauder (the chief)   <- Fantasma 151, the bald brute (user: "get rid of his bike, center him and give him a
                             little hair and more medieval clothing"): the motorcycle removed, the figure centred, a
                             short dark crop, the jeans and wristbands oxblood wool and leather (the gang's colour, worn
                             by the chief), the leather vest with its fur collar and the black shirt kept
@@ -169,8 +170,8 @@ def chief():
     return m2, pal
 
 
-FRONTS = [('Marauder Goon (M)', goon_m, 'MM_91'), ('Marauder Goon (F)', goon_f, 'FA_113'),
-          ('Marauder Chief', chief, 'FA_151')]
+FRONTS = [('Goon', goon_m, 'MM_91'), ('Bandit', goon_f, 'FA_113'),
+          ('Marauder', chief, 'FA_151')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)

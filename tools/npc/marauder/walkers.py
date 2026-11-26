@@ -72,8 +72,8 @@ def chief():
     return idx, pal
 
 
-WALKERS = [('Marauder Goon (M)', goon_m, 'marauder_goon_m'), ('Marauder Goon (F)', goon_f, 'marauder_goon_f'),
-           ('Marauder Chief', chief, 'marauder_chief')]
+WALKERS = [('Goon', goon_m, 'marauder_goon_m'), ('Bandit', goon_f, 'marauder_goon_f'),
+           ('Marauder', chief, 'marauder_chief')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)

@@ -95,6 +95,8 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 
 8. **Marauders** (`[NEW canon — user 2026-11-26]`): a trainer class of **pillagers and thieves who rob and steal from
    travellers**, and on occasion **form gangs to invade towns**. Named Marauders, not Brigands, as the new class.
+   Three trainer classes in the gang (user 2026-11-26): **Goon** (male), **Bandit** (female) and their chief, the
+   **Marauder**.
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 

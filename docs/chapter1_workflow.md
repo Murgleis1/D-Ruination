@@ -465,5 +465,6 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   the bar's outline swept, the shins outlined.
   `marauder_fronts_v2.png`.
 - **Class names are 12 characters at most** (`struct TrainerClass` name[13]): "Marauder Goon" (13) and "Marauder
-  Chief" (14) do not fit as they stand. Open with the user.
+  Chief" (14) did not fit. **Decided (user 2026-11-26): the male goon is a "Goon", the female one a "Bandit", the
+  chief a "Marauder"** (the gang as a whole are still the Marauders). Eden's "Brigand" class: still open.
 
