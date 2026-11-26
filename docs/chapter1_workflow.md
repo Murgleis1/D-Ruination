@@ -524,6 +524,13 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   deeper gold"). His hair's lightest tone was also his skin's light (slot 10): the hair's share moved to slot 6 by
   facing (crown on every frame, the back of the head north and west), then the hair ramp deepened.
   `tools/npc/townsfolk/students.py`, `assets/npc_survey/students_v1.png`.
+  **Dorm students B and C = Crown 52 and 58, as they are** (user: "i like these guys as students"): Crown 52 a red
+  feathered beret and red-and-gold doublet, Crown 58 orange hair and purple plaid. New `tools/npc/cr_walker.py` reads
+  Crown's walkers (main table 0x839FDB0, palettes by tag from 0x9BCB4FC; per-frame raw 4bpp, Emerald's 9 frames).
+  **Student D = MonoMyth 173 with dark blue hair** (user: "the third blonde one needs to be dark blue haired to be
+  more interesting"): his hair's two darker tones were also his coat's gold trim; the trim (any 1/3 below the head not
+  joined to the light hair through hair tones, so the hair's tail down his back stays hair) moves to slot 15 (it
+  duplicated 6's navy) and keeps its gold; the hair goes dark blue. `students_v2.png`.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.

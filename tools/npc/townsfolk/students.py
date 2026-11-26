@@ -4,7 +4,14 @@
                moves to slot 6 (whose three pixels on his shirt go to the gold 2 first), found by facing: south and
                west the crown (rows t..t+6), north the whole back of the head (t..t+11), west the back of the head
                (x 8 and over) down to t+11. Then the hair's ramp deepens: highlight, mid, gold, and its brown outline.
-Run: python3 students.py -> out/student_a_ow.png, /tmp/cult/students.png"""
+  Student B <- Crown 52 (red feathered beret, red-and-gold doublet) and
+  Student C <- Crown 58 (orange hair, purple plaid): the user's picks from youth_cands_v1.png ("i like these guys as
+               students"), kept as they are; tools/npc/cr_walker.py extracts Crown's walkers.
+  Student D <- MonoMyth 173 (spiky blond hair, navy coat with gold trim): "needs to be dark blue haired to be more
+               interesting". The hair's two darker tones (1, 3) are also the coat's gold trim: below the head (row 22
+               on a standing frame) they move to slot 15, which only duplicated 6's navy (its pixels go to 6), and keep
+               the gold; then the hair goes dark blue.
+Run: python3 students.py -> out/student_{a..d}_ow.png, /tmp/cult/students.png"""
 import os
 import sys
 import numpy as np
@@ -38,7 +45,41 @@ def student_a():
     return idx, pal
 
 
-ROWS = [('mm_29', student_a, 'student_a')]
+def student_b():
+    return load('cr_52')
+
+
+def student_c():
+    return load('cr_58')
+
+
+def student_d():
+    idx, pal = load('mm_173')
+    idx[idx == 15] = 6                                                         # 15 was 6's twin
+    for f in range(9):
+        sub = idx[:, f * 16:(f + 1) * 16]
+        t = min(y for y in range(32) if sub[y].any())
+        # the hair: every 1/2/3 pixel joined to the light hair (2) through 1/2/3; below the head (row 22 on a
+        # standing frame), any 1/3 not joined is the trim (the hair's tail down his back stays hair)
+        from collections import deque
+        hair = np.zeros(sub.shape, bool)
+        q = deque(zip(*np.where(sub == 2)))
+        while q:
+            y, x = q.popleft()
+            if not (0 <= y < 32 and 0 <= x < 16) or hair[y, x] or sub[y, x] not in (1, 2, 3):
+                continue
+            hair[y, x] = True
+            q.extend(((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)))
+        trim = np.isin(sub, (1, 3)) & ~hair
+        trim[:t + 14] = False
+        sub[trim] = 15
+    pal[15] = (200, 168, 80)                                                   # the coat's gold trim
+    pal[2], pal[3], pal[1] = (92, 108, 184), (56, 70, 140), (30, 38, 86)       # dark blue hair
+    return idx, pal
+
+
+ROWS = [('mm_29', student_a, 'student_a'), ('cr_52', student_b, 'student_b'), ('cr_58', student_c, 'student_c'),
+        ('mm_173', student_d, 'student_d')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)
