@@ -8,7 +8,8 @@
           (first forest green; the user chose bronze to set him apart), brown hair added, the shirt and skin kept.
   Healer <- Fantasma 125 (cream bonnet and dress, purple shawl, white apron, brown hair; user 2026-11-26: "I like
           this one for the healer. Make her clothing a light pink color"): bonnet and dress (8/9/10) light pink, the
-          shawl (5/6/7) a deeper rose; apron, hair and skin kept.
+          shawl (5/6/7) a deeper rose; her brown hair (11/12/13) black ("Can you make her
+          hair blacker"); apron and skin kept.
 Run: python3 staff.py -> out/<name>_ow.png, /tmp/cult/staff.png"""
 import os
 import sys
@@ -71,6 +72,7 @@ def healer():
     idx, pal = load('fa_125')
     pal[8], pal[9], pal[10] = (246, 212, 220), (226, 178, 192), (178, 128, 146)   # light pink
     pal[5], pal[6], pal[7] = (206, 124, 152), (160, 86, 114), (106, 54, 78)      # rose shawl
+    pal[11], pal[12], pal[13] = (66, 58, 64), (40, 34, 40), (20, 16, 22)         # hair black (user: "make her hair blacker")
     return idx, pal
 
 
