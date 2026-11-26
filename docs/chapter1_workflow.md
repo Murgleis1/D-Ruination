@@ -491,4 +491,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   `tools/npc/townsfolk/men.py`, `commoner_men_v1.png`.
   **Commoner man B = Fantasma 270, fair skinned** (user: "White version of this one"): curly olive-brown hair and rose
   shirt kept, the skin on Fantasma's fair ramp.
+  **Commoner man C = Fantasma 104, blonde in grey** (user: "blonde haired version of this guy with grey clothes"):
+  hair blonde, tunic and trousers grey, the purple neckerchief (it shared the hair's slots) moved to two unused
+  greys so it stays with the clothes; skin kept. Three commoner men in all.
 

@@ -3,6 +3,9 @@
                     here". Skin slots 1-4 onto Fantasma's own dark ramp (women.DARK); hair and clothes kept.
   Commoner man B <- Fantasma 270 (curly olive-brown hair, rose shirt, dark skin): "White version of this one". Skin
                     slots 1-4 onto Fantasma's own fair ramp (women.FAIR); hair and clothes kept.
+  Commoner man C <- Fantasma 104 (purple hair, blue tunic, a purple neckerchief): "blonde haired version of this guy
+                    with grey clothes". Hair (8/9/10) blonde; tunic and trousers (5/6/7) grey; the neckerchief, which
+                    shared the hair's slots, onto the unused greys 12/13 so it stays with the clothes; skin kept.
 Run: python3 men.py -> out/commoner_man_*_ow.png, /tmp/cult/commoner_men.png"""
 import os
 import sys
@@ -28,7 +31,22 @@ def man_b():
     return idx, pal
 
 
-ROWS = [('fa_150', man_a, 'commoner_man_a'), ('fa_270', man_b, 'commoner_man_b')]
+def man_c():
+    idx, pal = load('fa_104')
+    for f in range(9):
+        sub = idx[:, f * 16:(f + 1) * 16]
+        t = min(y for y in range(32) if sub[y].any())
+        body = sub[t + 10:]                                     # below the hair and face (row 22 on a standing frame)
+        src = body.copy()
+        body[src == 8] = 12
+        body[(src == 9) | (src == 10)] = 13
+    pal[8], pal[9], pal[10] = (236, 204, 120), (204, 160, 76), (142, 104, 48)    # blonde
+    pal[5], pal[6], pal[7] = (156, 156, 162), (112, 112, 120), (64, 64, 74)      # grey tunic and trousers
+    pal[12], pal[13] = (128, 128, 136), (84, 84, 94)                            # the neckerchief, grey
+    return idx, pal
+
+
+ROWS = [('fa_150', man_a, 'commoner_man_a'), ('fa_270', man_b, 'commoner_man_b'), ('fa_104', man_c, 'commoner_man_c')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)
