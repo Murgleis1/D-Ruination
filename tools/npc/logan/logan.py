@@ -1,4 +1,8 @@
-"""Logan Orphel's battle front (user 2026-11-26: "It should be post-game Monty from monomyth (your male rival). You'll
+"""Logan Orphel's battle front. DECIDED (user 2026-11-26, "its this one"): MonoMyth front 114 is post-game Monty
+(blond ponytail, blue coat, orange sash). logan_114() below; the 98/99 recolours further down were a wrong guess
+(98-101 are a different character) kept only for the record.
+
+Earlier: Logan Orphel's battle front (user 2026-11-26: "It should be post-game Monty from monomyth (your male rival). You'll
 just need to make his battle sprite the appropriate blue color you just updated the overworld sprite to").
 MonoMyth's older Monty: fronts 98 and 99 (standing; 100 and 101 throw a ball). His long spiky hair goes the dark blue
 of Logan's walker (townsfolk/students.py: 92,108,184 / 56,70,140 / 30,38,86); the gold stripes on his shirt, the
@@ -69,6 +73,25 @@ def logan(n):
     return out, pal
 
 
+def logan_114():
+    """MonoMyth 114: his hair is 7 (light gold) and 10 (gold) only, plus the brown 5 as its outline and shading where
+    it touches them in the hair's rows (5 is also his sash and shoes): 7 and 10 go light and mid blue; the hair's 5
+    moves to the unused slot 14, a deep blue."""
+    a, pal = load(114)
+    hair5 = np.zeros_like(a, bool)
+    for y, x in zip(*np.where(a == 5)):
+        if y > 24:
+            continue
+        nb = [a[y + dy, x + dx] for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx)
+              and 0 <= y + dy < 64 and 0 <= x + dx < 64]
+        if y <= 12 or any(v in (7, 10) for v in nb):
+            hair5[y, x] = True
+    a[hair5] = 14
+    pal = list(pal)
+    pal[7], pal[10], pal[14] = (118, 136, 210), (84, 100, 176), (52, 64, 132)   # Logan's dark blue
+    return a, pal
+
+
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)
     S = 3
@@ -83,4 +106,14 @@ if __name__ == '__main__':
                 o[ii == k] = P[k]
             sheet.paste(Image.fromarray(o).resize((64 * S, 64 * S), Image.NEAREST), (x, 26))
             d.text((x, 6), lab, fill=(255, 255, 0)); x += 64 * S + 10
+    sheet.save('/tmp/cult/logan_front_9899.png')
+    idx, pal = logan_114()
+    save(idx, pal, os.path.join(HERE, 'out', 'logan_front.png'))
+    sheet = Image.new('RGB', (2 * (64 * S + 10) + 10, 64 * S + 34), (110, 110, 125)); d = ImageDraw.Draw(sheet)
+    for j, (ii, pp, lab) in enumerate((load(114) + ('MonoMyth 114 (post-game Monty)',), (idx, pal, 'Logan'))):
+        P = np.array(pp, np.uint8); o = np.zeros((64, 64, 3), np.uint8); o[:] = (110, 110, 125)
+        for k in range(1, 16):
+            o[ii == k] = P[k]
+        sheet.paste(Image.fromarray(o).resize((64 * S, 64 * S), Image.NEAREST), (10 + j * (64 * S + 10), 26))
+        d.text((10 + j * (64 * S + 10), 6), lab, fill=(255, 255, 0))
     sheet.save('/tmp/cult/logan_front.png'); print(sheet.size)

@@ -546,7 +546,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   `assets/npc_survey/logan_front_v1.png`: his hair (crown, the long hair behind, on 98 the shoulder strands; never the
   gold sash, tassels or boots) in the walker's dark blue; shirt stripes, headband, skin and boots kept. Two slots are
   shared with his trousers' blues, so on 99 (arms crossed, hair over his legs) the hair and trousers sit close; 98
-  keeps them apart. Pick between 98 and 99 open.
+  keeps them apart. **Correction (user: "its this one"): post-game Monty is MonoMyth front 114** (blond ponytail, blue
+  coat, orange sash), not 98-101 (my guess by the headband; MonoMyth's trainer data does not name the rival, so it
+  could not be checked there). Logan's front = 114 with the hair (7, 10 and the hair's brown outline, moved to free
+  slot 14) in the walker's dark blue; coat, sash and skin kept. `logan_front_v2.png`, `tools/npc/logan/out/
+  logan_front.png`.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.

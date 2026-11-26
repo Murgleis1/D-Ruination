@@ -114,7 +114,7 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
      - fight 3: **33 Full Restores and 33 Max Elixirs**
    `[OPEN]` his questions (subject and count per meeting), his teams, his trainer class name, and his battle front
    sprite (he battles, so he needs one).
-   Battle front: MonoMyth's post-game Monty (front 98 or 99) with Logan's dark blue hair (user 2026-11-26).
+   Battle front: MonoMyth's post-game Monty (front 114) with Logan's dark blue hair (user 2026-11-26).
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
