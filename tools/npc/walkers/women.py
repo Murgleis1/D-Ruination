@@ -88,7 +88,40 @@ def old_woman():
 
 
 def witch():
+    """(user 2026-11-26: "the back of her purple hair isn't long enough on the overworld sprite"): her hair carried
+    three rows further down her back, tapering, from each frame's own lowest hair row (north frames: over the cloak
+    at its middle; west frames: down the back, the right)."""
     idx, pal = load12(87)
+    HAIR = (8, 10)                                           # mid, light
+    def put(sub, y, x, v):
+        if 0 <= x < 16 and y < 32:
+            sub[y, x] = v
+    def outline(sub, y, x):                                  # dark rim only where it would sit on empty space
+        if 0 <= x < 16 and y < 32 and sub[y, x] == 0:
+            sub[y, x] = 4
+    for f, sub in enumerate(frames(idx)):
+        fac = FACING[f]
+        if fac == 'N':
+            r = max(y for y in range(16, 30) if np.isin(sub[y], HAIR).sum() >= 4)
+            xs = [x for x in range(16) if sub[r, x] in HAIR]
+            c = (min(xs) + max(xs)) / 2                       # hair centre (7.5 on a 16-wide frame)
+            for k, half in ((1, 3), (2, 3), (3, 2)):          # widths 6, 6, 4
+                l, rr = int(c - half + 0.5), int(c + half - 0.5)
+                for x in range(l, rr + 1):
+                    put(sub, r + k, x, 9 if x in (l, rr) or k == 3 and x in (l + 1, rr - 1) and False else 8)
+                if k == 3:
+                    for x in range(l, rr + 1):
+                        put(sub, r + k, x, 9)
+                    put(sub, r + k, l + 1, 8); put(sub, r + k, rr - 1, 8)
+        elif fac == 'W':
+            pts = [(y, x) for y in range(16, 30) for x in range(8, 16) if sub[y, x] in HAIR]
+            r = max(y for y, x in pts)
+            xr = max(x for y, x in pts if y == r)
+            for k, (x0, x1) in ((1, (xr - 2, xr)), (2, (xr - 1, xr + 1)), (3, (xr, xr + 1))):
+                for x in range(x0, x1 + 1):
+                    put(sub, r + k, x, 9 if x == x1 or k == 3 else 8)
+                outline(sub, r + k, x1 + 1)
+            outline(sub, r + 4, xr); outline(sub, r + 4, xr + 1)
     pal = list(pal)
     pal[3], pal[1], pal[2] = (128, 160, 104), (96, 128, 80), (52, 76, 50)          # moss green
     pal[10], pal[8], pal[9] = (156, 96, 156), (120, 64, 120), (80, 40, 80)          # plum hair
