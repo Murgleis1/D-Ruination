@@ -535,6 +535,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   Cadmus's first top honor student graduates at the academy, a guy named Logan, the last son of the minor noble family
   of Orphel"): not a student; his walker is renamed `logan` (bible 20 §16.6 item 9). The dorm's three students are
   A (MonoMyth 29), B (Crown 52) and C (Crown 58).
+  **Logan's placement and quest** (user 2026-11-26): in Chapter 1 he stands at the front of the Academy classroom
+  (`PellucaAcademyClassroom`) teaching a few students; a recurring quiz-and-battle mini-quest (three fights: on
+  meeting him, after the 4th Trial, before the League; rewards Leftovers, Loaded Dice, then 33 Full Restores and
+  33 Max Elixirs, each for all answers right and a win with no faints and no items). Recorded in bible 20 §16.6
+  item 9. He needs a battle front sprite and a trainer class: open.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.

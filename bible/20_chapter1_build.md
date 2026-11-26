@@ -103,6 +103,17 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    teacher at the Pelluca Academy**, one of **Cadmus Umbra's first top-honour graduates** there, and **the last son of
    the minor noble House Orphel**. Overworld sprite: dark blue spiky hair, navy coat with gold trim (from MonoMyth 173;
    `tools/npc/townsfolk/students.py`, `logan`).
+   **Chapter 1 placement:** at the front of the Academy classroom, teaching a few students.
+   **Recurring mini-quest (user 2026-11-26):** Logan quizzes the player and battles them **three times** in the game:
+   (1) when the player first meets him (Chapter 1), (2) after the player clears their **4th Trial**, and (3) a final
+   fight **just before the player goes to challenge the League**. His team gets **significantly stronger** between
+   fights. Each time, a reward is earned only by **answering every one of his questions correctly** and then
+   **beating him without any of the player's Pokémon fainting and without using items**:
+     - fight 1: **Leftovers**
+     - fight 2: **Loaded Dice**
+     - fight 3: **33 Full Restores and 33 Max Elixirs**
+   `[OPEN]` his questions (subject and count per meeting), his teams, his trainer class name, and his battle front
+   sprite (he battles, so he needs one).
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
