@@ -4,8 +4,8 @@
   Barkeep <- MonoMyth 144 (user 2026-11-26: "a bartender sprite in the tavern of MonoMyth at fort elderflower we
           could recolor"): the bald man standing behind the bar counter in Elderflower's tavern (map header 0x86B244,
           objects 1-2, graphics id 80 = catalogue 144 by the graphics-info pointer table at 0x93BF90; our Pelluca
-          tavern is built from the same map). Recoloured off MonoMyth's maroon: the waistcoat and trousers a forest
-          green, the shirt and skin kept.
+          tavern is built from the same map). Recoloured off MonoMyth's maroon: the waistcoat and trousers bronze
+          (first forest green; the user chose bronze to set him apart), brown hair added, the shirt and skin kept.
 Run: python3 staff.py -> out/<name>_ow.png, /tmp/cult/staff.png"""
 import os
 import sys
@@ -58,8 +58,9 @@ def barkeep():
                 if grow:
                     edge = x in (x0, x1) or (fac == 'S' and k >= 4) or (fac == 'N' and k == 8)
                     sub[y, x] = 15 if edge else 14
-    pal[14], pal[15], pal[6] = (128, 84, 52), (84, 54, 36), (84, 54, 36)         # brown hair
-    pal[10], pal[12], pal[13] = (96, 132, 88), (44, 70, 46), (62, 96, 60)   # waistcoat and trousers: forest green
+    pal[14], pal[15], pal[6] = (100, 64, 40), (64, 40, 28), (64, 40, 28)         # brown hair, a shade darker than the bronze
+    # (user 2026-11-26, after the green: "Maybe make his clothing colors bronze instead to distinguish him more")
+    pal[10], pal[12], pal[13] = (184, 128, 64), (104, 64, 30), (144, 96, 46)   # waistcoat and trousers: bronze
     return idx, pal
 
 

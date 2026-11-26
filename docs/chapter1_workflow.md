@@ -508,4 +508,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Hair added** (user: "can we give him some hair too"): brown hair over his bald crown on free slots 14/15 (his side
   tufts, slot 6, in the same brown): south the crown, temples and sideburns; north the whole back of the head to the
   nape; west the crown and the back of the head behind the ear. `staff_v4.png`.
+  **Clothes bronze** (user: "looks nice. Maybe make his clothing colors bronze instead to distinguish him more"):
+  waistcoat and trousers bronze (184,128,64 / 144,96,46 / 104,64,30); his hair taken a shade darker so it stays
+  apart from the bronze. `staff_v5.png`.
 
