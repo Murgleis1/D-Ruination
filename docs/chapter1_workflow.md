@@ -511,4 +511,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Clothes bronze** (user: "looks nice. Maybe make his clothing colors bronze instead to distinguish him more"):
   waistcoat and trousers bronze (184,128,64 / 144,96,46 / 104,64,30); his hair taken a shade darker so it stays
   apart from the bronze. `staff_v5.png`.
+- **Children: MonoMyth 192, 94, 134, 50, 193** (user: "These kids are all great, just change all their hair colors
+  and clothes colors to new ones"; candidates `children_cands_v1.png`). `tools/npc/townsfolk/kids.py`,
+  `assets/npc_survey/kids_v1.png`; skin kept on all; slots shared by hair and clothes split by row:
+  A (192) chestnut hair, pale-blue shirt, mustard tie, dark green shorts; B (94) auburn hair, navy dress, light-blue
+  skirt, gold trim; C (134) black hair, green tunic, cream, maroon trim; D (50) ginger hair, mustard smock; E (193)
+  light brown hair, blue dress.
 
