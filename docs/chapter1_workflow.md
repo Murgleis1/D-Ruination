@@ -457,6 +457,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   with it; slot 7 freed by folding its few fur and buckle pixels into 6 and 5), jeans and wristbands oxblood wool and
   leather, the leather vest, fur collar and black shirt kept; walker **Fantasma 227** (a big short-haired brute; the
   biker has no walker of his own), with the front's grey fur collar at the vest's top edge.
+- **Chief: two more bike remnants removed** (user: "this thing on the Marauder Chief between his legs is a remnant of
+  the bike you supposedly removed"): the seat and engine block between his knees (rows 46-53) and the tyre's bottom
+  (row 56) cleared, the inner edges of his legs outlined; the bike's mirror behind his right shoulder (rows 3-6) too.
+  `marauder_fronts_v2.png`.
 - **Class names are 12 characters at most** (`struct TrainerClass` name[13]): "Marauder Goon" (13) and "Marauder
   Chief" (14) do not fit as they stand. Open with the user.
 

@@ -76,6 +76,35 @@ def chief():
                     if not any(v not in (0, 15) for v in nb):
                         m[y, x] = 0
                         changed = True
+    # the bike's mirror, poking up behind his right shoulder (rows 3-6, the jeans' blue 8 there), with its outline
+    for y in range(0, 8):
+        for x in range(40, 56):
+            if m[y, x] == 8:
+                m[y, x] = 0
+    for y in range(0, 8):
+        for x in range(40, 56):
+            if m[y, x] == 15:
+                nb = [m[y + dy, x + dx] for dy in (-1, 0, 1) for dx in (-1, 0, 1)
+                      if (dy or dx) and 0 <= y + dy < 64 and 0 <= x + dx < 64]
+                if not any(v not in (0, 15) for v in nb):
+                    m[y, x] = 0
+    # (user 2026-11-26: "this thing ... between his legs is a remnant of the bike"): the seat and engine block
+    # showing between his knees (rows 46-53, the vest-brown 11/12/13 there) and the tyre's bottom below them (row 56)
+    # cleared; the floating outline swept; the inner edges of his legs outlined where they now meet empty space
+    gap = np.zeros_like(m, bool); gap[45:57, 33:47] = True
+    m[gap & np.isin(m, (11, 12, 13))] = 0
+    m[56, 35:42][m[56, 35:42] == 9] = 0
+    for _ in range(3):
+        for y in range(45, 57):
+            for x in range(33, 47):
+                if m[y, x] == 15:
+                    nb = [m[y + dy, x + dx] for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx)]
+                    if not any(v not in (0, 15) for v in nb):
+                        m[y, x] = 0
+    cleared = gap & (m == 0)
+    for y, x in zip(*np.where(cleared)):
+        if any(m[y + dy, x + dx] in (8, 9) for dy, dx in ((0, 1), (0, -1), (-1, 0), (1, 0))):
+            m[y, x] = 15
     for y in range(37, 64):                                  # close the cut edge of his legs
         xs = [x for x in range(64) if m[y, x]]
         if xs and m[y, xs[0]] != 15 and xs[0] > 0:
@@ -93,7 +122,7 @@ def chief():
         x0, x1 = min(xs), max(xs)
         for x in xs:
             if y <= 5 or x <= x0 + 1 or x >= x1 - 1:
-                if y <= 4 or m[y, x] != 14:
+                if y <= 6 or m[y, x] != 14:
                     m[y, x] = 7 if (x + y) % 5 else 13
     # centre the figure
     xs = np.where(m.any(0))[0]
