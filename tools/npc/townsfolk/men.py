@@ -1,6 +1,8 @@
 """Commoner men walkers, one at a time (user 2026-11-26).
   Commoner man A <- Fantasma 150 (spiky brown hair, pale-blue tunic and vest): "Darker skinned version of first one
                     here". Skin slots 1-4 onto Fantasma's own dark ramp (women.DARK); hair and clothes kept.
+  Commoner man B <- Fantasma 270 (curly olive-brown hair, rose shirt, dark skin): "White version of this one". Skin
+                    slots 1-4 onto Fantasma's own fair ramp (women.FAIR); hair and clothes kept.
 Run: python3 men.py -> out/commoner_man_*_ow.png, /tmp/cult/commoner_men.png"""
 import os
 import sys
@@ -20,7 +22,13 @@ def man_a():
     return idx, pal
 
 
-ROWS = [('fa_150', man_a, 'commoner_man_a')]
+def man_b():
+    idx, pal = load('fa_270')
+    pal[1:5] = FAIR
+    return idx, pal
+
+
+ROWS = [('fa_150', man_a, 'commoner_man_a'), ('fa_270', man_b, 'commoner_man_b')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)

@@ -489,4 +489,6 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Commoner man A = Fantasma 150, darker skinned** (user: "Darker skinned version of first one here"; two more
   variations to come from the user): spiky brown hair, pale-blue tunic and vest kept, the skin on the dark ramp.
   `tools/npc/townsfolk/men.py`, `commoner_men_v1.png`.
+  **Commoner man B = Fantasma 270, fair skinned** (user: "White version of this one"): curly olive-brown hair and rose
+  shirt kept, the skin on Fantasma's fair ramp.
 
