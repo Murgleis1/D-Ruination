@@ -25,6 +25,41 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kimaris;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Ambrose;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Templar;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_TemplarMale;
+// DR_CAST begin [externconststructObjectEventGraphicsInfo]
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrOldMan;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrOldWoman;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrFarmer;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrWoodsman;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrMerchant;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrTemplarPriest;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrImperialSoldier;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrMinstrel;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrWitch;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrRevenant;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrAdventurer;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrMariner;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCorsair;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrFisher;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrGoon;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrBandit;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrMarauder;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrLogan;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCommonerWomanA;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCommonerWomanB;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCommonerManA;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCommonerManB;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCommonerManC;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCook;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrBarkeep;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrHealer;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrKidA;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrKidB;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrKidC;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrKidE;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrStudentA;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrStudentB;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrStudentC;
+// DR_CAST end [externconststructObjectEventGraphicsInfo]
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrShrine;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PaleVeluza;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Merchantman;
@@ -332,6 +367,41 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_AMBROSE] = &gObjectEventGraphicsInfo_Ambrose,
     [OBJ_EVENT_GFX_TEMPLAR] = &gObjectEventGraphicsInfo_Templar,
     [OBJ_EVENT_GFX_TEMPLAR_MALE] = &gObjectEventGraphicsInfo_TemplarMale,
+// DR_CAST begin [OBJ_EVENT_GFX_TEMPLAR_MALEgObjectEventGr]
+    [OBJ_EVENT_GFX_DR_OLD_MAN] = &gObjectEventGraphicsInfo_DrOldMan,
+    [OBJ_EVENT_GFX_DR_OLD_WOMAN] = &gObjectEventGraphicsInfo_DrOldWoman,
+    [OBJ_EVENT_GFX_DR_FARMER] = &gObjectEventGraphicsInfo_DrFarmer,
+    [OBJ_EVENT_GFX_DR_WOODSMAN] = &gObjectEventGraphicsInfo_DrWoodsman,
+    [OBJ_EVENT_GFX_DR_MERCHANT] = &gObjectEventGraphicsInfo_DrMerchant,
+    [OBJ_EVENT_GFX_DR_TEMPLAR_PRIEST] = &gObjectEventGraphicsInfo_DrTemplarPriest,
+    [OBJ_EVENT_GFX_DR_IMPERIAL_SOLDIER] = &gObjectEventGraphicsInfo_DrImperialSoldier,
+    [OBJ_EVENT_GFX_DR_MINSTREL] = &gObjectEventGraphicsInfo_DrMinstrel,
+    [OBJ_EVENT_GFX_DR_WITCH] = &gObjectEventGraphicsInfo_DrWitch,
+    [OBJ_EVENT_GFX_DR_REVENANT] = &gObjectEventGraphicsInfo_DrRevenant,
+    [OBJ_EVENT_GFX_DR_ADVENTURER] = &gObjectEventGraphicsInfo_DrAdventurer,
+    [OBJ_EVENT_GFX_DR_MARINER] = &gObjectEventGraphicsInfo_DrMariner,
+    [OBJ_EVENT_GFX_DR_CORSAIR] = &gObjectEventGraphicsInfo_DrCorsair,
+    [OBJ_EVENT_GFX_DR_FISHER] = &gObjectEventGraphicsInfo_DrFisher,
+    [OBJ_EVENT_GFX_DR_GOON] = &gObjectEventGraphicsInfo_DrGoon,
+    [OBJ_EVENT_GFX_DR_BANDIT] = &gObjectEventGraphicsInfo_DrBandit,
+    [OBJ_EVENT_GFX_DR_MARAUDER] = &gObjectEventGraphicsInfo_DrMarauder,
+    [OBJ_EVENT_GFX_DR_LOGAN] = &gObjectEventGraphicsInfo_DrLogan,
+    [OBJ_EVENT_GFX_DR_COMMONER_WOMAN_A] = &gObjectEventGraphicsInfo_DrCommonerWomanA,
+    [OBJ_EVENT_GFX_DR_COMMONER_WOMAN_B] = &gObjectEventGraphicsInfo_DrCommonerWomanB,
+    [OBJ_EVENT_GFX_DR_COMMONER_MAN_A] = &gObjectEventGraphicsInfo_DrCommonerManA,
+    [OBJ_EVENT_GFX_DR_COMMONER_MAN_B] = &gObjectEventGraphicsInfo_DrCommonerManB,
+    [OBJ_EVENT_GFX_DR_COMMONER_MAN_C] = &gObjectEventGraphicsInfo_DrCommonerManC,
+    [OBJ_EVENT_GFX_DR_COOK] = &gObjectEventGraphicsInfo_DrCook,
+    [OBJ_EVENT_GFX_DR_BARKEEP] = &gObjectEventGraphicsInfo_DrBarkeep,
+    [OBJ_EVENT_GFX_DR_HEALER] = &gObjectEventGraphicsInfo_DrHealer,
+    [OBJ_EVENT_GFX_DR_KID_A] = &gObjectEventGraphicsInfo_DrKidA,
+    [OBJ_EVENT_GFX_DR_KID_B] = &gObjectEventGraphicsInfo_DrKidB,
+    [OBJ_EVENT_GFX_DR_KID_C] = &gObjectEventGraphicsInfo_DrKidC,
+    [OBJ_EVENT_GFX_DR_KID_E] = &gObjectEventGraphicsInfo_DrKidE,
+    [OBJ_EVENT_GFX_DR_STUDENT_A] = &gObjectEventGraphicsInfo_DrStudentA,
+    [OBJ_EVENT_GFX_DR_STUDENT_B] = &gObjectEventGraphicsInfo_DrStudentB,
+    [OBJ_EVENT_GFX_DR_STUDENT_C] = &gObjectEventGraphicsInfo_DrStudentC,
+// DR_CAST end [OBJ_EVENT_GFX_TEMPLAR_MALEgObjectEventGr]
     [OBJ_EVENT_GFX_DR_SHRINE] = &gObjectEventGraphicsInfo_DrShrine,
     [OBJ_EVENT_GFX_PALE_VELUZA] = &gObjectEventGraphicsInfo_PaleVeluza,
     [OBJ_EVENT_GFX_MERCHANTMAN] = &gObjectEventGraphicsInfo_Merchantman,

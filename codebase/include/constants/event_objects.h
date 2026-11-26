@@ -305,8 +305,43 @@
 #define OBJ_EVENT_GFX_FISHING_SLOOP                287
 #define OBJ_EVENT_GFX_WOODEN_ROWBOAT               288
 #define OBJ_EVENT_GFX_TEMPLAR_MALE                 289
+// DR_CAST begin [defineOBJ_EVENT_GFX_TEMPLAR_MALE]
+#define OBJ_EVENT_GFX_DR_OLD_MAN                      290
+#define OBJ_EVENT_GFX_DR_OLD_WOMAN                    291
+#define OBJ_EVENT_GFX_DR_FARMER                       292
+#define OBJ_EVENT_GFX_DR_WOODSMAN                     293
+#define OBJ_EVENT_GFX_DR_MERCHANT                     294
+#define OBJ_EVENT_GFX_DR_TEMPLAR_PRIEST               295
+#define OBJ_EVENT_GFX_DR_IMPERIAL_SOLDIER             296
+#define OBJ_EVENT_GFX_DR_MINSTREL                     297
+#define OBJ_EVENT_GFX_DR_WITCH                        298
+#define OBJ_EVENT_GFX_DR_REVENANT                     299
+#define OBJ_EVENT_GFX_DR_ADVENTURER                   300
+#define OBJ_EVENT_GFX_DR_MARINER                      301
+#define OBJ_EVENT_GFX_DR_CORSAIR                      302
+#define OBJ_EVENT_GFX_DR_FISHER                       303
+#define OBJ_EVENT_GFX_DR_GOON                         304
+#define OBJ_EVENT_GFX_DR_BANDIT                       305
+#define OBJ_EVENT_GFX_DR_MARAUDER                     306
+#define OBJ_EVENT_GFX_DR_LOGAN                        307
+#define OBJ_EVENT_GFX_DR_COMMONER_WOMAN_A             308
+#define OBJ_EVENT_GFX_DR_COMMONER_WOMAN_B             309
+#define OBJ_EVENT_GFX_DR_COMMONER_MAN_A               310
+#define OBJ_EVENT_GFX_DR_COMMONER_MAN_B               311
+#define OBJ_EVENT_GFX_DR_COMMONER_MAN_C               312
+#define OBJ_EVENT_GFX_DR_COOK                         313
+#define OBJ_EVENT_GFX_DR_BARKEEP                      314
+#define OBJ_EVENT_GFX_DR_HEALER                       315
+#define OBJ_EVENT_GFX_DR_KID_A                        316
+#define OBJ_EVENT_GFX_DR_KID_B                        317
+#define OBJ_EVENT_GFX_DR_KID_C                        318
+#define OBJ_EVENT_GFX_DR_KID_E                        319
+#define OBJ_EVENT_GFX_DR_STUDENT_A                    320
+#define OBJ_EVENT_GFX_DR_STUDENT_B                    321
+#define OBJ_EVENT_GFX_DR_STUDENT_C                    322
+// DR_CAST end [defineOBJ_EVENT_GFX_TEMPLAR_MALE]
 
-#define NUM_OBJ_EVENT_GFX                          290
+#define NUM_OBJ_EVENT_GFX                          323
 
 
 // These are dynamic object gfx ids.
@@ -456,6 +491,41 @@
 #define OBJ_EVENT_PAL_TAG_DR_SHIPS              0x1131
 #define OBJ_EVENT_PAL_TAG_DR_BOATS              0x1132
 #define OBJ_EVENT_PAL_TAG_TEMPLAR_MALE          0x1133
+// DR_CAST begin [defineOBJ_EVENT_PAL_TAG_TEMPLAR_MALE]
+#define OBJ_EVENT_PAL_TAG_DR_OLD_MAN                  0x1170
+#define OBJ_EVENT_PAL_TAG_DR_OLD_WOMAN                0x1171
+#define OBJ_EVENT_PAL_TAG_DR_FARMER                   0x1172
+#define OBJ_EVENT_PAL_TAG_DR_WOODSMAN                 0x1173
+#define OBJ_EVENT_PAL_TAG_DR_MERCHANT                 0x1174
+#define OBJ_EVENT_PAL_TAG_DR_TEMPLAR_PRIEST           0x1175
+#define OBJ_EVENT_PAL_TAG_DR_IMPERIAL_SOLDIER         0x1176
+#define OBJ_EVENT_PAL_TAG_DR_MINSTREL                 0x1177
+#define OBJ_EVENT_PAL_TAG_DR_WITCH                    0x1178
+#define OBJ_EVENT_PAL_TAG_DR_REVENANT                 0x1179
+#define OBJ_EVENT_PAL_TAG_DR_ADVENTURER               0x117A
+#define OBJ_EVENT_PAL_TAG_DR_MARINER                  0x117B
+#define OBJ_EVENT_PAL_TAG_DR_CORSAIR                  0x117C
+#define OBJ_EVENT_PAL_TAG_DR_FISHER                   0x117D
+#define OBJ_EVENT_PAL_TAG_DR_GOON                     0x117E
+#define OBJ_EVENT_PAL_TAG_DR_BANDIT                   0x117F
+#define OBJ_EVENT_PAL_TAG_DR_MARAUDER                 0x1180
+#define OBJ_EVENT_PAL_TAG_DR_LOGAN                    0x1181
+#define OBJ_EVENT_PAL_TAG_DR_COMMONER_WOMAN_A         0x1182
+#define OBJ_EVENT_PAL_TAG_DR_COMMONER_WOMAN_B         0x1183
+#define OBJ_EVENT_PAL_TAG_DR_COMMONER_MAN_A           0x1184
+#define OBJ_EVENT_PAL_TAG_DR_COMMONER_MAN_B           0x1185
+#define OBJ_EVENT_PAL_TAG_DR_COMMONER_MAN_C           0x1186
+#define OBJ_EVENT_PAL_TAG_DR_COOK                     0x1187
+#define OBJ_EVENT_PAL_TAG_DR_BARKEEP                  0x1188
+#define OBJ_EVENT_PAL_TAG_DR_HEALER                   0x1189
+#define OBJ_EVENT_PAL_TAG_DR_KID_A                    0x118A
+#define OBJ_EVENT_PAL_TAG_DR_KID_B                    0x118B
+#define OBJ_EVENT_PAL_TAG_DR_KID_C                    0x118C
+#define OBJ_EVENT_PAL_TAG_DR_KID_E                    0x118D
+#define OBJ_EVENT_PAL_TAG_DR_STUDENT_A                0x118E
+#define OBJ_EVENT_PAL_TAG_DR_STUDENT_B                0x118F
+#define OBJ_EVENT_PAL_TAG_DR_STUDENT_C                0x1190
+// DR_CAST end [defineOBJ_EVENT_PAL_TAG_TEMPLAR_MALE]
 #define OBJ_EVENT_PAL_TAG_SHUBUBU                 0x1125
 #define OBJ_EVENT_PAL_TAG_GUBUKING                0x1126
 #define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1127

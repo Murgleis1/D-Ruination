@@ -392,6 +392,21 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     [TRAINER_CLASS_AMBROSE] = { _("Archbishop"), 30 },
     [TRAINER_CLASS_TEMPLAR] = { _("Templar"), 20 },
     [TRAINER_CLASS_BRIGAND] = { _("Brigand"), 15 },
+// DR_CAST begin [TRAINER_CLASS_BRIGAND]
+    [TRAINER_CLASS_REVENANT] = { _("Revenant"), 12 },
+    [TRAINER_CLASS_ADVENTURER] = { _("Adventurer"), 10 },
+    [TRAINER_CLASS_FISHER] = { _("Fisher"), 8 },
+    [TRAINER_CLASS_CORSAIR] = { _("Corsair"), 14 },
+    [TRAINER_CLASS_MARINER] = { _("Mariner"), 10 },
+    [TRAINER_CLASS_WOODSMAN] = { _("Woodsman"), 10 },
+    [TRAINER_CLASS_MERCHANT] = { _("Merchant"), 24 },
+    [TRAINER_CLASS_GOON] = { _("Goon"), 12 },
+    [TRAINER_CLASS_BANDIT] = { _("Bandit"), 14 },
+    [TRAINER_CLASS_MARAUDER] = { _("Marauder"), 20 },
+    [TRAINER_CLASS_SCHOLAR] = { _("Scholar"), 18 },
+    [TRAINER_CLASS_WITCH] = { _("Witch"), 14 },
+    [TRAINER_CLASS_MINSTREL] = { _("Minstrel"), 10 },
+// DR_CAST end [TRAINER_CLASS_BRIGAND]
 };
 
 static void (* const sTurnActionsFuncsTable[])(void) =

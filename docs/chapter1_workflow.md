@@ -584,4 +584,23 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
+- **The cast installed in the game (2026-11-26, user: "proceed").** `tools/npc/install_cast.py` wires everything in
+  one pass after the male Templar's pattern (each insertion between `DR_CAST begin/end [key]` markers, so a rerun
+  replaces it); `tools/npc/check_cast.py` reads it all back from the ROM.
+  - **33 walkers**, `OBJ_EVENT_GFX_DR_*` **290-322** (`NUM_OBJ_EVENT_GFX` 323), palette tags `OBJ_EVENT_PAL_TAG_DR_*`
+    **0x1170-0x1190** (0x1134-0x114F passed over: 0x1140 is the knoll cloud's sprite tag), PNGs
+    `graphics/object_events/pics/people/dr_<name>.png`: old man, old woman, farmer, woodsman, merchant, Templar
+    priest, Imperial Soldier, minstrel, witch, Revenant, Adventurer, Mariner, Corsair, Fisher, Goon, Bandit,
+    Marauder, Logan, commoner women A-B, commoner men A-C, cook, barkeep, healer, kids A, B, C, E (D, the swim-ring
+    kid, held back), students A-C.
+  - **18 battle fronts**, `TRAINER_PIC_DR_*` **137-154** (`TRAINER_PIC_COUNT` 155), `graphics/trainers/front_pics/
+    dr_<name>.png`: the 14 recoloured picks, Goon, Bandit, Marauder, Logan.
+  - **13 trainer classes** the user has named, `TRAINER_CLASS_*` **0x6D-0x79** (`TRAINER_CLASS_COUNT` 0x7A):
+    Revenant, Adventurer, Fisher, Corsair, Mariner, Woodsman, Merchant, Goon, Bandit, Marauder, Scholar, Witch,
+    Minstrel. **Still to name** (12 characters at most): the old man, old woman, farmer, Templar priest (or the
+    existing Templar class) and the Imperial Soldier ("Imperial Soldier" is 16; e.g. "Soldier").
+  - Checked: every walker and front decoded from the ROM equals its PNG, pixel and palette; every table entry
+    (graphics-info pointers, images, palette tags, gTrainerSprites, gTrainerClasses names and money) reaches the
+    right data; Baradus's assets unchanged; the whole save-state walk chain passes. **ROM 96.24% -> 96.60%** of
+    32 MiB (about 120 KB). Nothing is placed in a map yet: the Pelluca recast places them.
 

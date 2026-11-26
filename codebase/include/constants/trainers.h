@@ -160,7 +160,27 @@
 #define TRAINER_PIC_AMBROSE               134
 #define TRAINER_PIC_TEMPLAR               135
 #define TRAINER_PIC_TEMPLAR_MALE          136
-#define TRAINER_PIC_COUNT                 137
+// DR_CAST begin [defineTRAINER_PIC_TEMPLAR_MALE]
+#define TRAINER_PIC_DR_OLD_MAN              137
+#define TRAINER_PIC_DR_OLD_WOMAN            138
+#define TRAINER_PIC_DR_FARMER               139
+#define TRAINER_PIC_DR_WOODSMAN             140
+#define TRAINER_PIC_DR_MERCHANT             141
+#define TRAINER_PIC_DR_TEMPLAR_PRIEST       142
+#define TRAINER_PIC_DR_IMPERIAL_SOLDIER     143
+#define TRAINER_PIC_DR_MINSTREL             144
+#define TRAINER_PIC_DR_WITCH                145
+#define TRAINER_PIC_DR_REVENANT             146
+#define TRAINER_PIC_DR_ADVENTURER           147
+#define TRAINER_PIC_DR_MARINER              148
+#define TRAINER_PIC_DR_CORSAIR              149
+#define TRAINER_PIC_DR_FISHER               150
+#define TRAINER_PIC_DR_GOON                 151
+#define TRAINER_PIC_DR_BANDIT               152
+#define TRAINER_PIC_DR_MARAUDER             153
+#define TRAINER_PIC_DR_LOGAN                154
+// DR_CAST end [defineTRAINER_PIC_TEMPLAR_MALE]
+#define TRAINER_PIC_COUNT                 155
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -452,8 +472,23 @@
 #define TRAINER_CLASS_AMBROSE          0x6A
 #define TRAINER_CLASS_TEMPLAR          0x6B
 #define TRAINER_CLASS_BRIGAND          0x6C
+// DR_CAST begin [defineTRAINER_CLASS_BRIGAND]
+#define TRAINER_CLASS_REVENANT        0x6D
+#define TRAINER_CLASS_ADVENTURER      0x6E
+#define TRAINER_CLASS_FISHER          0x6F
+#define TRAINER_CLASS_CORSAIR         0x70
+#define TRAINER_CLASS_MARINER         0x71
+#define TRAINER_CLASS_WOODSMAN        0x72
+#define TRAINER_CLASS_MERCHANT        0x73
+#define TRAINER_CLASS_GOON            0x74
+#define TRAINER_CLASS_BANDIT          0x75
+#define TRAINER_CLASS_MARAUDER        0x76
+#define TRAINER_CLASS_SCHOLAR         0x77
+#define TRAINER_CLASS_WITCH           0x78
+#define TRAINER_CLASS_MINSTREL        0x79
+// DR_CAST end [defineTRAINER_CLASS_BRIGAND]
 
-#define TRAINER_CLASS_COUNT          0x6D
+#define TRAINER_CLASS_COUNT          0x7A
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music
