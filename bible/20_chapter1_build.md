@@ -123,6 +123,11 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    Marauders**; he apologizes only if the player **talks to him again after beating him**. The player fights **no
    Imperial Soldiers in Pelluca or anywhere else in Chapter 1**.
 
+11. **The world abroad, for loredrops** (`[NEW canon — user 2026-11-26]`): **the kingdom of Athanto fell only two years
+   before the story** (MonoMyth's region; the mending masks come from there). Cormoria still fights **overseas
+   skirmishes with the tyrannical theocratic dynasties ruling Kanto and Johto**. Abroad there is **trouble and fear of
+   civil war in Kalos, Paldea and Tellius**. NPCs talk of all of it (§16.15).
+
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
 **STATUS — the entire critical Chapter-1 principal cast (all seven) is complete and committed.** 7 front pics + 7 overworld sets + 1 battle back + 17 portraits. All front pics are 64×64 16-color indexed (index 0 transparent); all portraits are 96×96; overworld sheets are 128×192 (32×48 RPG-Maker frames) **sources** except Osrid's, which is already engine-format.
@@ -430,3 +435,4 @@ Apply to every NPC line in the game, Chapter 1 included:
 1. **No NPC line is pointless.** Even in Chapter 1, flavour NPCs drop **subtle hints** of places, characters and lore met later, or of things worth knowing about the setting. People gossip about what concerns them: corruption in the merchant guilds, cultists in the wilds doing strange things, sightings of unknown Pokémon, deaths and disappearances round the Alban estate, and the like. **Foreshadowing and world-building wherever it can be slipped in.** Hints stay at what ordinary people could see or hear (rumour, prices, odd sights), never the hidden truth the bible keeps for later reveals.
 2. **No plain modern English.** This is Empire-era Cormoria, about two thousand years before the main Pokémon timeline: every character speaks with a **more medieval vocabulary and manner**, readable rather than parody.
 3. **No machine-sounding prose:** no formulaic "if X then Y" constructions, no em dashes, no stock patterns. Write as an observant person would actually talk.
+4. **Short.** An NPC gives **three or four sentences of information at most**: no exposition dumps.
