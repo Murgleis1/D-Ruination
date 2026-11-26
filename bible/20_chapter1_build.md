@@ -90,6 +90,9 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    some are met as trainers here and there, **actual ghosts that fight with Ghost Pokémon** (trainer class
    **Revenant**). **The Templars periodically go in to exorcise them.**
 
+7. **Purple is the Empire's main colour** (`[NEW canon — user 2026-11-25]`): the Imperial army wears **purple and
+   gold** (the Imperial Officer class first; soldiers, guards and cadets follow it).
+
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
 **STATUS — the entire critical Chapter-1 principal cast (all seven) is complete and committed.** 7 front pics + 7 overworld sets + 1 battle back + 17 portraits. All front pics are 64×64 16-color indexed (index 0 transparent); all portraits are 96×96; overworld sheets are 128×192 (32×48 RPG-Maker frames) **sources** except Osrid's, which is already engine-format.

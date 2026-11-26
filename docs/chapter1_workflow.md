@@ -260,3 +260,16 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   (moved to its own slot, rows 17-37, not his face or hands) the mantle; **three options, as the army has no colours
   on record**: A crimson and grey fur, B imperial purple and gold, C forest green and brass. Overworlds to follow
   once the fronts are settled.
+- **Picks v2 (user 2026-11-25):** **the Officer purple and gold** ("Purple is the Empire's main color"; the user
+  wrote "C", the purple one being third of the four in the comparison sent, source first: read as purple); **his
+  shoulder** ("still needs a bit of work"): the notch the bag left between collar and pauldron closed with the
+  pauldron's dark plate and an outline; **black hair and brows** ("why didn't you just make his hair and eyebrows
+  black?"): a first pass recoloured by palette slot and turned his bushy white brows (two rows, set straight on his
+  black eye lines) and an eye white into one dark band ("racoon eye"); redone by feature: the hair black with dark
+  steel sheen, each brow a thin two-pixel stroke a row above its eye with skin between, the eye white kept, the grin
+  kept. **The Merchant** teal (not green), the hat's crown raised two rows (a capotain) with a red band (a plume read
+  as a stick and was dropped), his face's shading moved off the coat's slots (it had turned teal), **flipped**
+  ("his pose would look better"). **The old woman's gown brown.** **The Revenant**: a skull face (sockets with red
+  pinpoints, nose cavity, hollow cheeks, teeth), rotted hair (bald patches, lank strands over the face, a ragged
+  crown), the coat in rags (torn notches down both edges, a ragged hem the wisps eat into, rips with ghost-light).
+  `assets/npc_survey/picks_v2.png`. **Purple recorded as canon** (bible 16.6 item 7).
