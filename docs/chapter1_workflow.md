@@ -336,3 +336,12 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   decoders) before trusting a build. And a playtest note: a save state taken inside a map has that map's objects
   already loaded; to see a test ROM's object changes, leave the map and come back (`templar_blue_check.py --reload`:
   down the harbour stair and back up).
+- **Walking sprites, begun (user 2026-11-25: "proceed"; "many of the sprites we are replacing in Pelluca Valley
+  first are some of these new ones").** The seafolk v1 (`tools/npc/walkers/seafolk.py`,
+  `assets/npc_survey/seafolk_walkers_v1.png`), MonoMyth bodies at our cast's size: **Mariner** from MonoMyth 194 (its
+  red cap toned to the front's red; the black clothes cream linen, the red trim leather, the blond hair brown);
+  **Corsair** from MonoMyth 45 (bald, white-bearded, purple vest: MonoMyth's own walker for front 67): the vest
+  oxblood, the greys sailcloth, the knotted headscarf over his crown (a knot at the back on the north frames, tails
+  behind on the west); **Fisher** from MonoMyth 233 (a round felt hat; MonoMyth 87's pointed witch hat could not be
+  lifted, its walker has 12 frames): the crown drawn up into a point, one narrower a row and leaning back, tan felt,
+  the jacket wool under a leather jerkin (a first cone narrowed to one pixel and read as an antenna).
