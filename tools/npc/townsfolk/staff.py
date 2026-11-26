@@ -6,6 +6,9 @@
           objects 1-2, graphics id 80 = catalogue 144 by the graphics-info pointer table at 0x93BF90; our Pelluca
           tavern is built from the same map). Recoloured off MonoMyth's maroon: the waistcoat and trousers bronze
           (first forest green; the user chose bronze to set him apart), brown hair added, the shirt and skin kept.
+  Healer <- Fantasma 125 (cream bonnet and dress, purple shawl, white apron, brown hair; user 2026-11-26: "I like
+          this one for the healer. Make her clothing a light pink color"): bonnet and dress (8/9/10) light pink, the
+          shawl (5/6/7) a deeper rose; apron, hair and skin kept.
 Run: python3 staff.py -> out/<name>_ow.png, /tmp/cult/staff.png"""
 import os
 import sys
@@ -64,7 +67,14 @@ def barkeep():
     return idx, pal
 
 
-ROWS = [('fa_255', cook, 'cook'), ('mm_144', barkeep, 'barkeep')]
+def healer():
+    idx, pal = load('fa_125')
+    pal[8], pal[9], pal[10] = (246, 212, 220), (226, 178, 192), (178, 128, 146)   # light pink
+    pal[5], pal[6], pal[7] = (206, 124, 152), (160, 86, 114), (106, 54, 78)      # rose shawl
+    return idx, pal
+
+
+ROWS = [('fa_255', cook, 'cook'), ('mm_144', barkeep, 'barkeep'), ('fa_125', healer, 'healer')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)

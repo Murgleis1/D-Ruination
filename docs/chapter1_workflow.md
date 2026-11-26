@@ -577,6 +577,9 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   pixel diagonal strokes of light, shade and crease like the cloth round it, drawing down into the crease above the
   crotch. `logan_front_v8.png`.
   **Logan's front approved** (user 2026-11-26: "much better. commit it").
+- **Tavern healer = Fantasma 125 in light pink** (user: "I like this one for the healer. Make her clothing a light pink
+  color"; candidates `healer_cands_v1.png`): bonnet and dress light pink, the shawl a deeper rose; apron, hair and skin
+  kept. `tools/npc/townsfolk/staff.py`, `staff_v6.png`. With her, every Pelluca NPC has its new walker.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
