@@ -531,6 +531,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   more interesting"): his hair's two darker tones were also his coat's gold trim; the trim (any 1/3 below the head not
   joined to the light hair through hair tones, so the hair's tail down his back stays hair) moves to slot 15 (it
   duplicated 6's navy) and keeps its gold; the hair goes dark blue. `students_v2.png`.
+  **Student D is Logan Orphel** (user: "the blue haired one actually is the youngest teacher at the academy and one of
+  Cadmus's first top honor student graduates at the academy, a guy named Logan, the last son of the minor noble family
+  of Orphel"): not a student; his walker is renamed `logan` (bible 20 §16.6 item 9). The dorm's three students are
+  A (MonoMyth 29), B (Crown 52) and C (Crown 58).
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.

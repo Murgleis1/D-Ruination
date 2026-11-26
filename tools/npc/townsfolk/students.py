@@ -7,11 +7,12 @@
   Student B <- Crown 52 (red feathered beret, red-and-gold doublet) and
   Student C <- Crown 58 (orange hair, purple plaid): the user's picks from youth_cands_v1.png ("i like these guys as
                students"), kept as they are; tools/npc/cr_walker.py extracts Crown's walkers.
-  Student D <- MonoMyth 173 (spiky blond hair, navy coat with gold trim): "needs to be dark blue haired to be more
+  Logan     <- MonoMyth 173 (Logan Orphel, the Academy's youngest teacher, one of Cadmus's first top-honour
+               graduates, last son of the minor noble House Orphel; not a student: user 2026-11-26)    spiky blond hair, navy coat with gold trim: "needs to be dark blue haired to be more
                interesting". The hair's two darker tones (1, 3) are also the coat's gold trim: below the head (row 22
                on a standing frame) they move to slot 15, which only duplicated 6's navy (its pixels go to 6), and keep
                the gold; then the hair goes dark blue.
-Run: python3 students.py -> out/student_{a..d}_ow.png, /tmp/cult/students.png"""
+Run: python3 students.py -> out/student_{a..c}_ow.png, out/logan_ow.png, /tmp/cult/students.png"""
 import os
 import sys
 import numpy as np
@@ -53,7 +54,7 @@ def student_c():
     return load('cr_58')
 
 
-def student_d():
+def logan():
     idx, pal = load('mm_173')
     idx[idx == 15] = 6                                                         # 15 was 6's twin
     for f in range(9):
@@ -79,7 +80,7 @@ def student_d():
 
 
 ROWS = [('mm_29', student_a, 'student_a'), ('cr_52', student_b, 'student_b'), ('cr_58', student_c, 'student_c'),
-        ('mm_173', student_d, 'student_d')]
+        ('mm_173', logan, 'logan')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)

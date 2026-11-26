@@ -99,6 +99,11 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    **Marauder**. They are **common thugs, the gangsters of Empire-era Cormoria**, and have **nothing to do with Eden**
    (she keeps her own "Brigand ???" class for the lab theft).
 
+9. **Logan Orphel** (`[NEW canon — user 2026-11-26]`; minor NPC, addition to §7 and the Academy): **the youngest
+   teacher at the Pelluca Academy**, one of **Cadmus Umbra's first top-honour graduates** there, and **the last son of
+   the minor noble House Orphel**. Overworld sprite: dark blue spiky hair, navy coat with gold trim (from MonoMyth 173;
+   `tools/npc/townsfolk/students.py`, `logan`).
+
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
 **STATUS — the entire critical Chapter-1 principal cast (all seven) is complete and committed.** 7 front pics + 7 overworld sets + 1 battle back + 17 portraits. All front pics are 64×64 16-color indexed (index 0 transparent); all portraits are 96×96; overworld sheets are 128×192 (32×48 RPG-Maker frames) **sources** except Osrid's, which is already engine-format.
