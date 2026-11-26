@@ -486,4 +486,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   `assets/npc_survey/commoner_woman_a_v1.png`. Two commoner-woman variants in all.
   **Commoner woman B = Fantasma 48, darker skinned** (user: "and then a darker skinned version of this one"): red
   hair, green dress and white apron kept, the skin on Fantasma's dark ramp (60's own). `commoner_women_v1.png`.
+  **Commoner man A = Fantasma 150, darker skinned** (user: "Darker skinned version of first one here"; two more
+  variations to come from the user): spiky brown hair, pale-blue tunic and vest kept, the skin on the dark ramp.
+  `tools/npc/townsfolk/men.py`, `commoner_men_v1.png`.
 
