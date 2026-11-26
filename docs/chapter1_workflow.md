@@ -497,4 +497,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Cook = Fantasma 255 with green hair** (user: "For the cook, lets do a greener haired version of this guy"): the
   navy hair slots green; cap, whites and skin kept; three frames (a cook stays at his counter).
   `tools/npc/townsfolk/staff.py`, `staff_v1.png`.
+  **Barkeep from MonoMyth's Fort Elderflower tavern** (user: "There's a bartender sprite in the tavern of MonoMyth at
+  fort elderflower we could recolor who would be perfect"). The tavern's map header is 0x86B244 (17 objects; our
+  Pelluca tavern is built from the same map); MonoMyth graphics ids index the graphics-info pointer table at
+  **0x93BF90** (285 entries; id 80 = catalogue 144). Behind the bar counter (y 2, the stools at y 3) stand objects 1-2,
+  id 80 = **MonoMyth 144, a bald man in a maroon waistcoat** (the patrons on the stools are id 29 = catalogue 23).
+  First recolour: waistcoat and trousers forest green (slots 10, 12). `staff_v2.png`; awaiting the user's check that
+  this is the sprite meant.
 
