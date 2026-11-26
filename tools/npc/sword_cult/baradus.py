@@ -29,8 +29,12 @@ ASSETS = {
 ICE3 = ICE[:3]          # light, mid, shade
 
 
+ORIG = os.path.join(HERE, 'src_baradus')      # the originals (git HEAD before the install, 2026-11-25)
+
+
 def load(rel):
-    im = Image.open(os.path.join(CB, rel))
+    """Always the original art, never the installed result (so a re-run cannot apply twice)."""
+    im = Image.open(os.path.join(ORIG, rel.replace('graphics/', '').replace('/', '__')))
     assert im.mode == 'P'
     pal = im.getpalette()[:48]
     pal += [0] * (48 - len(pal))

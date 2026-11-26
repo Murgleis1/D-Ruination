@@ -211,4 +211,29 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   the bridge x 7 dark, the west frames one 2x2 lens at x 4-5; **front, rows 8-9 (row 7 his brows), left lens x 26-27,
   right x 30-32**, the bridge dark. Each lens: a light pixel top-left, the top row light ice, the bottom row deeper,
   as the portraits. Mock v2: `tools/npc/sword_cult/board_baradus_v2.py`, `assets/npc_survey/baradus_glasses_v2.png`,
-  `baradus_glasses_v2_close.png`. Not installed yet.
+  `baradus_glasses_v2_close.png`. **Installed (user 2026-11-25: "I love what you have done with Baradus now ... He's
+  almost like the human incarnation visually of Chien-Pao. Very cool and yes implement them")**: the five PNGs in
+  `codebase/graphics/` rewritten (originals kept in `tools/npc/sword_cult/src_baradus/`, which `baradus.py` now reads,
+  so a re-run cannot apply twice). Checked: `tools/npc/sword_cult/check_rom.py` decodes all five from the built ROM,
+  pixels and palettes match the PNGs, three ice slots each; **in the emulator** on a test ROM (the harbour arrival with
+  Cadmus drawn as Baradus, his three portraits in Cadmus's lines, a test battle against TRAINER_ROUTE1_A in his
+  picture; edits reverted, the real ROM rebuilt to the same checksum): `tools/playtest/baradus_assets_test.py`, the
+  three portraits exact, the battle front exact (0 of 855 pixels in view differ), the overworld exact in rows 0-24
+  (7 pixels at his feet differ where the player stands over them). `assets/npc_survey/ingame_baradus_glasses.png`,
+  `ingame_baradus_crops.png`.
+- **Cast board v2** (`tools/npc/board_v2.py`, `assets/npc_survey/cast_candidates_v2.png`): every pick coded (role
+  number, a-h overworld, A-H fronts) for refining by code; rows 22-23 the Sword Cult set, 24 the other cultists.
+- **Roles rethought (user 2026-11-25): "'commoner' seems like the wrong thing here in the context of the empire. We
+  need a better list."** The user is supplying sets role by role.
+- **The older noblewoman class (user 2026-11-25):** the user's three 'socialite' designs (fronts and overworld
+  sheets; `tools/npc/dowager/user_*_2x.png`): "good older empire female noblewomen ... All variations of the same older
+  female trainer class you can come up with that fits the Empire era lore". **The user's overworld sheets are Gen 4
+  size** (figures 16-17 x 24-26 in 32x32 cells) **against our cast's MonoMyth size** (MonoMyth 57 and 188 14x20,
+  Baradus 13x19): a head taller than everyone; the user: "if these overworld sprites aren't the right generation, feel
+  free to find the closest matches". (The noble boy's overworld, 16x24, is the same Gen 4 size: flagged.) Mock v1
+  (`tools/npc/dowager/dowager.py`, `assets/npc_survey/older_noblewoman_v1.png`): fronts fitted to 64x64; three
+  colourways each (outfit and accent as house-palette suggestions, hair white / silver / iron grey, skin fair /
+  medium / bronzed, the last the Yo'aki tone); overworlds from MonoMyth at our size: **design 1 MonoMyth 24 with a
+  brimmed hat drawn on** (no MonoMyth old woman wears one) and the front's rose scarf at the neck (the bare tan collar
+  under her chin read as a beard), **design 2 MonoMyth 16** (grey bun, lilac dress), **design 3 MonoMyth 24**.
+  (MonoMyth 21, white-haired in the catalogue, is a bearded old man.)

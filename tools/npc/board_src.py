@@ -3,10 +3,10 @@ import numpy as np
 R = '/home/claude/repo/assets/'
 MMOW = Image.open(R + 'monomyth_ow/catalogue_ow16x32.png').convert('RGB')
 CROW = Image.open(R + 'crown_reference/npcs_main_table.png').convert('RGB')
-FAOW = Image.open('ow_fantasma.png').convert('RGB')
-ODOW = Image.open('ow_odyssey.png').convert('RGB')
+FAOW = Image.open(R + 'npc_survey/ow_fantasma.png').convert('RGB')
+ODOW = Image.open(R + 'npc_survey/ow_odyssey.png').convert('RGB')
 MMF = [Image.open(R + 'monomyth_reference/trainer_fronts/mm_fronts_part%d.png' % k).convert('RGB') for k in range(3)]
-FAF = Image.open('tf_fantasma.png').convert('RGB')
+FAF = Image.open(R + 'npc_survey/tf_fantasma.png').convert('RGB')
 def mm_ow(n):   # cell 202x110, first facing (south) ~ x 2..50, y 12..108
     x, y = (n % 10) * 202, (n // 10) * 110; return MMOW.crop((x, y + 10, x + 50, y + 108))
 def cr_ow(n):   # 18 cols of 80 px, rows of 116 px
