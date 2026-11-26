@@ -555,6 +555,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   and front battle sprite to an orange and light grey mix and flip the front battle sprite horizontally"): class
   **Scholar**; front: coat and trousers light grey, the orange sash and V trim warmed, flipped; walker: the navy coat
   and trousers light grey, the gold trim orange. `logan_front_v3.png`, `students_v3.png`.
+  **Front reworked from a gi to a tunic** (user: "make it so it looks less like a karate suit and more like a tunic on
+  the battle front sprite"): the crossed lapels (the orange V) gone to plain cloth; the tied sash and its hanging tails
+  replaced by a straight leather belt with an orange buckle; the tunic runs to mid-thigh, hemmed in orange; brown
+  trousers below. `tools/npc/logan/logan.py` `tunic()`, `logan_front_v4.png`.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.

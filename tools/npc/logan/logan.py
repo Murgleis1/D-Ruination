@@ -73,6 +73,42 @@ def logan(n):
     return out, pal
 
 
+def tunic(a):
+    """(user 2026-11-26: "make it so it looks less like a karate suit and more like a tunic on the battle front
+    sprite"): the gi's crossed lapels (the orange V, 8, rows 16-30) become plain tunic cloth (1; an orange trim along
+    the collar read as the lapel again, so the neck is left plain); the tied sash and its hanging tails become a leather belt (5,
+    rows 34-35, an orange buckle at its middle) with the tails gone (8/5 below it to coat shade 3); the coat runs on
+    as a tunic skirt to row 43, hemmed in orange at row 44; below it, trousers in brown (1 -> 5, 3 -> 6). Coordinates
+    are MonoMyth 114's own, before the flip."""
+    a = a.copy()
+    v = np.zeros_like(a, bool); v[16:31] = True
+    a[v & (a == 8)] = 1
+    for y in (34, 35):                                       # the belt
+        for x in range(22, 39):
+            if a[y, x] in (1, 3, 4, 8, 5, 2):
+                a[y, x] = 5
+        a[y, 30] = a[y, 31] = 8                              # buckle
+    for y in (33, 36):
+        for x in range(22, 39):
+            if a[y, x] in (8, 5):
+                a[y, x] = 3
+    strip = np.zeros_like(a, bool); strip[37:45, 26:33] = True
+    was = strip & np.isin(a, (8, 5))
+    a[was] = 3
+    for y, x in zip(*np.where(strip & (a == 2))):
+        n = sum(was[y + dy, x + dx] for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0)))
+        if n >= 2:
+            a[y, x] = 3
+    for x in range(20, 43):                                  # the hem
+        if a[44, x] in (1, 3, 4):
+            a[44, x] = 8
+    legs = a[45:]
+    src = legs.copy()
+    legs[src == 1] = 5
+    legs[src == 3] = 6
+    return a
+
+
 def logan_114():
     """MonoMyth 114: his hair is 7 (light gold) and 10 (gold) only, plus the brown 5 as its outline and shading where
     it touches them in the hair's rows (5 is also his sash and shoes): 7 and 10 go light and mid blue; the hair's 5
@@ -87,6 +123,7 @@ def logan_114():
         if y <= 12 or any(v in (7, 10) for v in nb):
             hair5[y, x] = True
     a[hair5] = 14
+    a = tunic(a)
     pal = list(pal)
     pal[7], pal[10], pal[14] = (118, 136, 210), (84, 100, 176), (52, 64, 132)   # Logan's dark blue
     # (user 2026-11-26: "change their clothes color on both overworld and front battle sprite to an orange and light
