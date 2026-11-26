@@ -108,6 +108,40 @@ def corsair():
     return idx, pal
 
 
+MM87_TO_EMERALD = [0, 1, 2, 4, 5, 6, 7, 8, 9]          # its 12 frames: S N W E, walk S x2, N x2, W x2, E x2
+
+
+def witch_hat(sub, f, brim):
+    """The Fisher's hat (user 2026-11-26: "go look at witch overworld sprites in MonoMyth so you can see how a witch
+    hat looks"): MonoMyth 87's witch hat itself (a short crown whose floppy tip folds over to the back, a dark band
+    with a buckle, a wide floppy brim drooping past the face at both sides), frame for frame, its brim set on the
+    Fisher's cap line; greens -> tan felt (light 11, mid 12, dark 9), the band -> dark leather (10), the buckle ->
+    tan (5), outlines black (15). Replaces a drawn tall cone ("looks like a string" at its tip)."""
+    m = MM87_TO_EMERALD[f]
+    w87 = np.array(Image.open(os.path.join(HERE, 'mm_87.png')))[:, m * 16:(m + 1) * 16]
+    HAT = {3: 11, 1: 12, 2: 9, 5: 10, 6: 10, 7: 5}
+    hat = np.isin(w87, list(HAT))
+    hat[20:] = False                                       # the hat ends with the brim's drooping tips (row 19)
+    # its outline (4, 15): only where it borders the hat, above the face
+    edge = np.isin(w87, (4, 15)) & False
+    near = np.zeros_like(hat)
+    near[1:] |= hat[:-1]; near[:-1] |= hat[1:]; near[:, 1:] |= hat[:, :-1]; near[:, :-1] |= hat[:, 1:]
+    edge = np.isin(w87, (4, 15)) & near
+    edge[19:] = False
+    rows = [y for y in range(32) if hat[y].sum() >= 8]
+    b87 = max(y for y in rows if y <= 18)                  # its brim's main row
+    dy = brim - b87
+    for y in range(32):
+        ty = y + dy
+        if not 0 <= ty < 32:
+            continue
+        for x in range(16):
+            if hat[y, x]:
+                sub[ty, x] = HAT[int(w87[y, x])]
+            elif edge[y, x]:
+                sub[ty, x] = 15
+
+
 def fisher():
     """Fantasma 221 (user 2026-11-25: "the Fisher is FA 221 ... what needs the pointy hat to match your new front
     sprite"): the baseball cap cleared and a pointed felt hat drawn in its place; the red jacket a leather jerkin, the
@@ -127,36 +161,8 @@ def fisher():
         for x in range(16):                                       # the cap's shadow on the forehead: black hair
             if sub[brim + 1, x] in (10, 14, 8, 9) and x0 < x < x1:
                 sub[brim + 1, x] = HAIR
-        bx0, bx1 = max(0, x0 - (2 if fac == 'W' else 1)), min(15, x1 + (0 if fac == 'W' else 1))
-        for x in range(bx0, bx1 + 1):                             # the brim
-            sub[brim, x] = O if x in (bx0, bx1) else LIGHT
-        for x in range(x0 + 1, x1):                               # the band
-            sub[brim - 1, x] = DARK
-        sub[brim - 1, x0] = O
-        sub[brim - 1, x1] = O
-        # the crown (user 2026-11-25: the first version "looks like you cut it off at the very tip"): even edges, the
-        # left stepping in a pixel every row and the right every other row (it leans back), closing to a one-pixel
-        # outlined tip (a bent-over last pixel read as a string and was dropped)
-        left, right = x0 + 2, x1 - 1
-        y = brim - 2
-        k = 0
-        while y >= 0:
-            l, r = left + k, right - k // 2
-            if r - l + 1 <= 3:                                    # the tip: felt to the end (user 2026-11-26: bare
-                l = min(l, 15 - 2)                                # outline there "looks like a string")
-                sub[y, l] = O
-                sub[y, l + 1] = LIGHT
-                sub[y, l + 2] = O
-                if y - 1 >= 0:
-                    sub[y - 1, l + 1] = O                         # capped by one outline pixel
-                break
-            for x in range(l, r + 1):
-                if x in (l, r):
-                    sub[y, x] = O
-                else:
-                    sub[y, x] = LIGHT if x - l < (r - l + 1) / 2 else MID
-            y -= 1
-            k += 1
+        witch_hat(sub, f, brim)
+        # (the drawn brim, band and crown above are replaced: see witch_hat below)
     pal = list(pal)
     pal[11], pal[12] = (208, 168, 80), (168, 128, 72)             # the felt
     pal[8], pal[9], pal[10] = (150, 96, 56), (104, 64, 40), (72, 44, 30)    # the jerkin's leather

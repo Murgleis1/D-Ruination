@@ -360,4 +360,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   back), closing to a point **filled with felt to the end** (a 3-wide row, outline-felt-outline, capped by one
   outline pixel; a tip of bare outline, and a bent-over last pixel, read as a string: user "the tip looks like a
   string").
+  **Then rebuilt on MonoMyth's own witch hat** (user 2026-11-26: "go look at witch overworld sprites in MonoMyth so
+  you can see how a witch hat looks"): MonoMyth 87's hat is not a tall cone but **a short crown whose floppy tip
+  folds over to the back, a dark band with a buckle, and a wide floppy brim drooping past the face at both sides**.
+  Its hat is lifted frame for frame (its 12-frame order onto Emerald's 9: 0, 1, 2, 4, 5, 6, 7, 8, 9) onto the
+  Fisher's head, its brim on his cap line; greens to tan felt, the band dark leather, the buckle tan, outlines kept
+  (`seafolk.witch_hat`; `assets/npc_survey/fisher_walker_hat_v4.png`, MonoMyth's witch above for comparison).
   `assets/npc_survey/fisher_walker_hat_v3.png`.
