@@ -520,4 +520,8 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Kid D (MonoMyth 50) floats in a swim ring** (user: "this kid is a kid who floats in the water, so we can't use him
   in town"): water only (a swimmer on a route or the bay); Pelluca's harbour Tuber will be one of the land kids (A, B,
   C or E) in the recast table.
+- **Dorm student A = MonoMyth 29 with deeper gold hair** (user: "use this kid as a dorm student, just make his hair a
+  deeper gold"). His hair's lightest tone was also his skin's light (slot 10): the hair's share moved to slot 6 by
+  facing (crown on every frame, the back of the head north and west), then the hair ramp deepened.
+  `tools/npc/townsfolk/students.py`, `assets/npc_survey/students_v1.png`.
 
