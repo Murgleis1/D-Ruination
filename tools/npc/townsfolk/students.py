@@ -8,7 +8,8 @@
   Student C <- Crown 58 (orange hair, purple plaid): the user's picks from youth_cands_v1.png ("i like these guys as
                students"), kept as they are; tools/npc/cr_walker.py extracts Crown's walkers.
   Logan     <- MonoMyth 173 (Logan Orphel, the Academy's youngest teacher, one of Cadmus's first top-honour
-               graduates, last son of the minor noble House Orphel; not a student: user 2026-11-26)    spiky blond hair, navy coat with gold trim: "needs to be dark blue haired to be more
+               graduates, last son of the minor noble House Orphel; not a student: user 2026-11-26). Spiky blond
+               hair, navy coat with gold trim: "needs to be dark blue haired to be more
                interesting". The hair's two darker tones (1, 3) are also the coat's gold trim: below the head (row 22
                on a standing frame) they move to slot 15, which only duplicated 6's navy (its pixels go to 6), and keep
                the gold; then the hair goes dark blue.
