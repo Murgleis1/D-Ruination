@@ -403,5 +403,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
     run, bike, fishing...); 545 is the plain walk set. Its frames are 32x32 with the figure in columns 9-22, so the
     walker is columns 8-23 of each. Recoloured to the front's icy ramp: bone-blue face with dark sockets over the red
     eyes and a dark nose, navy-black hair and coat, the strap a dark fold, the misty legs icy blue.
+  - **Revenant walker approved (user 2026-11-26: "the revenant looks great").** Merchant kept on MonoMyth 70 (user:
+    "I'll take your word for it"; 70 is the gold-coat hero's only walk set: his 201 poses share the colours).
   - Finding a Fantasma walker by its front: rank the walker palettes by how many of the front's colours they
     contain (Lorenzo's tag came top), then read that tag's entries.  `assets/npc_survey/fisher_walker_hat_v3.png`.
