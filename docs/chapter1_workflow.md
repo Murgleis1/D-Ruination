@@ -539,7 +539,14 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   (`PellucaAcademyClassroom`) teaching a few students; a recurring quiz-and-battle mini-quest (three fights: on
   meeting him, after the 4th Trial, before the League; rewards Leftovers, Loaded Dice, then 33 Full Restores and
   33 Max Elixirs, each for all answers right and a win with no faints and no items). Recorded in bible 20 §16.6
-  item 9. He needs a battle front sprite and a trainer class: open.
+  item 9. Trainer class: open.
+  **Logan's battle front = MonoMyth's post-game Monty** (user: "It should be post-game Monty from monomyth (your male
+  rival). You'll just need to make his battle sprite the appropriate blue color you just updated the overworld sprite
+  to"): MonoMyth fronts 98 and 99 (the older Monty standing; 100/101 throw a ball). `tools/npc/logan/logan.py`,
+  `assets/npc_survey/logan_front_v1.png`: his hair (crown, the long hair behind, on 98 the shoulder strands; never the
+  gold sash, tassels or boots) in the walker's dark blue; shirt stripes, headband, skin and boots kept. Two slots are
+  shared with his trousers' blues, so on 99 (arms crossed, hair over his legs) the hair and trousers sit close; 98
+  keeps them apart. Pick between 98 and 99 open.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
