@@ -576,6 +576,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   grey block thing you have here looks super unnatural. Make it textured properly like the rest of the tunic"): one-
   pixel diagonal strokes of light, shade and crease like the cloth round it, drawing down into the crease above the
   crotch. `logan_front_v8.png`.
+  **Logan's front approved** (user 2026-11-26: "much better. commit it").
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
