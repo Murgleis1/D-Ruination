@@ -480,4 +480,8 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   36 and 42 (alts 37, 104, 44, 56, 58); Academy students 108-111 (a purple uniform and cap: the Empire's colour);
   cook / barkeep 254-256 (chef's cap); healer 137-140 (a nurse's cap: its cross to be redone). The cooks and healers
   have three frames only (stationary NPCs in Fantasma), which suits a barkeep, cook and healer.
+- **Townsfolk one by one (user 2026-11-26: "Lets just do them one by one").** **Commoner woman A = Fantasma 60, pale
+  skinned** (user: "a pale skinned version of this one for one of two commoner women variations"): the skin slots
+  1-4 on Fantasma's own fair ramp, the long blue hair and rose dress kept. `tools/npc/townsfolk/women.py`,
+  `assets/npc_survey/commoner_woman_a_v1.png`. Two commoner-woman variants in all.
 
