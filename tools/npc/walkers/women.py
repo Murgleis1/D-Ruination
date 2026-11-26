@@ -69,11 +69,26 @@ def old_woman():
             for y in range(t - 1, bt):
                 if sub[y, x] in (14, 15, 12, 13):
                     sub[y, x] = 0
-        bl, br = max(0, x0 - 1), min(15, x1 + 1)
-        for x in range(bl, br + 1):
-            sub[bt, x] = 8 if x in (bl, br) else 10
-        for x in (bl, bl + 1, br - 1, br):
-            sub[bt + 1, x] = 8 if x in (bl, br) else 5
+        # (user 2026-11-26: "her hat on the front sprite is wide brimmed but not on her overworld one"): MonoMyth
+        # 108's hair is as wide as the frame, so a brim one pixel past it read as a cap. The brim now spans the
+        # whole frame and sags at the tips (light top, mid lip), and the hair under it is trimmed in to x3-12
+        # (x2-13 side on), so the brim stands clear of her head on both sides.
+        for x in range(1, 15):
+            sub[bt, x] = 8 if x in (1, 14) else 10
+        for x in range(16):
+            sub[bt + 1, x] = 8 if x in (0, 15) else 1
+        lo, hi = (3, 12) if fac in ('S', 'N') else (2, 13)
+        for y in range(bt + 2, bt + 6):
+            for x in range(16):
+                if (x < lo or x > hi) and sub[y, x] in (14, 15, 12, 13, 8):
+                    sub[y, x] = 0
+            xs = [x for x in range(16) if sub[y, x] != 0]
+            for x in (min(xs), max(xs)) if xs else ():
+                if sub[y, x] in (14, 15, 12, 13):
+                    sub[y, x] = 8
+        for x in (0, 1, 2, 13, 14, 15):                        # the brim's underside edge at the tips
+            if sub[bt + 2, x] == 0 and x not in (0, 15):
+                sub[bt + 2, x] = 8
         t = bt - 3                                             # the flowers' rows: on the crown, low on its side
         # the flowers: a rose and a cream-gold bloom on the crown's side (south: her right; west: at the back)
         if fac == 'S':
@@ -88,40 +103,52 @@ def old_woman():
 
 
 def witch():
-    """(user 2026-11-26: "the back of her purple hair isn't long enough on the overworld sprite"): her hair carried
-    three rows further down her back, tapering, from each frame's own lowest hair row (north frames: over the cloak
-    at its middle; west frames: down the back, the right)."""
+    """(user 2026-11-26: "the back of her purple hair isn't long enough on the overworld sprite"; then "the long hair
+    behind the witch overworld sprite should be more wide like her front battle sprite suggests"): her front shows
+    plum hair flaring out past both shoulders down to the waist, so the walker gets
+      north: a curtain 12 wide (x2-13) from the brim down six rows, ending in uneven tips;
+      west:  a mass down her back (x11-14), as long, overhanging the cloak behind her;
+      south: locks falling past both shoulders beside her face and body (x2-3, x12-13).
+    Shading: 8 mid, 10 light streaks, 9 dark edges; outline 4 only where the hair meets empty space."""
     idx, pal = load12(87)
     HAIR = (8, 10)                                           # mid, light
     def put(sub, y, x, v):
-        if 0 <= x < 16 and y < 32:
-            sub[y, x] = v
-    def outline(sub, y, x):                                  # dark rim only where it would sit on empty space
-        if 0 <= x < 16 and y < 32 and sub[y, x] == 0:
+        if 0 <= x < 16 and 0 <= y < 32 and v != ' ':
+            sub[y, x] = int(v, 16)
+    def outline(sub, y, x):
+        if 0 <= x < 16 and 0 <= y < 32 and sub[y, x] == 0:
             sub[y, x] = 4
+    def paint(sub, y, x0, row):
+        for i, v in enumerate(row):
+            put(sub, y, x0 + i, v)
+        xs = [x0 + i for i, v in enumerate(row) if v != ' ']
+        outline(sub, y, min(xs) - 1); outline(sub, y, max(xs) + 1)
+    CURTAIN = [(2, '9A88A88A88A9'), (2, '98A88A88A889'), (2, '98A88A88A889'), (2, '98A88A88A889'),
+               (3, '9A88A88A89'), (3, '98 988 899')]               # strands: light streaks at x4, x7, x10
+    BACK = [(12, '889'), (12, '889'), (11, '9889'), (11, '98A9'), (11, '98A9'), (11, '9889'), (11, '9889'),
+            (12, '9 9')]
     for f, sub in enumerate(frames(idx)):
         fac = FACING[f]
         if fac == 'N':
-            r = max(y for y in range(16, 30) if np.isin(sub[y], HAIR).sum() >= 4)
-            xs = [x for x in range(16) if sub[r, x] in HAIR]
-            c = (min(xs) + max(xs)) / 2                       # hair centre (7.5 on a 16-wide frame)
-            for k, half in ((1, 3), (2, 3), (3, 2)):          # widths 6, 6, 4
-                l, rr = int(c - half + 0.5), int(c + half - 0.5)
-                for x in range(l, rr + 1):
-                    put(sub, r + k, x, 9 if x in (l, rr) or k == 3 and x in (l + 1, rr - 1) and False else 8)
-                if k == 3:
-                    for x in range(l, rr + 1):
-                        put(sub, r + k, x, 9)
-                    put(sub, r + k, l + 1, 8); put(sub, r + k, rr - 1, 8)
+            rt = min(y for y in range(16, 30) if np.isin(sub[y], HAIR).sum() >= 8)   # the first full hair row
+            for k, (x0, row) in enumerate(CURTAIN):
+                paint(sub, rt + k, x0, row)
+            for x in range(16):                                # rim under the tips where they hang over nothing
+                outline(sub, rt + len(CURTAIN), x) if sub[rt + len(CURTAIN) - 1, x] in (8, 9) else None
         elif fac == 'W':
-            pts = [(y, x) for y in range(16, 30) for x in range(8, 16) if sub[y, x] in HAIR]
-            r = max(y for y, x in pts)
-            xr = max(x for y, x in pts if y == r)
-            for k, (x0, x1) in ((1, (xr - 2, xr)), (2, (xr - 1, xr + 1)), (3, (xr, xr + 1))):
-                for x in range(x0, x1 + 1):
-                    put(sub, r + k, x, 9 if x == x1 or k == 3 else 8)
-                outline(sub, r + k, x1 + 1)
-            outline(sub, r + 4, xr); outline(sub, r + 4, xr + 1)
+            r = max(y for y in range(16, 30) for x in range(8, 16) if sub[y, x] in HAIR)
+            for k, (x0, row) in enumerate(BACK):
+                paint(sub, r - 2 + k, x0, row)
+            for x in (12, 14):
+                outline(sub, r - 2 + len(BACK), x)
+        else:                                                  # south: locks past both shoulders
+            rs = max(y for y in range(16, 26) if sub[y, 2] in (8, 9, 10))
+            for k in range(4):
+                lock = '89' if k < 3 else '99'
+                paint(sub, rs + 1 + k, 2, lock)
+                paint(sub, rs + 1 + k, 12, lock[::-1])
+            for x in (2, 3, 12, 13):
+                outline(sub, rs + 5, x)
     pal = list(pal)
     pal[3], pal[1], pal[2] = (128, 160, 104), (96, 128, 80), (52, 76, 50)          # moss green
     pal[10], pal[8], pal[9] = (156, 96, 156), (120, 64, 120), (80, 40, 80)          # plum hair
