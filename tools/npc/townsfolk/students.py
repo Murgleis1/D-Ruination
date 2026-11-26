@@ -75,7 +75,10 @@ def logan():
         trim = np.isin(sub, (1, 3)) & ~hair
         trim[:t + 14] = False
         sub[trim] = 15
-    pal[15] = (200, 168, 80)                                                   # the coat's gold trim
+    pal[15] = (236, 132, 44)                                                   # the coat's trim, orange
+    # (user 2026-11-26: his clothes "an orange and light grey mix" on the walker as on the front): the navy coat and
+    # trousers (8 light navy, 6 navy) light grey, the trim orange
+    pal[8], pal[6] = (208, 208, 214), (150, 150, 160)
     pal[2], pal[3], pal[1] = (92, 108, 184), (56, 70, 140), (30, 38, 86)       # dark blue hair
     return idx, pal
 

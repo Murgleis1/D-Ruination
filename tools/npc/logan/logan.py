@@ -89,7 +89,12 @@ def logan_114():
     a[hair5] = 14
     pal = list(pal)
     pal[7], pal[10], pal[14] = (118, 136, 210), (84, 100, 176), (52, 64, 132)   # Logan's dark blue
-    return a, pal
+    # (user 2026-11-26: "change their clothes color on both overworld and front battle sprite to an orange and light
+    # grey mix and flip the front battle sprite horizontally to make his pose more unique than monomyth's"):
+    # the blue coat and trousers (1 light, 3 mid, 4 dark) light grey; his orange sash and trim kept and warmed
+    pal[1], pal[3], pal[4] = (208, 208, 214), (156, 156, 166), (92, 88, 96)
+    pal[8] = (236, 132, 44)
+    return a[:, ::-1].copy(), pal                            # flipped
 
 
 if __name__ == '__main__':

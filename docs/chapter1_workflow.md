@@ -551,6 +551,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   could not be checked there). Logan's front = 114 with the hair (7, 10 and the hair's brown outline, moved to free
   slot 14) in the walker's dark blue; coat, sash and skin kept. `logan_front_v2.png`, `tools/npc/logan/out/
   logan_front.png`.
+  **Scholar Logan** (user: "Scholar Logan is good. I think you need to change their clothes color on both overworld
+  and front battle sprite to an orange and light grey mix and flip the front battle sprite horizontally"): class
+  **Scholar**; front: coat and trousers light grey, the orange sash and V trim warmed, flipped; walker: the navy coat
+  and trousers light grey, the gold trim orange. `logan_front_v3.png`, `students_v3.png`.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
