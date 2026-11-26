@@ -473,4 +473,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   the cloth's two slots charcoal; the belt's band (rows 29-30) and a tail at his right hip oxblood on slot 14 (freed
   by folding the trousers' two near browns into one). Walker: the cloth charcoal, the belt row oxblood.
   `marauder_fronts_v3.png`, `marauder_walkers_v3.png`.
+- **Pelluca's townsfolk are walkers only** (2026-11-26): every human object event in Pelluca is a plain NPC
+  (`TRAINER_TYPE_NONE`), so commoners, children, students, the cook, barkeep and healer need no fronts. Candidates
+  from Fantasma's own townsfolk (`tools/npc/townsfolk/cands.py`, `assets/npc_survey/townsfolk_cands_v1.png`):
+  commoner men 113, 150, 156 (alts 115, 155, 268, 270, 102); women 48, 49, 123, 125 (alts 51, 60, 61, 120); children
+  36 and 42 (alts 37, 104, 44, 56, 58); Academy students 108-111 (a purple uniform and cap: the Empire's colour);
+  cook / barkeep 254-256 (chef's cap); healer 137-140 (a nurse's cap: its cross to be redone). The cooks and healers
+  have three frames only (stationary NPCs in Fantasma), which suits a barkeep, cook and healer.
 
