@@ -266,8 +266,8 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   pauldron's dark plate and an outline; **black hair and brows** ("why didn't you just make his hair and eyebrows
   black?"): a first pass recoloured by palette slot and turned his bushy white brows (two rows, set straight on his
   black eye lines) and an eye white into one dark band ("racoon eye"); redone by feature: the hair black with dark
-  steel sheen, each brow a thin two-pixel stroke a row above its eye with skin between, the eye white kept, the grin
-  kept. **The Merchant** teal (not green), the hat's crown raised two rows (a capotain) with a red band (a plume read
+  steel sheen, each brow a thin two-pixel stroke a row above its eye with skin between, both eye whites kept ((29, 9)
+  and (24, 10); the user caught the second missing), the grin kept. **The Merchant** teal (not green), the hat's crown raised two rows (a capotain) with a red band (a plume read
   as a stick and was dropped), his face's shading moved off the coat's slots (it had turned teal), **flipped**
   ("his pose would look better"). **The old woman's gown brown.** **The Revenant**: a skull face (sockets with red
   pinpoints, nose cavity, hollow cheeks, teeth), rotted hair (bald patches, lank strands over the face, a ragged

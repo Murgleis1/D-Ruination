@@ -102,7 +102,7 @@ def officer_rework(idx):
     # row of skin between it and the eye; the rest of the old brow skin; the white of his right eye kept.
     BROW = {(23, 7): 6, (24, 7): 6, (27, 6): 6, (28, 6): 6}          # thin black strokes, a row above each eye
     BROW_TO_SKIN = [(23, 8), (24, 8), (26, 8), (27, 8), (27, 7), (28, 7), (29, 7)]   # the old bushy brows
-    EYE_WHITE = [(29, 9)]
+    EYE_WHITE = [(29, 9), (24, 10)]                                  # the right eye's white, the left eye's
     FACE = (23, 31, 5, 16)                                            # x0, x1, y0, y1: brows and eyes live here
     for (x, y), v in BROW.items():
         idx[y, x] = v
