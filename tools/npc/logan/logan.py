@@ -78,7 +78,7 @@ def tunic(a):
     sprite"): the gi's crossed lapels (the orange V, 8, rows 16-30) become plain tunic cloth (1; an orange trim along
     the collar read as the lapel again, so the neck is left plain); the tied sash and its hanging tails become a leather belt (5,
     rows 34-35, an orange buckle at its middle) with the tails gone (8/5 below it to coat shade 3); the coat runs on
-    as a tunic skirt to row 43, hemmed in orange at row 44; the trousers below stay the same light grey. Coordinates
+    on below the belt in the same light grey as the trousers (no hem line). Coordinates
     are MonoMyth 114's own, before the flip."""
     a = a.copy()
     v = np.zeros_like(a, bool); v[16:31] = True
@@ -104,9 +104,7 @@ def tunic(a):
     # "what is this", of a U of dark lines left where only their colours had been taken out the first time)
     strip = np.zeros_like(a, bool); strip[37:45, 26:34] = True
     a[strip & np.isin(a, (8, 5, 2, 4, 3))] = 1               # plain cloth, as the skirt round it
-    for x in range(20, 43):                                  # the hem
-        if a[44, x] in (1, 3, 4, 2) and a[44, x - 1] != 0 and a[44, x + 1] != 0:
-            a[44, x] = 8
+    # (no hem line: user, of an orange line drawn across at row 44, "why did you draw a line here????")
     # trousers: the tunic's own light grey, as before the tunic rework (user: "The pants are not supposed to be two
     # toned at all. look at your original"; a brown pair under the grey tunic had read as two-tone)
     return a
