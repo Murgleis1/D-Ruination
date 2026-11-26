@@ -115,7 +115,7 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    `[OPEN]` his questions (subject and count per meeting) and his teams.
    Battle front: MonoMyth's post-game Monty (front 114) with Logan's dark blue hair, **flipped**, his clothes **light grey
    with orange**, re-cut from MonoMyth's karate gi into a **tunic** (light grey, orange hem, leather belt with an orange
-   buckle, brown trousers) (user 2026-11-26). **Trainer class: Scholar** ("Scholar Logan").
+   buckle, trousers the same light grey) (user 2026-11-26). **Trainer class: Scholar** ("Scholar Logan").
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 

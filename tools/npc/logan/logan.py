@@ -78,7 +78,7 @@ def tunic(a):
     sprite"): the gi's crossed lapels (the orange V, 8, rows 16-30) become plain tunic cloth (1; an orange trim along
     the collar read as the lapel again, so the neck is left plain); the tied sash and its hanging tails become a leather belt (5,
     rows 34-35, an orange buckle at its middle) with the tails gone (8/5 below it to coat shade 3); the coat runs on
-    as a tunic skirt to row 43, hemmed in orange at row 44; below it, trousers in brown (1 -> 5, 3 -> 6). Coordinates
+    as a tunic skirt to row 43, hemmed in orange at row 44; the trousers below stay the same light grey. Coordinates
     are MonoMyth 114's own, before the flip."""
     a = a.copy()
     v = np.zeros_like(a, bool); v[16:31] = True
@@ -100,23 +100,15 @@ def tunic(a):
     for y in range(33, 37):
         for x in range(29, 32):
             a[y, x] = 2 if (x == 30 and y in (34, 35)) else 8
-    strip = np.zeros_like(a, bool); strip[37:45, 26:33] = True
-    was = strip & np.isin(a, (8, 5))
-    a[was] = 3
-    for y, x in zip(*np.where(strip & (a == 2))):
-        n = sum(was[y + dy, x + dx] for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0)))
-        if n >= 2:
-            a[y, x] = 3
+    # the sash's hanging tails, rows 37-44 between x 26 and 33: their colours AND their outlines go to cloth (user:
+    # "what is this", of a U of dark lines left where only their colours had been taken out the first time)
+    strip = np.zeros_like(a, bool); strip[37:45, 26:34] = True
+    a[strip & np.isin(a, (8, 5, 2, 4, 3))] = 1               # plain cloth, as the skirt round it
     for x in range(20, 43):                                  # the hem
-        if a[44, x] in (1, 3, 4):
+        if a[44, x] in (1, 3, 4, 2) and a[44, x - 1] != 0 and a[44, x + 1] != 0:
             a[44, x] = 8
-    # trousers (user: "his pants are weirdly two tone"): one brown ramp, close in value, light (1) on 5 and the
-    # coat's mid and dark (3, 4) together on the free slot 15; 5 itself, his shoes and a few collar pixels, is taken
-    # from MonoMyth's orange-brown to a plain mid brown in logan_114
-    legs = a[45:]
-    src = legs.copy()
-    legs[src == 1] = 5
-    legs[(src == 3) | (src == 4)] = 15
+    # trousers: the tunic's own light grey, as before the tunic rework (user: "The pants are not supposed to be two
+    # toned at all. look at your original"; a brown pair under the grey tunic had read as two-tone)
     return a
 
 
@@ -142,7 +134,7 @@ def logan_114():
     # the blue coat and trousers (1 light, 3 mid, 4 dark) light grey; his orange sash and trim kept and warmed
     pal[1], pal[3], pal[4] = (208, 208, 214), (156, 156, 166), (92, 88, 96)
     pal[8] = (236, 132, 44)
-    pal[5], pal[15] = (124, 86, 60), (94, 64, 46)            # trousers (and shoes) brown
+    pal[5] = (124, 86, 60)                                   # shoes and collar edge: plain brown
     return a[:, ::-1].copy(), pal                            # flipped
 
 

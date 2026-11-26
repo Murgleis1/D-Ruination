@@ -566,6 +566,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   34-35 near-black across the waist, a 3x4 orange-gold buckle frame with a dark centre. Trousers on one close brown
   ramp (light on 5, the mid and dark together on 15) instead of MonoMyth's wrinkle pattern in two far-apart browns;
   the gi's brown fold shading on his chest taken to the cloth's grey shade. `logan_front_v5.png`.
+  Then (user: "The pants are not supposed to be two toned at all. look at your original And again....what is this"):
+  the trousers back to the tunic's light grey, one colour head to foot as in the grey version; and the U of dark
+  lines in the middle of the tunic skirt, the outline of the gi sash's hanging tails, left when only the tails' colours
+  had been removed, taken out too (rows 37-44, x 26-33, all to plain cloth). `logan_front_v6.png`.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
