@@ -391,4 +391,17 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Old woman approved (user 2026-11-26: "the old woman looks perfect now in all ways").**
 - **Witch hat all green** (user: "on her front sprite her hat is completely green ... you have a black banner with a
   star emblem"): MonoMyth 87's dark band and yellow star recoloured to the hat's greens on the hat rows only.
-  `women_walkers_v6.png`.  `assets/npc_survey/fisher_walker_hat_v3.png`.
+  `women_walkers_v6.png`.
+- **Merchant and Revenant walkers on their own characters' sprites** (user 2026-11-26: "the merchant's overworld
+  sprite is the main male character choice in the post-game of monomyth, and the revenant is your main character
+  you play as, the ghost Lorenzo in Fantasma"). `tools/npc/walkers/merchant_revenant.py`,
+  `assets/npc_survey/merchant_revenant_walkers_v1.png`.
+  - **Merchant on MonoMyth 70** (the post-game hero: wide brown hat, gold band, blue hair, gold coat): hat dark teal
+    with a red band, hair chestnut, coat teal, trousers brown, tie and boots dark teal, as the recoloured front.
+    MonoMyth 70 had been pencilled in for the farmer; the farmer needs another base.
+  - **Revenant on Fantasma 545 = Lorenzo.** Fantasma's player sets share palette tag 4409 (entries 537-545: walk,
+    run, bike, fishing...); 545 is the plain walk set. Its frames are 32x32 with the figure in columns 9-22, so the
+    walker is columns 8-23 of each. Recoloured to the front's icy ramp: bone-blue face with dark sockets over the red
+    eyes and a dark nose, navy-black hair and coat, the strap a dark fold, the misty legs icy blue.
+  - Finding a Fantasma walker by its front: rank the walker palettes by how many of the front's colours they
+    contain (Lorenzo's tag came top), then read that tag's entries.  `assets/npc_survey/fisher_walker_hat_v3.png`.
