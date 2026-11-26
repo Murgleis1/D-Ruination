@@ -61,8 +61,58 @@ def split(idx, row, above, below, top0=None):
         remap(sub[r:], below)
 
 
+def add_steps(idx, outline):
+    """Draw stepping frames for a walker that has none (Fantasma 133 and 142: their walk entries point back at the
+    standing frames, so in Fantasma they glide). Fantasma's own convention, read off its walkers that do step (262,
+    231): the whole figure drops a row, and
+      south/north: one foot steps in under the body (that foot's half of the bottom three rows moves a column
+                   inward) while the other lifts out of sight behind the hem; the two walking frames are mirror
+                   images (left foot, right foot);
+      west:        the stride: the front foot a column forward, the back foot a column back; in the second frame
+                   the front foot is lifted a row instead.
+    `outline` closes the cut edges."""
+    fr = frames(idx)
+    for base, pair in ((0, (3, 4)), (1, (5, 6)), (2, (7, 8))):
+        src = fr[base].copy()
+        bottom = max(y for y in range(32) if src[y].any())
+        for k, dst in enumerate(pair):
+            out = np.zeros_like(src)
+            out[1:] = src[:-1]                                 # the figure drops a row
+            b = bottom + 1
+            feet = out[b - 2:b + 1].copy()
+            out[b - 2:b + 1] = 0
+            xs = [x for x in range(16) if feet[:, x].any()]
+            c = (min(xs) + max(xs) + 1) // 2
+            if base in (0, 1):
+                keep = range(0, c) if k == 0 else range(c, 16)
+                dx = 1 if k == 0 else -1
+                for y in range(3):
+                    for x in keep:
+                        if feet[y, x] and 0 <= x + dx < 16:
+                            out[b - 2 + y, x + dx] = feet[y, x]
+                    row = [x for x in range(16) if out[b - 2 + y, x]]
+                    if row:                                    # close the cut side with the outline
+                        edge = max(row) + 1 if k == 0 else min(row) - 1
+                        if 0 <= edge < 16 and out[b - 2 + y, edge] == 0 and y < 2:
+                            out[b - 2 + y, edge] = outline
+            else:
+                for y in range(3):
+                    for x in range(16):
+                        v = feet[y, x]
+                        if not v:
+                            continue
+                        if x < c:                              # the front foot (he faces west)
+                            nx, ny = (x - 1, y) if k == 0 else (x, y - 1)
+                        else:
+                            nx, ny = x + 1, y
+                        if 0 <= nx < 16 and out[b - 2 + ny, nx] == 0:
+                            out[b - 2 + ny, nx] = v
+            fr[dst][:] = out
+
+
 def old_man():
     idx, pal = load('fa_133')
+    add_steps(idx, 7)
     split(idx, 22, {}, {4: 10})                                 # waistcoat to the darkest green
     split(idx, 28, {}, {12: 3, 13: 4})                         # the shoes brown
     pal[8], pal[9], pal[10] = (132, 152, 112), (94, 116, 84), (64, 82, 60)       # green tweed
@@ -95,6 +145,7 @@ def priest():
 
 def adventurer():
     idx, pal = load('fa_142')
+    add_steps(idx, 15)
     split(idx, 18, {9: 5, 10: 6, 8: 7}, {})                    # hat: tan, red band
     split(idx, 21, {}, {4: 14})                                 # under the vest: beige linen
     pal[5], pal[6], pal[7] = (208, 176, 96), (168, 144, 96), (150, 50, 46)

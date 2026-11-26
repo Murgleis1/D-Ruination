@@ -428,4 +428,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   - **Fantasma 133 and 142 have no stepping frames**: their image tables are per-frame {data, size} and entries 3-8
     point back at the three standing frames. `fa_walker.py` now reads that format entry by entry (it had read them
     as one sheet and picked up other walkers' frames); the sheet format is told apart by the flag in its size word
-    (0x10100). Earlier walkers re-extract byte-identical. If these two must walk, they need stepping frames drawn.
+    (0x10100). Earlier walkers re-extract byte-identical.
+  - **Stepping frames drawn for the old man and the Adventurer** (user: "they must have some kind of walking
+    animation ... they walk up to you before the trainer fight starts"). `townsfolk.add_steps`, after Fantasma's
+    own stepping walkers (262, 231): the figure drops a row; south/north, one foot's half of the bottom three rows
+    steps a column inward and the other lifts behind the hem (the two frames mirror images); west, the front foot
+    a column forward and the back foot a column back, then the front foot lifted a row.
+    `townsfolk_walkers_v2.png`, `steps_walk_v1.gif`.
