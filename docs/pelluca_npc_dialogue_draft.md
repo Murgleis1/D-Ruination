@@ -38,3 +38,40 @@ sentences at most. *(flavour)* = a small detail the bible does not state, sittin
 - **Student A:** Master Orphel calls on whoever looks least ready. I make a point of always looking ready.
 - **Student B:** Master Orphel took top honours in the Headmaster's first class. He's the last of House Orphel, and all that old name rests on him alone.
 - **Student C:** I still can't see why a Ghost shrugs off a Normal blow. They say Baron Kimaris coos at his Spiritomb like a babe in swaddling. Can that be true of a Reserve Champion?
+
+## Academy library: the bookshelves (new; user 2026-11-26)
+Eighteen bookcases (three banks of three each side, rows 2-3, 6-7 and 10-11), read from the row below facing up, plus
+the reading stand at (10, 3). Books may run longer than NPC lines (four to six sentences), but stay at what the
+Empire's scholars know: the fairy-tale founding, never the hidden truth. Each bank keeps a subject.
+
+**Top left: the founding**
+1. *The Founding of Cormoria.* In the age before the Empire, when the tribes still wandered, a great darkness fell upon the land. A tribesman named Cormor went out against it with the beast Keerin at his side, and the darkness was driven from the world. From that deed he raised a kingdom, and the kingdom took his name. ¶ Someone has written in the margin, in a cramped hand: "Proof?"
+2. *The Legacy of Cormor.* The old tales tell of three stones, the Legacy of Cormor, brought together in the hour of the darkness. What became of them after, no two tellers agree. Some say they were scattered to the corners of the realm, some that the House of Cormoria keeps them still.
+3. *Of the Concordance.* The great Houses of the old days bent the knee to Cormor on one condition: that the making of laws stay with them. So was the Nobility Concordance born. No ruler since has governed without its leave, and the scholars count this the true reason the Empire has stood so long.
+
+**Top right: faith**
+4. *The Order of the Templars.* The Templars serve Arceus in every city of the Empire. They keep the Taverns, where any traveller may eat, rest and see their Pokémon mended, and their riders bear folk between the cities on Braviary. Cormoria alone among the nations holds Arceus first and highest. ¶ Abroad, most peoples deny that Arceus exists at all.
+5. *On Names.* A House name is a sacrament, granted by the royal line alone in Arceus's sight, and no other may give one. Once only has the Crown suffered a name it did not give: the Ninth Trial's Baron, a Sinnohian orphan raised to Dawnstar, keeps his birth name Korolev by the Empress's own leave. Some of the old Houses have never forgiven it.
+6. *The Faiths of the West.* Kanto and Johto are each ruled by a single great family, whose priests hold the throne's ear and whose law is their gods' law. They will not hear of Arceus. It was Kanto that took the Sevii Isles from Cormorian settlers, and the war that followed has never truly ended. *(canon: §16.6 item 11)*
+
+**Middle left: the Houses**
+7. *The Great Houses and Their Arts.* Each of the old Houses keeps an art handed down the generations: Moray the mind, Nightfall the dark, Langerin the dead, Ashland the flame, Raptora the sky, Surge the storm, Alban the green. The Langerins keep the great Necropolis on Mt. Mirroh. The Ashlands came from a land far to the south and dwell inside Mt. Ceram itself.
+8. *The Fall of House Jalviss.* House Jalviss delved deeper than any other and found the first Mega Stones in Cormoria. Their last delving woke a beast that had slept since before the Empire, and in one night the House was no more. Since then the law permits Mega Evolution only to those the Crown sanctions. The Jalviss ruins stand empty still, and few will go near them.
+9. *The Solomonar.* The title of Solomonar is older than the Empire and is given only for true mastery of dragons. Cormor himself granted it once, in the third century of his reign. The name of that first Solomonar is lost; all that is remembered is that a Haxorus of rare colour fought at his side. None has held the title since.
+
+**Middle right: arms**
+10. *Ranks of the Imperial Army.* Cadet, Lieutenant, Strategos, Windshear, Rainhawk, Tarasque, Dawnstar. Nine soldiers in ten never rise above Strategos. A Rainhawk is a soldier the Empire is watching, for from that rank come the Trial Barons, the guild masters and the founders of new Houses.
+11. *The Sinnoh Dispute.* Thirty years past, a quarrel over the border with Sinnoh came to blows, and many Sinnohian children were left without kin. The Empire took them into its military orphanages and raised them as its own. More than a few serve in the army today, and one rose higher than any soldier in living memory.
+12. *The Sevii Settlement.* Cormorian settlers tilled the Sevii Isles for generations, until Kanto came and took them. Johto and Hoenn joined Kanto against the Empire, envying its riches and fearing its strength. The fighting on the Sevii beaches was the bitterest of the war.
+
+**Bottom left: strange things**
+13. *Justice.* The guardian of the royal House is held to be a demigod, a form of the Ralts line found by Cormor in a chamber of strange metal. Philosophers have studied it for centuries. In all that time, no egg in the Empire has ever hatched its like.
+14. *Hauntings of the West.* Ghost Pokémon gather about Hollow Hill as moths about a lamp, and none can say why. The fog there never fully lifts, and woodsmen tell of voices in it. The Langerins of Mt. Mirroh are called on when the lesser priests cannot quiet the dead.
+15. *Of Dragons.* Dragons are scarce in Cormoria, and have been as long as records go back. Some blame the desert clans of Seregmorn, who are said to hunt them. Whatever the cause, a dragon-tamer in the Empire is a rarer thing than a Vizier.
+
+**Bottom right: abroad and trade**
+16. *The Merchant Guilds.* Two guilds rule the Empire's trade. Sylphon & Stone deals in all a trainer needs, from balls and tonics to the hauling of Pokémon; Amber-Letz deals in bread, cloth and the goods of the household. ¶ A loose sheet of figures is tucked in the back. Someone has circled one sum in red ink and written beside it: "Where?"
+17. *A Traveller's Account of Athanto.* Far over the sea lay the kingdom of Athanto, whose healers made the mending masks prized in every land. Its people sang a hymn they called the Song of Athanto, and its northern fortresses were older than any in Cormoria. ¶ A newer hand has added at the end: "The kingdom fell in the year before last. This book may be all we ever know of it."
+18. *Paldea.* Paldea is a young empire and a poor one. A Paldean is born a lord or a serf, and a serf may not learn his letters. Its envoys smile at the Cormorian court, but there is little love for the Empire in their country.
+
+**The reading stand (10, 3):** *The Academy's Charter.* Founded at Pelluca by Cadmus Umbra, Vizier of Education, under the Ministry of Education: the Eastern Charter Trainer Initiative. Here trainers shall learn to know their Pokémon before they learn to wield them.
