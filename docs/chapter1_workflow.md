@@ -407,3 +407,25 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
     "I'll take your word for it"; 70 is the gold-coat hero's only walk set: his 201 poses share the colours).
   - Finding a Fantasma walker by its front: rank the walker palettes by how many of the front's colours they
     contain (Lorenzo's tag came top), then read that tag's entries.  `assets/npc_survey/fisher_walker_hat_v3.png`.
+- **Walkers for the last seven classes** (user 2026-11-26, on `walker_bases_v1.png`; walkers match the RECOLOURED
+  fronts, user's choice). `tools/npc/walkers/townsfolk.py`, `assets/npc_survey/townsfolk_walkers_v1.png`.
+  - **Old man on Fantasma 133**, the suit and trousers the front's green tweed, the watch gold, shoes brown (user: "if
+    you're going to use Fantasma 133 ... recolor the overworld's shirt color to match his battle sprite").
+  - **Farmer on Fantasma 262** (wide hat, beard, overalls; user of 212: "does not match the battle sprite at all"):
+    hat straw, skin fair, beard brown, overalls green-grey wool, boots brown.
+  - **Templar priest on Fantasma 231**, robe white, the Order's blue at the stole, the **lower robe gold** (user:
+    "make sure the old man's pants area is gold like the front sprite"). His **front gets the gold lower robe too**
+    (recolour.py: skirt slot 10 gold, its shading from row 37 onto the orb's gold slot 12).
+  - **Adventurer on Fantasma 142**: hat tan with a red band, vest and hose red, linen under the vest, boots brown.
+  - **Labourer renamed Woodsman** (user). On **MonoMyth 7** (spiky red hair; MonoMyth 179, a bald man in glasses, was
+    wrong): hair and a drawn-in beard in the front's russet, vest dark leather, linen at the shoulders, trousers
+    slate, boots dark.
+  - **Minstrel on MonoMyth 0** (green turban with a white band, moustache, red coat: the front's own character; the
+    pencilled MonoMyth 199 turned out a faceless hooded figure): turban teal, coat mustard.
+  - **MonoMyth 30 is the Imperial Soldier** (user: "That's an Imperial Soldier...or an Officer if you think that
+    sounds better"; spear and furs read rank-and-file, leaving "Officer" for a more decorated design later). On
+    **MonoMyth 138** (the same white-haired warrior): hair black, uniform purple, fur gold.
+  - **Fantasma 133 and 142 have no stepping frames**: their image tables are per-frame {data, size} and entries 3-8
+    point back at the three standing frames. `fa_walker.py` now reads that format entry by entry (it had read them
+    as one sheet and picked up other walkers' frames); the sheet format is told apart by the flag in its size word
+    (0x10100). Earlier walkers re-extract byte-identical. If these two must walk, they need stepping frames drawn.

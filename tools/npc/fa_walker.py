@@ -19,8 +19,18 @@ ROMP = os.environ.get('FANTASMA_ROM', '/home/claude/fantasma/fantasma.gba')
 def sheet_bytes(d, images, size, frames):
     """The walker's frames: the images table's first entry points at its sheet, every frame size bytes, back to back;
     LZ77 or smol when compressed, else raw."""
-    p = struct.unpack_from('<I', d, images - 0x08000000)[0]
+    p, sz = struct.unpack_from('<II', d, images - 0x08000000)
     q = p - 0x08000000
+    if sz == size and frames > 1:
+        # a per-frame table {data, size}: each entry its own frame, raw. (Fantasma 133 and 142, 2026-11-26: entries
+        # 3-8 point back at the three standing frames, so these walkers have no stepping frames of their own; read as
+        # one sheet they had picked up other walkers' frames.) The sheet format carries a flag in the size word
+        # (0x10100), which is how the two are told apart.
+        out = b''
+        for k in range(frames):
+            pk, _ = struct.unpack_from('<II', d, images - 0x08000000 + 8 * k)
+            out += d[pk - 0x08000000:pk - 0x08000000 + size]
+        return out
     if d[q] == 0x10:
         b = ow_scan.lz77(d, q)
     else:

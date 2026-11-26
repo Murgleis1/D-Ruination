@@ -35,15 +35,17 @@ EDITS = {
     'FA_212': ('farmer', 'the denim overalls green-grey wool, the red hat straw', {
         4: (138, 146, 108), 6: (122, 130, 96), 7: (118, 126, 92), 12: (98, 106, 76), 10: (88, 94, 68), 13: (60, 64, 46),
         8: (186, 150, 86)}),
-    'MM_89': ('labourer / smith', 'the hair and beard dark brown, the vest leather, the sleeves linen, the trousers slate, the bead belt brass', {
+    'MM_89': ('Woodsman', 'the hair and beard dark brown, the vest leather, the sleeves linen, the trousers slate, the bead belt brass', {
         4: (120, 76, 52), 7: (72, 50, 42), 12: (100, 68, 50), 6: (92, 100, 118), 15: (62, 68, 84),
         13: (200, 184, 150), 9: (236, 224, 196), 14: (204, 164, 76)}),
     'MM_116': ('Merchant', 'the coat teal, the hat and collar with it, the hair chestnut; the hat\'s crown raised, a red band; flipped', {
         1: (96, 178, 176), 4: (46, 124, 128), 3: (26, 58, 62), 10: (66, 112, 116), 9: (92, 56, 40), 13: (150, 96, 60),
         14: (112, 80, 64)}),
-    'FA_110': ('monk / Templar priest', 'the robe white, the stole the Order\'s blue, the orb on the staff gold', {
-        10: (236, 236, 240), 13: (196, 200, 214), 11: (252, 252, 252), 5: (150, 166, 220), 6: (113, 129, 199),
-        7: (80, 94, 177), 12: (232, 192, 72)}),   # the stole on the nave runner's ramp, as the Templars
+    'FA_110': ('monk / Templar priest', 'the robe white, the lower robe gold, the stole the Order\'s blue, the orb on the staff gold', {
+        10: (240, 212, 120), 13: (196, 200, 214), 11: (252, 252, 252), 5: (150, 166, 220), 6: (113, 129, 199),
+        7: (80, 94, 177), 12: (200, 160, 72)}),   # the stole on the nave runner's ramp, as the Templars
+    # (user 2026-11-26: the lower robe gold, as on his walker: "make sure the old man's pants area is gold like the
+    # front sprite"; 10 is the skirt, its shading (13 from row 37) moves to the orb's gold, 12)
     'MM_68': ('minstrel', 'the turban and bag teal, the shirt mustard', {
         8: (96, 168, 184), 7: (64, 128, 152), 5: (40, 80, 104), 13: (232, 184, 72), 12: (184, 128, 48)}),
     'FA_14': ('witch', 'the hat and cloak moss green, the hair plum', {
@@ -355,7 +357,7 @@ if __name__ == '__main__':
                     p2[k] = c
                 save(idx2, p2, os.path.join(OUT, 'officer_%s.png' % opt))
                 save(idx2, p2, os.path.join(OUT, 'officer.png'))
-                tiles.append((before, rgba(idx2, p2), 'Imperial Officer: purple and gold, black hair'))
+                tiles.append((before, rgba(idx2, p2), 'Imperial Soldier: purple and gold, black hair'))
             continue
         role, note, ed = EDITS[name]
         p2 = list(pal)
@@ -367,6 +369,10 @@ if __name__ == '__main__':
             idx = sea_redress(name, idx)
         if name == 'MM_67':
             idx = bosun_scarf(idx)
+        if name == 'FA_110':
+            idx = idx.copy()
+            low = np.zeros_like(idx, bool); low[37:] = True
+            idx[low & (idx == 13)] = 12
         if name == 'FA_0':
             # the neckerchief (the reds from row 15 down) takes the sleeves' beige; the feather (rows 1-5) and his
             # cheeks and mouth (rows 9-13, the dark red) keep the reds (user 2026-11-25: "a red and beige mix of
