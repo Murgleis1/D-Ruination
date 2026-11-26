@@ -280,4 +280,16 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   brightness onto the cathedral nave runner's ramp (so its shading keeps its depth), skin and legs kept; on the front
   a brown crease colour joins the robe and the cord belt and creases that were brown become the Order's gold (the
   study's rug pairs the Order blue with gold), in a slot freed by merging two robe browns that land on the same blue.
-  The monk-priest's stole moved onto the same ramp. Mock: not installed until approved.
+  The monk-priest's stole moved onto the same ramp. **Approved (user 2026-11-25: "That's a good female templar")
+  and installed**: the existing Templar is the female; checked from the built ROM (front and overworld, pixels and
+  palettes match) and **in the emulator** (`tools/playtest/templar_blue_check.py`: Pelluca's north road guard, 0 of
+  186 pixels differ; `assets/npc_survey/ingame_templar_blue.png`), after regenerating the save-state chain (a state
+  from the build before froze the player: the new graphics shift the ROM). **The male Templar** (user: "Here is the
+  male variant one that should be recolored blue properly"; the user's trainer322 front and trchar322 overworld,
+  `tools/npc/templar/male/user_*.png`; the overworld 16x32 frames, our cast's size): mock v1
+  (`tools/npc/templar/male/male.py`, `assets/npc_survey/templar_male_v1.png`): the coat and trousers the Order's navy
+  (by brightness, as the female), the round shield's face the Order blue with its spokes and boss gold (the chest
+  pattern within it blue and gold too, a tabard), the staff with its flame, his blond hair and skin as drawn; the
+  front fitted to 64x64 by `fit64_phased` (`tools/npc/sword_cult/sword_cult.py`: nearest sampling at the phase that
+  keeps the most coloured pixels; a plain shrink had dropped the staff's one-pixel wood line and left its two
+  outlines touching), 15 colours; the overworld as Emerald's 9 frames.

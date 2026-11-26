@@ -218,6 +218,34 @@ def board(items, path, scale=3):
     return c
 
 
+def fit64_phased(a, steps=10):
+    """As fit64 (crop to the figure, shrink to fit 64x64 whole, bottom-aligned), but nearest sampling at the phase
+    (sub-pixel offset of the sample grid, per axis) that keeps the most coloured (non-outline) pixels: a plain
+    shrink can drop the one-pixel colour line of a thin thing (a staff: outline, wood, outline) and leave two
+    outlines touching (the male Templar's staff, 2026-11-25)."""
+    ys, xs = np.nonzero(a[..., 3])
+    a = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    h, w = a.shape[:2]
+    s = min(64 / h, 64 / w, 1.0)
+    if s >= 1:
+        return fit64(a)
+    nh, nw = max(1, round(h * s)), max(1, round(w * s))
+    colour = (a[..., 3] > 0) & (a[..., :3].max(-1) > 24)
+    best = None
+    for py in range(steps):
+        for px in range(steps):
+            ry = np.minimum(h - 1, ((np.arange(nh) + py / steps) / s).astype(int))
+            rx = np.minimum(w - 1, ((np.arange(nw) + px / steps) / s).astype(int))
+            score = int(colour[np.ix_(ry, rx)].sum())
+            if best is None or score > best[0]:
+                best = (score, ry, rx)
+    _, ry, rx = best
+    out = a[np.ix_(ry, rx)]
+    c = np.zeros((64, 64, 4), np.uint8)
+    c[64 - nh:, (64 - nw) // 2:(64 - nw) // 2 + nw] = out
+    return c
+
+
 def ow9(a, cw, ch):
     """Essentials 4x4 (rows down, left, right, up; columns stand, step, stand, step) -> Emerald's 9 frames:
     S, N, W, walk S x2, walk N x2, walk W x2."""
