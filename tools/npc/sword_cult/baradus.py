@@ -1,4 +1,7 @@
-"""Baradus in Sword Cult colours: icy sky-blue glasses and trim on his black coat (user 2026-11-25).
+"""Baradus in Sword Cult colours: icy sky-blue glasses (user 2026-11-25).
+
+DECIDED (user 2026-11-25): option A, the glass ice blue, frames as they are; NO trim on his clothes ("only the
+glasses area ... should have the blue"). The trim rules below are kept but no longer applied.
 
 One set of rules for every asset, so they agree:
   * glasses: option A tints the lenses ice (frames as they are); option B makes the frames ice (lenses dark)
@@ -105,31 +108,30 @@ def split_lenses(pts):
 # ---- per-asset geometry (read from the index dumps, 2026-11-25) ----
 
 def glasses_front(idx):
-    """64x64 front: the glasses are the dark band at rows 8-9. Row 8 is the black top line (as on the
-    portraits: the rim under his hair stays black); the glass is row 9 (x 26-27 and 30-32). The frame is the
-    bridge (28-29, 8) and the temple ends (25, 8), (33, 8). Returns (glass, frame)."""
-    glass = [(26, 9), (27, 9), (30, 9), (31, 9), (32, 9)]
+    """64x64 front, from the user's paint (2026-11-25, fitted at 1.83x): the glasses band is rows 8-9 (row 7 is
+    his brows, row 10 skin); the glass is the left lens x 26-27 and the right lens x 30-32 (his head is turned,
+    so the far lens is narrower); the bridge (28-29, 8) stays dark. Returns (glass, frame)."""
+    glass = [(x, y) for y in (8, 9) for x in (26, 27, 30, 31, 32)]
     frame = [(25, 8), (28, 8), (29, 8), (33, 8)]
     return glass, frame
 
 
+OW_FACING = {0: 'S', 3: 'S', 4: 'S', 2: 'W', 7: 'W', 8: 'W'}
+
+
 def glasses_ow(idx):
-    """Overworld, each face frame: the glasses are two rows holding F (15, black) over A (10). The F row is the
-    black top line; the glass is the A pixels; the frame is the index-3 pixels on those two rows."""
+    """Overworld, from the user's paint of the south frame (2026-11-25, matched pixel for pixel): two 3x2 lenses
+    at x 4-6 and 8-10 on the glasses' two rows (the old 1-px glass, its frame pixels and the outer grey), the
+    bridge x 7 left dark. The west frames show one lens, 2x2 at x 4-5. The glasses' top row is the row holding
+    the black F (15). Returns (glass, frame)."""
     glass, frame = [], []
-    for f in range(9):
+    for f, facing in OW_FACING.items():
         sub = idx[:, f * 16:(f + 1) * 16]
-        top = [y for y in range(16, 25) if (sub[y, 2:14] == 15).any()]
-        if not top:
-            continue
-        rows = (top[0], top[0] + 1)
-        for y in rows:
-            for x in range(2, 14):
-                v = sub[y, x]
-                if v == 10 and y == rows[1]:
-                    glass.append((f * 16 + x, y))
-                elif v == 3:
-                    frame.append((f * 16 + x, y))
+        top = [y for y in range(16, 25) if (sub[y, 2:14] == 15).any()][0]
+        xs = (4, 5, 6, 8, 9, 10) if facing == 'S' else (4, 5)
+        for y in (top, top + 1):
+            for x in xs:
+                glass.append((f * 16 + x, y))
     return glass, frame
 
 
@@ -198,24 +200,7 @@ def apply(rel, option):
     else:
         lens, frame = glasses_portrait(idx, pal)
         skin, top = [k for k in range(16) if pal[k][0] > 90 and pal[k][0] - pal[k][2] > 40], 64
-    tm = trim_mask(idx, pal, skin, coat, top)
-    if name == 'ow':                                        # per frame: the collar starts below the neck
-        tm[:] = False
-        for f in range(9):
-            sub = idx[:, f * 16:(f + 1) * 16]
-            g = [y for y in range(16, 25) if (sub[y, 2:14] == 15).any()]
-            t = g[0] + 3 if g else 23
-            m = trim_mask(sub, pal, skin, coat, t)
-            m[t + 2:] = False                               # collar only: cuffs at 16 px read as gloves
-            m[:, :4] = False
-            m[:, 12:] = False                               # the neck's columns, not a swinging hand
-            tm[:, f * 16:(f + 1) * 16] = m
-    if name == 'front':                                     # the hem where the coat ends
-        for x in range(25, 36):
-            if idx[38, x] in coat:
-                tm[38, x] = True
     paint = {}
-    paint.update(shade_trim(idx, tm, pal))
     if option == 'A':
         if name == 'ow':
             for f in range(9):

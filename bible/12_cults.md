@@ -189,7 +189,7 @@ Per Section 7 — Nemo Korolev: **Nemo's interception of Ting-Lu is the single a
 - Across the game: hunts "the Usurper" (Nemo Korolev), penetrates Cormorian high society through Silas, manipulates Empress Pierra through Silas's psychic powers, slowly destabilizes the empire from within while preparing the Chien-Pao incarnation
 - Aesthetic: bladed weapons, blood-and-snow imagery, vengeance theology, anti-Arceus/anti-Calyrex creed
 - `[OPEN]` Geographic stronghold (the secret HQ where they hold Nemo captive late-game)
-- **Colours `[LOCKED user 2026-11-25]`: black with icy sky-blue trim** (fitting Baradus's Ice signature), "a very smooth and clear color mix." The acolytes, the masked Cardinals and **Baradus's own clothes** all wear it; Baradus's sunglasses go sky blue too, to stand out from his black hair, beard and coat (lenses or frames: being chosen).
+- **Colours `[LOCKED user 2026-11-25]`: black with icy sky-blue trim** (fitting Baradus's Ice signature), "a very smooth and clear color mix." The acolytes and the masked Cardinals wear it, and Baradus dresses in the cult's black; Baradus's sunglasses have **sky-blue lenses** (frames as they were), to stand out from his black hair, beard and coat; **his clothes stay plain black, no trim** (user 2026-11-25).
 - **Ranks `[user 2026-11-25]`: acolytes** (the rank and file; hooded black robes, ice piping) and **Cardinals**, masked, who serve directly under the cult leaders such as Baradus (the Mt. Mirroh summit boss is one). Sprites: the user's masked villain for the Cardinals and trainer030 for the acolytes, recoloured (`tools/npc/sword_cult/`).
 
 ### Beads Cult (Chi-Yu) — Active, Weakened, Goma-Led `[LOCKED]`

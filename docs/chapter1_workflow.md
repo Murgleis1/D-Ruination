@@ -202,3 +202,13 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   overworld the F row the line, the A pixels the glass, index 3 the frame. Two options mocked: **A** ice glass (frames
   as they are), **B** ice frames (glass black). The overworld takes the collar only (cuffs at 16 px read as gloves).
   Mock only: nothing installed yet.
+- **Baradus decided (user 2026-11-25): glasses option A** ("Glasses A is correct on the glasses part of his
+  portrait": the glass ice blue, frames as they are) and **no trim on his clothes** ("Only the glasses area you did
+  should have the blue"; taken off all five assets, as the user's own paints of the overworld and front carry none).
+  **The user painted the overworld and front as targets** ("just cleaner than what I did"), matched to the sprites
+  pixel for pixel (the overworld paint at 28 px a pixel, mean error 4; the front at 1.83x, error 7): **overworld,
+  two 3x2 lenses at x 4-6 and 8-10 on the glasses' two rows** (the old 1-px glass, its frame and the outer grey),
+  the bridge x 7 dark, the west frames one 2x2 lens at x 4-5; **front, rows 8-9 (row 7 his brows), left lens x 26-27,
+  right x 30-32**, the bridge dark. Each lens: a light pixel top-left, the top row light ice, the bottom row deeper,
+  as the portraits. Mock v2: `tools/npc/sword_cult/board_baradus_v2.py`, `assets/npc_survey/baradus_glasses_v2.png`,
+  `baradus_glasses_v2_close.png`. Not installed yet.
