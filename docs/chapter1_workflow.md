@@ -385,4 +385,6 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   Fantasma's own little old woman (short stooped shape, shoulder hair, clear face). White hair (a touch of grey for
   form), tan shawl with cream lights, brown gown, spectacles removed (lenses to skin, each lens's top row a
   squinting eye), and a wide-brimmed brown hat: crown 8 wide with a dark band carrying a rose and a cream bloom, the
-  brim the full 16 px with sagging tips. `women_walkers_v4.png`.  `assets/npc_survey/fisher_walker_hat_v3.png`.
+  brim the full 16 px with sagging tips. `women_walkers_v4.png`.
+  Then (user: "the hat needs to cover more of the old lady's head"): the hat set down 2 rows, the crown over the
+  top of her hair and the brim's lip on her forehead; hair shows only at the sides. `women_walkers_v5.png`.  `assets/npc_survey/fisher_walker_hat_v3.png`.

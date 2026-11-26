@@ -52,9 +52,11 @@ def old_woman():
         top = min((y for y, x in lens), default=None)
         for y, x in lens:
             sub[y, x] = 15 if y == top else 2
-        # the hat
-        t = min(y for y in range(32) if sub[y].any())          # the top of her head
-        xs = [x for x in range(16) if sub[t + 3, x] != 0]
+        # the hat (user 2026-11-26: "the hat needs to cover more of the old lady's head"): set DOWN 2 rows from the
+        # top of her head, so the crown swallows the top of her hair and the brim's lip sits on her forehead
+        top = min(y for y in range(32) if sub[y].any())        # the top of her head
+        xs = [x for x in range(16) if sub[top + 3, x] != 0]
+        t = top + 2                                            # the brim's row
         c = (min(xs) + max(xs) + 1) // 2                       # head centre
         l, r = c - 4, c + 3                                    # crown 8 wide
         for x in range(l + 1, r):
