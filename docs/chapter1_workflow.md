@@ -466,5 +466,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   `marauder_fronts_v2.png`.
 - **Class names are 12 characters at most** (`struct TrainerClass` name[13]): "Marauder Goon" (13) and "Marauder
   Chief" (14) did not fit. **Decided (user 2026-11-26): the male goon is a "Goon", the female one a "Bandit", the
-  chief a "Marauder"** (the gang as a whole are still the Marauders). Eden's "Brigand" class: still open.
+  chief a "Marauder"** (the gang as a whole are still the Marauders). **Eden is unrelated** (user: "Eden has nothing
+  to do with these three trainer classes. They are all just bandits who are like the gangsters of Empire-era
+  Cormoria, common thugs"): her Brigand class stays as it is.
+- **Goon: face cloth charcoal, the oxblood on a sash** (user: "The male goon should be charcoal on a sash"). Front:
+  the cloth's two slots charcoal; the belt's band (rows 29-30) and a tail at his right hip oxblood on slot 14 (freed
+  by folding the trousers' two near browns into one). Walker: the cloth charcoal, the belt row oxblood.
+  `marauder_fronts_v3.png`, `marauder_walkers_v3.png`.
 

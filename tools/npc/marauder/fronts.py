@@ -2,7 +2,7 @@
 gangs to invade towns. Three fronts, from the user's picks on marauder_cands_v1.png. Class names (user 2026-11-26): the male goon is a
 **Goon**, the female one a **Bandit**, the chief a **Marauder** (the gang as a whole are the Marauders).
   Goon (male)            <- MonoMyth 91, the bald thug: tank top to an undyed linen shirt, camo trousers to brown
-                            leather, the camo face cloth to the gang's oxblood
+                            leather, the camo face cloth charcoal, an oxblood sash over his belt
   Bandit (female)        <- Fantasma 113, the black-clad rogue: the purple top and gloves oxblood, the pink streak in
                             her hair oxblood, black kept, the belt brass
   Marauder (the chief)   <- Fantasma 151, the bald brute (user: "get rid of his bike, center him and give him a
@@ -40,9 +40,20 @@ def goon_m():
     idx, pal = load('MM_91')
     remap(idx[13:], {2: 15, 3: 15})                         # below the head: the darks onto a free slot
     remap(idx[31:], {7: 13, 4: 14})                         # trousers off the camo slots
-    pal[13], pal[14], pal[15] = (112, 80, 56), (94, 66, 46), (66, 46, 36)       # brown leather, boots darker
+    idx[idx == 14] = 13                                     # trousers in two browns: frees 14 for the sash
+    # (user 2026-11-26: "The male goon should be charcoal on a sash"): the face cloth charcoal, the gang's oxblood
+    # moved to a sash over his belt (the belt's dark band, rows 29-30, and its tail hanging at his right hip)
+    for y in (29, 30):
+        xs = [x for x in range(24, 40) if idx[y, x] == 1]
+        run = [x for x in xs if idx[y, x - 1] in (1, 14) or idx[y, x + 1] == 1]
+        for x in run[1:-1]:
+            idx[y, x] = 14
+    for y, x in ((31, 36), (31, 37), (32, 37), (33, 37)):
+        idx[y, x] = 14
+    pal[13], pal[15] = (106, 76, 54), (66, 46, 36)          # brown leather, boots darker
+    pal[14] = OX[1]                                         # the sash
     pal[6], pal[8] = (226, 214, 184), (186, 170, 136)       # undyed linen shirt
-    pal[7], pal[2] = OX[1], OX[2]                           # 7 and 2 are left only on his face cloth
+    pal[7], pal[2] = (84, 82, 82), (50, 48, 50)             # 7 and 2 are left only on his face cloth: charcoal
     return idx, pal
 
 

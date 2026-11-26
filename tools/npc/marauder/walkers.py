@@ -1,6 +1,6 @@
 """Marauder walkers, each on its front's own character's walker, dressed to the recoloured fronts (fronts.py):
   Goon (male)   <- MonoMyth 123, the masked bald thug in a tank top (MonoMyth 91's walker): shirt and head top undyed
-                   linen as the front, the face cloth oxblood, trousers brown, boots dark
+                   linen as the front, the face cloth charcoal, an oxblood sash at the belt, trousers brown
   Bandit        <- Fantasma 412, long black hair, pink-purple top (Fantasma 113's walker): top oxblood
   Marauder      <- Fantasma 227, a big short-haired brute in a grey top (the front's biker has no walker of his own;
                    227 fits the build and the new short crop): hair dark brown, shirt black under a leather vest
@@ -41,11 +41,12 @@ def goon_m():
     idx, pal = load('mm_123', mm12=True)
     for sub in frames(idx):
         o = min(y for y in range(32) if sub[y].any()) - 11      # walking frames bob a row
-        remap(sub[19 + o:23 + o], {3: 11, 9: 11})               # the face cloth (rows 19-22) onto its own slot
         remap(sub[27 + o:], {5: 9, 11: 9, 4: 9})               # trousers brown
-        remap(sub[26 + o:27 + o], {4: 3})                       # the belt dark
+        remap(sub[19 + o:23 + o], {3: 5, 9: 5, 11: 5})          # the face cloth (rows 19-22) charcoal
+        remap(sub[26 + o:27 + o], {4: 11})                      # the sash over his belt, oxblood
     pal[2], pal[4] = (226, 214, 184), (186, 170, 136)           # linen (shirt; the head top, as the front)
-    pal[11] = OX[1]                                              # face cloth, oxblood
+    pal[5] = (76, 74, 78)                                        # charcoal (face cloth; the head's shading)
+    pal[11] = OX[1]                                              # the sash
     return idx, pal
 
 
