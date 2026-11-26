@@ -494,4 +494,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   **Commoner man C = Fantasma 104, blonde in grey** (user: "blonde haired version of this guy with grey clothes"):
   hair blonde, tunic and trousers grey, the purple neckerchief (it shared the hair's slots) moved to two unused
   greys so it stays with the clothes; skin kept. Three commoner men in all.
+  **Cook = Fantasma 255 with green hair** (user: "For the cook, lets do a greener haired version of this guy"): the
+  navy hair slots green; cap, whites and skin kept; three frames (a cook stays at his counter).
+  `tools/npc/townsfolk/staff.py`, `staff_v1.png`.
 
