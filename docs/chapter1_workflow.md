@@ -345,3 +345,13 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   behind on the west); **Fisher** from MonoMyth 233 (a round felt hat; MonoMyth 87's pointed witch hat could not be
   lifted, its walker has 12 frames): the crown drawn up into a point, one narrower a row and leaning back, tan felt,
   the jacket wool under a leather jerkin (a first cone narrowed to one pixel and read as an antenna).
+- **Seafolk walkers v2 (user 2026-11-25: "the base overworld sprites you chose for the mariner and fisher just are not
+  the correct ones you need to modify"; picked: the Mariner **Fantasma 87**, "the Fisher is FA 221 ... what needs the
+  pointy hat to match your new front sprite"):** Fantasma's own walkers, read by `tools/npc/fa_walker.py` (each
+  walker's images-table entry points at its sheet, nine 256-byte frames back to back; the table's next entries are the
+  next walkers, so reading entry by entry gave other people's frames). **Mariner**: the blue cap red (the knitted
+  cap, on spare slots), the striped shirt linen and leather, the slops cream (his hair moved onto browns of its own),
+  the red neckerchief kept. **Fisher**: the baseball cap cleared and **a pointed felt hat** drawn in its place (a brim
+  a pixel wider than his head, a dark band, the crown one narrower a row and leaning back), black hair under the brim,
+  the red jacket a leather jerkin, the white an undyed wool hood, the yellows tan breeches. The Corsair stays
+  MonoMyth 45. `tools/npc/walkers/seafolk.py`, `assets/npc_survey/seafolk_walkers_v2.png`.
