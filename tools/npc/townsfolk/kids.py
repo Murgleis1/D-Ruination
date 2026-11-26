@@ -8,7 +8,8 @@ the body's half moved to a free slot.
            light-blue skirt, gold trim
   Kid C <- MonoMyth 134 (boy; brown hair, lavender and blue tunic, purple trim): black hair; green tunic, cream,
            maroon trim
-  Kid D <- MonoMyth 50  (boy; blonde, teal smock): ginger hair; mustard smock
+  Kid D <- MonoMyth 50  (boy in a swim ring, floating; blonde, teal ring): ginger hair; mustard ring. WATER ONLY
+           (user: "a kid who floats in the water, so we can't use him in town")
   Kid E <- MonoMyth 193 (girl; black hair in buns, red dress): light brown hair; blue dress
 Run: python3 kids.py -> out/kid_{a..e}_ow.png, /tmp/cult/kids.png"""
 import os

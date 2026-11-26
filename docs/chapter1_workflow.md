@@ -517,4 +517,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   A (192) chestnut hair, pale-blue shirt, mustard tie, dark green shorts; B (94) auburn hair, navy dress, light-blue
   skirt, gold trim; C (134) black hair, green tunic, cream, maroon trim; D (50) ginger hair, mustard smock; E (193)
   light brown hair, blue dress.
+  **Kid D (MonoMyth 50) floats in a swim ring** (user: "this kid is a kid who floats in the water, so we can't use him
+  in town"): water only (a swimmer on a route or the bay); Pelluca's harbour Tuber will be one of the land kids (A, B,
+  C or E) in the recast table.
 
