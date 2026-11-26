@@ -375,4 +375,14 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   the greens the front's moss green, the red hair plum; **the old woman** on MonoMyth 108, the hair white, the skin
   fair, the dress the front's brown with a cream collar, **a felt hat in the gown's brown covering the top of her
   hair** (crown over the hair's top rows, brim at its widest row, a pixel wider each side; set on top of 108's big
-  hair it had sat like a small cap) with a rose and a cream-gold flower on the crown, as her front's flowered hat.  `assets/npc_survey/fisher_walker_hat_v3.png`.
+  hair it had sat like a small cap) with a rose and a cream-gold flower on the crown, as her front's flowered hat.
+- **Witch walker approved (user 2026-11-26: "The witch overworld sprite is perfect now").** Her plum hair, after "the
+  back of her purple hair isn't long enough" and "should be more wide like her front battle sprite suggests": a
+  12-wide curtain down six rows from the brim on the north frames (strand streaks, uneven tips), a mass down her
+  back on the west frames, locks past both shoulders on the south frames. `women_walkers_v3.png`.
+- **Old woman walker rebuilt on Fantasma 128** (user 2026-11-26, of the MonoMyth 108 version: "do you think this
+  actually looks good ... Come on now"; 108's full-width hair buried her face and no brim could clear it). FA 128 is
+  Fantasma's own little old woman (short stooped shape, shoulder hair, clear face). White hair (a touch of grey for
+  form), tan shawl with cream lights, brown gown, spectacles removed (lenses to skin, each lens's top row a
+  squinting eye), and a wide-brimmed brown hat: crown 8 wide with a dark band carrying a rose and a cream bloom, the
+  brim the full 16 px with sagging tips. `women_walkers_v4.png`.  `assets/npc_survey/fisher_walker_hat_v3.png`.

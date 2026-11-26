@@ -30,75 +30,56 @@ def frames(idx):
 
 
 def old_woman():
-    idx, pal = load12(108)
-    HAIR = {2: 14, 3: 15, 4: 12, 1: 13, 5: 13}               # hair (rows to 20) onto spare slots: white
-    LIGHT, MID, DARK, O, ROSE, GOLD = 10, 12, 13, 8, 6, 7     # placeholders resolved below
-    for f, sub in enumerate(frames(idx)):
-        head = sub[:21]
-        out = head.copy()
-        for a, b in HAIR.items():
-            out[head == a] = b
-        sub[:21] = out
-    pal = list(pal)
-    # hair white (14 light, 15 mid, 12 shade, 13 dark edge)
-    pal[14], pal[15], pal[12], pal[13] = (252, 252, 252), (226, 228, 236), (186, 188, 200), (130, 132, 146)
-    # the dress: the front's brown (A grey -> brown; 1 and 5 on the body -> darker browns); the collar cream
-    pal[10], pal[1], pal[5] = (150, 110, 78), (116, 80, 56), (84, 56, 40)
-    pal[11] = (232, 222, 196)
-    pal[6], pal[9] = (240, 196, 164), (206, 148, 116)         # skin, fair
-    # the hat: the gown's browns (10 light, 1 mid, 5 dark), outline 8; flowers in two slots freed here: 2 and 3
-    # (their hair pixels moved to 14 and 15 above; no body pixel uses them)
-    pal[2], pal[3] = (204, 104, 124), (226, 186, 96)
+    """The old woman's walker, rebuilt on Fantasma 128 (user 2026-11-26, of the MonoMyth 108 version: "do you think this
+    actually looks good ... Come on now"; 108's big hair buried her face and the hat sat on a blob). FA 128 is
+    Fantasma's own little old woman: short stooped shape, hair to the shoulders, clear face. Dressed to the front
+    (MonoMyth 22): white hair, a cream shawl collar, the brown gown, and a wide-brimmed brown hat with a rose and a
+    cream bloom on its band. Her spectacles go (the front has none): lenses to skin, each lens's top row a squinting
+    eye. Palette: 1-4 skin, 5/6/7 hair (7 its outline), 8/9/A shawl, B/C/D gown and hat, E rose (freed from the
+    lenses), F outline."""
+    im = Image.open(os.path.join(HERE, 'fa_128.png'))
+    idx = np.array(im).copy()
+    pal = [tuple(im.getpalette()[k:k + 3]) for k in range(0, 48, 3)]
     for f, sub in enumerate(frames(idx)):
         fac = FACING[f]
-        ys = [y for y in range(32) if sub[y].any()]
-        t = ys[0]                                              # the top of her hair
-        xs = [x for x in range(16) if sub[t + 2, x] != 0]
-        x0, x1 = min(xs), max(xs)
-        # the hat covers the top of her hair (user's front: hair tucked under a wide hat; set on top of MonoMyth
-        # 108's big hair it sat like a small cap): the crown over her hair's top rows, the brim at its widest row
-        bt = t + 4                                             # the brim's row
-        xs = [x for x in range(16) if sub[bt, x] != 0]
-        x0, x1 = min(xs), max(xs)
-        for k, y in enumerate(range(t - 1, bt)):
-            inset = 3 if k == 0 else (2 if k == 1 else 1)
-            l, r = x0 + inset, x1 - inset
-            for x in range(l, r + 1):
-                sub[y, x] = 8 if (k == 0 or x in (l, r)) else (10 if x - l < (r - l + 1) / 2 else 1)
-        for x in range(16):                                    # hair left showing beside the crown above the brim
-            for y in range(t - 1, bt):
-                if sub[y, x] in (14, 15, 12, 13):
-                    sub[y, x] = 0
-        # (user 2026-11-26: "her hat on the front sprite is wide brimmed but not on her overworld one"): MonoMyth
-        # 108's hair is as wide as the frame, so a brim one pixel past it read as a cap. The brim now spans the
-        # whole frame and sags at the tips (light top, mid lip), and the hair under it is trimmed in to x3-12
-        # (x2-13 side on), so the brim stands clear of her head on both sides.
-        for x in range(1, 15):
-            sub[bt, x] = 8 if x in (1, 14) else 10
-        for x in range(16):
-            sub[bt + 1, x] = 8 if x in (0, 15) else 1
-        lo, hi = (3, 12) if fac in ('S', 'N') else (2, 13)
-        for y in range(bt + 2, bt + 6):
+        # spectacles off
+        lens = [(y, x) for y in range(17, 23) for x in range(16) if sub[y, x] == 14]
+        for y in range(17, 22):
             for x in range(16):
-                if (x < lo or x > hi) and sub[y, x] in (14, 15, 12, 13, 8):
-                    sub[y, x] = 0
-            xs = [x for x in range(16) if sub[y, x] != 0]
-            for x in (min(xs), max(xs)) if xs else ():
-                if sub[y, x] in (14, 15, 12, 13):
-                    sub[y, x] = 8
-        for x in (0, 1, 2, 13, 14, 15):                        # the brim's underside edge at the tips
-            if sub[bt + 2, x] == 0 and x not in (0, 15):
-                sub[bt + 2, x] = 8
-        t = bt - 3                                             # the flowers' rows: on the crown, low on its side
-        # the flowers: a rose and a cream-gold bloom on the crown's side (south: her right; west: at the back)
-        if fac == 'S':
-            spots = [(x1 - 2, t), (x1 - 3, t), (x1 - 2, t + 1)]
-        elif fac == 'N':
-            spots = [(x0 + 2, t), (x0 + 3, t), (x0 + 2, t + 1)]
-        else:
-            spots = [(x1 - 2, t), (x1 - 3, t), (x1 - 2, t + 1)]
-        for k, (x, y) in enumerate(spots):
-            sub[y, x] = 2 if k < 2 else 3
+                if sub[y, x] == 10:
+                    nb = [sub[y + dy, x + dx] for dy, dx in ((0, 1), (0, -1), (1, 0), (-1, 0)) if 0 <= x + dx < 16]
+                    sub[y, x] = 2 if any(v in (1, 2, 3, 4, 14) for v in nb) else 7
+        top = min((y for y, x in lens), default=None)
+        for y, x in lens:
+            sub[y, x] = 15 if y == top else 2
+        # the hat
+        t = min(y for y in range(32) if sub[y].any())          # the top of her head
+        xs = [x for x in range(16) if sub[t + 3, x] != 0]
+        c = (min(xs) + max(xs) + 1) // 2                       # head centre
+        l, r = c - 4, c + 3                                    # crown 8 wide
+        for x in range(l + 1, r):
+            sub[t - 4, x] = 15
+        for y in (t - 3, t - 2):
+            for x in range(l, r + 1):
+                sub[y, x] = 15 if x in (l, r) else (11 if x < c else 12)
+        for x in range(l, r + 1):
+            sub[t - 1, x] = 15 if x in (l, r) else 13            # the band
+        for x in range(1, 15):
+            sub[t, x] = 15 if x in (1, 14) else 11              # brim, top
+        for x in range(16):
+            sub[t + 1, x] = 15 if x in (0, 15) else 12          # brim, lip
+        for x in (1, 2, 13, 14):
+            if sub[t + 2, x] in (0, 5, 6, 7):
+                sub[t + 2, x] = 15                               # the tips' underside
+        for x in (0, 15):
+            sub[t + 2, x] = 0
+        # flowers on the band: south her right, north her left (seen from behind), side towards the back
+        fx = {'S': (r - 3, r - 2, r - 1), 'N': (l + 1, l + 2, l + 3), 'W': (r - 3, r - 2, r - 1)}[fac]
+        sub[t - 1, fx[0]] = 14; sub[t - 1, fx[1]] = 14; sub[t - 2, fx[1]] = 14; sub[t - 1, fx[2]] = 8
+    pal[5], pal[6], pal[7] = (244, 244, 248), (204, 206, 220), (120, 122, 142)        # white hair, a touch of grey for form
+    pal[8], pal[9], pal[10] = (240, 232, 208), (178, 136, 98), (112, 80, 56)         # shawl: tan, cream lights
+    pal[11], pal[12], pal[13] = (150, 110, 78), (116, 80, 56), (78, 52, 36)           # brown gown and hat
+    pal[14] = (214, 96, 120)                                                          # rose
     return idx, pal
 
 
