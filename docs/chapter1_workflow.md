@@ -366,4 +366,6 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   Its hat is lifted frame for frame (its 12-frame order onto Emerald's 9: 0, 1, 2, 4, 5, 6, 7, 8, 9) onto the
   Fisher's head, its brim on his cap line; greens to tan felt, the band dark leather, the buckle tan, outlines kept
   (`seafolk.witch_hat`; `assets/npc_survey/fisher_walker_hat_v4.png`, MonoMyth's witch above for comparison).
+  The brim set on the hat's last full-width row (it had been set on the row below, where the brim's tips droop past
+  the face with hair between them, and the cleared cap left a gap under the brim: user "you got a weird gap here").
   `assets/npc_survey/fisher_walker_hat_v3.png`.

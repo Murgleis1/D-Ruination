@@ -128,8 +128,10 @@ def witch_hat(sub, f, brim):
     near[1:] |= hat[:-1]; near[:-1] |= hat[1:]; near[:, 1:] |= hat[:, :-1]; near[:, :-1] |= hat[:, 1:]
     edge = np.isin(w87, (4, 15)) & near
     edge[19:] = False
-    rows = [y for y in range(32) if hat[y].sum() >= 8]
-    b87 = max(y for y in rows if y <= 18)                  # its brim's main row
+    # its brim's last full-width row (the row below, where the brim's tips droop past the face, has hair in the
+    # middle: set on that one, the cleared cap left a gap under the brim; user 2026-11-26 "a weird gap here")
+    rows = [y for y in range(32) if hat[y].sum() >= 13]
+    b87 = max(y for y in rows if y <= 18)
     dy = brim - b87
     for y in range(32):
         ty = y + dy
