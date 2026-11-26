@@ -524,4 +524,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   deeper gold"). His hair's lightest tone was also his skin's light (slot 10): the hair's share moved to slot 6 by
   facing (crown on every frame, the back of the head north and west), then the hair ramp deepened.
   `tools/npc/townsfolk/students.py`, `assets/npc_survey/students_v1.png`.
+- **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
+  rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
+  MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
 
