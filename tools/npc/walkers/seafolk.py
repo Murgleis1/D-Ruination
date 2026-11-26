@@ -136,19 +136,22 @@ def fisher():
         sub[brim - 1, x1] = O
         # the crown (user 2026-11-25: the first version "looks like you cut it off at the very tip"): even edges, the
         # left stepping in a pixel every row and the right every other row (it leans back), closing to a one-pixel
-        # outlined tip that bends over one more pixel, as the crooked tip of his front's hat
+        # outlined tip (a bent-over last pixel read as a string and was dropped)
         left, right = x0 + 2, x1 - 1
         y = brim - 2
         k = 0
         while y >= 0:
             l, r = left + k, right - k // 2
-            if r - l + 1 <= 1:
-                sub[y, min(15, l)] = O                            # the point
-                if y - 1 >= 0 and l + 1 <= 15:
-                    sub[y - 1, l + 1] = O                         # bent over
+            if r - l + 1 <= 3:                                    # the tip: felt to the end (user 2026-11-26: bare
+                l = min(l, 15 - 2)                                # outline there "looks like a string")
+                sub[y, l] = O
+                sub[y, l + 1] = LIGHT
+                sub[y, l + 2] = O
+                if y - 1 >= 0:
+                    sub[y - 1, l + 1] = O                         # capped by one outline pixel
                 break
             for x in range(l, r + 1):
-                if r - l + 1 <= 2 or x in (l, r):
+                if x in (l, r):
                     sub[y, x] = O
                 else:
                     sub[y, x] = LIGHT if x - l < (r - l + 1) / 2 else MID

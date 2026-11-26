@@ -357,5 +357,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   MonoMyth 45. `tools/npc/walkers/seafolk.py`, `assets/npc_survey/seafolk_walkers_v2.png`.
   The Fisher's hat redrawn (user: "looks like you cut it off at the very tip"; the crown had stopped at a 4-pixel row
   with no outline above it): even edges (the left stepping in every row, the right every other row, so it leans
-  back), closing to a one-pixel outlined point that bends over a pixel like his front's crooked tip.
+  back), closing to a point **filled with felt to the end** (a 3-wide row, outline-felt-outline, capped by one
+  outline pixel; a tip of bare outline, and a bent-over last pixel, read as a string: user "the tip looks like a
+  string").
   `assets/npc_survey/fisher_walker_hat_v3.png`.
