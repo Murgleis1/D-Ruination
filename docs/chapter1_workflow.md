@@ -181,3 +181,24 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
 - **Fit decided (user 2026-11-25: "the shrinking works"):** trainer fronts taller than Emerald's 64x64 frame are
   **scaled to fit** (whole body, feet included), not cropped; the standard for every set from now on. The noble boy's
   three variants are approved as mocked (`assets/npc_survey/noble_boy_v1.png`).
+- **The Sword Cult set (user 2026-11-25).** The cult's colours are **black with icy sky-blue trim**, a smooth, clear mix,
+  for the acolytes, the masked **Cardinals** (directly under leaders such as Baradus) and Baradus's clothes. The user's
+  sprites: the masked villain (front, a doubled pair, a 4x4 overworld sheet) for the Cardinals; trainer030 (hooded robe)
+  for the acolytes. Mock v1 (`tools/npc/sword_cult/sword_cult.py`, `baradus.py`, `board_v1.py`;
+  `assets/npc_survey/sword_cult_v1.png`): Cardinal cloak black, gold rim to ice, green trousers to slate, the pale mask
+  and red eye kept; front fitted to 64x64 (nearest keeps the one-pixel trim whole; an area shrink smeared the mask colour
+  onto the cloak), overworld converted to Emerald's 9 frames at 32x32. Acolyte robe black, ice at the hood rim, cuff,
+  belt and hem, boots black. **MonoMyth 84/89/90 are one short hunched hooded figure in three facings (east, south, west)
+  with no north and no walk frames** (the "blank north frames"): usable as static kneeling acolytes; **MonoMyth 217
+  (navy robe, gold band and face plate, all 9 frames) recoloured is offered as the walking acolyte.**
+- **Baradus (user 2026-11-25): his sunglasses go sky blue** to contrast with his black hair, beard and clothes, and his
+  coat takes the trim; "make sure any changes you do reflect properly across all his assets" (battle front, overworld,
+  the three portraits). Same rules everywhere (`baradus.py`): ice collar piping (coat pixels touching the neck), on the
+  front also cuffs and a hem; three palette slots freed per asset by merging near-identical blacks (1-12 levels; on the
+  anger portrait the 2-px tooth glint into the white beside it). **Glasses: frames are the grey-blues, glass is the
+  enclosed black; a black pixel touching hair, skin or transparency is a line, not glass, and stays black** (user: the
+  top row of the right lens under his hair "should be a black line ... not sky blue"; "clearly differentiate between the
+  black glass versus the frames"). On the front the glasses' top row is that line and row 9 the glass; on the
+  overworld the F row the line, the A pixels the glass, index 3 the frame. Two options mocked: **A** ice glass (frames
+  as they are), **B** ice frames (glass black). The overworld takes the collar only (cuffs at 16 px read as gloves).
+  Mock only: nothing installed yet.
