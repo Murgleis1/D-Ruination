@@ -134,21 +134,26 @@ def fisher():
             sub[brim - 1, x] = DARK
         sub[brim - 1, x0] = O
         sub[brim - 1, x1] = O
-        w = x1 - x0 - 1                                           # the crown: one narrower a row, leaning back
-        for k in range(1, 9):
-            ww = max(2, w - k)
-            cx0 = x0 + 1 + (k + 1) // 2 + k // 3
-            cx1 = min(15, cx0 + ww - 1)
-            y = brim - 1 - k
-            if y < 0:
+        # the crown (user 2026-11-25: the first version "looks like you cut it off at the very tip"): even edges, the
+        # left stepping in a pixel every row and the right every other row (it leans back), closing to a one-pixel
+        # outlined tip that bends over one more pixel, as the crooked tip of his front's hat
+        left, right = x0 + 2, x1 - 1
+        y = brim - 2
+        k = 0
+        while y >= 0:
+            l, r = left + k, right - k // 2
+            if r - l + 1 <= 1:
+                sub[y, min(15, l)] = O                            # the point
+                if y - 1 >= 0 and l + 1 <= 15:
+                    sub[y - 1, l + 1] = O                         # bent over
                 break
-            for x in range(cx0, cx1 + 1):
-                if ww <= 2 or x in (cx0, cx1):
+            for x in range(l, r + 1):
+                if r - l + 1 <= 2 or x in (l, r):
                     sub[y, x] = O
                 else:
-                    sub[y, x] = LIGHT if x - cx0 < ww / 2 else MID
-            if ww <= 2:
-                break
+                    sub[y, x] = LIGHT if x - l < (r - l + 1) / 2 else MID
+            y -= 1
+            k += 1
     pal = list(pal)
     pal[11], pal[12] = (208, 168, 80), (168, 128, 72)             # the felt
     pal[8], pal[9], pal[10] = (150, 96, 56), (104, 64, 40), (72, 44, 30)    # the jerkin's leather
