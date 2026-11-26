@@ -1,14 +1,21 @@
 """The Templar's overworld in the Order's blue, seen in the game (2026-11-25): from Pelluca's west gate (save state
 r11/pelluca_west.state) to the north road guard at (38, 3); matches her frames on screen against the PNG.
-Usage: python3 tools/playtest/templar_blue_check.py [OUT.png]"""
+Also used for the male Templar (on a test ROM where the east road guard at (74, 25) wears OBJ_EVENT_GFX_TEMPLAR_MALE):
+  python3 tools/playtest/templar_blue_check.py OUT.png --rom TEST.gba --png people/templar_male.png --east --reload
+Usage: python3 tools/playtest/templar_blue_check.py [OUT.png] [--rom ROM] [--png people/NAME.png] [--east]"""
 import sys, gzip
 import numpy as np
 sys.path.insert(0, '/home/claude/scratch/dorm')
 from walklib import GBA, go, where
 from PIL import Image
-OUT = sys.argv[1] if len(sys.argv) > 1 else '/home/claude/scratch/templar_blue_check.png'
+args = sys.argv[1:]
+def opt(k, d):
+    return args[args.index(k) + 1] if k in args else d
+OUT = args[0] if args and not args[0].startswith('--') else '/home/claude/scratch/templar_blue_check.png'
 CB = '/home/claude/repo/codebase/'
-im = Image.open(CB + 'graphics/object_events/pics/people/templar.png')
+ROMF = opt('--rom', CB + 'pokeemerald.gba')
+im = Image.open(CB + 'graphics/object_events/pics/' + opt('--png', 'people/templar.png'))
+TARGETS = ((73, 25), (72, 25), (74, 27), (74, 26)) if '--east' in args else ((38, 6), (38, 7), (37, 6))
 IDX = np.array(im); PAL = np.array(im.getpalette()[:48]).reshape(16, 3).astype(int) // 8 * 8
 
 
@@ -26,11 +33,26 @@ def match(f):
     return best
 
 
-g = GBA(CB + 'pokeemerald.gba')
+g = GBA(ROMF)
 g.restore(gzip.decompress(open('/home/claude/scratch/r11/pelluca_west.state', 'rb').read())); g.run(20)
+def step(d, wait=16): g.run(12, d); g.run(wait)
+if '--reload' in args:
+    # the state stands inside Pelluca City, its objects already loaded: down the main stair to the harbour and back
+    # up (as the harbour walk), so the city's objects are read from this ROM
+    for _ in range(4): g.walk('RIGHT', 1); g.run(10)
+    for _ in range(4):
+        if go(g, 'PellucaCity', (38, 33), log=lambda *a: None): break
+        for _ in range(40): g.run(6, 'B'); g.run(10)
+    step('DOWN'); step('DOWN'); step('DOWN', 4); g.run(240)
+    print('down to', where(g))
+    for _ in range(4):
+        if go(g, 'PellucaHarbour', (38, 9), log=lambda *a: None): break
+        for _ in range(40): g.run(6, 'B'); g.run(10)
+    step('UP'); step('UP'); step('UP', 4); g.run(240)
+    print('back up to', where(g))
 for _ in range(4): g.walk('RIGHT', 1); g.run(10)
 ok = False
-for tgt in ((38, 6), (38, 7), (37, 6)):
+for tgt in TARGETS:
     for _ in range(4):
         if go(g, 'PellucaCity', tgt, log=lambda *a: None):
             ok = True; break
@@ -39,7 +61,7 @@ for tgt in ((38, 6), (38, 7), (37, 6)):
 g.run(30)
 f = g.frame()
 b = match(f)
-print('walked near the north road guard:', ok, where(g))
+print('walked near the road guard:', ok, where(g))
 print('Templar on screen: frame %d at (%d, %d), %d of %d pixels differ' % (b[3], b[1], b[2], b[0], b[4]))
 print('ALL OK' if ok and b[0] == 0 else 'PROBLEM')
 x, y = b[1], b[2]

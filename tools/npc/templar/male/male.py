@@ -98,14 +98,35 @@ def quant15(a):
         a[sel, :3] = cols[dst]
 
 
+def to_indexed(a, path):
+    """RGBA (at most 15 opaque colours) -> a 16-colour indexed PNG, index 0 transparent (the house format)."""
+    m = a[..., 3] > 0
+    cols = [tuple(int(v) for v in c) for c in np.unique(a[m][:, :3], axis=0)]
+    assert len(cols) <= 15, len(cols)
+    cols.sort(key=lum, reverse=True)
+    idx = np.zeros(a.shape[:2], np.uint8)
+    for k, c in enumerate(cols, 1):
+        idx[m & (a[..., :3] == c).all(-1)] = k
+    pal = [(0, 0, 0)] + cols + [(0, 0, 0)] * (15 - len(cols))
+    im = Image.fromarray(idx, 'P')
+    im.putpalette([v for c in pal for v in c] + [0] * (768 - 48))
+    im.save(path, transparency=0)
+
+
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)
     f = np.array(Image.open(os.path.join(HERE, 'src_front.png')).convert('RGBA'))
     o = np.array(Image.open(os.path.join(HERE, 'src_ow.png')).convert('RGBA'))
     f2 = quant15(fit64(recolour_front(f)))
-    o2 = ow9(recolour_ow(o), 16, 32)
+    o2 = quant15(ow9(recolour_ow(o), 16, 32))
     Image.fromarray(f2).save(os.path.join(HERE, 'out', 'templar_male_front.png'))
     Image.fromarray(o2).save(os.path.join(HERE, 'out', 'templar_male_ow.png'))
+    CBG = os.path.abspath(os.path.join(HERE, '..', '..', '..', '..', 'codebase', 'graphics'))
+    to_indexed(f2, os.path.join(HERE, 'out', 'templar_male_front_idx.png'))
+    to_indexed(o2, os.path.join(HERE, 'out', 'templar_male_ow_idx.png'))
+    if '--install' in sys.argv:
+        to_indexed(f2, os.path.join(CBG, 'trainers', 'front_pics', 'templar_male.png'))
+        to_indexed(o2, os.path.join(CBG, 'object_events', 'pics', 'people', 'templar_male.png'))
     fem_f = Image.open(os.path.join(HERE, '..', 'out', 'templar_front.png')).convert('RGBA')
     fem_o = Image.open(os.path.join(HERE, '..', 'out', 'templar_ow.png')).convert('RGBA')
 

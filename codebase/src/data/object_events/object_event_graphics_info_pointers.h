@@ -24,6 +24,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Baradus;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kimaris;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Ambrose;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Templar;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_TemplarMale;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrShrine;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PaleVeluza;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Merchantman;
@@ -330,6 +331,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_KIMARIS] = &gObjectEventGraphicsInfo_Kimaris,
     [OBJ_EVENT_GFX_AMBROSE] = &gObjectEventGraphicsInfo_Ambrose,
     [OBJ_EVENT_GFX_TEMPLAR] = &gObjectEventGraphicsInfo_Templar,
+    [OBJ_EVENT_GFX_TEMPLAR_MALE] = &gObjectEventGraphicsInfo_TemplarMale,
     [OBJ_EVENT_GFX_DR_SHRINE] = &gObjectEventGraphicsInfo_DrShrine,
     [OBJ_EVENT_GFX_PALE_VELUZA] = &gObjectEventGraphicsInfo_PaleVeluza,
     [OBJ_EVENT_GFX_MERCHANTMAN] = &gObjectEventGraphicsInfo_Merchantman,

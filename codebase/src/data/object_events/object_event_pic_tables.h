@@ -1380,6 +1380,7 @@ static const struct SpriteFrameImage sPicTable_Baradus[] = { overworld_ascending
 static const struct SpriteFrameImage sPicTable_Kimaris[] = { overworld_ascending_frames(gObjectEventPic_Kimaris, 2, 4), };
 static const struct SpriteFrameImage sPicTable_Ambrose[] = { overworld_ascending_frames(gObjectEventPic_Ambrose, 2, 4), };
 static const struct SpriteFrameImage sPicTable_Templar[] = { overworld_ascending_frames(gObjectEventPic_Templar, 2, 4), };
+static const struct SpriteFrameImage sPicTable_TemplarMale[] = { overworld_ascending_frames(gObjectEventPic_TemplarMale, 2, 4), };
 static const struct SpriteFrameImage sPicTable_DrShrine[] = { obj_frame_tiles(gObjectEventPic_DrShrine), };
 static const struct SpriteFrameImage sPicTable_PaleVeluza[] = { obj_frame_tiles(gObjectEventPic_PaleVeluza), };
 static const struct SpriteFrameImage sPicTable_Merchantman[] = { obj_frame_tiles(gObjectEventPic_Merchantman), };

@@ -304,8 +304,9 @@
 #define OBJ_EVENT_GFX_MERCHANTMAN                  286
 #define OBJ_EVENT_GFX_FISHING_SLOOP                287
 #define OBJ_EVENT_GFX_WOODEN_ROWBOAT               288
+#define OBJ_EVENT_GFX_TEMPLAR_MALE                 289
 
-#define NUM_OBJ_EVENT_GFX                          289
+#define NUM_OBJ_EVENT_GFX                          290
 
 
 // These are dynamic object gfx ids.
@@ -454,6 +455,7 @@
 #define OBJ_EVENT_PAL_TAG_DR_SHRINE             0x1130
 #define OBJ_EVENT_PAL_TAG_DR_SHIPS              0x1131
 #define OBJ_EVENT_PAL_TAG_DR_BOATS              0x1132
+#define OBJ_EVENT_PAL_TAG_TEMPLAR_MALE          0x1133
 #define OBJ_EVENT_PAL_TAG_SHUBUBU                 0x1125
 #define OBJ_EVENT_PAL_TAG_GUBUKING                0x1126
 #define OBJ_EVENT_PAL_TAG_DYNAMIC                 0x1127

@@ -416,6 +416,8 @@ const u32 gTrainerFrontPic_Ambrose[] = INCBIN_U32("graphics/trainers/front_pics/
 const u32 gTrainerPalette_Ambrose[] = INCBIN_U32("graphics/trainers/front_pics/ambrose.gbapal.lz");
 const u32 gTrainerFrontPic_Templar[] = INCBIN_U32("graphics/trainers/front_pics/templar.4bpp.lz");
 const u32 gTrainerPalette_Templar[] = INCBIN_U32("graphics/trainers/front_pics/templar.gbapal.lz");
+const u32 gTrainerFrontPic_TemplarMale[] = INCBIN_U32("graphics/trainers/front_pics/templar_male.4bpp.lz");
+const u32 gTrainerPalette_TemplarMale[] = INCBIN_U32("graphics/trainers/front_pics/templar_male.gbapal.lz");
 
 const u32 gTrainerFrontPic_QwilsquadBoss[] = INCBIN_U32("graphics/trainers/my_trainers/qwilsquad_boss.4bpp.lz");
 const u32 gTrainerPalette_QwilsquadBoss[] = INCBIN_U32("graphics/trainers/my_trainers/qwilsquad_boss.gbapal.lz");
@@ -613,6 +615,7 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(TRAINER_PIC_KIMARIS, gTrainerFrontPic_Kimaris, gTrainerPalette_Kimaris),
     TRAINER_SPRITE(TRAINER_PIC_AMBROSE, gTrainerFrontPic_Ambrose, gTrainerPalette_Ambrose),
     TRAINER_SPRITE(TRAINER_PIC_TEMPLAR, gTrainerFrontPic_Templar, gTrainerPalette_Templar),
+    TRAINER_SPRITE(TRAINER_PIC_TEMPLAR_MALE, gTrainerFrontPic_TemplarMale, gTrainerPalette_TemplarMale),
 };
 
 static const union AnimCmd sAnimCmd_Hoenn[] =

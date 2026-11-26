@@ -319,3 +319,20 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   her head his width) with four rows cut from its straight crown so the crooked tip fits the frame, five pixels right
   on his head, brim on his old cap's line, its purples onto his tan and leather browns (a felt hat to match his
   leather jerkin, once an orange vest), his hood undyed wool, the cooler a wooden crate, the bobber cork-brown.
+- **Seafolk names decided (user 2026-11-25): "the fisherman class should just be called Fisher, and the guy with the
+  anchor's class is Corsair, and the sailor should be called a Mariner"** (replacing the proposed Angler, Bosun,
+  Oarsman).
+- **The male Templar installed (2026-11-25)**: `graphics/trainers/front_pics/templar_male.png`,
+  `graphics/object_events/pics/people/templar_male.png` (from `tools/npc/templar/male/male.py --install`), wired as
+  the female was: `OBJ_EVENT_GFX_TEMPLAR_MALE` 289 (`NUM_OBJ_EVENT_GFX` 290), `OBJ_EVENT_PAL_TAG_TEMPLAR_MALE` 0x1133,
+  `TRAINER_PIC_TEMPLAR_MALE` 136 (`TRAINER_PIC_COUNT` 137), under `TRAINER_CLASS_TEMPLAR`. Checked from the built
+  ROM (front and overworld, pixels and palettes match) and **in the emulator** on a test ROM (Pelluca's east road
+  guard in his graphics; 0 of 204 pixels differ; `assets/npc_survey/ingame_templar_male.png`); the save-state chain
+  regenerated (all walks pass). **Two build gotchas found:** (1) changing `NUM_OBJ_EVENT_GFX` shifts the dynamic
+  graphics ids the maps use, and `make` does not rebuild `maps.o` for it: `rm -f build/modern/data/maps.o` (as after
+  a `map.bin` patch); (2) **a new INCBIN'd graphic can be linked missing without an error** (the .o's dependency scan
+  predates the new line, so the .4bpp is never built): after adding graphics, remove the including file's .o (here
+  `event_object_movement.o`) and **always read the graphics back from the ROM** (`tools/npc/sword_cult/check_rom.py`'s
+  decoders) before trusting a build. And a playtest note: a save state taken inside a map has that map's objects
+  already loaded; to see a test ROM's object changes, leave the map and come back (`templar_blue_check.py --reload`:
+  down the harbour stair and back up).

@@ -159,7 +159,8 @@
 #define TRAINER_PIC_KIMARIS               133
 #define TRAINER_PIC_AMBROSE               134
 #define TRAINER_PIC_TEMPLAR               135
-#define TRAINER_PIC_COUNT                 136
+#define TRAINER_PIC_TEMPLAR_MALE          136
+#define TRAINER_PIC_COUNT                 137
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
