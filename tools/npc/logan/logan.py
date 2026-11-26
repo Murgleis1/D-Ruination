@@ -83,15 +83,23 @@ def tunic(a):
     a = a.copy()
     v = np.zeros_like(a, bool); v[16:31] = True
     a[v & (a == 8)] = 1
-    for y in (34, 35):                                       # the belt
+    chest = np.zeros_like(a, bool); chest[19:33, 22:40] = True   # the gi's brown fold shading: grey cloth shade
+    a[chest & (a == 5)] = 3
+    # the belt, after the belts on MonoMyth's and Fantasma's fronts (MonoMyth 30 and 37, Fantasma 55: a band of dark
+    # leather two pixels deep with the cloth meeting it above and below, and a small metal buckle with a dark centre):
+    # rows 34-35 near-black across the waist, the cloth rows 33 and 36 left plain, the buckle a 3x4 orange-gold frame
+    # (rows 33-36, x 29-31) round a dark centre
+    for y in (34, 35):
         for x in range(22, 39):
             if a[y, x] in (1, 3, 4, 8, 5, 2):
-                a[y, x] = 5
-        a[y, 30] = a[y, 31] = 8                              # buckle
+                a[y, x] = 2
     for y in (33, 36):
         for x in range(22, 39):
             if a[y, x] in (8, 5):
                 a[y, x] = 3
+    for y in range(33, 37):
+        for x in range(29, 32):
+            a[y, x] = 2 if (x == 30 and y in (34, 35)) else 8
     strip = np.zeros_like(a, bool); strip[37:45, 26:33] = True
     was = strip & np.isin(a, (8, 5))
     a[was] = 3
@@ -102,10 +110,13 @@ def tunic(a):
     for x in range(20, 43):                                  # the hem
         if a[44, x] in (1, 3, 4):
             a[44, x] = 8
+    # trousers (user: "his pants are weirdly two tone"): one brown ramp, close in value, light (1) on 5 and the
+    # coat's mid and dark (3, 4) together on the free slot 15; 5 itself, his shoes and a few collar pixels, is taken
+    # from MonoMyth's orange-brown to a plain mid brown in logan_114
     legs = a[45:]
     src = legs.copy()
     legs[src == 1] = 5
-    legs[src == 3] = 6
+    legs[(src == 3) | (src == 4)] = 15
     return a
 
 
@@ -131,6 +142,7 @@ def logan_114():
     # the blue coat and trousers (1 light, 3 mid, 4 dark) light grey; his orange sash and trim kept and warmed
     pal[1], pal[3], pal[4] = (208, 208, 214), (156, 156, 166), (92, 88, 96)
     pal[8] = (236, 132, 44)
+    pal[5], pal[15] = (124, 86, 60), (94, 64, 46)            # trousers (and shoes) brown
     return a[:, ::-1].copy(), pal                            # flipped
 
 

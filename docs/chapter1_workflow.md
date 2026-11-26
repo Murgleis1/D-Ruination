@@ -559,6 +559,13 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   the battle front sprite"): the crossed lapels (the orange V) gone to plain cloth; the tied sash and its hanging tails
   replaced by a straight leather belt with an orange buckle; the tunic runs to mid-thigh, hemmed in orange; brown
   trousers below. `tools/npc/logan/logan.py` `tunic()`, `logan_front_v4.png`.
+  **Belt and trousers fixed** (user: "His pants are weirdly two tone now and the belt isn't correct looking. Go study
+  other belts on characters in crown and monomyth"): studied the belts on MonoMyth 30 and 37 and Fantasma 55 (Crown's
+  fronts can't be read from its ROM: its front table is dummied). They are a dark leather band two pixels deep, the
+  cloth meeting it plainly above and below, with a small metal buckle round a dark centre. Logan's belt now: rows
+  34-35 near-black across the waist, a 3x4 orange-gold buckle frame with a dark centre. Trousers on one close brown
+  ramp (light on 5, the mid and dark together on 15) instead of MonoMyth's wrinkle pattern in two far-apart browns;
+  the gi's brown fold shading on his chest taken to the cloth's grey shade. `logan_front_v5.png`.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.
