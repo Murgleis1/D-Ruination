@@ -137,6 +137,9 @@ codebase/build/modern/data/maps.o` before `make` (builders that also rewrite lay
   then cut). **Some Pokemon can go because they would not exist in Empire-era Cormoria** (user): to be listed with the
   user before any family is disabled.
 
+**NPC dialogue rules (user 2026-11-26; bible §16.15):** every NPC line carries something (a subtle hint of later places, people or lore, or real world-building: gossip about guild corruption, cultists in the wilds, unknown Pokémon, the disappearances round the Alban estate); everyone speaks in a medieval manner, never plain modern English; no "if X then Y" formulas, no em dashes, no stock patterns. Hints stay at rumour level, never the hidden truth.
+**Pelluca recast (2026-11-26):** the Emerald people in Pelluca City, the Tavern, the dormitory and the harbour now use the cast walkers (map.json graphics ids). The cable-car station is not recast: it is DM legacy reached only from DM's Route 7, for the deletion list.
+
 ## Dialogue audit (user 2026-11-23)
 Once the next few phases of Chapter 1 are further along, the user wants **another full sweep audit and analysis of all of Chapter 1's dialogue and everything else**. Flag this when those phases land.
 

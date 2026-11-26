@@ -116,6 +116,12 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    Battle front: MonoMyth's post-game Monty (front 114) with Logan's dark blue hair, **flipped**, his clothes **light grey
    with orange**, re-cut from MonoMyth's karate gi into a **tunic** (light grey, a dark leather belt with an orange
    buckle, trousers the same light grey) (user 2026-11-26). **Trainer class: Scholar** ("Scholar Logan").
+   (The overworld sprite was recoloured to the same light grey and orange, user 2026-11-26.)
+
+10. **The paranoid Imperial Soldier of Hollow Hill** (`[NEW canon — user 2026-11-26]`): the player fights **at least one
+   Imperial Soldier in Hollow Hill**. He is paranoid and takes the masked player for **a masked member of the
+   Marauders**; he apologizes only if the player **talks to him again after beating him**. The player fights **no
+   Imperial Soldiers in Pelluca or anywhere else in Chapter 1**.
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
@@ -418,3 +424,9 @@ The cold-open letter was rewritten with the user (installed; text in `docs/chapt
 - **Note:** the July "parchment re-tint" sessions recoloured the vanilla PokéLog's palettes (`graphics/pokedex/bg_*`), but the game runs the HGSS PokéLog (`graphics/pokedex/hgss/`, dark colour mode), so its pages are still grey.
 - **PokéLog re-tint, option B "vellum + leather" (user 2026-11-18), installed.** The HGSS pages' grey ramp (BG palette 0, indices 1-9) and text colour (15) are now vellum panels, leather-brown rules and dark-brown ink, in the default/national/search-results dark palettes; the search menu's greys follow the same ramp; the Cry page's blue waveform strip and grey dial are leather and vellum. Type badges, sprites and the tab bar (10-14) are unchanged. Script: `tools/art/pokelog/retint.py` (in place; file sizes unchanged). Checked in the emulator on the list, list menu, search, and all six info pages. The search screen's green/orange/red highlights are now gold (selected tab), tan and leather (labels, OK) (user, installed). The list screen's logo now reads **PokéLog** in the tab bar's blackletter, dark ink on a vellum plaque (user's pick of three; `tools/art/pokelog/build_logo.py` redraws the 24 logo tiles of `tileset_menu_list.png` in place -- each is used once, by the logo only). Still Pokédex-named: the list menu's "CLOSE POKéDEX" string.
 
+
+### 16.15 NPC dialogue rules `[user 2026-11-26]`
+Apply to every NPC line in the game, Chapter 1 included:
+1. **No NPC line is pointless.** Even in Chapter 1, flavour NPCs drop **subtle hints** of places, characters and lore met later, or of things worth knowing about the setting. People gossip about what concerns them: corruption in the merchant guilds, cultists in the wilds doing strange things, sightings of unknown Pokémon, deaths and disappearances round the Alban estate, and the like. **Foreshadowing and world-building wherever it can be slipped in.** Hints stay at what ordinary people could see or hear (rumour, prices, odd sights), never the hidden truth the bible keeps for later reveals.
+2. **No plain modern English.** This is Empire-era Cormoria, about two thousand years before the main Pokémon timeline: every character speaks with a **more medieval vocabulary and manner**, readable rather than parody.
+3. **No machine-sounding prose:** no formulaic "if X then Y" constructions, no em dashes, no stock patterns. Write as an observant person would actually talk.
