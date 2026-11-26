@@ -572,6 +572,10 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   had been removed, taken out too (rows 37-44, x 26-33, all to plain cloth). `logan_front_v6.png`.
   The orange hem line across his thighs removed (user: "why did you draw a line here????"): with the trousers the
   tunic's grey it was a stray stripe. `logan_front_v7.png`.
+  The flat patch where the sash tails had been (rows 37-44, x 26-33) given the cloth's own fold texture (user: "That
+  grey block thing you have here looks super unnatural. Make it textured properly like the rest of the tunic"): one-
+  pixel diagonal strokes of light, shade and crease like the cloth round it, drawing down into the crease above the
+  crotch. `logan_front_v8.png`.
 - **Youth candidates across all four games** (user 2026-11-26: "find me more young men/women/kids across Crown and the
   rest of the games"): `tools/npc/townsfolk/youth_cands.py`, `assets/npc_survey/youth_cands_v1.png` (south frames;
   MonoMyth 57, Fantasma 30, Crown 29, Odyssey 47). Crown and Odyssey are in FireRed's smaller style.

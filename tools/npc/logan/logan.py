@@ -103,7 +103,22 @@ def tunic(a):
     # the sash's hanging tails, rows 37-44 between x 26 and 33: their colours AND their outlines go to cloth (user:
     # "what is this", of a U of dark lines left where only their colours had been taken out the first time)
     strip = np.zeros_like(a, bool); strip[37:45, 26:34] = True
-    a[strip & np.isin(a, (8, 5, 2, 4, 3))] = 1               # plain cloth, as the skirt round it
+    a[strip & np.isin(a, (8, 5, 2, 4, 3))] = 1
+    # (user: "That grey block thing you have here looks super unnatural. Make it textured properly like the rest of
+    # the tunic"): the patch, x 26-33, is given the cloth's own folds: light (1), shade (3) and crease (4) in the same
+    # one-pixel diagonal strokes as the cloth round it, drawing down into the crease above the crotch (the legs part
+    # at row 45, x 27-30)
+    FOLDS = ['11311131',
+             '13111131',
+             '13111311',
+             '31131311',
+             '11133113',
+             '11343113',
+             '11344311',
+             '13444431']
+    for k, row in enumerate(FOLDS):
+        for i, c in enumerate(row):
+            a[37 + k, 26 + i] = int(c)
     # (no hem line: user, of an orange line drawn across at row 44, "why did you draw a line here????")
     # trousers: the tunic's own light grey, as before the tunic rework (user: "The pants are not supposed to be two
     # toned at all. look at your original"; a brown pair under the grey tunic had read as two-tone)
