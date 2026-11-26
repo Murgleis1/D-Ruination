@@ -237,3 +237,26 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   brimmed hat drawn on** (no MonoMyth old woman wears one) and the front's rose scarf at the neck (the bare tan collar
   under her chin read as a beard), **design 2 MonoMyth 16** (grey bun, lilac dress), **design 3 MonoMyth 24**.
   (MonoMyth 21, white-haired in the catalogue, is a bearded old man.)
+- **The user's picks from the cast board (2026-11-25, "These are the ones you gave me that I like"):** 4A Fantasma 138
+  (old man, cane and watch), 5A MonoMyth 22 (old woman, grey gown and flowered hat), 7A Fantasma 212 (farmer),
+  8B MonoMyth 89 (red-bearded labourer), 11A MonoMyth 116 (gold coat and hat), 14B Fantasma 110 (bald monk with a
+  staff), 16B MonoMyth 30 (white-haired spearman), 20B MonoMyth 68 (flute player), 21B Fantasma 14 (purple witch),
+  24B Fantasma 196 (ghost). **All to be recoloured** ("to make them different from Monomyth and distinguish them
+  more"). **MonoMyth 116 -> the Merchant class** ("if you redesigned his colors, hair color and altered his hat a
+  bit"); **MonoMyth 30 -> the Imperial Officer class** ("with some major color changes and tweaks"); **Fantasma 196
+  -> the Revenant class** (user: the class name "should be Revenant"): undead trainers met here and there round
+  Hollow Hill, an actual ghost fighting with ghosts. **Templars are a trainer class too** (user: "though I don't think
+  you fight that many in Chapter 1 ... like just one or two"); the class, front and overworld exist since 2026-07-22
+  (`TRAINER_CLASS_TEMPLAR`, `TRAINER_PIC_TEMPLAR`, `OBJ_EVENT_GFX_TEMPLAR`: a brown hooded robe).
+  Recolour v1 (`tools/npc/picks/extract.py` pulls the ten indexed from the ROMs; `recolour.py`;
+  `assets/npc_survey/picks_v1.png`): palette edits, each sprite's own shading kept: the old man's suit dark green
+  tweed; the old woman's gown forest green, ribbons rose, flowers cream-gold; the farmer's overalls green-grey wool,
+  hat straw; the labourer dark-haired, leather vest, linen sleeves, slate trousers, brass belt; **the Merchant** a
+  bottle-green coat (the hat and collar with it), chestnut hair, a white plume with a red tip in his hat and a red
+  band; the monk as a Templar priest (white robe, the Order's blue stole, gold orb); the minstrel teal and mustard;
+  the witch moss green, plum hair; **the Revenant** ashen spectral blue, the red eyes brighter. **The Imperial
+  Officer:** the torch, its shaft and the round bag slung behind his right shoulder cleared down to the pauldron's own
+  outline (a first cut had sliced the pauldron: user "his shoulder busted now"); the leather the uniform, the fur
+  (moved to its own slot, rows 17-37, not his face or hands) the mantle; **three options, as the army has no colours
+  on record**: A crimson and grey fur, B imperial purple and gold, C forest green and brass. Overworlds to follow
+  once the fronts are settled.

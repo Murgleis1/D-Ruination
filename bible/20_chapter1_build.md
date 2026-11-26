@@ -85,6 +85,11 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 4. **Glaive — Chapter-1 first appearance** (placement note; profile is §7): the player first **meets and fights Glaive at Hollow Hill's north exit** (Beat 6b), locating the start of his on-screen arc. Already-canon dragon-master / future **second Solomonar** and **Vizier of War** (§1/§7). `[first-appearance placement NEW.]`
 5. **Osrid's Chapter-1 cover deployment** (`[NEW canon]`; the identity itself is already locked — §5; §2 — House Alban): on arrival at Pelluca harbor, Cadmus Umbra installs Osrid under his established **"Nomad Alban"** exile-cover as the **Vizier of Education's personal assistant**, with a reinforcing public post as **"head of security" for the Academy** and a **small house in Pelluca Valley** as cover residence. This frames the whole chapter's two-track mission (public Trial circuit → challenge Rhydia → reveal; covert 9-shard recovery — §9), delivered in the estate briefing (Beat 2). Cadmus briefs only at the operational level he himself knows — not the deep cosmology (§1).
 
+6. **Hollow Hill's Revenants** (`[NEW canon — user 2026-11-25]`; addition to Hollow Hill, §1/§15: the cursed,
+   Ghost-drawing site where Cormor erased Phancero): **unruly, vengeful ghosts emerge round Hollow Hill constantly**;
+   some are met as trainers here and there, **actual ghosts that fight with Ghost Pokémon** (trainer class
+   **Revenant**). **The Templars periodically go in to exorcise them.**
+
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
 **STATUS — the entire critical Chapter-1 principal cast (all seven) is complete and committed.** 7 front pics + 7 overworld sets + 1 battle back + 17 portraits. All front pics are 64×64 16-color indexed (index 0 transparent); all portraits are 96×96; overworld sheets are 128×192 (32×48 RPG-Maker frames) **sources** except Osrid's, which is already engine-format.
