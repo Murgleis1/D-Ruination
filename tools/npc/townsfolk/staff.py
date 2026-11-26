@@ -27,7 +27,14 @@ def cook():
 
 def barkeep():
     idx, pal = load('mm_144')
-    pal[10], pal[12] = (96, 132, 88), (44, 70, 46)              # waistcoat and trousers: forest green
+    # (user 2026-11-26: "green is fine for him"). His clothes' darkest shade is the skin's outline brown (1): below
+    # the face (row 22 on a standing frame) it moves to a free slot (13) so the waistcoat is green throughout
+    for f in range(9):
+        sub = idx[:, f * 16:(f + 1) * 16]
+        t = min(y for y in range(32) if sub[y].any())
+        body = sub[t + 11:]
+        body[body == 1] = 13
+    pal[10], pal[12], pal[13] = (96, 132, 88), (44, 70, 46), (62, 96, 60)   # waistcoat and trousers: forest green
     return idx, pal
 
 

@@ -502,6 +502,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   Pelluca tavern is built from the same map); MonoMyth graphics ids index the graphics-info pointer table at
   **0x93BF90** (285 entries; id 80 = catalogue 144). Behind the bar counter (y 2, the stools at y 3) stand objects 1-2,
   id 80 = **MonoMyth 144, a bald man in a maroon waistcoat** (the patrons on the stools are id 29 = catalogue 23).
-  First recolour: waistcoat and trousers forest green (slots 10, 12). `staff_v2.png`; awaiting the user's check that
-  this is the sprite meant.
+  **Approved green** (user: "green is fine for him"): waistcoat and trousers forest green (slots 10, 12), and their
+  darkest shade, which was the skin's outline brown (1), moved below the face to a free slot (13) in a darker green
+  so no maroon is left. `staff_v3.png`.
 
