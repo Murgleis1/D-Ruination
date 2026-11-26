@@ -273,3 +273,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   pinpoints, nose cavity, hollow cheeks, teeth), rotted hair (bald patches, lank strands over the face, a ragged
   crown), the coat in rags (torn notches down both edges, a ragged hem the wisps eat into, rips with ghost-light).
   `assets/npc_survey/picks_v2.png`. **Purple recorded as canon** (bible 16.6 item 7).
+- **Decisions (user 2026-11-25):** **the Templars move to the Order's blue** ("for sure"); **the older noblewoman
+  class is the Dowager** ("Dowager sounds right"); **the Sword Cult's walking acolytes use MonoMyth 217**, the hooded
+  figures 84/89/90 the kneeling ones ("I think so"). **Templar blue v1** (`tools/npc/templar/templar_blue.py`,
+  `assets/npc_survey/templar_blue_v1.png`; originals kept in `tools/npc/templar/src/`): the robe's slots matched by
+  brightness onto the cathedral nave runner's ramp (so its shading keeps its depth), skin and legs kept; on the front
+  a brown crease colour joins the robe and the cord belt and creases that were brown become the Order's gold (the
+  study's rug pairs the Order blue with gold), in a slot freed by merging two robe browns that land on the same blue.
+  The monk-priest's stole moved onto the same ramp. Mock: not installed until approved.
