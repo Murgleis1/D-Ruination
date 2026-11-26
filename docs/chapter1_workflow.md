@@ -460,6 +460,9 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
 - **Chief: two more bike remnants removed** (user: "this thing on the Marauder Chief between his legs is a remnant of
   the bike you supposedly removed"): the seat and engine block between his knees (rows 46-53) and the tyre's bottom
   (row 56) cleared, the inner edges of his legs outlined; the bike's mirror behind his right shoulder (rows 3-6) too.
+  Then (user: "what are these things behind his legs sticking out?") the bike's lower frame and tyre stub behind his
+  shins (rows 52-56): blue there not joined to either leg's own trouser pixels (flooded from each thigh) cleared,
+  the bar's outline swept, the shins outlined.
   `marauder_fronts_v2.png`.
 - **Class names are 12 characters at most** (`struct TrainerClass` name[13]): "Marauder Goon" (13) and "Marauder
   Chief" (14) do not fit as they stand. Open with the user.

@@ -105,6 +105,38 @@ def chief():
     for y, x in zip(*np.where(cleared)):
         if any(m[y + dy, x + dx] in (8, 9) for dy, dx in ((0, 1), (0, -1), (-1, 0), (1, 0))):
             m[y, x] = 15
+    # (user 2026-11-26: "what are these things behind his legs sticking out?"): the bike's lower frame and the stub of
+    # its tyre behind his shins (rows 52-56): any blue there not joined to either leg's own trouser pixels (flood from
+    # each thigh through the trouser blues) is the bike; cleared, floating outline swept, the shins outlined
+    from collections import deque
+    legs = np.zeros_like(m, bool)
+    for seed in ((50, 30), (50, 50)):
+        q = deque([seed])
+        while q:
+            y, x = q.popleft()
+            if not (0 <= y < 57 and 0 <= x < 64) or legs[y, x] or m[y, x] not in (8, 9):
+                continue
+            legs[y, x] = True
+            q.extend(((y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)))
+    win = np.zeros_like(m, bool); win[52:57, 33:50] = True
+    m[win & np.isin(m, (8, 9)) & ~legs] = 0
+    for _ in range(3):
+        for y in range(52, 58):
+            for x in range(33, 50):
+                if m[y, x] == 15:
+                    nb = [m[y + dy, x + dx] for dy in (-1, 0, 1) for dx in (-1, 0, 1) if (dy or dx)]
+                    if not any(v not in (0, 15) for v in nb):
+                        m[y, x] = 0
+    for y in range(52, 58):                                  # the bar's outline that ran along under his shins
+        for x in range(33, 50):
+            if m[y, x] == 15 and not any(m[y + dy, x + dx] in (8, 9) or (legs[y + dy, x + dx])
+                                         for dy in (-1, 0, 1) for dx in (-1, 0, 1)) \
+                    and not any(m[y + dy, x + dx] in (4, 11, 12, 13) for dy in (-1, 0, 1) for dx in (-1, 0, 1)):
+                m[y, x] = 0
+    for y in range(52, 58):
+        for x in range(33, 50):
+            if m[y, x] == 0 and any(legs[y + dy, x + dx] for dy, dx in ((0, 1), (0, -1), (1, 0))):
+                m[y, x] = 15
     for y in range(37, 64):                                  # close the cut edge of his legs
         xs = [x for x in range(64) if m[y, x]]
         if xs and m[y, xs[0]] != 15 and xs[0] > 0:
