@@ -368,4 +368,11 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   (`seafolk.witch_hat`; `assets/npc_survey/fisher_walker_hat_v4.png`, MonoMyth's witch above for comparison).
   The brim set on the hat's last full-width row (it had been set on the row below, where the brim's tips droop past
   the face with hair between them, and the cleared cap left a gap under the brim: user "you got a weird gap here").
-  `assets/npc_survey/fisher_walker_hat_v3.png`.
+- **The seafolk approved, fronts and walkers (user 2026-11-26: "All the front and overworld sprites from your first
+  three look great now").**
+- **Women walkers v1** (`tools/npc/walkers/women.py`, `assets/npc_survey/women_walkers_v1.png`; MonoMyth's 12-frame
+  walkers onto Emerald's 9: frames 0, 1, 2, 4, 5, 6, 7, 8, 9): **the witch** on MonoMyth 87 (MonoMyth's own witch),
+  the greens the front's moss green, the red hair plum; **the old woman** on MonoMyth 108, the hair white, the skin
+  fair, the dress the front's brown with a cream collar, **a felt hat in the gown's brown covering the top of her
+  hair** (crown over the hair's top rows, brim at its widest row, a pixel wider each side; set on top of 108's big
+  hair it had sat like a small cap) with a rose and a cream-gold flower on the crown, as her front's flowered hat.  `assets/npc_survey/fisher_walker_hat_v3.png`.
