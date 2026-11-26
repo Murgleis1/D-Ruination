@@ -435,3 +435,13 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
     steps a column inward and the other lifts behind the hem (the two frames mirror images); west, the front foot
     a column forward and the back foot a column back, then the front foot lifted a row.
     `townsfolk_walkers_v2.png`, `steps_walk_v1.gif`.
+- **Classes still missing (2026-11-26, checked against the approved cast list and Pelluca's object events):**
+  Marauder; commoner man and woman (Pelluca's Man 1/3, Woman 1-5); children / Academy students (School Kid, Lass,
+  Youngster, Boy, Tuber); innkeeper / cook (2 Cooks); nobleman / lord; nun; hunter / ranger; Beads cultists. Mocked,
+  never signed off: the Dowager, the Sword Cult Cardinal and acolytes. Approved, not installed: the noble boy. Plan:
+  finish these before the one-pass install.
+- **Marauders** (user 2026-11-26: "we'll call them Marauders instead of Brigands as the new class. They're like
+  pillagers and thieves that rob and steal from travellers and they form gangs on occasion to invade towns"; bible
+  20 §16.6 item 8). Front candidates v1 (`tools/npc/marauder/cands.py`, `assets/npc_survey/marauder_cands_v1.png`):
+  MonoMyth 39, 6, 37, 112, 91, 79, 138; Fantasma 55, 168, 181, 8, 151; female MonoMyth 38, 123, Fantasma 26, 95,
+  113. Crown's fronts are not in it (its front table is dummied; they need capturing in the emulator).
