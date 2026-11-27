@@ -18,7 +18,7 @@ little under Braviary's (still above H. Braviary's 65). Flying/Dark. **Intimidat
 Evolves at Lv.45. Joins at Lv.12, **always Adamant, with perfect IVs (31 in every stat)** (user).
 
 **Learnset (user 2026-11-27, final):** Lv.1 Peck, Leer · 6 Hone Claws · 10 Knock Off · 15 Rock Tomb · 20 Aerial Ace ·
-23 Tailwind · 29 Rock Slide · 32 Night Slash · 37 Drill Peck · 41 Bulk Up · 46 Parting Shot · 52 Stone Edge ·
+23 Tailwind · 29 Rock Slide · 32 Night Slash · 37 Drill Peck · 41 Roost · 46 Parting Shot · 52 Stone Edge ·
 58 Brave Bird · 70 Raging Fury (Fire: the late answer to Steel). E. Braviary also: **Sunder on evolution** and
 Superpower 51. Joins knowing Peck, Leer, Hone Claws, Knock Off.
 
