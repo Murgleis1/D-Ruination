@@ -1,4 +1,4 @@
-# Dreamstone Ruination TM set — draft v1 (2026-11-27, for the user's review)
+# Dreamstone Ruination TM set — draft v2 (2026-11-27, for the user's review)
 
 User 2026-11-27: our own TM set to make it interesting; **90 TMs** ("meet in the middle"); classics at their Gen 3 numbers
 (**TM06 Toxic, TM13 Ice Beam, TM15 Hyper Beam, TM24 Thunderbolt, TM26 Earthquake, TM29 Psychic, TM30 Shadow Ball, TM35
@@ -57,7 +57,7 @@ rest are mid and late game. Where each TM is found or sold is decided area by ar
 | 44 | Giga Drain | Grass | Spec | - | 100 | Grass that heals |
 | 45 | Energy Ball | Grass | Spec | - | 100 | special Grass |
 | 46 | Seed Bomb | Grass | Phys | 80 | 100 | physical Grass |
-| 47 | Leech Seed | Grass | Stat | 0 | 90 | drains every turn |
+| 47 | Sappy Seed | Grass | Phys | 100 | 90 | rare and very powerful: hits hard and plants Leech Seed; most Grass types can learn it (user, in place of Leech Seed) |
 | 48 | Triple Axel | Ice | Phys | 20 | 90 | Ice that grows with each hit |
 | 49 | Drain Punch | Fighting | Phys | - | 100 | Fighting that heals |
 | 50 | Close Combat | Fighting | Phys | 120 | 100 | big physical Fighting |
@@ -110,6 +110,10 @@ Compatibility comes from each Pokémon's canonical TM and tutor lists across the
 as every Pokémon whose canonical moves include a blade or claw move (Slash, Night Slash, Leaf Blade, Sacred Sword, Psycho
 Cut, Shadow Claw, Dragon Claw, Metal Claw, Crush Claw, Hone Claws), added through `porymoves_files/custom.json`, then
 the list shown for a once-over.
+
+**Sappy Seed** (user 2026-11-27) is canonically Partner Bulbasaur's only (Let's Go); the rule asked for is *most Grass
+types*: every Grass-type species can learn it through `custom.json`, the list shown for a once-over (a few may be left out
+where it would not fit). It is rare: found late, not sold.
 
 ## Open
 - Empire-era name for TMs, or keep "TM" (asked).
