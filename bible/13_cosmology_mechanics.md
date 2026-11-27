@@ -1270,3 +1270,19 @@ Substantial engineering work — see Section 14 for full task specifications. Ke
 **`[user 2026-11-16]` Name and a design hook from the Chapter 1 shard briefing:**
 - In Cormoria's old tales the three Dreamstones are called **"the Legacy of Cormor"**.
 - **Shard proximity affects Pokémon** `[OPEN, to design]`: Cadmus tells Osrid that "if a shard is nearby, the Pokémon there will be affected in various ways", which is why the PokéLog matters to the shard hunt. Needs a concrete mechanic (e.g. out-of-place species, altered colouring or behaviour, odd PokéLog entries near a shard).
+
+---
+
+## Lost technology: PokéSpheres and TMs (user 2026-11-27) `[NEW canon]`
+
+- **The Cormorian Empire already has capture and move-teaching technology, to some degree.** In later ages Poké Balls and TMs
+  are treated as modern inventions; the truth is that the Empire had their forerunners, and **the knowledge was lost
+  with the Empire's collapse in the aftermath of the sealing of the Treasures of Ruin.** Modern Poké Balls are a
+  rediscovery, not a first invention.
+- **In the Empire they are called PokéSpheres**, so the balls are **Poké Spheres, Great Spheres, Ultra Spheres** and so on.
+- **How it is told:** never stated outright and never spoiling the end of the game (the collapse). The player should be
+  able to piece it together: the names themselves, item descriptions, a library book or two, NPC remarks about where
+  Spheres and TMs come from and who keeps the craft, the way the technology is a little rougher than the player knows it.
+- **The TM set is our own (user 2026-11-27):** a custom list to make it interesting, keeping a few classics at their
+  classic numbers (**TM13 Ice Beam, TM24 Thunderbolt**). Draft list, Empire-era naming and delivery: see
+  docs/chapter1_workflow.md and the TM draft when made.
