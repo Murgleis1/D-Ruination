@@ -517,11 +517,13 @@ DR_Tavern_Caretaker_Text_1:
 
 DR_Tavern_Sage_Text_0:
 # 51 "data/scripts/dr_tavern.pory"
-	.string "That mask is Athanto work. There'll be\n"
-	.string "no more of them now.\p"
-	.string "Two years past, the guardian of that\n"
-	.string "land came down from its mountain and\l"
-	.string "left neither king nor lord alive.$"
+	.string "That mask is Athanto work. Their\n"
+	.string "enchanters put a power into masks and\l"
+	.string "blades that no craftsman of ours can\l"
+	.string "match, and almost none of it ever\l"
+	.string "leaves their borders.\p"
+	.string "Whoever got that one out for you had\n"
+	.string "friends in high places.$"
 
 DR_Tavern_Sage_Text_1:
 # 53 "data/scripts/dr_tavern.pory"

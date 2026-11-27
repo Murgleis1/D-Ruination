@@ -88,7 +88,7 @@ script DR_Lib_Guilds {
 }
 
 script DR_Lib_Athanto {
-    msgbox(format("“A Traveller's Account of Athanto.”\pFar over the sea lies the kingdom of Athanto, a land of castles and knights, whose healers make the mending masks prized in every land. Its lords give each child of noble birth a pup to raise, that the two may grow up together into knight and Arcanine.\pAbove it all, on the highest mountain, dwells a guardian Pokémon with a fleece of gold, said to have carved the hills with its claws as a sanctuary for every Pokémon.\pA newer hand has added at the end: “Two years past, the guardian came down from its mountain. They say the kingdom had felled the forests and culled the beasts of the land to feed its armies. The kingdom is gone, and the sea runs through the middle of its land.”"), MSGBOX_SIGN)
+    msgbox(format("“A Traveller's Account of Athanto.”\pFar over the sea lies the kingdom of Athanto, which trades with the Empire but suffers no foreigner to settle within its borders. Its enchanters bind great power into masks and blades, and almost none of their work is ever sold abroad.\pIts lords give each child of noble birth a pup to raise, that the two may grow up together into knight and Arcanine.\pAbove it all, on the highest mountain, dwells a guardian Pokémon with a fleece of gold. The Athantoans call it their true King, and no foreign power has ever gained a foothold while it keeps watch.\pA newer hand has added at the end: “Merchants back from Athanto talk of quarrels among its lords, and of whole forests felled to feed their armies.”"), MSGBOX_SIGN)
     end
 }
 

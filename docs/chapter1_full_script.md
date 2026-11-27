@@ -40,7 +40,7 @@ Burns to the face and neck, taken holding a beach that needed twice the men. Com
 
 **Cadmus:** The Commander has since been invited to explain his judgement to people who outrank us both. He will be explaining it for some time, from a cell that has never seen daylight.
 
-**Cadmus:** I am told the army gave you a rare mending mask from the Athanto kingdom while your burns heal. Such masks hasten healing and ward off evil. None have been made since the kingdom fell, and one is now worth more than most noble estates, so expect a few stares.
+**Cadmus:** I am told the army gave you a rare mending mask from the Athanto kingdom while your burns heal. Such masks hasten healing and ward off evil. Athanto's enchanters almost never let their work leave the kingdom, and one is worth more than most noble estates, so expect a few stares.
 
 Wear it well. I suspect it will serve you longer than the burns require.
 

@@ -123,24 +123,28 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    Marauders**; he apologizes only if the player **talks to him again after beating him**. The player fights **no
    Imperial Soldiers in Pelluca or anywhere else in Chapter 1**.
 
-11. **The world abroad, for loredrops** (`[NEW canon — user 2026-11-26]`): **the kingdom of Athanto fell only two years
-   before the story** (MonoMyth's region; the mending masks come from there). Cormoria still fights **overseas
+11. **The world abroad, for loredrops** (`[NEW canon — user 2026-11-26]`): Cormoria still fights **overseas
    skirmishes with the tyrannical theocratic dynasties ruling Kanto and Johto**. Abroad there is **trouble and fear of
    civil war in Kalos, Paldea and Tellius**. NPCs talk of all of it (§16.15).
-   **Athanto, as MonoMyth tells it (its museum legend, decoded 2026-11-26: `assets/intro_reference/monomyth_athanto_legend.txt`;
-   credit MonoMyth):** a guardian Pokémon with a **fleece of golden fur** carved Athanto's hills with its claws as a
-   sanctuary for all Pokémon. A great, prosperous **kingdom** (castles, villages; feudal lords and **knights raised from
-   infancy with a pup that grew into their Arcanine**, per MonoMyth's Pokédex) settled under its watch, then began to
-   **exploit the land: a hundred trees cut for every one planted, a thousand Pokémon culled a day to feed its armies**.
-   The guardian came down from its mountain in fury, **razed the villages and cities, and slew the royal family in their
-   own high court**; when the kingdom's men were gone it roared, and **a final tremor split Athanto down the middle**,
-   the sea flooding the divide. Its golden coat fell away (the **Golden Fleece**) and the beast beneath (MonoMyth's
-   Weildrhide) went back up its mountain (Mt. Thunder, "the Peak of Kings") to guard the land. The capital's ruins were
-   never found; **Fort Elderflower** is one of the kingdom's few surviving fortresses. **The user (2026-11-26): that
-   kingdom stood in the same era as the Cormorian Empire, and fell two years before the story** (MonoMyth's modern
-   scholars date its ruins to "roughly 500 years" ago: their estimate, not ours). Cormorians know it as news from abroad:
-   the guardian's wrath, the kingdom gone, the land split by the sea. **The mending masks are our own addition** (not in
-   MonoMyth, and nothing there contradicts them); since the fall none are made, which is why one is worth so much.
+   **Athanto in this era (user 2026-11-26, revised the same day; supersedes "fell two years before the story"):** the
+   kingdom **still stands**. Its fall comes about **1,500 years after our story** (MonoMyth's scholars date its ruins to
+   roughly 500 years before the modern era; ours is 2,000). Athanto is a **magical kingdom and occasional trading partner
+   of Cormoria**, with a **near-zero tolerance for immigration** and **extremely secretive**. Its **enchanters imbue great
+   power into objects such as masks and blades**, which **very rarely leave the country** (the mending masks are among
+   them: our own addition, not in MonoMyth, and nothing there contradicts them; this is why one is worth more than most
+   noble estates). It is closed off partly because it lives **under a mighty guardian beast**, held by Athantoans to be
+   their **true King**, which **wards off the influence of other nations**; there are **rumours of internal struggles**
+   (quarrels among its lords, forests felled to feed armies): the quiet seeds of its distant fall.
+   **Athanto as MonoMyth tells it (its museum legend, decoded 2026-11-26: `assets/intro_reference/monomyth_athanto_legend.txt`;
+   credit MonoMyth), for reference:** a guardian Pokémon with a **fleece of golden fur** carved Athanto's hills with its
+   claws as a sanctuary for all Pokémon. A great, prosperous **kingdom** (castles, villages; feudal lords and **knights
+   raised from infancy with a pup that grew into their Arcanine**, per MonoMyth's Pokédex) settled under its watch, then
+   began to **exploit the land: a hundred trees cut for every one planted, a thousand Pokémon culled a day to feed its
+   armies**. The guardian came down from its mountain in fury, razed the villages and cities, and slew the royal family
+   in their own high court; a final tremor split Athanto down the middle and the sea flooded the divide. Its golden coat
+   fell away (the **Golden Fleece**) and the beast beneath (MonoMyth's Weildrhide) went back up Mt. Thunder ("the Peak of
+   Kings") to keep watch as **the true King of Athanto**. The capital's ruins were never found; **Fort Elderflower** is
+   one of the kingdom's few surviving fortresses. All of this lies far in our story's future.
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 
@@ -180,7 +184,7 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
 
 ### 16.9 Chapter-1 dialogue pass `[v0.9.16 — 2026-11-16, user-directed]`
 The full Chapter-1 script up to Eden's imprisonment was rewritten (readable copy: `docs/chapter1_dialogue.md`). Canon fixed in that pass:
-- **The mask is a mending mask from Athanto** (a MonoMyth Easter egg): made to hasten healing and keep evil at bay, prized in many lands, and *not customary* in Cormoria. The letter, the dockhands and Eden all make the player understand from the outset that Osrid wears it over **burns from the Sevii beach**, a loss caused by **Commander Boran Surge** splitting his forces across two fronts. (Supersedes the generic "Noh-styled ceremonial Rainhawk mask" wording for in-game text; the Eye-of-Horus design is unchanged.)
+- **The mask is a mending mask from Athanto** (a MonoMyth Easter egg): made to hasten healing and keep evil at bay by Athanto's enchanters, whose work very rarely leaves that closed kingdom (§16.6 item 11), and *not customary* in Cormoria. The letter, the dockhands and Eden all make the player understand from the outset that Osrid wears it over **burns from the Sevii beach**, a loss caused by **Commander Boran Surge** splitting his forces across two fronts. (Supersedes the generic "Noh-styled ceremonial Rainhawk mask" wording for in-game text; the Eye-of-Horus design is unchanged.)
 - **Timeline:** the opening narration now says **two thousand years before Red** (matches §1). **General Albrecht** removed from the letter.
 - **The letter never names the prince** (Cadmus writes as if it may be intercepted). ~~States that Osrid earned Rainhawk before Sevii~~ **Superseded 2026-11-18 (user):** the rank is granted *after* Sevii, at 20, with the discharge — see §16.11.
 - **Beat 2 now includes the cover-identity briefing** (personal assistant + Academy head of security + a small house in the valley; public mission = all Trial Badges → challenge Rhydia → reveal) and Rhydia is introduced to the player as his sister and the five-year Champion.

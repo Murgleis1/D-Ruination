@@ -48,7 +48,7 @@ script DR_Tavern_Sage {
     faceplayer
     if (!flag(FLAG_DR_SAGE_MASK_REMARK)) {
         setflag(FLAG_DR_SAGE_MASK_REMARK)
-        msgbox(format("That mask is Athanto work. There'll be no more of them now.\pTwo years past, the guardian of that land came down from its mountain and left neither king nor lord alive."))
+        msgbox(format("That mask is Athanto work. Their enchanters put a power into masks and blades that no craftsman of ours can match, and almost none of it ever leaves their borders.\pWhoever got that one out for you had friends in high places."))
     }
     message(format("A new name, a forgotten art, a change of temper... What would you have of me?"))
     waitmessage
