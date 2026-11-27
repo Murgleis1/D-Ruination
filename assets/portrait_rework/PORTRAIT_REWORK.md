@@ -525,3 +525,9 @@ Note: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluc
   options read as a mole or a third eye at 1x. Image: front_scar_options.png.
 - Overworld: the face is 5x2 px; one shadow px beside the eye reads as a wider eye or jaw shadow, not a scar
   (ow_scar_options.png). Not applied unless the user wants it.
+- 2026-11-27 user: battle sprite "messed up" (the grey scar on grey-pink skin read as a smudge) and its hair colour
+  didn't match the portrait/overworld. tools/art/glaive/front_recolour.py (from b12db3cd7): hair 6/10 -> portrait
+  main/darkest (148,56,44)/(64,24,19), new highlight slot 14 (181,69,54) on the clump tops; skin 1/2 -> portrait
+  (243,197,172)/(209,155,123); shoe and buckle px that borrowed the skin entries moved to new grey slot 15; eyes
+  -> darkest (as the overworld), mouth 2 px skin shadow, ear top hair dark; scar redone as 2 px of the warm skin
+  shadow at the user's spot. Built palette and tiles verified against the PNG. Image: front_recolour_v1.png.
