@@ -18,9 +18,10 @@ NONSKIN = [(32, 33), (33, 33), (34, 33), (32, 34), (33, 34),                    
            (22, 61), (23, 61), (25, 61)]                                             # shoes
 WRIST = [(24, 34), (40, 34)]                  # the two hair-index px under the hands are skin shadow
 
+# Right eye is (34,10), the px diagonal from (35,9) (user 2026-11-27); (35,9) is skin shadow.
 # Face on the warm skin: the grey feature index (3, shared with the suit) read as smudges. Eyes go green like the
 # portrait (user 2026-11-27), the mouth to skin shadow, the ear top to hair dark and the px under the right eye to skin shadow.
-FACE = {(30, 9): 3, (35, 9): 3, (34, 10): 2, (32, 13): 2, (26, 8): 10}
+FACE = {(30, 9): 3, (35, 9): 2, (34, 10): 3, (32, 13): 2, (26, 8): 10}
 MOUTH = [(31, 13)]                            # mouth widened to 2 px of skin shadow, like the portrait's soft mouth
 # Hair highlight streaks on the top-left of each clump, the way the portrait and overworld are lit.
 HILITE = [(28, 2), (29, 2), (27, 3), (28, 3), (33, 2), (34, 2), (32, 3), (27, 6), (26, 7), (36, 4)]
