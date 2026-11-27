@@ -518,3 +518,10 @@ Note: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluc
 - Chin hair: a skin-tone dot screen was rejected ("looks bad"). Study of MonoMyth #268 / #351 / #46: facial hair
   is the chin outline grown into short uneven strands with skin between them. Done very light in his hair darks
   (2 / 10), chin only. Images: face_scar_beard_v4.png, monomyth_chin_hair_refs.png (assets/glaive_rework/).
+- 2026-11-27 APPROVED ("looks really good") and WRITTEN to the game: glaive_{neutral,positive,negative}.png via
+  portrait_v2.py --write. Build OK.
+- Battle front pic: scar at the spot the user picked (cells x30-31, y11-12, under his left-hand eye from the
+  viewer): two mid-shadow px (idx 2) on a down-right diagonal, (30,11) and (31,12), the soft option. The darker
+  options read as a mole or a third eye at 1x. Image: front_scar_options.png.
+- Overworld: the face is 5x2 px; one shadow px beside the eye reads as a wider eye or jaw shadow, not a scar
+  (ow_scar_options.png). Not applied unless the user wants it.
