@@ -27,6 +27,7 @@ No rod and no Surf are given in Chapter 1 today. Pelluca's fishing table is Drea
    - a **lore chase**, a rare that fits the place and is strong in its own right.
 2. **Kept out of the wild, so choices keep their weight (Principle 2):**
    - the starters' lines (Frigibax, Teddiursa, Tinkatink);
+   - the Burglar Egg's three (Squirtle, Chespin, Chimchar; user 2026-11-27);
    - Wimpod;
    - Rufflet and Braviary;
    - Eiscue (Loulan's);
@@ -164,7 +165,7 @@ Pelluca City and the Harbour: Magikarp 70% and Arrokuda 30%, levels 5-10. These 
 
 - **Litwick in the Mirroh Chapel** (new, proposed). A one-time Litwick among the chapel's candles that the player can battle and catch. It is Ghost/Fire with Flash Fire: Fire answers Shedinja, Dhelmise and Honedge, Ghost answers the rest, and Will-O-Wisp does nothing to it. It also suits the haunted city.
 - **The Mirroh Egg salesman** (canon, §16.5 item 4). He sells rare Eggs at tiered prices; every hatch has perfect IVs and one in four is shiny.
-- Also planned: the starter; the Fisherman's Wimpod (Lv 12, Pelluca sidequest, not built yet); the E. Rufflet (Flying/Dark, Lv 12); **the Burglar Egg is being reworked** (user 2026-11-27: different eggs, not Dark types).
+- Also planned: the starter; the Fisherman's Wimpod (Lv 12, Pelluca sidequest, not built yet); the E. Rufflet (Flying/Dark, Lv 12); **the Burglar Egg** (user 2026-11-27: choose one of Squirtle, Chespin or Chimchar; Squirtle's and Chespin's Bite hit his Ghosts, and Chimchar has Ember and Taunt).
 
 ## Coverage check against Kimaris
 
