@@ -47,7 +47,7 @@ same palette with black and white swapped.
 
 *Rip speaks broad cockney, heavy on over-the-top English slang and comic nonsense, and calls himself "ol' Rip" (user 2026-11-26).*
 
-**The paranoid officer: Royal Officer Denthorn** (class "Royal Officer"; Honedge Lv.12, Nidorino Lv.14)
+**The paranoid officer: Royal Officer Denth** (class "Royal Officer"; Honedge Lv.12, Nidorino Lv.14)
 - Before: Halt! A mask, in these woods? You're one of Rip's, I'd stake my pay on it.
 - Defeated: Whatever you are, you're no common cutthroat.
 - Talked to after: I owe you an apology, Rainhawk. Marauders have robbed every cart through these woods, and half of them hide their faces. I see a mask and I see a thief.
@@ -67,7 +67,7 @@ same palette with black and white swapped.
 - If the player has not rescued it: **Loulan:** Any sign of the Rufflet? Those Marauders can't have gone far.
 (Ambrose himself is not at Templar HQ until the first Trial is won; see the bible, Beat 6b and the Opal.)
 
-**Glaive at the north exit (Beat 6b, user)**: as the player leaves Hollow Hill northward, **Glaive** stops them. He has been escorting a Royal Officer, Denthorn, to look into reports of thieves, the Revenants rising round the Hill, and whispers of a strange cult round the Hill and Mt. Mirroh. He sees the mask, asks the player's name and rank, scoffs at the answer, and fights. Beaten, he lashes out: he will remember the player, and he will not suffer such a disgrace again; he stomps off. Osrid, alone (his portrait), wonders whether he will get to fight him again, dragons being so rare. **This is G1 of his five-fight ladder (bible §7): Bagon "Blackthorn" (the black-and-crimson shiny) and Turtonator (Ruination buff).** His sprites are already in the game. *Levels and lines to draft next.*
+**Glaive at the north exit (Beat 6b, user)**: as the player leaves Hollow Hill northward, **Glaive** stops them. He has been escorting a Royal Officer, Denth, to look into reports of thieves, the Revenants rising round the Hill, and whispers of a strange cult round the Hill and Mt. Mirroh. He sees the mask, asks the player's name and rank, scoffs at the answer, and fights. Beaten, he lashes out: he will remember the player, and he will not suffer such a disgrace again; he stomps off. Osrid, alone (his portrait), wonders whether he will get to fight him again, dragons being so rare. **This is G1 of his five-fight ladder (bible §7): Bagon "Blackthorn" (the black-and-crimson shiny) and Turtonator (Ruination buff).** His sprites are already in the game. *Levels and lines to draft next.*
 
 ## Open points
 - Glaive's G1 levels.
