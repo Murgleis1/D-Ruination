@@ -53,7 +53,7 @@ No rod and no Surf are given in Chapter 1 today. Pelluca's fishing table is Drea
 | 7 | 5 | Bounsweet | 8-10 | The farmhouse orchard |
 | 8 | 4 | Nidoran♀ | 8-10 | Denth's Nidorino came from these fields |
 | 9 | 4 | Nidoran♂ | 8-10 | |
-| 10 | **1** | **Paldean Tauros (Blaze Breed)** | 9-10 | **Kimaris chase** (user 2026-11-27, replacing Ponyta): the farm's bull to go with its Miltank. Fighting/Fire with Intimidate. As a Fire type it can't be burned, so Will-O-Wisp does nothing, and **Flame Charge at 15** hits Shedinja, Dhelmise and Honedge. Its Fighting moves can't touch his Ghosts. BST 490 |
+| 10 | **1** | **Paldean Tauros (Blaze Breed)** | 9-10 | **Kimaris chase** (user 2026-11-27, replacing Ponyta): the farm's bull to go with its Miltank. Fighting/Fire with Intimidate. As a Fire type it can't be burned, so Will-O-Wisp does nothing, and **Flame Charge**, moved to level 10 for this game (user 2026-11-27; it was 15), hits Shedinja, Dhelmise and Honedge. Its Fighting moves can't touch his Ghosts. BST 490 |
 | 11 | **1** | **Miltank** | 10 | **Lore chase:** the farm's prize. **Scrappy** lets its Normal moves (Stomp, Rollout) hit Ghosts, and it is immune to theirs. BST 490 |
 
 **Fishing**, only if an Old Rod is given (rule below): Magikarp 70% and Wooper 30%, levels 5-10. Wooper is Water/Ground, and Ground hits Gastly and Honedge.
@@ -187,4 +187,4 @@ Every row has at least two answers in the common slots, plus more from the gifts
 3. ~~Gate Mt. Mirroh~~ **Settled (user):** Kimaris keeps the player off the mountain until Trial 1. Build note: Route 13's trigger up the mountain still warps straight in.
 4. ~~Cave encounters~~ **Settled (user):** 1F and the ascent both have wild Pokémon. The 1F floor tiles get marked as cave floor again.
 5. **The Litwick in the chapel: yes (user), with a clever way to obtain it** (to design).
-6. Species swaps anywhere: these are first picks.
+6. ~~Species swaps~~ **Settled (user 2026-11-27):** Ponyta out, Blaze Breed Tauros in; no other swaps.
