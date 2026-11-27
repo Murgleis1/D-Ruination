@@ -406,7 +406,7 @@ const struct TrainerClass gTrainerClasses[TRAINER_CLASS_COUNT] =
     [TRAINER_CLASS_SCHOLAR] = { _("Scholar"), 18 },
     [TRAINER_CLASS_WITCH] = { _("Witch"), 14 },
     [TRAINER_CLASS_MINSTREL] = { _("Minstrel"), 10 },
-    [TRAINER_CLASS_IMPERIAL_OFFICER] = { _("Imperial Officer"), 16 },
+    [TRAINER_CLASS_ROYAL_OFFICER] = { _("Royal Officer"), 16 },
 // DR_CAST end [TRAINER_CLASS_BRIGAND]
 };
 

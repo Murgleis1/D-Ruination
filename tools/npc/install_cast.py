@@ -87,7 +87,7 @@ CLASSES = [('REVENANT', 'Revenant', 12), ('ADVENTURER', 'Adventurer', 10), ('FIS
            ('CORSAIR', 'Corsair', 14), ('MARINER', 'Mariner', 10), ('WOODSMAN', 'Woodsman', 10),
            ('MERCHANT', 'Merchant', 24), ('GOON', 'Goon', 12), ('BANDIT', 'Bandit', 14),
            ('MARAUDER', 'Marauder', 20), ('SCHOLAR', 'Scholar', 18), ('WITCH', 'Witch', 14),
-           ('MINSTREL', 'Minstrel', 10), ('IMPERIAL_OFFICER', 'Imperial Officer', 16)]
+           ('MINSTREL', 'Minstrel', 10), ('ROYAL_OFFICER', 'Royal Officer', 16)]
 
 GFX0, TAG0, PIC0, CLS0 = 290, 0x1170, 137, 0x6D
 B, E = '// DR_CAST begin', '// DR_CAST end'
