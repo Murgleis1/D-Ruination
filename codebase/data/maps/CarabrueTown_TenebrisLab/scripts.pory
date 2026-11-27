@@ -80,7 +80,7 @@ script CarabrueTown_TenebrisLab_EventScript_Start {
     waitmovement(3)
 
     speakername("Rue")
-    msgbox(format("You'll need a companion Pokémon to protect you. Pick up any of the Pokéballs lying around the lab.\lIf we had our supplies, I could give you the standard companion Pokémon,\lbut without Professor Tenebris, everything's gone haywire here.\pYou'll have to make do with what you find lying around.\pBut once you bring the supplies from the Poké Mart, we'll pair you with the Pokémon you're meant to be with."))
+    msgbox(format("You'll need a companion Pokémon to protect you. Pick up any of the Poké Spheres lying around the lab.\lIf we had our supplies, I could give you the standard companion Pokémon,\lbut without Professor Tenebris, everything's gone haywire here.\pYou'll have to make do with what you find lying around.\pBut once you bring the supplies from the Poké Mart, we'll pair you with the Pokémon you're meant to be with."))
     release
 
     applymovement(3, moves(jump_in_place_down))
@@ -502,7 +502,7 @@ script CarabrueTown_TenebrisLab_EventScript_Pokeball_One{
             waitfanfare
             hidemonpic
 
-            message(format("The Poké Ball seems to be glittering...\nWhat could it be?"))
+            message(format("The Poké Sphere seems to be glittering...\nWhat could it be?"))
             waitmessage
             dynmultichoice(12, 8, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
                 "A trick of the light", "Yes, it's glittering!")
@@ -557,7 +557,7 @@ script CarabrueTown_TenebrisLab_EventScript_Pokeball_Two{
             waitfanfare
             hidemonpic
 
-            message(format("The Poké Ball seems to be glittering...\nWhat could it be?"))
+            message(format("The Poké Sphere seems to be glittering...\nWhat could it be?"))
             waitmessage
             dynmultichoice(12, 8, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
                 "A trick of the light", "Yes, it's glittering!")
@@ -613,7 +613,7 @@ script CarabrueTown_TenebrisLab_EventScript_Pokeball_Three{
             waitfanfare
             hidemonpic
 
-            message(format("The Poké Ball seems to be glittering...\nWhat could it be?"))
+            message(format("The Poké Sphere seems to be glittering...\nWhat could it be?"))
             waitmessage
             dynmultichoice(12, 8, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, 
                 "A trick of the light", "Yes, it's glittering!")

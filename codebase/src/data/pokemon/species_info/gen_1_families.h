@@ -12486,7 +12486,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .weight = 104,
         .description = COMPOUND_STRING(
             "It bears an uncanny and unexplained\n"
-            "resemblance to a Poké Ball. Because it\n"
+            "resemblance to a Poké Sphere. Because it\n"
             "explodes at the slightest shock, even\n"
             "veteran Trainers treat it with caution."),
         .pokemonScale = 364,
@@ -12626,7 +12626,7 @@ const struct SpeciesInfo gSpeciesInfoGen1[] =
         .height = 5,
         .weight = 130,
         .description = COMPOUND_STRING(
-            "It esembles an ancient Poké Ball design.\n"
+            "It esembles an ancient Poké Sphere design.\n"
             "When excited, it discharges the electric\n"
             "current it has stored in its belly, then\n"
             "lets out a great, uproarious laugh."),

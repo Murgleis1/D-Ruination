@@ -156,10 +156,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_STRANGE_BALL] =
     {
-        .name = _("Strange Ball"),
+        .name = _("Strange Sphere"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "An unusual Ball\n"
+            "An unusual Sphere\n"
             "warped through\n"
             "space and time."),
         .pocket = POCKET_POKE_BALLS,
@@ -172,7 +172,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_POKE_BALL] =
     {
-        .name = _("Poké Ball"),
+        .name = _("Poké Sphere"),
         .price = 200,
         .description = COMPOUND_STRING(
             "A tool used for\n"
@@ -188,12 +188,12 @@ const struct Item gItemsInfo[] =
 
     [ITEM_GREAT_BALL] =
     {
-        .name = _("Great Ball"),
+        .name = _("Great Sphere"),
         .price = 600,
         .description = COMPOUND_STRING(
-            "A good Ball with a\n"
+            "A good Sphere with a\n"
             "higher catch rate\n"
-            "than a Poké Ball."),
+            "than a Poké Sphere."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -204,12 +204,12 @@ const struct Item gItemsInfo[] =
 
     [ITEM_ULTRA_BALL] =
     {
-        .name = _("Ultra Ball"),
+        .name = _("Ultra Sphere"),
         .price = (I_PRICE >= GEN_7) ? 800 : 1200,
         .description = COMPOUND_STRING(
-            "A better Ball with\n"
+            "A better Sphere with\n"
             "a higher catch rate\n"
-            "than a Great Ball."),
+            "than a Great Sphere."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
         .battleUsage = EFFECT_ITEM_THROW_BALL,
@@ -236,10 +236,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_PREMIER_BALL] =
     {
-        .name = _("Premier Ball"),
+        .name = _("Premier Sphere"),
         .price = (I_PRICE >= GEN_7) ? 20 : 200,
         .description = COMPOUND_STRING(
-            "A rare Ball made\n"
+            "A rare Sphere made\n"
             "in commemoration\n"
             "of some event."),
         .pocket = POCKET_POKE_BALLS,
@@ -252,10 +252,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_HEAL_BALL] =
     {
-        .name = _("Heal Ball"),
+        .name = _("Heal Sphere"),
         .price = 300,
         .description = COMPOUND_STRING(
-            "A remedial Ball\n"
+            "A remedial Sphere\n"
             "that restores\n"
             "caught Pokémon."),
         .pocket = POCKET_POKE_BALLS,
@@ -268,10 +268,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_NET_BALL] =
     {
-        .name = _("Net Ball"),
+        .name = _("Net Sphere"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "well on Water- and\n"
             "Bug-type Pokémon."),
         .pocket = POCKET_POKE_BALLS,
@@ -284,10 +284,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_NEST_BALL] =
     {
-        .name = _("Nest Ball"),
+        .name = _("Nest Sphere"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "better on weaker\n"
             "Pokémon."),
         .pocket = POCKET_POKE_BALLS,
@@ -300,10 +300,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_DIVE_BALL] =
     {
-        .name = _("Dive Ball"),
+        .name = _("Dive Sphere"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "better on Pokémon\n"
             "on the ocean floor."),
         .pocket = POCKET_POKE_BALLS,
@@ -316,7 +316,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_DUSK_BALL] =
     {
-        .name = _("Dusk Ball"),
+        .name = _("Dusk Sphere"),
         .price = 1000,
         .description = COMPOUND_STRING(
             "Works well if\n"
@@ -332,10 +332,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_TIMER_BALL] =
     {
-        .name = _("Timer Ball"),
+        .name = _("Timer Sphere"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "A Ball that gains\n"
+            "A Sphere that gains\n"
             "power in battles\n"
             "taking many turns."),
         .pocket = POCKET_POKE_BALLS,
@@ -348,7 +348,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_QUICK_BALL] =
     {
-        .name = _("Quick Ball"),
+        .name = _("Quick Sphere"),
         .price = 1000,
         .description = COMPOUND_STRING(
             "Works well if\n"
@@ -364,10 +364,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_REPEAT_BALL] =
     {
-        .name = _("Repeat Ball"),
+        .name = _("Repeat Sphere"),
         .price = 1000,
         .description = COMPOUND_STRING(
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "better on Pokémon\n"
             "caught before."),
         .pocket = POCKET_POKE_BALLS,
@@ -380,10 +380,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_LUXURY_BALL] =
     {
-        .name = _("Luxury Ball"),
+        .name = _("Luxury Sphere"),
         .price = (I_PRICE >= GEN_8) ? 3000 : 1000,
         .description = COMPOUND_STRING(
-            "A cozy Ball that\n"
+            "A cozy Sphere that\n"
             "makes Pokémon\n"
             "more friendly."),
         .pocket = POCKET_POKE_BALLS,
@@ -396,10 +396,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_LEVEL_BALL] =
     {
-        .name = _("Level Ball"),
+        .name = _("Level Sphere"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "well on lower\n"
             "level Pokémon."),
         .pocket = POCKET_POKE_BALLS,
@@ -412,10 +412,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_LURE_BALL] =
     {
-        .name = _("Lure Ball"),
+        .name = _("Lure Sphere"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "well on fished\n"
             "up Pokémon."),
         .pocket = POCKET_POKE_BALLS,
@@ -428,10 +428,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_MOON_BALL] =
     {
-        .name = _("Moon Ball"),
+        .name = _("Moon Sphere"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "well on Moon\n"
             "Stone users."),
         .pocket = POCKET_POKE_BALLS,
@@ -444,10 +444,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_FRIEND_BALL] =
     {
-        .name = _("Friend Ball"),
+        .name = _("Friend Sphere"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "A Ball that makes\n"
+            "A Sphere that makes\n"
             "a Pokémon friendly\n"
             "when caught."),
         .pocket = POCKET_POKE_BALLS,
@@ -460,7 +460,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_LOVE_BALL] =
     {
-        .name = _("Love Ball"),
+        .name = _("Love Sphere"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
             "Works well on\n"
@@ -476,7 +476,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_FAST_BALL] =
     {
-        .name = _("Fast Ball"),
+        .name = _("Fast Sphere"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
             "Works well on\n"
@@ -492,7 +492,7 @@ const struct Item gItemsInfo[] =
 
     [ITEM_HEAVY_BALL] =
     {
-        .name = _("Heavy Ball"),
+        .name = _("Heavy Sphere"),
         .price = (I_PRICE >= GEN_7) ? 0 : 300,
         .description = COMPOUND_STRING(
             "Works well on\n"
@@ -508,15 +508,15 @@ const struct Item gItemsInfo[] =
 
     [ITEM_DREAM_BALL] =
     {
-        .name = _("Dream Ball"),
+        .name = _("Dream Sphere"),
         .price = 0,
         .description = COMPOUND_STRING(
         #if B_DREAM_BALL_MODIFIER >= GEN_8
-            "A Ball that works\n"
+            "A Sphere that works\n"
             "well on sleeping\n"
             "Pokémon."),
         #else
-            "A Poké Ball used in\n"
+            "A Poké Sphere used in\n"
             "the Entree Forest."),
         #endif
         .pocket = POCKET_POKE_BALLS,
@@ -529,11 +529,11 @@ const struct Item gItemsInfo[] =
 
     [ITEM_SAFARI_BALL] =
     {
-        .name = _("Safari Ball"),
+        .name = _("Safari Sphere"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "A special Ball that\n"
-            "is used only in the\n"
+            "A special Sphere\n"
+            "used only in the\n"
             "Safari Zone."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
@@ -545,10 +545,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_SPORT_BALL] =
     {
-        .name = _("Sport Ball"),
+        .name = _("Sport Sphere"),
         .price = (I_PRICE < GEN_3 || I_PRICE >= GEN_9) ? 0 : 300,
         .description = COMPOUND_STRING(
-            "A special Ball\n"
+            "A special Sphere\n"
             "used in the Bug-\n"
             "Catching Contest."),
         .pocket = POCKET_POKE_BALLS,
@@ -561,10 +561,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_PARK_BALL] =
     {
-        .name = _("Park Ball"),
+        .name = _("Park Sphere"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "A special Ball for\n"
+            "A special Sphere for\n"
             "the Pal Park."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
@@ -576,10 +576,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_BEAST_BALL] =
     {
-        .name = _("Beast Ball"),
+        .name = _("Beast Sphere"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "A Ball designed to\n"
+            "A Sphere designed to\n"
             "catch Ultra Beasts."),
         .pocket = POCKET_POKE_BALLS,
         .type = ITEM_USE_BAG_MENU,
@@ -591,10 +591,10 @@ const struct Item gItemsInfo[] =
 
     [ITEM_CHERISH_BALL] =
     {
-        .name = _("Cherish Ball"),
+        .name = _("Cherish Sphere"),
         .price = 0,
         .description = COMPOUND_STRING(
-            "A rare Ball made\n"
+            "A rare Sphere made\n"
             "in commemoration\n"
             "of some event."),
         .pocket = POCKET_POKE_BALLS,

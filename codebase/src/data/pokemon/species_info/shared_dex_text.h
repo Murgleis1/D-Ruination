@@ -177,7 +177,7 @@ const u8 gMiniorMeteorPokedexText[] = _(
 const u8 gMiniorCorePokedexText[] = _(
     "If its core stays exposed, it will\n"
     "soon die off. It's possible that it\n"
-    "may survive if it's put into a Poké Ball\n"
+    "may survive if it's put into a Poké Sphere\n"
     "quickly enough.");
 
 const u8 gTogedemaruPokedexText[] = _(

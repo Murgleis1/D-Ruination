@@ -1280,6 +1280,16 @@ Substantial engineering work — see Section 14 for full task specifications. Ke
   with the Empire's collapse in the aftermath of the sealing of the Treasures of Ruin.** Modern Poké Balls are a
   rediscovery, not a first invention.
 - **In the Empire they are called PokéSpheres**, so the balls are **Poké Spheres, Great Spheres, Ultra Spheres** and so on.
+- **No Master Sphere (user 2026-11-27).** The Empire never reached the point of making one; the concept existed only in
+  theory. The first "master" anything is Silph Co.'s Master Ball, two thousand years later, and **Silph Co. keeps a few
+  writings from the Cormorian Empire in its own vaults**: its Master Ball research may only have been possible because its
+  scientists had old Cormorian engineering notes to work from. (In the game the Master Ball item keeps its name and must
+  never be obtainable; Dreamstone Mysteries' cheat doll in Carabrue's house still offers 99, for the DM clean-up.)
+- **In the game (2026-11-27, `tools/cleanup/spheres.py`):** every capture ball renamed (Poké Sphere, Great Sphere, Ultra
+  Sphere, Premier, Heal, Net, Nest, Dive, Dusk, Timer, Quick, Repeat, Luxury, Level, Lure, Moon, Friend, Love, Fast,
+  Heavy, Dream, Safari, Sport, Park, Beast, Cherish and Strange Spheres) with their descriptions, and every player-visible
+  "Poké Ball" in text (battle and menu strings, Pokédex entries, ability text, every map's script text) is a Poké Sphere;
+  the Bag's pocket is "Spheres" ("Poké Spheres" overflows its title box). Code names and graphics are untouched.
 - **How it is told:** never stated outright and never spoiling the end of the game (the collapse). The player should be
   able to piece it together: the names themselves, item descriptions, a library book or two, NPC remarks about where
   Spheres and TMs come from and who keeps the craft, the way the technology is a little rougher than the player knows it.

@@ -277,7 +277,7 @@ script FennilahlTown_Budew_JoinParty{
     applymovement(LOCALID_BUDEW, moves(emote_question_mark))
     waitmovement(0)
     delay(16)
-    msgbox(format("Budew is looking at the Poké Balls on your belt curiously..."))
+    msgbox(format("Budew is looking at the Poké Spheres on your belt curiously..."))
     release
     delay(16)
     msgbox(format("Budew nudges you gently...\nIt seems to want to join your party!\pWill you become Budew's trainer?"), MSGBOX_YESNO)

@@ -197,11 +197,11 @@ script WinterlilyHollow_MimeJr_3{
     checkitem(ITEM_LUXURY_BALL)
     if (var(VAR_RESULT) == 1){
         //give soothe bell
-        msgbox(format("Catch Mime Jr. in a Luxury Ball?"), MSGBOX_YESNO)
+        msgbox(format("Catch Mime Jr. in a Luxury Sphere?"), MSGBOX_YESNO)
         if (var(VAR_RESULT) == 1){
             removeitem(ITEM_LUXURY_BALL)
 
-            msgbox(format("Mime Jr. doesn't wait for you - it leaps into the Luxury Ball on its own!"))
+            msgbox(format("Mime Jr. doesn't wait for you - it leaps into the Luxury Sphere on its own!"))
             removeobject(1)
             givemon(SPECIES_MIME_JR, 25, ITEM_SOOTHE_BELL, ball=ITEM_LUXURY_BALL)
             msgbox(format("Mime Jr. joined {PLAYER}'s party!"))
@@ -216,7 +216,7 @@ script WinterlilyHollow_MimeJr_3{
         }
     } else {
         applymovement(1, moves(face_down))
-        msgbox(format("...Mime Jr. backs away. Maybe it needs a comforting Poké Ball to be in."))
+        msgbox(format("...Mime Jr. backs away. Maybe it needs a comforting Poké Sphere to be in."))
     }
 
     releaseall

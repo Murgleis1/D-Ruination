@@ -77,7 +77,7 @@ script IvyRiver_Sharpedo_Jania_Trigger{
     waitmovement(0)
     delay(16)
     speakername("Jania")
-    msgbox(format("You can't use Poké Balls on it - it's too enraged right now.\pwhatever you want to do, be careful.\nThe Life Orb hurts it but makes\lits attacks much stronger.\pI'm heading back to my gym. See you."))
+    msgbox(format("You can't use Poké Spheres on it - it's too enraged right now.\pwhatever you want to do, be careful.\nThe Life Orb hurts it but makes\lits attacks much stronger.\pI'm heading back to my gym. See you."))
     release
 
     fadescreen(FADE_TO_BLACK)

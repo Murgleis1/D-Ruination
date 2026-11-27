@@ -81,7 +81,7 @@ SafariZone_Text_TimesUp:
 	.string "Your SAFARI Game is over.$"
 
 SafariZone_Text_OutOfBalls:
-	.string "You've run out of SAFARI BALLS.\n"
+	.string "You've run out of SAFARI SPHERES.\n"
 	.string "Your SAFARI Game is over.$"
 
 SafariZone_Text_PlacePokeblockOnFeeder:
@@ -117,10 +117,10 @@ Route121_SafariZoneEntrance_Text_ComeInAndEnjoy:
 
 Route121_SafariZoneEntrance_Text_FirstTimeInfo:
 	.string "When you enter the SAFARI ZONE, you\n"
-	.string "start with 30 SAFARI BALLS for\l"
+	.string "start with 30 SAFARI SPHERES for\l"
 	.string "catching POKéMON.\p"
 	.string "The SAFARI Game is over when you run\n"
-	.string "out of SAFARI BALLS, or when you've\l"
+	.string "out of SAFARI SPHERES, or when you've\l"
 	.string "walked 500 steps.\p"
 	.string "Come in and enjoy the SAFARI ZONE!$"
 
@@ -141,10 +141,10 @@ Route121_SafariZoneEntrance_Text_ThatWillBe500Please:
 	.string "That will be ¥500, please.$"
 
 Route121_SafariZoneEntrance_Text_HereAreYourSafariBalls:
-	.string "Here are your SAFARI BALLS.$"
+	.string "Here are your SAFARI SPHERES.$"
 
 Route121_SafariZoneEntrance_Text_Received30SafariBalls:
-	.string "{PLAYER} received 30 SAFARI BALLS.$"
+	.string "{PLAYER} received 30 SAFARI SPHERES.$"
 
 Route121_SafariZoneEntrance_Text_PleaseEnjoyYourself:
 	.string "We'll let you know when your game\n"
@@ -237,7 +237,7 @@ SafariZone_RestHouse_Text_Youngster:
 	.string "a good number of POKéMON.\p"
 	.string "You can improve your chances of making\n"
 	.string "a catch by getting closer to them\l"
-	.string "before throwing a SAFARI BALL.$"
+	.string "before throwing a SAFARI SPHERE.$"
 
 SafariZone_RestHouse_Text_PsychicM:
 	.string "If you use {POKEBLOCK}S, wild POKéMON won't\n"
@@ -279,7 +279,7 @@ SafariZone_Southeast_Text_RichBoy:
 	.string "from somewhere other than HOENN.$"
 
 SafariZone_Northeast_Text_Boy:
-	.string "I only have a couple SAFARI BALLS left.\p"
+	.string "I only have a couple SAFARI SPHERES left.\p"
 	.string "I'm having a hard time trying to\n"
 	.string "decide what I should catch.$"
 

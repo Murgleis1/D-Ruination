@@ -978,7 +978,7 @@ Route110_TrickHousePuzzle5_Text_Mechadoll3Quiz1:
 
 Route110_TrickHousePuzzle5_Text_Mechadoll3Quiz2:
 	.string "MECHADOLL 3 QUIZ.\p"
-	.string "Sell one GREAT BALL and buy\n"
+	.string "Sell one GREAT SPHERE and buy\n"
 	.string "one POTION. How much money remains?$"
 
 Route110_TrickHousePuzzle5_Text_Mechadoll3Quiz3:

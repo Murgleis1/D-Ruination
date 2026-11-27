@@ -8322,9 +8322,9 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .weight = 10,
         .description = COMPOUND_STRING(
             "It lures Pokémon in with its pattern that\n"
-            "looks just like a Poké Ball, then releases\n"
+            "looks just like a Poké Sphere, then releases\n"
             "its poison spores. Why it resembles a\n"
-            "Poké Ball is unknown."),
+            "Poké Sphere is unknown."),
         .pokemonScale = 682,
         .pokemonOffset = 24,
         .trainerScale = 256,
@@ -8395,7 +8395,7 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .weight = 105,
         .description = COMPOUND_STRING(
             "It lures prey close by dancing and waving\n"
-            "its arm caps, which resemble Poké Balls,\n"
+            "its arm caps, which resemble Poké Spheres,\n"
             "in a swaying motion, but very few Pokémon\n"
             "are fooled by this."),
         .pokemonScale = 422,
