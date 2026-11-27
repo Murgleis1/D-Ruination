@@ -509,3 +509,12 @@ Verified in the emulator on a fresh playthrough from boot (`at_ball.state` regen
 Sheet: `osrid_installed/ingame_verification.png`.
 
 Note: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluca dock scene). This is correct, because Nomad Alban is Osrid's alias (user, 2026-11-17).
+
+## Glaive rework v2 (2026-11-27), tools/art/glaive/portrait_v2.py -- preview, not yet written to the game
+- Eyes narrowed (approved). Back hair: spikes rejected ("don't do a bunch of spikes"); now three broad blunt
+  clumps following the existing lock bands, drooping past the back silhouette, dark separation lines.
+- Scars: first pass (flat mid-tone steps) rejected; redrawn from the user's MonoMyth reference: dark core (3)
+  thinning to mid skin (7) with single-px diagonal tails. A long cut under the eye and a short nick.
+- Chin hair: a skin-tone dot screen was rejected ("looks bad"). Study of MonoMyth #268 / #351 / #46: facial hair
+  is the chin outline grown into short uneven strands with skin between them. Done very light in his hair darks
+  (2 / 10), chin only. Images: face_scar_beard_v4.png, monomyth_chin_hair_refs.png (assets/glaive_rework/).

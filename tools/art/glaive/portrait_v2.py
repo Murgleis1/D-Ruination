@@ -52,26 +52,28 @@ def hair(a):
             elif a[y, x] == 0 and nb <= 1: a[y, x] = OUT
     return a
 
-# Light scarring on the near cheek (2026-11-27, smoothed): one healed cut running down from under the eye, drawn
-# as even two-pixel steps so it reads as a continuous line, and a shorter parallel one beside it.
-SCAR = [(41, 53), (41, 54), (42, 55), (42, 56), (43, 57), (43, 58),
-        (38, 56), (38, 57), (39, 58)]
+# Light scarring on the near cheek, drawn the MonoMyth way (user's reference, 2026-11-27): each cut has a dark core
+# (skin dark, 3) that thins out into the mid skin tone (7) at both ends, with single-pixel diagonal tails, so the
+# mark fades into the cheek instead of sitting on it like a pen line.
+SCAR = [  # (x, y, colour)
+    (38, 53, 7), (39, 54, 3), (40, 54, 3), (41, 55, 3), (42, 55, 7), (43, 56, 7), (44, 57, 7),   # long cut
+    (37, 57, 7), (38, 57, 3), (39, 58, 7), (40, 59, 7),                                          # short nick
+]
 
 def scar(a):
-    for x, y in SCAR:
-        if a[y, x] == 1: a[y, x] = 7
+    for x, y, c in SCAR:
+        if a[y, x] == 1: a[y, x] = c
     return a
 
-# Very light stubble on the chin and along the jaw: an open dither of the mid skin tone over bare skin only,
-# so it never touches the mouth (the three expressions differ there).
+# Very light chin beard, MonoMyth #268 / #351 construction: short strands rising from the chin outline, uneven
+# heights with skin between them, in his hair darks (2 darkest, 10 dark) rather than outline black so it stays
+# light. Only bare skin at the chin is touched, so the three mouths are unaffected.
+BEARD = {(44, 74): 10, (45, 74): 2, (45, 73): 10, (46, 74): 10, (48, 74): 2, (48, 73): 10, (49, 74): 10,
+         (50, 74): 2, (50, 73): 10, (43, 73): 10, (51, 72): 10, (52, 71): 10}
+
 def stubble(a):
-    for y in range(66, 75):
-        for x in range(38, 56):
-            if a[y, x] != 1: continue
-            near = any(a[y + dy, x + dx] in (3, 7, 9) for dx in (-1, 0, 1) for dy in (-1, 0, 1) if dx or dy)
-            chin = y >= 69                           # the chin under the lip: a quarter-density dot screen
-            if chin and (x + 2 * (y % 2)) % 4 == 0: a[y, x] = 7
-            elif not chin and near and y % 2 == 0 and (x + y // 2) % 4 == 0: a[y, x] = 7
+    for (x, y), c in BEARD.items():
+        if a[y, x] in (1, 3, 7): a[y, x] = c
     return a
 
 def render(a, pal, s=6):
