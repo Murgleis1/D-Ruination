@@ -115,7 +115,7 @@ The dead won't stay down here (Alphonse, §16.6 item 6), so the woods are thick 
 
 Riolu ties to the dojo pinewood on the climb; Meditite is the dojo's too.
 
-**Fishing** (Old Rod): Magikarp 70% and **White-Striped Basculin** 30%, levels 18-20. In Hisui it becomes Basculegion (Water/Ghost) from recoil, which suits a river under a haunted mountain.
+**Fishing** (Old Rod): Magikarp 70% and **White-Striped Basculin** 30%, levels 18-20. The river is real water below its banks (rebuilt 2026-11-27 so the rod reaches it). In Hisui it becomes Basculegion (Water/Ghost) from recoil, which suits a river under a haunted mountain.
 
 ### Mt. Mirroh cave: the Ting-Lu ritual scar (levels 19-23, rate 10)
 

@@ -36,6 +36,13 @@ def main():
             return MB_WATERFALL if D['%d,%d' % (x, y)][2] == 'MB_WATERFALL' else MB_OCEAN_WATER
         return int(beh[y, x])
     r = MB.build(img, None, None, W, H, walk, b)
+    # the river is real water (user 2026-11-27: "you should be able to fish in the water leading up to the cave
+    # entrance"): its cells sit a level below the banks with no collision, so the Old Rod works from the bank (and a
+    # later Surf could ride it); the waterfalls stay solid
+    for y in range(H):
+        for x in range(W):
+            if b(x, y) == MB_OCEAN_WATER:
+                r['grid'][y, x] = (r['grid'][y, x] & 0x3FF) | (0 << 10) | (1 << 12)
     j = json.load(open(os.path.join(C, 'data/maps', NAME, 'map.json')))
     keep_objs = []                       # (DM's Strength boulders by the mouth: gone, user 2026-11-23)
     rock = {'graphics_id': 'OBJ_EVENT_GFX_BREAKABLE_ROCK', 'x': E.SECRET[0], 'y': E.SECRET[1], 'elevation': 3,
