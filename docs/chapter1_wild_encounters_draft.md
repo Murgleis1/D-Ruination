@@ -1,4 +1,4 @@
-# Chapter 1 wild Pokémon, draft v1 (2026-11-27, for refinement)
+# Chapter 1 wild Pokémon, draft v1.1 (2026-11-27, for refinement)
 
 User 2026-11-27: map every wild Pokémon opportunity in Chapter 1. The player must be able to build a team that beats Kimaris (Trial 1, cap 18). Besides the starter, the shiny-tease Wimpod and the E. Rufflet, they need a lot of options. Every route gets at least one really rare encounter, about 1%, for players who like to hunt.
 
@@ -10,8 +10,8 @@ User 2026-11-27: map every wild Pokémon opportunity in Chapter 1. The player mu
 | Route 11 | 67 grass tiles; a 16-tile pond and the east beach's sea (one fishing table covers both) | before Kimaris |
 | Hollow Hill | 127 grass tiles | before Kimaris |
 | Route 13 | 218 ice-grass tiles | before Kimaris (the way to Templar HQ) |
-| Mt. Mirroh exterior | 231 grass tiles, river and falls | after Trial 1 (Beat 8), **not gated today** |
-| Mt. Mirroh cave (`MirrohInterior_1F`) | river only: **its floor has no encounter tiles** | after Trial 1 |
+| Mt. Mirroh exterior | 231 grass tiles, river and falls | after Trial 1: **Kimaris won't let the player up the mountain before then** (user 2026-11-27; not yet enforced in the build) |
+| Mt. Mirroh cave (`MirrohInterior_1F`) | river only: **the rebuilt cave's floor tiles are marked as plain ground, so they trigger nothing** (DM's 1F had encounters) | after Trial 1 |
 | Mirroh Peak | 196 grass tiles, a pool | after Trial 1 |
 | Mirroh (3 maps), Templar HQ, Necropolis grounds and lake, Hollow Hill summit, the ice path, every interior | none | |
 | Ancient Cormoria slip | an oasis pool only | the scripted Beat 8e zone |
@@ -27,7 +27,6 @@ No rod and no Surf are given in Chapter 1 today. Pelluca's fishing table is Drea
    - a **lore chase**, a rare that fits the place and is strong in its own right.
 2. **Kept out of the wild, so choices keep their weight (Principle 2):**
    - the starters' lines (Frigibax, Teddiursa, Tinkatink);
-   - the Burglar Egg's three (Impidimp, Sandile, Galarian Zigzagoon);
    - Wimpod;
    - Rufflet and Braviary;
    - Eiscue (Loulan's);
@@ -119,12 +118,12 @@ Riolu ties to the dojo pinewood on the climb; Meditite is the dojo's too.
 
 ### Mt. Mirroh cave: the Ting-Lu ritual scar (levels 19-23, rate 10)
 
-This only works if the cave floor is given encounter tiles; today the floor is plain ground.
+Dreamstone Mysteries' 1F had Alolan Sandshrew, Swinub, Glimmet and Baltoy (levels 26-30). Its table was removed when the cave was rebuilt, and the rebuilt floor tiles must be marked as cave floor again for any table to work.
 
 | Slot | % | Pokémon | Lv |
 |---|---|---|---|
 | 0 | 20 | Woobat | 19-21 |
-| 1 | 20 | Roggenrola | 19-21 |
+| 1 | 20 | Alolan Sandshrew | 19-21 |
 | 2 | 10 | Drilbur | 20-22 |
 | 3 | 10 | Alolan Geodude | 20-22 |
 | 4 | 10 | Rolycoly | 20-22 |
@@ -165,17 +164,17 @@ Pelluca City and the Harbour: Magikarp 70% and Arrokuda 30%, levels 5-10. These 
 
 - **Litwick in the Mirroh Chapel** (new, proposed). A one-time Litwick among the chapel's candles that the player can battle and catch. It is Ghost/Fire with Flash Fire: Fire answers Shedinja, Dhelmise and Honedge, Ghost answers the rest, and Will-O-Wisp does nothing to it. It also suits the haunted city.
 - **The Mirroh Egg salesman** (canon, §16.5 item 4). He sells rare Eggs at tiered prices; every hatch has perfect IVs and one in four is shiny.
-- Already in place: the starter, the Burglar Egg (a Dark type), the Wimpod (Lv 12) and the E. Rufflet (Flying/Dark, Lv 12).
+- Also planned: the starter; the Fisherman's Wimpod (Lv 12, Pelluca sidequest, not built yet); the E. Rufflet (Flying/Dark, Lv 12); **the Burglar Egg is being reworked** (user 2026-11-27: different eggs, not Dark types).
 
 ## Coverage check against Kimaris
 
 | What his team asks for | Ways to get it before Kimaris |
 |---|---|
-| Hit Shedinja (Fire, Flying, Rock, Ghost or Dark) | Fletchling's Ember and Fletchinder; Peck from Taillow, Hoothoot, Murkrow and Swablu; Starly's Wing Attack; Nacli's Rock Throw; the Hollow Hill Ghosts' Lick and Astonish; Poochyena's and Greavard's Bite; Seedot's Astonish; Snubbull's Fire Fang; E. Rufflet; the Burglar Egg; Ponyta, Houndour and H. Growlithe as rares; Litwick |
+| Hit Shedinja (Fire, Flying, Rock, Ghost or Dark) | Fletchling's Ember and Fletchinder; Peck from Taillow, Hoothoot, Murkrow and Swablu; Starly's Wing Attack; Nacli's Rock Throw; the Hollow Hill Ghosts' Lick and Astonish; Poochyena's and Greavard's Bite; Seedot's Astonish; Snubbull's Fire Fang; E. Rufflet; Ponyta, Houndour and H. Growlithe as rares; Litwick |
 | Shrug off Will-O-Wisp | Flash Fire (Ponyta, Houndour, H. Growlithe, Litwick); Fire types; Purifying Salt (Nacli); Guts turns burns to power (Taillow); Natural Cure (Phantump, Swablu); Magic Guard (Clefairy) |
 | Outlast Curse, stop the stall | Magic Guard (Clefairy); switching clears Curse; Taunt (Sneasel) |
 | Wall his Ghost moves | Normal types (Lechonk, Lillipup, Hoothoot, Stantler, Swablu, Miltank, H. Zorua); Dark types resist them |
-| Beat Crowley (Ghost/Dark, weak only to Fairy) | Disarming Voice from Lechonk (5), Swablu (4) and Clefairy; Tinkatink; Impidimp from the egg. Snubbull and Morelull are Fairy types but learn no Fairy attack before 18 |
+| Beat Crowley (Ghost/Dark, weak only to Fairy) | Disarming Voice from Lechonk (5), Swablu (4) and Clefairy; Tinkatink. Snubbull and Morelull are Fairy types but learn no Fairy attack before 18 |
 | Hit Gastly and Honedge (Ground) | Swinub; Wooper (fishing) |
 
 Every row has at least two answers in the common slots, plus more from the gifts, the egg and the rares; the rares make a team stronger without being needed. (Moves checked against the level-up learnsets: what a Pokémon knows by level 18.)
@@ -184,7 +183,7 @@ Every row has at least two answers in the common slots, plus more from the gifts
 
 1. The land rates go to 20/20/10/10/10/10/5/5/4/4/1/1 for the whole game: two 1% slots per route. Or a single 1% slot, with the other 1% folded into a common slot.
 2. **An Old Rod in Chapter 1?** Proposed: the fisherman gives it after the Wimpod quest. Without a rod, the fishing tables do nothing until later. A 1% fish, such as Feebas in the Route 11 pond, would also need the fishing rates changed for the whole game, because the Old Rod has only two slots (70/30).
-3. **Gate Mt. Mirroh until Trial 1?** Today Route 13's branch up the mountain is open, so a player could reach level 18-22 wilds and the Sword Cult before Kimaris. Proposed: a guard at the fork, like Pelluca's closed roads.
-4. **Give the Mt. Mirroh cave floor encounters** (the cave table above), or leave the cave empty.
-5. The Litwick in the chapel, yes or no.
+3. ~~Gate Mt. Mirroh~~ **Settled (user):** Kimaris keeps the player off the mountain until Trial 1. Build note: Route 13's trigger up the mountain still warps straight in.
+4. ~~Cave encounters~~ **Settled (user):** 1F and the ascent both have wild Pokémon. The 1F floor tiles get marked as cave floor again.
+5. **The Litwick in the chapel: yes (user), with a clever way to obtain it** (to design).
 6. Species swaps anywhere: these are first picks.
