@@ -19,7 +19,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 > You and I are no strangers to travelling into the distant past, but even so, this period in history was like a black hole. Even I knew almost nothing about it. Until now.
 
-> It was an age of empires and of stranger faiths, when every nation vied for supremacy over the others. It paints quite a picture, doesn't it?
+> It was an age of empires and of stranger faiths, when every nation vied for supremacy over the others.
 
 > But those who wrote the histories that came after did their best to bury every trace of what happened. And now I have the proof.
 

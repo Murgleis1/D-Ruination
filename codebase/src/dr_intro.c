@@ -81,9 +81,7 @@ static const u8 sTenebrisP6[] = _(
     "It was an age of empires\n"
     "and of stranger faiths,\n"
     "when every nation vied for\n"
-    "supremacy over the others.\n"
-    "It paints quite a picture,\n"
-    "doesn't it?");
+    "supremacy over the others.");
 
 static const u8 sTenebrisP7[] = _(
     "But those who wrote the\n"
