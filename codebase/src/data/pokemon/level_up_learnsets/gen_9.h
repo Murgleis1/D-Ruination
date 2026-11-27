@@ -22364,47 +22364,47 @@ static const struct LevelUpMove sPecharuntLevelUpLearnset[] = {
 #endif //P_FAMILY_PECHARUNT
 
 // === DREAMSTONE RUINATION CUSTOM SPECIES — LEARNSETS ===
-// Emergent Rufflet / Braviary (Dreamstone Ruination, docs/route11_hollowhill_draft.md): Knock Off for Bite, Rock Tomb
-// early, Drill Peck at 20, Rock Slide 29 (for Slash) and Stone Edge 52 (for Sky Drop) for Rocky Payload (user 2026-11-27);
-// otherwise the usual Rufflet / Braviary list until its later Dark moves are chosen.
+// Emergent Rufflet / Braviary (Dreamstone Ruination; user 2026-11-27, docs/route11_hollowhill_draft.md). Physical
+// Flying/Dark with Rock coverage for Rocky Payload; Raging Fury (Fire) at 70 as the late answer to Steel.
+// E. Braviary learns its signature, Sunder, on evolving (level 0 = on evolution; also at 1 for the relearner).
 static const struct LevelUpMove sRuffletEmergentLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_PECK),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 6, MOVE_HONE_CLAWS),
     LEVEL_UP_MOVE(10, MOVE_KNOCK_OFF),
     LEVEL_UP_MOVE(15, MOVE_ROCK_TOMB),
-    LEVEL_UP_MOVE(20, MOVE_DRILL_PECK),
-    LEVEL_UP_MOVE(23, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(20, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(23, MOVE_TAILWIND),
     LEVEL_UP_MOVE(29, MOVE_ROCK_SLIDE),
-    LEVEL_UP_MOVE(32, MOVE_DEFOG),
-    LEVEL_UP_MOVE(37, MOVE_TAILWIND),
-    LEVEL_UP_MOVE(41, MOVE_AIR_SLASH),
-    LEVEL_UP_MOVE(46, MOVE_CRUSH_CLAW),
+    LEVEL_UP_MOVE(32, MOVE_NIGHT_SLASH),
+    LEVEL_UP_MOVE(37, MOVE_DRILL_PECK),
+    LEVEL_UP_MOVE(41, MOVE_BULK_UP),
+    LEVEL_UP_MOVE(46, MOVE_PARTING_SHOT),
     LEVEL_UP_MOVE(52, MOVE_STONE_EDGE),
-    LEVEL_UP_MOVE(55, MOVE_WHIRLWIND),
-    LEVEL_UP_MOVE(59, MOVE_BRAVE_BIRD),
-    LEVEL_UP_MOVE(64, MOVE_THRASH),
+    LEVEL_UP_MOVE(58, MOVE_BRAVE_BIRD),
+    LEVEL_UP_MOVE(70, MOVE_RAGING_FURY),
     LEVEL_UP_END
 };
 
 static const struct LevelUpMove sBraviaryEmergentLevelUpLearnset[] = {
+    LEVEL_UP_MOVE( 0, MOVE_SUNDER),
+    LEVEL_UP_MOVE( 1, MOVE_SUNDER),
     LEVEL_UP_MOVE( 1, MOVE_PECK),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
     LEVEL_UP_MOVE( 6, MOVE_HONE_CLAWS),
     LEVEL_UP_MOVE(10, MOVE_KNOCK_OFF),
     LEVEL_UP_MOVE(15, MOVE_ROCK_TOMB),
-    LEVEL_UP_MOVE(20, MOVE_DRILL_PECK),
-    LEVEL_UP_MOVE(23, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(20, MOVE_AERIAL_ACE),
+    LEVEL_UP_MOVE(23, MOVE_TAILWIND),
     LEVEL_UP_MOVE(29, MOVE_ROCK_SLIDE),
-    LEVEL_UP_MOVE(32, MOVE_DEFOG),
-    LEVEL_UP_MOVE(37, MOVE_TAILWIND),
-    LEVEL_UP_MOVE(41, MOVE_AIR_SLASH),
-    LEVEL_UP_MOVE(46, MOVE_CRUSH_CLAW),
+    LEVEL_UP_MOVE(32, MOVE_NIGHT_SLASH),
+    LEVEL_UP_MOVE(37, MOVE_DRILL_PECK),
+    LEVEL_UP_MOVE(41, MOVE_BULK_UP),
+    LEVEL_UP_MOVE(46, MOVE_PARTING_SHOT),
     LEVEL_UP_MOVE(51, MOVE_SUPERPOWER),
     LEVEL_UP_MOVE(52, MOVE_STONE_EDGE),
-    LEVEL_UP_MOVE(57, MOVE_WHIRLWIND),
-    LEVEL_UP_MOVE(63, MOVE_BRAVE_BIRD),
-    LEVEL_UP_MOVE(70, MOVE_THRASH),
+    LEVEL_UP_MOVE(58, MOVE_BRAVE_BIRD),
+    LEVEL_UP_MOVE(70, MOVE_RAGING_FURY),
     LEVEL_UP_END
 };
 

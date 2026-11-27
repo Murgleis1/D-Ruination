@@ -17,10 +17,17 @@ E. Braviary: harder-hitting and tankier on both sides than either Braviary, HP a
 little under Braviary's (still above H. Braviary's 65). Flying/Dark. **Intimidate / Opportunist / Rocky Payload (hidden)** (user 2026-11-27; was Keen Eye / Sheer Force).
 Evolves at Lv.45. Joins at Lv.12, **always Adamant, with perfect IVs (31 in every stat)** (user).
 
-**Learnset to Lv.20** (later Dark moves to come, user): Lv.1 Peck, Leer · Lv.6 Hone Claws · Lv.10 Knock Off ·
-Lv.15 Rock Tomb · **Lv.20 Drill Peck** (user: approved).
-Joins knowing Peck, Leer, Hone Claws, Knock Off. After Lv.20: Braviary's usual list until the Dark moves are chosen,
-except **Lv.29 Rock Slide** (for Slash) and **Lv.52 Stone Edge** (for Sky Drop), for Rocky Payload (user 2026-11-27).
+**Learnset (user 2026-11-27, final):** Lv.1 Peck, Leer · 6 Hone Claws · 10 Knock Off · 15 Rock Tomb · 20 Aerial Ace ·
+23 Tailwind · 29 Rock Slide · 32 Night Slash · 37 Drill Peck · 41 Bulk Up · 46 Parting Shot · 52 Stone Edge ·
+58 Brave Bird · 70 Raging Fury (Fire: the late answer to Steel). E. Braviary also: **Sunder on evolution** and
+Superpower 51. Joins knowing Peck, Leer, Hone Claws, Knock Off.
+
+**Sunder** (E. Braviary's signature, user 2026-11-27): Dark, physical, contact, slicing, 90 power, 100% accuracy,
+15 PP; **1.5x power if the target has any lowered stat** (Intimidate, Rock Tomb and Parting Shot set it up). "It
+swoops down fast and slashes through the target with dreadful talons." Banned from Metronome, Copycat and Sketch.
+Animation: a darkened night sky drifts past, the attacker's talons flash black and it climbs out of sight, a black
+raptor silhouette dives on the target, crimson talon rakes cross it twice and a dark X finishes it with a white flash
+and a burst of black and red stars (`assets/emergent/sunder_anim.gif`, checked in the emulator).
 
 **Colours:** a new black-and-white palette on Rufflet's and Braviary's art (front, back, icon, follower): Rufflet a white
 head with a black bandit mask and crest slash; Braviary after the Steller's sea eagle, black with white wing edges, tail

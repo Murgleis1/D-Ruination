@@ -910,7 +910,12 @@
 
 #define MOVES_COUNT_GEN9 848
 
-#define MOVES_COUNT         MOVES_COUNT_GEN9
+// === DREAMSTONE RUINATION CUSTOM MOVES ===
+#define MOVE_SUNDER 848          // E. Braviary's signature (learned on evolution)
+
+#define MOVES_COUNT_DR 849
+
+#define MOVES_COUNT         MOVES_COUNT_DR
 
 // Z Moves
 #define MOVE_BREAKNECK_BLITZ (MOVES_COUNT + 0)

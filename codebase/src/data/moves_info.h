@@ -21091,6 +21091,32 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_MalignantChain,
     },
 
+    // === DREAMSTONE RUINATION CUSTOM MOVES ===
+    [MOVE_SUNDER] =
+    {
+        // E. Braviary's signature (user 2026-11-27): it swoops down fast and slashes through the target with dreadful
+        // talons. 1.5x power against a target with any lowered stat (Intimidate, Rock Tomb, Parting Shot set it up);
+        // see CalcMoveBasePower.
+        .name = COMPOUND_STRING("Sunder"),
+        .description = COMPOUND_STRING(
+            "Swoops and rends the foe.\n"
+            "Stronger vs lowered stats."),
+        .effect = EFFECT_HIT,
+        .power = 90,
+        .type = TYPE_DARK,
+        .accuracy = 100,
+        .pp = 15,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .category = DAMAGE_CATEGORY_PHYSICAL,
+        .makesContact = TRUE,
+        .slicingMove = TRUE,
+        .metronomeBanned = TRUE,
+        .copycatBanned = TRUE,
+        .sketchBanned = TRUE,
+        .battleAnimScript = gBattleAnimMove_Sunder,
+    },
+
     // Z-Moves
     [MOVE_BREAKNECK_BLITZ] =
     {

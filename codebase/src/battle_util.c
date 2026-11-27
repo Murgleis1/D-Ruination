@@ -9300,6 +9300,16 @@ static inline u32 CalcMoveBasePower(struct DamageCalculationData *damageCalcData
         if (gBattleMons[battlerAtk].species == SPECIES_GRENINJA_ASH)
             basePower = 20;
         break;
+    case MOVE_SUNDER: // Dreamstone Ruination: 1.5x against a target with any lowered stat
+        for (i = STAT_ATK; i < NUM_BATTLE_STATS; i++)
+        {
+            if (gBattleMons[battlerDef].statStages[i] < DEFAULT_STAT_STAGE)
+            {
+                basePower = uq4_12_multiply(basePower, UQ_4_12(1.5));
+                break;
+            }
+        }
+        break;
     }
 
     if (basePower == 0)
