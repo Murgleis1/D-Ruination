@@ -36,7 +36,7 @@ Wear it well. I suspect it will serve you longer than the burns require.
 
 I am pleased to inform you that, for your actions on that beach and in light of your injuries, you have been granted an honorable discharge from further military service, with lifetime benefits.
 
-You have also been raised to the rank of Rainhawk. At twenty, you are the youngest in Cormorian history to hold it. The rank carries the right to challenge the Trials, should you choose to, a right the Empire rarely extends beyond its noble houses. I suspect you will choose to.
+You have also been raised to the rank of Rainhawk. At twenty, you are the youngest in Cormorian history to hold it. The rank carries the right to challenge the Trials, should you choose to, a right the Empire rarely extends beyond its noble houses. I suspect you will choose to. Word of all this has travelled faster than any ship. Criers have carried the tale of Sevii through every square from Silversun to Rivetshore: the beach, the burns, and the masked soldier made Rainhawk at twenty. Notices bearing a likeness of your mask hang in half the taverns of the Empire, so do not be surprised when strangers know you on sight.
 
 As of the day this letter reaches you, you will serve under me in the Ministry of Education.
 
