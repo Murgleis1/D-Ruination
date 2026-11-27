@@ -101,7 +101,7 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    **The Marauder chief is a minor recurring character (user 2026-11-26):** first met on the far side of Hollow Hill
    (Beat 6, the Emergent Rufflet); the player runs across him **trying other schemes and causing trouble** and fights
    him **at least a few more times on side quests** and **once more in the main story**. Name: **Ripthane Rougehand,
-   "Rip" for short** (user 2026-11-26; checked: no clash in the bible). **He speaks with a strong cockney manner** (dropped h's, "yer", "guv'nor", "ain't") and **calls himself "ol' Rip"** (user 2026-11-26). A commoner's given name and epithet, no House
+   "Rip" for short** (user 2026-11-26; checked: no clash in the bible). **He speaks with a strong cockney manner** (dropped h's, "yer", "guv'nor", "ain't") and **calls himself "ol' Rip"** (user 2026-11-26). He is **comic: over-the-top English slang and nonsense** ("You beat the unholy piss outta me!" when he loses). A commoner's given name and epithet, no House
    surname (§2: surnames are sacramental).
 
 9. **Logan Orphel** (`[NEW canon — user 2026-11-26]`; minor NPC, addition to §7 and the Academy): **the youngest
