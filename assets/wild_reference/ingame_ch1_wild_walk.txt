@@ -1,0 +1,36 @@
+start ((1, 29), (2, 5))
+PellucaCity             10 bites
+harbour ((38, 7), (2, 75))
+PellucaHarbour          10 bites
+town ((38, 35), (2, 5))
+Route 11 ((88, 20), (2, 42))
+Route11                 30 battles in  284 steps
+Route11                 10 bites
+Hollow Hill ((64, 44), (2, 43))
+HollowHill              30 battles in  222 steps
+MirrohGate True -> ((4, 16), (2, 48))
+MirrohSouthGatehouse True -> ((30, 19), (2, 46))
+MirrohLower True -> ((15, 33), (2, 47))
+MirrohUpper True -> ((4, 16), (2, 49))
+MirrohNWGatehouse True -> ((19, 122), (2, 59))
+Route13                 30 battles in  260 steps
+Mt. Mirroh ((38, 78), (2, 9))
+MtMirrohExterior        30 battles in  342 steps
+no shore reached on MtMirrohExterior
+1F ((55, 58), (2, 10))
+MirrohInterior_1F       30 battles in  382 steps
+Peak ((26, 102), (2, 11))
+MirrohPeak              30 battles in  296 steps
+
+== tallies ==
+PellucaCity          fishing   10: MAGIKARP 5, ARROKUDA 5
+PellucaHarbour       fishing   10: MAGIKARP 5, ARROKUDA 5
+Route11              land      33: LECHONK 10, TAILLOW 6, POOCHYENA 5, FLETCHLING 5, SEEDOT 2, SNUBBULL 2, NIDORAN_F 1, NIDORAN_M 1, LILLIPUP 1
+Route11              fishing   10: MAGIKARP 5, WOOPER 5
+HollowHill           land      30: GREAVARD 10, SHUPPET 5, MURKROW 4, HOOTHOOT 3, ZUBAT 2, DUSKULL 2, PHANTUMP 2, MISDREAVUS 1, MORELULL 1
+Route13              land      32: SNOVER 10, SNOM 4, SWINUB 4, STARLY 3, SWABLU 2, CLEFAIRY 2, ABSOL 2, STANTLER 2, SNEASEL 1, NACLI 1, CUBCHOO 1
+MtMirrohExterior     land      33: ROGGENROLA 7, CETODDLE 6, SANDSHREW_ALOLA 5, BERGMITE 5, DELIBIRD 3, SNEASEL 2, SNORUNT 2, STARAVIA 2, SWINUB 1
+MirrohInterior_1F    land      42: WOOBAT 10, SANDSHREW_ALOLA 7, GEODUDE_ALOLA 5, ROLYCOLY 4, SNORUNT 3, DRILBUR 3, CUBCHOO 3, NOSEPASS 2, ZUBAT 2, MEDITITE 2, CRYOGONAL 1
+MirrohPeak           land      31: SNEASEL 6, STARAVIA 5, SNOVER 4, MURKROW 4, SNOM 3, DELIBIRD 3, PILOSWINE 2, CETODDLE 2, BERGMITE 2
+every encounter matches its table []
+saved /home/claude/repo/assets/wild_reference/ingame_ch1_wild_walk.png 64

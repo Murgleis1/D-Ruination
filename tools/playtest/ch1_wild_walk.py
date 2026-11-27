@@ -21,12 +21,14 @@ C = '/home/claude/repo/codebase'
 MAPSYM = {m.group(2): int(m.group(1), 16) for l in open(C + '/pokeemerald.map')
           for m in [re.match(r'\s+0x([0-9a-f]{8})\s+(\w+)$', l)] if m}
 G_MAIN, G_BMONS = MAPSYM['gMain'], MAPSYM['gBattleMons']
+SYMAT = {v: k for k, v in MAPSYM.items()}
 CB2_OVERWORLD, CB2_BATTLE = MAPSYM['CB2_Overworld'] | 1, MAPSYM['BattleMainCB2'] | 1
 BMON_SIZE, BMON_LEVEL, BMON_SPEED, BMON_ABILITY, BMON_HP, BMON_MAXHP = 96, 44, 6, 32, 42, 46
 SB1_KEYITEMS, SB1_REGISTERED, SB2_ENCKEY = 1536, 1174, 168     # offsetof(), from the compiler
 SPNAME = {int(m.group(2)): m.group(1) for l in open(C + '/include/constants/species.h')
           for m in [re.match(r'#define SPECIES_(\w+)\s+(\d+)\s*$', l)] if m}
 FLAGS_OFF = saveblock1_offsets()[0]
+ABILITY_RUN_AWAY = int(re.search(r'#define ABILITY_RUN_AWAY (\d+)', open(C + '/include/constants/abilities.h').read()).group(1))
 OUT = '/home/claude/repo/assets/wild_reference/ingame_ch1_wild_walk.png'
 
 def ram(addr, n):
@@ -56,6 +58,10 @@ def battle(mapname, kind):
     for _ in range(80):
         g.run(10)
         if cb2() == CB2_BATTLE and struct.unpack('<H', ram(G_BMONS + BMON_SIZE, 2))[0]: break
+        if cb2() == CB2_OVERWORLD: return               # not a battle: a door, a warp's fade, a script
+    else:
+        if cb2() != CB2_BATTLE:
+            print('not a battle and not the overworld:', SYMAT.get(cb2() & ~1, hex(cb2())), where(g)); return
     g.run(240)
     foe = ram(G_BMONS + BMON_SIZE, BMON_SIZE); sp = struct.unpack_from('<H', foe, 0)[0]; lv = foe[BMON_LEVEL]
     name = SPNAME.get(sp, str(sp)); seen[(mapname, kind)][(name, lv)] += 1
@@ -64,30 +70,34 @@ def battle(mapname, kind):
     if not rows: problems.append((mapname, kind, name, lv))
     if (mapname, name) not in firsts:
         firsts[(mapname, name)] = 1; shots.append(('%s %s: %s Lv%d' % (mapname, kind, name, lv), g.frame().copy()))
-    poke(G_BMONS + BMON_ABILITY, struct.pack('<H', const('ABILITY_RUN_AWAY')))
+    poke(G_BMONS + BMON_ABILITY, struct.pack('<H', ABILITY_RUN_AWAY))
     poke(G_BMONS + BMON_HP, ram(G_BMONS + BMON_MAXHP, 2))
     for k in range(60):
         if cb2() == CB2_OVERWORLD: break
-        g.run(2, 'B'); g.run(8); g.run(2, 'DOWN'); g.run(4); g.run(2, 'RIGHT'); g.run(4); g.run(2, 'A'); g.run(40)
+        g.run(4, 'B'); g.run(14); g.run(4, 'DOWN'); g.run(14); g.run(4, 'RIGHT'); g.run(14); g.run(4, 'A'); g.run(50)
     for _ in range(40):
         if cb2() == CB2_OVERWORLD: break
         g.run(2, 'A'); g.run(20)
     if cb2() != CB2_OVERWORLD:
+        print('stuck:', SYMAT.get(cb2() & ~1, hex(cb2())), where(g))
+        for k in range(8): g.run(2, 'A'); g.run(60); shots.append(('stuck +%d' % k, g.frame().copy()))
         shots.append(('STUCK in battle on %s' % mapname, g.frame().copy())); sheet(OUT, cols=6); raise SystemExit('stuck in battle')
     g.run(90)
 
-def go_wild(mapname, target, tries=30):
+def go_wild(mapname, target, tries=200):
     """Walk to target; a wild battle on the way is recorded, then the walk carries on."""
-    G = Grid(mapname)
+    G = Grid(mapname); blocked = set()
     for _ in range(tries):
         pos = where(g)[0]
         if pos == target: return True
-        path = G.path(pos, target)
+        path = G.path(pos, target, blocked)
         if path is None: print('no path', mapname, pos, target); return False
         for s in path:
             before = where(g)[0]; step(g, s)
             if cb2() != CB2_OVERWORLD: battle(mapname, 'land'); break
-            if where(g)[0] == before: g.run(30); break
+            if where(g)[0] == before:            # a cell the grid can't tell is closed from this side (stairs' sides)
+                dx, dy = {'RIGHT': (1, 0), 'LEFT': (-1, 0), 'DOWN': (0, 1), 'UP': (0, -1)}[s]
+                blocked.add((before[0] + dx, before[1] + dy)); g.run(30); break
     return where(g)[0] == target
 
 ENC = ('TALL_GRASS', 'LONG_GRASS', 'CAVE', 'INDOOR_ENCOUNTER', 'SAND', 'ASHGRASS')
@@ -122,10 +132,12 @@ def fish(mapname, near):
     G = Grid(mapname); D = {'RIGHT': (1, 0), 'LEFT': (-1, 0), 'DOWN': (0, 1), 'UP': (0, -1)}
     spots = []
     for p, (col, el, beh) in G.cell.items():
-        if not G.ok(p): continue
+        # the game fishes only from a level-3 cell with no edge on that side, facing level-1 water with no collision
+        if not G.ok(p) or el != 3 or 'IMPASSABLE' in beh: continue
         for d, (dx, dy) in D.items():
             q = G.cell.get((p[0] + dx, p[1] + dy))
-            if q and any(k in q[2] for k in WATER): spots.append((abs(p[0] - near[0]) + abs(p[1] - near[1]), p, d))
+            if q and q[0] == 0 and q[1] == 1 and any(k in q[2] for k in WATER):
+                spots.append((abs(p[0] - near[0]) + abs(p[1] - near[1]), p, d))
     for _, spot, facing in sorted(spots)[:15]:
         if G.path(where(g)[0], spot) and go_wild(mapname, spot): break
     else:
@@ -145,6 +157,7 @@ def fish(mapname, near):
     print('%-22s %3d bites' % (mapname, got))
 
 # ---- the walk ----
+RESUME = os.environ.get('RESUME')
 for _ in range(6): g.tap('A'); g.run(30)
 setflag(const('FLAG_DR_STATUE_AWAKENED'))
 for t in range(1, const('TRAINERS_COUNT')): setflag(const('TRAINER_FLAGS_START') + t)
@@ -152,6 +165,9 @@ g.run(5)
 give_old_rod(); g.run(5)
 START = where(g); print('start', START)
 fish('PellucaCity', START[0])
+go_wild('PellucaCity', (38, 36)); g.run(12, 'DOWN'); g.run(260); print('harbour', where(g))
+fish('PellucaHarbour', (38, 14))
+go_wild('PellucaHarbour', (38, 7)); g.run(12, 'UP'); g.run(260); print('town', where(g))
 go_wild('PellucaCity', START[0])
 for _ in range(3): g.walk('LEFT', 1); g.run(5)
 print('Route 11', where(g))
@@ -167,6 +183,7 @@ for m, t, d in [('MirrohGate', (30, 7), 'UP'), ('MirrohSouthGatehouse', (4, 2), 
                 ('MirrohUpper', (14, 10), 'UP'), ('MirrohNWGatehouse', (4, 2), 'UP')]:
     ok = go_wild(m, t); press(d); print(m, ok, '->', where(g))
 sample('Route13', (17, 100))
+open('/home/claude/scratch/wild/r13_sampled.state', 'wb').write(gzip.compress(bytes(g.state())))
 go_wild('Route13', (8, 1)); press('UP', 200); print('Mt. Mirroh', where(g))
 sample('MtMirrohExterior', (13, 20))
 fish('MtMirrohExterior', (13, 20))
