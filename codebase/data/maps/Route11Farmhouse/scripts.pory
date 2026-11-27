@@ -1,5 +1,23 @@
 // ============ DREAMSTONE RUINATION - Route 11: the farmhouse ============
 // Built by tools/art/route11/build_farmhouse.py from farmhouse_mock.py, variant B (user 2026-11-24).
-// Stage 1 (the look). Who lives here, NPCs and dialogue come in stage 2.
+// Stage 2 (people and dialogue, 2026-11-27): the farmer's wife and daughter (the farmer works the rows outside).
+// Lines: docs/route11_hollowhill_draft.md §2. The wife's line changes once the Marauders have taken the Rufflet.
 
 mapscripts Route11Farmhouse_MapScripts {}
+
+script DR_R11_FarmWife {
+    lock
+    faceplayer
+    if (flag(FLAG_DR_R11_THEFT_SEEN)) {
+        msgbox(format("We bar the shutters when the fog comes off Hollow Hill. Some nights you can hear marching in it."))
+    } else {
+        msgbox(format("A Templar lass stopped for water at dawn. She carried a little bird, black on one side and white on the other."))
+    }
+    release
+    end
+}
+
+script DR_R11_FarmDaughter {
+    msgbox(format("Mama says the Templars have a big cathedral up in the mountains somewhere. I would love to see it someday!"), MSGBOX_NPC)
+    end
+}

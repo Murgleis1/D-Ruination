@@ -56074,3 +56074,46 @@ F_TRAINER_FEMALE |
             },
         },
     },
+#line 24270
+    [DIFFICULTY_NORMAL][TRAINER_DR_R11_FISHER_TAM] =
+    {
+#line 24271
+        .trainerName = _("Tam"),
+#line 24272
+        .trainerClass = TRAINER_CLASS_FISHER,
+#line 24273
+        .trainerPic = TRAINER_PIC_DR_FISHER,
+        .encounterMusic_gender =
+#line 24275
+            TRAINER_ENCOUNTER_MUSIC_HIKER,
+#line 24276
+        .doubleBattle = FALSE,
+#line 24277
+        .aiFlags = AI_FLAG_BASIC_TRAINER,
+        .partySize = 2,
+        .party = (const struct TrainerMon[])
+        {
+            {
+#line 24279
+            .species = SPECIES_KRABBY,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+#line 24281
+            .iv = TRAINER_PARTY_IVS(10, 10, 10, 10, 10, 10),
+#line 24280
+            .lvl = 9,
+            .nature = NATURE_HARDY,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            },
+            {
+#line 24283
+            .species = SPECIES_CORPHISH,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+#line 24285
+            .iv = TRAINER_PARTY_IVS(10, 10, 10, 10, 10, 10),
+#line 24284
+            .lvl = 10,
+            .nature = NATURE_HARDY,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            },
+        },
+    },

@@ -951,12 +951,14 @@
 #define TRAINER_DR_EDEN_LAB_1               855 // player chose Frigibax -> Eden stole Tinkatink
 #define TRAINER_DR_EDEN_LAB_2               856 // player chose Teddiursa -> Eden stole Frigibax
 #define TRAINER_DR_EDEN_LAB_3               857 // player chose Tinkatink -> Eden stole Teddiursa
+// --- Dreamstone Ruination: Route 11 ---
+#define TRAINER_DR_R11_FISHER_TAM           858 // the west beach
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      858
+#define TRAINERS_COUNT                      859
 #define MAX_TRAINERS_COUNT                  864
 #define TRAINER_PARTNER(partner)           (MAX_TRAINERS_COUNT + partner)
 

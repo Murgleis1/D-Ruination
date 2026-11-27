@@ -1,1 +1,16 @@
+// ============ DREAMSTONE RUINATION - Route 11 ============
+// Stage 2 (people and dialogue, 2026-11-27): the farmer in his rows and Fisher Tam on the west beach.
+// Lines: docs/route11_hollowhill_draft.md §2 (bible §16.15 rules). The theft scene (Beat 5) is a later layer.
+
 mapscripts Route11_MapScripts {}
+
+script DR_R11_Farmer {
+    msgbox(format("Marauders took two of my Mareep last moon. The drovers say their chief is a rogue called Rougehand."), MSGBOX_NPC)
+    end
+}
+
+script DR_R11_FisherTam {
+    trainerbattle_single(TRAINER_DR_R11_FISHER_TAM, format("The tide's out and the fish won't bite, so you'll have to do."), format("Bested by a man in a mask. My wife will never believe it."))
+    msgbox(format("Fishing's poor along this coast of late. Something big moves past the cove at night, and every fish with sense has fled it."), MSGBOX_AUTOCLOSE)
+    end
+}

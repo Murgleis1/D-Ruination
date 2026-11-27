@@ -1504,6 +1504,7 @@
 #define FLAG_DR_ICE_PATH_SOLVED                     FLAG_UNUSED_0x902   // ice field under the church cleared
 #define FLAG_DR_STATUE_AWAKENED                     FLAG_UNUSED_0x909   // the shrine awakened; the Sparkling Opal found
 #define FLAG_DR_SAGE_MASK_REMARK                    FLAG_UNUSED_0x911   // a Tavern Sage has remarked on the Athanto mask
+#define FLAG_DR_R11_THEFT_SEEN                      FLAG_UNUSED_0x912   // Route 11: the Marauders took the Emergent Rufflet (set by the theft scene, Beat 5)
 
 #define FLAG_SYS_TV_HOME                            (SYSTEM_FLAGS + 0x30)
 #define FLAG_SYS_TV_WATCH                           (SYSTEM_FLAGS + 0x31)
