@@ -19,7 +19,8 @@ Evolves at Lv.45. Joins at Lv.12, **always Adamant, with perfect IVs (31 in ever
 
 **Learnset to Lv.20** (later Dark moves to come, user): Lv.1 Peck, Leer · Lv.6 Hone Claws · Lv.10 Knock Off ·
 Lv.15 Rock Tomb · **Lv.20 Drill Peck** (user: approved).
-Joins knowing Peck, Leer, Hone Claws, Knock Off. After Lv.20: Braviary's usual list until the Dark moves are chosen.
+Joins knowing Peck, Leer, Hone Claws, Knock Off. After Lv.20: Braviary's usual list until the Dark moves are chosen,
+except **Lv.29 Rock Slide** (for Slash) and **Lv.52 Stone Edge** (for Sky Drop), for Rocky Payload (user 2026-11-27).
 
 **Colours:** a new black-and-white palette on Rufflet's and Braviary's art (front, back, icon, follower): Rufflet a white
 head with a black bandit mask and crest slash; Braviary after the Steller's sea eagle, black with white wing edges, tail

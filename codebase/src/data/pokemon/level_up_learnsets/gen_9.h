@@ -22365,7 +22365,8 @@ static const struct LevelUpMove sPecharuntLevelUpLearnset[] = {
 
 // === DREAMSTONE RUINATION CUSTOM SPECIES — LEARNSETS ===
 // Emergent Rufflet / Braviary (Dreamstone Ruination, docs/route11_hollowhill_draft.md): Knock Off for Bite, Rock Tomb
-// early, Drill Peck at 20; after 20 the usual Rufflet / Braviary list until its later Dark moves are chosen.
+// early, Drill Peck at 20, Rock Slide 29 (for Slash) and Stone Edge 52 (for Sky Drop) for Rocky Payload (user 2026-11-27);
+// otherwise the usual Rufflet / Braviary list until its later Dark moves are chosen.
 static const struct LevelUpMove sRuffletEmergentLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_PECK),
     LEVEL_UP_MOVE( 1, MOVE_LEER),
@@ -22374,12 +22375,12 @@ static const struct LevelUpMove sRuffletEmergentLevelUpLearnset[] = {
     LEVEL_UP_MOVE(15, MOVE_ROCK_TOMB),
     LEVEL_UP_MOVE(20, MOVE_DRILL_PECK),
     LEVEL_UP_MOVE(23, MOVE_AERIAL_ACE),
-    LEVEL_UP_MOVE(28, MOVE_SLASH),
+    LEVEL_UP_MOVE(29, MOVE_ROCK_SLIDE),
     LEVEL_UP_MOVE(32, MOVE_DEFOG),
     LEVEL_UP_MOVE(37, MOVE_TAILWIND),
     LEVEL_UP_MOVE(41, MOVE_AIR_SLASH),
     LEVEL_UP_MOVE(46, MOVE_CRUSH_CLAW),
-    LEVEL_UP_MOVE(50, MOVE_SKY_DROP),
+    LEVEL_UP_MOVE(52, MOVE_STONE_EDGE),
     LEVEL_UP_MOVE(55, MOVE_WHIRLWIND),
     LEVEL_UP_MOVE(59, MOVE_BRAVE_BIRD),
     LEVEL_UP_MOVE(64, MOVE_THRASH),
@@ -22394,13 +22395,13 @@ static const struct LevelUpMove sBraviaryEmergentLevelUpLearnset[] = {
     LEVEL_UP_MOVE(15, MOVE_ROCK_TOMB),
     LEVEL_UP_MOVE(20, MOVE_DRILL_PECK),
     LEVEL_UP_MOVE(23, MOVE_AERIAL_ACE),
-    LEVEL_UP_MOVE(28, MOVE_SLASH),
+    LEVEL_UP_MOVE(29, MOVE_ROCK_SLIDE),
     LEVEL_UP_MOVE(32, MOVE_DEFOG),
     LEVEL_UP_MOVE(37, MOVE_TAILWIND),
     LEVEL_UP_MOVE(41, MOVE_AIR_SLASH),
     LEVEL_UP_MOVE(46, MOVE_CRUSH_CLAW),
-    LEVEL_UP_MOVE(50, MOVE_SKY_DROP),
     LEVEL_UP_MOVE(51, MOVE_SUPERPOWER),
+    LEVEL_UP_MOVE(52, MOVE_STONE_EDGE),
     LEVEL_UP_MOVE(57, MOVE_WHIRLWIND),
     LEVEL_UP_MOVE(63, MOVE_BRAVE_BIRD),
     LEVEL_UP_MOVE(70, MOVE_THRASH),
