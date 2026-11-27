@@ -32,53 +32,93 @@ static void DrIntro_PrintBlock(const u8 *text);
 
 // Narration text, pre-wrapped into lines (the printer does not auto-wrap).
 static const u8 sTenebrisHeader[] = _("From the notes of Professor\nTenebris - XX-XX-29");
+// Tenebris's notes (user's text, approved 2026-11-26): to the Dreamstone Mysteries player, now Champion;
+// she has found her ancestor Cadmus Umbra's papers. One screen per block.
 static const u8 sTenebrisGreeting[] = _(
-    "To my precious\n"
-    "lab assistant,");
+    "To my favourite\n"
+    "lab assistant-turned-Champion,");
 
 static const u8 sTenebrisP1[] = _(
-    "Two thousand years before\n"
-    "Red set out from Pallet Town,\n"
-    "the world of Pokémon was\n"
-    "a very different place.\n"
-    "This region of Cormoria was\n"
-    "very different too...\n"
-    "almost unrecognizably so.");
+    "I hope this finds you well!\n"
+    "I know you've got a lot on\n"
+    "your plate these days, but I\n"
+    "thought you'd appreciate an\n"
+    "update since our last chat\n"
+    "at the lab.");
 
 static const u8 sTenebrisP2[] = _(
-    "It was an age of empires\n"
-    "and of stranger faiths.\n"
-    "An age where all nations\n"
-    "were vying for supremacy\n"
-    "over one another...");
+    "I finished rummaging through\n"
+    "my old family home and...\n"
+    "I can barely believe it.\n"
+    "I found writings from over\n"
+    "two thousand years ago that\n"
+    "actually document the lost\n"
+    "age of the Cormorian Empire!");
 
 static const u8 sTenebrisP3[] = _(
-    "...and those who wrote the\n"
-    "histories that came after it\n"
-    "did their best to bury every\n"
-    "trace of what happened\n"
-    "back then.");
+    "Try to wrap your mind\n"
+    "around this.");
 
 static const u8 sTenebrisP4[] = _(
-    "What follows is the story\n"
-    "of the people who laid the\n"
-    "foundation for the modern era,\n"
-    "or at least as much of it\n"
-    "as I have been able\n"
-    "to piece together.");
+    "Two thousand years before Red\n"
+    "became Champion of the\n"
+    "Indigo League in Kanto,\n"
+    "the world of Pokémon was\n"
+    "a very different place,\n"
+    "and Cormoria most of all.\n"
+    "It was almost unrecognisable.");
 
 static const u8 sTenebrisP5[] = _(
-    "So much time has passed\n"
-    "since then...\n"
-    "and yet what happened to\n"
-    "the Empire echoes so loudly,\n"
-    "even now,\n"
-    "into the present day...");
+    "You and I are no strangers\n"
+    "to travelling into the\n"
+    "distant past, but even so,\n"
+    "this period in history was\n"
+    "like a black hole.\n"
+    "Even I knew almost nothing\n"
+    "about it. Until now.");
+
+static const u8 sTenebrisP6[] = _(
+    "It was an age of empires\n"
+    "and of stranger faiths,\n"
+    "when every nation vied for\n"
+    "supremacy over the others.\n"
+    "It paints quite a picture,\n"
+    "doesn't it?");
+
+static const u8 sTenebrisP7[] = _(
+    "But those who wrote the\n"
+    "histories that came after\n"
+    "did their best to bury every\n"
+    "trace of what happened.\n"
+    "And now I have the proof.");
+
+static const u8 sTenebrisP8[] = _(
+    "I've barely begun to piece\n"
+    "it all together, but if what\n"
+    "these papers say is true,\n"
+    "everything we thought we knew\n"
+    "about the modern world\n"
+    "is going to change.");
+
+static const u8 sTenebrisP9[] = _(
+    "My ancestor, Cadmus Umbra,\n"
+    "was a Vizier of the Cormorian\n"
+    "Empire in its waning years,\n"
+    "and he was extremely thorough\n"
+    "in recording what he saw.\n"
+    "So brace yourself, kiddo.\n"
+    "It's pretty fantastic.");
+
+static const u8 sTenebrisP10[] = _(
+    "It all starts with his own\n"
+    "copy of a letter he sent\n"
+    "to someone very important...");
 
 static const u8 sDefaultPlayerName[] = _("Osrid");
 
 static const u8 *const sIntroBlocks[] = {
     sTenebrisHeader, sTenebrisGreeting, sTenebrisP1, sTenebrisP2, sTenebrisP3, sTenebrisP4, sTenebrisP5,
+    sTenebrisP6, sTenebrisP7, sTenebrisP8, sTenebrisP9, sTenebrisP10,
 };
 #define NUM_INTRO_BLOCKS ARRAY_COUNT(sIntroBlocks)
 

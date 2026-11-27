@@ -6,17 +6,27 @@ Review copy, generated 2026-11-16. **[IN GAME]** sections are exactly what the g
 
 > From the notes of Professor Tenebris - XX-XX-29
 
-> To my precious lab assistant,
+> To my favourite lab assistant-turned-Champion,
 
-> Two thousand years before Red set out from Pallet Town, the world of Pokémon was a very different place. This region of Cormoria was very different too... almost unrecognizably so.
+> I hope this finds you well! I know you've got a lot on your plate these days, but I thought you'd appreciate an update since our last chat at the lab.
 
-> It was an age of empires and of stranger faiths. An age where all nations were vying for supremacy over one another...
+> I finished rummaging through my old family home and... I can barely believe it. I found writings from over two thousand years ago that actually document the lost age of the Cormorian Empire!
 
-> ...and those who wrote the histories that came after it did their best to bury every trace of what happened back then.
+> Try to wrap your mind around this.
 
-> What follows is the story of the people who laid the foundation for the modern era, or at least as much of it as I have been able to piece together.
+> Two thousand years before Red became Champion of the Indigo League in Kanto, the world of Pokémon was a very different place, and Cormoria most of all. It was almost unrecognisable.
 
-> So much time has passed since then... and yet what happened to the Empire echoes so loudly, even now, into the present day...
+> You and I are no strangers to travelling into the distant past, but even so, this period in history was like a black hole. Even I knew almost nothing about it. Until now.
+
+> It was an age of empires and of stranger faiths, when every nation vied for supremacy over the others. It paints quite a picture, doesn't it?
+
+> But those who wrote the histories that came after did their best to bury every trace of what happened. And now I have the proof.
+
+> I've barely begun to piece it all together, but if what these papers say is true, everything we thought we knew about the modern world is going to change.
+
+> My ancestor, Cadmus Umbra, was a Vizier of the Cormorian Empire in its waning years, and he was extremely thorough in recording what he saw. So brace yourself, kiddo. It's pretty fantastic.
+
+> It all starts with his own copy of a letter he sent to someone very important...
 
 ## 2. The letter and Osrid's reply  [IN GAME]
 

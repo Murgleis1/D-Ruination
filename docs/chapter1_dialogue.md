@@ -7,11 +7,27 @@ In game, a name is shown only when a new speaker starts talking.
 
 > From the notes of Professor Tenebris - XX-XX-29
 
-> Two thousand years before Red set out from Pallet Town, the world of Pokémon was a very different place.
+> To my favourite lab assistant-turned-Champion,
 
-> It was an age of empires and of stranger faiths. Those who wrote the histories that came after it did their best to bury every trace.
+> I hope this finds you well! I know you've got a lot on your plate these days, but I thought you'd appreciate an update since our last chat at the lab.
 
-> What follows is what I have pieced together of that time, and of the people in it. So much of our world began with them.
+> I finished rummaging through my old family home and... I can barely believe it. I found writings from over two thousand years ago that actually document the lost age of the Cormorian Empire!
+
+> Try to wrap your mind around this.
+
+> Two thousand years before Red became Champion of the Indigo League in Kanto, the world of Pokémon was a very different place, and Cormoria most of all. It was almost unrecognisable.
+
+> You and I are no strangers to travelling into the distant past, but even so, this period in history was like a black hole. Even I knew almost nothing about it. Until now.
+
+> It was an age of empires and of stranger faiths, when every nation vied for supremacy over the others. It paints quite a picture, doesn't it?
+
+> But those who wrote the histories that came after did their best to bury every trace of what happened. And now I have the proof.
+
+> I've barely begun to piece it all together, but if what these papers say is true, everything we thought we knew about the modern world is going to change.
+
+> My ancestor, Cadmus Umbra, was a Vizier of the Cormorian Empire in its waning years, and he was extremely thorough in recording what he saw. So brace yourself, kiddo. It's pretty fantastic.
+
+> It all starts with his own copy of a letter he sent to someone very important...
 
 ## Cold open (letter and reply)
 *(Installed 2026-11-18, user-revised. Source of truth: data/maps/PellucaReflection/scripts.pory.)*
