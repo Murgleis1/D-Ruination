@@ -45,19 +45,21 @@ same palette with black and white swapped.
 
 ## 3. Hollow Hill
 
+*Rip speaks broad cockney and calls himself "ol' Rip" (user 2026-11-26).*
+
 **The paranoid Imperial Soldier** (class "Soldier"; Growlithe Lv.10, Machop Lv.10)
 - Before: Halt! A mask, in these woods? You're one of Rip's, I'd stake my pay on it.
 - Defeated: Whatever you are, you're no common cutthroat.
 - Talked to after: I owe you an apology, Rainhawk. Marauders have robbed every cart through these woods, and half of them hide their faces. I see a mask and I see a thief.
 
 **The far side: Rip takes the chick**
-- **Rip:** A black-and-white Rufflet. The Beads would pay a fortune for a beast no one's ever seen, or some fat lord with a cabinet of curiosities.
+- **Rip:** Well, well. A black-an'-white Rufflet, an' not another like it in all Cormoria. The Beads'd pay a king's ransom for this little beauty, or some fat lord wiv a cabinet o' curiosities. Ol' Rip's in the money!
 - Goon: Boss! The masked one followed us.
-- **Rip:** Then show the Rainhawk how Marauders say hello.
+- **Rip:** Then show the Rainhawk 'ow Marauders say 'ello.
 - **Double battle: Goon (Poochyena Lv.10, Zubat Lv.10) and Bandit (Purrloin Lv.10, Murkrow Lv.11).** Goon defeated: Should've stayed a cooper. Bandit defeated: Rip's going to skin us.
-- **Rip:** Useless, the pair of you. Stand aside.
-- **Rip 1v1: Stunky Lv.12, Sneasel Lv.12, Pawniard Lv.14** (Pawniard as his ace, growing with each meeting: Bisharp, then Kingambit). Defeated: Ha! You fight like the stories say.
-- **Rip:** Keep the bird, then. Cormoria's a big place, Rainhawk, and I've plenty of other plans. You'll be seeing Rip again. *(the three run off north)*
+- **Rip:** Useless, the pair o' yer. Stand aside an' let ol' Rip 'andle it.
+- **Rip 1v1: Stunky Lv.12, Sneasel Lv.12, Pawniard Lv.14** (Pawniard as his ace, growing with each meeting: Bisharp, then Kingambit). Defeated: Blimey! Yer fight just like the stories say.
+- **Rip:** Keep the bird, then, guv'nor. Cormoria's a big place, an' ol' Rip's got plenty more irons in the fire. You ain't seen the last o' me! *(the three run off north)*
 - The Rufflet cries, hops to the player (a "!" and a heart emote), and joins: "{PLAYER} received the Rufflet!" then the nickname prompt.
 
 **Templar HQ, the quest's end** (with the Citadel scene, stage 4)
