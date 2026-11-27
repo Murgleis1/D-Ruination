@@ -12,7 +12,7 @@ G = lambda m, f: os.path.join(C, 'graphics', 'pokemon', m, f)
 FRONT = {
  'bagon': {1: (46, 44, 54), 2: (38, 22, 28), 3: (128, 122, 140), 4: (92, 88, 104), 6: (66, 62, 76),
            7: (28, 26, 32), 10: (44, 42, 50), 11: (64, 60, 72),
-           8: (204, 40, 56), 9: (150, 26, 42), 12: (216, 216, 224), 13: (248, 248, 248), 14: (110, 30, 44), 15: (226, 110, 120)},
+           8: (204, 40, 56), 9: (150, 26, 42), 12: (232, 232, 236), 13: (248, 248, 248), 14: (110, 30, 44), 15: (226, 110, 120)},
  'shelgon': {1: (40, 38, 46), 3: (104, 98, 114), 4: (72, 68, 82), 5: (54, 50, 62), 10: (60, 56, 66),
              6: (110, 24, 36), 7: (70, 16, 26), 8: (224, 224, 216), 9: (248, 248, 244),
              11: (220, 40, 56), 12: (100, 14, 28), 13: (248, 88, 96)},
@@ -32,14 +32,15 @@ OW = {
 
 # Bagon's eyes are drawn in the head plate's own whites (3, 4), so the shiny's dark head plate turned them grey:
 #  - front: the small white patches under the head plate beside the black pupil;
-#  - back: the single light pixel at (48, 24), ringed in black, at the head plate's edge.
+#  - back: the light vertical strip at x 45-46, rows 21-26 (user 2026-11-26), and the light pixel at (48, 24) ringed
+#    in black, at the head plate's edge.
 # The yellow ring further down the back sprite, like the yellow patch on the front, is the PATTERN on the side of its
 # face: crimson in the shiny (user 2026-11-26; it must not be white). The back sprite's fang is white in both.
 # The eyes and fang get their own indices: 13 = white (normal: index 3's colour), 12 = light grey (normal: index 4's);
 # the belly's few darkest pixels (old 12) merge into 9. The normal Bagon looks the same but for a few pixels.
 # Boxes: (frame y offset, (x0, y0, x1, y1)).
 FRONT_EYES = [(0, (26, 22, 31, 26)), (64, (20, 26, 25, 29))]
-BACK_FANG, BACK_EYE = (44, 29, 48, 33), (48, 24, 49, 25)
+BACK_FANG, BACK_EYE, BACK_STRIP = (44, 29, 48, 33), (48, 24, 49, 25), (45, 21, 47, 27)
 NORMAL_EYE = {12: (208, 200, 216), 13: (240, 240, 248)}
 
 def box(shape, boxes):
@@ -52,7 +53,7 @@ def bagon_eyes(write):
         p = G('bagon', f); im = Image.open(p); a = np.array(im); pal = im.getpalette()
         if not (a == 13).any():          # not yet done
             a[a == 12] = 9
-            boxes = FRONT_EYES if f == 'anim_front.png' else [(0, BACK_FANG), (0, BACK_EYE)]
+            boxes = FRONT_EYES if f == 'anim_front.png' else [(0, BACK_FANG), (0, BACK_EYE), (0, BACK_STRIP)]
             m = box(a.shape, boxes)
             if f == 'back.png':
                 a[box(a.shape, [(0, BACK_EYE)]) & (a == 4)] = 3          # the eye pixel: white
