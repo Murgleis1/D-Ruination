@@ -32,7 +32,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrFarmer;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrWoodsman;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrMerchant;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrTemplarPriest;
-extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrImperialSoldier;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrRoyalOfficer;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrMinstrel;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrWitch;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrRevenant;
@@ -374,7 +374,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DR_WOODSMAN] = &gObjectEventGraphicsInfo_DrWoodsman,
     [OBJ_EVENT_GFX_DR_MERCHANT] = &gObjectEventGraphicsInfo_DrMerchant,
     [OBJ_EVENT_GFX_DR_TEMPLAR_PRIEST] = &gObjectEventGraphicsInfo_DrTemplarPriest,
-    [OBJ_EVENT_GFX_DR_IMPERIAL_SOLDIER] = &gObjectEventGraphicsInfo_DrImperialSoldier,
+    [OBJ_EVENT_GFX_DR_ROYAL_OFFICER] = &gObjectEventGraphicsInfo_DrRoyalOfficer,
     [OBJ_EVENT_GFX_DR_MINSTREL] = &gObjectEventGraphicsInfo_DrMinstrel,
     [OBJ_EVENT_GFX_DR_WITCH] = &gObjectEventGraphicsInfo_DrWitch,
     [OBJ_EVENT_GFX_DR_REVENANT] = &gObjectEventGraphicsInfo_DrRevenant,

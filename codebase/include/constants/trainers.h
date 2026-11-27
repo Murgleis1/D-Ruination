@@ -167,7 +167,7 @@
 #define TRAINER_PIC_DR_WOODSMAN             140
 #define TRAINER_PIC_DR_MERCHANT             141
 #define TRAINER_PIC_DR_TEMPLAR_PRIEST       142
-#define TRAINER_PIC_DR_IMPERIAL_SOLDIER     143
+#define TRAINER_PIC_DR_ROYAL_OFFICER        143
 #define TRAINER_PIC_DR_MINSTREL             144
 #define TRAINER_PIC_DR_WITCH                145
 #define TRAINER_PIC_DR_REVENANT             146

@@ -589,9 +589,9 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrTemplarPriest = 
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrImperialSoldier = {
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrRoyalOfficer = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_DR_IMPERIAL_SOLDIER,
+    .paletteTag = OBJ_EVENT_PAL_TAG_DR_ROYAL_OFFICER,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
     .size = 256,
     .width = 16,
@@ -604,7 +604,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrImperialSoldier 
     .oam = &gObjectEventBaseOam_16x32,
     .subspriteTables = sOamTables_16x32,
     .anims = sAnimTable_Standard,
-    .images = sPicTable_DrImperialSoldier,
+    .images = sPicTable_DrRoyalOfficer,
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 

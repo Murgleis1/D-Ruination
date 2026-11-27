@@ -427,7 +427,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
     slate, boots dark.
   - **Minstrel on MonoMyth 0** (green turban with a white band, moustache, red coat: the front's own character; the
     pencilled MonoMyth 199 turned out a faceless hooded figure): turban teal, coat mustard.
-  - **MonoMyth 30 is the Imperial Soldier** (user: "That's an Imperial Soldier...or an Officer if you think that
+  - **MonoMyth 30 is the Royal Officer** (renamed from "Imperial Soldier", user 2026-11-26) (user: "That's an Imperial Soldier...or an Officer if you think that
     sounds better"; spear and furs read rank-and-file, leaving "Officer" for a more decorated design later). On
     **MonoMyth 138** (the same white-haired warrior): hair black, uniform purple, fur gold.
   - **Fantasma 133 and 142 have no stepping frames**: their image tables are per-frame {data, size} and entries 3-8
@@ -595,7 +595,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   - **33 walkers**, `OBJ_EVENT_GFX_DR_*` **290-322** (`NUM_OBJ_EVENT_GFX` 323), palette tags `OBJ_EVENT_PAL_TAG_DR_*`
     **0x1170-0x1190** (0x1134-0x114F passed over: 0x1140 is the knoll cloud's sprite tag), PNGs
     `graphics/object_events/pics/people/dr_<name>.png`: old man, old woman, farmer, woodsman, merchant, Templar
-    priest, Imperial Soldier, minstrel, witch, Revenant, Adventurer, Mariner, Corsair, Fisher, Goon, Bandit,
+    priest, Royal Officer, minstrel, witch, Revenant, Adventurer, Mariner, Corsair, Fisher, Goon, Bandit,
     Marauder, Logan, commoner women A-B, commoner men A-C, cook, barkeep, healer, kids A, B, C, E (D, the swim-ring
     kid, held back), students A-C.
   - **18 battle fronts**, `TRAINER_PIC_DR_*` **137-154** (`TRAINER_PIC_COUNT` 155), `graphics/trainers/front_pics/
@@ -603,7 +603,7 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
   - **13 trainer classes** the user has named, `TRAINER_CLASS_*` **0x6D-0x79** (`TRAINER_CLASS_COUNT` 0x7A):
     Revenant, Adventurer, Fisher, Corsair, Mariner, Woodsman, Merchant, Goon, Bandit, Marauder, Scholar, Witch,
     Minstrel. **Still to name** (12 characters at most): the old man, old woman, farmer, Templar priest (or the
-    existing Templar class) and the Imperial Soldier ("Imperial Soldier" is 16; e.g. "Soldier").
+    existing Templar class) and the Royal Officer (now its own class "Royal Officer", 13 characters; class names widened to 16, 2026-11-26).
   - Checked: every walker and front decoded from the ROM equals its PNG, pixel and palette; every table entry
     (graphics-info pointers, images, palette tags, gTrainerSprites, gTrainerClasses names and money) reaches the
     right data; Baradus's assets unchanged; the whole save-state walk chain passes. **ROM 96.24% -> 96.60%** of

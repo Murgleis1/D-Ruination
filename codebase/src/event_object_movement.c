@@ -531,7 +531,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_DrWoodsman, OBJ_EVENT_PAL_TAG_DR_WOODSMAN},
     {gObjectEventPal_DrMerchant, OBJ_EVENT_PAL_TAG_DR_MERCHANT},
     {gObjectEventPal_DrTemplarPriest, OBJ_EVENT_PAL_TAG_DR_TEMPLAR_PRIEST},
-    {gObjectEventPal_DrImperialSoldier, OBJ_EVENT_PAL_TAG_DR_IMPERIAL_SOLDIER},
+    {gObjectEventPal_DrRoyalOfficer, OBJ_EVENT_PAL_TAG_DR_ROYAL_OFFICER},
     {gObjectEventPal_DrMinstrel, OBJ_EVENT_PAL_TAG_DR_MINSTREL},
     {gObjectEventPal_DrWitch, OBJ_EVENT_PAL_TAG_DR_WITCH},
     {gObjectEventPal_DrRevenant, OBJ_EVENT_PAL_TAG_DR_REVENANT},

@@ -431,8 +431,8 @@ const u32 gTrainerFrontPic_DrMerchant[] = INCBIN_U32("graphics/trainers/front_pi
 const u32 gTrainerPalette_DrMerchant[] = INCBIN_U32("graphics/trainers/front_pics/dr_merchant.gbapal.lz");
 const u32 gTrainerFrontPic_DrTemplarPriest[] = INCBIN_U32("graphics/trainers/front_pics/dr_templar_priest.4bpp.lz");
 const u32 gTrainerPalette_DrTemplarPriest[] = INCBIN_U32("graphics/trainers/front_pics/dr_templar_priest.gbapal.lz");
-const u32 gTrainerFrontPic_DrImperialSoldier[] = INCBIN_U32("graphics/trainers/front_pics/dr_imperial_soldier.4bpp.lz");
-const u32 gTrainerPalette_DrImperialSoldier[] = INCBIN_U32("graphics/trainers/front_pics/dr_imperial_soldier.gbapal.lz");
+const u32 gTrainerFrontPic_DrRoyalOfficer[] = INCBIN_U32("graphics/trainers/front_pics/dr_royal_officer.4bpp.lz");
+const u32 gTrainerPalette_DrRoyalOfficer[] = INCBIN_U32("graphics/trainers/front_pics/dr_royal_officer.gbapal.lz");
 const u32 gTrainerFrontPic_DrMinstrel[] = INCBIN_U32("graphics/trainers/front_pics/dr_minstrel.4bpp.lz");
 const u32 gTrainerPalette_DrMinstrel[] = INCBIN_U32("graphics/trainers/front_pics/dr_minstrel.gbapal.lz");
 const u32 gTrainerFrontPic_DrWitch[] = INCBIN_U32("graphics/trainers/front_pics/dr_witch.4bpp.lz");
@@ -661,7 +661,7 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(TRAINER_PIC_DR_WOODSMAN, gTrainerFrontPic_DrWoodsman, gTrainerPalette_DrWoodsman),
     TRAINER_SPRITE(TRAINER_PIC_DR_MERCHANT, gTrainerFrontPic_DrMerchant, gTrainerPalette_DrMerchant),
     TRAINER_SPRITE(TRAINER_PIC_DR_TEMPLAR_PRIEST, gTrainerFrontPic_DrTemplarPriest, gTrainerPalette_DrTemplarPriest),
-    TRAINER_SPRITE(TRAINER_PIC_DR_IMPERIAL_SOLDIER, gTrainerFrontPic_DrImperialSoldier, gTrainerPalette_DrImperialSoldier),
+    TRAINER_SPRITE(TRAINER_PIC_DR_ROYAL_OFFICER, gTrainerFrontPic_DrRoyalOfficer, gTrainerPalette_DrRoyalOfficer),
     TRAINER_SPRITE(TRAINER_PIC_DR_MINSTREL, gTrainerFrontPic_DrMinstrel, gTrainerPalette_DrMinstrel),
     TRAINER_SPRITE(TRAINER_PIC_DR_WITCH, gTrainerFrontPic_DrWitch, gTrainerPalette_DrWitch),
     TRAINER_SPRITE(TRAINER_PIC_DR_REVENANT, gTrainerFrontPic_DrRevenant, gTrainerPalette_DrRevenant),

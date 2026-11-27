@@ -357,7 +357,7 @@ if __name__ == '__main__':
                     p2[k] = c
                 save(idx2, p2, os.path.join(OUT, 'officer_%s.png' % opt))
                 save(idx2, p2, os.path.join(OUT, 'officer.png'))
-                tiles.append((before, rgba(idx2, p2), 'Imperial Soldier: purple and gold, black hair'))
+                tiles.append((before, rgba(idx2, p2), 'Royal Officer: purple and gold, black hair'))
             continue
         role, note, ed = EDITS[name]
         p2 = list(pal)

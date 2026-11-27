@@ -312,7 +312,7 @@
 #define OBJ_EVENT_GFX_DR_WOODSMAN                     293
 #define OBJ_EVENT_GFX_DR_MERCHANT                     294
 #define OBJ_EVENT_GFX_DR_TEMPLAR_PRIEST               295
-#define OBJ_EVENT_GFX_DR_IMPERIAL_SOLDIER             296
+#define OBJ_EVENT_GFX_DR_ROYAL_OFFICER                296
 #define OBJ_EVENT_GFX_DR_MINSTREL                     297
 #define OBJ_EVENT_GFX_DR_WITCH                        298
 #define OBJ_EVENT_GFX_DR_REVENANT                     299
@@ -498,7 +498,7 @@
 #define OBJ_EVENT_PAL_TAG_DR_WOODSMAN                 0x1173
 #define OBJ_EVENT_PAL_TAG_DR_MERCHANT                 0x1174
 #define OBJ_EVENT_PAL_TAG_DR_TEMPLAR_PRIEST           0x1175
-#define OBJ_EVENT_PAL_TAG_DR_IMPERIAL_SOLDIER         0x1176
+#define OBJ_EVENT_PAL_TAG_DR_ROYAL_OFFICER            0x1176
 #define OBJ_EVENT_PAL_TAG_DR_MINSTREL                 0x1177
 #define OBJ_EVENT_PAL_TAG_DR_WITCH                    0x1178
 #define OBJ_EVENT_PAL_TAG_DR_REVENANT                 0x1179

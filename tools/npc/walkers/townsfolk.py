@@ -16,7 +16,7 @@ tools/npc/picks/recolour.py).
   Minstrel       <- MonoMyth 0    (green turban with a white band, moustache, red coat; user: double-check 199, which
                     turned out a faceless hooded figure): turban teal, coat mustard
   Imperial Soldier <- MonoMyth 138 (white-haired warrior in brown furs; the class filed as "Imperial Officer" until
-                    the user, 2026-11-26: "That's an Imperial Soldier"): hair black, uniform purple, fur gold
+                    the user, 2026-11-26: "That's an Imperial Soldier"; renamed Royal Officer the same day: "royal" means serving the Empire): hair black, uniform purple, fur gold
 
 Fantasma walkers: 9 frames S N W walkS x2 walkN x2 walkW x2 (fa_walker.py); MonoMyth: mm_overworld.py extract.
 Region remaps split a slot shared by two parts (hat and body, say) by row, from each frame's own top (walking frames
@@ -202,7 +202,7 @@ def soldier():
 
 CLASSES = [('Old man', old_man, 'FA_138'), ('Farmer', farmer, 'FA_212'), ('Templar priest', priest, 'FA_110'),
            ('Adventurer', adventurer, 'FA_0'), ('Woodsman', woodsman, 'MM_89'), ('Minstrel', minstrel, 'MM_68'),
-           ('Imperial Soldier', soldier, 'officer')]
+           ('Royal Officer', soldier, 'officer')]
 
 if __name__ == '__main__':
     os.makedirs(os.path.join(HERE, 'out'), exist_ok=True)
