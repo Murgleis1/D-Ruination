@@ -1427,7 +1427,8 @@
 
 
 // Trainer Flags
-// Trainer flags occupy 0x500 - 0x85F, the last 9 of which are unused
+// Trainer flags occupy 0x500 - (0x500 + MAX_TRAINERS_COUNT - 1): 0x500 - 0x8FF since MAX_TRAINERS_COUNT went to 1024
+// (2026-11-27). The FLAG_UNUSED_0x9xx names below no longer match their numbers: the system flags all moved up 0xA0.
 // See constants/opponents.h. The values there + FLAG_TRAINER_FLAG_START are the flag IDs
 
 #define TRAINER_FLAGS_START                                         0x500

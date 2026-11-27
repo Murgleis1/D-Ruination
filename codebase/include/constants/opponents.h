@@ -954,12 +954,12 @@
 // --- Dreamstone Ruination: Route 11 ---
 #define TRAINER_DR_R11_FISHER_TAM           858 // the west beach
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
+// NOTE: each Trainer uses a flag to mark it defeated; MAX_TRAINERS_COUNT sets how many flags are reserved (raised to 1024, 2026-11-27)
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
 #define TRAINERS_COUNT                      859
-#define MAX_TRAINERS_COUNT                  864
+#define MAX_TRAINERS_COUNT                  1024 // Dreamstone Ruination (user 2026-11-27): raised from 864; old saves need not load
 #define TRAINER_PARTNER(partner)           (MAX_TRAINERS_COUNT + partner)
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

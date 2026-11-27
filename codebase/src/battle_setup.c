@@ -928,9 +928,10 @@ void SetMapVarsToTrainerA(void)
         gSpecialVar_LastTalked = TRAINER_BATTLE_PARAM.objEventLocalIdA;
         gSelectedObjectEvent = GetObjectEventIdByLocalIdAndMap(TRAINER_BATTLE_PARAM.objEventLocalIdA, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup);
     }
-    if (TRAINER_BATTLE_PARAM.objEventLocalIdA != 0) {
-        gSpeakerName = GetTrainerClassNameFromId(TRAINER_BATTLE_PARAM.opponentA);
-    }
+    // Dreamstone Ruination (user 2026-11-27): no trainer-class name over a trainer's lines ("Fisher:"); ordinary people
+    // speak without a label (bible §16.15 rule 5). Named characters set their own name in their scripts.
+    if (TRAINER_BATTLE_PARAM.objEventLocalIdA != 0)
+        gSpeakerName = NULL;
 }
 
 void SetMapVarsToTrainerB(void)
@@ -1388,14 +1389,11 @@ static const u8 *ReturnEmptyStringIfNull(const u8 *string)
 
 static const u8 *GetIntroSpeechOfApproachingTrainer(void)
 {
-    if (gApproachingTrainerId == 0) {
-        gSpeakerName = GetTrainerClassNameFromId(TRAINER_BATTLE_PARAM.opponentA);
+    gSpeakerName = NULL; // Dreamstone Ruination: no trainer-class label on an approaching trainer's lines (see above)
+    if (gApproachingTrainerId == 0)
         return ReturnEmptyStringIfNull(TRAINER_BATTLE_PARAM.introTextA);
-    }
-    else {
-        gSpeakerName = GetTrainerClassNameFromId(TRAINER_BATTLE_PARAM.opponentB);
+    else
         return ReturnEmptyStringIfNull(TRAINER_BATTLE_PARAM.introTextB);
-    }
 }
 
 const u8 *GetTrainerALoseText(void)
