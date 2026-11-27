@@ -123,8 +123,8 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    buckle, trousers the same light grey) (user 2026-11-26). **Trainer class: Scholar** ("Scholar Logan").
    (The overworld sprite was recoloured to the same light grey and orange, user 2026-11-26.)
 
-10. **The paranoid Imperial Soldier of Hollow Hill** (`[NEW canon — user 2026-11-26]`): the player fights **at least one
-   Imperial Soldier in Hollow Hill**. He is paranoid and takes the masked player for **a masked member of the
+10. **The paranoid Imperial Officer of Hollow Hill** (`[NEW canon — user 2026-11-26]`): the player fights **at least one
+   Imperial Soldier in Hollow Hill**: **Imperial Officer Denthorn** (user 2026-11-26; trainer class **"Imperial Officer"**, the Imperial Soldier sprite; class names widened to 16 characters for it). He is paranoid and takes the masked player for **a masked member of the
    Marauders**; he apologizes only if the player **talks to him again after beating him**. The player fights **no
    Imperial Soldiers in Pelluca or anywhere else in Chapter 1**.
 

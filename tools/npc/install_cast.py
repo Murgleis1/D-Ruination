@@ -13,7 +13,7 @@ and for each battle front:
   graphics/trainers/front_pics/dr_<name>.png        (64x64, indexed)
   include/constants/trainers.h                      TRAINER_PIC_DR_<NAME> (137..), TRAINER_PIC_COUNT
   src/data/graphics/trainers.h                      gTrainerFrontPic_/Palette_Dr<Name>, gTrainerSprites
-and the trainer classes whose names the user has given (TRAINER_CLASS_<NAME>, 0x6D..; gTrainerClasses names <= 12).
+and the trainer classes whose names the user has given (TRAINER_CLASS_<NAME>, 0x6D..; gTrainerClasses names <= 16 (data.h name[17], widened 2026-11-26)).
 Every insertion sits between "// DR_CAST begin/end" markers, so a rerun replaces it.
 Run: python3 install_cast.py"""
 import os
@@ -87,7 +87,7 @@ CLASSES = [('REVENANT', 'Revenant', 12), ('ADVENTURER', 'Adventurer', 10), ('FIS
            ('CORSAIR', 'Corsair', 14), ('MARINER', 'Mariner', 10), ('WOODSMAN', 'Woodsman', 10),
            ('MERCHANT', 'Merchant', 24), ('GOON', 'Goon', 12), ('BANDIT', 'Bandit', 14),
            ('MARAUDER', 'Marauder', 20), ('SCHOLAR', 'Scholar', 18), ('WITCH', 'Witch', 14),
-           ('MINSTREL', 'Minstrel', 10)]
+           ('MINSTREL', 'Minstrel', 10), ('IMPERIAL_OFFICER', 'Imperial Officer', 16)]
 
 GFX0, TAG0, PIC0, CLS0 = 290, 0x1170, 137, 0x6D
 B, E = '// DR_CAST begin', '// DR_CAST end'
@@ -199,7 +199,7 @@ def main():
                 for k, cam, _, _ in FRONTS))
     # trainer classes
     for k, name, _ in CLASSES:
-        assert len(name) <= 12, name
+        assert len(name) <= 16, name
     put('include/constants/trainers.h', '#define TRAINER_CLASS_BRIGAND',
         '\n'.join('#define TRAINER_CLASS_%-15s 0x%02X' % (k, CLS0 + i) for i, (k, _, _) in enumerate(CLASSES)))
     sub('include/constants/trainers.h', r'^#define TRAINER_CLASS_COUNT\s+0x[0-9A-Fa-f]+',

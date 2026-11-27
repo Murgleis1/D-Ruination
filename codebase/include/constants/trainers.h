@@ -486,9 +486,10 @@
 #define TRAINER_CLASS_SCHOLAR         0x77
 #define TRAINER_CLASS_WITCH           0x78
 #define TRAINER_CLASS_MINSTREL        0x79
+#define TRAINER_CLASS_IMPERIAL_OFFICER 0x7A
 // DR_CAST end [defineTRAINER_CLASS_BRIGAND]
 
-#define TRAINER_CLASS_COUNT          0x7A
+#define TRAINER_CLASS_COUNT          0x7B
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

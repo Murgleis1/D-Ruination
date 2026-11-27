@@ -119,9 +119,9 @@ def main():
     CH = {**{0xBB + i: chr(65 + i) for i in range(26)}, **{0xD5 + i: chr(97 + i) for i in range(26)}, 0x00: ' '}
     for i, (key, name, money) in enumerate(I.CLASSES):
         cid = I.CLS0 + i
-        raw = ROM[cls + 16 * cid:cls + 16 * cid + 13]
+        raw = ROM[cls + 20 * cid:cls + 20 * cid + 17]
         txt = ''.join(CH.get(b, '?') for b in raw.split(b'\xff')[0])
-        good = txt == name and ROM[cls + 16 * cid + 13] == money
+        good = txt == name and ROM[cls + 20 * cid + 17] == money
         ok &= good
         print('class 0x%02X %-12s %s' % (cid, txt, 'OK' if good else 'PROBLEM (want %s, %d)' % (name, money)))
     print('ALL OK' if ok else 'PROBLEM')

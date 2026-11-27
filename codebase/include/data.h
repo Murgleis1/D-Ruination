@@ -103,7 +103,7 @@ struct Trainer
 
 struct TrainerClass
 {
-    u8 name[13];
+    u8 name[17]; // DR: 16 characters + EOS (was 13), for "Imperial Officer" (user 2026-11-26)
     u8 money;
     u16 ball;
 };

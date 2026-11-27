@@ -47,7 +47,7 @@ same palette with black and white swapped.
 
 *Rip speaks broad cockney, heavy on over-the-top English slang and comic nonsense, and calls himself "ol' Rip" (user 2026-11-26).*
 
-**The paranoid Imperial Soldier** (class "Soldier"; Growlithe Lv.10, Machop Lv.10)
+**The paranoid officer: Imperial Officer Denthorn** (class "Imperial Officer"; Growlithe Lv.10, Machop Lv.10)
 - Before: Halt! A mask, in these woods? You're one of Rip's, I'd stake my pay on it.
 - Defeated: Whatever you are, you're no common cutthroat.
 - Talked to after: I owe you an apology, Rainhawk. Marauders have robbed every cart through these woods, and half of them hide their faces. I see a mask and I see a thief.
@@ -67,6 +67,6 @@ same palette with black and white swapped.
 
 ## Open points
 - The stats, the Lv.20 Flying move, and the trainers' teams and levels above.
-- Trainer names: Fisher **Tam**; the Goon, the Bandit and the Soldier are unnamed for now.
+- Trainer names: Fisher **Tam**, **Imperial Officer Denthorn** (user); the Goon and the Bandit are unnamed for now.
 - Where the Metronome / Quick Claw choice comes: proposed above at Templar HQ, from Loulan.
 - Order with Glaive's first fight at the north exit.
