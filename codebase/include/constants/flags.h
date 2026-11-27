@@ -1755,7 +1755,25 @@
 #define DAILY_FLAGS_END                             (FLAG_UNUSED_0x95F + (7 - FLAG_UNUSED_0x95F % 8))
 #define NUM_DAILY_FLAGS                             (DAILY_FLAGS_END - DAILY_FLAGS_START + 1)
 
-#define FLAGS_COUNT (DAILY_FLAGS_END + 1)
+// === Dreamstone Ruination flags (2026-11-27) ===
+// Our own block after the daily flags, so new content never has to borrow Emerald's or Dreamstone Mysteries' numbers.
+// 512 flags (64 bytes of SaveBlock1). Items found in the wild: FLAG_DR_ITEM_<area>_<item>.
+#define DR_FLAGS_START                              (DAILY_FLAGS_END + 1)
+#define FLAG_DR_ITEM_FARMHOUSE_REVIVE               (DR_FLAGS_START + 0x00)
+#define FLAG_DR_ITEM_R11_POTIONS                    (DR_FLAGS_START + 0x01)
+#define FLAG_DR_ITEM_R11_POKE_BALLS                 (DR_FLAGS_START + 0x02)
+#define FLAG_DR_ITEM_R11_BIG_PEARL                  (DR_FLAGS_START + 0x03)
+#define FLAG_DR_ITEM_R11_PECHA_BERRY                (DR_FLAGS_START + 0x04)
+#define FLAG_DR_ITEM_R11_NUGGET                     (DR_FLAGS_START + 0x05)
+#define FLAG_DR_ITEM_HH_ESCAPE_ROPE                 (DR_FLAGS_START + 0x06)
+#define FLAG_DR_ITEM_HH_SPELL_TAG                   (DR_FLAGS_START + 0x07)
+#define FLAG_DR_ITEM_HH_SUPER_POTION                (DR_FLAGS_START + 0x08)
+#define FLAG_DR_ITEM_HH_AWAKENING                   (DR_FLAGS_START + 0x09)
+#define FLAG_DR_ITEM_HH_REVIVE                      (DR_FLAGS_START + 0x0A)
+#define FLAG_DR_ITEM_HH_ETHER                       (DR_FLAGS_START + 0x0B)
+#define DR_FLAGS_END                                (DR_FLAGS_START + 0x1FF)
+
+#define FLAGS_COUNT (DR_FLAGS_END + 1)
 
 // Special Flags (Stored in EWRAM (sSpecialFlags), not in the SaveBlock)
 #define SPECIAL_FLAGS_START                     0x4000
