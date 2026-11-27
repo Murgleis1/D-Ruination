@@ -7,7 +7,6 @@ mapscripts PellucaDormitory2F_MapScripts {}
 script DR_Dorm_StudentHall {
     lock
     faceplayer
-    speakername("Student")
     msgbox(format("Quiet hours begin at dark, and of late I'm the one who forgets.\pI sat up reading of House Jalviss, who found Cormoria's first Mega Stones and died of them to the last. Their ruins are still out there, they say, and something still in them."))
     closemessage
     release

@@ -14,11 +14,9 @@ mapscripts PellucaCityPokemonCenter_MapScripts {
 script DR_Tavern_Barkeep {
     lock
     faceplayer
-    speakername("Barkeep")
     message(format("Provisions for the road? Have a look."))
     waitmessage
     pokemart(DR_Tavern_Stock)
-    speakername("Barkeep")
     msgbox(format("Safe roads. Aye, the prices rose again.\pEvery ball and tonic on that shelf comes through Sylphon & Stone, and their factor wants his coin before the crates are opened."))
     closemessage
     release
@@ -29,14 +27,12 @@ script DR_Tavern_Barkeep {
 script DR_PellucaTavern_Caretaker {
     lock
     faceplayer
-    speakername("Caretaker")
     msgbox(format("I tend the Pokémon a traveller can't carry on the road. Shall I fetch yours?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
         closemessage
         special(ShowPokemonStorageSystemPC)
         waitstate
     }
-    speakername("Caretaker")
     msgbox(format("They're in good hands. Half the beasts I board belong to sailors who won't sail east, with Paldea's lords at each other's throats and Kalos little better."))
     closemessage
     release
@@ -55,7 +51,6 @@ mart DR_Tavern_Stock {
 script DR_Tavern_Sailor {
     lock
     faceplayer
-    speakername("Mariner")
     msgbox(format("Two ships in this week, and one came round by Sevii. Kanto's bird-priests have taken the old chapel of Arceus for their own, her crew say.\pAnd still the skirmishes off Johto, for all the talk of peace. But you'd know more of that than I, Rainhawk."))
     closemessage
     release
@@ -65,7 +60,6 @@ script DR_Tavern_Sailor {
 script DR_Tavern_Fisherman {
     lock
     faceplayer
-    speakername("Fisherman")
     msgbox(format("Something's breeding in the water by the sealed cave.\pMy nets come up in ribbons, and every time there's Crawdaunt in them. More than I've ever seen in one place."))
     closemessage
     release

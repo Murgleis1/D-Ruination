@@ -18,7 +18,6 @@ script DR_Class_Logan {
 
 script DR_Class_StudentA {
     lock
-    speakername("Student")
     msgbox(format("Master Orphel calls on whoever looks least ready. I make a point of always looking ready."))
     closemessage
     release
@@ -27,7 +26,6 @@ script DR_Class_StudentA {
 
 script DR_Class_StudentB {
     lock
-    speakername("Student")
     msgbox(format("Master Orphel took top honours in the Headmaster's first class. He's the last of House Orphel, and all that old name rests on him alone."))
     closemessage
     release
@@ -36,7 +34,6 @@ script DR_Class_StudentB {
 
 script DR_Class_StudentC {
     lock
-    speakername("Student")
     msgbox(format("I still can't see why a Ghost shrugs off a Normal blow.\pThey say Baron Kimaris coos at his Spiritomb like a babe in swaddling. Can that be true of a Reserve Champion?"))
     closemessage
     release

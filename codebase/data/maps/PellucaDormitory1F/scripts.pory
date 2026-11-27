@@ -21,7 +21,6 @@ script DR_Dorm_OsridPlate {
 // the counter is two tiles deep, so talking to its front reaches the cook
 script DR_Dorm_Cook {
     lock
-    speakername("Cook")
     msgbox(format("Supper's at sundown.\pWe had a Tellian lad in this kitchen till word came his tribes were taking up arms against each other. He wrote once, and never again."))
     closemessage
     release
@@ -31,7 +30,6 @@ script DR_Dorm_Cook {
 script DR_Dorm_StudentTables {
     lock
     faceplayer
-    speakername("Student")
     msgbox(format("On debate nights a body can't hear himself think in here.\pLast week we argued whether Cormor Dream-Eater ever lived at all. Master Orphel never once said which side he favoured."))
     closemessage
     release
@@ -41,7 +39,6 @@ script DR_Dorm_StudentTables {
 script DR_Dorm_StudentStage {
     lock
     faceplayer
-    speakername("Student")
     msgbox(format("A second-year argued at the lectern that the Empress-mother ought to leave her villa and sit her own throne.\pHalf the hall cheered. The other half went very quiet."))
     closemessage
     release

@@ -450,3 +450,4 @@ Apply to every NPC line in the game, Chapter 1 included:
 2. **No plain modern English.** This is Empire-era Cormoria, about two thousand years before the main Pokémon timeline: every character speaks with a **more medieval vocabulary and manner**, readable rather than parody.
 3. **No machine-sounding prose:** no formulaic "if X then Y" constructions, no em dashes, no stock patterns. Write as an observant person would actually talk.
 4. **Short.** An NPC gives **three or four sentences of information at most**: no exposition dumps.
+5. **No role labels.** Ordinary NPCs (townsfolk, Tavern staff, students, guards) speak with **no name prefix** ("Farmer:" and the like); only named characters (Logan, Cadmus, Eden...) and multi-speaker cutscenes show a speaker name (user 2026-11-26).

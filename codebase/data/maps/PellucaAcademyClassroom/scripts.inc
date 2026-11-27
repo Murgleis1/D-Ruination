@@ -22,40 +22,34 @@ DR_Class_StudentA::
 # 20 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	lock
 # 21 "data/maps/PellucaAcademyClassroom/scripts.pory"
-	speakername DR_Class_StudentA_Text_0
+	msgbox DR_Class_StudentA_Text_0
 # 22 "data/maps/PellucaAcademyClassroom/scripts.pory"
-	msgbox DR_Class_StudentA_Text_1
-# 23 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	closemessage
-# 24 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 23 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	release
 	end
 
 
 DR_Class_StudentB::
-# 29 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 28 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	lock
-# 30 "data/maps/PellucaAcademyClassroom/scripts.pory"
-	speakername DR_Class_StudentA_Text_0
-# 31 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 29 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	msgbox DR_Class_StudentB_Text_0
-# 32 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 30 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	closemessage
-# 33 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 31 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	release
 	end
 
 
 DR_Class_StudentC::
-# 38 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 36 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	lock
-# 39 "data/maps/PellucaAcademyClassroom/scripts.pory"
-	speakername DR_Class_StudentA_Text_0
-# 40 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 37 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	msgbox DR_Class_StudentC_Text_0
-# 41 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 38 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	closemessage
-# 42 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 39 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	release
 	end
 
@@ -76,23 +70,19 @@ DR_Class_Logan_Text_1:
 
 DR_Class_StudentA_Text_0:
 # 21 "data/maps/PellucaAcademyClassroom/scripts.pory"
-	.string "Student$"
-
-DR_Class_StudentA_Text_1:
-# 22 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	.string "Master Orphel calls on whoever looks\n"
 	.string "least ready. I make a point of always\l"
 	.string "looking ready.$"
 
 DR_Class_StudentB_Text_0:
-# 31 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 29 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	.string "Master Orphel took top honours in the\n"
 	.string "Headmaster's first class. He's the last\l"
 	.string "of House Orphel, and all that old name\l"
 	.string "rests on him alone.$"
 
 DR_Class_StudentC_Text_0:
-# 40 "data/maps/PellucaAcademyClassroom/scripts.pory"
+# 37 "data/maps/PellucaAcademyClassroom/scripts.pory"
 	.string "I still can't see why a Ghost shrugs off\n"
 	.string "a Normal blow.\p"
 	.string "They say Baron Kimaris coos at his\n"

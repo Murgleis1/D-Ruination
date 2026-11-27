@@ -9,7 +9,6 @@ const DR_SAGE_NATURE_PRICE = 2000
 script DR_Tavern_Healer {
     lock
     faceplayer
-    speakername("Innkeeper")
     msgbox(format("Welcome in, traveller! A hot meal, a cool cup, and your Pokémon set to rights. Shall I bring something out for them?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
         msgbox(format("Right away."))
@@ -19,7 +18,6 @@ script DR_Tavern_Healer {
         waitfanfare
         special(HealPlayerParty)
         fadescreen(FADE_FROM_BLACK)
-        speakername("Innkeeper")
         msgbox(format("Fed, watered and rested. The Templars keep this hearth for any trainer on the road."))
     } else {
         msgbox(format("As you like. The kitchen fire never goes out."))
@@ -32,7 +30,6 @@ script DR_Tavern_Healer {
 script DR_Tavern_Caretaker {
     lock
     faceplayer
-    speakername("Caretaker")
     msgbox(format("I tend the Pokémon a traveller can't carry on the road. Shall I fetch yours?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
         closemessage
@@ -51,10 +48,8 @@ script DR_Tavern_Sage {
     faceplayer
     if (!flag(FLAG_DR_SAGE_MASK_REMARK)) {
         setflag(FLAG_DR_SAGE_MASK_REMARK)
-        speakername("Sage")
         msgbox(format("That mask is Athanto work. There'll be no more of them now.\pTwo years past, the guardian of that land came down from its mountain and left neither king nor lord alive."))
     }
-    speakername("Sage")
     message(format("A new name, a forgotten art, a change of temper... What would you have of me?"))
     waitmessage
     dynmultipush("A new name", 0)
@@ -75,7 +70,6 @@ script DR_Tavern_Sage {
 }
 
 script DR_Tavern_Sage_Bye {
-    speakername("Sage")
     msgbox(format("Come again whenever you've need."))
     closemessage
     release
@@ -91,7 +85,6 @@ script DR_Tavern_Sage_Rename {
     }
     specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
     if (var(VAR_RESULT) == SPECIES_EGG) {
-        speakername("Sage")
         msgbox(format("That's an Egg. Let it hatch first, then we'll talk names."))
         goto(DR_Tavern_Sage_Bye)
     }
@@ -99,13 +92,11 @@ script DR_Tavern_Sage_Rename {
     specialvar(VAR_RESULT, MonOTNameNotPlayer)
     special(BufferMonNickname)
     if (var(VAR_RESULT) == TRUE) {
-        speakername("Sage")
         msgbox(format("{STR_VAR_1} was named by the one who raised it. That name isn't mine to change."))
         goto(DR_Tavern_Sage_Bye)
     }
     call(Common_EventScript_NameReceivedPartyMon)
     special(BufferMonNickname)
-    speakername("Sage")
     msgbox(format("{STR_VAR_1}. A good name."))
     goto(DR_Tavern_Sage_Bye)
 }
@@ -119,12 +110,10 @@ script DR_Tavern_Sage_Relearn {
     }
     special(IsSelectedMonEgg)
     if (var(VAR_RESULT) == TRUE) {
-        speakername("Sage")
         msgbox(format("An Egg has nothing to remember yet."))
         goto(DR_Tavern_Sage_Bye)
     }
     if (var(VAR_0x8005) == 0) {
-        speakername("Sage")
         msgbox(format("There's nothing that one has forgotten."))
         goto(DR_Tavern_Sage_Bye)
     }
@@ -143,7 +132,6 @@ script DR_Tavern_Sage_Nature {
     checkmoney(DR_SAGE_NATURE_PRICE)
     if (var(VAR_RESULT) == FALSE) {
         hidemoneybox
-        speakername("Sage")
         msgbox(format("You'll need ¥2,000 for that."))
         goto(DR_Tavern_Sage_Bye)
     }
@@ -156,11 +144,9 @@ script DR_Tavern_Sage_Nature {
     }
     specialvar(VAR_RESULT, ScriptGetPartyMonSpecies)
     if (var(VAR_RESULT) == SPECIES_EGG) {
-        speakername("Sage")
         msgbox(format("Let the Egg hatch first."))
         goto(DR_Tavern_Sage_Bye)
     }
-    speakername("Sage")
     message(format("Which side of it should grow stronger?"))
     waitmessage
     dynmultichoice(0, 0, TRUE, 5, 0, DYN_MULTICHOICE_CB_NONE, "Attack", "Defense", "Sp. Atk", "Sp. Def", "Speed")
