@@ -534,3 +534,4 @@ Note: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluc
 - Eyes green (user: "needs to be green... right now they look red"): slot 3 -> portrait green (77,157,70);
   its old suit grey (102,94,99) merged into slot 4 (95,87,92), 7 apart. Image: front_green_eyes.png.
 - Right eye moved to (34,10), diagonal from (35,9) as the user pointed out; (35,9) is skin shadow.
+- Mouth restored to the original single dark-grey px (32,13), now slot 4 (95,87,92); the 2-px skin-shadow mouth dropped.
