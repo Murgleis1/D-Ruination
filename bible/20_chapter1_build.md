@@ -98,6 +98,11 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    Three trainer classes in the gang (user 2026-11-26): **Goon** (male), **Bandit** (female) and their chief, the
    **Marauder**. They are **common thugs, the gangsters of Empire-era Cormoria**, and have **nothing to do with Eden**
    (she keeps her own "Brigand ???" class for the lab theft).
+   **The Marauder chief is a minor recurring character (user 2026-11-26):** first met on the far side of Hollow Hill
+   (Beat 6, the Emergent Rufflet); the player runs across him **trying other schemes and causing trouble** and fights
+   him **at least a few more times on side quests** and **once more in the main story**. Name `[OPEN]` (not "Neven",
+   which is the dead Tablets Harbinger). As a commoner he carries no House surname (§2, surnames are sacramental): a
+   given name and an epithet.
 
 9. **Logan Orphel** (`[NEW canon — user 2026-11-26]`; minor NPC, addition to §7 and the Academy): **the youngest
    teacher at the Pelluca Academy**, one of **Cadmus Umbra's first top-honour graduates** there, and **the last son of
