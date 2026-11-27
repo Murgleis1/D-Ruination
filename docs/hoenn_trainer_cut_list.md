@@ -1,4 +1,6 @@
-# Hoenn trainer cut list (2026-11-27)
+# Hoenn trainer cut list (2026-11-27) — DONE (user: "Yes lets delete all non-used Emerald trainers so far and free up the space")
+
+**Cut 2026-11-27** by `tools/cleanup/delete_hoenn_trainers.py`: 626 ids and parties gone; ours and Dreamstone Mysteries' 232 renumbered 1-232 (TRAINERS_COUNT 233; MAX_TRAINERS_COUNT stays 1024, so 791 free). The Emerald names survive only as TRAINER_NONE aliases in `include/constants/opponents_emerald_legacy.h` so the unreachable Emerald maps and Emerald-only tables still build; that file goes with those maps. Checked: the build, the opening chain (Eden's lab fight), Fisher Tam's fight on Route 11. ROM 95.97% after.
 
 User 2026-11-27: "raise the limit and also just delete old Hoenn trainers since we are using almost none of them".
 Rule (rom_budget, user 2026-11-25): list the candidates, check nothing kept points at them, show the list, then cut.
