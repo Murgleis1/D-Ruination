@@ -8,7 +8,7 @@ Design
     edge and the shoulders) turned to bold white flashes, the head white; the blue tail band a steel grey.
   * Both keep the yellow beak and talons: the only colour on the bird, so it reads at a glance.
   * The whites are shaded cool (lavender-grey), the blacks lifted with a steel-blue highlight, so neither reads flat.
-  * Shiny (user): the same palette with black and white swapped, level for level (white base <-> black base, etc.).
+  * Shiny (user 2026-11-27): silver and dark blue (the first idea, black and white swapped, looked strange).
 
 Every original palette index is given a role: ('W', k) white ramp level k, ('B', k) black ramp level k, or a fixed
 colour (yellow, outline, eye white). The pixel data is copied unchanged, except where one index has to be split
@@ -23,10 +23,13 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..'
 
 W = [(244, 244, 250), (206, 208, 224), (156, 158, 182), (100, 102, 126)]     # white: base, shade, deep, edge
 B = [(98, 106, 136), (50, 52, 68), (32, 34, 46), (20, 20, 28)]               # black: steel highlight, base, shade, deep
-# Shiny swaps black and white level for level: a white base becomes a black base, a black base a white base, the
-# black's steel highlight a pure white highlight, and the white's darkest edge the darkest black.
-SHINY_OF = {('W', 0): B[1], ('W', 1): B[2], ('W', 2): B[3], ('W', 3): (12, 12, 18),
-            ('B', 0): (252, 252, 255), ('B', 1): W[0], ('B', 2): W[1], ('B', 3): W[2]}
+# Shiny (user 2026-11-27, replacing the black/white swap, which looked strange): silver and dark blue. The whites
+# become a metallic silver (a brighter top and a harder step to the shade than the matte white), the blacks a deep
+# navy with a cornflower highlight; the yellow beak and talons stay.
+SILVER = [(200, 208, 222), (150, 160, 182), (106, 114, 140), (66, 72, 96)]
+NAVY = [(88, 122, 196), (38, 60, 124), (24, 38, 88), (12, 20, 52)]
+SHINY_OF = {('W', k): SILVER[k] for k in range(4)}
+SHINY_OF.update({('B', k): NAVY[k] for k in range(4)})
 
 def col(role, shiny=False):
     if isinstance(role, tuple) and len(role) == 2 and role[0] in ('W', 'B'):

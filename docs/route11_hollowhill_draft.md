@@ -21,8 +21,10 @@ Evolves at Lv.45. Joins at Lv.12, **always Adamant, with perfect IVs (31 in ever
 Lv.15 Rock Tomb · **Lv.20 Drill Peck** (user: approved).
 Joins knowing Peck, Leer, Hone Claws, Knock Off. After Lv.20: Braviary's usual list until the Dark moves are chosen.
 
-**Colours:** a new black-and-white palette on Rufflet's and Braviary's art (front, back, icon, follower). **Shiny:** the
-same palette with black and white swapped.
+**Colours:** a new black-and-white palette on Rufflet's and Braviary's art (front, back, icon, follower): Rufflet a white
+head with a black bandit mask and crest slash; Braviary after the Steller's sea eagle, black with white wing edges, tail
+and head; beak and talons yellow (`tools/art/emergent/emergent_birds.py`, `assets/emergent/`). **Shiny (user
+2026-11-27):** silver and dark blue (the black/white swap looked strange).
 
 ## 2. Route 11
 
