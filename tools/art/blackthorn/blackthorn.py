@@ -1,0 +1,67 @@
+"""The Bagon line's new shiny colours: black and crimson (user 2026-11-26; Glaive's Blackthorn, bible §7).
+Writes graphics/pokemon/{bagon,shelgon,salamence}/shiny.pal and overworld_shiny.pal from the normal palettes' roles,
+and a comparison sheet (normal / old shiny / new shiny; front, back, overworld).
+Run: python3 tools/art/blackthorn/blackthorn.py [--write] [sheet.png]"""
+import sys, os
+import numpy as np
+from PIL import Image, ImageDraw
+C = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', '..', 'codebase')
+G = lambda m, f: os.path.join(C, 'graphics', 'pokemon', m, f)
+
+# index -> new colour (indices not listed keep the normal colour)
+FRONT = {
+ 'bagon': {1: (46, 44, 54), 2: (38, 22, 28), 3: (128, 122, 140), 4: (92, 88, 104), 6: (66, 62, 76),
+           7: (28, 26, 32), 10: (44, 42, 50), 11: (64, 60, 72),
+           8: (204, 40, 56), 9: (150, 26, 42), 12: (96, 16, 28), 14: (110, 30, 44), 15: (226, 110, 120)},
+ 'shelgon': {1: (40, 38, 46), 3: (104, 98, 114), 4: (72, 68, 82), 5: (54, 50, 62), 10: (60, 56, 66),
+             6: (110, 24, 36), 7: (70, 16, 26), 8: (200, 48, 62), 9: (236, 104, 112),
+             11: (220, 40, 56), 12: (100, 14, 28), 13: (248, 88, 96)},
+ 'salamence': {1: (70, 10, 20), 2: (220, 64, 76), 3: (176, 30, 46), 4: (126, 18, 34),
+               6: (34, 32, 40), 7: (52, 48, 60), 8: (100, 94, 112), 9: (72, 68, 82),
+               10: (78, 74, 88), 15: (108, 102, 120), 14: (54, 50, 62), 12: (60, 20, 28), 13: (120, 40, 56)},
+}
+OW = {
+ 'bagon': {1: (40, 38, 46), 2: (128, 122, 140), 3: (92, 88, 104), 5: (66, 62, 76), 6: (108, 102, 120),
+           7: (204, 40, 56), 12: (120, 20, 34), 8: (44, 42, 50), 10: (58, 54, 66), 11: (72, 68, 82), 13: (28, 26, 32)},
+ 'shelgon': {1: (40, 38, 46), 3: (72, 68, 82), 4: (104, 98, 114), 5: (86, 80, 96), 6: (96, 90, 106),
+             7: (54, 50, 62), 8: (46, 44, 54), 9: (150, 36, 48), 10: (200, 52, 66), 11: (220, 40, 56)},
+ 'salamence': {1: (70, 10, 20), 2: (220, 64, 76), 4: (150, 24, 40), 8: (180, 32, 48),
+               5: (34, 32, 40), 7: (58, 54, 66), 9: (80, 76, 92), 6: (100, 94, 112),
+               10: (78, 74, 88), 13: (54, 50, 62), 11: (108, 102, 120), 12: (40, 14, 22)},
+}
+
+def rd(p):
+    L = open(p).read().split('\n'); return [tuple(int(v) for v in l.split()) for l in L[3:19] if l.strip()]
+def wr(p, pal):
+    open(p, 'w').write('JASC-PAL\n0100\n16\n' + ''.join('%d %d %d\n' % c for c in pal))
+def newpal(base, m):
+    return [m.get(i, c) for i, c in enumerate(base)]
+def render(path, pal, crop=None, scale=3):
+    a = np.array(Image.open(path))
+    if crop: a = a[crop[1]:crop[3], crop[0]:crop[2]]
+    rgb = np.array(pal, np.uint8)[a]; rgb[a == 0] = (236, 236, 228)
+    return Image.fromarray(rgb).resize((a.shape[1] * scale, a.shape[0] * scale), 0)
+
+if __name__ == '__main__':
+    write = '--write' in sys.argv
+    out = [x for x in sys.argv[1:] if x.endswith('.png')]
+    rows = []
+    for m in ('bagon', 'shelgon', 'salamence'):
+        n, s0 = rd(G(m, 'normal.pal')), rd(G(m, 'shiny.pal'))
+        on, os0 = rd(G(m, 'overworld_normal.pal')), rd(G(m, 'overworld_shiny.pal'))
+        s1, os1 = newpal(n, FRONT[m]), newpal(on, OW[m])
+        if write:
+            wr(G(m, 'shiny.pal'), s1); wr(G(m, 'overworld_shiny.pal'), os1)
+        cells = []
+        for lab, P, OP in (('normal', n, on), ('old shiny', s0, os0), ('NEW shiny', s1, os1)):
+            f = render(G(m, 'anim_front.png'), P, (0, 0, 64, 64)); b = render(G(m, 'back.png'), P)
+            o = render(G(m, 'overworld.png'), OP, (0, 0, 32, 32), 3)
+            c = Image.new('RGB', (192 * 2 + 100, 200), (236, 236, 228)); c.paste(f, (0, 8)); c.paste(b, (192, 8)); c.paste(o, (384, 40))
+            ImageDraw.Draw(c).text((4, 0), '%s %s' % (m, lab), fill=(0, 0, 0)); cells.append(c)
+        row = Image.new('RGB', (sum(c.width for c in cells), 200), (236, 236, 228))
+        x = 0
+        for c in cells: row.paste(c, (x, 0)); x += c.width
+        rows.append(row)
+    S = Image.new('RGB', (rows[0].width, 200 * len(rows)), (236, 236, 228))
+    for k, r in enumerate(rows): S.paste(r, (0, 200 * k))
+    S.save(out[0] if out else '/tmp/bt/blackthorn_v1.png'); print('sheet', S.size, 'written' if write else '')
