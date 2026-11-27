@@ -113,7 +113,7 @@ the list shown for a once-over.
 
 **Sappy Seed** (user 2026-11-27) is canonically Partner Bulbasaur's only (Let's Go); the rule asked for is *most Grass
 types*: every Grass-type species can learn it through `custom.json`, the list shown for a once-over (a few may be left out
-where it would not fit). It is rare: found late, not sold.
+where it would not fit). It is rare: **found around the Alban estate as a big prize** (user 2026-11-27), never sold.
 
 ## Open
 - Empire-era name for TMs, or keep "TM" (asked).
