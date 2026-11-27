@@ -531,3 +531,5 @@ Note: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluc
   (243,197,172)/(209,155,123); shoe and buckle px that borrowed the skin entries moved to new grey slot 15; eyes
   -> darkest (as the overworld), mouth 2 px skin shadow, ear top hair dark; scar redone as 2 px of the warm skin
   shadow at the user's spot. Built palette and tiles verified against the PNG. Image: front_recolour_v1.png.
+- Eyes green (user: "needs to be green... right now they look red"): slot 3 -> portrait green (77,157,70);
+  its old suit grey (102,94,99) merged into slot 4 (95,87,92), 7 apart. Image: front_green_eyes.png.
