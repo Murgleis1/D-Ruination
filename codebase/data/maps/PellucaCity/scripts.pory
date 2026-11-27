@@ -15,8 +15,7 @@ raw`
 
     .set LOCALID_DR_TIDAL, 1
     .set LOCALID_DR_CADMUS, 2
-    .set LOCALID_DR_SHRINE, 3
-    .set LOCALID_DR_SHRINE_KEEPER, 4
+    .set LOCALID_DR_SHRINE_KEEPER, 3
 
 `
 
@@ -1190,7 +1189,7 @@ script PellucaCity_Sealeo{
     playmoncry(SPECIES_SEALEO, CRY_MODE_NORMAL)
     msgbox(format("Sealeo wants to catch fish!"), MSGBOX_NPC)
     release
-    applymovement(26, moves(face_down))
+    applymovement(VAR_LAST_TALKED, moves(face_down))
     waitmovement(0)
     releaseall
     end
@@ -1510,7 +1509,7 @@ script DR_PellucaCity_ShrineKeeper{
     msgbox(format("Ten years now, and not one word of him. Most folk have stopped coming."))
     msgbox(format("Not the Regent-Queen, though. Her candles arrive every spring, right on time."))
     closemessage
-    applymovement(LOCALID_DR_SHRINE_KEEPER, moves(face_right))
+    applymovement(LOCALID_DR_SHRINE_KEEPER, moves(face_up))
     waitmovement(0)
     release
     end

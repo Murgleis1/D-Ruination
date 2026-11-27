@@ -76,6 +76,7 @@ def plan():
     for (x, col) in M.STALLS: solid |= {(xx, yy) for xx in range(x, x + 3) for yy in range(36, 39)}
     solid |= set(M.BARRELS) | set(M.CRATES_SMALL) | set(M.SACKS) | set(M.ROPES) | set(M.NETS) | set(M.IRON_LAMPS)
     solid |= set(M.CANDLES)
+    solid |= set(M.SHRINE_CELLS)
     for (x, y) in M.BARREL_STACKS: solid |= {(x, y), (x, y + 1)}
     for (x, y) in M.PALMS: solid |= {(x, y), (x + 1, y)}
     for (x, y) in M.ROCKS: land_solid |= {(x, y), (x + 1, y), (x, y + 1), (x + 1, y + 1)}
@@ -121,6 +122,13 @@ def main():
         c = town[40 * S:41 * S, x * S:(x + 1) * S]; m = (c != ref).any(-1)
         for im in (flat, ground):
             t = im[8 * S:9 * S, x * S:(x + 1) * S]; t[m] = c[m]
+    # the shrine (2026-11-27): MonoMyth's wayside shrine in House Umbra black, against the wall right of the main stair,
+    # its roof over the wall's bottom course; drawn on the ground too (its cells are solid: nothing walks behind it)
+    sh = np.array(Image.open(os.path.join(HERE, 'shrine', 'shrine_umbra_black.png')))
+    sx, sy = M.SHRINE[0] * S, (M.SHRINE[1] - DY + 2) * S - sh.shape[0]
+    m = sh[..., 3] > 0
+    for im in (flat, ground):
+        sub = im[sy:sy + sh.shape[0], sx:sx + sh.shape[1]]; sub[m] = sh[..., :3][m]
     # the top layer: in walkable cells, what the props drew over the ground (on open sand only where a solid thing
     # stands just below: palm fronds over their trunk; the beach's tufts and driftwood stay on the ground)
     top_a = np.zeros(flat.shape[:2], bool)

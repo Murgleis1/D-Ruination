@@ -85,7 +85,7 @@ LAB = (44, 40, 49, 44, -5)                   # the lab's cells in the old map, m
 TAVERN = (25, 36, 31, 43)
 STAIRS_DOWN = [(x, y) for x in (32, 33, 34) for y in (41, 42, 43)]   # quay -> beach, three wide
 STALLS = [(55, 'canvas'), (59, 'plum'), (63, 'canvas'), (68, 'canvas')]  # cargo sheds: left cell x, rows 36-38
-FLOWERS = [(35, 36, '2bf'), (36, 36, '2c7'), (40, 36, '2bf'), (41, 36, '2c7')]
+FLOWERS = [(35, 36, '2bf'), (36, 36, '2c7')]           # (the right-hand box gave its place to the shrine, 2026-11-27)
 CRATES = [(33, 36, '2c9'), (34, 36, '2cc'), (33, 37, '2cc'), (36, 52, '2cc'), (40, 52, '2c9'), (51, 40, '2cc'),
           (66, 51, '2c9'), (70, 36, '2cc'), (70, 37, '2c9'), (58, 38, '2cc'), (66, 38, '2c9'), (54, 36, '2c9')]
 LAMPS = []
@@ -100,25 +100,29 @@ NETS = [(53, 46), (65, 46)]
 # "Fix everything"): the shrine to the lost prince stands on the main axis at the great pier's root, where every
 # arrival walks straight toward it, in a little bay of its own (an iron candle stand either side, its keeper beside
 # it); the cold open's walk is laid down cell by cell (ARRIVAL) and nothing stands on it (check_walk()).
-SHRINE = (38, 38)
-CANDLES = [(37, 38), (39, 38)]
-KEEPER = (36, 38)
+# v4 (user 2026-11-27): the shrine is MonoMyth's wayside shrine from the Mt. Thunder climb in House Umbra black
+# (tools/art/pelluca/shrine/), drawn into the map against the cliff right of the main stair, 2 x 3 cells with its roof
+# on the wall's bottom course; MonoMyth's purple candles either side; the keeper in front of the right-hand candles.
+SHRINE = (40, 36)                            # its bottom-left cell (cells (40-41, 36-37); the roof on row 35)
+SHRINE_CELLS = [(40, 36), (41, 36), (40, 37), (41, 37)]
+CANDLES = [(39, 37), (42, 37)]
+KEEPER = (42, 38)
 OSRID_LANDS = (40, 48)                       # off the Pale Veluza, on the great pier's east side
 CADMUS_WAITS = (40, 42)                      # at the pier's root; walks down 5 to meet him
 def _line(a, b):
     (x0, y0), (x1, y1) = a, b
     if x0 == x1: return [(x0, y) for y in range(min(y0, y1), max(y0, y1) + 1)]
     return [(x, y0) for x in range(min(x0, x1), max(x0, x1) + 1)]
-# Cadmus: down the pier to Osrid, back up, along the kerb to the lab door. Osrid: up the pier, to the shrine
-# (stops at (38, 39) facing it), then down to the kerb and along it to the door (47, 40).
+# Cadmus: down the pier to Osrid, back up, along the kerb to the lab door. Osrid: up the pier and on to the shrine
+# (stops at (40, 38) facing it), then back down to the kerb and along it to the door (47, 40).
 CADMUS_WALK = _line((40, 42), (40, 47)) + _line((40, 41), (40, 47)) + _line((40, 41), (47, 41))
-OSRID_WALK = _line((40, 41), (40, 48)) + _line((38, 41), (40, 41)) + _line((38, 39), (38, 41)) + _line((38, 41), (47, 41)) + [(47, 40), (47, 39)]
+OSRID_WALK = _line((40, 38), (40, 48)) + _line((40, 41), (47, 41)) + [(47, 40), (47, 39)]
 ARRIVAL = set(CADMUS_WALK) | set(OSRID_WALK)
 PEOPLE_AT = [('sailor', 36, 47, 'L'), ('sailor', 37, 51, 'D'), ('fisherman', 38, 52, 'D'),       # the great pier, off the walk
              ('gentleman', 54, 40, 'R'), ('woman_2', 55, 40, 'L'),                               # visitors, landed earlier
              ('hiker', 52, 39, 'R'), ('woman_4', 52, 37, 'D'), ('fat_man', 59, 40, 'D'), ('man_2', 63, 40, 'L'),
              ('man_4', 66, 41, 'D'), ('expert_m', 66, 46, 'L'), ('sailor', 65, 49, 'L'), ('old_man', 70, 40, 'L'),
-             ('templar', 35, 40, 'D'), ('old_woman', KEEPER[0], KEEPER[1], 'R')]
+             ('templar', 35, 40, 'D'), ('old_woman', KEEPER[0], KEEPER[1], 'U')]
 SCENE = [('cadmus', CADMUS_WAITS[0], CADMUS_WAITS[1], 'D'), ('osrid', OSRID_LANDS[0], OSRID_LANDS[1], 'U')]
 
 def check_walk():
@@ -126,7 +130,7 @@ def check_walk():
     taken = {}
     for (g, x, y, f) in PEOPLE_AT: taken[(x, y)] = g
     for lst, n in ((BARRELS, 'barrel'), (CRATES_SMALL, 'crate'), (SACKS, 'sack'), (ROPES, 'rope'), (NETS, 'net'),
-                   (IRON_LAMPS, 'lamp'), (CANDLES, 'candles'), ([SHRINE], 'shrine')):
+                   (IRON_LAMPS, 'lamp'), (CANDLES, 'candles'), (SHRINE_CELLS, 'shrine')):
         for c in lst: taken[c] = n
     for (x, y) in BARREL_STACKS: taken[(x, y)] = taken[(x, y + 1)] = 'barrels'
     for (x, y) in IRON_LAMPS: taken[(x, y - 1)] = 'lamp'
@@ -352,7 +356,12 @@ def compose(town):
         for i in range(0, 16, 3): rgb[1:9, i] = (84, 92, 84)
         for j in range(1, 9, 3): rgb[j, :] = (84, 92, 84)
         rgb[4:6, 6:9] = (200, 120, 70); put(rgb, m, X, Y)
+    MMC = np.array(Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'shrine', 'mm_purple_candles.png')))[:, :16]
     def candle_stand(x, y):
+        # MonoMyth's purple candles (the shrine's, 2026-11-27); the right-hand cluster mirrored
+        c = MMC if x <= SHRINE[0] else MMC[:, ::-1]
+        m = c[..., 3] > 0; sub = img[y * S:(y + 1) * S, x * S:(x + 1) * S]; sub[m] = c[..., :3][m]
+    def _iron_candle_stand(x, y):                                          # (the old iron stands, before 2026-11-27)
         X, Y = x * S + 5, y * S
         img[Y + 4:Y + 15, X + 2:X + 4] = (56, 56, 72)                      # the iron stem
         img[Y + 14:Y + 16, X:X + 6] = (56, 56, 72)                         # its foot

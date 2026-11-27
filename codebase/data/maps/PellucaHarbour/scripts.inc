@@ -195,9 +195,7 @@ PellucaHarbour_Arrival_Movement_3:
 # 48 "data/maps/PellucaHarbour/scripts.pory"
 	walk_up
 # 48 "data/maps/PellucaHarbour/scripts.pory"
-	walk_left
-# 48 "data/maps/PellucaHarbour/scripts.pory"
-	walk_left
+	walk_up
 # 48 "data/maps/PellucaHarbour/scripts.pory"
 	walk_up
 # 48 "data/maps/PellucaHarbour/scripts.pory"
@@ -221,9 +219,7 @@ PellucaHarbour_Arrival_Movement_5:
 # 65 "data/maps/PellucaHarbour/scripts.pory"
 	walk_down
 # 65 "data/maps/PellucaHarbour/scripts.pory"
-	walk_right
-# 65 "data/maps/PellucaHarbour/scripts.pory"
-	walk_right
+	walk_down
 # 65 "data/maps/PellucaHarbour/scripts.pory"
 	walk_right
 # 65 "data/maps/PellucaHarbour/scripts.pory"

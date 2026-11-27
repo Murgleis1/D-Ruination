@@ -1,7 +1,7 @@
 """The cold open's arrival in Pelluca Harbour, watched (2026-11-25; the waterfront split into its own map,
 tools/art/pelluca/build_harbour.py + split_pelluca.py). From a new game: the intro, the letter, the naming, then the
 arrival scene on the harbour (map 2.75): Osrid lands at (40, 21), Cadmus comes down the great pier, they walk up it, the
-stop at the shrine (38, 12), the walk along the kerb (row 14) to the lab door (47, 13), the warp into the lab (0.29).
+stop below the shrine (40, 11; the shrine against the cliff since 2026-11-27), the walk along the kerb (row 14) to the lab door (47, 13), the warp into the lab (0.29).
 Frames are taken on the harbour every few steps of the scene; the positions the player passes through are logged and
 checked against the planned walk. Writes a frame sheet.
 Usage: python3 tools/playtest/pelluca_cold_open_walk.py [ROM] [OUT.png]"""
@@ -34,7 +34,7 @@ def check(name, cond, info=''):
     print('%-50s %s %s' % (name, 'ok' if cond else 'PROBLEM', info)); ok &= bool(cond)
 check('lands on the harbour at (40, 21)', path and path[0] == (40, 21), path[:1])
 check('walks up the great pier to the kerb (40, 14)', (40, 14) in path)
-check('stops at the shrine (38, 12)', (38, 12) in path)
+check('walks on up to the shrine and stops below it (40, 11)', (40, 11) in path and (38, 12) not in path)
 check('goes along the kerb to (47, 14) and up to the door', (47, 14) in path and (47, 13) in path)
 check('ends in the lab', where(g) and where(g)[1] == LAB, where(g))
 print('path', path)
