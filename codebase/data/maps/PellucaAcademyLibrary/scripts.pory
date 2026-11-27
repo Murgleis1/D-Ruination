@@ -1,5 +1,103 @@
 // ============ DREAMSTONE RUINATION - Pelluca Valley: the Academy, library ============
 // Built by tools/art/academy/rooms/build_rooms.py from library_mock.py (user design 2026-11-19).
-// NPCs and dialogue come with the dialogue pass.
+// The books (user 2026-11-26): eighteen bookcases in six banks of three, each bank a subject (the founding,
+// faith, the Houses, arms, strange things, abroad and trade); the top-left middle case is closed in by a table,
+// so its book lies open on the table instead; the reading stand holds the Academy's charter. They tell what the
+// Empire's scholars know, never the hidden truth (bible 16.15). Draft: docs/pelluca_npc_dialogue_draft.md.
 
 mapscripts PellucaAcademyLibrary_MapScripts {}
+
+script DR_Lib_Founding {
+    msgbox(format("“The Founding of Cormoria.”\pIn the age before the Empire, when the tribes still wandered, a great darkness fell upon the land. A tribesman named Cormor went out against it with the beast Keerin at his side, and the darkness was driven from the world.\pFrom that deed he raised a kingdom, and the kingdom took his name.\pSomeone has written in the margin, in a cramped hand: “Proof?”"), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Legacy {
+    msgbox(format("A book lies open on the table.\p“The Legacy of Cormor.”\pThe old tales tell of three stones, the Legacy of Cormor, brought together in the hour of the darkness. What became of them after, no two tellers agree.\pSome say they were scattered to the corners of the realm, some that the House of Cormoria keeps them still."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Concordance {
+    msgbox(format("“Of the Concordance.”\pThe great Houses of the old days bent the knee to Cormor on one condition: that the making of laws stay with them. So was the Nobility Concordance born.\pNo ruler since has governed without its leave, and the scholars count this the true reason the Empire has stood so long."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Templars {
+    msgbox(format("“The Order of the Templars.”\pThe Templars serve Arceus in every city of the Empire. They keep the Taverns, where any traveller may eat, rest and see their Pokémon mended, and their riders bear folk between the cities on Braviary.\pCormoria alone among the nations holds Arceus first and highest. Abroad, most peoples deny that Arceus exists at all."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Names {
+    msgbox(format("“On Names.”\pA House name is a sacrament, granted by the royal line alone in Arceus's sight, and no other may give one.\pOnce only has the Crown suffered a name it did not give: the Ninth Trial's Baron, a Sinnohian orphan raised to Dawnstar, keeps his birth name Korolev by the Empress's own leave. Some of the old Houses have never forgiven it."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_West {
+    msgbox(format("“The Faiths of the West.”\pKanto and Johto are each ruled by a single great family, whose priests hold the throne's ear and whose law is their gods' law. They will not hear of Arceus.\pIt was Kanto that took the Sevii Isles from Cormorian settlers, and the war that followed has never truly ended."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Houses {
+    msgbox(format("“The Great Houses and Their Arts.”\pEach of the old Houses keeps an art handed down the generations: Moray the mind, Nightfall the dark, Langerin the dead, Ashland the flame, Raptora the sky, Surge the storm, Alban the green.\pThe Langerins keep the great Necropolis on Mt. Mirroh. The Ashlands came from a land far to the south and dwell inside Mt. Ceram itself."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Jalviss {
+    msgbox(format("“The Fall of House Jalviss.”\pHouse Jalviss delved deeper than any other and found the first Mega Stones in Cormoria. Their last delving woke a beast that had slept since before the Empire, and in one night the House was no more.\pSince then the law permits Mega Evolution only to those the Crown sanctions. The Jalviss ruins stand empty still, and few will go near them."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Solomonar {
+    msgbox(format("“The Solomonar.”\pThe title of Solomonar is older than the Empire and is given only for true mastery of dragons. Cormor himself granted it once, in the third century of his reign.\pThe name of that first Solomonar is lost; all that is remembered is that a Haxorus of rare colour fought at his side. None has held the title since."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Ranks {
+    msgbox(format("“Ranks of the Imperial Army.”\pCadet, Lieutenant, Strategos, Windshear, Rainhawk, Tarasque, Dawnstar. Nine soldiers in ten never rise above Strategos.\pA Rainhawk is a soldier the Empire is watching, for from that rank come the Trial Barons, the guild masters and the founders of new Houses."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Sinnoh {
+    msgbox(format("“The Sinnoh Dispute.”\pThirty years past, a quarrel over the border with Sinnoh came to blows, and many Sinnohian children were left without kin. The Empire took them into its military orphanages and raised them as its own.\pMore than a few serve in the army today, and one rose higher than any soldier in living memory."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Sevii {
+    msgbox(format("“The Sevii Settlement.”\pCormorian settlers tilled the Sevii Isles for generations, until Kanto came and took them. Johto and Hoenn joined Kanto against the Empire, envying its riches and fearing its strength.\pThe fighting on the Sevii beaches was the bitterest of the war."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Justice {
+    msgbox(format("“Justice.”\pThe guardian of the royal House is held to be a demigod, a form of the Ralts line found by Cormor in a chamber of strange metal.\pPhilosophers have studied it for centuries. In all that time, no egg in the Empire has ever hatched its like."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Hauntings {
+    msgbox(format("“Hauntings of the West.”\pGhost Pokémon gather about Hollow Hill as moths about a lamp, and none can say why. The fog there never fully lifts, and woodsmen tell of voices in it.\pThe Langerins of Mt. Mirroh are called on when the lesser priests cannot quiet the dead."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Dragons {
+    msgbox(format("“Of Dragons.”\pDragons are scarce in Cormoria, and have been as long as records go back. Some blame the desert clans of Seregmorn, who are said to hunt them.\pWhatever the cause, a dragon-tamer in the Empire is a rarer thing than a Vizier."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Guilds {
+    msgbox(format("“The Merchant Guilds.”\pTwo guilds rule the Empire's trade. Sylphon & Stone deals in all a trainer needs, from balls and tonics to the hauling of Pokémon; Amber-Letz deals in bread, cloth and the goods of the household.\pA loose sheet of figures is tucked in the back. Someone has circled one sum in red ink and written beside it: “Where?”"), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Athanto {
+    msgbox(format("“A Traveller's Account of Athanto.”\pFar over the sea lies the kingdom of Athanto, a land of castles and knights, whose healers make the mending masks prized in every land. Its lords give each child of noble birth a pup to raise, that the two may grow up together into knight and Arcanine.\pAbove it all, on the highest mountain, dwells a guardian Pokémon with a fleece of gold, said to have carved the hills with its claws as a sanctuary for every Pokémon.\pA newer hand has added at the end: “Two years past, the guardian came down from its mountain. They say the kingdom had felled the forests and culled the beasts of the land to feed its armies. The kingdom is gone, and the sea runs through the middle of its land.”"), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Paldea {
+    msgbox(format("“Paldea.”\pPaldea is a young empire and a poor one. A Paldean is born a lord or a serf, and a serf may not learn his letters.\pIts envoys smile at the Cormorian court, but there is little love for the Empire in their country."), MSGBOX_SIGN)
+    end
+}
+
+script DR_Lib_Charter {
+    msgbox(format("The Academy's charter rests on the stand.\p“Founded at Pelluca by Cadmus Umbra, Vizier of Education, under the Ministry of Education: the Eastern Charter Trainer Initiative.\pHere trainers shall learn to know their Pokémon before they learn to wield them.”"), MSGBOX_SIGN)
+    end
+}

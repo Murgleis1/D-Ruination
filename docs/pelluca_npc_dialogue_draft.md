@@ -1,4 +1,4 @@
-# Pelluca NPC dialogue, draft v3 (2026-11-26, for the user's approval)
+# Pelluca NPC dialogue v3: approved and installed (user 2026-11-26)
 
 Rules: bible §16.15. Every line carries a hint or real world-building, spoken in a medieval manner, three or four
 sentences at most. *(flavour)* = a small detail the bible does not state, sitting on canon.

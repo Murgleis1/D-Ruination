@@ -1503,6 +1503,7 @@
 #define FLAG_DR_CHURCH_BLASTED                      FLAG_UNUSED_0x901   // Eden's blast has split the church floor
 #define FLAG_DR_ICE_PATH_SOLVED                     FLAG_UNUSED_0x902   // ice field under the church cleared
 #define FLAG_DR_STATUE_AWAKENED                     FLAG_UNUSED_0x909   // the shrine awakened; the Sparkling Opal found
+#define FLAG_DR_SAGE_MASK_REMARK                    FLAG_UNUSED_0x911   // a Tavern Sage has remarked on the Athanto mask
 
 #define FLAG_SYS_TV_HOME                            (SYSTEM_FLAGS + 0x30)
 #define FLAG_SYS_TV_WATCH                           (SYSTEM_FLAGS + 0x31)

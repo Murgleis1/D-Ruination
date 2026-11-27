@@ -22,7 +22,7 @@ script DR_Dorm_OsridPlate {
 script DR_Dorm_Cook {
     lock
     speakername("Cook")
-    msgbox(format("Supper's at sundown. If you miss it, there's bread and whatever's left in the pot."))
+    msgbox(format("Supper's at sundown.\pWe had a Tellian lad in this kitchen till word came his tribes were taking up arms against each other. He wrote once, and never again."))
     closemessage
     release
     end
@@ -32,7 +32,7 @@ script DR_Dorm_StudentTables {
     lock
     faceplayer
     speakername("Student")
-    msgbox(format("On debate nights you can't hear yourself think in here. The rest of the week, it's the best place to study."))
+    msgbox(format("On debate nights a body can't hear himself think in here.\pLast week we argued whether Cormor Dream-Eater ever lived at all. Master Orphel never once said which side he favoured."))
     closemessage
     release
     end
@@ -42,7 +42,7 @@ script DR_Dorm_StudentStage {
     lock
     faceplayer
     speakername("Student")
-    msgbox(format("Anyone may take the lectern on debate night. Most lose their nerve on the way up."))
+    msgbox(format("A second-year argued at the lectern that the Empress-mother ought to leave her villa and sit her own throne.\pHalf the hall cheered. The other half went very quiet."))
     closemessage
     release
     end

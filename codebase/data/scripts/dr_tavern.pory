@@ -10,9 +10,9 @@ script DR_Tavern_Healer {
     lock
     faceplayer
     speakername("Innkeeper")
-    msgbox(format("Welcome! A hot meal and a cool drink, and your Pokémon will be good as new. Shall I bring something out for them?"), MSGBOX_YESNO)
+    msgbox(format("Welcome in, traveller! A hot meal, a cool cup, and your Pokémon set to rights. Shall I bring something out for them?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
-        msgbox(format("Coming right up."))
+        msgbox(format("Right away."))
         closemessage
         fadescreen(FADE_TO_BLACK)
         playfanfare(MUS_HEAL)
@@ -20,9 +20,9 @@ script DR_Tavern_Healer {
         special(HealPlayerParty)
         fadescreen(FADE_FROM_BLACK)
         speakername("Innkeeper")
-        msgbox(format("Fed, watered and rested. Come back anytime."))
+        msgbox(format("Fed, watered and rested. The Templars keep this hearth for any trainer on the road."))
     } else {
-        msgbox(format("Suit yourself. The kitchen is always open."))
+        msgbox(format("As you like. The kitchen fire never goes out."))
     }
     closemessage
     release
@@ -33,7 +33,7 @@ script DR_Tavern_Caretaker {
     lock
     faceplayer
     speakername("Caretaker")
-    msgbox(format("I look after the Pokémon you can't carry with you. Want to see them?"), MSGBOX_YESNO)
+    msgbox(format("I tend the Pokémon a traveller can't carry on the road. Shall I fetch yours?"), MSGBOX_YESNO)
     if (var(VAR_RESULT) == YES) {
         closemessage
         special(ShowPokemonStorageSystemPC)
@@ -49,8 +49,13 @@ script DR_Tavern_Caretaker {
 script DR_Tavern_Sage {
     lock
     faceplayer
+    if (!flag(FLAG_DR_SAGE_MASK_REMARK)) {
+        setflag(FLAG_DR_SAGE_MASK_REMARK)
+        speakername("Sage")
+        msgbox(format("That mask is Athanto work. There'll be no more of them now.\pTwo years past, the guardian of that land came down from its mountain and left neither king nor lord alive."))
+    }
     speakername("Sage")
-    message(format("A new name, a forgotten move, a change of temper... What can I do for you?"))
+    message(format("A new name, a forgotten art, a change of temper... What would you have of me?"))
     waitmessage
     dynmultipush("A new name", 0)
     dynmultipush("Relearn a move", 1)
@@ -71,7 +76,7 @@ script DR_Tavern_Sage {
 
 script DR_Tavern_Sage_Bye {
     speakername("Sage")
-    msgbox(format("Come back whenever you like."))
+    msgbox(format("Come again whenever you've need."))
     closemessage
     release
     end

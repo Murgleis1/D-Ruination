@@ -1102,9 +1102,9 @@ script PellucaCity_Zorua{
 
 
 //MONS
-script PellucaCity_Lycanroc{
+script PellucaCity_Lycanroc {
     playmoncry(SPECIES_LYCANROC, CRY_MODE_NORMAL)
-    msgbox(format("Lycanroc is howling. It must be pining for a table at the restaurant!"), MSGBOX_NPC)
+    msgbox(format("Lycanroc growls low, its eyes on the western hills."), MSGBOX_NPC)
     end
 }
 
@@ -1116,52 +1116,73 @@ script PellucaCity_Lycanroc{
 
 //NPCs
 //tuber at beach
-script PellucaCity_NPC1{
-    msgbox(format("Whee!!!"), MSGBOX_NPC)
+script PellucaCity_NPC1 {
+    lock
+    faceplayer
+    speakername("Child")
+    msgbox(format("Whee! I'm the Champion and you're the wicked dragon!\pRhydia's beaten everyone for five whole years. When I'm grown I'll beat her, and she'll have to give me Justice!"))
+    closemessage
+    release
     end
 }
 //bridge lady
-script PellucaCity_NPC2{
-    msgbox(format("A tourist! Have you come to eat at the Pelluca Restaurant?\p...that's the only thing our mayor cares about promoting."), MSGBOX_NPC)
+script PellucaCity_NPC2 {
+    lock
+    faceplayer
+    speakername("Townswoman")
+    msgbox(format("A new face! Have a care on the east road.\pThere's a bend in the Hoya by the old altar where no boatman will tie up after dark, and none will say why."))
+    closemessage
+    release
     end
 }
 //bridge black belt
-script PellucaCity_NPC3{
-    msgbox(format("I would've trained up in Mt. Mirroh but that Qwilsquad grunt is blocking me!\lSo I'm training here instead."), MSGBOX_NPC)
+script PellucaCity_NPC3 {
+    lock
+    faceplayer
+    speakername("Adventurer")
+    msgbox(format("I meant to cross the Hoya Delta and see the Ashland Labyrinth, but the Templars bar the east road and won't say why.\pJust as well, says my father. He's not trusted an Ashland since the Prince-Consort was murdered."))
+    closemessage
+    release
     end
 }
 //bridge cyclist
-script PellucaCity_NPC4{
-    msgbox(format("This bridge was built by Rivetshore Construction. It's nothing like the cycling roads in other regions though!"), MSGBOX_NPC)
+script PellucaCity_NPC4 {
+    lock
+    faceplayer
+    speakername("Townswoman")
+    msgbox(format("Masons out of Rivetshore raised this bridge, House Stone's men every one. Their guild has raised the toll on the coast road again, third time in two years.\pWhere all that coin goes, none can say."))
+    closemessage
+    release
     end
 }
 //bridge other dude
-script PellucaCity_NPC5{
-    lockall
-    msgbox(format("Look over there..."))    
+script PellucaCity_NPC5 {
+    lock
+    faceplayer
+    speakername("Townsman")
+    msgbox(format("Templar riders, flying west for Mirroh. Third pair since morning.\pMy cousin writes that the whole mountain groaned one night two winters past, and a strange light shone from the caves till dawn."))
+    closemessage
     release
-    special(SpawnCameraObject)
-    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_fast_up * 11))
-    waitmovement(0)
-    special(RemoveCameraObject)
-    msgbox(format("Jania, the Gym Leader, had her gym constructed on a separate island."))
-    release
-    special(SpawnCameraObject)
-    applymovement(OBJ_EVENT_ID_CAMERA, moves(walk_fast_down * 11))
-    waitmovement(0)
-    special(RemoveCameraObject)
-    msgbox(format("She stays on that island and trains.\nShe never gets involved in city affairs!"), MSGBOX_NPC)    
-    releaseall
     end
 }
 //bridge getting off dude
-script PellucaCity_NPC6{
-    msgbox(format("Are you headed to the Mirroh Base Camp? You'll have to cross Route 7 and take the cable car up. I heard they're closing the gym there though."), MSGBOX_NPC)
+script PellucaCity_NPC6 {
+    lock
+    faceplayer
+    speakername("Woodsman")
+    msgbox(format("Bound for Mirroh? Don't stop in the fog at Hollow Hill for anything you hear.\pMy Lycanroc won't pass the treeline, and there's red webbing in those trees thick as ship's rigging. Thirty years in the woods, and I've never seen the spider that could spin it."))
+    closemessage
+    release
     end
 }
 //main island
-script PellucaCity_NPC7{
-    msgbox(format("With the way things are, I'm half in support of the Qwilsquad. I know they're bullies, but maybe they'll do something good for the city."), MSGBOX_NPC)
+script PellucaCity_NPC7 {
+    lock
+    faceplayer
+    speakername("Harbourman")
+    msgbox(format("My cousin has sat two winters in Gleamdusk for a brace of trout, waiting on the Concordance to judge him.\pHalf those lords haven't sat their seats in a year, folk say. A poor man may rot while they're about their own affairs."))
+    closemessage
+    release
     end
 }
 //fishery 1
@@ -1240,34 +1261,47 @@ script PellucaCity_WingullCritique{
 
 
 //lady next to restaurant
-script PellucaCity_NPC10{
-    msgbox(format("I ate too many apple tarts! I'm too full. Whoever said people have a second stomach for dessert was lying!"), MSGBOX_NPC)
+script PellucaCity_NPC10 {
+    lock
+    faceplayer
+    speakername("Townsman")
+    msgbox(format("Six apple tarts, and all of them Moray apples.\pThey say Vizier Moray rides out to the Empress-mother's villa near every day, bearing the first of the harvest himself. Ten years of it. There's a loyal man for you."))
+    closemessage
+    release
     end
 }
 
 //lady staring off by the pc
-script PellucaCity_NPC11{
-    if (flag(FLAG_PELLUCA_CITY_TM_GIVER)){
-        msgbox(format("Life is too short to worry!"), MSGBOX_NPC)
-        end
+script PellucaCity_NPC11 {
+    lock
+    faceplayer
+    speakername("Minstrel")
+    msgbox(format("Worry is for tax collectors, friend.\p“Three stones had Cormor, and Keerin at his side...”\pThere's a second verse, but it fell out of the song long ago, and no one in all Cormoria can give it back to me."))
+    if (!flag(FLAG_PELLUCA_CITY_TM_GIVER)) {
+        speakername("Minstrel")
+        msgbox(format("A traveller paid me with this for a song. I've no use for it, so it's yours."))
+        giveitem(ITEM_TM31)
+        setflag(FLAG_PELLUCA_CITY_TM_GIVER)
     }
-    
-    msgbox(format("The Pelluca Gym is across the water...\nwhen I was younger, I tried to challenge Jania many times, but I could never win.\pShe was my classmate, you know?\nWe grew up in Galecrest City together.\nShe went on to become a big Gym Leader and I moved here too, with a regular family and a regular job.\pWhenever I look at the gym, I wonder...\pI don't battle anymore. Maybe you might like to use this."), MSGBOX_NPC)
-    giveitem(ITEM_TM31)
-    setflag(FLAG_PELLUCA_CITY_TM_GIVER)
-    msgbox(format("It's time for me to pass the baton\nto someone young and hungry.\pDon't give up on your dreams!"), MSGBOX_NPC)
+    closemessage
+    release
     end
 }
 
 //stantler dude at bridge foot fishery side
-script PellucaCity_NPC12{
-    msgbox(format("The mayor isn't maintaining the city one bit! My Stantler eating the overgrown flowers is actually contributing to city maintenance."), MSGBOX_NPC)
+script PellucaCity_NPC12 {
+    lock
+    faceplayer
+    speakername("Farmer")
+    msgbox(format("Easy, girl, leave the Academy's flowers be.\pHer dam came from the Vilethorn country, where two of the Albans' field hands walked into the woods last harvest and never walked out. The family raised no search."))
+    closemessage
+    release
     end
 }
 
-script PellucaCity_Stantler{
+script PellucaCity_Stantler {
     playmoncry(SPECIES_STANTLER, CRY_MODE_NORMAL)
-    msgbox(format("Stantler is nonchalantly chomping on the flowers."), MSGBOX_NPC)
+    msgbox(format("The Stantler is calmly munching the flowers."), MSGBOX_NPC)
     end
 }
 

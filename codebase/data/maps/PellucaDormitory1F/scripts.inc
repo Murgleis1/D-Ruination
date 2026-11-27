@@ -75,9 +75,11 @@ DR_Dorm_Cook_Text_0:
 
 DR_Dorm_Cook_Text_1:
 # 25 "data/maps/PellucaDormitory1F/scripts.pory"
-	.string "Supper's at sundown. If you miss it,\n"
-	.string "there's bread and whatever's left in\l"
-	.string "the pot.$"
+	.string "Supper's at sundown.\p"
+	.string "We had a Tellian lad in this kitchen till\n"
+	.string "word came his tribes were taking up\l"
+	.string "arms against each other. He wrote once,\l"
+	.string "and never again.$"
 
 DR_Dorm_StudentTables_Text_0:
 # 34 "data/maps/PellucaDormitory1F/scripts.pory"
@@ -85,12 +87,17 @@ DR_Dorm_StudentTables_Text_0:
 
 DR_Dorm_StudentTables_Text_1:
 # 35 "data/maps/PellucaDormitory1F/scripts.pory"
-	.string "On debate nights you can't hear\n"
-	.string "yourself think in here. The rest of the\l"
-	.string "week, it's the best place to study.$"
+	.string "On debate nights a body can't hear\n"
+	.string "himself think in here.\p"
+	.string "Last week we argued whether Cormor\n"
+	.string "Dream-Eater ever lived at all. Master\l"
+	.string "Orphel never once said which side he\l"
+	.string "favoured.$"
 
 DR_Dorm_StudentStage_Text_0:
 # 45 "data/maps/PellucaDormitory1F/scripts.pory"
-	.string "Anyone may take the lectern on debate\n"
-	.string "night. Most lose their nerve on the way\l"
-	.string "up.$"
+	.string "A second-year argued at the lectern\n"
+	.string "that the Empress-mother ought to\l"
+	.string "leave her villa and sit her own throne.\p"
+	.string "Half the hall cheered. The other half\n"
+	.string "went very quiet.$"

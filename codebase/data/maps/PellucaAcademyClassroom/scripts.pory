@@ -1,5 +1,44 @@
 // ============ DREAMSTONE RUINATION - Pelluca Valley: the Academy, classroom ============
 // Built by tools/art/academy/rooms/build_rooms.py from classroom_mock.py (user design 2026-11-19).
-// NPCs and dialogue come with the dialogue pass.
+// Logan Orphel teaches at the front (bible 16.6 item 9); three students sit at the desks (on the chair tiles,
+// facing the board, so they do not turn round when spoken to). Logan's quiz and battles are [OPEN]: his line here
+// is his first meeting's greeting until the quest is written.
 
 mapscripts PellucaAcademyClassroom_MapScripts {}
+
+script DR_Class_Logan {
+    lock
+    faceplayer
+    speakername("Logan")
+    msgbox(format("You'll be the Rainhawk the Headmaster spoke of. Logan Orphel.\pThe Headmaster built this school so trainers would know their Pokémon before they learn to win with them. I ask questions, and I remember who answers them."))
+    closemessage
+    release
+    end
+}
+
+script DR_Class_StudentA {
+    lock
+    speakername("Student")
+    msgbox(format("Master Orphel calls on whoever looks least ready. I make a point of always looking ready."))
+    closemessage
+    release
+    end
+}
+
+script DR_Class_StudentB {
+    lock
+    speakername("Student")
+    msgbox(format("Master Orphel took top honours in the Headmaster's first class. He's the last of House Orphel, and all that old name rests on him alone."))
+    closemessage
+    release
+    end
+}
+
+script DR_Class_StudentC {
+    lock
+    speakername("Student")
+    msgbox(format("I still can't see why a Ghost shrugs off a Normal blow.\pThey say Baron Kimaris coos at his Spiritomb like a babe in swaddling. Can that be true of a Reserve Champion?"))
+    closemessage
+    release
+    end
+}
