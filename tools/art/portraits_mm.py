@@ -133,11 +133,21 @@ def build(rom):
     return out
 
 
+
+# Hand-finished portraits (Glaive v2, approved 2026-11-27, tools/art/glaive/portrait_v2.py): never overwritten in the
+# game folder by a regeneration run unless --force is given.
+HAND_FINISHED = ('glaive_neutral', 'glaive_positive', 'glaive_negative')
+def _protected(path):
+    return (os.path.basename(path)[:-4] in HAND_FINISHED and '--force' not in sys.argv
+            and os.path.realpath(os.path.dirname(path)).endswith(os.path.join('graphics', 'portraits')))
+
 if __name__ == '__main__':
     rom, od = sys.argv[1], sys.argv[2]; os.makedirs(od, exist_ok=True)
     res = build(rom)
     for (name, expr), (px, pal, idx) in res.items():
-        mp.save_indexed(px, pal, os.path.join(od, f'{name}_{expr}.png'))
+        dst = os.path.join(od, f'{name}_{expr}.png')
+        if _protected(dst): print('kept hand-finished', dst); continue
+        mp.save_indexed(px, pal, dst)
     if '--preview' in sys.argv:
         from PIL import Image, ImageDraw
         P = mp.load(rom); S = 2; keys = list(res); cols = 6

@@ -537,3 +537,5 @@ Note: one dialogue box shows Osrid's portrait while "Nomad Alban" speaks (Pelluc
 - Mouth restored to the original single dark-grey px (32,13), now slot 4 (95,87,92); the 2-px skin-shadow mouth dropped.
 - 2026-11-27 battle sprite APPROVED ("lets go with that"): portrait hair/skin palette, green eyes (30,9)+(34,10),
   dark-grey mouth (32,13), soft 2-px scar. Overworld left unchanged (user: "overworld looks okay").
+- Guard: portraits_mm.py and portrait_rebuild.py now skip glaive_* when writing into graphics/portraits unless
+  --force, so a regeneration run cannot overwrite the hand-finished v2 portraits.

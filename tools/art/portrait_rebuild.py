@@ -314,6 +314,14 @@ def protect(path):
     return out, pal
 
 
+
+# Hand-finished portraits (Glaive v2, approved 2026-11-27, tools/art/glaive/portrait_v2.py): never overwritten in the
+# game folder by a regeneration run unless --force is given.
+HAND_FINISHED = ('glaive_neutral', 'glaive_positive', 'glaive_negative')
+def _protected(path):
+    return (os.path.basename(path)[:-4] in HAND_FINISHED and '--force' not in sys.argv
+            and os.path.realpath(os.path.dirname(path)).endswith(os.path.join('graphics', 'portraits')))
+
 if __name__ == '__main__':
     src, od = sys.argv[1], sys.argv[2]; os.makedirs(od, exist_ok=True)
     res = []
@@ -322,7 +330,9 @@ if __name__ == '__main__':
         if not NATIVE:                                   # option C: hand cleanup of the 2/3 resize
             import portrait_patches
             idx, _ = portrait_patches.apply(os.path.basename(f)[:-4], idx, pal)
-        save(idx, pal, os.path.join(od, os.path.basename(f))); res.append((f, idx, pal))
+        dst = os.path.join(od, os.path.basename(f))
+        if _protected(dst): print('kept hand-finished', dst); continue
+        save(idx, pal, dst); res.append((f, idx, pal))
     if '--preview' in sys.argv:
         from PIL import ImageDraw
         S, cols = 3, 4; CW = 96 * S + 80 * S + 16; H = 96 * S + 16
