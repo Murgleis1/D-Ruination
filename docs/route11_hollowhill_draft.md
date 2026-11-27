@@ -26,6 +26,13 @@ head with a black bandit mask and crest slash; Braviary after the Steller's sea 
 and head; beak and talons yellow (`tools/art/emergent/emergent_birds.py`, `assets/emergent/`). **Shiny (user
 2026-11-27):** silver and dark blue (the black/white swap looked strange).
 
+**In the game (2026-11-27, art approved "these look fantastic"):** `SPECIES_RUFFLET_EMERGENT` (1526) and
+`SPECIES_BRAVIARY_EMERGENT` (1527), forms of Rufflet / Braviary (same dex numbers and names, form tables updated),
+Flying/Dark, the stats and abilities above, no eggs (one of a kind), E. Rufflet evolves at Lv.45, learnsets in
+`level_up_learnsets/gen_9.h` (the active set), teachable lists borrowed from Rufflet / Braviary until the Dark TMs are
+chosen. Art in `graphics/pokemon/{rufflet,braviary}/emergent/`. Adamant and 31 IVs are set by the gift script
+(Hollow Hill), not by the species.
+
 ## 2. Route 11
 
 **The farmhouse** (shortened, user):

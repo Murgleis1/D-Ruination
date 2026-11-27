@@ -4327,6 +4327,14 @@ $(POKEMONGFXDIR)/electrode/hisui/overworld.4bpp: %.4bpp: %.png
 $(POKEMONGFXDIR)/braviary/hisui/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 12 -mheight 12
 
+# 32x32 frames: 4x4-tile metatiles (the 12x12 rules above only work because their .4bpp are pre-built)
+$(POKEMONGFXDIR)/rufflet/emergent/overworld.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+
+# 32x32 frames: 4x4-tile metatiles (the 12x12 rules above only work because their .4bpp are pre-built)
+$(POKEMONGFXDIR)/braviary/emergent/overworld.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+
 $(POKEMONGFXDIR)/qwilfish/hisui/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 12 -mheight 12
 

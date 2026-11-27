@@ -1641,8 +1641,11 @@
 // === DREAMSTONE RUINATION CUSTOM SPECIES ===
 #define SPECIES_JOUSTROLL                               1524
 #define SPECIES_JOUSTEEL                                1525
+// Emergent variants (bible §16.6 item 12): one-of-a-kind forms that emerged in Cormoria.
+#define SPECIES_RUFFLET_EMERGENT                        1526
+#define SPECIES_BRAVIARY_EMERGENT                       1527
 
-#define SPECIES_EGG                                     (SPECIES_JOUSTEEL + 1)
+#define SPECIES_EGG                                     (SPECIES_BRAVIARY_EMERGENT + 1)
 
 #define NUM_SPECIES SPECIES_EGG
 

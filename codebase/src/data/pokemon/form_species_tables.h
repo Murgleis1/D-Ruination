@@ -1277,11 +1277,18 @@ static const u16 sStunfiskFormSpeciesIdTable[] = {
 #endif //P_FAMILY_STUNFISK
 
 #if P_FAMILY_RUFFLET
+static const u16 sRuffletFormSpeciesIdTable[] = {
+    SPECIES_RUFFLET,
+    SPECIES_RUFFLET_EMERGENT,
+    FORM_SPECIES_END,
+};
+
 static const u16 sBraviaryFormSpeciesIdTable[] = {
 #if P_HISUIAN_FORMS
     SPECIES_BRAVIARY_HISUI,
 #endif
     SPECIES_BRAVIARY,
+    SPECIES_BRAVIARY_EMERGENT,
     FORM_SPECIES_END,
 };
 #endif //P_FAMILY_RUFFLET

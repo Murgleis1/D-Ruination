@@ -18540,6 +18540,34 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_HISUIAN_FORMS
+
+    // Emergent form (Dreamstone Ruination; art: tools/art/emergent/emergent_birds.py)
+    const u32 gMonFrontPic_RuffletEmergent[] = INCBIN_U32("graphics/pokemon/rufflet/emergent/anim_front.4bpp.lz");
+    const u32 gMonPalette_RuffletEmergent[] = INCBIN_U32("graphics/pokemon/rufflet/emergent/normal.gbapal.lz");
+    const u32 gMonBackPic_RuffletEmergent[] = INCBIN_U32("graphics/pokemon/rufflet/emergent/back.4bpp.lz");
+    const u32 gMonShinyPalette_RuffletEmergent[] = INCBIN_U32("graphics/pokemon/rufflet/emergent/shiny.gbapal.lz");
+    const u8 gMonIcon_RuffletEmergent[] = INCBIN_U8("graphics/pokemon/rufflet/emergent/icon.4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_RuffletEmergent[] = INCBIN_COMP("graphics/pokemon/rufflet/emergent/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u32 gOverworldPalette_RuffletEmergent[] = INCBIN_U32("graphics/pokemon/rufflet/emergent/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_RuffletEmergent[] = INCBIN_U32("graphics/pokemon/rufflet/emergent/overworld_shiny.gbapal.lz");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
+
+    // Emergent form (Dreamstone Ruination; art: tools/art/emergent/emergent_birds.py)
+    const u32 gMonFrontPic_BraviaryEmergent[] = INCBIN_U32("graphics/pokemon/braviary/emergent/anim_front.4bpp.lz");
+    const u32 gMonPalette_BraviaryEmergent[] = INCBIN_U32("graphics/pokemon/braviary/emergent/normal.gbapal.lz");
+    const u32 gMonBackPic_BraviaryEmergent[] = INCBIN_U32("graphics/pokemon/braviary/emergent/back.4bpp.lz");
+    const u32 gMonShinyPalette_BraviaryEmergent[] = INCBIN_U32("graphics/pokemon/braviary/emergent/shiny.gbapal.lz");
+    const u8 gMonIcon_BraviaryEmergent[] = INCBIN_U8("graphics/pokemon/braviary/emergent/icon.4bpp");
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_BraviaryEmergent[] = INCBIN_COMP("graphics/pokemon/braviary/emergent/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u32 gOverworldPalette_BraviaryEmergent[] = INCBIN_U32("graphics/pokemon/braviary/emergent/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_BraviaryEmergent[] = INCBIN_U32("graphics/pokemon/braviary/emergent/overworld_shiny.gbapal.lz");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_FAMILY_RUFFLET
 
 #if P_FAMILY_VULLABY

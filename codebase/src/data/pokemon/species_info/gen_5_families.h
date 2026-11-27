@@ -11156,6 +11156,8 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .levelUpLearnset = sRuffletLevelUpLearnset,
         .teachableLearnset = sRuffletTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 54, SPECIES_BRAVIARY_HISUI}),
+
+        .formSpeciesIdTable = sRuffletFormSpeciesIdTable,
     },
 
     [SPECIES_BRAVIARY] =
@@ -11291,6 +11293,148 @@ const struct SpeciesInfo gSpeciesInfoGen5[] =
         .formSpeciesIdTable = sBraviaryFormSpeciesIdTable,
     },
 #endif //P_HISUIAN_FORMS
+
+    // === DREAMSTONE RUINATION: EMERGENT VARIANTS (bible §16.6 item 12) ===
+    // One of a kind: the first of its line to emerge in Cormoria (rescued from the Marauders in Chapter 1, Lv.12,
+    // given Adamant with 31 IVs by its gift script). Flying/Dark, black and white (shiny: silver and dark blue).
+    // No eggs: it is unique, not a population. Numbers: docs/route11_hollowhill_draft.md.
+    [SPECIES_RUFFLET_EMERGENT] =
+    {
+        .baseHP        = 70,
+        .baseAttack    = 92,
+        .baseDefense   = 56,
+        .baseSpeed     = 60,
+        .baseSpAttack  = 37,
+        .baseSpDefense = 55,
+        .types = MON_TYPES(TYPE_FLYING, TYPE_DARK),
+        .catchRate = 3,
+        .expYield = 70,
+        .evYield_Attack = 1,
+        .genderRatio = MON_MALE,
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_KEEN_EYE, ABILITY_SHEER_FORCE, ABILITY_ROCKY_PAYLOAD },
+        .bodyColor = BODY_COLOR_BLACK,
+        .speciesName = _("Rufflet"),
+        .cryId = CRY_RUFFLET,
+        .natDexNum = NATIONAL_DEX_RUFFLET,
+        .categoryName = _("Eaglet"),
+        .height = 5,
+        .weight = 105,
+        .description = COMPOUND_STRING(
+            "No Rufflet before it ever bore this\n"
+            "black mask. Templar scholars hold it\n"
+            "to be the first of a new kind, born of\n"
+            "Cormoria itself, and none like it lives."),
+        .pokemonScale = 432,
+        .pokemonOffset = 13,
+        .trainerScale = 256,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_RuffletEmergent,
+        .frontPicSize = MON_COORDS_SIZE(32, 48),
+        .frontPicYOffset = 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 5),
+        ),
+        .frontAnimId = ANIM_V_STRETCH,
+        .backPic = gMonBackPic_RuffletEmergent,
+        .backPicSize = MON_COORDS_SIZE(48, 56),
+        .backPicYOffset = 9,
+        .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
+        .palette = gMonPalette_RuffletEmergent,
+        .shinyPalette = gMonShinyPalette_RuffletEmergent,
+        .iconSprite = gMonIcon_RuffletEmergent,
+        .iconPalIndex = 0,
+        SHADOW(-2, 2, SHADOW_SIZE_S)
+        FOOTPRINT(Rufflet)
+        OVERWORLD(
+            sPicTable_RuffletEmergent,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_RuffletEmergent,
+            gShinyOverworldPalette_RuffletEmergent
+        )
+        .levelUpLearnset = sRuffletEmergentLevelUpLearnset,
+        .teachableLearnset = sRuffletTeachableLearnset,
+        .formSpeciesIdTable = sRuffletFormSpeciesIdTable,
+        .evolutions = EVOLUTION({EVO_LEVEL, 45, SPECIES_BRAVIARY_EMERGENT}),
+    },
+
+    [SPECIES_BRAVIARY_EMERGENT] =
+    {
+        .baseHP        = 95,
+        .baseAttack    = 144,
+        .baseDefense   = 88,
+        .baseSpeed     = 74,
+        .baseSpAttack  = 50,
+        .baseSpDefense = 84,
+        .types = MON_TYPES(TYPE_FLYING, TYPE_DARK),
+        .catchRate = 3,
+        .expYield = 179,
+        .evYield_Attack = 2,
+        .genderRatio = MON_MALE,
+        .eggCycles = 20,
+        .friendship = STANDARD_FRIENDSHIP,
+        .growthRate = GROWTH_SLOW,
+        .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
+        .abilities = { ABILITY_KEEN_EYE, ABILITY_SHEER_FORCE, ABILITY_ROCKY_PAYLOAD },
+        .bodyColor = BODY_COLOR_BLACK,
+        .speciesName = _("Braviary"),
+        .cryId = CRY_BRAVIARY,
+        .natDexNum = NATIONAL_DEX_BRAVIARY,
+        .categoryName = _("Valiant"),
+        .height = 15,
+        .weight = 410,
+        .description = COMPOUND_STRING(
+            "Its black wings flash white as it\n"
+            "dives, and its talons can split stone.\n"
+            "There is no other like it, and where\n"
+            "it hunts, the skies fall silent."),
+        .pokemonScale = 268,
+        .pokemonOffset = 2,
+        .trainerScale = 271,
+        .trainerOffset = 0,
+        .frontPic = gMonFrontPic_BraviaryEmergent,
+        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = 1,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 20),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .enemyMonElevation = 6,
+        .backPic = gMonBackPic_BraviaryEmergent,
+        .backPicSize = MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = 10,
+        .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
+        .palette = gMonPalette_BraviaryEmergent,
+        .shinyPalette = gMonShinyPalette_BraviaryEmergent,
+        .iconSprite = gMonIcon_BraviaryEmergent,
+        .iconPalIndex = 0,
+        SHADOW(-1, 16, SHADOW_SIZE_M)
+        FOOTPRINT(Braviary)
+        OVERWORLD(
+            sPicTable_BraviaryEmergent,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_BraviaryEmergent,
+            gShinyOverworldPalette_BraviaryEmergent
+        )
+        .levelUpLearnset = sBraviaryEmergentLevelUpLearnset,
+        .teachableLearnset = sBraviaryTeachableLearnset,
+        .formSpeciesIdTable = sBraviaryFormSpeciesIdTable,
+    },
 #endif //P_FAMILY_RUFFLET
 
 #if P_FAMILY_VULLABY

@@ -4401,6 +4401,12 @@ static const struct SpriteFrameImage sPicTable_BraviaryHisui[] = {
     overworld_ascending_frames(gObjectEventPic_BraviaryHisui, 4, 4),
 };
 #endif //P_HISUIAN_FORMS
+static const struct SpriteFrameImage sPicTable_RuffletEmergent[] = {
+    overworld_ascending_frames(gObjectEventPic_RuffletEmergent, 4, 4),
+};
+static const struct SpriteFrameImage sPicTable_BraviaryEmergent[] = {
+    overworld_ascending_frames(gObjectEventPic_BraviaryEmergent, 4, 4),
+};
 #endif //P_FAMILY_RUFFLET
 
 #if P_FAMILY_VULLABY
