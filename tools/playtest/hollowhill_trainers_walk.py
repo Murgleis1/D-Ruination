@@ -27,7 +27,7 @@ def encounter(label, approach, steps, n=7, beaten=()):
 encounter('Finn', [(34, 48)], ['LEFT'] * 5)
 encounter('Alphonse', [(13, 46)], ['LEFT'] * 2)
 encounter('Denth', [(22, 36)], ['UP'] * 6, beaten=['TRAINER_DR_HH_ADVENTURER_FINN'])   # the way passes Finn
-encounter('Helga', [(9, 47)], ['UP', 'UP'], beaten=['TRAINER_DR_HH_REVENANT_ALPHONSE'])   # the way passes Alphonse
+encounter('Helga', [(5, 31)], ['UP'] * 4, beaten=['TRAINER_DR_HH_REVENANT_ALPHONSE'])   # the way passes Alphonse
 # after-lines and the grave
 g.restore(HH); g.run(5)
 for t in ('TRAINER_DR_HH_ADVENTURER_FINN', 'TRAINER_DR_HH_REVENANT_ALPHONSE', 'TRAINER_DR_HH_WITCH_HELGA', 'TRAINER_DR_HH_ROYAL_OFFICER_DENTH'):
@@ -36,6 +36,6 @@ g.run(5)
 go('HollowHill', (28, 47)); face('UP'); talk('Finn after')
 go('HollowHill', (7, 46)); face('LEFT'); talk('Alphonse after')
 go('HollowHill', (5, 47)); face('UP'); talk('The grave')
-go('HollowHill', (9, 44)); face('UP'); talk('Helga after')
+go('HollowHill', (7, 27)); face('RIGHT'); talk('Helga after')
 go('HollowHill', (20, 28)); face('LEFT'); talk('Denth after')
 sheet('/home/claude/repo/assets/hollowhill_reference/ingame_hh_trainers_walk.png')

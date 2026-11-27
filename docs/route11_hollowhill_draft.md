@@ -82,7 +82,7 @@ Engine note: the Patch swaps a normal ability for the hidden one, and from the h
 - Defeated: Mathematical! You fight like a hero out of the old songs.
 - After: Jake and I have been hunting for whatever made these webs. We've seen so many all over the Hill... yet never whatever spun them. I'm starting to hope we never do.
 
-*The southwest woods: a grave, a Revenant and the witch who woke him.* A lone gravestone in the southwest woods (a new object: Hollow Hill's tiles are full); **Alphonse** hovers beside it and floats up to the player who strays into his sight; **Helga** keeps her distance behind the trees nearby.
+*The southwest woods: a grave, a Revenant and the witch who woke him.* A lone gravestone in the southwest woods (a new object: Hollow Hill's tiles are full); **Alphonse** hovers beside it and floats up to the player who strays into his sight; **Helga** keeps well away, in the clearing by the fallen log about twenty tiles up the west corridor.
 
 *Revenant Alphonse* (Gastly Lv.12, Shedinja Lv.20: Wonder Guard walls anything without a super-effective hit, and is worth a lot of experience to a player who has one).
 - Before: Warm... so warm. Your soul burns brighter than a hearth in winter. Let me have it!!
