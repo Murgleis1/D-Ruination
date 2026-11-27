@@ -609,3 +609,5 @@ Once the next few phases of Chapter 1 are further along, the user wants **anothe
     right data; Baradus's assets unchanged; the whole save-state walk chain passes. **ROM 96.24% -> 96.60%** of
     32 MiB (about 120 KB). Nothing is placed in a map yet: the Pelluca recast places them.
 
+
+**Start menu (user 2026-11-27):** the trainer card entry reads "ID Card" instead of the cover name "Nomad" (`gText_MenuNomad`, src/strings.c); checked in the emulator (`assets/spheres/ingame_start_menu_id_card.png`).
