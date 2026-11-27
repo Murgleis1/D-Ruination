@@ -53,7 +53,7 @@ No rod and no Surf are given in Chapter 1 today. Pelluca's fishing table is Drea
 | 7 | 5 | Bounsweet | 8-10 | The farmhouse orchard |
 | 8 | 4 | Nidoran♀ | 8-10 | Denth's Nidorino came from these fields |
 | 9 | 4 | Nidoran♂ | 8-10 | |
-| 10 | **1** | **Ponyta** | 9-10 | **Kimaris chase:** Flash Fire, so Will-O-Wisp does nothing; Fire hits Shedinja, Dhelmise and Honedge. A farm horse gone half-wild |
+| 10 | **1** | **Paldean Tauros (Blaze Breed)** | 9-10 | **Kimaris chase** (user 2026-11-27, replacing Ponyta): the farm's bull to go with its Miltank. Fighting/Fire with Intimidate. As a Fire type it can't be burned, so Will-O-Wisp does nothing, and **Flame Charge at 15** hits Shedinja, Dhelmise and Honedge. Its Fighting moves can't touch his Ghosts. BST 490 |
 | 11 | **1** | **Miltank** | 10 | **Lore chase:** the farm's prize. **Scrappy** lets its Normal moves (Stomp, Rollout) hit Ghosts, and it is immune to theirs. BST 490 |
 
 **Fishing**, only if an Old Rod is given (rule below): Magikarp 70% and Wooper 30%, levels 5-10. Wooper is Water/Ground, and Ground hits Gastly and Honedge.
@@ -171,8 +171,8 @@ Pelluca City and the Harbour: Magikarp 70% and Arrokuda 30%, levels 5-10. These 
 
 | What his team asks for | Ways to get it before Kimaris |
 |---|---|
-| Hit Shedinja (Fire, Flying, Rock, Ghost or Dark) | Fletchling's Ember and Fletchinder; Peck from Taillow, Hoothoot, Murkrow and Swablu; Starly's Wing Attack; Nacli's Rock Throw; the Hollow Hill Ghosts' Lick and Astonish; Poochyena's and Greavard's Bite; Seedot's Astonish; Snubbull's Fire Fang; E. Rufflet; Ponyta, Houndour and H. Growlithe as rares; Litwick |
-| Shrug off Will-O-Wisp | Flash Fire (Ponyta, Houndour, H. Growlithe, Litwick); Fire types; Purifying Salt (Nacli); Guts turns burns to power (Taillow); Natural Cure (Phantump, Swablu); Magic Guard (Clefairy) |
+| Hit Shedinja (Fire, Flying, Rock, Ghost or Dark) | Fletchling's Ember and Fletchinder; Peck from Taillow, Hoothoot, Murkrow and Swablu; Starly's Wing Attack; Nacli's Rock Throw; the Hollow Hill Ghosts' Lick and Astonish; Poochyena's and Greavard's Bite; Seedot's Astonish; Snubbull's Fire Fang; E. Rufflet; Blaze Tauros's Flame Charge, Houndour and H. Growlithe as rares; Litwick |
+| Shrug off Will-O-Wisp | Flash Fire (Houndour, H. Growlithe, Litwick); Fire types can't be burned (Blaze Tauros, Fletchinder); Purifying Salt (Nacli); Guts turns burns to power (Taillow); Natural Cure (Phantump, Swablu); Magic Guard (Clefairy) |
 | Outlast Curse, stop the stall | Magic Guard (Clefairy); switching clears Curse; Taunt (Sneasel) |
 | Wall his Ghost moves | Normal types (Lechonk, Lillipup, Hoothoot, Stantler, Swablu, Miltank, H. Zorua); Dark types resist them |
 | Beat Crowley (Ghost/Dark, weak only to Fairy) | Disarming Voice from Lechonk (5), Swablu (4) and Clefairy; Tinkatink. Snubbull and Morelull are Fairy types but learn no Fairy attack before 18 |
