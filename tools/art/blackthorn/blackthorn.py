@@ -12,9 +12,9 @@ G = lambda m, f: os.path.join(C, 'graphics', 'pokemon', m, f)
 FRONT = {
  'bagon': {1: (46, 44, 54), 2: (38, 22, 28), 3: (128, 122, 140), 4: (92, 88, 104), 6: (66, 62, 76),
            7: (28, 26, 32), 10: (44, 42, 50), 11: (64, 60, 72),
-           8: (204, 40, 56), 9: (150, 26, 42), 12: (96, 16, 28), 14: (110, 30, 44), 15: (226, 110, 120)},
+           8: (204, 40, 56), 9: (150, 26, 42), 12: (188, 188, 196), 13: (248, 248, 244), 14: (110, 30, 44), 15: (226, 110, 120)},
  'shelgon': {1: (40, 38, 46), 3: (104, 98, 114), 4: (72, 68, 82), 5: (54, 50, 62), 10: (60, 56, 66),
-             6: (110, 24, 36), 7: (70, 16, 26), 8: (200, 48, 62), 9: (236, 104, 112),
+             6: (110, 24, 36), 7: (70, 16, 26), 8: (224, 224, 216), 9: (248, 248, 244),
              11: (220, 40, 56), 12: (100, 14, 28), 13: (248, 88, 96)},
  'salamence': {1: (70, 10, 20), 2: (220, 64, 76), 3: (176, 30, 46), 4: (126, 18, 34),
                6: (34, 32, 40), 7: (52, 48, 60), 8: (100, 94, 112), 9: (72, 68, 82),
@@ -24,16 +24,40 @@ OW = {
  'bagon': {1: (40, 38, 46), 2: (128, 122, 140), 3: (92, 88, 104), 5: (66, 62, 76), 6: (108, 102, 120),
            7: (204, 40, 56), 12: (120, 20, 34), 8: (44, 42, 50), 10: (58, 54, 66), 11: (72, 68, 82), 13: (28, 26, 32)},
  'shelgon': {1: (40, 38, 46), 3: (72, 68, 82), 4: (104, 98, 114), 5: (86, 80, 96), 6: (96, 90, 106),
-             7: (54, 50, 62), 8: (46, 44, 54), 9: (150, 36, 48), 10: (200, 52, 66), 11: (220, 40, 56)},
+             7: (54, 50, 62), 8: (46, 44, 54), 9: (200, 200, 204), 10: (240, 240, 236), 11: (200, 40, 56)},
  'salamence': {1: (70, 10, 20), 2: (220, 64, 76), 4: (150, 24, 40), 8: (180, 32, 48),
                5: (34, 32, 40), 7: (58, 54, 66), 9: (80, 76, 92), 6: (100, 94, 112),
                10: (78, 74, 88), 13: (54, 50, 62), 11: (108, 102, 120), 12: (40, 14, 22)},
 }
 
+# Bagon's eyes share the belly's yellows (8, 9) in its sprites, so the shiny's crimson belly turned them red. Give the
+# eyes their own indices: 13 = the eye's light (normal: index 8's colour), 12 = the eye's middle (normal: index 9's
+# colour); the belly's few darkest pixels (old 12) merge into 9. The normal Bagon looks the same but for those pixels.
+EYES = {'anim_front.png': [(0, (31, 20, 37, 30)), (64, (25, 24, 31, 31))], 'back.png': [(0, (37, 24, 44, 31))]}
+NORMAL_EYE = {12: (192, 160, 96), 13: (248, 224, 144)}
+
+def bagon_eyes(write):
+    for f, boxes in EYES.items():
+        p = G('bagon', f); im = Image.open(p); a = np.array(im); pal = im.getpalette()
+        eye = np.zeros(a.shape, bool)
+        for y0, (x0, ya, x1, yb) in boxes:
+            eye[y0 + ya:y0 + yb, x0:x1] = True
+        if not (a == 13).any():          # not yet done
+            a[(a == 12) & ~eye] = 9
+            light, mid = eye & (a == 8), eye & ((a == 9) | (a == 12))
+            a[light] = 13; a[mid] = 12
+        for i, c in NORMAL_EYE.items(): pal[3 * i:3 * i + 3] = list(c)
+        if write:
+            o = Image.fromarray(a, 'P'); o.putpalette(pal); o.save(p)
+    if write:
+        n = rd(G('bagon', 'normal.pal'))
+        for i, c in NORMAL_EYE.items(): n[i] = c
+        wr(G('bagon', 'normal.pal'), n)
+
 def rd(p):
     L = open(p).read().split('\n'); return [tuple(int(v) for v in l.split()) for l in L[3:19] if l.strip()]
 def wr(p, pal):
-    open(p, 'w').write('JASC-PAL\n0100\n16\n' + ''.join('%d %d %d\n' % c for c in pal))
+    open(p, 'w', newline='').write('JASC-PAL\r\n0100\r\n16\r\n' + ''.join('%d %d %d\r\n' % c for c in pal))
 def newpal(base, m):
     return [m.get(i, c) for i, c in enumerate(base)]
 def render(path, pal, crop=None, scale=3):
@@ -44,6 +68,7 @@ def render(path, pal, crop=None, scale=3):
 
 if __name__ == '__main__':
     write = '--write' in sys.argv
+    bagon_eyes(write)
     out = [x for x in sys.argv[1:] if x.endswith('.png')]
     rows = []
     for m in ('bagon', 'shelgon', 'salamence'):
