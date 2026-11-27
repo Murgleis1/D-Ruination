@@ -1123,6 +1123,26 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrShrine = {
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 
+// Alphonse's grave (Hollow Hill): a headstone over a grave dug open from below
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrGrave = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_DR_GRAVE,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 256,
+    .width = 16,
+    .height = 32,
+    .paletteSlot = PALSLOT_NPC_1,
+    .shadowSize = SHADOW_SIZE_S,
+    .inanimate = TRUE,
+    .compressed = FALSE,
+    .tracks = TRACKS_NONE,
+    .oam = &gObjectEventBaseOam_16x32,
+    .subspriteTables = sOamTables_16x32,
+    .anims = sAnimTable_Inanimate,
+    .images = sPicTable_DrGrave,
+    .affineAnims = gDummySpriteAffineAnimTable,
+};
+
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PaleVeluza = {
     .tileTag = TAG_NONE,
     .paletteTag = OBJ_EVENT_PAL_TAG_DR_SHIPS,

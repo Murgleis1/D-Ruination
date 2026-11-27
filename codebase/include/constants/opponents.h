@@ -328,12 +328,17 @@
 #define TRAINER_DR_EDEN_LAB_3               231 // player chose Tinkatink -> Eden stole Teddiursa
 // --- Dreamstone Ruination: Route 11 ---
 #define TRAINER_DR_R11_FISHER_TAM           232 // the west beach
+// --- Dreamstone Ruination: Hollow Hill ---
+#define TRAINER_DR_HH_ADVENTURER_FINN       233 // one-off, a nod to Adventure Time
+#define TRAINER_DR_HH_REVENANT_ALPHONSE     234 // by his grave, southwest woods
+#define TRAINER_DR_HH_WITCH_HELGA           235 // she woke him
+#define TRAINER_DR_HH_ROYAL_OFFICER_DENTH   236 // takes the masked player for a Marauder
 
 // NOTE: each Trainer uses a flag to mark it defeated; MAX_TRAINERS_COUNT sets how many flags are reserved (raised to 1024, 2026-11-27)
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
-#define TRAINERS_COUNT                      233
+#define TRAINERS_COUNT                      237
 #define MAX_TRAINERS_COUNT                  1024 // Dreamstone Ruination (user 2026-11-27): raised from 864; old saves need not load
 #define TRAINER_PARTNER(partner)           (MAX_TRAINERS_COUNT + partner)
 

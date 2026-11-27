@@ -341,7 +341,9 @@
 #define OBJ_EVENT_GFX_DR_STUDENT_C                    322
 // DR_CAST end [defineOBJ_EVENT_GFX_TEMPLAR_MALE]
 
-#define NUM_OBJ_EVENT_GFX                          323
+#define OBJ_EVENT_GFX_DR_GRAVE                        323   // Alphonse's grave, Hollow Hill (tools/art/hollowhill/grave)
+
+#define NUM_OBJ_EVENT_GFX                          324
 
 
 // These are dynamic object gfx ids.
@@ -488,6 +490,7 @@
 #define OBJ_EVENT_PAL_TAG_AMBROSE               0x112E
 #define OBJ_EVENT_PAL_TAG_TEMPLAR               0x112F
 #define OBJ_EVENT_PAL_TAG_DR_SHRINE             0x1130
+#define OBJ_EVENT_PAL_TAG_DR_GRAVE              0x1134
 #define OBJ_EVENT_PAL_TAG_DR_SHIPS              0x1131
 #define OBJ_EVENT_PAL_TAG_DR_BOATS              0x1132
 #define OBJ_EVENT_PAL_TAG_TEMPLAR_MALE          0x1133

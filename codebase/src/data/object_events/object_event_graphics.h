@@ -564,6 +564,8 @@ const u16 gObjectEventPal_DrStudentC[] = INCBIN_U16("graphics/object_events/pics
 // DR_CAST end [gObjectEventPal_TemplarMale]
 const u32 gObjectEventPic_DrShrine[] = INCBIN_U32("graphics/object_events/pics/misc/dr_shrine.4bpp");
 const u16 gObjectEventPal_DrShrine[] = INCBIN_U16("graphics/object_events/pics/misc/dr_shrine.gbapal");
+const u32 gObjectEventPic_DrGrave[] = INCBIN_U32("graphics/object_events/pics/misc/dr_grave.4bpp");
+const u16 gObjectEventPal_DrGrave[] = INCBIN_U16("graphics/object_events/pics/misc/dr_grave.gbapal");
 const u32 gObjectEventPic_PaleVeluza[] = INCBIN_U32("graphics/object_events/pics/misc/dr_pale_veluza.4bpp");
 const u32 gObjectEventPic_Merchantman[] = INCBIN_U32("graphics/object_events/pics/misc/dr_merchantman.4bpp");
 const u32 gObjectEventPic_FishingSloop[] = INCBIN_U32("graphics/object_events/pics/misc/dr_fishing_sloop.4bpp");

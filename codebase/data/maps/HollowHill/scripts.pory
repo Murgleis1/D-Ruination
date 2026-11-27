@@ -19,3 +19,35 @@ script HollowHill_EventScript_ToMirroh19 {
     setvar(VAR_TEMP_1, 1)          # (else the trigger fires again every frame of the fade)
     warp(MAP_MIRROH_GATE, 31, 21)
 }
+
+// ============ Stage 2: trainers you can run across (2026-11-27) ============
+// Lines: docs/route11_hollowhill_draft.md §3 (approved by the user 2026-11-27, with the user's own tweaks).
+
+script DR_HH_Finn {
+    trainerbattle_single(TRAINER_DR_HH_ADVENTURER_FINN, format("Hail, masked one! Jake and I have sworn to rid Hollow Hill of every fell thing that haunts it, and you look foul enough to start with. En garde!"), format("Mathematical! You fight like a hero out of the old songs."))
+    msgbox(format("Jake and I have been hunting for whatever made these webs. We've seen so many all over the Hill... yet never whatever spun them. I'm starting to hope we never do."), MSGBOX_AUTOCLOSE)
+    end
+}
+
+script DR_HH_Alphonse {
+    trainerbattle_single(TRAINER_DR_HH_REVENANT_ALPHONSE, format("Warm... so warm. Your soul burns brighter than a hearth in winter. Let me have it!!"), format("Cold again. It's always so cold."))
+    msgbox(format("That witch nearby woke me, and now the grave won't take me back. But I may have risen even without her interference. Something in the Hill won't let the dead sleep for long."), MSGBOX_AUTOCLOSE)
+    end
+}
+
+script DR_HH_Helga {
+    trainerbattle_single(TRAINER_DR_HH_WITCH_HELGA, format("Don't look at me like that! I only wanted to ask the dead man where he'd hidden his coin, and now he won't lie back down."), format("Fine, fine! Just don't tell the Templars it was me."))
+    msgbox(format("I raised that man's spirit with a rite out of my grandmother's book. Now he floats about it day and night, and I daren't go near enough to lay him back to rest."), MSGBOX_AUTOCLOSE)
+    end
+}
+
+script DR_HH_Denth {
+    trainerbattle_single(TRAINER_DR_HH_ROYAL_OFFICER_DENTH, format("Halt! A mask, in these woods? You're one of Rip's, I'd stake my pay on it."), format("Whatever you are, you're no common cutthroat."))
+    msgbox(format("I owe you an apology, Rainhawk. Marauders have robbed every cart through these woods, and half of them hide their faces. I see a mask and I see a thief."), MSGBOX_AUTOCLOSE)
+    end
+}
+
+script DR_HH_Grave {
+    msgbox(format("The headstone reads: ALPHONSE. The earth before it has been dug open, from below."), MSGBOX_SIGN)
+    end
+}

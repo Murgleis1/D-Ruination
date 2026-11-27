@@ -75,24 +75,24 @@ Engine note: the Patch swaps a normal ability for the hidden one, and from the h
 - Defeated: Whatever you are, you're no common cutthroat.
 - Talked to after: I owe you an apology, Rainhawk. Marauders have robbed every cart through these woods, and half of them hide their faces. I see a mask and I see a thief.
 
-**Three more trainers to run across (user 2026-11-27)**
+**Three more trainers to run across (user 2026-11-27; final lines as installed, built and walked)**
 
 *Adventurer Finn* (one-off; a nod to Adventure Time; Vanillite Lv.11, shiny Maschiff "Jake" Lv.13). On ring 1's path.
-- Before: Hail, masked one! Jake and I have sworn to rid Hollow Hill of every foul thing that walks it, and you look foul enough to start with!
+- Before: Hail, masked one! Jake and I have sworn to rid Hollow Hill of every fell thing that haunts it, and you look foul enough to start with. En garde!
 - Defeated: Mathematical! You fight like a hero out of the old songs.
-- After: Jake and I came hunting whatever hangs those red webs between the trees. We've found plenty of webs and never the spinner, and I'm starting to hope we never do.
+- After: Jake and I have been hunting for whatever made these webs. We've seen so many all over the Hill... yet never whatever spun them. I'm starting to hope we never do.
 
 *The southwest woods: a grave, a Revenant and the witch who woke him.* A lone gravestone in the southwest woods (a new object: Hollow Hill's tiles are full); **Alphonse** hovers beside it and floats up to the player who strays into his sight; **Helga** keeps her distance behind the trees nearby.
 
 *Revenant Alphonse* (Gastly Lv.12, Shedinja Lv.20: Wonder Guard walls anything without a super-effective hit, and is worth a lot of experience to a player who has one).
-- Before: Warm... so warm. Your soul burns brighter than the witch's. Give it here, living one.
-- Defeated: Cold again. Always so cold.
-- After: Helga woke me with her mumbling, and now the grave won't take me back. The others rise every night, more than ever, as if something under the hill were calling us.
+- Before: Warm... so warm. Your soul burns brighter than a hearth in winter. Let me have it!!
+- Defeated: Cold again. It's always so cold.
+- After: That witch nearby woke me, and now the grave won't take me back. But I may have risen even without her interference. Something in the Hill won't let the dead sleep for long.
 
 *Witch Helga* (Braixen Lv.14).
-- Before: Don't look at me like that! I only asked the dead man where he'd hidden his coin, and now he won't lie back down.
+- Before: Don't look at me like that! I only wanted to ask the dead man where he'd hidden his coin, and now he won't lie back down.
 - Defeated: Fine, fine! Just don't tell the Templars it was me.
-- After: I raised his spirit from that grave yonder with a rite out of my grandmother's book. Now Alphonse floats about it day and night, and I daren't go near enough to lay him back to rest.
+- After: I raised that man's spirit with a rite out of my grandmother's book. Now he floats about it day and night, and I daren't go near enough to lay him back to rest.
 
 **The far side: Rip takes the chick**
 - **Rip:** Cor, lookit this! A black-an'-white Rufflet, an' not another like it in all Cormoria, so 'elp me. The Beads'd cough up a king's ransom for this little beauty, or some posh lord wiv more coin than sense. Ol' Rip's gonna be rollin' in it, innit!

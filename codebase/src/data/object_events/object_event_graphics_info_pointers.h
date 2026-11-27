@@ -61,6 +61,7 @@ extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrStudentB;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrStudentC;
 // DR_CAST end [externconststructObjectEventGraphicsInfo]
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrShrine;
+extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrGrave;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PaleVeluza;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Merchantman;
 extern const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_FishingSloop;
@@ -403,6 +404,7 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_DR_STUDENT_C] = &gObjectEventGraphicsInfo_DrStudentC,
 // DR_CAST end [OBJ_EVENT_GFX_TEMPLAR_MALEgObjectEventGr]
     [OBJ_EVENT_GFX_DR_SHRINE] = &gObjectEventGraphicsInfo_DrShrine,
+    [OBJ_EVENT_GFX_DR_GRAVE] = &gObjectEventGraphicsInfo_DrGrave,
     [OBJ_EVENT_GFX_PALE_VELUZA] = &gObjectEventGraphicsInfo_PaleVeluza,
     [OBJ_EVENT_GFX_MERCHANTMAN] = &gObjectEventGraphicsInfo_Merchantman,
     [OBJ_EVENT_GFX_FISHING_SLOOP] = &gObjectEventGraphicsInfo_FishingSloop,

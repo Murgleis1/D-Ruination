@@ -11409,3 +11409,68 @@ IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
 Corphish
 Level: 10
 IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+=== TRAINER_DR_HH_ADVENTURER_FINN ===
+Name: Finn
+Class: Adventurer
+Pic: DR Adventurer
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Basic Trainer
+
+Vanillite
+Level: 11
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+Jake (Maschiff) (M)
+Level: 13
+Shiny: Yes
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+=== TRAINER_DR_HH_REVENANT_ALPHONSE ===
+Name: Alphonse
+Class: Revenant
+Pic: DR Revenant
+Gender: Male
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Gastly
+Level: 12
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+Shedinja
+Level: 20
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+=== TRAINER_DR_HH_WITCH_HELGA ===
+Name: Helga
+Class: Witch
+Pic: DR Witch
+Gender: Female
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Braixen (F)
+Level: 14
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+=== TRAINER_DR_HH_ROYAL_OFFICER_DENTH ===
+Name: Denth
+Class: Royal Officer
+Pic: DR Royal Officer
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Basic Trainer
+
+Honedge
+Level: 12
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+Nidorino
+Level: 14
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
