@@ -1,0 +1,53 @@
+MonoMyth (Pokemon_MonoMyth_1.gba), Fabrizia's museum in North Edelweiss: Luciano tells the legend of Athanto.
+Story text is packed 6 bits a symbol with a word dictionary (decoder: tools/npc/monomyth_text/dec6.py, dec_at(offset)).
+The scene's lines in order are not all recovered (a few strings start mid-sentence); the legend itself is whole.
+
+0x34f56c
+{FC19:32}Oh, I used to love that story! | {FC19:33}I recall some old expeditions looking
+for the capital of the old kingdom, but never finding any of the ruins. | {FC19:35}Who knows if they really even existed…?
+That's what makes history fun!
+
+0x34f623
+
+the story going. | {FC19:01}They say it rests today atop Mt. Thunder,
+the "Peak of Kings,' to keep watch as the true King of Athanto.
+
+0x34f9d9
+Long ago, when Athanto was just
+one landform… | A magnificent, beautiful Pokémon
+with a fleece made of golden fur was said to have carved the hills with its own claws to serve as a sanctuary for all Pokémon.
+
+0x34fa66
+Then, some time after that, Athanto
+was settled by a great, prosperous kingdom. | This kingdom built up their castle
+and villages under the careful watch of this tremendously powerful Pokémon. | However, the kingdom soon began to
+exploit the lush lands of Athanto. | For every tree they planted…
+…A hundred more were cut down. | A thousand Pokémon were culled
+every day to feed their armies.
+
+0x34fb75
+This angered the guardian
+Pokémon. | It descended down from its
+mountain home in a great fury. | It razed their villages and cities to
+the ground, and in a final act of revenge… | It slayed the royal family in their
+own high court. | When all of the kingdom's men were
+gone, the beast roared. | It roared so fiercely that the ground
+began to shift and shatter. | One final tremor fractured Athanto
+straight down the middle… | And the tsunamis brought by the
+great seismic terror filled the divide with a vast, deep ocean. | Through its bloody rampage, the
+tattered remains of its golden coat fell to the side… | And the snarling beast within
+stood for all to see.
+
+0x34fd53
+And so, it ascended its great
+mountain once again. | Its golden coat turned a hideous
+shade reflecting the disgraced halves of Athanto. | It's said to still guard Athanto from
+those that would impede on its lush, natural life and beauty.
+
+0x34f0bd
+{FC19:00}And, when they fail him… | …he discards them like it's nothing. | Your friend is far from the first, and
+unlikely to be the last. | {FC19:01}This "Golden Fleece' helps Stenvard
+exert control over the aforementioned guardian Pokémon. | {FC19:00}Though I cannot attest to every folktale
+about it… the guardian Pokémon of Athanto is a very real being. | The castle that Stenvard trains in is
+tucked deep within a forest called, eh… {FC19:07}"Webbed Woods,' was it…? | Somewhere odd off of Route 2. | {FC19:00}Though I can't say I know for sure where
+they'll be… if you ever want to see your friend again…

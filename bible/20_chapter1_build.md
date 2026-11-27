@@ -127,6 +127,20 @@ Opt-in per character (the Pokémon Empire model): **dialogue is portrait-less by
    before the story** (MonoMyth's region; the mending masks come from there). Cormoria still fights **overseas
    skirmishes with the tyrannical theocratic dynasties ruling Kanto and Johto**. Abroad there is **trouble and fear of
    civil war in Kalos, Paldea and Tellius**. NPCs talk of all of it (§16.15).
+   **Athanto, as MonoMyth tells it (its museum legend, decoded 2026-11-26: `assets/intro_reference/monomyth_athanto_legend.txt`;
+   credit MonoMyth):** a guardian Pokémon with a **fleece of golden fur** carved Athanto's hills with its claws as a
+   sanctuary for all Pokémon. A great, prosperous **kingdom** (castles, villages; feudal lords and **knights raised from
+   infancy with a pup that grew into their Arcanine**, per MonoMyth's Pokédex) settled under its watch, then began to
+   **exploit the land: a hundred trees cut for every one planted, a thousand Pokémon culled a day to feed its armies**.
+   The guardian came down from its mountain in fury, **razed the villages and cities, and slew the royal family in their
+   own high court**; when the kingdom's men were gone it roared, and **a final tremor split Athanto down the middle**,
+   the sea flooding the divide. Its golden coat fell away (the **Golden Fleece**) and the beast beneath (MonoMyth's
+   Weildrhide) went back up its mountain (Mt. Thunder, "the Peak of Kings") to guard the land. The capital's ruins were
+   never found; **Fort Elderflower** is one of the kingdom's few surviving fortresses. **The user (2026-11-26): that
+   kingdom stood in the same era as the Cormorian Empire, and fell two years before the story** (MonoMyth's modern
+   scholars date its ruins to "roughly 500 years" ago: their estimate, not ours). Cormorians know it as news from abroad:
+   the guardian's wrath, the kingdom gone, the land split by the sea. **The mending masks are our own addition** (not in
+   MonoMyth, and nothing there contradicts them); since the fall none are made, which is why one is worth so much.
 
 ### 16.7 Sprite-asset inventory (committed to the repo)
 

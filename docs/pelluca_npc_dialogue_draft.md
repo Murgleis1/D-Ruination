@@ -1,4 +1,4 @@
-# Pelluca NPC dialogue, draft v2 (2026-11-26, for the user's approval)
+# Pelluca NPC dialogue, draft v3 (2026-11-26, for the user's approval)
 
 Rules: bible §16.15. Every line carries a hint or real world-building, spoken in a medieval manner, three or four
 sentences at most. *(flavour)* = a small detail the bible does not state, sitting on canon.
@@ -24,14 +24,14 @@ sentences at most. *(flavour)* = a small detail the bible does not state, sittin
 - **Barkeep:** Provisions for the road? Have a look. / after: Safe roads. Aye, the prices rose again. Every ball and tonic on that shelf comes through Sylphon & Stone, and their factor wants his coin before the crates are opened.
 - **Mariner:** Two ships in this week, and one came round by Sevii. Kanto's bird-priests have taken the old chapel of Arceus for their own, her crew say. And still the skirmishes off Johto, for all the talk of peace. But you'd know more of that than I, Rainhawk. *(flavour: the chapel)*
 - **Fisherman:** Something's breeding in the water by the sealed cave. My nets come up in ribbons, and every time there's Crawdaunt in them. More than I've ever seen in one place.
-- **Sage:** (first time only) That mask is Athanto work. I'd not thought to see another, now the kingdom has fallen. Two years gone, and still none can say rightly how. ¶ (every time) A new name, a forgotten art, a change of temper... What would you have of me? / Come again whenever you've need.
+- **Sage:** (first time only) That mask is Athanto work. There'll be no more of them now. Two years past, the guardian of that land came down from its mountain and left neither king nor lord alive. ¶ (every time) A new name, a forgotten art, a change of temper... What would you have of me? / Come again whenever you've need.
 - **Caretaker:** I tend the Pokémon a traveller can't carry on the road. Shall I fetch yours? / after: They're in good hands. Half the beasts I board belong to sailors who won't sail east, with Paldea's lords at each other's throats and Kalos little better.
 
-## Dormitory
+## Dormitory (three different faces from the classroom students, user 2026-11-26)
 - **Cook:** Supper's at sundown. We had a Tellian lad in this kitchen till word came his tribes were taking up arms against each other. He wrote once, and never again.
-- **Student A** (tables): On debate nights a body can't hear himself think in here. Last week we argued whether Cormor Dream-Eater ever lived at all. Master Orphel never once said which side he favoured.
-- **Student B** (stage): A second-year argued at the lectern that the Empress-mother ought to leave her villa and sit her own throne. Half the hall cheered. The other half went very quiet.
-- **Student C** (upstairs): Quiet hours begin at dark, and of late I'm the one who forgets. I sat up reading of House Jalviss, who found Cormoria's first Mega Stones and died of them to the last. Their ruins are still out there, they say, and something still in them.
+- **Student** (tables; Kid E's walker): On debate nights a body can't hear himself think in here. Last week we argued whether Cormor Dream-Eater ever lived at all. Master Orphel never once said which side he favoured.
+- **Student** (stage; Kid C's walker): A second-year argued at the lectern that the Empress-mother ought to leave her villa and sit her own throne. Half the hall cheered. The other half went very quiet.
+- **Student** (upstairs; Kid B's walker): Quiet hours begin at dark, and of late I'm the one who forgets. I sat up reading of House Jalviss, who found Cormoria's first Mega Stones and died of them to the last. Their ruins are still out there, they say, and something still in them.
 
 ## Academy classroom (new)
 - **Logan:** You'll be the Rainhawk the Headmaster spoke of. Logan Orphel. The Headmaster built this school so trainers would know their Pokémon before they learn to win with them. I ask questions, and I remember who answers them.
@@ -71,7 +71,12 @@ Empire's scholars know: the fairy-tale founding, never the hidden truth. Each ba
 
 **Bottom right: abroad and trade**
 16. *The Merchant Guilds.* Two guilds rule the Empire's trade. Sylphon & Stone deals in all a trainer needs, from balls and tonics to the hauling of Pokémon; Amber-Letz deals in bread, cloth and the goods of the household. ¶ A loose sheet of figures is tucked in the back. Someone has circled one sum in red ink and written beside it: "Where?"
-17. *A Traveller's Account of Athanto.* Far over the sea lay the kingdom of Athanto, whose healers made the mending masks prized in every land. Its people sang a hymn they called the Song of Athanto, and its northern fortresses were older than any in Cormoria. ¶ A newer hand has added at the end: "The kingdom fell in the year before last. This book may be all we ever know of it."
+17. *A Traveller's Account of Athanto.* Far over the sea lies the kingdom of Athanto, a land of castles and knights, whose healers make the mending masks prized in every land. Its lords give each child of noble birth a pup to raise, that the two may grow up together into knight and Arcanine. Above it all, on the highest mountain, dwells a guardian Pokémon with a fleece of gold, said to have carved the hills with its claws as a sanctuary for every Pokémon. ¶ A newer hand has added at the end: "Two years past, the guardian came down from its mountain. They say the kingdom had felled the forests and culled the beasts of the land to feed its armies. The kingdom is gone, and the sea runs through the middle of its land."
 18. *Paldea.* Paldea is a young empire and a poor one. A Paldean is born a lord or a serf, and a serf may not learn his letters. Its envoys smile at the Cormorian court, but there is little love for the Empire in their country.
 
 **The reading stand (10, 3):** *The Academy's Charter.* Founded at Pelluca by Cadmus Umbra, Vizier of Education, under the Ministry of Education: the Eastern Charter Trainer Initiative. Here trainers shall learn to know their Pokémon before they learn to wield them.
+
+## Main story: Athanto audit (2026-11-26, against MonoMyth's own legend, assets/intro_reference/monomyth_athanto_legend.txt)
+- **Cadmus's letter (proposed edit, user's text):** "...Such masks hasten healing and ward off evil. ~~They are not easily obtained in Cormoria~~ **None have been made since the kingdom fell**, and one is ~~worth~~ **now worth** more than most noble estates, so expect a few stares."
+- **The thief at the lab:** "Is that a mending mask? From Athanto? That's worth more than this whole lab." Unchanged: consistent.
+- **The mending mask itself** is our own invention (a MonoMyth Easter egg in spirit): MonoMyth never mentions such masks, but nothing in it contradicts them (its First Peoples left almost no record).
