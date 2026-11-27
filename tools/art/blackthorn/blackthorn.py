@@ -12,7 +12,7 @@ G = lambda m, f: os.path.join(C, 'graphics', 'pokemon', m, f)
 FRONT = {
  'bagon': {1: (46, 44, 54), 2: (38, 22, 28), 3: (128, 122, 140), 4: (92, 88, 104), 6: (66, 62, 76),
            7: (28, 26, 32), 10: (44, 42, 50), 11: (64, 60, 72),
-           8: (204, 40, 56), 9: (150, 26, 42), 12: (208, 208, 216), 13: (248, 248, 248), 14: (110, 30, 44), 15: (226, 110, 120)},
+           8: (204, 40, 56), 9: (150, 26, 42), 12: (236, 236, 240), 13: (248, 248, 248), 14: (110, 30, 44), 15: (226, 110, 120)},
  'shelgon': {1: (40, 38, 46), 3: (104, 98, 114), 4: (72, 68, 82), 5: (54, 50, 62), 10: (60, 56, 66),
              6: (110, 24, 36), 7: (70, 16, 26), 8: (224, 224, 216), 9: (248, 248, 244),
              11: (220, 40, 56), 12: (100, 14, 28), 13: (248, 88, 96)},
@@ -30,24 +30,33 @@ OW = {
                10: (78, 74, 88), 13: (54, 50, 62), 11: (108, 102, 120), 12: (40, 14, 22)},
 }
 
-# Bagon's eyes are the small white patches under the head plate (beside the black pupil), drawn in the head plate's
-# own whites (3, 4); the shiny's dark head plate turned them grey. (The yellow patch further back is the pattern on the
-# side of its face: crimson in the shiny.) Give the eyes their own indices: 13 = the eye's white (normal: index 3's
-# colour), 12 = the eye's light grey (normal: index 4's colour); the belly's few darkest pixels (old 12) merge into 9.
-# The normal Bagon looks the same but for those pixels. Boxes: (frame y offset, (x0, y0, x1, y1)).
-EYES = {'anim_front.png': [(0, (26, 22, 31, 26)), (64, (20, 26, 25, 29))], 'back.png': [(0, (44, 29, 48, 33))]}
-NORMAL_EYE = {12: (208, 200, 216), 13: (240, 240, 248)}
+# Bagon's eyes: in the front sprite they are the small white patches under the head plate beside the black pupil,
+# drawn in the head plate's own whites (3, 4), which the shiny's dark head plate turned grey (the yellow patch further
+# back is the pattern on the side of its face: crimson in the shiny). In the back sprite the eye is the yellow ring
+# round the black pupil (9, 12), which the shiny's crimson belly turned red. Every other index is in use, so:
+#   13 = white (normal: index 3's colour): the front eyes' whites, and the back sprite's fang;
+#   12 = the back eye's ring (normal: index 9's colour);
+# the belly's few darkest pixels (old 12) merge into 9. The normal Bagon looks the same but for a few pixels.
+# Boxes: (frame y offset, (x0, y0, x1, y1)).
+FRONT_EYES = [(0, (26, 22, 31, 26)), (64, (20, 26, 25, 29))]
+BACK_FANG, BACK_EYE = (44, 29, 48, 33), (37, 24, 44, 31)
+NORMAL_EYE = {12: (192, 160, 96), 13: (240, 240, 248)}
+
+def box(shape, boxes):
+    m = np.zeros(shape, bool)
+    for y0, (x0, ya, x1, yb) in boxes: m[y0 + ya:y0 + yb, x0:x1] = True
+    return m
 
 def bagon_eyes(write):
-    for f, boxes in EYES.items():
+    for f in ('anim_front.png', 'back.png'):
         p = G('bagon', f); im = Image.open(p); a = np.array(im); pal = im.getpalette()
-        eye = np.zeros(a.shape, bool)
-        for y0, (x0, ya, x1, yb) in boxes:
-            eye[y0 + ya:y0 + yb, x0:x1] = True
         if not (a == 13).any():          # not yet done
             a[a == 12] = 9
-            white, grey = eye & (a == 3), eye & (a == 4)
-            a[white] = 13; a[grey] = 12
+            if f == 'anim_front.png':
+                a[box(a.shape, FRONT_EYES) & ((a == 3) | (a == 4))] = 13
+            else:
+                a[box(a.shape, [(0, BACK_FANG)]) & ((a == 3) | (a == 4))] = 13
+                a[box(a.shape, [(0, BACK_EYE)]) & (a == 9)] = 12
         for i, c in NORMAL_EYE.items(): pal[3 * i:3 * i + 3] = list(c)
         if write:
             o = Image.fromarray(a, 'P'); o.putpalette(pal); o.save(p)
