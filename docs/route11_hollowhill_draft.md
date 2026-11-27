@@ -30,7 +30,7 @@ same palette with black and white swapped.
 - **Farmer** (Farmer walker): Marauders took two of my Mareep last moon. The drovers say their chief is a rogue called Rougehand.
 - **His wife** (Commoner Woman A), before the theft: A Templar lass stopped for water at dawn. She carried a little bird, black on one side and white on the other.
   After the theft: We bar the shutters when the fog comes off Hollow Hill. Some nights you can hear marching in it.
-- **Their daughter** (Kid A): Mama says the Templars have greater worries, up on the mountain.
+- **Their daughter** (Kid A): Mama says the Templars have a big cathedral up in the mountains somewhere. I would love to see it someday!
 
 **The west beach trainer: Fisher Tam** (Krabby Lv.9, Corphish Lv.10)
 - Before: The tide's out and the fish won't bite, so you'll have to do.
@@ -58,8 +58,8 @@ same palette with black and white swapped.
 - **Rip:** Oi oi! Show the Rainhawk 'ow Marauders say 'ello, you two!
 - **Double battle: Goon Bend (Poochyena Lv.10, Zubat Lv.10) and Bandit Dover (Purrloin Lv.10, Murkrow Lv.11).** Bend defeated: Should've stayed a cooper. Dover defeated: Rip's going to skin us.
 - **Rip:** Gormless, the pair o' yer! Couldn't fight yer way out of a wet sack. Stand aside an' let ol' Rip sort out this bleedin' mess.
-- **Rip 1v1: Palpitoad, Herdier, and a shiny Pancham, his pride and joy** (user; levels proposed 12 / 12 / 14; the Pancham grows into Pangoro over his later meetings). Defeated: Strike me pink! You beat the unholy piss outta me!
-- **Rip:** Right, keep the bloomin' bird, guv'nor. Ol' Rip knows when 'e's been 'ad, but I've got more schemes than a mangy Poochyena's got fleas. Toodle-pip, Rainhawk, you ain't seen the last o' Rip! *(the three run off north)*
+- **Rip 1v1: Palpitoad, Herdier, and a shiny Pancham, his pride and joy** (user; **levels 13 / 13 / 15**; the Pancham grows into Pangoro over his later meetings). **His shiny Pancham follows him in the overworld** the way the player's Pokémon follow the player. Defeated: Strike me pink! You beat the unholy piss outta me!
+- **Rip:** Right, keep the bloomin' bird, guv'nor. Ol' Rip knows when 'e's been 'ad, but I've got more schemes than a mangy Poochyena's got fleas. Toodle-pip, Rainhawk, you ain't seen the last o' Rip! *(Rip runs off north with his Pancham right behind him; Bend and Dover run after them)*
 - The Rufflet cries, hops to the player (a "!" and a heart emote), and joins: "{PLAYER} received the Rufflet!" then the nickname prompt.
 
 **Templar HQ, the quest's end** (user): only if the player rescued the Rufflet.
@@ -67,8 +67,8 @@ same palette with black and white swapped.
 - If the player has not rescued it: **Loulan:** Any sign of the Rufflet? Those Marauders can't have gone far.
 (Ambrose himself is not at Templar HQ until the first Trial is won; see the bible, Beat 6b and the Opal.)
 
-**Glaive at the north exit (Beat 6b, user)**: as the player leaves Hollow Hill northward, **Glaive** stops them. He has been escorting a Royal Officer (Denthorn, presumably) to look into reports of thieves, the Revenants rising round the Hill, and whispers of a strange cult round the Hill and Mt. Mirroh. He sees the mask, asks the player's name and rank, scoffs at the answer, and fights. Beaten, he lashes out: he will remember the player, and he will not suffer such a disgrace again; he stomps off. Osrid, alone (his portrait), wonders whether he will get to fight him again, dragons being so rare. *Lines to draft next.*
+**Glaive at the north exit (Beat 6b, user)**: as the player leaves Hollow Hill northward, **Glaive** stops them. He has been escorting a Royal Officer, Denthorn, to look into reports of thieves, the Revenants rising round the Hill, and whispers of a strange cult round the Hill and Mt. Mirroh. He sees the mask, asks the player's name and rank, scoffs at the answer, and fights. Beaten, he lashes out: he will remember the player, and he will not suffer such a disgrace again; he stomps off. Osrid, alone (his portrait), wonders whether he will get to fight him again, dragons being so rare. **This is G1 of his five-fight ladder (bible §7): Bagon "Blackthorn" (the black-and-crimson shiny) and Turtonator (Ruination buff).** His sprites are already in the game. *Levels and lines to draft next.*
 
 ## Open points
-- Rip's levels (proposed 12 / 12 / 14) and Glaive's Chapter 1 team and level.
+- Glaive's G1 levels.
 - Glaive's lines (next draft).
