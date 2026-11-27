@@ -33,6 +33,12 @@ Flying/Dark, the stats and abilities above, no eggs (one of a kind), E. Rufflet 
 chosen. Art in `graphics/pokemon/{rufflet,braviary}/emergent/`. Adamant and 31 IVs are set by the gift script
 (Hollow Hill), not by the species.
 
+**The gift (user 2026-11-27): it arrives holding an Ability Patch**, so early on the player chooses between the normal
+ability it rolled (Intimidate or Opportunist) and Rocky Payload. Planned call: `givemon SPECIES_RUFFLET_EMERGENT, 12,
+ITEM_ABILITY_PATCH, nature=NATURE_ADAMANT, all six IVs 31`; it knows Peck, Leer, Hone Claws, Knock Off from its learnset.
+Engine note: the Patch swaps a normal ability for the hidden one, and from the hidden one always back to slot 1
+(Intimidate).
+
 ## 2. Route 11
 
 **The farmhouse** (shortened, user):
