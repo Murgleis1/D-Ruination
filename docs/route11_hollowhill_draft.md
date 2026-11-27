@@ -14,7 +14,7 @@ Scenes show action through sprites, emotes and cries, never narration. `¶` = ne
 | **E. Braviary** | 95 | **144** | 88 | 50 | 84 | 74 | 535 |
 
 E. Braviary: harder-hitting and tankier on both sides than either Braviary, HP a little under Braviary's, Speed a
-little under Braviary's (still above H. Braviary's 65). Flying/Dark. Keen Eye / Sheer Force / Rocky Payload (hidden).
+little under Braviary's (still above H. Braviary's 65). Flying/Dark. **Intimidate / Opportunist / Rocky Payload (hidden)** (user 2026-11-27; was Keen Eye / Sheer Force).
 Evolves at Lv.45. Joins at Lv.12, **always Adamant, with perfect IVs (31 in every stat)** (user).
 
 **Learnset to Lv.20** (later Dark moves to come, user): Lv.1 Peck, Leer · Lv.6 Hone Claws · Lv.10 Knock Off ·
