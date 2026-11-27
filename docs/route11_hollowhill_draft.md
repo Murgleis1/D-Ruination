@@ -15,7 +15,7 @@ Scenes show action through sprites, emotes and cries, never narration. `¶` = ne
 
 E. Braviary: harder-hitting and tankier on both sides than either Braviary, HP a little under Braviary's, Speed a
 little under Braviary's (still above H. Braviary's 65). Flying/Dark. Keen Eye / Sheer Force / Rocky Payload (hidden).
-Evolves at Lv.45. Joins at Lv.12.
+Evolves at Lv.45. Joins at Lv.12, **always Adamant, with perfect IVs (31 in every stat)** (user).
 
 **Learnset to Lv.20** (later Dark moves to come, user): Lv.1 Peck, Leer · Lv.6 Hone Claws · Lv.10 Knock Off ·
 Lv.15 Rock Tomb · **Lv.20 Drill Peck** (80 power, physical; the alternative is Acrobatics, 110 when it holds no item).
