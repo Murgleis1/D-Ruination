@@ -1,4 +1,4 @@
-# Chapter 1 wild Pokémon, draft v1.1 (2026-11-27, for refinement)
+# Chapter 1 wild Pokémon, v1.2 (2026-11-27, approved and built)
 
 User 2026-11-27: map every wild Pokémon opportunity in Chapter 1. The player must be able to build a team that beats Kimaris (Trial 1, cap 18). Besides the starter, the shiny-tease Wimpod and the E. Rufflet, they need a lot of options. Every route gets at least one really rare encounter, about 1%, for players who like to hunt.
 
@@ -182,8 +182,8 @@ Every row has at least two answers in the common slots, plus more from the gifts
 
 ## Decisions for the user
 
-1. The land rates go to 20/20/10/10/10/10/5/5/4/4/1/1 for the whole game: two 1% slots per route. Or a single 1% slot, with the other 1% folded into a common slot.
-2. **An Old Rod in Chapter 1?** Proposed: the fisherman gives it after the Wimpod quest. Without a rod, the fishing tables do nothing until later. A 1% fish, such as Feebas in the Route 11 pond, would also need the fishing rates changed for the whole game, because the Old Rod has only two slots (70/30).
+1. ~~Slot rates~~ **Settled (user 2026-11-27):** 20/20/10/10/10/10/5/5/4/4/1/1 for the whole game. Built.
+2. ~~Old Rod~~ **Settled (user 2026-11-27):** the fisherman gives the Old Rod after the Wimpod quest, whether the Wimpod was caught or defeated. No 1% fish for now (the Old Rod keeps its 70/30).
 3. ~~Gate Mt. Mirroh~~ **Settled (user):** Kimaris keeps the player off the mountain until Trial 1. Build note: Route 13's trigger up the mountain still warps straight in.
 4. ~~Cave encounters~~ **Settled (user):** 1F and the ascent both have wild Pokémon. The 1F floor tiles get marked as cave floor again.
 5. **The Litwick in the chapel: yes (user), with a clever way to obtain it** (to design).

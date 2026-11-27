@@ -29,6 +29,9 @@ def cls(x, y):
         return 'W' if x - R['x0'] in (0, 1, 6, 7) else 'A'
     return 'F'
 
+MB_CAVE = 0x08                                         # floor with wild encounters
+
+
 def compose(seed=7):
     rnd = random.Random(seed)
     V = mt.Vocab(); GV = gg.Vocab()
@@ -479,6 +482,7 @@ def compose(seed=7):
             solid[y, x] = ch in '#Rv|rC' or (x, y) in C1.CRYSTAL_CELLS or (x, y) in chunks or (x, y) in DRESS
             if ch == '~': beh[y, x] = C1.MB_OCEAN_WATER
             if ch == 'v': beh[y, x] = C1.MB_JUMP_SOUTH
+    beh[(~solid) & (beh == 0)] = MB_CAVE              # the cave floor: wild Pokémon (user 2026-11-27)
     xn, yn = C1.EXIT_N; solid[yn, xn - 1] = solid[yn, xn + 1] = True
     solid[yn, xn] = False; beh[yn, xn] = C1.MB_NORTH_ARROW_WARP; elev[yn, xn] = 5
     xs, ys = C1.EXIT_S; solid[ys, xs] = False; beh[ys, xs] = C1.MB_SOUTH_ARROW_WARP; elev[ys, xs] = 3
