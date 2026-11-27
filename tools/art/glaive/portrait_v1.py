@@ -23,43 +23,52 @@ def eyes(a):
     a[52, 59:63] = 2
     a[53, 60] = 11
 
-# Spikes, after MonoMyth's #109 (the user's pick, 2026-11-27): a few big tufts, thick at the root and tapering to a
-# point, curving; a black outline (13) where they meet the background, the very tip in dark brown (2) instead of
-# black, a highlight streak (12) along the upper side and a dark band (10) along the underside.
-# Each tuft: a centreline from inside the hair out to the tip, (x, y) points, and its root half-width.
-TUFTS = [([(27, 18), (25, 14), (24, 11), (24, 9), (25, 8)], 3.4),     # crown, standing up and curling over
-         ([(21, 25), (17, 23), (14, 22), (11, 22)], 3.2),             # back, out to the left
-         ([(18, 35), (15, 35), (12, 37)], 2.6)]                       # lower back, a short flick down
-OUT, TIP, MAIN, DARK, SHADE, HI = 13, 2, 4, 10, 14, 12
+# Unkempt back (user 2026-11-27: "more unkempt in the back, not a bunch of spikes"): the silhouette at the back of
+# the head breaks into uneven clumps, each bulging a pixel or two past the old edge with a small notch between them,
+# the clumps hanging down like loose locks. LEFT: per-row offset of the left edge (+ out, - in) from row Y0;
+# TOP: per-column offset of the top edge (+ up) from column X0.
+Y0 = 18
+LEFT = [1, 2, 1, -1, 0, 1, 2, 2, 1, -1, 0, 1, 2, 3, 2, 1, -1, 0, 1, 2, 2, 1, 0, -1, 0, 1, 2, 1, 0]
+X0 = 18
+TOP = [0, 1, 1, 0, -1, 0, 1, 2, 1, 0, 0, 1, 1, 0]
+OUT, MAIN, DARK, SHADE, HI = 13, 4, 10, 14, 12
 
 def hair(a):
-    for line, w0 in TUFTS:
-        seg = []                                   # sample the centreline densely
-        for (x0, y0), (x1, y1) in zip(line, line[1:]):
-            n = int(max(abs(x1 - x0), abs(y1 - y0)) * 4) + 1
-            seg += [(x0 + (x1 - x0) * t / n, y0 + (y1 - y0) * t / n) for t in range(n)]
-        seg.append(line[-1]); N = len(seg)
-        R = [max(0.6, w0 * (1 - k / (N - 1)) ** 0.55) for k in range(N)]
-        mask = set()
-        for k, (cx, cy) in enumerate(seg):
-            r = R[k]
-            for y in range(int(cy - r) - 1, int(cy + r) + 2):
-                for x in range(int(cx - r) - 1, int(cx + r) + 2):
-                    if (x + 0.5 - cx) ** 2 + (y + 0.5 - cy) ** 2 <= r * r: mask.add((x, y))
-        new = [(x, y) for (x, y) in mask if a[y, x] in (0, OUT)]
-        for x, y in new:
-            k = min(range(N), key=lambda i: (seg[i][0] - x - 0.5) ** 2 + (seg[i][1] - y - 0.5) ** 2)
-            k2 = min(k + 1, N - 1); k1 = max(k - 1, 0)
-            tx, ty = seg[k2][0] - seg[k1][0], seg[k2][1] - seg[k1][1]; L = max(1e-6, (tx * tx + ty * ty) ** 0.5)
-            nx, ny = -ty / L, tx / L
-            if ny > 0: nx, ny = -nx, -ny               # the normal that points up: the upper side
-            side = (x + 0.5 - seg[k][0]) * nx + (y + 0.5 - seg[k][1]) * ny
-            a[y, x] = HI if side > 0.25 * R[k] else DARK if side < -0.45 * R[k] else MAIN
-        for x, y in new:
-            if any(a[y + ddy, x + ddx] == 0 for ddx, ddy in ((1, 0), (-1, 0), (0, 1), (0, -1))): a[y, x] = OUT
-        tx, ty = line[-1]
-        for x, y in new:                           # the tip: dark brown, not black
-            if abs(x + 0.5 - tx) <= 1.2 and abs(y + 0.5 - ty) <= 1.2 and a[y, x] == OUT: a[y, x] = TIP
+    for k, d in enumerate(LEFT):
+        y = Y0 + k; x = np.nonzero(a[y])[0][0]
+        if d > 0:
+            fill = a[y, x + 1] if a[y, x + 1] not in (0, OUT) else MAIN
+            a[y, x] = fill if fill != HI else SHADE
+            a[y, x - d + 1:x] = SHADE if d > 1 else fill
+            a[y, x - d] = OUT
+        elif d < 0:
+            a[y, x] = 0; a[y, x + 1] = OUT
+    for k, d in enumerate(TOP):
+        x = X0 + k; ys = np.nonzero(a[:, x])[0]
+        if not len(ys): continue
+        y = ys[0]
+        if d > 0:
+            a[y, x] = SHADE
+            a[y - d + 1:y, x] = SHADE
+            a[y - d, x] = OUT
+        elif d < 0:
+            a[y, x] = 0; a[y + 1, x] = OUT
+    # re-outline the back of the head: hair touching the background is outline, old outline now inside is shade
+    HAIR = {2, 4, 10, 12, 14, 13}
+    for _ in range(2):
+        for y in range(8, 41):
+            for x in range(2, 34):
+                v = a[y, x]
+                if v not in HAIR: continue
+                bg = any(a[y + dy, x + dx] == 0 for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+                if bg and v != OUT: a[y, x] = OUT
+                elif not bg and v == OUT: a[y, x] = SHADE
+    # lone outline pixels sticking out (background on three sides) are dropped
+    for y in range(8, 41):
+        for x in range(2, 34):
+            if a[y, x] == OUT and sum(a[y + dy, x + dx] == 0 for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))) >= 3:
+                a[y, x] = 0
+    return a
 
 def render(a, pal, s=6):
     rgb = np.array(pal, np.uint8)[a]; rgb[a == 0] = (210, 228, 210)
