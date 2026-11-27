@@ -105,7 +105,7 @@ static const u8 sTenebrisP9[] = _(
     "and he was extremely thorough\n"
     "in recording what he saw.\n"
     "So brace yourself, kiddo.\n"
-    "It's pretty fantastic.");
+    "It's one wild tale.");
 
 static const u8 sTenebrisP10[] = _(
     "It all starts with his own\n"

@@ -25,7 +25,7 @@ In game, a name is shown only when a new speaker starts talking.
 
 > I've barely begun to piece it all together, but if what these papers say is true, everything we thought we knew about the modern world is going to change.
 
-> My ancestor, Cadmus Umbra, was a Vizier of the Cormorian Empire in its waning years, and he was extremely thorough in recording what he saw. So brace yourself, kiddo. It's pretty fantastic.
+> My ancestor, Cadmus Umbra, was a Vizier of the Cormorian Empire in its waning years, and he was extremely thorough in recording what he saw. So brace yourself, kiddo. It's one wild tale.
 
 > It all starts with his own copy of a letter he sent to someone very important...
 
