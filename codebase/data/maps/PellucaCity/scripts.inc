@@ -2366,21 +2366,21 @@ PellucaCity_EventScript_RoadClosedEast::
 
 
 PellucaCity_EventScript_WimpodFlags::
-# 1629 "data/maps/PellucaCity/scripts.pory"
-	setflag FLAG_DR_HIDE_WIMPOD_FOUNTAIN
 # 1630 "data/maps/PellucaCity/scripts.pory"
-	setflag FLAG_DR_HIDE_WIMPOD_WELL
+	setflag FLAG_DR_HIDE_WIMPOD_FOUNTAIN
 # 1631 "data/maps/PellucaCity/scripts.pory"
+	setflag FLAG_DR_HIDE_WIMPOD_WELL
+# 1632 "data/maps/PellucaCity/scripts.pory"
 	setflag FLAG_DR_HIDE_WIMPOD_POND
-# 1632 "data/maps/PellucaCity/scripts.pory"
+# 1633 "data/maps/PellucaCity/scripts.pory"
 	goto_if_set FLAG_DR_WIMPOD_DONE, PellucaCity_EventScript_WimpodFlags_2
-# 1632 "data/maps/PellucaCity/scripts.pory"
+# 1633 "data/maps/PellucaCity/scripts.pory"
 	goto_if_unset FLAG_DR_WIMPOD_QUEST_STARTED, PellucaCity_EventScript_WimpodFlags_2
-# 1635 "data/maps/PellucaCity/scripts.pory"
+# 1636 "data/maps/PellucaCity/scripts.pory"
 	goto_if_set FLAG_DR_WIMPOD_LEFT_WELL, PellucaCity_EventScript_WimpodFlags_7
-# 1637 "data/maps/PellucaCity/scripts.pory"
+# 1638 "data/maps/PellucaCity/scripts.pory"
 	goto_if_set FLAG_DR_WIMPOD_LEFT_FOUNTAIN, PellucaCity_EventScript_WimpodFlags_8
-# 1640 "data/maps/PellucaCity/scripts.pory"
+# 1641 "data/maps/PellucaCity/scripts.pory"
 	clearflag FLAG_DR_HIDE_WIMPOD_FOUNTAIN
 PellucaCity_EventScript_WimpodFlags_6:
 	return
@@ -2389,20 +2389,20 @@ PellucaCity_EventScript_WimpodFlags_2:
 	return
 
 PellucaCity_EventScript_WimpodFlags_7:
-# 1636 "data/maps/PellucaCity/scripts.pory"
+# 1637 "data/maps/PellucaCity/scripts.pory"
 	clearflag FLAG_DR_HIDE_WIMPOD_POND
 	goto PellucaCity_EventScript_WimpodFlags_6
 
 PellucaCity_EventScript_WimpodFlags_8:
-# 1638 "data/maps/PellucaCity/scripts.pory"
+# 1639 "data/maps/PellucaCity/scripts.pory"
 	clearflag FLAG_DR_HIDE_WIMPOD_WELL
 	goto PellucaCity_EventScript_WimpodFlags_6
 
 
 PellucaCity_EventScript_WimpodFountainRim::
-# 1647 "data/maps/PellucaCity/scripts.pory"
+# 1648 "data/maps/PellucaCity/scripts.pory"
 	goto_if_set FLAG_DR_HIDE_WIMPOD_FOUNTAIN, PellucaCity_EventScript_WimpodFountainRim_2
-# 1650 "data/maps/PellucaCity/scripts.pory"
+# 1651 "data/maps/PellucaCity/scripts.pory"
 	goto PellucaCity_EventScript_WimpodFountain
 	return
 
@@ -2411,109 +2411,109 @@ PellucaCity_EventScript_WimpodFountainRim_2:
 
 
 PellucaCity_EventScript_WimpodFountain::
-# 1654 "data/maps/PellucaCity/scripts.pory"
-	lock
 # 1655 "data/maps/PellucaCity/scripts.pory"
-	playmoncry SPECIES_WIMPOD, CRY_MODE_NORMAL
+	lock
 # 1656 "data/maps/PellucaCity/scripts.pory"
-	applymovement 14, PellucaCity_MayorFight_Trigger_Movement_7
+	playmoncry SPECIES_WIMPOD, CRY_MODE_NORMAL
 # 1657 "data/maps/PellucaCity/scripts.pory"
-	waitmovement 0
+	applymovement 14, PellucaCity_MayorFight_Trigger_Movement_7
 # 1658 "data/maps/PellucaCity/scripts.pory"
-	msgbox PellucaCity_EventScript_WimpodFountain_Text_0
-# 1659 "data/maps/PellucaCity/scripts.pory"
-	closemessage
-# 1660 "data/maps/PellucaCity/scripts.pory"
-	applymovement 14, PellucaCity_EventScript_WimpodFountain_Movement_0
-# 1661 "data/maps/PellucaCity/scripts.pory"
 	waitmovement 0
+# 1659 "data/maps/PellucaCity/scripts.pory"
+	msgbox PellucaCity_EventScript_WimpodFountain_Text_0
+# 1660 "data/maps/PellucaCity/scripts.pory"
+	closemessage
+# 1661 "data/maps/PellucaCity/scripts.pory"
+	applymovement 14, PellucaCity_EventScript_WimpodFountain_Movement_0
 # 1662 "data/maps/PellucaCity/scripts.pory"
-	removeobject 14
+	waitmovement 0
 # 1663 "data/maps/PellucaCity/scripts.pory"
-	setflag FLAG_DR_HIDE_WIMPOD_FOUNTAIN
+	removeobject 14
 # 1664 "data/maps/PellucaCity/scripts.pory"
-	setflag FLAG_DR_WIMPOD_LEFT_FOUNTAIN
+	setflag FLAG_DR_HIDE_WIMPOD_FOUNTAIN
 # 1665 "data/maps/PellucaCity/scripts.pory"
-	clearflag FLAG_DR_HIDE_WIMPOD_WELL
+	setflag FLAG_DR_WIMPOD_LEFT_FOUNTAIN
 # 1666 "data/maps/PellucaCity/scripts.pory"
-	addobject 15
+	clearflag FLAG_DR_HIDE_WIMPOD_WELL
 # 1667 "data/maps/PellucaCity/scripts.pory"
+	addobject 15
+# 1668 "data/maps/PellucaCity/scripts.pory"
 	release
 	end
 
 
 PellucaCity_EventScript_WimpodWell::
-# 1672 "data/maps/PellucaCity/scripts.pory"
-	lock
 # 1673 "data/maps/PellucaCity/scripts.pory"
-	playmoncry SPECIES_WIMPOD, CRY_MODE_NORMAL
+	lock
 # 1674 "data/maps/PellucaCity/scripts.pory"
-	applymovement 15, PellucaCity_MayorFight_Trigger_Movement_7
+	playmoncry SPECIES_WIMPOD, CRY_MODE_NORMAL
 # 1675 "data/maps/PellucaCity/scripts.pory"
-	waitmovement 0
+	applymovement 15, PellucaCity_MayorFight_Trigger_Movement_7
 # 1676 "data/maps/PellucaCity/scripts.pory"
-	msgbox PellucaCity_EventScript_WimpodWell_Text_0
-# 1677 "data/maps/PellucaCity/scripts.pory"
-	closemessage
-# 1678 "data/maps/PellucaCity/scripts.pory"
-	applymovement 15, PellucaCity_EventScript_WimpodWell_Movement_0
-# 1679 "data/maps/PellucaCity/scripts.pory"
 	waitmovement 0
+# 1677 "data/maps/PellucaCity/scripts.pory"
+	msgbox PellucaCity_EventScript_WimpodWell_Text_0
+# 1678 "data/maps/PellucaCity/scripts.pory"
+	closemessage
+# 1679 "data/maps/PellucaCity/scripts.pory"
+	applymovement 15, PellucaCity_EventScript_WimpodWell_Movement_0
 # 1680 "data/maps/PellucaCity/scripts.pory"
-	removeobject 15
+	waitmovement 0
 # 1681 "data/maps/PellucaCity/scripts.pory"
-	setflag FLAG_DR_HIDE_WIMPOD_WELL
+	removeobject 15
 # 1682 "data/maps/PellucaCity/scripts.pory"
-	setflag FLAG_DR_WIMPOD_LEFT_WELL
+	setflag FLAG_DR_HIDE_WIMPOD_WELL
 # 1683 "data/maps/PellucaCity/scripts.pory"
-	clearflag FLAG_DR_HIDE_WIMPOD_POND
+	setflag FLAG_DR_WIMPOD_LEFT_WELL
 # 1684 "data/maps/PellucaCity/scripts.pory"
-	addobject 16
+	clearflag FLAG_DR_HIDE_WIMPOD_POND
 # 1685 "data/maps/PellucaCity/scripts.pory"
+	addobject 16
+# 1686 "data/maps/PellucaCity/scripts.pory"
 	release
 	end
 
 
 PellucaCity_EventScript_WimpodPond::
-# 1690 "data/maps/PellucaCity/scripts.pory"
-	lock
 # 1691 "data/maps/PellucaCity/scripts.pory"
-	msgbox PellucaCity_EventScript_WimpodPond_Text_0
+	lock
 # 1692 "data/maps/PellucaCity/scripts.pory"
-	closemessage
+	msgbox PellucaCity_EventScript_WimpodPond_Text_0
 # 1693 "data/maps/PellucaCity/scripts.pory"
-	playmoncry SPECIES_WIMPOD, CRY_MODE_ENCOUNTER
+	closemessage
 # 1694 "data/maps/PellucaCity/scripts.pory"
-	waitmoncry
+	playmoncry SPECIES_WIMPOD, CRY_MODE_ENCOUNTER
 # 1695 "data/maps/PellucaCity/scripts.pory"
-	call DrShinyTease_Ask
+	waitmoncry
 # 1696 "data/maps/PellucaCity/scripts.pory"
-	setwildbattle SPECIES_WIMPOD, 12
+	call DrShinyTease_Ask
 # 1697 "data/maps/PellucaCity/scripts.pory"
-	createmon 1, 0, SPECIES_WIMPOD, 12, abilityNum = 2, move1 = MOVE_AQUA_JET, move2 = MOVE_BUG_BITE, move3 = MOVE_TRAILBLAZE, move4 = MOVE_NONE
+	setwildbattle SPECIES_WIMPOD, 12
 # 1698 "data/maps/PellucaCity/scripts.pory"
-	dowildbattle
+	createmon 1, 0, SPECIES_WIMPOD, 12, abilityNum = 2, move1 = MOVE_AQUA_JET, move2 = MOVE_BUG_BITE, move3 = MOVE_TRAILBLAZE, move4 = MOVE_NONE
 # 1699 "data/maps/PellucaCity/scripts.pory"
-	clearflag FLAG_FORCE_SHINY
+	dowildbattle
 # 1700 "data/maps/PellucaCity/scripts.pory"
-	specialvar VAR_RESULT, GetBattleOutcome
+	clearflag FLAG_FORCE_SHINY
 # 1701 "data/maps/PellucaCity/scripts.pory"
+	specialvar VAR_RESULT, GetBattleOutcome
+# 1702 "data/maps/PellucaCity/scripts.pory"
 	compare VAR_RESULT, B_OUTCOME_WON
 	goto_if_eq PellucaCity_EventScript_WimpodPond_2
-# 1701 "data/maps/PellucaCity/scripts.pory"
+# 1702 "data/maps/PellucaCity/scripts.pory"
 	compare VAR_RESULT, B_OUTCOME_CAUGHT
 	goto_if_eq PellucaCity_EventScript_WimpodPond_2
 PellucaCity_EventScript_WimpodPond_1:
-# 1706 "data/maps/PellucaCity/scripts.pory"
+# 1707 "data/maps/PellucaCity/scripts.pory"
 	release
 	end
 
 PellucaCity_EventScript_WimpodPond_2:
-# 1702 "data/maps/PellucaCity/scripts.pory"
-	removeobject 16
 # 1703 "data/maps/PellucaCity/scripts.pory"
-	setflag FLAG_DR_HIDE_WIMPOD_POND
+	removeobject 16
 # 1704 "data/maps/PellucaCity/scripts.pory"
+	setflag FLAG_DR_HIDE_WIMPOD_POND
+# 1705 "data/maps/PellucaCity/scripts.pory"
 	setflag FLAG_DR_WIMPOD_DONE
 	goto PellucaCity_EventScript_WimpodPond_1
 
@@ -3274,26 +3274,26 @@ DR_PellucaCity_Arrival_Movement_3:
 	face_up
 	step_end
 
-# 1660 "data/maps/PellucaCity/scripts.pory"
+# 1661 "data/maps/PellucaCity/scripts.pory"
 PellucaCity_EventScript_WimpodFountain_Movement_0:
-# 1660 "data/maps/PellucaCity/scripts.pory"
+# 1661 "data/maps/PellucaCity/scripts.pory"
 	walk_fast_left
-# 1660 "data/maps/PellucaCity/scripts.pory"
+# 1661 "data/maps/PellucaCity/scripts.pory"
 	walk_fast_left
-# 1660 "data/maps/PellucaCity/scripts.pory"
+# 1661 "data/maps/PellucaCity/scripts.pory"
 	walk_fast_left
-# 1660 "data/maps/PellucaCity/scripts.pory"
+# 1661 "data/maps/PellucaCity/scripts.pory"
 	walk_fast_left
 	step_end
 
-# 1678 "data/maps/PellucaCity/scripts.pory"
+# 1679 "data/maps/PellucaCity/scripts.pory"
 PellucaCity_EventScript_WimpodWell_Movement_0:
-# 1678 "data/maps/PellucaCity/scripts.pory"
-	walk_fast_up
-# 1678 "data/maps/PellucaCity/scripts.pory"
-	walk_fast_up
-# 1678 "data/maps/PellucaCity/scripts.pory"
-	walk_fast_up
+# 1679 "data/maps/PellucaCity/scripts.pory"
+	walk_fast_right
+# 1679 "data/maps/PellucaCity/scripts.pory"
+	walk_fast_right
+# 1679 "data/maps/PellucaCity/scripts.pory"
+	walk_fast_right
 	step_end
 
 PellucaCity_MayorFight_Trigger_Text_0:
@@ -4185,18 +4185,20 @@ PellucaCity_EventScript_RoadClosedEast_Text_0:
 	.string "Turn back.$"
 
 PellucaCity_EventScript_WimpodFountain_Text_0:
-# 1658 "data/maps/PellucaCity/scripts.pory"
+# 1659 "data/maps/PellucaCity/scripts.pory"
 	.string "Something is splashing in the fountain!\n"
 	.string "A grey shell darts out and skitters\l"
 	.string "away west.$"
 
 PellucaCity_EventScript_WimpodWell_Text_0:
-# 1676 "data/maps/PellucaCity/scripts.pory"
-	.string "A clatter in the well bucket! The\n"
-	.string "creature bolts north toward the pond.$"
+# 1677 "data/maps/PellucaCity/scripts.pory"
+	.string "Something rustles among the\n"
+	.string "toadstools under the pine! The\l"
+	.string "creature scuttles out and makes for\l"
+	.string "the pond.$"
 
 PellucaCity_EventScript_WimpodPond_Text_0:
-# 1691 "data/maps/PellucaCity/scripts.pory"
+# 1692 "data/maps/PellucaCity/scripts.pory"
 	.string "The creature has its back to the water.\n"
 	.string "It turns to fight!$"
 

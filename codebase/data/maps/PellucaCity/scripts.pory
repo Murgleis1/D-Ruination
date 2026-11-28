@@ -1617,7 +1617,8 @@ script PellucaCity_EventScript_RoadClosedEast {
 
 // ================= The Fisherman's Dilemma (Pelluca sidequest; user-approved 2026-11-27) =================
 // The fisherman on the great pier (PellucaHarbour) lost his catch to a Wimpod that fled up into town looking for fresh
-// water. It hides in the plaza fountain's water, then the well by the north-west house, then the pond's south bank, where it
+// water. It hides in the plaza fountain's water, then among the toadstools under the pine west of the well (away from
+// people: user 2026-11-27), then on the pond's south bank, where it
 // turns to fight: the shiny-tease question, then a Lv.12 Wimpod (Aqua Jet / Bug Bite / Trailblaze; its hidden-ability
 // slot, so its Golisopod has Tough Claws). Caught or defeated, the fisherman gives the Old Rod.
 const LOCALID_DR_WIMPOD_FOUNTAIN = 14
@@ -1673,9 +1674,9 @@ script PellucaCity_EventScript_WimpodWell {
     playmoncry(SPECIES_WIMPOD, CRY_MODE_NORMAL)
     applymovement(LOCALID_DR_WIMPOD_WELL, moves(emote_exclamation_mark))
     waitmovement(0)
-    msgbox(format("A clatter in the well bucket! The creature bolts north toward the pond."))
+    msgbox(format("Something rustles among the toadstools under the pine! The creature scuttles out and makes for the pond."))
     closemessage
-    applymovement(LOCALID_DR_WIMPOD_WELL, moves(walk_fast_up * 3))
+    applymovement(LOCALID_DR_WIMPOD_WELL, moves(walk_fast_right * 3))
     waitmovement(0)
     removeobject(LOCALID_DR_WIMPOD_WELL)
     setflag(FLAG_DR_HIDE_WIMPOD_WELL)

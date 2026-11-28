@@ -1,6 +1,6 @@
 """The Fisherman's Dilemma walked (2026-11-27): from Pelluca's west gate (after the blast) down to the harbour; the
-fisherman at the end of the great pier gives the quest; the Wimpod at the plaza fountain flees, then the one at the
-well flees, then at the pond it turns to fight: the shiny-tease question (answered YES), a Lv.12 shiny Wimpod with
+fisherman at the end of the great pier gives the quest; the Wimpod at the plaza fountain flees, then the one among the
+toadstools under the pine flees, then at the pond it turns to fight: the shiny-tease question (answered YES), a Lv.12 shiny Wimpod with
 Aqua Jet / Bug Bite / Trailblaze and Tough Claws (its hidden slot) is read from the battle data, knocked out (test
 help: its HP set to 1); then the fisherman gives the Old Rod (read from the bag). Needs the r11_entry state.
 Writes assets/pelluca_reference/ingame_fisherman_dilemma_walk.png."""
@@ -48,9 +48,9 @@ go_wild('PellucaHarbour', (38, 7)); g.run(12, 'UP'); g.run(260)
 go_wild('PellucaCity', (37, 27)); face('UP'); shot('the Wimpod in the fountain'); say('the fountain')
 g.run(60); shot('it has fled the fountain')
 check('it left the fountain', flag('FLAG_DR_WIMPOD_LEFT_FOUNTAIN'))
-# 3. the well
-go_wild('PellucaCity', (15, 13)); face('UP'); shot('the Wimpod at the well'); say('the well')
-g.run(60); shot('it has fled the well')
+# 3. the toadstools under the pine
+go_wild('PellucaCity', (11, 12)); face('LEFT'); shot('the Wimpod under the pine'); say('the toadstools')
+g.run(60); shot('it has fled the toadstools')
 check('it left the well', flag('FLAG_DR_WIMPOD_LEFT_WELL'))
 # 4. the pond: the question, the battle
 go_wild('PellucaCity', (19, 13)); face('UP'); shot('the Wimpod at the pond')
