@@ -22,6 +22,7 @@ raw`
 mapscripts PellucaCity_MapScripts{
     MAP_SCRIPT_ON_TRANSITION {
         setflag(FLAG_VISITED_PELLUCA_CITY)
+        call(PellucaCity_EventScript_WimpodFlags)
     }
 }
 
@@ -1611,4 +1612,89 @@ script PellucaCity_EventScript_RoadClosedEast {
     applymovement(OBJ_EVENT_ID_PLAYER, moves(walk_left))
     waitmovement(0)
     releaseall
+}
+
+
+// ================= The Fisherman's Dilemma (Pelluca sidequest; user-approved 2026-11-27) =================
+// The fisherman on the great pier (PellucaHarbour) lost his catch to a Wimpod that fled up into town looking for fresh
+// water. It hides at the plaza fountain, then the well by the north-west house, then the pond's south bank, where it
+// turns to fight: the shiny-tease question, then a Lv.12 Wimpod (Aqua Jet / Bug Bite / Trailblaze; its hidden-ability
+// slot, so its Golisopod has Tough Claws). Caught or defeated, the fisherman gives the Old Rod.
+const LOCALID_DR_WIMPOD_FOUNTAIN = 14
+const LOCALID_DR_WIMPOD_WELL = 15
+const LOCALID_DR_WIMPOD_POND = 16
+
+// each Wimpod shows only at its own step of the quest
+script PellucaCity_EventScript_WimpodFlags {
+    setflag(FLAG_DR_HIDE_WIMPOD_FOUNTAIN)
+    setflag(FLAG_DR_HIDE_WIMPOD_WELL)
+    setflag(FLAG_DR_HIDE_WIMPOD_POND)
+    if (flag(FLAG_DR_WIMPOD_DONE) || !flag(FLAG_DR_WIMPOD_QUEST_STARTED)) {
+        return
+    }
+    if (flag(FLAG_DR_WIMPOD_LEFT_WELL)) {
+        clearflag(FLAG_DR_HIDE_WIMPOD_POND)
+    } elif (flag(FLAG_DR_WIMPOD_LEFT_FOUNTAIN)) {
+        clearflag(FLAG_DR_HIDE_WIMPOD_WELL)
+    } else {
+        clearflag(FLAG_DR_HIDE_WIMPOD_FOUNTAIN)
+    }
+    return
+}
+
+script PellucaCity_EventScript_WimpodFountain {
+    lock
+    playmoncry(SPECIES_WIMPOD, CRY_MODE_NORMAL)
+    applymovement(LOCALID_DR_WIMPOD_FOUNTAIN, moves(emote_exclamation_mark))
+    waitmovement(0)
+    msgbox(format("Something is splashing in the fountain! A grey shell darts out and skitters away west."))
+    closemessage
+    applymovement(LOCALID_DR_WIMPOD_FOUNTAIN, moves(walk_fast_left * 4))
+    waitmovement(0)
+    removeobject(LOCALID_DR_WIMPOD_FOUNTAIN)
+    setflag(FLAG_DR_HIDE_WIMPOD_FOUNTAIN)
+    setflag(FLAG_DR_WIMPOD_LEFT_FOUNTAIN)
+    clearflag(FLAG_DR_HIDE_WIMPOD_WELL)
+    addobject(LOCALID_DR_WIMPOD_WELL)
+    release
+    end
+}
+
+script PellucaCity_EventScript_WimpodWell {
+    lock
+    playmoncry(SPECIES_WIMPOD, CRY_MODE_NORMAL)
+    applymovement(LOCALID_DR_WIMPOD_WELL, moves(emote_exclamation_mark))
+    waitmovement(0)
+    msgbox(format("A clatter in the well bucket! The creature bolts north toward the pond."))
+    closemessage
+    applymovement(LOCALID_DR_WIMPOD_WELL, moves(walk_fast_up * 3))
+    waitmovement(0)
+    removeobject(LOCALID_DR_WIMPOD_WELL)
+    setflag(FLAG_DR_HIDE_WIMPOD_WELL)
+    setflag(FLAG_DR_WIMPOD_LEFT_WELL)
+    clearflag(FLAG_DR_HIDE_WIMPOD_POND)
+    addobject(LOCALID_DR_WIMPOD_POND)
+    release
+    end
+}
+
+script PellucaCity_EventScript_WimpodPond {
+    lock
+    msgbox(format("The creature has its back to the water. It turns to fight!"))
+    closemessage
+    playmoncry(SPECIES_WIMPOD, CRY_MODE_ENCOUNTER)
+    waitmoncry
+    call(DrShinyTease_Ask)
+    setwildbattle(SPECIES_WIMPOD, 12)
+    createmon(1, 0, SPECIES_WIMPOD, 12, abilityNum=2, move1=MOVE_AQUA_JET, move2=MOVE_BUG_BITE, move3=MOVE_TRAILBLAZE, move4=MOVE_NONE)
+    dowildbattle
+    clearflag(FLAG_FORCE_SHINY)
+    specialvar(VAR_RESULT, GetBattleOutcome)
+    if (var(VAR_RESULT) == B_OUTCOME_WON || var(VAR_RESULT) == B_OUTCOME_CAUGHT) {
+        removeobject(LOCALID_DR_WIMPOD_POND)
+        setflag(FLAG_DR_HIDE_WIMPOD_POND)
+        setflag(FLAG_DR_WIMPOD_DONE)
+    }
+    release
+    end
 }

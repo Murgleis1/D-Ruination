@@ -1771,6 +1771,16 @@
 #define FLAG_DR_ITEM_HH_AWAKENING                   (DR_FLAGS_START + 0x09)
 #define FLAG_DR_ITEM_HH_REVIVE                      (DR_FLAGS_START + 0x0A)
 #define FLAG_DR_ITEM_HH_ETHER                       (DR_FLAGS_START + 0x0B)
+// The Fisherman's Dilemma (Pelluca sidequest, 2026-11-27): the quest's steps, then the Wimpod's three hiding places
+// (object hide flags, worked out from the steps on each visit to Pelluca: PellucaCity_EventScript_WimpodFlags)
+#define FLAG_DR_WIMPOD_QUEST_STARTED                (DR_FLAGS_START + 0x0C)
+#define FLAG_DR_WIMPOD_LEFT_FOUNTAIN                (DR_FLAGS_START + 0x0D)
+#define FLAG_DR_WIMPOD_LEFT_WELL                    (DR_FLAGS_START + 0x0E)
+#define FLAG_DR_WIMPOD_DONE                         (DR_FLAGS_START + 0x0F)
+#define FLAG_DR_RECEIVED_OLD_ROD                    (DR_FLAGS_START + 0x10)
+#define FLAG_DR_HIDE_WIMPOD_FOUNTAIN                (DR_FLAGS_START + 0x11)
+#define FLAG_DR_HIDE_WIMPOD_WELL                    (DR_FLAGS_START + 0x12)
+#define FLAG_DR_HIDE_WIMPOD_POND                    (DR_FLAGS_START + 0x13)
 #define DR_FLAGS_END                                (DR_FLAGS_START + 0x1FF)
 
 #define FLAGS_COUNT (DR_FLAGS_END + 1)

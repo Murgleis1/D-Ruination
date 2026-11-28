@@ -126,6 +126,59 @@ PellucaHarbour_Arrival::
 	end
 
 
+PellucaHarbour_EventScript_Fisherman::
+# 77 "data/maps/PellucaHarbour/scripts.pory"
+	lock
+# 78 "data/maps/PellucaHarbour/scripts.pory"
+	faceplayer
+# 79 "data/maps/PellucaHarbour/scripts.pory"
+	goto_if_set FLAG_DR_RECEIVED_OLD_ROD, PellucaHarbour_EventScript_Fisherman_2
+# 81 "data/maps/PellucaHarbour/scripts.pory"
+	goto_if_set FLAG_DR_WIMPOD_DONE, PellucaHarbour_EventScript_Fisherman_3
+# 85 "data/maps/PellucaHarbour/scripts.pory"
+	goto_if_set FLAG_DR_WIMPOD_QUEST_STARTED, PellucaHarbour_EventScript_Fisherman_4
+# 87 "data/maps/PellucaHarbour/scripts.pory"
+	goto_if_unset FLAG_DR_CHURCH_BLASTED, PellucaHarbour_EventScript_Fisherman_5
+# 90 "data/maps/PellucaHarbour/scripts.pory"
+	msgbox PellucaHarbour_EventScript_Fisherman_Text_4
+# 91 "data/maps/PellucaHarbour/scripts.pory"
+	setflag FLAG_DR_WIMPOD_QUEST_STARTED
+PellucaHarbour_EventScript_Fisherman_1:
+# 93 "data/maps/PellucaHarbour/scripts.pory"
+	closemessage
+# 94 "data/maps/PellucaHarbour/scripts.pory"
+	applymovement VAR_LAST_TALKED, PellucaHarbour_EventScript_Fisherman_Movement_0
+# 95 "data/maps/PellucaHarbour/scripts.pory"
+	waitmovement 0
+# 96 "data/maps/PellucaHarbour/scripts.pory"
+	release
+	end
+
+PellucaHarbour_EventScript_Fisherman_2:
+# 80 "data/maps/PellucaHarbour/scripts.pory"
+	msgbox PellucaHarbour_EventScript_Fisherman_Text_0
+	goto PellucaHarbour_EventScript_Fisherman_1
+
+PellucaHarbour_EventScript_Fisherman_3:
+# 82 "data/maps/PellucaHarbour/scripts.pory"
+	msgbox PellucaHarbour_EventScript_Fisherman_Text_1
+# 83 "data/maps/PellucaHarbour/scripts.pory"
+	giveitem ITEM_OLD_ROD
+# 84 "data/maps/PellucaHarbour/scripts.pory"
+	setflag FLAG_DR_RECEIVED_OLD_ROD
+	goto PellucaHarbour_EventScript_Fisherman_1
+
+PellucaHarbour_EventScript_Fisherman_4:
+# 86 "data/maps/PellucaHarbour/scripts.pory"
+	msgbox PellucaHarbour_EventScript_Fisherman_Text_2
+	goto PellucaHarbour_EventScript_Fisherman_1
+
+PellucaHarbour_EventScript_Fisherman_5:
+# 88 "data/maps/PellucaHarbour/scripts.pory"
+	msgbox PellucaHarbour_EventScript_Fisherman_Text_3
+	goto PellucaHarbour_EventScript_Fisherman_1
+
+
 # 20 "data/maps/PellucaHarbour/scripts.pory"
 PellucaHarbour_Arrival_Movement_0:
 # 20 "data/maps/PellucaHarbour/scripts.pory"
@@ -240,6 +293,12 @@ PellucaHarbour_Arrival_Movement_5:
 	face_up
 	step_end
 
+# 94 "data/maps/PellucaHarbour/scripts.pory"
+PellucaHarbour_EventScript_Fisherman_Movement_0:
+# 94 "data/maps/PellucaHarbour/scripts.pory"
+	face_down
+	step_end
+
 PellucaHarbour_Arrival_Text_0:
 # 23 "data/maps/PellucaHarbour/scripts.pory"
 	.string "Dockhand$"
@@ -288,3 +347,40 @@ PellucaHarbour_Arrival_Text_9:
 PellucaHarbour_Arrival_Text_10:
 # 56 "data/maps/PellucaHarbour/scripts.pory"
 	.string "Rainhawk.$"
+
+PellucaHarbour_EventScript_Fisherman_Text_0:
+# 80 "data/maps/PellucaHarbour/scripts.pory"
+	.string "The tide's turning, and the fish turn\n"
+	.string "with it. Try the river up Mt. Mirroh one\l"
+	.string "day, they say the Basculin there fight\l"
+	.string "like wolves.$"
+
+PellucaHarbour_EventScript_Fisherman_Text_1:
+# 82 "data/maps/PellucaHarbour/scripts.pory"
+	.string "A Wimpod, was it? The Sevii fishermen\n"
+	.string "call them shore-scavengers, and a\l"
+	.string "hungry one will strip a net bare before\l"
+	.string "dawn. Here, take my old rod for your\l"
+	.string "trouble. Cast it off any pier or\l"
+	.string "riverbank and see what bites.$"
+
+PellucaHarbour_EventScript_Fisherman_Text_2:
+# 86 "data/maps/PellucaHarbour/scripts.pory"
+	.string "It went up into town, I'm sure of it.\n"
+	.string "Look wherever there's fresh water, the\l"
+	.string "fountain first.$"
+
+PellucaHarbour_EventScript_Fisherman_Text_3:
+# 88 "data/maps/PellucaHarbour/scripts.pory"
+	.string "Quiet waters today. Even the gulls have\n"
+	.string "gone looking for better luck.$"
+
+PellucaHarbour_EventScript_Fisherman_Text_4:
+# 90 "data/maps/PellucaHarbour/scripts.pory"
+	.string "Curse the tide! Something took hold of\n"
+	.string "my line off this pier, all grey shell and\l"
+	.string "claws, and dragged half my catch up\l"
+	.string "into town. By the way it scrabbled, I'd\l"
+	.string "wager it went looking for fresh water.\l"
+	.string "Catch that thief for me and you'll not\l"
+	.string "leave empty-handed.$"
