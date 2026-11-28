@@ -142,15 +142,19 @@ PellucaHarbour_EventScript_Fisherman::
 # 90 "data/maps/PellucaHarbour/scripts.pory"
 	msgbox PellucaHarbour_EventScript_Fisherman_Text_4
 # 91 "data/maps/PellucaHarbour/scripts.pory"
+	msgbox PellucaHarbour_EventScript_Fisherman_Text_5
+# 92 "data/maps/PellucaHarbour/scripts.pory"
+	giveitem ITEM_POKE_BALL, 5
+# 93 "data/maps/PellucaHarbour/scripts.pory"
 	setflag FLAG_DR_WIMPOD_QUEST_STARTED
 PellucaHarbour_EventScript_Fisherman_1:
-# 93 "data/maps/PellucaHarbour/scripts.pory"
-	closemessage
-# 94 "data/maps/PellucaHarbour/scripts.pory"
-	applymovement VAR_LAST_TALKED, PellucaHarbour_EventScript_Fisherman_Movement_0
 # 95 "data/maps/PellucaHarbour/scripts.pory"
-	waitmovement 0
+	closemessage
 # 96 "data/maps/PellucaHarbour/scripts.pory"
+	applymovement VAR_LAST_TALKED, PellucaHarbour_EventScript_Fisherman_Movement_0
+# 97 "data/maps/PellucaHarbour/scripts.pory"
+	waitmovement 0
+# 98 "data/maps/PellucaHarbour/scripts.pory"
 	release
 	end
 
@@ -293,9 +297,9 @@ PellucaHarbour_Arrival_Movement_5:
 	face_up
 	step_end
 
-# 94 "data/maps/PellucaHarbour/scripts.pory"
+# 96 "data/maps/PellucaHarbour/scripts.pory"
 PellucaHarbour_EventScript_Fisherman_Movement_0:
-# 94 "data/maps/PellucaHarbour/scripts.pory"
+# 96 "data/maps/PellucaHarbour/scripts.pory"
 	face_down
 	step_end
 
@@ -384,3 +388,9 @@ PellucaHarbour_EventScript_Fisherman_Text_4:
 	.string "wager it went looking for fresh water.\l"
 	.string "Catch that thief for me and you'll not\l"
 	.string "leave empty-handed.$"
+
+PellucaHarbour_EventScript_Fisherman_Text_5:
+# 91 "data/maps/PellucaHarbour/scripts.pory"
+	.string "Take these Poké Spheres along. It's\n"
+	.string "quick and slippery, and you'll want a way\l"
+	.string "to hold it.$"

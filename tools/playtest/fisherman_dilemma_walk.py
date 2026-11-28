@@ -9,7 +9,7 @@ os.environ.setdefault('ST', '/home/claude/scratch/r11/r11_entry.state')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 _src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ch1_wild_walk.py')).read().split('# ---- the walk ----')[0]
 exec(compile(_src, 'ch1_wild_walk', 'exec'))
-OUT = '/home/claude/repo/assets/pelluca_reference/ingame_fisherman_dilemma_walk.png'
+OUT = '/home/claude/repo/assets/pelluca_reference/ingame_fisherman_dilemma_%s.png' % ('catch' if os.environ.get('CATCH') == '1' else 'walk')
 MOVES = {int(m.group(2)): m.group(1) for l in open(C + '/include/constants/moves.h')
          for m in [re.match(r'#define MOVE_(\w+)\s+(\d+)\s*$', l)] if m}
 ABIL = {int(m.group(2)): m.group(1) for l in open(C + '/include/constants/abilities.h')
@@ -34,11 +34,18 @@ go_wild('PellucaHarbour', (39, 25)); face('DOWN'); say('the fisherman before the
 setflag(const('FLAG_DR_CHURCH_BLASTED')); g.run(5)
 check('the church has been blasted (the sandbox is open)', flag('FLAG_DR_CHURCH_BLASTED'))
 # 1. the fisherman
-go_wild('PellucaHarbour', (39, 25)); face('DOWN'); say('the fisherman')
+SB1_BALLS = 1656                 # offsetof(struct SaveBlock1, bagPocket_PokeBalls), from the compiler
+def spheres():
+    key = struct.unpack('<I', ram(sb(2) + SB2_ENCKEY, 4))[0] & 0xFFFF
+    return sum(q ^ key for it, q in (struct.unpack('<HH', ram(sb(1) + SB1_BALLS + i * 4, 4)) for i in range(16))
+               if it == const('ITEM_POKE_BALL'))
+before = spheres()
+go_wild('PellucaHarbour', (39, 25)); face('DOWN'); say('the fisherman', pages=10)
 check('the quest has begun', flag('FLAG_DR_WIMPOD_QUEST_STARTED'))
+check('he gave 5 Poke Spheres', spheres() == before + 5, (before, spheres()))
 go_wild('PellucaHarbour', (38, 7)); g.run(12, 'UP'); g.run(260)
 # 2. the fountain
-go_wild('PellucaCity', (39, 27)); face('UP'); shot('the Wimpod in the fountain'); say('the fountain')
+go_wild('PellucaCity', (37, 27)); face('UP'); shot('the Wimpod in the fountain'); say('the fountain')
 g.run(60); shot('it has fled the fountain')
 check('it left the fountain', flag('FLAG_DR_WIMPOD_LEFT_FOUNTAIN'))
 # 3. the well
@@ -63,11 +70,38 @@ check('its ability: Tough Claws (it does not flee)', ab == 'TOUGH_CLAWS', ab)
 check('shiny (the question answered YES)', shiny == 1, shiny)
 poke(G_BMONS + BMON_SIZE + BMON_HP, struct.pack('<H', 1))       # test help: one hit takes it down
 poke(G_BMONS + BMON_HP, ram(G_BMONS + BMON_MAXHP, 2))
-for _ in range(80):
+party_before = ram(MAPSYM['gPlayerPartyCount'], 1)[0]; outcome = 0
+CATCH = os.environ.get('CATCH') == '1'                          # CATCH=1: throw one of his Poke Spheres instead
+for k in range(80):
     if cb2() == CB2_OVERWORLD: break
+    if CATCH:
+        if k == 0: g.run(4, 'A'); g.run(300); shot('the battle menu')
+        if k < 5:                                                            # up to all five of his Spheres
+            g.run(4, 'RIGHT'); g.run(14); g.run(4, 'A'); g.run(120)          # Bag
+            for _ in range(8):                                               # to the Spheres pocket
+                if ram(MAPSYM['gBagPosition'] + 5, 1)[0] == 3: break         # (BALLS_POCKET)
+                g.run(4, 'RIGHT'); g.run(30)
+            g.run(4, 'A'); g.run(30); g.run(4, 'A'); g.run(420)
+            shot('Poke Sphere %d' % (k + 1))
+        if ram(MAPSYM['gBattleOutcome'], 1)[0] == 7:                       # caught
+            outcome = 7
+            for _ in range(3): g.run(4, 'A'); g.run(150)                      # Gotcha, the Pokedex note, its page
+            shot('caught')
+            for _ in range(20):                                              # B declines the nickname
+                if cb2() == CB2_OVERWORLD: break
+                g.run(4, 'B'); g.run(40)
+        else:
+            g.run(400)                                                       # it broke free: its turn, then the menu
+        continue
     g.run(4, 'A'); g.run(30)                                     # Fight, the first move, then the texts
+for _ in range(60):                                              # finish the battle (B: past the Pokedex page, no nickname)
+    if cb2() == CB2_OVERWORLD: break
+    g.run(4, 'B'); g.run(40)
+g.run(60); outcome = ram(MAPSYM['gBattleOutcome'], 1)[0]
 g.run(120); shot('after the battle')
-check('the Wimpod is beaten: the quest step is done', flag('FLAG_DR_WIMPOD_DONE'))
+party_after = ram(MAPSYM['gPlayerPartyCount'], 1)[0]
+check('the Wimpod is %s: the quest step is done' % ('caught' if CATCH else 'beaten'), flag('FLAG_DR_WIMPOD_DONE'))
+if CATCH: check('the outcome was a catch, the Wimpod joined the party', outcome == 7 and party_after == party_before + 1, (outcome, party_before, party_after))
 # 5. the reward
 go_wild('PellucaCity', (38, 36)); g.run(12, 'DOWN'); g.run(260)
 go_wild('PellucaHarbour', (39, 25)); face('DOWN'); say('the reward', pages=8)

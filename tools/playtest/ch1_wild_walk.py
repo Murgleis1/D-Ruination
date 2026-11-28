@@ -24,7 +24,7 @@ G_MAIN, G_BMONS = MAPSYM['gMain'], MAPSYM['gBattleMons']
 SYMAT = {v: k for k, v in MAPSYM.items()}
 CB2_OVERWORLD, CB2_BATTLE = MAPSYM['CB2_Overworld'] | 1, MAPSYM['BattleMainCB2'] | 1
 BMON_SIZE, BMON_LEVEL, BMON_SPEED, BMON_ABILITY, BMON_HP, BMON_MAXHP = 96, 44, 6, 32, 42, 46
-SB1_KEYITEMS, SB1_REGISTERED, SB2_ENCKEY = 1536, 1174, 168     # offsetof(), from the compiler
+SB1_KEYITEMS, SB1_REGISTERED, SB2_ENCKEY = 1536, 1174, 172     # offsetof(); the key at 0xAC (global.h)
 SPNAME = {int(m.group(2)): m.group(1) for l in open(C + '/include/constants/species.h')
           for m in [re.match(r'#define SPECIES_(\w+)\s+(\d+)\s*$', l)] if m}
 FLAGS_OFF = saveblock1_offsets()[0]

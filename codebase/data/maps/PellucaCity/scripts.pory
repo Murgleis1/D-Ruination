@@ -1617,7 +1617,7 @@ script PellucaCity_EventScript_RoadClosedEast {
 
 // ================= The Fisherman's Dilemma (Pelluca sidequest; user-approved 2026-11-27) =================
 // The fisherman on the great pier (PellucaHarbour) lost his catch to a Wimpod that fled up into town looking for fresh
-// water. It hides at the plaza fountain, then the well by the north-west house, then the pond's south bank, where it
+// water. It hides in the plaza fountain's water, then the well by the north-west house, then the pond's south bank, where it
 // turns to fight: the shiny-tease question, then a Lv.12 Wimpod (Aqua Jet / Bug Bite / Trailblaze; its hidden-ability
 // slot, so its Golisopod has Tough Claws). Caught or defeated, the fisherman gives the Old Rod.
 const LOCALID_DR_WIMPOD_FOUNTAIN = 14
@@ -1640,6 +1640,14 @@ script PellucaCity_EventScript_WimpodFlags {
         clearflag(FLAG_DR_HIDE_WIMPOD_FOUNTAIN)
     }
     return
+}
+
+// it splashes in the fountain's water, out of reach: the player speaks to it from the rim (sign events on (36-38, 26))
+script PellucaCity_EventScript_WimpodFountainRim {
+    if (flag(FLAG_DR_HIDE_WIMPOD_FOUNTAIN)) {
+        end
+    }
+    goto(PellucaCity_EventScript_WimpodFountain)
 }
 
 script PellucaCity_EventScript_WimpodFountain {

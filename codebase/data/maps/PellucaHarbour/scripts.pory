@@ -88,6 +88,8 @@ script PellucaHarbour_EventScript_Fisherman {
         msgbox(format("Quiet waters today. Even the gulls have gone looking for better luck."))
     } else {
         msgbox(format("Curse the tide! Something took hold of my line off this pier, all grey shell and claws, and dragged half my catch up into town. By the way it scrabbled, I'd wager it went looking for fresh water. Catch that thief for me and you'll not leave empty-handed."))
+        msgbox(format("Take these Poké Spheres along. It's quick and slippery, and you'll want a way to hold it."))
+        giveitem(ITEM_POKE_BALL, 5)
         setflag(FLAG_DR_WIMPOD_QUEST_STARTED)
     }
     closemessage
