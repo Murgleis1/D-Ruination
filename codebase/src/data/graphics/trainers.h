@@ -441,6 +441,8 @@ const u32 gTrainerFrontPic_DrRevenant[] = INCBIN_U32("graphics/trainers/front_pi
 const u32 gTrainerPalette_DrRevenant[] = INCBIN_U32("graphics/trainers/front_pics/dr_revenant.gbapal.lz");
 const u32 gTrainerFrontPic_DrAdventurer[] = INCBIN_U32("graphics/trainers/front_pics/dr_adventurer.4bpp.lz");
 const u32 gTrainerPalette_DrAdventurer[] = INCBIN_U32("graphics/trainers/front_pics/dr_adventurer.gbapal.lz");
+const u32 gTrainerFrontPic_DrBurglar[] = INCBIN_U32("graphics/trainers/front_pics/dr_burglar.4bpp.lz");
+const u32 gTrainerPalette_DrBurglar[] = INCBIN_U32("graphics/trainers/front_pics/dr_burglar.gbapal.lz");
 const u32 gTrainerFrontPic_DrMariner[] = INCBIN_U32("graphics/trainers/front_pics/dr_mariner.4bpp.lz");
 const u32 gTrainerPalette_DrMariner[] = INCBIN_U32("graphics/trainers/front_pics/dr_mariner.gbapal.lz");
 const u32 gTrainerFrontPic_DrCorsair[] = INCBIN_U32("graphics/trainers/front_pics/dr_corsair.4bpp.lz");
@@ -666,6 +668,7 @@ const struct TrainerSprite gTrainerSprites[] =
     TRAINER_SPRITE(TRAINER_PIC_DR_WITCH, gTrainerFrontPic_DrWitch, gTrainerPalette_DrWitch),
     TRAINER_SPRITE(TRAINER_PIC_DR_REVENANT, gTrainerFrontPic_DrRevenant, gTrainerPalette_DrRevenant),
     TRAINER_SPRITE(TRAINER_PIC_DR_ADVENTURER, gTrainerFrontPic_DrAdventurer, gTrainerPalette_DrAdventurer),
+    TRAINER_SPRITE(TRAINER_PIC_DR_BURGLAR, gTrainerFrontPic_DrBurglar, gTrainerPalette_DrBurglar),
     TRAINER_SPRITE(TRAINER_PIC_DR_MARINER, gTrainerFrontPic_DrMariner, gTrainerPalette_DrMariner),
     TRAINER_SPRITE(TRAINER_PIC_DR_CORSAIR, gTrainerFrontPic_DrCorsair, gTrainerPalette_DrCorsair),
     TRAINER_SPRITE(TRAINER_PIC_DR_FISHER, gTrainerFrontPic_DrFisher, gTrainerPalette_DrFisher),

@@ -180,7 +180,8 @@
 #define TRAINER_PIC_DR_MARAUDER             153
 #define TRAINER_PIC_DR_LOGAN                154
 // DR_CAST end [defineTRAINER_PIC_TEMPLAR_MALE]
-#define TRAINER_PIC_COUNT                 155
+#define TRAINER_PIC_DR_BURGLAR              155   // Burglar Fenwick (Odyssey's ragged hooded thief, recoloured)
+#define TRAINER_PIC_COUNT                 156
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_BRENDAN                0
@@ -488,8 +489,9 @@
 #define TRAINER_CLASS_MINSTREL        0x79
 #define TRAINER_CLASS_ROYAL_OFFICER   0x7A
 // DR_CAST end [defineTRAINER_CLASS_BRIGAND]
+#define TRAINER_CLASS_ROBBER          0x7B   // Burglar Fenwick (user 2026-11-27)
 
-#define TRAINER_CLASS_COUNT          0x7B
+#define TRAINER_CLASS_COUNT          0x7C
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
 #define TRAINER_ENCOUNTER_MUSIC_FEMALE       1 // standard female encounter music

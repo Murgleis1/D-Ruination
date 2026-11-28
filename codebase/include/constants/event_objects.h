@@ -343,8 +343,9 @@
 
 #define OBJ_EVENT_GFX_DR_GRAVE                        323   // Alphonse's grave, Hollow Hill (tools/art/hollowhill/grave)
 #define OBJ_EVENT_GFX_DR_COIN                         324   // a dropped silver coin, the Burglar Egg's trail (tools/art/pelluca/burglar)
+#define OBJ_EVENT_GFX_DR_BURGLAR                      325   // Burglar Fenwick (tools/art/pelluca/burglar/fenwick_ow.py)
 
-#define NUM_OBJ_EVENT_GFX                          325
+#define NUM_OBJ_EVENT_GFX                          326
 
 
 // These are dynamic object gfx ids.
@@ -493,6 +494,7 @@
 #define OBJ_EVENT_PAL_TAG_DR_SHRINE             0x1130
 #define OBJ_EVENT_PAL_TAG_DR_GRAVE              0x1134
 #define OBJ_EVENT_PAL_TAG_DR_COIN               0x1135
+#define OBJ_EVENT_PAL_TAG_DR_BURGLAR            0x1136
 #define OBJ_EVENT_PAL_TAG_DR_SHIPS              0x1131
 #define OBJ_EVENT_PAL_TAG_DR_BOATS              0x1132
 #define OBJ_EVENT_PAL_TAG_TEMPLAR_MALE          0x1133

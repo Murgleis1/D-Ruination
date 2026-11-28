@@ -24091,9 +24091,9 @@ F_TRAINER_FEMALE |
 #line 11479
         .trainerName = _("Fenwick"),
 #line 11480
-        .trainerClass = TRAINER_CLASS_BURGLAR,
+        .trainerClass = TRAINER_CLASS_ROBBER,
 #line 11481
-        .trainerPic = TRAINER_PIC_BURGLAR,
+        .trainerPic = TRAINER_PIC_DR_BURGLAR,
         .encounterMusic_gender =
 #line 11483
             TRAINER_ENCOUNTER_MUSIC_SUSPICIOUS,

@@ -313,7 +313,7 @@
       "flag": "FLAG_DR_HIDE_BURGLAR_KEY"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_DR_COMMONER_MAN_C",
+      "graphics_id": "OBJ_EVENT_GFX_DR_BURGLAR",
       "x": 9,
       "y": 9,
       "elevation": 3,

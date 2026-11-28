@@ -47,11 +47,10 @@ for name, stand, fl in [('the first coin', (21, 18), 'FLAG_DR_BURGLAR_COIN1_FOUN
     check('found ' + name, flag(fl))
 g.run(30); shot('the burglar by the sealed door')
 # 3. the burglar
-go_wild(HB, (9, 10)); face('UP'); talk('the burglar', maxpages=4)
-for _ in range(150):
-    g.run(10)
-    if cb2() == CB2_BATTLE and struct.unpack('<H', ram(G_BMONS + BMON_SIZE, 2))[0]: break
-g.run(300); shot('the battle'); foes = []
+go_wild(HB, (9, 10)); face('UP')
+g.run(2, 'A'); g.run(150); shot('the burglar p1'); g.run(2, 'A'); g.run(150); shot('the burglar p2'); g.run(2, 'A')
+for k in range(16): g.run(20); shot('the battle opens %d' % k)
+g.run(2, 'A'); g.run(200); shot('the battle'); foes = []
 for k in range(200):
     if cb2() == CB2_OVERWORLD: break
     sp = SPNAME.get(struct.unpack('<H', ram(G_BMONS + BMON_SIZE, 2))[0])

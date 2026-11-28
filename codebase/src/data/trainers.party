@@ -11477,8 +11477,8 @@ IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
 
 === TRAINER_DR_PELLUCA_BURGLAR ===
 Name: Fenwick
-Class: Burglar
-Pic: Burglar
+Class: Robber
+Pic: DR Burglar
 Gender: Male
 Music: Suspicious
 Double Battle: No

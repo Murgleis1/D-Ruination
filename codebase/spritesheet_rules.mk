@@ -113,6 +113,9 @@ $(OBJEVENTGFXDIR)/people/dr_revenant.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/people/dr_adventurer.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
+$(OBJEVENTGFXDIR)/people/dr_burglar.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
+
 $(OBJEVENTGFXDIR)/people/dr_mariner.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
