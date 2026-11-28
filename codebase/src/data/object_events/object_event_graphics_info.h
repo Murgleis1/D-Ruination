@@ -1143,6 +1143,26 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrGrave = {
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 
+// a dropped silver coin glinting in the sand: the Burglar Egg's trail of clues (Pelluca Harbour's beach)
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_DrCoin = {
+    .tileTag = TAG_NONE,
+    .paletteTag = OBJ_EVENT_PAL_TAG_DR_COIN,
+    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
+    .size = 128,
+    .width = 16,
+    .height = 16,
+    .paletteSlot = PALSLOT_NPC_1,
+    .shadowSize = SHADOW_SIZE_S,
+    .inanimate = TRUE,
+    .compressed = FALSE,
+    .tracks = TRACKS_NONE,
+    .oam = &gObjectEventBaseOam_16x16,
+    .subspriteTables = sOamTables_16x16,
+    .anims = sAnimTable_Inanimate,
+    .images = sPicTable_DrCoin,
+    .affineAnims = gDummySpriteAffineAnimTable,
+};
+
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_PaleVeluza = {
     .tileTag = TAG_NONE,
     .paletteTag = OBJ_EVENT_PAL_TAG_DR_SHIPS,

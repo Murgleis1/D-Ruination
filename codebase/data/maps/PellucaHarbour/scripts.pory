@@ -1,6 +1,7 @@
 mapscripts PellucaHarbour_MapScripts {
     MAP_SCRIPT_ON_TRANSITION {
         setflag(FLAG_VISITED_PELLUCA_CITY)
+        call(PellucaHarbour_EventScript_BurglarFlags)
     }
     MAP_SCRIPT_ON_FRAME_TABLE [
         VAR_UNUSED_0x404E, 1: PellucaHarbour_Arrival
@@ -95,6 +96,160 @@ script PellucaHarbour_EventScript_Fisherman {
     closemessage
     applymovement(VAR_LAST_TALKED, moves(face_down))
     waitmovement(0)
+    release
+    end
+}
+
+
+// ================= The Burglar Egg (Pelluca sidequest; user-approved plan and lines 2026-11-27) =================
+// An old man outside the Seaside Tavern (beside its door, not blocking it) was robbed of his purse and house key; the
+// three eggs he keeps for Vizier Umbra were left behind. The burglar fled along the beach dropping coins: two coins
+// and the key, found in order, lead to him by House Umbra's sealed door in the cliff. Beaten (Skwovet, Klefki), he
+// gives up the loot; the old man lets the player choose one egg by its look (Squirtle, Chespin or Chimchar), with the
+// shiny-tease question, and its hatch time cut so it hatches in the sandbox or on Route 11.
+const LOCALID_HB_EGG_OLD_MAN = 16
+const LOCALID_HB_BURGLAR_COIN1 = 17
+const LOCALID_HB_BURGLAR_COIN2 = 18
+const LOCALID_HB_BURGLAR_KEY = 19
+const LOCALID_HB_BURGLAR = 20
+const DR_EGG_HATCH_CYCLES = 6          // hatches after about 900 steps (128 steps a cycle, the Gen 8+ length; the species' own 20 cycles: about 2,700)
+
+// each piece of the trail shows only at its own step; the old man only once the sandbox is open
+script PellucaHarbour_EventScript_BurglarFlags {
+    setflag(FLAG_DR_HIDE_BURGLAR_COIN1)
+    setflag(FLAG_DR_HIDE_BURGLAR_COIN2)
+    setflag(FLAG_DR_HIDE_BURGLAR_KEY)
+    setflag(FLAG_DR_HIDE_BURGLAR)
+    setflag(FLAG_DR_HIDE_EGG_OLD_MAN)
+    if (flag(FLAG_DR_CHURCH_BLASTED)) {
+        clearflag(FLAG_DR_HIDE_EGG_OLD_MAN)
+    }
+    if (!flag(FLAG_DR_BURGLAR_QUEST_STARTED) || flag(FLAG_DR_BURGLAR_LOOT_RECOVERED)) {
+        return
+    }
+    if (flag(FLAG_DR_BURGLAR_KEY_FOUND)) {
+        clearflag(FLAG_DR_HIDE_BURGLAR)
+    } elif (flag(FLAG_DR_BURGLAR_COIN2_FOUND)) {
+        clearflag(FLAG_DR_HIDE_BURGLAR_KEY)
+    } elif (flag(FLAG_DR_BURGLAR_COIN1_FOUND)) {
+        clearflag(FLAG_DR_HIDE_BURGLAR_COIN2)
+    } else {
+        clearflag(FLAG_DR_HIDE_BURGLAR_COIN1)
+    }
+    return
+}
+
+script PellucaHarbour_EventScript_EggOldMan {
+    lock
+    faceplayer
+    if (flag(FLAG_DR_BURGLAR_EGG_RECEIVED)) {
+        msgbox(format("Keep it warm and keep walking. An egg like that hatches faster with the road under it."))
+    } elif (flag(FLAG_DR_BURGLAR_LOOT_RECOVERED)) {
+        msgbox(format("My purse and my key! Bless you, child. These eggs came from distant lands, and Vizier Umbra would want one in good hands. Choose, and choose well."))
+        call(PellucaHarbour_EventScript_ChooseEgg)
+    } elif (flag(FLAG_DR_BURGLAR_QUEST_STARTED)) {
+        msgbox(format("He fled along the beach toward the cliffs. Follow the glint of my coins."))
+    } else {
+        msgbox(format("Thieves in Pelluca, in broad daylight! A burglar broke into my cottage and made off with my purse and my house key. He left the three eggs I keep for Vizier Umbra, praise Arceus, but I can't get back in to tend them. He fled along the beach, dropping coins as he ran."))
+        setflag(FLAG_DR_BURGLAR_QUEST_STARTED)
+        clearflag(FLAG_DR_HIDE_BURGLAR_COIN1)
+        addobject(LOCALID_HB_BURGLAR_COIN1)
+    }
+    closemessage
+    applymovement(LOCALID_HB_EGG_OLD_MAN, moves(face_down))
+    waitmovement(0)
+    release
+    end
+}
+
+// the eggs are chosen by their look; the species shows only when it hatches
+script PellucaHarbour_EventScript_ChooseEgg {
+    setvar(VAR_0x8004, SPECIES_NONE)
+    while (var(VAR_0x8004) == SPECIES_NONE) {
+        msgbox(format("The blue egg, cool as river stone. Will you take this one?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == YES) {
+            setvar(VAR_0x8004, SPECIES_SQUIRTLE)
+            break
+        }
+        msgbox(format("The green egg, hard with spines. Will you take this one?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == YES) {
+            setvar(VAR_0x8004, SPECIES_CHESPIN)
+            break
+        }
+        msgbox(format("The warm egg that smells of ash. Will you take this one?"), MSGBOX_YESNO)
+        if (var(VAR_RESULT) == YES) {
+            setvar(VAR_0x8004, SPECIES_CHIMCHAR)
+            break
+        }
+    }
+    call(DrShinyTease_Ask)
+    giveegg(VAR_0x8004)
+    clearflag(FLAG_FORCE_SHINY)
+    if (var(VAR_RESULT) == MON_CANT_GIVE) {
+        msgbox(format("You've no room to carry it, child. Come back when you do."))
+        return
+    }
+    setvar(VAR_0x8005, DR_EGG_HATCH_CYCLES)
+    special(DrSetLastEggCycles)
+    playfanfare(MUS_OBTAIN_ITEM)
+    msgbox(format("{PLAYER} received the Egg!"))
+    waitfanfare
+    setflag(FLAG_DR_BURGLAR_EGG_RECEIVED)
+    msgbox(format("Keep it warm and keep walking. An egg like that hatches faster with the road under it."))
+    return
+}
+
+script PellucaHarbour_EventScript_BurglarCoin1 {
+    lock
+    msgbox(format("A silver coin lies in the sand, stamped with the Regent-Queen's face. Another glints further along the beach."))
+    removeobject(LOCALID_HB_BURGLAR_COIN1)
+    setflag(FLAG_DR_HIDE_BURGLAR_COIN1)
+    setflag(FLAG_DR_BURGLAR_COIN1_FOUND)
+    clearflag(FLAG_DR_HIDE_BURGLAR_COIN2)
+    addobject(LOCALID_HB_BURGLAR_COIN2)
+    release
+    end
+}
+
+script PellucaHarbour_EventScript_BurglarCoin2 {
+    lock
+    msgbox(format("Another coin, half-buried, beside a boot print heading west."))
+    removeobject(LOCALID_HB_BURGLAR_COIN2)
+    setflag(FLAG_DR_HIDE_BURGLAR_COIN2)
+    setflag(FLAG_DR_BURGLAR_COIN2_FOUND)
+    clearflag(FLAG_DR_HIDE_BURGLAR_KEY)
+    addobject(LOCALID_HB_BURGLAR_KEY)
+    release
+    end
+}
+
+script PellucaHarbour_EventScript_BurglarKey {
+    lock
+    msgbox(format("A brass key on a red cord, dropped in haste. The boot prints end at the cliff."))
+    removeobject(LOCALID_HB_BURGLAR_KEY)
+    setflag(FLAG_DR_HIDE_BURGLAR_KEY)
+    setflag(FLAG_DR_BURGLAR_KEY_FOUND)
+    clearflag(FLAG_DR_HIDE_BURGLAR)
+    addobject(LOCALID_HB_BURGLAR)
+    release
+    end
+}
+
+script PellucaHarbour_EventScript_Burglar {
+    trainerbattle_single(TRAINER_DR_PELLUCA_BURGLAR, format("Wha? How did you find me? I covered my tracks perfect, I did. Wait, are those my coins in your hand?"), format("All right, all right! Take the old fool's trinkets."), PellucaHarbour_EventScript_BurglarBeaten)
+    end
+}
+
+script PellucaHarbour_EventScript_BurglarBeaten {
+    lock
+    msgbox(format("Not a word to the Templars. I've mouths to feed, even if one of them is a Skwovet."))
+    closemessage
+    applymovement(LOCALID_HB_BURGLAR, moves(walk_fast_right * 6))
+    waitmovement(0)
+    removeobject(LOCALID_HB_BURGLAR)
+    setflag(FLAG_DR_HIDE_BURGLAR)
+    setflag(FLAG_DR_BURGLAR_LOOT_RECOVERED)
+    msgbox(format("{PLAYER} recovered the old man's purse and house key."))
     release
     end
 }

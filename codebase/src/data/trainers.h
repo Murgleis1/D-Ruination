@@ -24085,3 +24085,46 @@ F_TRAINER_FEMALE |
             },
         },
     },
+#line 11478
+    [DIFFICULTY_NORMAL][TRAINER_DR_PELLUCA_BURGLAR] =
+    {
+#line 11479
+        .trainerName = _("Fenwick"),
+#line 11480
+        .trainerClass = TRAINER_CLASS_BURGLAR,
+#line 11481
+        .trainerPic = TRAINER_PIC_BURGLAR,
+        .encounterMusic_gender =
+#line 11483
+            TRAINER_ENCOUNTER_MUSIC_SUSPICIOUS,
+#line 11484
+        .doubleBattle = FALSE,
+#line 11485
+        .aiFlags = AI_FLAG_BASIC_TRAINER,
+        .partySize = 2,
+        .party = (const struct TrainerMon[])
+        {
+            {
+#line 11487
+            .species = SPECIES_SKWOVET,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+#line 11489
+            .iv = TRAINER_PARTY_IVS(10, 10, 10, 10, 10, 10),
+#line 11488
+            .lvl = 7,
+            .nature = NATURE_HARDY,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            },
+            {
+#line 11491
+            .species = SPECIES_KLEFKI,
+            .gender = TRAINER_MON_RANDOM_GENDER,
+#line 11493
+            .iv = TRAINER_PARTY_IVS(10, 10, 10, 10, 10, 10),
+#line 11492
+            .lvl = 8,
+            .nature = NATURE_HARDY,
+            .dynamaxLevel = MAX_DYNAMAX_LEVEL,
+            },
+        },
+    },

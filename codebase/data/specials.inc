@@ -550,6 +550,7 @@ gSpecials::
 	def_special DrEndEchoCry
 	def_special DrParchmentOn
 	def_special DrParchmentOff
+	def_special DrSetLastEggCycles
 	def_special TryGetWallpaperWithWaldaPhrase
 	def_special PlayerNotAtTrainerHillEntrance
 	def_special GetBattlePyramidHint

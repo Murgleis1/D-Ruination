@@ -561,6 +561,7 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
 // DR_CAST end [gObjectEventPal_TemplarMaleOBJ_EVENT_PAL]
     {gObjectEventPal_DrShrine, OBJ_EVENT_PAL_TAG_DR_SHRINE},
     {gObjectEventPal_DrGrave, OBJ_EVENT_PAL_TAG_DR_GRAVE},
+    {gObjectEventPal_DrCoin, OBJ_EVENT_PAL_TAG_DR_COIN},
     {gObjectEventPal_DrShips, OBJ_EVENT_PAL_TAG_DR_SHIPS},
     {gObjectEventPal_DrBoats, OBJ_EVENT_PAL_TAG_DR_BOATS},
     {gObjectEventPal_Shububu,               OBJ_EVENT_PAL_TAG_SHUBUBU},

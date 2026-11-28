@@ -11474,3 +11474,20 @@ IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
 Nidorino
 Level: 14
 IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+=== TRAINER_DR_PELLUCA_BURGLAR ===
+Name: Fenwick
+Class: Burglar
+Pic: Burglar
+Gender: Male
+Music: Suspicious
+Double Battle: No
+AI: Basic Trainer
+
+Skwovet
+Level: 7
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe
+
+Klefki
+Level: 8
+IVs: 10 HP / 10 Atk / 10 Def / 10 SpA / 10 SpD / 10 Spe

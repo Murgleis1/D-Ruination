@@ -1418,6 +1418,7 @@ static const struct SpriteFrameImage sPicTable_DrStudentC[] = { overworld_ascend
 // DR_CAST end [sPicTable_TemplarMale]
 static const struct SpriteFrameImage sPicTable_DrShrine[] = { obj_frame_tiles(gObjectEventPic_DrShrine), };
 static const struct SpriteFrameImage sPicTable_DrGrave[] = { obj_frame_tiles(gObjectEventPic_DrGrave), };
+static const struct SpriteFrameImage sPicTable_DrCoin[] = { obj_frame_tiles(gObjectEventPic_DrCoin), };
 static const struct SpriteFrameImage sPicTable_PaleVeluza[] = { obj_frame_tiles(gObjectEventPic_PaleVeluza), };
 static const struct SpriteFrameImage sPicTable_Merchantman[] = { obj_frame_tiles(gObjectEventPic_Merchantman), };
 static const struct SpriteFrameImage sPicTable_FishingSloop[] = { obj_frame_tiles(gObjectEventPic_FishingSloop), };
